@@ -155,21 +155,6 @@
                 android:textSize="18sp" />
         </LinearLayout>
         <!-- Bottom section -->
-       <!-- <ImageView
-            android:id="@+id/powered_by_mastercard"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_margin="64dp"
-            android:layout_weight="0"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/image_description"
-            android:cropToPadding="true"
-            android:src="@drawable/powered_by_opensrp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/middle_section" />-->
     </android.support.constraint.ConstraintLayout>
 
 

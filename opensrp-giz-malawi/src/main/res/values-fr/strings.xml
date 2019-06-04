@@ -22,8 +22,6 @@
     <string name="french">Français</string>
     <string name="arabic">عربى</string>
 
-    <string name="opensrp_url">https://wellnesspass-stage.smartregister.org/opensrp/</string>
-
     <string name="nav_logo" translatable="false">Malawi-eRegister</string>
     <string name="title_activity_child_immunization">ChildImmunizationActivity</string>
 

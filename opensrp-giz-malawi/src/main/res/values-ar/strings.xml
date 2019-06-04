@@ -16,7 +16,6 @@
     <string name="login_text">تسجيل الدخول</string>
     <string name="log_out_text">الخروج</string>
 
-    <string name="opensrp_url">https://wellnesspass-stage.smartregister.org/opensrp/</string>
 
     <string name="error_code">خطأ: %1$s</string>
 
