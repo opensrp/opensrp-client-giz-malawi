@@ -1,0 +1,112 @@
+{
+  "count": "1",
+  "encounter_type": "AEFI",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": ""
+  },
+  "step1": {
+    "title": "Signaler un événement indésirable",
+    "fields": [
+      {
+        "key": "Reaction_Vaccine",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "6042AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "spinner",
+        "hint": "Vaccin qui a entraîné la réaction ",
+        "values": [
+          "BCG",
+          "HepB",
+          "OPV",
+          "Penta",
+          "PCV",
+          "Rota",
+          "Measles",
+          "MR",
+          "Yellow Fever"
+        ],
+        "openmrs_choice_ids": {
+          "BCG": "149310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "HepB":"159666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "OPV": "129578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Penta": "162265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "PCV": "162266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Rota": "162272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Measles": "149286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "MR": "149286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Yellow Fever": "5864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Veuillez entrer le vaccin qui a provoqué la réaction"
+        }
+      },
+      {
+        "key": "AEFI_Form_Completed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163340AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "hint": "Formulaire MAPI completé?",
+        "options": [
+          {
+            "key": "Yes",
+            "text": "Oui"
+          },
+          {
+            "key": "No",
+            "text": "Non"
+          }
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      }
+    ]
+  }
+}

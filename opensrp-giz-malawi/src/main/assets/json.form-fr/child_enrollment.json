@@ -1,0 +1,430 @@
+{
+  "count": "1",
+  "encounter_type": "Birth Registration",
+  "mother": {
+    "encounter_type": "New Woman Registration"
+  },
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Enregistrement de naissance",
+    "fields": [
+      {
+        "key": "consent_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Les informations recueillies par ce systeme seront utilisées que dans le but explicite de vous fournir et de fournir a votre enfant les services qui vous étaient expliqués.\n",
+        "toaster_type": "info"
+      },
+      {
+        "key": "First_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "type": "edit_text",
+        "hint": "Nom",
+        "edit_type": "name",
+        "v_regex": {
+          "value": "^$|[a-zA-Z].*[\s\.]*$",
+          "err": "Merci d'entrer un nom valide"
+        }
+      },
+      {
+        "key": "Last_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "hint": "Nom de famille",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "S'il vous plaît entrer le nom de famille"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z.-]*$",
+          "err": "Merci d'entrer un nom valide"
+        }
+      },
+      {
+        "key": "Sex",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "gender",
+        "type": "spinner",
+        "hint": "Sexe",
+        "values": [
+          "Mâle",
+          "Femelle"
+        ],
+        "keys": [
+          "Male",
+          "Female"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "S'il vous plaît entrer le sexe"
+        }
+      },
+      {
+        "key": "Home_Facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Structure sanitaire",
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "S'il vous plaît entrer l'établissement d'accueil de l'enfant"
+        }
+      },
+      {
+        "key": "ZEIR_ID",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "ZEIR_ID",
+        "type": "edit_text",
+        "hint": "Notez ce numéro sur le carnet de santé de l'enfant",
+        "read_only": "True"
+      },
+      {
+        "key": "Child_Register_Card_Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Child_Register_Card_Number",
+        "type": "edit_text",
+        "hint": "No Ordre de registre de vaccine de lenfant"
+      },
+      {
+        "key": "Date_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "type": "date_picker",
+        "hint": "Date de naissance de l'enfant",
+        "expanded": false,
+        "duration": {
+          "label": "Âge"
+        },
+        "min_date": "today-5y",
+        "max_date": "today",
+        "v_required": {
+          "value": "true",
+          "err": "S'il vous plaît entrer la date de naissance"
+        }
+      },
+      {
+        "key": "Birth_Weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Poids à la naissance (kg)",
+        "v_min": {
+          "value": "0.1",
+          "err": "Le poids doit être supérieur à 0"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Entrez un poids valide"
+        }
+      },
+      {
+        "key": "Birth_Tetanus_Protection",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "Enfant protégé à la naissance contre le tétanos",
+        "values": [
+          "Oui",
+          "Non",
+          "Ne sait pas"
+        ],
+        "keys": [
+          "Yes",
+          "No",
+          "DoNotKnow"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "DoNotKnow": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "S'il vous plaît entrer le Enfant protégé à la naissance contre le tétanos"
+        }
+      },
+      {
+        "key": "Child_Register_Card_Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Child_Register_Card_Number",
+        "type": "edit_text",
+        "hint": "No Ordre de registre de vaccine de lenfant"
+      },
+      {
+        "key": "Home_Facility",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Structure sanitaire ",
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "S'il vous plaît entrer l'établissement d'accueil de l'enfant"
+        }
+      },
+      {
+        "key": "ZEIR_ID",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "ZEIR_ID",
+        "type": "hidden",
+        "hint": "Notez ce numéro sur le carnet de santé de l'enfant"
+      },
+      {
+        "key": "Mother_Guardian_First_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "first_name",
+        "entity_id": "mother",
+        "type": "edit_text",
+        "hint": "Nom mère ",
+        "edit_type": "name",
+        "look_up": "true",
+        "v_required": {
+          "value": "true",
+          "err": "S'il vous plaît entrer le prénom de la mère / tuteur"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z].*[\s\.]*$",
+          "err": "Merci d'entrer un nom valide"
+        }
+      },
+      {
+        "key": "Mother_Guardian_Last_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "entity_id": "mother",
+        "type": "edit_text",
+        "hint": "Nom de famille de la mère",
+        "edit_type": "name",
+        "look_up": "true",
+        "v_required": {
+          "value": "true",
+          "err": "Veuillez entrer le nom de famille de la mère / tutrice"
+        },
+        "v_regex": {
+          "value": "^[a-zA-Z].*[\s\.]*$",
+          "err": "Merci d'entrer un nom valide"
+        }
+      },
+      {
+        "key": "Mother_Guardian_Date_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "birthdate",
+        "entity_id": "mother",
+        "type": "date_picker",
+        "hint": "Date de naissance de la mère",
+        "look_up": "true",
+        "expanded": false,
+        "duration": {
+          "label": "Age"
+        },
+        "min_date": "01-01-1900",
+        "max_date": "today-10y",
+        "v_required": {
+          "value": "true",
+          "err": "S'il vous plaît entrer le date de naissance de la mère"
+        }
+      },
+      {
+        "key": "Mother_Guardian_Phone_Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "entity_id": "mother",
+        "look_up": "true",
+        "hint": "N° Tél. de la mère/personne qui s'occupe principalement de l'enfant",
+        "v_numeric": {
+          "value": "true",
+          "err": "Le numéro doit comporter un total de 8 chiffres"
+        },
+        "v_regex": {
+          "value": "^$|([0-9]{8})",
+          "err": "Le numéro doit comporter un total de 8 chiffres"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "S'il vous plaît entrer le Le numéro doit comporter de la mère"
+        }
+      },
+      {
+        "key": "Second_Guardian_Phone_Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Second_Guardian_Phone_Number",
+        "type": "edit_text",
+        "hint": "Deuxième N° Tél. de la mère/personne",
+        "v_numeric": {
+          "value": "true",
+          "err": "Le numéro doit comporter un total de 8 chiffres"
+        },
+        "v_regex": {
+          "value": "^$|([0-9]{8})",
+          "err": "Le numéro doit comporter un total de 8 chiffres"
+        }
+      },
+      {
+        "key": "Residential_Area",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address3",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Commune",
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "S'il vous plaît entrer la zone résidentielle de l'enfant"
+        }
+      },
+      {
+        "key": "Residential_Area_Other",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address5",
+        "type": "edit_text",
+        "hint": "Autre commune",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "S'il vous plaît spécifier la zone résidentielle"
+        },
+        "relevance": {
+          "step1:Residential_Area": {
+            "type": "string",
+            "ex": "equalTo(., \"[\"Other\"]\")"
+          }
+        }
+      },
+      {
+        "key": "Residential_Address",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address2",
+        "type": "edit_text",
+        "hint": "Adresse précise",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "S'il vous plaît entrer la Adresse précise"
+        }
+      },
+      {
+        "key": "Preferred_Language",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Preferred_Language",
+        "type": "spinner",
+        "hint": "Langue Préférée",
+        "values": [
+          "Français",
+          "Arabie"
+        ],
+        "keys": [
+          "French",
+          "Arabic"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "S'il vous plaît entrer la langue préférée"
+        }
+      },
+      {
+        "key": "nfc_card_identifier",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "NFC_Card_Identifier",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "nfc_transaction_identifier",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "NFC_Transaction_Identifier",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "formSubmissionId",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Form_submission_Id",
+        "type": "hidden",
+        "value": ""
+      }
+    ]
+  }
+}

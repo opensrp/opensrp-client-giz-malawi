@@ -1,0 +1,46 @@
+package org.smartregister.giz_malawi.job;
+
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.evernote.android.job.Job;
+import com.evernote.android.job.JobCreator;
+
+import org.smartregister.giz_malawi.sync.GizMalawiSyncIntentService;
+import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
+import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
+import org.smartregister.immunization.job.RecurringServiceJob;
+import org.smartregister.immunization.job.VaccineServiceJob;
+import org.smartregister.job.ExtendedSyncServiceJob;
+import org.smartregister.job.PullUniqueIdsServiceJob;
+import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.ValidateSyncDataServiceJob;
+
+public class GizMalawiJobCreator implements JobCreator {
+    @Nullable
+    @Override
+    public Job create(@NonNull String tag) {
+        switch (tag) {
+            case SyncServiceJob.TAG:
+                return new SyncServiceJob(GizMalawiSyncIntentService.class);
+            case ExtendedSyncServiceJob.TAG:
+                return new ExtendedSyncServiceJob();
+            case PullUniqueIdsServiceJob.TAG:
+                return new PullUniqueIdsServiceJob();
+            case ValidateSyncDataServiceJob.TAG:
+                return new ValidateSyncDataServiceJob();
+            case VaccineServiceJob.TAG:
+                return new VaccineServiceJob();
+            case RecurringServiceJob.TAG:
+                return new RecurringServiceJob();
+            case WeightIntentServiceJob.TAG:
+                return new WeightIntentServiceJob();
+            case ZScoreRefreshIntentServiceJob.TAG:
+                return new ZScoreRefreshIntentServiceJob();
+            default:
+                Log.w(GizMalawiJobCreator.class.getCanonicalName(), tag + " is not declared in Job Creator");
+                return null;
+        }
+    }
+}

@@ -1,0 +1,131 @@
+<resources>
+    <string name="app_name" translatable="false">Malawi-eRegister</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="sync" translatable="false">Sync</string>
+    <string name="action_log_out">Logging Out</string>
+    <string name="powered_by" translatable="false">Powered by</string>
+
+
+    <!-- Navigation Strings -->
+    <string name="navigation_drawer_close">Close</string>
+    <string name="side_nav_add">Add new child</string>
+    <string name="scan_card">Card Scanner</string>
+    <string name="side_nav_out_of_catchment">Record out of catchment vaccination</string>
+    <string name="nav_register">Register</string>
+    <string name="attribution_text">Powered by OpenSRP</string>
+    <string name="show_password_text">Show password</string>
+    <string name="app_version">App version: %1$s (built on %2$s)</string>
+    <string name="login_text">Log In</string>
+    <string name="log_out_text">Log Out</string>
+
+    <string name="english" translatable="false">English</string>
+    <string name="french" translatable="false">Français</string>
+    <string name="arabic" translatable="false">عربى</string>
+
+    <string name="opensrp_url">https://wellnesspass-stage.smartregister.org/opensrp/</string>
+
+    <string name="nav_logo" translatable="false">Malawi-eRegister</string>
+    <string name="title_activity_child_immunization" translatable="false">ChildImmunizationActivity</string>
+
+
+    <string name="wellness_pass_home_logo" translatable="false">Wellness pass</string>
+
+
+    <!-- Nearex-->
+    <string name="error_code">Error: %1$s</string>
+
+    <string name="something_went_wrong">Something went wrong&#8230;</string>
+
+    <string name="please_install_nearex_sdk">Please install the Nearex SDK first</string>
+
+    <string name="install">Install</string>
+
+    <string name="activate">Activate</string>
+
+    <string name="please_activate_nearex_sdk">Nearex SDK NOT activated. Please activate&#8230;</string>
+
+    <string name="nearex_sdk_missing">The Nearex SDK is missing </string>
+
+    <string name="nearex_error">Please contact the helpdesk with error code %1$s %2$s %3$s</string>
+
+    <string name="alert">Alert</string>
+
+    <string name="card_not_registered">This card is not registered&#8230;</string>
+
+    <string name="successfully_updated_card">Successfully updated card &#8230;</string>
+
+    <string name="card_already_registered">This card is already registered&#8230;</string>
+
+    <string name="card_no">Card No. %1$s </string>
+
+    <string name="no_information_on_card">No information on the card. The card does not have a store for this application</string>
+
+    <string name="the_card_is_full">The card is full and unusable. Please register another card</string>
+
+    <string name="there_is_an_error_with_record"> There is an error with this record. Please contact the helpdesk with error code  %1$s %2$s %3$s and the client’s ID</string>
+
+    <string name="the_operation_was_cancelled">The operation was cancelled. Please try again</string>
+
+    <string name="the_sdk_is_not_activated">The SDK is not activated. Please activate the SDK by going to settings and touching Activate Nearex SDK and try again after successful activation</string>
+
+    <string name="the_operation_failed">The operation failed. Please try again. Please contact the helpdesk with error code %1$s %2$s %3$s</string>
+
+    <string name="this_card_is_invalid">This card is invalid. Please use another card</string>
+
+    <string name="new_child_record">New child record </string>
+
+    <string name="no_child_record_found">No record found on this device for this card, would you like to create one ?</string>
+
+    <string name="operation_not_allowed">Operation not allowed</string>
+
+    <string name="store_already_exists">Store already exists</string>
+
+    <string name="store_does_not_exist">Store does not exist</string>
+
+    <string name="store_full">Store full</string>
+
+    <string name="operation_Cancelled">Operation Cancelled</string>
+
+    <string name="authentication_failed">Authentication Failed</string>
+
+    <string name="sdk_is_not_configured">SDK is not configured</string>
+
+    <string name="operation_failed">Operation Failed</string>
+
+    <string name="authentication_method_not_supported">Authentication method not supported</string>
+
+    <string name="read_card_write_timed_out">Read Card/Write Timed out</string>
+
+    <string name="unable_to_read_card">Unable to read card</string>
+
+    <string name="not_a_valid_card">Not a valid card</string>
+
+    <string name="key_expired">Key Expired</string>
+
+    <string name="Key_validation_error">Key validation error</string>
+
+    <string name="incorrect_key">Incorrect Key</string>
+
+    <string name="key_revoked">Key revoked</string>
+
+    <string name="application_ey_mismatch">Application-Key mismatch</string>
+
+    <string name="not_found">Not Found</string>
+
+    <string name="record_data_exceeds_limit">Record data exceeds limit</string>
+
+    <string name="partially_successful">Partially Successful</string>
+
+    <string name="user_authentication_failed">User Authentication Failed</string>
+
+    <string name="new_card_registration">New card registration </string>
+
+    <string name="no_child_registration_found">No card associated with this child on this device, would you to register card ?</string>
+
+    <string name="reset_card">Reset card</string>
+
+    <string name="are_you_sure_reset_card">Are you sure you want to Reset this card? \n\nThis action CANNOT be reversed&#8230;</string>
+
+    <string name="arabic_not_supported">Vaccination in Arabic is not supported in this version</string>
+
+</resources>
