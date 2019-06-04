@@ -29,22 +29,22 @@
     <string name="wellness_pass_home_logo" translatable="false">Wellness pass</string>
 
 
-    <!-- Nearex-->
+    <!-- Nfc-->
     <string name="error_code">Error: %1$s</string>
 
     <string name="something_went_wrong">Something went wrong&#8230;</string>
 
-    <string name="please_install_nearex_sdk">Please install the Nearex SDK first</string>
+    <string name="please_install_nfc_sdk">Please install the Nfc SDK first</string>
 
     <string name="install">Install</string>
 
     <string name="activate">Activate</string>
 
-    <string name="please_activate_nearex_sdk">Nearex SDK NOT activated. Please activate&#8230;</string>
+    <string name="please_activate_nfc_sdk">Nfc SDK NOT activated. Please activate&#8230;</string>
 
-    <string name="nearex_sdk_missing">The Nearex SDK is missing </string>
+    <string name="nfc_sdk_missing">The Nfc SDK is missing </string>
 
-    <string name="nearex_error">Please contact the helpdesk with error code %1$s %2$s %3$s</string>
+    <string name="nfc_error">Please contact the helpdesk with error code %1$s %2$s %3$s</string>
 
     <string name="alert">Alert</string>
 
@@ -64,7 +64,7 @@
 
     <string name="the_operation_was_cancelled">The operation was cancelled. Please try again</string>
 
-    <string name="the_sdk_is_not_activated">The SDK is not activated. Please activate the SDK by going to settings and touching Activate Nearex SDK and try again after successful activation</string>
+    <string name="the_sdk_is_not_activated">The SDK is not activated. Please activate the SDK by going to settings and touching Activate Nfc SDK and try again after successful activation</string>
 
     <string name="the_operation_failed">The operation failed. Please try again. Please contact the helpdesk with error code %1$s %2$s %3$s</string>
 

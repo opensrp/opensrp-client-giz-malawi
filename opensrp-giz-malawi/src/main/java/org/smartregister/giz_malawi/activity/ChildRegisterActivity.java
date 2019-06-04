@@ -90,23 +90,23 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void showNearexNotInstalledDialog(LoginEvent event) {
+    public void showNfcNotInstalledDialog(LoginEvent event) {
         if (event != null) {
             Utils.removeStickyEvent(event);
 
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
                 public void run() {
-                    showNearexDialog();
+                    showNfcDialog();
                 }
             });
 
         }
     }
 
-    private void showNearexDialog() {
+    private void showNfcDialog() {
 
-        Utils.showDialogMessage(this, R.string.nearex_sdk_missing, R.string.please_install_nearex_sdk);
+        Utils.showDialogMessage(this, R.string.nfc_sdk_missing, R.string.please_install_nfc_sdk);
     }
 
     public void openDrawer() {

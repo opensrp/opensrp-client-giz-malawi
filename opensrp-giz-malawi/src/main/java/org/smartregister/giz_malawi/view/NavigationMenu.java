@@ -47,7 +47,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
     private static String[] langArray;
-    private static int nearexCardPurgeCount;
+    private static int nfcCardPurgeCount;
     LinearLayout syncMenuItem;
     LinearLayout enrollmentMenuItem;
     LinearLayout outOfAreaMenu;
@@ -70,7 +70,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public static NavigationMenu getInstance(Activity activity) {
 
-        nearexCardPurgeCount = 0;
+        nfcCardPurgeCount = 0;
 
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(instance);
         int orientation = activity.getResources().getConfiguration().orientation;
@@ -128,10 +128,10 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             @Override
             public void onClick(View view) {
 
-                if (nearexCardPurgeCount == 4) {
-                    nearexCardPurgeCount = 0;
+                if (nfcCardPurgeCount == 4) {
+                    nfcCardPurgeCount = 0;
                 }
-                nearexCardPurgeCount++;
+                nfcCardPurgeCount++;
             }
         });
 

@@ -21,13 +21,13 @@
 
     <string name="something_went_wrong">هناك خطأ ما&#8230;</string>
 
-    <string name="please_install_nearex_sdk">قم أولاً بتثبيت SDK من Nearex&#8230;</string>
+    <string name="please_install_nfc_sdk">قم أولاً بتثبيت SDK من Nfc&#8230;</string>
 
     <string name="install">التثبت</string>
 
     <string name="activate">تفعيل</string>
 
-    <string name="please_activate_nearex_sdk">لم يتم تنشيط Nearex SDK. يرجى تفعيل&#8230;</string>
+    <string name="please_activate_nfc_sdk">لم يتم تنشيط Nfc SDK. يرجى تفعيل&#8230;</string>
 
 
 </resources>
