@@ -31,6 +31,23 @@ public class GizConstants {
     public static final String FIRST_HEALTH_FACILITY_CONTACT = "First_Health_Facility_Contact";
     public static final String MOTHER_DOB = "mother_dob";
     public static final String PLACE_BIRTH = "Place_Birth";
+    public static final int ON_KEY_BACK_PRESSED = 610;
+    public static final String ITEM_LIST = "ITEM_LIST";
+    public static final String TAPCARD_INFO = "TAPCARD_INFO";
+    public static final String VOUCHER_DETAILS = "VOUCHER_DETAILS";
+    public static final String FRAGMENT = "FRAGMENT";
+    public static final String NEWBORN = "NEWBORN";
+    public static final String PREV_PAPER = "PREV_PAPER";
+    public static final int REQUEST_CODE_LAUNCH_XIP = 100;
+    public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
+    public static final String ERROR_DETECTED = "No NFC tag detected!";
+    public static final String WRITE_SUCCESS = "Text written to the NFC tag successfully!";
+    public static final String WRITE_ERROR = "Error during writing, is the NFC tag close enough to your device?";
+    public static final String TAPCARD_OPTION = "TAPCARD_OPTION";
+    public static final String PREV_CARD = "PREV_CARD";
+    public static final String NEW_CARD = "NEW_CARD";
+    public static final String writeMessage = "to write information";
+    public static final String readMessage = "to read information";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -157,22 +174,4 @@ public class GizConstants {
         public final static String CHILD_ENROLLMENT = "child_enrollment";
         public final static String OUT_OF_CATCHMENT = "out_of_catchment_service";
     }
-
-    public static final int ON_KEY_BACK_PRESSED = 610;
-    public static final String ITEM_LIST = "ITEM_LIST";
-    public static final String TAPCARD_INFO = "TAPCARD_INFO";
-    public static final String VOUCHER_DETAILS = "VOUCHER_DETAILS";
-    public static final String FRAGMENT = "FRAGMENT";
-    public static final String NEWBORN = "NEWBORN";
-    public static final String PREV_PAPER = "PREV_PAPER";
-    public static final int REQUEST_CODE_LAUNCH_XIP = 100;
-    public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
-    public static final String ERROR_DETECTED = "No NFC tag detected!";
-    public static final String WRITE_SUCCESS = "Text written to the NFC tag successfully!";
-    public static final String WRITE_ERROR = "Error during writing, is the NFC tag close enough to your device?";
-    public static final String TAPCARD_OPTION = "TAPCARD_OPTION";
-    public static final String PREV_CARD = "PREV_CARD";
-    public static final String NEW_CARD = "NEW_CARD";
-    public static final String writeMessage = "to write information";
-    public static final String readMessage = "to read information";
 }

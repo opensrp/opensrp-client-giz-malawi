@@ -416,11 +416,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             }
 
             List<Table> bindObjects = clientField.bindobjects;
-            DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
-            ECSyncHelper ecUpdater = ECSyncHelper.getInstance(getContext());
+            //DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
+            //ECSyncHelper ecUpdater = ECSyncHelper.getInstance(getContext());
 
             for (Event event : events) {
-                unSync(ecUpdater, detailsRepository, bindObjects, event, registeredAnm);
+                unSync(bindObjects, event, registeredAnm);
             }
 
             return true;
@@ -432,9 +432,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         return false;
     }
 
-    private boolean unSync(ECSyncHelper ecUpdater, DetailsRepository detailsRepository, List<Table> bindObjects, Event event, String registeredAnm) {
+    private boolean unSync(List<Table> bindObjects, Event event, String registeredAnm) {
         try {
-            String baseEntityId = event.getBaseEntityId();
+           // String baseEntityId = event.getBaseEntityId();
             String providerId = event.getProviderId();
 
             if (providerId.equals(registeredAnm)) {
@@ -443,7 +443,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 //boolean detailsDeleted = detailsRepository.deleteDetails(baseEntityId);
 
                 for (Table bindObject : bindObjects) {
-                    String tableName = bindObject.name;
+                   // String tableName = bindObject.name;
                     //boolean caseDeleted = deleteCase(tableName, baseEntityId);
                 }
 
