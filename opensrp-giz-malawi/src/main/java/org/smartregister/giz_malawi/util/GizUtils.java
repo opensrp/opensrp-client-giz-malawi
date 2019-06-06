@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Utils extends org.smartregister.child.util.Utils {
+public class GizUtils extends org.smartregister.child.util.Utils {
 
     public static final ArrayList<String> ALLOWED_LEVELS;
     public static final String FACILITY = "Facility";
@@ -77,19 +77,20 @@ public class Utils extends org.smartregister.child.util.Utils {
     }
 
     public static Context setAppLocale(Context context, String language) {
+        Context newContext = context;
         Locale locale = new Locale(language);
         Locale.setDefault(locale);
 
-        Resources res = context.getResources();
+        Resources res = newContext.getResources();
         Configuration config = new Configuration(res.getConfiguration());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             config.setLocale(locale);
-            context = context.createConfigurationContext(config);
+            newContext = newContext.createConfigurationContext(config);
         } else {
             config.locale = locale;
             res.updateConfiguration(config, res.getDisplayMetrics());
         }
-        return context;
+        return newContext;
     }
 
     public static void saveGlobalLanguage(String language, Context activity) {
@@ -99,7 +100,7 @@ public class Utils extends org.smartregister.child.util.Utils {
         setLocale(new Locale(language), activity);
     }
 
-    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling Utils.removeStickyEvent
+    public static void postStickyEvent(BaseEvent event) {//Each Sticky event must be manually cleaned by calling GizUtils.removeStickyEvent
         // after
         // handling
         EventBus.getDefault().postSticky(event);

@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,8 @@ import org.smartregister.giz_malawi.activity.ChildRegisterActivity;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.contract.NavigationContract;
 import org.smartregister.giz_malawi.presenter.NavigationPresenter;
+import org.smartregister.giz_malawi.util.GizConstants;
+import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 
 import java.lang.ref.WeakReference;
@@ -42,34 +43,29 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import timber.log.Timber;
+
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
     private static String[] langArray;
     private static int nfcCardPurgeCount;
-    LinearLayout syncMenuItem;
-    LinearLayout enrollmentMenuItem;
-    LinearLayout outOfAreaMenu;
-    LinearLayout registerView;
+    private LinearLayout syncMenuItem;
+    private LinearLayout enrollmentMenuItem;
+    private LinearLayout outOfAreaMenu;
+    private LinearLayout registerView;
     private String TAG = NavigationMenu.class.getCanonicalName();
     private TextView loggedInUserTextView;
     private TextView syncTextView;
-    private TextView scanCardTextView;
     private TextView userInitialsTextView;
     private TextView logoutButton;
     private NavigationContract.Presenter mPresenter;
     private DrawerLayout drawer;
     private ImageButton cancelButton;
     private Spinner languageSpinner;
-    private static final String PURGE_RECORD_STORE = "PURGE STORE";
-    private static final String DROP_RECORD_STORE = "DROP STORE";
-    private static final String CREATE_RECORD_STORE = "CREATE RECORD STORE";
-    private static final String CHECK_STORE_EXISTS = "CHECK STORE EXISTS";
-    private static final String CLEAN_CARD = "CLEAN CARD";
 
     public static NavigationMenu getInstance(Activity activity) {
-
         nfcCardPurgeCount = 0;
 
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(instance);
@@ -86,7 +82,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         } else {
             return null;
         }
-
     }
 
     private void init(Activity activity) {
@@ -104,7 +99,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             attachLanguageSpinner(activity);
 
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            Timber.e(e.toString());
         }
     }
 
@@ -118,16 +113,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         enrollmentMenuItem = activity.findViewById(R.id.enrollment);
         loggedInUserTextView = activity.findViewById(R.id.logged_in_user_text_view);
         syncTextView = activity.findViewById(R.id.sync_text_view);
-        scanCardTextView = activity.findViewById(R.id.scan_card_text_view);
         userInitialsTextView = activity.findViewById(R.id.user_initials_text_view);
         cancelButton = drawer.findViewById(R.id.cancel_button);
         languageSpinner = activity.findViewById(R.id.language_spinner);
-
-
         drawer.findViewById(R.id.attribution).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (nfcCardPurgeCount == 4) {
                     nfcCardPurgeCount = 0;
                 }
@@ -151,12 +142,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void onSyncStart() {
-
+        // Todo
     }
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-
+        // Todo
     }
 
     @Override
@@ -182,7 +173,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             }
 
             if (current instanceof RelativeLayout) {
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
                 params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
                 current.setLayoutParams(params);
                 rl.addView(current);
@@ -196,7 +188,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         syncMenuItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mPresenter.Sync(parentActivity);
+                mPresenter.sync(parentActivity);
             }
         });
     }
@@ -210,6 +202,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             }
         });
     }
+
     private void recordOutOfArea(final Activity parentActivity) {
         outOfAreaMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,7 +254,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void logout(Activity activity) {
-        Toast.makeText(activity.getApplicationContext(), activity.getResources().getText(R.string.action_log_out), Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity.getApplicationContext(), activity.getResources().getText(R.string.action_log_out),
+                Toast.LENGTH_SHORT).show();
         GizMalawiApplication.getInstance().logoutCurrentUser();
     }
 
@@ -270,7 +264,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             JsonFormUtils.startForm(activity, JsonFormUtils.REQUEST_CODE_GET_JSON, formName, null, null);
 
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e);
         }
     }
 
@@ -280,8 +274,10 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (syncTextView != null) {
             String lastSyncTime = getLastSyncTime();
             if (lastSync != null && !TextUtils.isEmpty(lastSyncTime)) {
-                lastSyncTime = " " + String.format(activityWeakReference.get().getResources().getString(R.string.last_sync), lastSyncTime);
-                syncTextView.setText(String.format(activityWeakReference.get().getResources().getString(R.string.sync_), lastSyncTime));
+                lastSyncTime = " " + String
+                        .format(activityWeakReference.get().getResources().getString(R.string.last_sync), lastSyncTime);
+                syncTextView.setText(
+                        String.format(activityWeakReference.get().getResources().getString(R.string.sync_), lastSyncTime));
             }
         }
     }
@@ -322,7 +318,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         languageSpinner.setAdapter(adapter);
         languageSpinner.setOnItemSelectedListener(null);
-        String langPref = org.smartregister.giz_malawi.util.Utils.getLanguage(activity.getApplicationContext());
+        String langPref = GizUtils.getLanguage(activity.getApplicationContext());
         for (int i = 0; i < langArray.length; i++) {
 
             if (langPref != null && langArray[i].toLowerCase().startsWith(langPref)) {
@@ -339,8 +335,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (count >= 1) {
-
-                    Log.d(TAG, "Selected " + adapter.getItem(i));
+                    Timber.d("Selected %s", adapter.getItem(i));
 
                     String lang = adapter.getItem(i).toString().toLowerCase();
                     Locale LOCALE;
@@ -352,7 +347,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                             LOCALE = Locale.FRENCH;
                             break;
                         case "عربى":
-                            LOCALE = new Locale(org.smartregister.giz_malawi.util.Constants.ARABIC_LOCALE);
+                            LOCALE = new Locale(GizConstants.ARABIC_LOCALE);
                             languageSpinner.setSelection(i);
                             break;
                         default:
@@ -360,7 +355,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                             break;
                     }
 
-                    org.smartregister.giz_malawi.util.Utils.saveLanguage(activity.getApplicationContext(), LOCALE.getLanguage());
+                    GizUtils
+                            .saveLanguage(activity.getApplicationContext(), LOCALE.getLanguage());
 
                     // update context as well
                     Locale locale = new Locale(LOCALE.getLanguage());

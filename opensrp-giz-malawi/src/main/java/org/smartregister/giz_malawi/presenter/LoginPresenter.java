@@ -17,7 +17,7 @@ import org.smartregister.configurableviews.model.ViewConfiguration;
 import org.smartregister.giz_malawi.R;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.interactor.LoginInteractor;
-import org.smartregister.giz_malawi.util.Constants;
+import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.giz_malawi.util.ImageLoaderRequest;
 import org.smartregister.login.model.BaseLoginModel;
 import org.smartregister.login.presenter.BaseLoginPresenter;
@@ -38,7 +38,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     @Override
     public void processViewCustomizations() {
         try {
-            String jsonString = getJsonViewFromPreference(Constants.VIEW_CONFIGURATION_PREFIX + Constants.CONFIGURATION.LOGIN);
+            String jsonString = getJsonViewFromPreference(GizConstants.VIEW_CONFIGURATION_PREFIX + GizConstants.CONFIGURATION.LOGIN);
             if (jsonString == null) {
                 return;
             }

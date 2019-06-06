@@ -24,9 +24,9 @@ import org.smartregister.giz_malawi.activity.LoginActivity;
 import org.smartregister.giz_malawi.job.GizMalawiJobCreator;
 import org.smartregister.giz_malawi.repository.GizMalawiRepository;
 import org.smartregister.giz_malawi.sync.GizMalawiProcessorForJava;
-import org.smartregister.giz_malawi.util.Constants;
+import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.giz_malawi.util.DBConstants;
-import org.smartregister.giz_malawi.util.Utils;
+import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
@@ -95,26 +95,26 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
         Map<String, Pair<String, Boolean>> map = new HashMap<>();
         for (VaccineRepo.Vaccine vaccine : vaccines) {
-            map.put(vaccine.display(), Pair.create(Constants.TABLE_NAME.CHILD, false));
+            map.put(vaccine.display(), Pair.create(GizConstants.TABLE_NAME.CHILD, false));
         }
         return map;
     }
 
     private static String[] getFtsTables() {
-        return new String[]{Constants.TABLE_NAME.CHILD};
+        return new String[]{GizConstants.TABLE_NAME.CHILD};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
-        if (tableName.equals(Constants.TABLE_NAME.CHILD)) {
+        if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
             return new String[]{DBConstants.KEY.ZEIR_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.EPI_CARD_NUMBER, DBConstants.KEY.NFC_CARD_IDENTIFIER};
         }
         return null;
     }
 
     private static String[] getFtsSortFields(String tableName) {
-        if (tableName.equals(Constants.TABLE_NAME.CHILD)) {
+        if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
 
-            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(Constants.VACCINE.CHILD);
+            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD);
             List<String> names = new ArrayList<>();
             names.add(DBConstants.KEY.FIRST_NAME);
             names.add(DBConstants.KEY.DOB);
@@ -148,7 +148,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         mInstance = this;
         context = Context.getInstance();
 
-        String lang = Utils.getLanguage(getApplicationContext());
+        String lang = GizUtils.getLanguage(getApplicationContext());
         Locale locale = new Locale(lang);
         Resources res = getApplicationContext().getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
@@ -172,10 +172,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         initOfflineSchedules();
 
         SyncStatusBroadcastReceiver.init(this);
-        LocationHelper.init(Utils.ALLOWED_LEVELS, Utils.DEFAULT_LOCATION_LEVEL);
+        LocationHelper.init(GizUtils.ALLOWED_LEVELS, GizUtils.DEFAULT_LOCATION_LEVEL);
         this.jsonSpecHelper = new JsonSpecHelper(this);
-
-        setUpEventHandling();
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
@@ -215,7 +213,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     @Override
     public void onTerminate() {
-        logInfo("Application is terminating. Stopping Sync scheduler and resetting isSyncInProgress setting.");
+        logInfo("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
         cleanUpSyncState();
         TimeChangedBroadcastReceiver.destroy(this);
         SyncStatusBroadcastReceiver.destroy(this);
@@ -232,17 +230,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     public void onTimeZoneChanged() {
         context.userService().forceRemoteLogin();
         logoutCurrentUser();
-    }
-
-    private void setUpEventHandling() {
-
-        try {
-//            EventBus.builder().addIndex(new org.smartregister.wellnesspass.WellnessPassEventBusIndex()).installDefaultEventBus();
-        } catch
-        (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-
     }
 
     @Override
@@ -265,7 +252,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private ChildMetadata getMetadata() {
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class, ChildImmunizationActivity.class, true);
-        metadata.updateChildRegister(Constants.JSON_FORM.CHILD_ENROLLMENT, Constants.TABLE_NAME.CHILD, Constants.TABLE_NAME.MOTHER_TABLE_NAME, Constants.EventType.CHILD_REGISTRATION, Constants.EventType.UPDATE_CHILD_REGISTRATION, Constants.CONFIGURATION.CHILD_REGISTER, Constants.RELATIONSHIP.MOTHER, Constants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
+        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD, GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION, GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER, GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
         return metadata;
     }
 

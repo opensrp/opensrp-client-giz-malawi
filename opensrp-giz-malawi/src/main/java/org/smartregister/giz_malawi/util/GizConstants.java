@@ -1,8 +1,36 @@
 package org.smartregister.giz_malawi.util;
 
-public class Constants {
+public class GizConstants {
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
     public static final String ARABIC_LOCALE = "ar";
+    public static final String HOME_FACILITY = "Home_Facility";
+    public static final String ZEIR_ID = "zeir_id";
+    public static final String CHILD_REGISTER_CARD_NUMBER = "Child_Register_Card_Number";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String GENDER = "gender";
+    public static final String BIRTH_WEIGHT = "Birth_Weight";
+    public static final String BIRTH_TETANUS_PROTECTION = "Birth_Tetanus_Protection";
+    public static final String MOTHER_FIRST_NAME = "mother_first_name";
+    public static final String MOTHER_LAST_NAME = "mother_last_name";
+    public static final String MOTHER_GUARDIAN_PHONE_NUMBER = "Mother_Guardian_Phone_Number";
+    public static final String MOTHER_GUARDIAN_NUMBER = "Mother_Guardian_Number";
+    public static final String FATHER_GUARDIAN_FIRST_NAME = "Father_Guardian_First_Name";
+    public static final String FATHER_GUARDIAN_LAST_NAME = "Father_Guardian_Last_Name";
+    public static final String FATHER_GUARDIAN_PHONE_NUMBER = "Father_Guardian_Phone_Number";
+    public static final String FATHER_GUARDIAN_NUMBER = "Father_Guardian_Number";
+    public static final String FATHER_GUARDIAN_DATE_BIRTH = "Father_Guardian_Date_Birth";
+    public static final String IS_PLACE_BIRTH = "isPlace_Birth";
+    public static final String OTHER = "other";
+    public static final String BIRTH_FACILITY_NAME_OTHER = "Birth_Facility_Name_Other";
+    public static final String ADDRESS_3 = "address3";
+    public static final String ADDRESS_5 = "address5";
+    public static final String ADDRESS_2 = "address2";
+    public static final String ADDRESS_1 = "address1";
+    public static final String PREFERRED_LANGUAGE = "Preferred_Language";
+    public static final String FIRST_HEALTH_FACILITY_CONTACT = "First_Health_Facility_Contact";
+    public static final String MOTHER_DOB = "mother_dob";
+    public static final String PLACE_BIRTH = "Place_Birth";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";

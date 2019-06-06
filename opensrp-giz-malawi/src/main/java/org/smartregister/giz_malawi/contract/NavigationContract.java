@@ -16,7 +16,7 @@ public interface NavigationContract {
 
         void refreshLastSync();
 
-        void Sync(Activity activity);
+        void sync(Activity activity);
     }
 
     interface View {
