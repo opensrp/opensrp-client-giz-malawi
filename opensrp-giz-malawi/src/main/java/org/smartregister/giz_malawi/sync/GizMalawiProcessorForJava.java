@@ -8,6 +8,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
@@ -24,6 +25,7 @@ import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz_malawi.activity.ChildImmunizationActivity;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.growthmonitoring.domain.Weight;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
 import org.smartregister.growthmonitoring.service.intent.WeightIntentService;
@@ -48,6 +50,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
@@ -135,7 +139,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
-
         try {
             if (vaccine == null || vaccine.getEvent() == null) {
                 return false;
@@ -145,7 +148,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 return false;
             }
 
-            Log.d(TAG, "Starting processVaccine table: " + vaccineTable.name);
+            Timber.d("Starting processVaccine table: %s", vaccineTable.name);
 
             ContentValues contentValues = processCaseModel(vaccine, vaccineTable);
 
@@ -175,12 +178,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 Utils.addVaccine(vaccineRepository, vaccineObj);
 
-                Log.d(TAG, "Ending processVaccine table: " + vaccineTable.name);
+                Timber.d("Ending processVaccine table: %s", vaccineTable.name);
             }
             return true;
 
         } catch (Exception e) {
-            Log.e(TAG, "Process Vaccine Error", e);
+            Timber.e(e, "Process Vaccine Error");
             return null;
         }
     }
@@ -197,7 +200,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 return false;
             }
 
-            Log.d(TAG, "Starting processWeight table: " + weightTable.name);
+            Timber.d("Starting processWeight table: %s", weightTable.name);
 
             ContentValues contentValues = processCaseModel(weight, weightTable);
 
@@ -233,20 +236,18 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 weightRepository.add(weightObj);
 
-                Log.d(TAG, "Ending processWeight table: " + weightTable.name);
+                Timber.d("Ending processWeight table: %s", weightTable.name);
             }
             return true;
 
         } catch (Exception e) {
-            Log.e(TAG, "Process Weight Error", e);
+            Timber.e(e, "Process Weight Error");
             return null;
         }
     }
 
     private Boolean processService(EventClient service, Table serviceTable) throws Exception {
-
         try {
-
             if (service == null || service.getEvent() == null) {
                 return false;
             }
@@ -255,7 +256,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 return false;
             }
 
-            Log.d(TAG, "Starting processService table: " + serviceTable.name);
+            Timber.d("Starting processService table: %s", serviceTable.name);
 
             ContentValues contentValues = processCaseModel(service, serviceTable);
 
@@ -298,32 +299,38 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 }
 
                 RecurringServiceRecordRepository recurringServiceRecordRepository = GizMalawiApplication.getInstance().recurringServiceRecordRepository();
-                ServiceRecord serviceObj = new ServiceRecord();
-                serviceObj.setBaseEntityId(contentValues.getAsString(RecurringServiceRecordRepository.BASE_ENTITY_ID));
-                serviceObj.setName(name);
-                serviceObj.setDate(date);
-                serviceObj.setAnmId(contentValues.getAsString(RecurringServiceRecordRepository.ANMID));
-                serviceObj.setLocationId(contentValues.getAsString(RecurringServiceRecordRepository.LOCATION_ID));
-                serviceObj.setSyncStatus(RecurringServiceRecordRepository.TYPE_Synced);
-                serviceObj.setFormSubmissionId(service.getEvent().getFormSubmissionId());
-                serviceObj.setEventId(service.getEvent().getEventId()); //FIXME hard coded id
-                serviceObj.setValue(value);
-                serviceObj.setRecurringServiceId(serviceTypeList.get(0).getId());
-
+                ServiceRecord serviceObj = getServiceRecord(service, contentValues, name, date, value, serviceTypeList);
                 String createdAtString = contentValues.getAsString(RecurringServiceRecordRepository.CREATED_AT);
                 Date createdAt = getDate(createdAtString);
                 serviceObj.setCreatedAt(createdAt);
 
                 recurringServiceRecordRepository.add(serviceObj);
 
-                Log.d(TAG, "Ending processService table: " + serviceTable.name);
+                Timber.d("Ending processService table: %s", serviceTable.name);
             }
             return true;
 
         } catch (Exception e) {
-            Log.e(TAG, "Process Service Error", e);
+            Timber.e(e, "Process Service Error");
             return null;
         }
+    }
+
+    @NotNull
+    private ServiceRecord getServiceRecord(EventClient service, ContentValues contentValues, String name, Date date,
+                                           String value, List<ServiceType> serviceTypeList) {
+        ServiceRecord serviceObj = new ServiceRecord();
+        serviceObj.setBaseEntityId(contentValues.getAsString(RecurringServiceRecordRepository.BASE_ENTITY_ID));
+        serviceObj.setName(name);
+        serviceObj.setDate(date);
+        serviceObj.setAnmId(contentValues.getAsString(RecurringServiceRecordRepository.ANMID));
+        serviceObj.setLocationId(contentValues.getAsString(RecurringServiceRecordRepository.LOCATION_ID));
+        serviceObj.setSyncStatus(RecurringServiceRecordRepository.TYPE_Synced);
+        serviceObj.setFormSubmissionId(service.getEvent().getFormSubmissionId());
+        serviceObj.setEventId(service.getEvent().getEventId()); //FIXME hard coded id
+        serviceObj.setValue(value);
+        serviceObj.setRecurringServiceId(serviceTypeList.get(0).getId());
+        return serviceObj;
     }
 
     private void processBCGScarEvent(EventClient bcgScarEventClient) {
@@ -362,7 +369,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
-        if (org.smartregister.giz_malawi.util.Constants.TABLE_NAME.MOTHER_TABLE_NAME.equals(tableName)) {
+        if (GizConstants.TABLE_NAME.MOTHER_TABLE_NAME.equals(tableName)) {
             return;
         }
 
@@ -409,11 +416,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             }
 
             List<Table> bindObjects = clientField.bindobjects;
-            DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
-            ECSyncHelper ecUpdater = ECSyncHelper.getInstance(getContext());
+            //DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
+            //ECSyncHelper ecUpdater = ECSyncHelper.getInstance(getContext());
 
             for (Event event : events) {
-                unSync(ecUpdater, detailsRepository, bindObjects, event, registeredAnm);
+                unSync(bindObjects, event, registeredAnm);
             }
 
             return true;
@@ -425,27 +432,25 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         return false;
     }
 
-    private boolean unSync(ECSyncHelper ecUpdater, DetailsRepository detailsRepository, List<Table> bindObjects, Event event, String registeredAnm) {
+    private boolean unSync(List<Table> bindObjects, Event event, String registeredAnm) {
         try {
-            String baseEntityId = event.getBaseEntityId();
+           // String baseEntityId = event.getBaseEntityId();
             String providerId = event.getProviderId();
 
             if (providerId.equals(registeredAnm)) {
                 // boolean eventDeleted = ecUpdater.deleteEventsByBaseEntityId(baseEntityId);
-                boolean clientDeleted = ecUpdater.deleteClient(baseEntityId);
-
-                boolean detailsDeleted = detailsRepository.deleteDetails(baseEntityId);
+                //boolean clientDeleted = ecUpdater.deleteClient(baseEntityId);
+                //boolean detailsDeleted = detailsRepository.deleteDetails(baseEntityId);
 
                 for (Table bindObject : bindObjects) {
-                    String tableName = bindObject.name;
-
-                    boolean caseDeleted = deleteCase(tableName, baseEntityId);
+                   // String tableName = bindObject.name;
+                    //boolean caseDeleted = deleteCase(tableName, baseEntityId);
                 }
 
                 return true;
             }
         } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e, e.toString());
         }
         return false;
     }
@@ -454,7 +459,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         try {
             return Integer.valueOf(string);
         } catch (NumberFormatException e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e, e.toString());
         }
         return null;
     }
@@ -463,7 +468,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         try {
             return Float.valueOf(string);
         } catch (NumberFormatException e) {
-            Log.e(TAG, e.toString(), e);
+            Timber.e(e, e.toString());
         }
         return null;
     }

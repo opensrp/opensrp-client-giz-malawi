@@ -20,8 +20,7 @@ import java.util.Map;
  * Created by ndegwamartin on 08/03/2019.
  */
 public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
-
-    AdvancedSearchPresenter presenter;
+    private AdvancedSearchPresenter presenter;
     private MaterialEditText firstName;
     private MaterialEditText lastName;
     protected MaterialEditText openSrpId;
@@ -31,7 +30,6 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
     @Override
     protected BaseChildAdvancedSearchPresenter getPresenter() {
-
         if (presenter == null) {
             String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
             presenter = new AdvancedSearchPresenter(this, viewConfigurationIdentifier);
@@ -42,7 +40,6 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
     @Override
     public void populateSearchableFields(View view) {
-
         firstName = view.findViewById(org.smartregister.child.R.id.first_name);
         advancedFormSearchableFields.put(DBConstants.KEY.FIRST_NAME, firstName);
 
@@ -63,16 +60,10 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
 
         firstName.addTextChangedListener(advancedSearchTextwatcher);
-
         lastName.addTextChangedListener(advancedSearchTextwatcher);
-
-
         openSrpId.addTextChangedListener(advancedSearchTextwatcher);
-
         motherGuardianName.addTextChangedListener(advancedSearchTextwatcher);
-
         motherGuardianNrc.addTextChangedListener(advancedSearchTextwatcher);
-
         motherGuardianPhoneNumber.addTextChangedListener(advancedSearchTextwatcher);
     }
 
@@ -124,7 +115,6 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
     protected void clearFormFields() {
         super.clearFormFields();
-
         openSrpId.setText("");
         firstName.setText("");
         lastName.setText("");
@@ -136,7 +126,6 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
     @Override
     protected Map<String, String> getSearchMap() {
-
         Map<String, String> searchParams = new HashMap<>();
 
         String fn = firstName.getText().toString();
@@ -144,11 +133,8 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
 
         String motherGuardianNameString = motherGuardianName.getText().toString();
-
         String motherGuardianNrcString = motherGuardianNrc.getText().toString();
-
         String motherGuardianPhoneNumberString = motherGuardianPhoneNumber.getText().toString();
-
         String zeir = openSrpId.getText().toString();
 
 
@@ -157,7 +143,6 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         }
 
         if (StringUtils.isNotBlank(motherGuardianNrcString)) {
-
             searchParams.put(DBConstants.KEY.NRC_NUMBER, motherGuardianNrcString);
         }
 

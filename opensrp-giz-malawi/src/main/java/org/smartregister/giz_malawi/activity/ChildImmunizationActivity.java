@@ -13,26 +13,20 @@ import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
-import org.smartregister.giz_malawi.util.Utils;
+import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.location.helper.LocationHelper;
 
-import java.util.Map;
-
 public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
-
-    private Map<String, String> childDetails;
-
     @Override
-    protected void attachBaseContext(android.content.Context base) {
+    protected void attachBaseContext(Context base) {
         // get language from prefs
-        String lang = Utils.getLanguage(base.getApplicationContext());
-        super.attachBaseContext(Utils.setAppLocale(base, lang));
+        String lang = GizUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(GizUtils.setAppLocale(base, lang));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        childDetails = getChildDetails().getColumnmaps();
     }
 
     @Override
@@ -42,7 +36,6 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
 
     @Override
     protected void goToRegisterPage() {
-
         Intent intent = new Intent(this, ChildRegisterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
@@ -75,22 +68,23 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     }
 
     @Override
-    public void onClick(View view) {}
+    public void onClick(View view) {
+        // Todo
+    }
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
         hideProgressDialog();
     }
 
-
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
+        // Todo
     }
 
     @Override
     public void onNoUniqueId() {
-
+        // Todo
     }
 
     @Override

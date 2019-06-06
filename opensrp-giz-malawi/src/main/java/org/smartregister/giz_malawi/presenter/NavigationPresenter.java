@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference;
 
 public class NavigationPresenter implements NavigationContract.Presenter {
 
-    AllSharedPreferences allSharedPreferences;
+    private AllSharedPreferences allSharedPreferences;
     private WeakReference<NavigationContract.View> mView;
     private NavigationContract.Interactor mInteractor;
 
@@ -62,7 +62,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     }
 
     @Override
-    public void Sync(Activity activity) {
+    public void sync(Activity activity) {
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);

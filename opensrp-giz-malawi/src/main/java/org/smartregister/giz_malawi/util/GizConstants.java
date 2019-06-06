@@ -1,8 +1,53 @@
 package org.smartregister.giz_malawi.util;
 
-public class Constants {
+public class GizConstants {
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
     public static final String ARABIC_LOCALE = "ar";
+    public static final String HOME_FACILITY = "Home_Facility";
+    public static final String ZEIR_ID = "zeir_id";
+    public static final String CHILD_REGISTER_CARD_NUMBER = "Child_Register_Card_Number";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String GENDER = "gender";
+    public static final String BIRTH_WEIGHT = "Birth_Weight";
+    public static final String BIRTH_TETANUS_PROTECTION = "Birth_Tetanus_Protection";
+    public static final String MOTHER_FIRST_NAME = "mother_first_name";
+    public static final String MOTHER_LAST_NAME = "mother_last_name";
+    public static final String MOTHER_GUARDIAN_PHONE_NUMBER = "Mother_Guardian_Phone_Number";
+    public static final String MOTHER_GUARDIAN_NUMBER = "Mother_Guardian_Number";
+    public static final String FATHER_GUARDIAN_FIRST_NAME = "Father_Guardian_First_Name";
+    public static final String FATHER_GUARDIAN_LAST_NAME = "Father_Guardian_Last_Name";
+    public static final String FATHER_GUARDIAN_PHONE_NUMBER = "Father_Guardian_Phone_Number";
+    public static final String FATHER_GUARDIAN_NUMBER = "Father_Guardian_Number";
+    public static final String FATHER_GUARDIAN_DATE_BIRTH = "Father_Guardian_Date_Birth";
+    public static final String IS_PLACE_BIRTH = "isPlace_Birth";
+    public static final String OTHER = "other";
+    public static final String BIRTH_FACILITY_NAME_OTHER = "Birth_Facility_Name_Other";
+    public static final String ADDRESS_3 = "address3";
+    public static final String ADDRESS_5 = "address5";
+    public static final String ADDRESS_2 = "address2";
+    public static final String ADDRESS_1 = "address1";
+    public static final String PREFERRED_LANGUAGE = "Preferred_Language";
+    public static final String FIRST_HEALTH_FACILITY_CONTACT = "First_Health_Facility_Contact";
+    public static final String MOTHER_DOB = "mother_dob";
+    public static final String PLACE_BIRTH = "Place_Birth";
+    public static final int ON_KEY_BACK_PRESSED = 610;
+    public static final String ITEM_LIST = "ITEM_LIST";
+    public static final String TAPCARD_INFO = "TAPCARD_INFO";
+    public static final String VOUCHER_DETAILS = "VOUCHER_DETAILS";
+    public static final String FRAGMENT = "FRAGMENT";
+    public static final String NEWBORN = "NEWBORN";
+    public static final String PREV_PAPER = "PREV_PAPER";
+    public static final int REQUEST_CODE_LAUNCH_XIP = 100;
+    public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
+    public static final String ERROR_DETECTED = "No NFC tag detected!";
+    public static final String WRITE_SUCCESS = "Text written to the NFC tag successfully!";
+    public static final String WRITE_ERROR = "Error during writing, is the NFC tag close enough to your device?";
+    public static final String TAPCARD_OPTION = "TAPCARD_OPTION";
+    public static final String PREV_CARD = "PREV_CARD";
+    public static final String NEW_CARD = "NEW_CARD";
+    public static final String writeMessage = "to write information";
+    public static final String readMessage = "to read information";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -129,22 +174,4 @@ public class Constants {
         public final static String CHILD_ENROLLMENT = "child_enrollment";
         public final static String OUT_OF_CATCHMENT = "out_of_catchment_service";
     }
-
-    public static final int ON_KEY_BACK_PRESSED = 610;
-    public static final String ITEM_LIST = "ITEM_LIST";
-    public static final String TAPCARD_INFO = "TAPCARD_INFO";
-    public static final String VOUCHER_DETAILS = "VOUCHER_DETAILS";
-    public static final String FRAGMENT = "FRAGMENT";
-    public static final String NEWBORN = "NEWBORN";
-    public static final String PREV_PAPER = "PREV_PAPER";
-    public static final int REQUEST_CODE_LAUNCH_XIP = 100;
-    public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
-    public static final String ERROR_DETECTED = "No NFC tag detected!";
-    public static final String WRITE_SUCCESS = "Text written to the NFC tag successfully!";
-    public static final String WRITE_ERROR = "Error during writing, is the NFC tag close enough to your device?";
-    public static final String TAPCARD_OPTION = "TAPCARD_OPTION";
-    public static final String PREV_CARD = "PREV_CARD";
-    public static final String NEW_CARD = "NEW_CARD";
-    public static final String writeMessage = "to write information";
-    public static final String readMessage = "to read information";
 }

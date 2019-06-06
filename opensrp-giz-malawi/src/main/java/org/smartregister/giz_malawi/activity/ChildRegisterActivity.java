@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.text.TextUtils;
 import android.view.MenuItem;
 
 import org.greenrobot.eventbus.EventBus;
@@ -14,13 +13,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
 import org.smartregister.child.model.BaseChildRegisterModel;
 import org.smartregister.child.presenter.BaseChildRegisterPresenter;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz_malawi.R;
 import org.smartregister.giz_malawi.event.LoginEvent;
 import org.smartregister.giz_malawi.fragment.AdvancedSearchFragment;
 import org.smartregister.giz_malawi.fragment.ChildRegisterFragment;
-import org.smartregister.giz_malawi.util.Constants;
-import org.smartregister.giz_malawi.util.Utils;
+import org.smartregister.giz_malawi.util.GizConstants;
+import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.giz_malawi.view.NavigationMenu;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -28,13 +26,11 @@ import java.lang.ref.WeakReference;
 
 public class ChildRegisterActivity extends BaseChildRegisterActivity {
 
-    private WeakReference<ChildRegisterFragment> childRegisterFragmentWeakReference;
-
     @Override
     protected void attachBaseContext(android.content.Context base) {
         // get language from prefs
-        String lang = Utils.getLanguage(base.getApplicationContext());
-        super.attachBaseContext(Utils.setAppLocale(base, lang));
+        String lang = GizUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(GizUtils.setAppLocale(base, lang));
     }
 
     @Override
@@ -54,15 +50,15 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-
-        childRegisterFragmentWeakReference = new WeakReference<>(new ChildRegisterFragment());
+        WeakReference<ChildRegisterFragment> childRegisterFragmentWeakReference = new WeakReference<>(
+                new ChildRegisterFragment());
 
         return childRegisterFragmentWeakReference.get();
     }
 
     @Override
     public String getRegistrationForm() {
-        return Constants.JSON_FORM.CHILD_ENROLLMENT;
+        return GizConstants.JSON_FORM.CHILD_ENROLLMENT;
     }
 
     @Override
@@ -74,6 +70,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
             clients.setTitle(getString(org.smartregister.child.R.string.header_children));
         }
         bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
+        bottomNavigationView.getMenu().removeItem(R.id.action_scan_card);
     }
 
     @Override
@@ -92,7 +89,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void showNfcNotInstalledDialog(LoginEvent event) {
         if (event != null) {
-            Utils.removeStickyEvent(event);
+            GizUtils.removeStickyEvent(event);
 
             new Handler(Looper.getMainLooper()).post(new Runnable() {
                 @Override
@@ -105,12 +102,10 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     private void showNfcDialog() {
-
-        Utils.showDialogMessage(this, R.string.nfc_sdk_missing, R.string.please_install_nfc_sdk);
+        GizUtils.showDialogMessage(this, R.string.nfc_sdk_missing, R.string.please_install_nfc_sdk);
     }
 
     public void openDrawer() {
-
         NavigationMenu.getInstance(this).getDrawer().openDrawer(GravityCompat.START);
     }
 
@@ -122,28 +117,11 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
 
     @Override
     public void startNFCCardScanner() {
-    }
-
-    public void goToChildImmunizationPage(CommonPersonObjectClient objectClient) {
-        if (objectClient != null) {
-
-            ChildImmunizationActivity.launchActivity(this, objectClient, null);
-        }
-    }
-
-    public void searchByCard(String identifier) {
-        if (childRegisterFragmentWeakReference.get() != null && !TextUtils.isEmpty(identifier)) {
-            childRegisterFragmentWeakReference.get().filter(identifier, "", childRegisterFragmentWeakReference.get().getMainCondition(), false);
-            setSearchTerm(identifier);
-        }
+        // Todo
     }
 
     public void refresh() {
         Intent intent = new Intent(ChildRegisterActivity.this, ChildRegisterActivity.class);
         getApplicationContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-    }
-
-    private ChildRegisterActivity getActivity() {
-        return this;
     }
 }

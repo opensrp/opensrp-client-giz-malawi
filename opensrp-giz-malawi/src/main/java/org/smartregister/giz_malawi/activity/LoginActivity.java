@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import org.smartregister.giz_malawi.R;
 import org.smartregister.giz_malawi.presenter.LoginPresenter;
-import org.smartregister.giz_malawi.util.Utils;
+import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
@@ -20,8 +20,8 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     @Override
     protected void attachBaseContext(android.content.Context base) {
         // get language from prefs
-        String lang = Utils.getLanguage(base.getApplicationContext());
-        super.attachBaseContext(Utils.setAppLocale(base, lang));
+        String lang = GizUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(GizUtils.setAppLocale(base, lang));
     }
 
     @Override

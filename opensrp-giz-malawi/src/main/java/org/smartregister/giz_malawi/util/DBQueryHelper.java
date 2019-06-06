@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DBQueryHelper {
 
     public static final String getHomeRegisterCondition() {
-        return org.smartregister.giz_malawi.util.Constants.TABLE_NAME.CHILD + "." + Constants.KEY.DATE_REMOVED + " IS NULL ";
+        return GizConstants.TABLE_NAME.CHILD + "." + Constants.KEY.DATE_REMOVED + " IS NULL ";
     }
 
     public static String getFilterSelectionCondition(boolean urgentOnly) {

@@ -147,37 +147,6 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/language"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/custom_navigation_icon_size"
-                            android:layout_height="@dimen/custom_navigation_icon_size"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:paddingTop="5dp"
-                            android:src="@drawable/ic_action_out_catchment" />
-
-
-                        <Spinner
-                            android:id="@+id/language_spinner"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/table_contents_text_size" />
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/enrollment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -270,57 +239,6 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/table_contents_text_size" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/register_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/colorPrimary"
-                        android:orientation="horizontal">
-
-                        <org.smartregister.view.customcontrols.CustomFontTextView
-                            style="@style/CustomFontTextViewStyle.ClientList.Light.twoline"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:text="@string/nav_register"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/label_text_size" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/scan_card"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/custom_navigation_icon_size"
-                            android:layout_height="@dimen/custom_navigation_icon_size"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:src="@mipmap/ic_card_white" />
-
-                        <org.smartregister.view.customcontrols.CustomFontTextView
-                            android:id="@+id/scan_card_text_view"
-                            style="@style/CustomFontTextViewStyle.ClientList.Light.twoline"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:text="@string/reset_card"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/table_contents_text_size" />
-                    </LinearLayout>
-
                 </LinearLayout>
 
             </RelativeLayout>

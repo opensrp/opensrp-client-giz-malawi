@@ -15,9 +15,10 @@ import org.smartregister.child.fragment.StatusEditDialogFragment;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.giz_malawi.R;
 import org.smartregister.giz_malawi.fragment.ChildRegistrationDataFragment;
+import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.util.Utils;
 
-import static org.smartregister.giz_malawi.util.Utils.setAppLocale;
+import static org.smartregister.giz_malawi.util.GizUtils.setAppLocale;
 
 /**
  * Created by ndegwamartin on 06/03/2019.
@@ -27,7 +28,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     @Override
     protected void attachBaseContext(android.content.Context base) {
         // get language from prefs
-        String lang = org.smartregister.giz_malawi.util.Utils.getLanguage(base.getApplicationContext());
+        String lang = GizUtils.getLanguage(base.getApplicationContext());
         super.attachBaseContext(setAppLocale(base, lang));
     }
 
@@ -101,12 +102,12 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
+        // Todo
     }
 
     @Override
     public void onNoUniqueId() {
-
+        // Todo
     }
 
     @Override
