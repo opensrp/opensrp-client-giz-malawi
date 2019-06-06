@@ -70,6 +70,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
             clients.setTitle(getString(org.smartregister.child.R.string.header_children));
         }
         bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
+        bottomNavigationView.getMenu().removeItem(R.id.action_scan_card);
     }
 
     @Override
