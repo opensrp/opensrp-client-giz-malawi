@@ -50,21 +50,73 @@
     },
     "encounter_location": "",
     "look_up": {
-      "entity_id": "",
-      "value": ""
+      "entity_id":"",
+      "value":""
     }
   },
   "step1": {
-    "title": "Birth registration",
+    "title": "Birth Registration",
     "fields": [
       {
-        "key": "consent_toaster",
+        "key": "Child_Photo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "The personal information gathered in this system will be used only for the explicit purposes of providing you and your child the services that have been explained to you.\n",
-        "toaster_type": "info"
+        "type": "choose_image",
+        "uploadButtonText": "Take a photo of the child"
+      },
+      {
+        "key": "MER_ID",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_identifier",
+        "openmrs_entity_id": "MER_ID",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "Child's MER ID *",
+        "scanButtonText": "Scan QR Code",
+        "value": "0",
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid ID"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the Child's MER ID"
+        }
+      },
+      {
+        "key": "Birth Registration Number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "Child_Register_Card_Number",
+        "type": "edit_text",
+        "hint": "Child_Register_Card_Number *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the Birth Registration Number"
+        },
+        "v_regex": {
+          "value": "[A-Za-z]*",
+          "err": "Please enter a valid Birth Registration Number"
+        }
+      },
+      {
+        "key": "Last_Name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person",
+        "openmrs_entity_id": "last_name",
+        "type": "edit_text",
+        "hint": "Last name *",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the last name"
+        },
+        "v_regex": {
+          "value": "[A-Za-z\\s\\.\\-]*",
+          "err": "Please enter a valid name"
+        }
       },
       {
         "key": "First_Name",
@@ -75,39 +127,32 @@
         "hint": "First name",
         "edit_type": "name",
         "v_regex": {
-          "value": "^[a-zA-Z.-]*$",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
       {
-        "key": "Last_Name",
+        "key": "Middle_Name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
-        "openmrs_entity_id": "last_name",
+        "openmrs_entity_id": "middle_name",
         "type": "edit_text",
-        "hint": "Last name",
+        "hint": "Middle name",
         "edit_type": "name",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the last name"
-        },
         "v_regex": {
-          "value": "^[a-zA-Z.-]*$",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
+
       {
         "key": "Sex",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "gender",
         "type": "spinner",
-        "hint": "Sex",
+        "hint": "Sex *",
         "values": [
-          "Male",
-          "Female"
-        ],
-        "keys": [
           "Male",
           "Female"
         ],
@@ -122,7 +167,7 @@
         "openmrs_entity": "person",
         "openmrs_entity_id": "birthdate",
         "type": "date_picker",
-        "hint": "Child's DOB",
+        "hint": "Child's DOB *",
         "expanded": false,
         "duration": {
           "label": "Age"
@@ -135,13 +180,46 @@
         }
       },
       {
+        "key": "Home_Address",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "hint": "Child's home address *",
+        "tree": [],
+        "v_required": {
+          "value": true,
+          "err": "Please enter the child's Home Address"
+        }
+      },
+      {
+        "key": "Traditional_Authority",
+        "openmrs_entity_parent": "usual_residence",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address5",
+        "type": "edit_text",
+        "hint": "Traditional Authority *",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the Traditional Authority"
+        },
+        "relevance": {
+          "step1:Residential_Area": {
+            "type": "string",
+            "ex": "equalTo(., \"[\"Other\"]\")"
+          }
+        }
+      },
+      {
         "key": "Birth_Weight",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Birth weight (kg)",
+        "hint": "Birth weight (kg) *",
         "v_min": {
           "value": "0.1",
           "err": "Weight must be greater than 0"
@@ -149,64 +227,11 @@
         "v_numeric": {
           "value": "true",
           "err": "Enter a valid weight"
-        }
-      },
-      {
-        "key": "Birth_Tetanus_Protection",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "spinner",
-        "hint": "Neonatal Tetanus Protection",
-        "values": [
-          "Yes",
-          "No",
-          "Don't Know"
-        ],
-        "keys": [
-          "Yes",
-          "No",
-          "DoNotKnow"
-        ],
-        "openmrs_choice_ids": {
-          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "DoNotKnow": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the child protected at birth against tetanus"
+          "err": "Enter the child's birth weight"
         }
-      },
-      {
-        "key": "Child_Register_Card_Number",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Child_Register_Card_Number",
-        "type": "edit_text",
-        "hint": "Child's register number"
-      },
-      {
-        "key": "Home_Facility",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "text",
-        "type": "tree",
-        "hint": "Child's home health facility",
-        "tree": [],
-        "v_required": {
-          "value": true,
-          "err": "Please enter the child's home facility"
-        }
-      },
-      {
-        "key": "ZEIR_ID",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "ZEIR_ID",
-        "type": "hidden",
-        "hint": "Child's Vaccination ID"
       },
       {
         "key": "Mother_Guardian_First_Name",
@@ -215,7 +240,7 @@
         "openmrs_entity_id": "first_name",
         "entity_id": "mother",
         "type": "edit_text",
-        "hint": "Mother/guardian first name",
+        "hint": "Mother/guardian first name *",
         "edit_type": "name",
         "look_up": "true",
         "v_required": {
@@ -223,7 +248,7 @@
           "err": "Please enter the mother/guardian's first name"
         },
         "v_regex": {
-          "value": "^[a-zA-Z.-]*$",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -234,7 +259,7 @@
         "openmrs_entity_id": "last_name",
         "entity_id": "mother",
         "type": "edit_text",
-        "hint": "Mother/guardian last name",
+        "hint": "Mother/guardian last name *",
         "edit_type": "name",
         "look_up": "true",
         "v_required": {
@@ -242,7 +267,7 @@
           "err": "Please enter the mother/guardian's last name"
         },
         "v_regex": {
-          "value": "^[a-zA-Z.-]*$",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -260,139 +285,126 @@
           "label": "Age"
         },
         "min_date": "01-01-1900",
-        "max_date": "today-10y",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the mother/guardian DOB"
+        "max_date": "today-10y"
+      },
+      {
+        "key": "Mother_Guardian_NRC",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "NRC_Number",
+        "entity_id": "mother",
+        "type": "edit_text",
+        "hint": "Mother/guardian Identification number",
+        "v_regex": {
+          "value": "([0-9]{6}/[0-9]{2}/[0-9])|\\s*",
+          "err": "Number must take the format of ######/##/#"
         }
       },
       {
-        "key": "Mother_Guardian_Phone_Number",
+        "key": "Mother_Guardian_Number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "entity_id": "mother",
-        "look_up": "true",
         "hint": "Mother/guardian phone number",
         "v_numeric": {
           "value": "true",
-          "err": "The number must have a total of 8 digits"
+          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "^$|([0-9]{8})",
-          "err": "The number must have a total of 8 digits"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the mother/guardian phone number"
+          "value": "(09[5-7][0-9]{7})|\\s*",
+          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
         }
       },
       {
-        "key": "Second_Guardian_Phone_Number",
+        "key": "Second_Phone_Number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Second_Guardian_Phone_Number",
+        "openmrs_entity_id": "Second_Phone_Number",
         "type": "edit_text",
-        "hint": "Second guardian phone number",
+        "hint": "Second phone number",
         "v_numeric": {
           "value": "true",
-          "err": "Number must be a total of 8 digits in length"
+          "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "^$|([0-9]{8})",
-          "err": "Number must be a total of 8 digits in length"
+          "value": "({10})|\\s*",
+          "err": "Number must be a total of 10 digits in length"
         }
       },
+
       {
-        "key": "Residential_Area",
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address3",
-        "openmrs_data_type": "text",
-        "type": "tree",
-        "hint": "Child's commune",
-        "tree": [],
-        "v_required": {
-          "value": true,
-          "err": "Please enter the child's commune"
-        }
-      },
-      {
-        "key": "Residential_Area_Other",
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address5",
-        "type": "edit_text",
-        "hint": "Other commune",
-        "edit_type": "name",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the residential area"
-        },
-        "relevance": {
-          "step1:Residential_Area": {
-            "type": "string",
-            "ex": "equalTo(., \"[\"Other\"]\")"
-          }
-        }
-      },
-      {
-        "key": "Residential_Address",
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address2",
-        "type": "edit_text",
-        "hint": "Home address",
-        "edit_type": "name",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the home address"
-        }
-      },
-      {
-        "key": "Preferred_Language",
+        "key": "Protected At Birth",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Preferred_Language",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Preferred Language",
+        "hint": "Child's mother received 2+ doses of TT.",
         "values": [
-          "French",
-          "Arabic"
+          "Yes",
+          "No",
+          "Don't Know"
         ],
-        "keys": [
-          "French",
-          "Arabic"
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the preferred language"
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Don't Know": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       },
       {
-        "key": "nfc_card_identifier",
+        "key": "Mother's HIV Status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "NFC_Card_Identifier",
-        "type": "hidden",
-        "value": ""
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "HIV Status of the Child's Mother",
+        "values": [
+          "Positive",
+          "Negative",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unknown": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
-        "key": "nfc_transaction_identifier",
+        "key": "Child's HIV Status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "NFC_Transaction_Identifier",
-        "type": "hidden",
-        "value": ""
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "HIV Status of the Child",
+        "values": [
+          "Positive",
+          "Negative",
+          "Unknown"
+        ],
+        "openmrs_choice_ids": {
+          "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Unknown": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Exposed" : "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
-        "key": "formSubmissionId",
+        "key": "Child's Treatment",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Form_submission_Id",
-        "type": "hidden",
-        "value": ""
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "Indicate whether the child is on CPT and/or ART.",
+        "values": [
+          "CPT",
+          "ART",
+          "None"
+        ],
+        "openmrs_choice_ids": {
+          "CPT": "160434AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "ART": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       }
     ]
   }
