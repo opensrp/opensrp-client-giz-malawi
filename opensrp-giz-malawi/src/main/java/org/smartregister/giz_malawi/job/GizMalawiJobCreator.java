@@ -7,7 +7,7 @@ import android.util.Log;
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
 
-import org.smartregister.giz_malawi.sync.GizMalawiSyncIntentService;
+import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
 import org.smartregister.immunization.job.RecurringServiceJob;
@@ -16,6 +16,7 @@ import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
+import org.smartregister.sync.intent.SyncIntentService;
 
 public class GizMalawiJobCreator implements JobCreator {
     @Nullable
@@ -23,7 +24,7 @@ public class GizMalawiJobCreator implements JobCreator {
     public Job create(@NonNull String tag) {
         switch (tag) {
             case SyncServiceJob.TAG:
-                return new SyncServiceJob(GizMalawiSyncIntentService.class);
+                return new SyncServiceJob(SyncIntentService.class);
             case ExtendedSyncServiceJob.TAG:
                 return new ExtendedSyncServiceJob();
             case PullUniqueIdsServiceJob.TAG:
@@ -36,6 +37,8 @@ public class GizMalawiJobCreator implements JobCreator {
                 return new RecurringServiceJob();
             case WeightIntentServiceJob.TAG:
                 return new WeightIntentServiceJob();
+            case HeightIntentServiceJob.TAG:
+                return new HeightIntentServiceJob();
             case ZScoreRefreshIntentServiceJob.TAG:
                 return new ZScoreRefreshIntentServiceJob();
             default:

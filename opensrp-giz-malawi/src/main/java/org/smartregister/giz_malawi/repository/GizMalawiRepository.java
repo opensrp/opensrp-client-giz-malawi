@@ -12,8 +12,10 @@ import org.smartregister.configurableviews.repository.ConfigurableViewsRepositor
 import org.smartregister.domain.db.Column;
 import org.smartregister.giz_malawi.BuildConfig;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.growthmonitoring.repository.HeightRepository;
+import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
-import org.smartregister.growthmonitoring.repository.ZScoreRepository;
+import org.smartregister.growthmonitoring.repository.WeightZScoreRepository;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -39,16 +41,19 @@ public class GizMalawiRepository extends Repository {
     private Context context;
 
     public GizMalawiRepository(Context context, org.smartregister.Context openSRPContext) {
-        super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(), GizMalawiApplication
-                .createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+        super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
+                GizMalawiApplication
+                        .createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
         this.context = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
         super.onCreate(database);
-        EventClientRepository.createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
-        EventClientRepository.createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+        EventClientRepository
+                .createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
+        EventClientRepository
+                .createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
 
         ConfigurableViewsRepository.createTable(database);
         UniqueIdRepository.createTable(database);
@@ -56,6 +61,7 @@ public class GizMalawiRepository extends Repository {
         SettingsRepository.onUpgrade(database);
 
         WeightRepository.createTable(database);
+        HeightRepository.createTable(database);
         VaccineRepository.createTable(database);
 
         runLegacyUpgrades(database);
@@ -170,7 +176,8 @@ public class GizMalawiRepository extends Repository {
             newlyAddedFields.add("inactive");
             newlyAddedFields.add("lost_to_follow_up");
 
-            DatabaseMigrationUtils.addFieldsToFTSTable(database, commonFtsObject, Utils.metadata().childRegister.tableName, newlyAddedFields);
+            DatabaseMigrationUtils.addFieldsToFTSTable(database, commonFtsObject, Utils.metadata().childRegister.tableName,
+                    newlyAddedFields);
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion2 " + Log.getStackTraceString(e));
         }
@@ -182,10 +189,14 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(VaccineRepository.EVENT_ID_INDEX);
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_EVENT_ID_COL);
             db.execSQL(WeightRepository.EVENT_ID_INDEX);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_EVENT_ID_COL);
+            db.execSQL(HeightRepository.EVENT_ID_INDEX);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_FORMSUBMISSION_ID_COL);
             db.execSQL(VaccineRepository.FORMSUBMISSION_INDEX);
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_FORMSUBMISSION_ID_COL);
             db.execSQL(WeightRepository.FORMSUBMISSION_INDEX);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_FORMSUBMISSION_ID_COL);
+            db.execSQL(HeightRepository.FORMSUBMISSION_INDEX);
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion3 " + Log.getStackTraceString(e));
         }
@@ -205,7 +216,8 @@ public class GizMalawiRepository extends Repository {
             RecurringServiceTypeRepository.createTable(db);
             RecurringServiceRecordRepository.createTable(db);
 
-            RecurringServiceTypeRepository recurringServiceTypeRepository = GizMalawiApplication.getInstance().recurringServiceTypeRepository();
+            RecurringServiceTypeRepository recurringServiceTypeRepository = GizMalawiApplication.getInstance()
+                    .recurringServiceTypeRepository();
             IMDatabaseUtils.populateRecurringServices(context, db, recurringServiceTypeRepository);
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion5 " + Log.getStackTraceString(e));
@@ -214,8 +226,11 @@ public class GizMalawiRepository extends Repository {
 
     private void upgradeToVersion6(SQLiteDatabase db) {
         try {
-            ZScoreRepository.createTable(db);
+            WeightZScoreRepository.createTable(db);
             db.execSQL(WeightRepository.ALTER_ADD_Z_SCORE_COLUMN);
+
+            HeightZScoreRepository.createTable(db);
+            db.execSQL(HeightRepository.ALTER_ADD_Z_SCORE_COLUMN);
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion6" + Log.getStackTraceString(e));
         }
@@ -227,6 +242,8 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL_INDEX);
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL);
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL_INDEX);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL_INDEX);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
 
         } catch (Exception e) {
@@ -238,7 +255,8 @@ public class GizMalawiRepository extends Repository {
         try {
 
             // Recurring service json changed. update
-            RecurringServiceTypeRepository recurringServiceTypeRepository = GizMalawiApplication.getInstance().recurringServiceTypeRepository();
+            RecurringServiceTypeRepository recurringServiceTypeRepository = GizMalawiApplication.getInstance()
+                    .recurringServiceTypeRepository();
             IMDatabaseUtils.populateRecurringServices(context, db, recurringServiceTypeRepository);
 
         } catch (Exception e) {
@@ -254,8 +272,10 @@ public class GizMalawiRepository extends Repository {
             String ALTER_CLIENT_TABLE_VALIDATE_COLUMN = "ALTER TABLE " + EventClientRepository.Table.client + " ADD COLUMN " + EventClientRepository.client_column.validationStatus + " VARCHAR";
             database.execSQL(ALTER_CLIENT_TABLE_VALIDATE_COLUMN);
 
-            EventClientRepository.createIndex(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
-            EventClientRepository.createIndex(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
+            EventClientRepository
+                    .createIndex(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+            EventClientRepository
+                    .createIndex(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
 
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion9 " + e.getMessage());
@@ -270,6 +290,9 @@ public class GizMalawiRepository extends Repository {
 
             db.execSQL(WeightRepository.ALTER_ADD_CREATED_AT_COLUMN);
             WeightRepository.migrateCreatedAt(db);
+
+            db.execSQL(HeightRepository.ALTER_ADD_CREATED_AT_COLUMN);
+            HeightRepository.migrateCreatedAt(db);
 
             db.execSQL(VaccineRepository.ALTER_ADD_CREATED_AT_COLUMN);
             VaccineRepository.migrateCreatedAt(db);
@@ -300,9 +323,13 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_TEAM_COL);
 
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_TEAM_COL);
+
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
 
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
 
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
         } catch (Exception e) {

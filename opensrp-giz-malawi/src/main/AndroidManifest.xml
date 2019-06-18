@@ -82,7 +82,6 @@
         <service android:name="org.smartregister.growthmonitoring.service.intent.ZScoreRefreshIntentService" />
         <service android:name="org.smartregister.growthmonitoring.service.intent.WeightIntentService" />
         <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.giz_malawi.sync.GizMalawiSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
         <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
         <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService" />

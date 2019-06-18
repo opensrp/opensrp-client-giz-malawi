@@ -3,12 +3,14 @@ package org.smartregister.giz_malawi.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 
 import com.evernote.android.job.JobManager;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.child.ChildLibrary;
@@ -24,13 +26,15 @@ import org.smartregister.giz_malawi.activity.LoginActivity;
 import org.smartregister.giz_malawi.job.GizMalawiJobCreator;
 import org.smartregister.giz_malawi.repository.GizMalawiRepository;
 import org.smartregister.giz_malawi.sync.GizMalawiProcessorForJava;
-import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.giz_malawi.util.DBConstants;
+import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
+import org.smartregister.growthmonitoring.repository.HeightRepository;
+import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
-import org.smartregister.growthmonitoring.repository.ZScoreRepository;
+import org.smartregister.growthmonitoring.repository.WeightZScoreRepository;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineSchedule;
@@ -63,7 +67,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private static final String TAG = GizMalawiApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
-    private static ClientProcessorForJava clientProcessor;
+    private static GizMalawiProcessorForJava gizMalawiProcessorForJava;
     private EventClientRepository eventClientRepository;
     private String password;
     private boolean lastModified;
@@ -101,12 +105,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[]{GizConstants.TABLE_NAME.CHILD};
+        return new String[] {GizConstants.TABLE_NAME.CHILD};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-            return new String[]{DBConstants.KEY.ZEIR_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.EPI_CARD_NUMBER, DBConstants.KEY.NFC_CARD_IDENTIFIER};
+            return new String[] {DBConstants.KEY.ZEIR_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.EPI_CARD_NUMBER, DBConstants.KEY.NFC_CARD_IDENTIFIER};
         }
         return null;
     }
@@ -134,12 +138,11 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return null;
     }
 
-    public ClientProcessorForJava getClientProcessor() {
-        if (clientProcessor == null) {
-            clientProcessor = GizMalawiProcessorForJava.getInstance(getApplicationContext());
-
+    public GizMalawiProcessorForJava getClientProcessorForJava() {
+        if (gizMalawiProcessorForJava == null) {
+            gizMalawiProcessorForJava = GizMalawiProcessorForJava.getInstance(getApplicationContext());
         }
-        return clientProcessor;
+        return gizMalawiProcessorForJava;
     }
 
     @Override
@@ -163,8 +166,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         CoreLibrary.init(context, new GizMalawiSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
 
         GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
-        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION, growthMonitoringConfig);
-        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION,
+                growthMonitoringConfig);
+        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(), BuildConfig.VERSION_CODE,
+                BuildConfig.DATABASE_VERSION);
         ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
@@ -177,6 +182,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
+
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
     public String getPassword() {
@@ -246,18 +253,28 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private void initRepositories() {
         weightRepository();
+        heightRepository();
         vaccineRepository();
-        zScoreRepository();
+        weightZScoreRepository();
+        heightZScoreRepository();
     }
 
     private ChildMetadata getMetadata() {
-        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class, ChildImmunizationActivity.class, true);
-        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD, GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION, GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER, GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
+        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
+                ChildImmunizationActivity.class, true);
+        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
+                GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
+                GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER,
+                GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
         return metadata;
     }
 
     public WeightRepository weightRepository() {
         return GrowthMonitoringLibrary.getInstance().weightRepository();
+    }
+
+    public HeightRepository heightRepository() {
+        return GrowthMonitoringLibrary.getInstance().heightRepository();
     }
 
     public Context context() {
@@ -268,8 +285,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return ImmunizationLibrary.getInstance().vaccineRepository();
     }
 
-    public ZScoreRepository zScoreRepository() {
-        return GrowthMonitoringLibrary.getInstance().zScoreRepository();
+    public WeightZScoreRepository weightZScoreRepository() {
+        return GrowthMonitoringLibrary.getInstance().weightZScoreRepository();
+    }
+
+    public HeightZScoreRepository heightZScoreRepository() {
+        return GrowthMonitoringLibrary.getInstance().heightZScoreRepository();
     }
 
     public RecurringServiceTypeRepository recurringServiceTypeRepository() {
@@ -303,6 +324,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public void setLastModified(boolean lastModified) {
         this.lastModified = lastModified;
+    }
+
+    @NotNull
+    @Override
+    public ClientProcessorForJava getClientProcessor() {
+        return GizMalawiProcessorForJava.getInstance(this);
     }
 }
 
