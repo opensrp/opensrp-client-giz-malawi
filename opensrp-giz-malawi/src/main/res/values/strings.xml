@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name" translatable="false">Malawi-eRegister</string>
+    <string name="app_name" translatable="false">MECHR</string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="sync" translatable="false">Sync</string>
     <string name="action_log_out">Logging Out</string>
     <string name="powered_by" translatable="false">Powered by</string>
-    <string name="malawi_app_name">Malawi eRegister</string>
+    <string name="malawi_app_name">MECHR</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
 

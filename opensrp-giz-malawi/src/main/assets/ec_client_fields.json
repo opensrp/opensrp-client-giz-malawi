@@ -215,14 +215,14 @@
           "column_name": "zeir_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.ZEIR_ID"
+            "field": "identifiers.zeir_id"
           }
         },
         {
-          "column_name": "inactive",
+          "column_name": "Child_Register_Card_Number",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.inactive"
+            "field": "attributes.Child_Register_Card_Number"
           }
         },
         {

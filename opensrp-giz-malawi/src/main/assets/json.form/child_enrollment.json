@@ -66,10 +66,10 @@
         "uploadButtonText": "Take a photo of the child"
       },
       {
-        "key": "MER_ID",
+        "key": "zeir_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "MER_ID",
+        "openmrs_entity_id": "zeir_id",
         "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "Child's MER ID *",
@@ -85,12 +85,12 @@
         }
       },
       {
-        "key": "Birth Registration Number",
+        "key": "Child_Register_Card_Number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Child_Register_Card_Number",
         "type": "edit_text",
-        "hint": "Child_Register_Card_Number *",
+        "hint": "Birth Registration Number *",
         "edit_type": "name",
         "v_required": {
           "value": "true",
@@ -231,6 +231,27 @@
         "v_required": {
           "value": "true",
           "err": "Enter the child's birth weight"
+        }
+      },
+      {
+        "key": "Birth_Height",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Birth weight (cm) *",
+        "v_min": {
+          "value": "0.1",
+          "err": "height must be greater than 0"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid height"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter the child's birth height"
         }
       },
       {
