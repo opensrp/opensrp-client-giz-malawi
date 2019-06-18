@@ -14,7 +14,7 @@ public class DBConstants {
         public static final String DOD = "dod";
         public static final String GENDER = "gender";
         public static final String UNIQUE_ID = "unique_id";
-        public static final String ZEIR_ID = "zeir_id";
+        public static final String MER_ID = "zeir_id";
         public static final String LAST_INTERACTED_WITH = "last_interacted_with";
         public static final String CONTACT_STATUS = "contact_status";
         public static final String VILLAGE_TOWN = "village_town";

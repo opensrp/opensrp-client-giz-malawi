@@ -50,7 +50,7 @@
     "title": "Enregistrer le service hors zone de chalandise",
     "fields": [
       {
-        "key": "ZEIR_ID",
+        "key": "mer_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

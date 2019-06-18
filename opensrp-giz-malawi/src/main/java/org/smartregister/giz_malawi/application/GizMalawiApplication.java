@@ -110,7 +110,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-            return new String[] {DBConstants.KEY.ZEIR_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.EPI_CARD_NUMBER, DBConstants.KEY.NFC_CARD_IDENTIFIER};
+            return new String[] {DBConstants.KEY.MER_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME};
         }
         return null;
     }
@@ -122,10 +122,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             List<String> names = new ArrayList<>();
             names.add(DBConstants.KEY.FIRST_NAME);
             names.add(DBConstants.KEY.DOB);
-            names.add(DBConstants.KEY.ZEIR_ID);
+            names.add(DBConstants.KEY.MER_ID);
             names.add(DBConstants.KEY.LAST_INTERACTED_WITH);
-            names.add(DBConstants.KEY.INACTIVE);
-            names.add(DBConstants.KEY.LOST_TO_FOLLOW_UP);
             names.add(DBConstants.KEY.DOD);
             names.add(DBConstants.KEY.DATE_REMOVED);
 

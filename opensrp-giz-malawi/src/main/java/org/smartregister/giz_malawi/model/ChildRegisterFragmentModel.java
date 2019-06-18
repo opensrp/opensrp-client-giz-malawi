@@ -14,7 +14,7 @@ public class ChildRegisterFragmentModel extends BaseChildRegisterFragmentModel {
 
                 tableName + "." + DBConstants.KEY.RELATIONALID,
                 tableName + "." + DBConstants.KEY.DETAILS,
-                tableName + "." + DBConstants.KEY.ZEIR_ID,
+                tableName + "." + DBConstants.KEY.MER_ID,
                 tableName + "." + DBConstants.KEY.RELATIONAL_ID,
                 tableName + "." + DBConstants.KEY.FIRST_NAME,
                 tableName + "." + DBConstants.KEY.LAST_NAME,
@@ -26,17 +26,13 @@ public class ChildRegisterFragmentModel extends BaseChildRegisterFragmentModel {
                 parentTableName + "." + DBConstants.KEY.NRC_NUMBER + " as mother_nrc_number",
                 tableName + "." + DBConstants.KEY.FATHER_FIRST_NAME,
                 tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + DBConstants.KEY.EPI_CARD_NUMBER,
                 tableName + "." + DBConstants.KEY.CONTACT_PHONE_NUMBER,
-                tableName + "." + DBConstants.KEY.PMTCT_STATUS,
                 tableName + "." + DBConstants.KEY.PROVIDER_UC,
                 tableName + "." + DBConstants.KEY.PROVIDER_TOWN,
                 tableName + "." + DBConstants.KEY.PROVIDER_ID,
                 tableName + "." + DBConstants.KEY.PROVIDER_LOCATION_ID,
                 tableName + "." + DBConstants.KEY.CLIENT_REG_DATE,
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH,
-                tableName + "." + DBConstants.KEY.INACTIVE,
-                tableName + "." + DBConstants.KEY.NFC_CARD_IDENTIFIER,
+                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH
         };
         return columns;
     }

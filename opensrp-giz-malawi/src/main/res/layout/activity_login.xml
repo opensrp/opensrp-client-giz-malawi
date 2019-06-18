@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:contentDescription="@string/logo_string"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/ic_logo" />
+                app:srcCompat="@drawable/ic_malawi_logo" />
 
             <TextView
                 android:id="@+id/login_title_text_view"

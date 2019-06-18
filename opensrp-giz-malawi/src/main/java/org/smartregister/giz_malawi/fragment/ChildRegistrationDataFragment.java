@@ -62,7 +62,7 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
             tvChildsHomeHealthFacility.setText(LocationHelper.getInstance().getOpenMrsReadableName(
                     LocationHelper.getInstance()
                             .getOpenMrsLocationName(Utils.getValue(detailsMap, GizConstants.HOME_FACILITY, false))));
-            tvChildsOpenSrpId.setText(Utils.getValue(detailsMap, GizConstants.ZEIR_ID, false));
+            tvChildsOpenSrpId.setText(Utils.getValue(detailsMap, GizConstants.mer_id, false));
             tvChildsRegisterCardNumber.setText(Utils.getValue(detailsMap,
                     GizConstants.CHILD_REGISTER_CARD_NUMBER, false));
             tvChildsFirstName.setText(Utils.getValue(detailsMap, GizConstants.FIRST_NAME, true));

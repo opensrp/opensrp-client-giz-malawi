@@ -26,7 +26,7 @@ public class CreateRemoteLocalCursor {
         firstName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.FIRST_NAME));
         lastName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.LAST_NAME));
         dob = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.DOB));
-        openSrpId = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.ZEIR_ID));
+        openSrpId = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.MER_ID));
     }
 
     public String getId() {

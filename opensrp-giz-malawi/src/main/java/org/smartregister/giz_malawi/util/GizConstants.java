@@ -4,7 +4,7 @@ public class GizConstants {
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
     public static final String ARABIC_LOCALE = "ar";
     public static final String HOME_FACILITY = "Home_Facility";
-    public static final String ZEIR_ID = "zeir_id";
+    public static final String mer_id = "mer_id";
     public static final String CHILD_REGISTER_CARD_NUMBER = "Child_Register_Card_Number";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
@@ -139,7 +139,7 @@ public class GizConstants {
         public static final String BIRTHDATE_ESTIMATED = "birthdate_estimated";
         public static final String EPI_CARD_NUMBER = "epi_card_number";
         public static final String MOTHER_LAST_NAME = "mother_last_name";
-        public static final String ZEIR_ID = "zeir_id";
+        public static final String mer_id = "mer_id";
         public static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
         public static final String GENDER = "gender";
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";

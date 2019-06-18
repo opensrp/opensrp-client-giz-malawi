@@ -47,7 +47,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         advancedFormSearchableFields.put(DBConstants.KEY.LAST_NAME, lastName);
 
         openSrpId = view.findViewById(org.smartregister.child.R.id.zeir_id);
-        advancedFormSearchableFields.put(DBConstants.KEY.ZEIR_ID, openSrpId);
+        advancedFormSearchableFields.put(DBConstants.KEY.MER_ID, openSrpId);
 
         motherGuardianName = view.findViewById(org.smartregister.child.R.id.mother_guardian_name);
         advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName);
@@ -95,7 +95,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
             motherGuardianName.setText(searchFormData.get(DBConstants.KEY.MOTHER_FIRST_NAME));
             motherGuardianNrc.setText(searchFormData.get(DBConstants.KEY.NRC_NUMBER));
             motherGuardianPhoneNumber.setText(searchFormData.get(DBConstants.KEY.CONTACT_PHONE_NUMBER));
-            openSrpId.setText(searchFormData.get(DBConstants.KEY.ZEIR_ID));
+            openSrpId.setText(searchFormData.get(DBConstants.KEY.MER_ID));
         }
     }
 
@@ -107,7 +107,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         fields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName.getText().toString());
         fields.put(DBConstants.KEY.NRC_NUMBER, motherGuardianNrc.getText().toString());
         fields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber.getText().toString());
-        fields.put(DBConstants.KEY.ZEIR_ID, openSrpId.getText().toString());
+        fields.put(DBConstants.KEY.MER_ID, openSrpId.getText().toString());
         return fields;
     }
 
@@ -160,7 +160,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         }
 
         if (!TextUtils.isEmpty(zeir)) {
-            searchParams.put(DBConstants.KEY.ZEIR_ID, zeir);
+            searchParams.put(DBConstants.KEY.MER_ID, zeir);
         }
 
         return searchParams;
