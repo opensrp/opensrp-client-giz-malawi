@@ -1,0 +1,21 @@
+---
+name: step1_child_hiv_status
+description: child_hiv_status
+priority: 1
+condition: "step1_mother_hiv_status == 'Positive' || step1_mother_hiv_status == 'Negative'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_child_treatment
+description: child_treatment
+priority: 1
+condition: "step1_child_hiv_status == 'Positive' || step1_child_hiv_status == 'Negative'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_protected_at_birth
+description: protected_at_birth
+priority: 1
+condition: "step1_age != '' && step1_age < 2"
+actions:
+  - "isRelevant = true"

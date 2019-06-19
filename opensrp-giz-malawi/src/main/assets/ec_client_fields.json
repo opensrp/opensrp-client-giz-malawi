@@ -18,62 +18,21 @@
           }
         },
         {
-          "column_name": "first_name",
+          "column_name": "mother_guardian_first_name",
           "type": "Client",
           "json_mapping": {
             "field": "firstName"
           }
         },
         {
-          "column_name": "husband_name",
-          "type": "Event",
+          "column_name": "mother_guardian_last_name",
+          "type": "Client",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "161135AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "field": "lastName"
           }
         },
         {
-          "column_name": "tetanus_history",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "163522AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "father_first_name",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Father_Guardian_First_Name"
-          }
-        },
-        {
-          "column_name": "father_last_name",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Father_Guardian_Last_Name"
-          }
-        },
-        {
-          "column_name": "father_dob",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Father_Guardian_Date_Birth"
-          }
-        },
-        {
-          "column_name": "father_number",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Father_Guardian_Phone_Number"
-          }
-        },
-        {
-          "column_name": "dob",
+          "column_name": "mother_guardian_date_birth",
           "type": "Client",
           "json_mapping": {
             "field": "birthdate"
@@ -151,13 +110,6 @@
           }
         },
         {
-          "column_name": "marriage",
-          "type": "Client",
-          "json_mapping": {
-            "field": "marriage"
-          }
-        },
-        {
           "column_name": "town",
           "type": "Client",
           "json_mapping": {
@@ -190,13 +142,6 @@
           "type": "Event",
           "json_mapping": {
             "field": "eventDate"
-          }
-        },
-        {
-          "column_name": "date_removed",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.dateRemoved"
           }
         }
       ]
@@ -480,6 +425,20 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.Form_Submission_Id"
+          }
+        },
+        {
+          "column_name": "inactive",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.inactive"
+          }
+        },
+        {
+          "column_name": "lost_to_follow_up",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.lost_to_follow_up"
           }
         }
       ]

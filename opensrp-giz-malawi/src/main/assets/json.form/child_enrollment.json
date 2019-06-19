@@ -179,6 +179,21 @@
         }
       },
       {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "age",
+        "type": "hidden",
+        "value": "",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "Home_Address",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -349,7 +364,7 @@
         "key": "second_phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "Second_Phone_Number",
+        "openmrs_entity_id": "second_phone_number",
         "type": "edit_text",
         "hint": "Second phone number",
         "v_numeric": {
@@ -357,8 +372,8 @@
           "err": "Number must be a total of 10 digits in length"
         },
         "v_regex": {
-          "value": "({10})|\\s*",
-          "err": "Number must be a total of 10 digits in length"
+          "value": "(09[5-7][0-9]{7})|\\s*",
+          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
         }
       },
       {
@@ -377,6 +392,13 @@
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Don't Know": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -414,6 +436,13 @@
           "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Unknown": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Exposed": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -432,7 +461,28 @@
           "CPT": "160434AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "ART": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "None": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_relevance_rules.yml"
+            }
+          }
         }
+      },
+      {
+        "key": "lost_to_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "lost_to_follow_up",
+        "type": "hidden"
+      },
+      {
+        "key": "inactive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "inactive",
+        "type": "hidden"
       }
     ]
   }

@@ -25,7 +25,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
     private MaterialEditText lastName;
     protected MaterialEditText openSrpId;
     protected MaterialEditText motherGuardianName;
-    protected MaterialEditText motherGuardianNrc;
+    protected MaterialEditText motherGuardianNid;
     protected MaterialEditText motherGuardianPhoneNumber;
 
     @Override
@@ -52,8 +52,8 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         motherGuardianName = view.findViewById(org.smartregister.child.R.id.mother_guardian_name);
         advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName);
 
-        motherGuardianNrc = view.findViewById(org.smartregister.child.R.id.mother_guardian_nrc);
-        advancedFormSearchableFields.put(DBConstants.KEY.NRC_NUMBER, motherGuardianNrc);
+        motherGuardianNid = view.findViewById(org.smartregister.child.R.id.mother_guardian_nrc);
+        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_NID, motherGuardianNid);
 
         motherGuardianPhoneNumber = view.findViewById(org.smartregister.child.R.id.mother_guardian_phone_number);
         advancedFormSearchableFields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber);
@@ -63,7 +63,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         lastName.addTextChangedListener(advancedSearchTextwatcher);
         openSrpId.addTextChangedListener(advancedSearchTextwatcher);
         motherGuardianName.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianNrc.addTextChangedListener(advancedSearchTextwatcher);
+        motherGuardianNid.addTextChangedListener(advancedSearchTextwatcher);
         motherGuardianPhoneNumber.addTextChangedListener(advancedSearchTextwatcher);
     }
 
@@ -93,7 +93,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
             firstName.setText(searchFormData.get(DBConstants.KEY.FIRST_NAME));
             lastName.setText(searchFormData.get(DBConstants.KEY.LAST_NAME));
             motherGuardianName.setText(searchFormData.get(DBConstants.KEY.MOTHER_FIRST_NAME));
-            motherGuardianNrc.setText(searchFormData.get(DBConstants.KEY.NRC_NUMBER));
+            motherGuardianNid.setText(searchFormData.get(DBConstants.KEY.MOTHER_NID));
             motherGuardianPhoneNumber.setText(searchFormData.get(DBConstants.KEY.CONTACT_PHONE_NUMBER));
             openSrpId.setText(searchFormData.get(DBConstants.KEY.MER_ID));
         }
@@ -105,7 +105,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         fields.put(DBConstants.KEY.FIRST_NAME, firstName.getText().toString());
         fields.put(DBConstants.KEY.LAST_NAME, lastName.getText().toString());
         fields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName.getText().toString());
-        fields.put(DBConstants.KEY.NRC_NUMBER, motherGuardianNrc.getText().toString());
+        fields.put(DBConstants.KEY.MOTHER_NID, motherGuardianNid.getText().toString());
         fields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber.getText().toString());
         fields.put(DBConstants.KEY.MER_ID, openSrpId.getText().toString());
         return fields;
@@ -119,7 +119,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         firstName.setText("");
         lastName.setText("");
         motherGuardianName.setText("");
-        motherGuardianNrc.setText("");
+        motherGuardianNid.setText("");
         motherGuardianPhoneNumber.setText("");
 
     }
@@ -133,7 +133,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
 
         String motherGuardianNameString = motherGuardianName.getText().toString();
-        String motherGuardianNrcString = motherGuardianNrc.getText().toString();
+        String motherGuardianNidString = motherGuardianNid.getText().toString();
         String motherGuardianPhoneNumberString = motherGuardianPhoneNumber.getText().toString();
         String zeir = openSrpId.getText().toString();
 
@@ -142,8 +142,8 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
             searchParams.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianNameString);
         }
 
-        if (StringUtils.isNotBlank(motherGuardianNrcString)) {
-            searchParams.put(DBConstants.KEY.NRC_NUMBER, motherGuardianNrcString);
+        if (StringUtils.isNotBlank(motherGuardianNidString)) {
+            searchParams.put(DBConstants.KEY.MOTHER_NID, motherGuardianNidString);
         }
 
         if (StringUtils.isNotBlank(motherGuardianPhoneNumberString)) {

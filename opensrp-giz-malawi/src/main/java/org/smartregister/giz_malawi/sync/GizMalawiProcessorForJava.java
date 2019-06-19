@@ -396,7 +396,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public String[] getOpenmrsGenIds() {
-        return new String[]{"mer_id"};
+        return new String[]{"MER_ID"};
     }
 
     private boolean unSync(List<Event> events) {

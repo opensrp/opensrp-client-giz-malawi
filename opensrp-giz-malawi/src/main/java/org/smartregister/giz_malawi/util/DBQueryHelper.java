@@ -38,6 +38,10 @@ public class DBQueryHelper {
         vaccines.remove(VaccineRepo.Vaccine.mr1);
         vaccines.remove(VaccineRepo.Vaccine.measles2);
         vaccines.remove(VaccineRepo.Vaccine.mr2);
+        vaccines.remove(VaccineRepo.Vaccine.mv1);
+        vaccines.remove(VaccineRepo.Vaccine.mv2);
+        vaccines.remove(VaccineRepo.Vaccine.mv3);
+        vaccines.remove(VaccineRepo.Vaccine.mv4);
 
         final String URGENT = "'" + AlertStatus.urgent.value() + "'";
         final String NORMAL = "'" + AlertStatus.normal.value() + "'";
