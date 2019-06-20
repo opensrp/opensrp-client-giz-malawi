@@ -18,10 +18,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     @Override
-    protected void attachBaseContext(android.content.Context base) {
-        // get language from prefs
-        String lang = GizUtils.getLanguage(base.getApplicationContext());
-        super.attachBaseContext(GizUtils.setAppLocale(base, lang));
+    protected void onResume() {
+        super.onResume();
+        mLoginPresenter.processViewCustomizations();
+        if (!mLoginPresenter.isUserLoggedOut()) {
+            goToHome(false);
+        }
+
+        // findViewById(R.id.login_login_btn).performClick();//To Remove
     }
 
     @Override
@@ -45,13 +49,9 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        mLoginPresenter.processViewCustomizations();
-        if (!mLoginPresenter.isUserLoggedOut()) {
-            goToHome(false);
-        }
-
-        // findViewById(R.id.login_login_btn).performClick();//To Remove
+    protected void attachBaseContext(android.content.Context base) {
+        // get language from prefs
+        String lang = GizUtils.getLanguage(base.getApplicationContext());
+        super.attachBaseContext(GizUtils.setAppLocale(base, lang));
     }
 }

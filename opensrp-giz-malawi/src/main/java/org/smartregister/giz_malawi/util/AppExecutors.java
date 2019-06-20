@@ -40,15 +40,15 @@ public class AppExecutors {
 
     private final Executor mainThread;
 
+    public AppExecutors() {
+        this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(THREAD_COUNT),
+                new MainThreadExecutor());
+    }
+
     AppExecutors(Executor diskIO, Executor networkIO, Executor mainThread) {
         this.diskIO = diskIO;
         this.networkIO = networkIO;
         this.mainThread = mainThread;
-    }
-
-    public AppExecutors() {
-        this(Executors.newSingleThreadExecutor(), Executors.newFixedThreadPool(THREAD_COUNT),
-                new MainThreadExecutor());
     }
 
     public Executor diskIO() {

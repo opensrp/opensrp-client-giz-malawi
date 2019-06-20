@@ -35,6 +35,7 @@ import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
 import org.smartregister.growthmonitoring.repository.WeightZScoreRepository;
+import org.smartregister.growthmonitoring.service.intent.ZScoreRefreshIntentService;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineSchedule;
@@ -65,75 +66,16 @@ import static org.smartregister.util.Log.logInfo;
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
     public static final String ENGLISH_LOCALE = "en";
     private static final String TAG = GizMalawiApplication.class.getCanonicalName();
+    public static boolean isManualClick = true;
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
     private static GizMalawiProcessorForJava gizMalawiProcessorForJava;
     private EventClientRepository eventClientRepository;
     private String password;
     private boolean lastModified;
-    public static boolean isManualClick = true;
 
     public static JsonSpecHelper getJsonSpecHelper() {
-        return getInstance().jsonSpecHelper;
-    }
-
-    public static synchronized GizMalawiApplication getInstance() {
-        return (GizMalawiApplication) mInstance;
-    }
-
-    public static CommonFtsObject createCommonFtsObject() {
-        if (commonFtsObject == null) {
-            commonFtsObject = new CommonFtsObject(getFtsTables());
-            for (String ftsTable : commonFtsObject.getTables()) {
-                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
-            }
-        }
-        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap());
-
-        return commonFtsObject;
-    }
-
-
-    private static Map<String, Pair<String, Boolean>> getAlertScheduleMap() {
-        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
-        Map<String, Pair<String, Boolean>> map = new HashMap<>();
-        for (VaccineRepo.Vaccine vaccine : vaccines) {
-            map.put(vaccine.display(), Pair.create(GizConstants.TABLE_NAME.CHILD, false));
-        }
-        return map;
-    }
-
-    private static String[] getFtsTables() {
-        return new String[] {GizConstants.TABLE_NAME.CHILD};
-    }
-
-    private static String[] getFtsSearchFields(String tableName) {
-        if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-            return new String[] {DBConstants.KEY.MER_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME};
-        }
-        return null;
-    }
-
-    private static String[] getFtsSortFields(String tableName) {
-        if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-
-            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD);
-            List<String> names = new ArrayList<>();
-            names.add(DBConstants.KEY.FIRST_NAME);
-            names.add(DBConstants.KEY.DOB);
-            names.add(DBConstants.KEY.MER_ID);
-            names.add(DBConstants.KEY.LAST_INTERACTED_WITH);
-            names.add(DBConstants.KEY.DOD);
-            names.add(DBConstants.KEY.DATE_REMOVED);
-
-            for (VaccineRepo.Vaccine vaccine : vaccines) {
-                names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.display()));
-            }
-
-            return names.toArray(new String[names.size()]);
-        }
-        return null;
+        return jsonSpecHelper;
     }
 
     public GizMalawiProcessorForJava getClientProcessorForJava() {
@@ -176,20 +118,124 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         SyncStatusBroadcastReceiver.init(this);
         LocationHelper.init(GizUtils.ALLOWED_LEVELS, GizUtils.DEFAULT_LOCATION_LEVEL);
-        this.jsonSpecHelper = new JsonSpecHelper(this);
+        jsonSpecHelper = new JsonSpecHelper(this);
 
         //init Job Manager
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
-
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
-    public String getPassword() {
-        if (password == null) {
-            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
-            password = getContext().userService().getGroupId(username);
+    public static CommonFtsObject createCommonFtsObject() {
+        if (commonFtsObject == null) {
+            commonFtsObject = new CommonFtsObject(getFtsTables());
+            for (String ftsTable : commonFtsObject.getTables()) {
+                commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
+            }
         }
-        return password;
+        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap());
+
+        return commonFtsObject;
+    }
+
+    private ChildMetadata getMetadata() {
+        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
+                ChildImmunizationActivity.class, true);
+        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
+                GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
+                GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER,
+                GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
+        return metadata;
+    }
+
+    private void initRepositories() {
+        weightRepository();
+        heightRepository();
+        vaccineRepository();
+        weightZScoreRepository();
+        heightZScoreRepository();
+    }
+
+    private void initOfflineSchedules() {
+        try {
+            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
+            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
+            VaccineSchedule.init(childVaccines, specialVaccines, "child");
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+    }
+
+    public void startZscoreRefreshService() {
+        Intent intent = new Intent(this.getApplicationContext(), ZScoreRefreshIntentService.class);
+        this.getApplicationContext().startService(intent);
+    }
+
+    private static String[] getFtsTables() {
+        return new String[] {GizConstants.TABLE_NAME.CHILD};
+    }
+
+    private static String[] getFtsSearchFields(String tableName) {
+        if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
+            return new String[] {DBConstants.KEY.MER_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME};
+        }
+        return null;
+    }
+
+    private static String[] getFtsSortFields(String tableName) {
+        if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
+
+            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD);
+            List<String> names = new ArrayList<>();
+            names.add(DBConstants.KEY.FIRST_NAME);
+            names.add(DBConstants.KEY.DOB);
+            names.add(DBConstants.KEY.MER_ID);
+            names.add(DBConstants.KEY.LAST_INTERACTED_WITH);
+            names.add(DBConstants.KEY.INACTIVE);
+            names.add(DBConstants.KEY.LOST_TO_FOLLOW_UP);
+            names.add(DBConstants.KEY.DOD);
+            names.add(DBConstants.KEY.DATE_REMOVED);
+
+            for (VaccineRepo.Vaccine vaccine : vaccines) {
+                names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.display()));
+            }
+
+            return names.toArray(new String[names.size()]);
+        }
+        return null;
+    }
+
+    private static Map<String, Pair<String, Boolean>> getAlertScheduleMap() {
+        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+        Map<String, Pair<String, Boolean>> map = new HashMap<>();
+        for (VaccineRepo.Vaccine vaccine : vaccines) {
+            map.put(vaccine.display(), Pair.create(GizConstants.TABLE_NAME.CHILD, false));
+        }
+        return map;
+    }
+
+    public static synchronized GizMalawiApplication getInstance() {
+        return (GizMalawiApplication) mInstance;
+    }
+
+    public WeightRepository weightRepository() {
+        return GrowthMonitoringLibrary.getInstance().weightRepository();
+    }
+
+    public HeightRepository heightRepository() {
+        return GrowthMonitoringLibrary.getInstance().heightRepository();
+    }
+
+    public VaccineRepository vaccineRepository() {
+        return ImmunizationLibrary.getInstance().vaccineRepository();
+    }
+
+    public WeightZScoreRepository weightZScoreRepository() {
+        return GrowthMonitoringLibrary.getInstance().weightZScoreRepository();
+    }
+
+    public HeightZScoreRepository heightZScoreRepository() {
+        return GrowthMonitoringLibrary.getInstance().heightZScoreRepository();
     }
 
     @Override
@@ -201,40 +247,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         getApplicationContext().startActivity(intent);
         context.userService().logoutSession();
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    protected void cleanUpSyncState() {
-        try {
-            DrishtiSyncScheduler.stop(getApplicationContext());
-            context.allSharedPreferences().saveIsSyncInProgress(false);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-        }
-    }
-
-    @Override
-    public void onTerminate() {
-        logInfo("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
-        cleanUpSyncState();
-        TimeChangedBroadcastReceiver.destroy(this);
-        SyncStatusBroadcastReceiver.destroy(this);
-        super.onTerminate();
-    }
-
-    @Override
-    public void onTimeChanged() {
-        context.userService().forceRemoteLogin();
-        logoutCurrentUser();
-    }
-
-    @Override
-    public void onTimeZoneChanged() {
-        context.userService().forceRemoteLogin();
-        logoutCurrentUser();
     }
 
     @Override
@@ -249,46 +261,56 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return repository;
     }
 
-    private void initRepositories() {
-        weightRepository();
-        heightRepository();
-        vaccineRepository();
-        weightZScoreRepository();
-        heightZScoreRepository();
+    public String getPassword() {
+        if (password == null) {
+            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+            password = getContext().userService().getGroupId(username);
+        }
+        return password;
     }
 
-    private ChildMetadata getMetadata() {
-        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
-                ChildImmunizationActivity.class, true);
-        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
-                GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
-                GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER,
-                GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
-        return metadata;
+    public Context getContext() {
+        return context;
     }
 
-    public WeightRepository weightRepository() {
-        return GrowthMonitoringLibrary.getInstance().weightRepository();
+    @NotNull
+    @Override
+    public ClientProcessorForJava getClientProcessor() {
+        return GizMalawiProcessorForJava.getInstance(this);
     }
 
-    public HeightRepository heightRepository() {
-        return GrowthMonitoringLibrary.getInstance().heightRepository();
+    @Override
+    public void onTerminate() {
+        logInfo("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
+        cleanUpSyncState();
+        TimeChangedBroadcastReceiver.destroy(this);
+        SyncStatusBroadcastReceiver.destroy(this);
+        super.onTerminate();
+    }
+
+    protected void cleanUpSyncState() {
+        try {
+            DrishtiSyncScheduler.stop(getApplicationContext());
+            context.allSharedPreferences().saveIsSyncInProgress(false);
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage());
+        }
+    }
+
+    @Override
+    public void onTimeChanged() {
+        context.userService().forceRemoteLogin();
+        logoutCurrentUser();
+    }
+
+    @Override
+    public void onTimeZoneChanged() {
+        context.userService().forceRemoteLogin();
+        logoutCurrentUser();
     }
 
     public Context context() {
         return context;
-    }
-
-    public VaccineRepository vaccineRepository() {
-        return ImmunizationLibrary.getInstance().vaccineRepository();
-    }
-
-    public WeightZScoreRepository weightZScoreRepository() {
-        return GrowthMonitoringLibrary.getInstance().weightZScoreRepository();
-    }
-
-    public HeightZScoreRepository heightZScoreRepository() {
-        return GrowthMonitoringLibrary.getInstance().heightZScoreRepository();
     }
 
     public RecurringServiceTypeRepository recurringServiceTypeRepository() {
@@ -306,28 +328,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return ImmunizationLibrary.getInstance().recurringServiceRecordRepository();
     }
 
-    private void initOfflineSchedules() {
-        try {
-            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
-            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-            VaccineSchedule.init(childVaccines, specialVaccines, "child");
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
-    }
-
     public boolean isLastModified() {
         return lastModified;
     }
 
     public void setLastModified(boolean lastModified) {
         this.lastModified = lastModified;
-    }
-
-    @NotNull
-    @Override
-    public ClientProcessorForJava getClientProcessor() {
-        return GizMalawiProcessorForJava.getInstance(this);
     }
 }
 

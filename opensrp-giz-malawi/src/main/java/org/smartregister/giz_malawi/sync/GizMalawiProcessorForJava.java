@@ -26,8 +26,11 @@ import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz_malawi.activity.ChildImmunizationActivity;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.util.GizConstants;
+import org.smartregister.growthmonitoring.domain.Height;
 import org.smartregister.growthmonitoring.domain.Weight;
+import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
+import org.smartregister.growthmonitoring.service.intent.HeightIntentService;
 import org.smartregister.growthmonitoring.service.intent.WeightIntentService;
 import org.smartregister.immunization.domain.ServiceRecord;
 import org.smartregister.immunization.domain.ServiceSchedule;
@@ -42,7 +45,6 @@ import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.sync.ClientProcessorForJava;
-import org.smartregister.sync.helper.ECSyncHelper;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -72,9 +74,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
 
-        ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json", ClientClassification.class);
+        ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json",
+                ClientClassification.class);
         Table vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
         Table weightTable = assetJsonToJava("ec_client_weight.json", Table.class);
+        Table heightTable = assetJsonToJava("ec_client_height.json", Table.class);
         Table serviceTable = assetJsonToJava("ec_client_service.json", Table.class);
 
         if (!eventClients.isEmpty()) {
@@ -90,18 +94,28 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     continue;
                 }
 
-                if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
+                if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
+                        .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     if (vaccineTable == null) {
                         continue;
                     }
 
-                    processVaccine(eventClient, vaccineTable, eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
-                } else if (eventType.equals(WeightIntentService.EVENT_TYPE) || eventType.equals(WeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
+                    processVaccine(eventClient, vaccineTable,
+                            eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+                } else if (eventType.equals(WeightIntentService.EVENT_TYPE) || eventType
+                        .equals(WeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     if (weightTable == null) {
                         continue;
                     }
 
-                    processWeight(eventClient, weightTable, eventType.equals(WeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+                    if (heightTable == null) {
+                        continue;
+                    }
+
+                    processWeight(eventClient, weightTable,
+                            eventType.equals(WeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+                    processHeight(eventClient, heightTable,
+                            eventType.equals(HeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
                 } else if (eventType.equals(RecurringIntentService.EVENT_TYPE)) {
                     if (serviceTable == null) {
                         continue;
@@ -113,7 +127,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.DEATH)) {
                     unsyncEvents.add(event);
-                } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType.equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType.equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
+                } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
+                        .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
+                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
                     if (clientClassification == null) {
                         continue;
                     }
@@ -246,6 +262,64 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
+    private Boolean processHeight(EventClient height, Table heightTable, boolean outOfCatchment) throws Exception {
+
+        try {
+
+            if (height == null || height.getEvent() == null) {
+                return false;
+            }
+
+            if (heightTable == null) {
+                return false;
+            }
+
+            Timber.d("Starting processWeight table: %s", heightTable.name);
+
+            ContentValues contentValues = processCaseModel(height, heightTable);
+
+            // save the values to db
+            if (contentValues != null && contentValues.size() > 0) {
+                String eventDateStr = contentValues.getAsString(HeightRepository.DATE);
+                Date date = getDate(eventDateStr);
+
+                HeightRepository heightRepository = GizMalawiApplication.getInstance().heightRepository();
+                Height heightObject = new Height();
+                heightObject.setBaseEntityId(contentValues.getAsString(WeightRepository.BASE_ENTITY_ID));
+                if (contentValues.containsKey(HeightRepository.CM)) {
+                    heightObject.setCm(parseFloat(contentValues.getAsString(HeightRepository.CM)));
+                }
+                heightObject.setDate(date);
+                heightObject.setAnmId(contentValues.getAsString(HeightRepository.ANMID));
+                heightObject.setLocationId(contentValues.getAsString(HeightRepository.LOCATIONID));
+                heightObject.setSyncStatus(HeightRepository.TYPE_Synced);
+                heightObject.setFormSubmissionId(height.getEvent().getFormSubmissionId());
+                heightObject.setEventId(height.getEvent().getEventId());
+                heightObject.setOutOfCatchment(outOfCatchment ? 1 : 0);
+
+                if (contentValues.containsKey(HeightRepository.Z_SCORE)) {
+                    String zScoreString = contentValues.getAsString(HeightRepository.Z_SCORE);
+                    if (NumberUtils.isNumber(zScoreString)) {
+                        heightObject.setZScore(Double.valueOf(zScoreString));
+                    }
+                }
+
+                String createdAtString = contentValues.getAsString(HeightRepository.CREATED_AT);
+                Date createdAt = getDate(createdAtString);
+                heightObject.setCreatedAt(createdAt);
+
+                heightRepository.add(heightObject);
+
+                Timber.d("Ending processWeight table: %s", heightTable.name);
+            }
+            return true;
+
+        } catch (Exception e) {
+            Timber.e(e, "Process Height Error");
+            return null;
+        }
+    }
+
     private Boolean processService(EventClient service, Table serviceTable) throws Exception {
         try {
             if (service == null || service.getEvent() == null) {
@@ -288,7 +362,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 }
 
-                RecurringServiceTypeRepository recurringServiceTypeRepository = GizMalawiApplication.getInstance().recurringServiceTypeRepository();
+                RecurringServiceTypeRepository recurringServiceTypeRepository = GizMalawiApplication.getInstance()
+                        .recurringServiceTypeRepository();
                 List<ServiceType> serviceTypeList = recurringServiceTypeRepository.searchByName(name);
                 if (serviceTypeList == null || serviceTypeList.isEmpty()) {
                     return false;
@@ -298,7 +373,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     return false;
                 }
 
-                RecurringServiceRecordRepository recurringServiceRecordRepository = GizMalawiApplication.getInstance().recurringServiceRecordRepository();
+                RecurringServiceRecordRepository recurringServiceRecordRepository = GizMalawiApplication.getInstance()
+                        .recurringServiceRecordRepository();
                 ServiceRecord serviceObj = getServiceRecord(service, contentValues, name, date, value, serviceTypeList);
                 String createdAtString = contentValues.getAsString(RecurringServiceRecordRepository.CREATED_AT);
                 Date createdAt = getDate(createdAtString);
@@ -314,23 +390,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             Timber.e(e, "Process Service Error");
             return null;
         }
-    }
-
-    @NotNull
-    private ServiceRecord getServiceRecord(EventClient service, ContentValues contentValues, String name, Date date,
-                                           String value, List<ServiceType> serviceTypeList) {
-        ServiceRecord serviceObj = new ServiceRecord();
-        serviceObj.setBaseEntityId(contentValues.getAsString(RecurringServiceRecordRepository.BASE_ENTITY_ID));
-        serviceObj.setName(name);
-        serviceObj.setDate(date);
-        serviceObj.setAnmId(contentValues.getAsString(RecurringServiceRecordRepository.ANMID));
-        serviceObj.setLocationId(contentValues.getAsString(RecurringServiceRecordRepository.LOCATION_ID));
-        serviceObj.setSyncStatus(RecurringServiceRecordRepository.TYPE_Synced);
-        serviceObj.setFormSubmissionId(service.getEvent().getFormSubmissionId());
-        serviceObj.setEventId(service.getEvent().getEventId()); //FIXME hard coded id
-        serviceObj.setValue(value);
-        serviceObj.setRecurringServiceId(serviceTypeList.get(0).getId());
-        return serviceObj;
     }
 
     private void processBCGScarEvent(EventClient bcgScarEventClient) {
@@ -349,54 +408,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
         DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
         detailsRepository.add(baseEntityId, ChildImmunizationActivity.SHOW_BCG_SCAR, String.valueOf(date), date);
-    }
-
-    private ContentValues processCaseModel(EventClient eventClient, Table table) {
-        try {
-            List<Column> columns = table.columns;
-            ContentValues contentValues = new ContentValues();
-
-            for (Column column : columns) {
-                processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
-            }
-
-            return contentValues;
-        } catch (Exception e) {
-            Log.e(TAG, e.toString(), e);
-        }
-        return null;
-    }
-
-    @Override
-    public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
-        if (GizConstants.TABLE_NAME.MOTHER_TABLE_NAME.equals(tableName)) {
-            return;
-        }
-
-        Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
-
-        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
-                allCommonsRepositoryobjects(tableName);
-
-        if (allCommonsRepository != null) {
-            allCommonsRepository.updateSearch(entityId);
-        }
-
-        if (contentValues != null && StringUtils.containsIgnoreCase(tableName, "child")) {
-            String dobString = contentValues.getAsString(Constants.KEY.DOB);
-            DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
-            if (birthDateTime != null) {
-                VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, "child");
-                ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
-            }
-        }
-
-        Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
-    }
-
-    @Override
-    public String[] getOpenmrsGenIds() {
-        return new String[]{"MER_ID"};
     }
 
     private boolean unSync(List<Event> events) {
@@ -432,41 +443,25 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         return false;
     }
 
-    private boolean unSync(List<Table> bindObjects, Event event, String registeredAnm) {
+    private ContentValues processCaseModel(EventClient eventClient, Table table) {
         try {
-           // String baseEntityId = event.getBaseEntityId();
-            String providerId = event.getProviderId();
+            List<Column> columns = table.columns;
+            ContentValues contentValues = new ContentValues();
 
-            if (providerId.equals(registeredAnm)) {
-                // boolean eventDeleted = ecUpdater.deleteEventsByBaseEntityId(baseEntityId);
-                //boolean clientDeleted = ecUpdater.deleteClient(baseEntityId);
-                //boolean detailsDeleted = detailsRepository.deleteDetails(baseEntityId);
-
-                for (Table bindObject : bindObjects) {
-                   // String tableName = bindObject.name;
-                    //boolean caseDeleted = deleteCase(tableName, baseEntityId);
-                }
-
-                return true;
+            for (Column column : columns) {
+                processCaseModel(eventClient.getEvent(), eventClient.getClient(), column, contentValues);
             }
+
+            return contentValues;
         } catch (Exception e) {
-            Timber.e(e, e.toString());
+            Log.e(TAG, e.toString(), e);
         }
-        return false;
+        return null;
     }
 
     private Integer parseInt(String string) {
         try {
             return Integer.valueOf(string);
-        } catch (NumberFormatException e) {
-            Timber.e(e, e.toString());
-        }
-        return null;
-    }
-
-    private Float parseFloat(String string) {
-        try {
-            return Float.valueOf(string);
         } catch (NumberFormatException e) {
             Timber.e(e, e.toString());
         }
@@ -493,5 +488,86 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             }
         }
         return date;
+    }
+
+    private Float parseFloat(String string) {
+        try {
+            return Float.valueOf(string);
+        } catch (NumberFormatException e) {
+            Timber.e(e, e.toString());
+        }
+        return null;
+    }
+
+    @NotNull
+    private ServiceRecord getServiceRecord(EventClient service, ContentValues contentValues, String name, Date date,
+                                           String value, List<ServiceType> serviceTypeList) {
+        ServiceRecord serviceObj = new ServiceRecord();
+        serviceObj.setBaseEntityId(contentValues.getAsString(RecurringServiceRecordRepository.BASE_ENTITY_ID));
+        serviceObj.setName(name);
+        serviceObj.setDate(date);
+        serviceObj.setAnmId(contentValues.getAsString(RecurringServiceRecordRepository.ANMID));
+        serviceObj.setLocationId(contentValues.getAsString(RecurringServiceRecordRepository.LOCATION_ID));
+        serviceObj.setSyncStatus(RecurringServiceRecordRepository.TYPE_Synced);
+        serviceObj.setFormSubmissionId(service.getEvent().getFormSubmissionId());
+        serviceObj.setEventId(service.getEvent().getEventId()); //FIXME hard coded id
+        serviceObj.setValue(value);
+        serviceObj.setRecurringServiceId(serviceTypeList.get(0).getId());
+        return serviceObj;
+    }
+
+    private boolean unSync(List<Table> bindObjects, Event event, String registeredAnm) {
+        try {
+            // String baseEntityId = event.getBaseEntityId();
+            String providerId = event.getProviderId();
+
+            if (providerId.equals(registeredAnm)) {
+                // boolean eventDeleted = ecUpdater.deleteEventsByBaseEntityId(baseEntityId);
+                //boolean clientDeleted = ecUpdater.deleteClient(baseEntityId);
+                //boolean detailsDeleted = detailsRepository.deleteDetails(baseEntityId);
+
+                for (Table bindObject : bindObjects) {
+                    // String tableName = bindObject.name;
+                    //boolean caseDeleted = deleteCase(tableName, baseEntityId);
+                }
+
+                return true;
+            }
+        } catch (Exception e) {
+            Timber.e(e, e.toString());
+        }
+        return false;
+    }
+
+    @Override
+    public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
+        if (GizConstants.TABLE_NAME.MOTHER_TABLE_NAME.equals(tableName)) {
+            return;
+        }
+
+        Log.d(TAG, "Starting updateFTSsearch table: " + tableName);
+
+        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
+                allCommonsRepositoryobjects(tableName);
+
+        if (allCommonsRepository != null) {
+            allCommonsRepository.updateSearch(entityId);
+        }
+
+        if (contentValues != null && StringUtils.containsIgnoreCase(tableName, "child")) {
+            String dobString = contentValues.getAsString(Constants.KEY.DOB);
+            DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
+            if (birthDateTime != null) {
+                VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, "child");
+                ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
+            }
+        }
+
+        Log.d(TAG, "Finished updateFTSsearch table: " + tableName);
+    }
+
+    @Override
+    public String[] getOpenmrsGenIds() {
+        return new String[] {"zeir_id"};
     }
 }

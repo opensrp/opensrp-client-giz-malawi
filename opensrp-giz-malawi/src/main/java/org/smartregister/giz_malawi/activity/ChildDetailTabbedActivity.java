@@ -32,6 +32,19 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
         super.attachBaseContext(setAppLocale(base, lang));
     }
 
+    @Override
+    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
+        // Todo
+    }
+
+    @Override
+    public void onNoUniqueId() {
+        // Todo
+    }
+
+    public ChildRegistrationDataFragment getChildRegistrationDataFragment() {
+        return new ChildRegistrationDataFragment();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -50,7 +63,9 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
                 if (viewPager.getCurrentItem() != 1) {
                     viewPager.setCurrentItem(1);
                 }
-                Utils.startAsyncTask(new BaseChildDetailTabbedActivity.LoadAsyncTask(BaseChildDetailTabbedActivity.STATUS.EDIT_VACCINE), null);
+                Utils.startAsyncTask(
+                        new BaseChildDetailTabbedActivity.LoadAsyncTask(BaseChildDetailTabbedActivity.STATUS.EDIT_VACCINE),
+                        null);
                 saveButton.setVisibility(View.VISIBLE);
                 for (int i = 0; i < overflow.size(); i++) {
                     overflow.getItem(i).setVisible(false);
@@ -61,7 +76,9 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
                 if (viewPager.getCurrentItem() != 1) {
                     viewPager.setCurrentItem(1);
                 }
-                Utils.startAsyncTask(new BaseChildDetailTabbedActivity.LoadAsyncTask(BaseChildDetailTabbedActivity.STATUS.EDIT_SERVICE), null);
+                Utils.startAsyncTask(
+                        new BaseChildDetailTabbedActivity.LoadAsyncTask(BaseChildDetailTabbedActivity.STATUS.EDIT_SERVICE),
+                        null);
                 saveButton.setVisibility(View.VISIBLE);
                 for (int i = 0; i < overflow.size(); i++) {
                     overflow.getItem(i).setVisible(false);
@@ -101,23 +118,9 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     }
 
     @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-        // Todo
-    }
-
-    @Override
-    public void onNoUniqueId() {
-        // Todo
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-    }
-
-    public ChildRegistrationDataFragment getChildRegistrationDataFragment() {
-        return new ChildRegistrationDataFragment();
     }
 
     @Override

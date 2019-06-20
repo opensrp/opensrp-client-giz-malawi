@@ -7,7 +7,8 @@ import org.smartregister.giz_malawi.util.DBQueryHelper;
 
 public class ChildRegisterFragmentPresenter extends BaseChildRegisterFragmentPresenter {
 
-    public ChildRegisterFragmentPresenter(ChildRegisterFragmentContract.View view, ChildRegisterFragmentContract.Model model, String viewConfigurationIdentifier) {
+    public ChildRegisterFragmentPresenter(ChildRegisterFragmentContract.View view, ChildRegisterFragmentContract.Model model,
+                                          String viewConfigurationIdentifier) {
         super(view, model, viewConfigurationIdentifier);
     }
 

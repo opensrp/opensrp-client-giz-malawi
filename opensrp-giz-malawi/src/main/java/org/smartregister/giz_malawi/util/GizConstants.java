@@ -4,7 +4,7 @@ public class GizConstants {
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
     public static final String ARABIC_LOCALE = "ar";
     public static final String HOME_FACILITY = "Home_Facility";
-    public static final String mer_id = "mer_id";
+    public static final String MER_ID = "mer_id";
     public static final String CHILD_REGISTER_CARD_NUMBER = "Child_Register_Card_Number";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
@@ -39,7 +39,6 @@ public class GizConstants {
     public static final String NEWBORN = "NEWBORN";
     public static final String PREV_PAPER = "PREV_PAPER";
     public static final int REQUEST_CODE_LAUNCH_XIP = 100;
-    public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
     public static final String ERROR_DETECTED = "No NFC tag detected!";
     public static final String WRITE_SUCCESS = "Text written to the NFC tag successfully!";
     public static final String WRITE_ERROR = "Error during writing, is the NFC tag close enough to your device?";
@@ -48,6 +47,7 @@ public class GizConstants {
     public static final String NEW_CARD = "NEW_CARD";
     public static final String writeMessage = "to write information";
     public static final String readMessage = "to read information";
+    public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";

@@ -87,30 +87,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
     }
 
-    @Override
-    public void prepareViews(final Activity activity) {
-        drawer = activity.findViewById(R.id.drawer_layout);
-        logoutButton = activity.findViewById(R.id.logout_button);
-        syncMenuItem = activity.findViewById(R.id.sync_menu);
-        outOfAreaMenu = activity.findViewById(R.id.out_of_area_menu);
-        enrollmentMenuItem = activity.findViewById(R.id.enrollment);
-        loggedInUserTextView = activity.findViewById(R.id.logged_in_user_text_view);
-        syncTextView = activity.findViewById(R.id.sync_text_view);
-        userInitialsTextView = activity.findViewById(R.id.user_initials_text_view);
-        cancelButton = drawer.findViewById(R.id.cancel_button);
-        drawer.findViewById(R.id.attribution).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (nfcCardPurgeCount == 4) {
-                    nfcCardPurgeCount = 0;
-                }
-                nfcCardPurgeCount++;
-            }
-        });
-
-        mPresenter.refreshLastSync();
-    }
-
     private void registerDrawer(Activity parentActivity) {
         if (drawer != null) {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -120,21 +96,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             toggle.syncState();
 
         }
-    }
-
-    @Override
-    public void onSyncStart() {
-        // Todo
-    }
-
-    @Override
-    public void onSyncInProgress(FetchStatus fetchStatus) {
-        // Todo
-    }
-
-    @Override
-    public void onSyncComplete(FetchStatus fetchStatus) {
-        mPresenter.refreshLastSync();
     }
 
     private void setParentView(Activity activity) {
@@ -164,6 +125,16 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                 rl.addView(current);
             }
         }
+    }
+
+    private void appLogout(final Activity parentActivity) {
+        mPresenter.displayCurrentUser();
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout(parentActivity);
+            }
+        });
     }
 
     private void syncApp(final Activity parentActivity) {
@@ -205,14 +176,27 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         });
     }
 
-    private void appLogout(final Activity parentActivity) {
-        mPresenter.displayCurrentUser();
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout(parentActivity);
-            }
-        });
+    protected void startFormActivity(Activity activity, String formName) {
+        try {
+            JsonFormUtils.startForm(activity, JsonFormUtils.REQUEST_CODE_GET_JSON, formName, null, null);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    @Override
+    public void onSyncStart() {
+        // Todo
+    }
+
+    @Override
+    public void onSyncInProgress(FetchStatus fetchStatus) {
+        // Todo
+    }
+
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        mPresenter.refreshLastSync();
     }
 
     @Override
@@ -232,14 +216,29 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         GizMalawiApplication.getInstance().logoutCurrentUser();
     }
 
-    protected void startFormActivity(Activity activity, String formName) {
-        try {
-            JsonFormUtils.startForm(activity, JsonFormUtils.REQUEST_CODE_GET_JSON, formName, null, null);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
+    @Override
+    public void prepareViews(final Activity activity) {
+        drawer = activity.findViewById(R.id.drawer_layout);
+        logoutButton = activity.findViewById(R.id.logout_button);
+        syncMenuItem = activity.findViewById(R.id.sync_menu);
+        outOfAreaMenu = activity.findViewById(R.id.out_of_area_menu);
+        enrollmentMenuItem = activity.findViewById(R.id.enrollment);
+        loggedInUserTextView = activity.findViewById(R.id.logged_in_user_text_view);
+        syncTextView = activity.findViewById(R.id.sync_text_view);
+        userInitialsTextView = activity.findViewById(R.id.user_initials_text_view);
+        cancelButton = drawer.findViewById(R.id.cancel_button);
+        drawer.findViewById(R.id.attribution).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (nfcCardPurgeCount == 4) {
+                    nfcCardPurgeCount = 0;
+                }
+                nfcCardPurgeCount++;
+            }
+        });
 
+        mPresenter.refreshLastSync();
+    }
 
     @Override
     public void refreshLastSync(Date lastSync) {

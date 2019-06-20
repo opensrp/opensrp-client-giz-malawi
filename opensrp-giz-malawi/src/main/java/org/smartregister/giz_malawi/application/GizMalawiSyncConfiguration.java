@@ -18,7 +18,8 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        AllSharedPreferences sharedPreferences = GizMalawiApplication.getInstance().context().userService().getAllSharedPreferences();
+        AllSharedPreferences sharedPreferences = GizMalawiApplication.getInstance().context().userService()
+                .getAllSharedPreferences();
         return sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM());
     }
 

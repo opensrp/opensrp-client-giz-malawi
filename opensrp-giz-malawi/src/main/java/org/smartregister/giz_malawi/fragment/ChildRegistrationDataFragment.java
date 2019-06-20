@@ -62,7 +62,7 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
             tvChildsHomeHealthFacility.setText(LocationHelper.getInstance().getOpenMrsReadableName(
                     LocationHelper.getInstance()
                             .getOpenMrsLocationName(Utils.getValue(detailsMap, GizConstants.HOME_FACILITY, false))));
-            tvChildsOpenSrpId.setText(Utils.getValue(detailsMap, GizConstants.mer_id, false));
+            tvChildsOpenSrpId.setText(Utils.getValue(detailsMap, GizConstants.MER_ID, false));
             tvChildsRegisterCardNumber.setText(Utils.getValue(detailsMap,
                     GizConstants.CHILD_REGISTER_CARD_NUMBER, false));
             tvChildsFirstName.setText(Utils.getValue(detailsMap, GizConstants.FIRST_NAME, true));
@@ -71,9 +71,10 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
             tvChildsAge.setText(getFormattedAge(detailsMap));
             tvChildDateFirstSeen.setText(getDateString(detailsMap));
             tvChildsBirthWeight.setText(Utils.kgStringSuffix(Utils.getValue(detailsMap, GizConstants.BIRTH_WEIGHT, true)));
-            tvBirthTetanusProtection.setText(Utils.getValue(detailsMap, GizConstants.BIRTH_TETANUS_PROTECTION, true).isEmpty() ? Utils
-                    .getValue(childDetails, GizConstants.BIRTH_TETANUS_PROTECTION, true) : Utils
-                    .getValue(detailsMap, GizConstants.BIRTH_TETANUS_PROTECTION, true));
+            tvBirthTetanusProtection
+                    .setText(Utils.getValue(detailsMap, GizConstants.BIRTH_TETANUS_PROTECTION, true).isEmpty() ? Utils
+                            .getValue(childDetails, GizConstants.BIRTH_TETANUS_PROTECTION, true) : Utils
+                            .getValue(detailsMap, GizConstants.BIRTH_TETANUS_PROTECTION, true));
             tvMotherFirstName.setText(Utils.getValue(detailsMap, GizConstants.MOTHER_FIRST_NAME, true).isEmpty() ? Utils
                     .getValue(childDetails, GizConstants.MOTHER_FIRST_NAME, true) : Utils
                     .getValue(detailsMap, GizConstants.MOTHER_FIRST_NAME, true));
@@ -102,7 +103,7 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
             }
 
             tvFatherDOB.setText(Utils.getValue(detailsMap, GizConstants.FATHER_GUARDIAN_DATE_BIRTH, true));
-            tvChildsPlaceOfBirth.setText( getPlaceOfBirthChoice(detailsMap));
+            tvChildsPlaceOfBirth.setText(getPlaceOfBirthChoice(detailsMap));
 
             String childsBirthHealthFacility = Utils.getValue(detailsMap,
                     GizConstants.HOME_FACILITY, false);
@@ -140,64 +141,6 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
         }
     }
 
-    @NotNull
-    private String getPlaceOfBirthChoice(Map<String, String> detailsMap) {
-        String placeOfBirthChoice = Utils.getValue(detailsMap, GizConstants.PLACE_BIRTH, true);
-        if (placeOfBirthChoice.equalsIgnoreCase("1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")) {
-            placeOfBirthChoice = "Health facility";
-        }
-
-        if (placeOfBirthChoice.equalsIgnoreCase("1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")) {
-            placeOfBirthChoice = "Home";
-        }
-        return placeOfBirthChoice;
-    }
-
-    @Nullable
-    private String getMotherDob() {
-        String motherDobString = Utils.getValue(childDetails, GizConstants.MOTHER_DOB, true);
-        Date motherDob = Utils.dobStringToDate(motherDobString);
-        if (motherDob != null) {
-            motherDobString = Constants.DATE_FORMAT.format(motherDob);
-        }
-
-
-        // If default mother dob ... set it as blank
-        if (motherDobString != null && motherDobString.equals(JsonFormUtils.MOTHER_DEFAULT_DOB)) {
-            motherDobString = "";
-        }
-        return motherDobString;
-    }
-
-    @Nullable
-    private String getDateString(Map<String, String> detailsMap) {
-        String dateString = Utils.getValue(detailsMap, GizConstants.FIRST_HEALTH_FACILITY_CONTACT, false);
-        if (!TextUtils.isEmpty(dateString)) {
-            Date date = JsonFormUtils.formatDate(dateString, false);
-            if (date != null) {
-                dateString = Constants.DATE_FORMAT.format(date);
-            }
-        }
-        return dateString;
-    }
-
-    @NotNull
-    private String getFormattedAge(Map<String, String> detailsMap) {
-        String formattedAge = "";
-        String dobString = Utils.getValue(detailsMap, Constants.KEY.DOB, false);
-        Date dob = Utils.dobStringToDate(dobString);
-        if (dob != null) {
-            String childsDateOfBirth = Constants.DATE_FORMAT.format(dob);
-            tvChildsDOB.setText(childsDateOfBirth);
-
-            long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
-            if (timeDiff >= 0) {
-                formattedAge = DateUtil.getDuration(timeDiff);
-            }
-        }
-        return formattedAge;
-    }
-
     private void setUpViews() {
         tvChildsHomeHealthFacility = fragmentView.findViewById(R.id.value_childs_home_health_facility);
         tvChildsOpenSrpId = fragmentView.findViewById(R.id.value_childs_zeir_id);
@@ -230,5 +173,63 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
                 .findViewById(R.id.tableRow_childRegDataFragment_childsOtherBirthFacility);
         tableRowChildsOtherResidentialArea = fragmentView
                 .findViewById(R.id.tableRow_childRegDataFragment_childsOtherResidentialArea);
+    }
+
+    @NotNull
+    private String getFormattedAge(Map<String, String> detailsMap) {
+        String formattedAge = "";
+        String dobString = Utils.getValue(detailsMap, Constants.KEY.DOB, false);
+        Date dob = Utils.dobStringToDate(dobString);
+        if (dob != null) {
+            String childsDateOfBirth = Constants.DATE_FORMAT.format(dob);
+            tvChildsDOB.setText(childsDateOfBirth);
+
+            long timeDiff = Calendar.getInstance().getTimeInMillis() - dob.getTime();
+            if (timeDiff >= 0) {
+                formattedAge = DateUtil.getDuration(timeDiff);
+            }
+        }
+        return formattedAge;
+    }
+
+    @Nullable
+    private String getDateString(Map<String, String> detailsMap) {
+        String dateString = Utils.getValue(detailsMap, GizConstants.FIRST_HEALTH_FACILITY_CONTACT, false);
+        if (!TextUtils.isEmpty(dateString)) {
+            Date date = JsonFormUtils.formatDate(dateString, false);
+            if (date != null) {
+                dateString = Constants.DATE_FORMAT.format(date);
+            }
+        }
+        return dateString;
+    }
+
+    @Nullable
+    private String getMotherDob() {
+        String motherDobString = Utils.getValue(childDetails, GizConstants.MOTHER_DOB, true);
+        Date motherDob = Utils.dobStringToDate(motherDobString);
+        if (motherDob != null) {
+            motherDobString = Constants.DATE_FORMAT.format(motherDob);
+        }
+
+
+        // If default mother dob ... set it as blank
+        if (motherDobString != null && motherDobString.equals(JsonFormUtils.MOTHER_DEFAULT_DOB)) {
+            motherDobString = "";
+        }
+        return motherDobString;
+    }
+
+    @NotNull
+    private String getPlaceOfBirthChoice(Map<String, String> detailsMap) {
+        String placeOfBirthChoice = Utils.getValue(detailsMap, GizConstants.PLACE_BIRTH, true);
+        if (placeOfBirthChoice.equalsIgnoreCase("1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")) {
+            placeOfBirthChoice = "Health facility";
+        }
+
+        if (placeOfBirthChoice.equalsIgnoreCase("1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")) {
+            placeOfBirthChoice = "Home";
+        }
+        return placeOfBirthChoice;
     }
 }

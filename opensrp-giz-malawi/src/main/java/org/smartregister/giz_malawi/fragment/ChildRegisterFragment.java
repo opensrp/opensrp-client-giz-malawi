@@ -29,6 +29,11 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
     }
 
     @Override
+    public void setAdvancedSearchFormData(HashMap<String, String> advancedSearchFormData) {
+        //do nothing
+    }
+
+    @Override
     public String getMainCondition() {
         return presenter().getMainCondition();
     }
@@ -36,16 +41,6 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
     @Override
     protected String getDefaultSortQuery() {
         return presenter().getDefaultSortQuery();
-    }
-
-    @Override
-    protected String filterSelectionCondition(boolean urgentOnly) {
-        return DBQueryHelper.getFilterSelectionCondition(urgentOnly);
-    }
-
-    @Override
-    public void setAdvancedSearchFormData(HashMap<String, String> advancedSearchFormData) {
-        //do nothing
     }
 
     @Override
@@ -58,8 +53,10 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
 
         if (view.getTag(org.smartregister.child.R.id.record_action) != null) {
 
-            registerClickables.setRecordWeight(Constants.RECORD_ACTION.WEIGHT.equals(view.getTag(org.smartregister.child.R.id.record_action)));
-            registerClickables.setRecordAll(Constants.RECORD_ACTION.VACCINATION.equals(view.getTag(org.smartregister.child.R.id.record_action)));
+            registerClickables.setRecordWeight(
+                    Constants.RECORD_ACTION.WEIGHT.equals(view.getTag(org.smartregister.child.R.id.record_action)));
+            registerClickables.setRecordAll(
+                    Constants.RECORD_ACTION.VACCINATION.equals(view.getTag(org.smartregister.child.R.id.record_action)));
 
         }
 
@@ -104,6 +101,10 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
 
     }
 
+    @Override
+    protected String filterSelectionCondition(boolean urgentOnly) {
+        return DBQueryHelper.getFilterSelectionCondition(urgentOnly);
+    }
 
     @Override
     public void onClick(View view) {

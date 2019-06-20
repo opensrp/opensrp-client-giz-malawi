@@ -10,10 +10,10 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 
-@RunWith(PowerMockRunner.class)
-@PowerMockRunnerDelegate(RobolectricTestRunner.class)
-@Config(application = TestGizMalawiApplication.class, constants = BuildConfig.class, sdk = Build.VERSION_CODES.O_MR1)
-@PowerMockIgnore({"org.mockito.*", "org.robolectric.*", "android.*"})
+@RunWith (PowerMockRunner.class)
+@PowerMockRunnerDelegate (RobolectricTestRunner.class)
+@Config (application = TestGizMalawiApplication.class, constants = BuildConfig.class, sdk = Build.VERSION_CODES.O_MR1)
+@PowerMockIgnore ({"org.mockito.*", "org.robolectric.*", "android.*"})
 public abstract class BaseUnitTest {
 
     protected static final String DUMMY_USERNAME = "myusername";

@@ -7,7 +7,9 @@ import android.text.TextUtils;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.contract.NavigationContract;
 import org.smartregister.giz_malawi.interactor.NavigationInteractor;
+import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
+import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.repository.AllSharedPreferences;
@@ -34,7 +36,8 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
     @Override
     public void displayCurrentUser() {
-        getNavigationView().refreshCurrentUser(allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM()));
+        getNavigationView()
+                .refreshCurrentUser(allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM()));
     }
 
     @Override
@@ -64,7 +67,9 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     @Override
     public void sync(Activity activity) {
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
         WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
+        HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
     }
 

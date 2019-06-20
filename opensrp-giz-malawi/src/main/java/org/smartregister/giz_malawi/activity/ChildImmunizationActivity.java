@@ -30,11 +30,6 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     }
 
     @Override
-    protected Activity getActivity() {
-        return this;
-    }
-
-    @Override
     protected void goToRegisterPage() {
         Intent intent = new Intent(this, ChildRegisterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -44,13 +39,33 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     }
 
     @Override
+    protected int getToolbarId() {
+        return LocationSwitcherToolbar.TOOLBAR_ID;
+    }
+
+    @Override
     protected int getDrawerLayoutId() {
         return 0;
     }
 
     @Override
-    protected int getToolbarId() {
-        return LocationSwitcherToolbar.TOOLBAR_ID;
+    public void launchDetailActivity(Context fromContext, CommonPersonObjectClient childDetails,
+                                     RegisterClickables registerClickables) {
+
+        Intent intent = new Intent(fromContext, ChildDetailTabbedActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.KEY.LOCATION_NAME,
+                LocationHelper.getInstance().getOpenMrsLocationId(getCurrentLocation()));
+        bundle.putSerializable(Constants.INTENT_KEY.EXTRA_CHILD_DETAILS, childDetails);
+        bundle.putSerializable(Constants.INTENT_KEY.EXTRA_REGISTER_CLICKABLES, registerClickables);
+        intent.putExtras(bundle);
+
+        fromContext.startActivity(intent);
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 
     @Override
@@ -73,11 +88,6 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     }
 
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        hideProgressDialog();
-    }
-
-    @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
         // Todo
     }
@@ -88,16 +98,8 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     }
 
     @Override
-    public void launchDetailActivity(Context fromContext, CommonPersonObjectClient childDetails, RegisterClickables registerClickables) {
-
-        Intent intent = new Intent(fromContext, ChildDetailTabbedActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY.LOCATION_NAME, LocationHelper.getInstance().getOpenMrsLocationId(getCurrentLocation()));
-        bundle.putSerializable(Constants.INTENT_KEY.EXTRA_CHILD_DETAILS, childDetails);
-        bundle.putSerializable(Constants.INTENT_KEY.EXTRA_REGISTER_CLICKABLES, registerClickables);
-        intent.putExtras(bundle);
-
-        fromContext.startActivity(intent);
+    public void onRegistrationSaved(boolean isEdit) {
+        hideProgressDialog();
     }
 
     @Override

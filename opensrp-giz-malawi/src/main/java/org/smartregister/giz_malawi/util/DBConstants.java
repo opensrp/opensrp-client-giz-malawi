@@ -37,6 +37,7 @@ public class DBConstants {
         public static final String CLIENT_REG_DATE = "client_reg_date";
         public static final String CHILD_TREATMENT = "child_treatment";
         public static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
+        public static final String INACTIVE = "inactive";
         public static final String OBJECT_ID = "object_id";
         public static final String OBJECT_RELATIONAL_ID = "object_relational_id";
         public static final String ENTITY_TYPE = "entity_type";

@@ -39,16 +39,6 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     @Override
-    protected Fragment[] getOtherFragments() {
-        ADVANCED_SEARCH_POSITION = 1;
-
-        Fragment[] fragments = new Fragment[1];
-        fragments[ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
-
-        return fragments;
-    }
-
-    @Override
     protected BaseRegisterFragment getRegisterFragment() {
         WeakReference<ChildRegisterFragment> childRegisterFragmentWeakReference = new WeakReference<>(
                 new ChildRegisterFragment());
@@ -57,8 +47,8 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     @Override
-    public String getRegistrationForm() {
-        return GizConstants.JSON_FORM.CHILD_ENROLLMENT;
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -74,11 +64,30 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     @Override
+    protected Fragment[] getOtherFragments() {
+        ADVANCED_SEARCH_POSITION = 1;
+
+        Fragment[] fragments = new Fragment[1];
+        fragments[ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
+
+        return fragments;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
     }
 
+    @Override
+    public String getRegistrationForm() {
+        return GizConstants.JSON_FORM.CHILD_ENROLLMENT;
+    }
+
+    @Override
+    public void startNFCCardScanner() {
+        // Todo
+    }
 
     @Override
     public void onPause() {
@@ -86,7 +95,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         super.onPause();
     }
 
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe (sticky = true, threadMode = ThreadMode.MAIN)
     public void showNfcNotInstalledDialog(LoginEvent event) {
         if (event != null) {
             GizUtils.removeStickyEvent(event);
@@ -109,19 +118,9 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         NavigationMenu.getInstance(this).getDrawer().openDrawer(GravityCompat.START);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-    @Override
-    public void startNFCCardScanner() {
-        // Todo
-    }
-
     public void refresh() {
         Intent intent = new Intent(ChildRegisterActivity.this, ChildRegisterActivity.class);
-        getApplicationContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        getApplicationContext()
+                .startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 }

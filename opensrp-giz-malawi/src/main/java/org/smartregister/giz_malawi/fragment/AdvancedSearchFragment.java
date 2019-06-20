@@ -20,13 +20,13 @@ import java.util.Map;
  * Created by ndegwamartin on 08/03/2019.
  */
 public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
-    private AdvancedSearchPresenter presenter;
-    private MaterialEditText firstName;
-    private MaterialEditText lastName;
     protected MaterialEditText openSrpId;
     protected MaterialEditText motherGuardianName;
     protected MaterialEditText motherGuardianNid;
     protected MaterialEditText motherGuardianPhoneNumber;
+    private AdvancedSearchPresenter presenter;
+    private MaterialEditText firstName;
+    private MaterialEditText lastName;
 
     @Override
     protected BaseChildAdvancedSearchPresenter getPresenter() {
@@ -39,89 +39,8 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
     }
 
     @Override
-    public void populateSearchableFields(View view) {
-        firstName = view.findViewById(org.smartregister.child.R.id.first_name);
-        advancedFormSearchableFields.put(DBConstants.KEY.FIRST_NAME, firstName);
-
-        lastName = view.findViewById(org.smartregister.child.R.id.last_name);
-        advancedFormSearchableFields.put(DBConstants.KEY.LAST_NAME, lastName);
-
-        openSrpId = view.findViewById(org.smartregister.child.R.id.zeir_id);
-        advancedFormSearchableFields.put(DBConstants.KEY.MER_ID, openSrpId);
-
-        motherGuardianName = view.findViewById(org.smartregister.child.R.id.mother_guardian_name);
-        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName);
-
-        motherGuardianNid = view.findViewById(org.smartregister.child.R.id.mother_guardian_nrc);
-        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_NID, motherGuardianNid);
-
-        motherGuardianPhoneNumber = view.findViewById(org.smartregister.child.R.id.mother_guardian_phone_number);
-        advancedFormSearchableFields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber);
-
-
-        firstName.addTextChangedListener(advancedSearchTextwatcher);
-        lastName.addTextChangedListener(advancedSearchTextwatcher);
-        openSrpId.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianName.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianNid.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchTextwatcher);
-    }
-
-    @Override
     protected String getMainCondition() {
         return DBQueryHelper.getHomeRegisterCondition();
-    }
-
-    @Override
-    protected String getDefaultSortQuery() {
-        return presenter.getDefaultSortQuery();
-    }
-
-    @Override
-    protected String filterSelectionCondition(boolean urgentOnly) {
-        return DBQueryHelper.getFilterSelectionCondition(urgentOnly);
-    }
-
-    @Override
-    public void onClick(View view) {
-        view.toString();
-    }
-
-    @Override
-    protected void assignedValuesBeforeBarcode() {
-        if (searchFormData.size() > 0) {
-            firstName.setText(searchFormData.get(DBConstants.KEY.FIRST_NAME));
-            lastName.setText(searchFormData.get(DBConstants.KEY.LAST_NAME));
-            motherGuardianName.setText(searchFormData.get(DBConstants.KEY.MOTHER_FIRST_NAME));
-            motherGuardianNid.setText(searchFormData.get(DBConstants.KEY.MOTHER_NID));
-            motherGuardianPhoneNumber.setText(searchFormData.get(DBConstants.KEY.CONTACT_PHONE_NUMBER));
-            openSrpId.setText(searchFormData.get(DBConstants.KEY.MER_ID));
-        }
-    }
-
-    @Override
-    protected HashMap<String, String> createSelectedFieldMap() {
-        HashMap<String, String> fields = new HashMap<>();
-        fields.put(DBConstants.KEY.FIRST_NAME, firstName.getText().toString());
-        fields.put(DBConstants.KEY.LAST_NAME, lastName.getText().toString());
-        fields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName.getText().toString());
-        fields.put(DBConstants.KEY.MOTHER_NID, motherGuardianNid.getText().toString());
-        fields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber.getText().toString());
-        fields.put(DBConstants.KEY.MER_ID, openSrpId.getText().toString());
-        return fields;
-    }
-
-    @Override
-
-    protected void clearFormFields() {
-        super.clearFormFields();
-        openSrpId.setText("");
-        firstName.setText("");
-        lastName.setText("");
-        motherGuardianName.setText("");
-        motherGuardianNid.setText("");
-        motherGuardianPhoneNumber.setText("");
-
     }
 
     @Override
@@ -164,6 +83,87 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         }
 
         return searchParams;
+    }
+
+    @Override
+    protected void assignedValuesBeforeBarcode() {
+        if (searchFormData.size() > 0) {
+            firstName.setText(searchFormData.get(DBConstants.KEY.FIRST_NAME));
+            lastName.setText(searchFormData.get(DBConstants.KEY.LAST_NAME));
+            motherGuardianName.setText(searchFormData.get(DBConstants.KEY.MOTHER_FIRST_NAME));
+            motherGuardianNid.setText(searchFormData.get(DBConstants.KEY.MOTHER_NID));
+            motherGuardianPhoneNumber.setText(searchFormData.get(DBConstants.KEY.CONTACT_PHONE_NUMBER));
+            openSrpId.setText(searchFormData.get(DBConstants.KEY.MER_ID));
+        }
+    }
+
+    @Override
+    public void populateSearchableFields(View view) {
+        firstName = view.findViewById(org.smartregister.child.R.id.first_name);
+        advancedFormSearchableFields.put(DBConstants.KEY.FIRST_NAME, firstName);
+
+        lastName = view.findViewById(org.smartregister.child.R.id.last_name);
+        advancedFormSearchableFields.put(DBConstants.KEY.LAST_NAME, lastName);
+
+        openSrpId = view.findViewById(org.smartregister.child.R.id.zeir_id);
+        advancedFormSearchableFields.put(DBConstants.KEY.MER_ID, openSrpId);
+
+        motherGuardianName = view.findViewById(org.smartregister.child.R.id.mother_guardian_name);
+        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName);
+
+        motherGuardianNid = view.findViewById(org.smartregister.child.R.id.mother_guardian_nrc);
+        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_NID, motherGuardianNid);
+
+        motherGuardianPhoneNumber = view.findViewById(org.smartregister.child.R.id.mother_guardian_phone_number);
+        advancedFormSearchableFields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber);
+
+
+        firstName.addTextChangedListener(advancedSearchTextwatcher);
+        lastName.addTextChangedListener(advancedSearchTextwatcher);
+        openSrpId.addTextChangedListener(advancedSearchTextwatcher);
+        motherGuardianName.addTextChangedListener(advancedSearchTextwatcher);
+        motherGuardianNid.addTextChangedListener(advancedSearchTextwatcher);
+        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchTextwatcher);
+    }
+
+    @Override
+    protected HashMap<String, String> createSelectedFieldMap() {
+        HashMap<String, String> fields = new HashMap<>();
+        fields.put(DBConstants.KEY.FIRST_NAME, firstName.getText().toString());
+        fields.put(DBConstants.KEY.LAST_NAME, lastName.getText().toString());
+        fields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName.getText().toString());
+        fields.put(DBConstants.KEY.MOTHER_NID, motherGuardianNid.getText().toString());
+        fields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber.getText().toString());
+        fields.put(DBConstants.KEY.MER_ID, openSrpId.getText().toString());
+        return fields;
+    }
+
+    @Override
+
+    protected void clearFormFields() {
+        super.clearFormFields();
+        openSrpId.setText("");
+        firstName.setText("");
+        lastName.setText("");
+        motherGuardianName.setText("");
+        motherGuardianNid.setText("");
+        motherGuardianPhoneNumber.setText("");
+
+    }
+
+    @Override
+    protected String getDefaultSortQuery() {
+        return presenter.getDefaultSortQuery();
+    }
+
+    @Override
+    protected String filterSelectionCondition(boolean urgentOnly) {
+        return DBQueryHelper.getFilterSelectionCondition(urgentOnly);
+    }
+
+    @Override
+    public void onClick(View view) {
+        view.toString();
     }
 }
 

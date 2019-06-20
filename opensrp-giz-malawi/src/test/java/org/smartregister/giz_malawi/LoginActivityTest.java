@@ -26,7 +26,7 @@ import org.smartregister.giz_malawi.activity.LoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
 
-@PrepareForTest({Utils.class})
+@PrepareForTest ({Utils.class})
 public class LoginActivityTest extends BaseActivityUnitTest {
 
     private static final String STRING_SETTINGS = "Settings";
@@ -194,7 +194,8 @@ public class LoginActivityTest extends BaseActivityUnitTest {
 
         Whitebox.setInternalState(spyActivity, "passwordEditText", passwordEditText);
 
-        Mockito.doNothing().when(spyActivity).showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
+        Mockito.doNothing().when(spyActivity)
+                .showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
 
         spyActivity.setUsernameError(R.string.unauthorized);
 
@@ -212,7 +213,8 @@ public class LoginActivityTest extends BaseActivityUnitTest {
 
         Whitebox.setInternalState(spyActivity, "userNameEditText", userNameEditText);
 
-        Mockito.doNothing().when(spyActivity).showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
+        Mockito.doNothing().when(spyActivity)
+                .showErrorDialog(RuntimeEnvironment.application.getString(R.string.unauthorized));
 
         spyActivity.setPasswordError(R.string.unauthorized);
 

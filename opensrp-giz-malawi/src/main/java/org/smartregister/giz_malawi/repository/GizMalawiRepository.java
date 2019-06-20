@@ -124,6 +124,17 @@ public class GizMalawiRepository extends Repository {
     }
 
     @Override
+    public synchronized SQLiteDatabase getWritableDatabase(String password) {
+        if (writableDatabase == null || !writableDatabase.isOpen()) {
+            if (writableDatabase != null) {
+                writableDatabase.close();
+            }
+            writableDatabase = super.getWritableDatabase(password);
+        }
+        return writableDatabase;
+    }
+
+    @Override
     public synchronized SQLiteDatabase getReadableDatabase(String password) {
         try {
             if (readableDatabase == null || !readableDatabase.isOpen()) {
@@ -141,17 +152,6 @@ public class GizMalawiRepository extends Repository {
     }
 
     @Override
-    public synchronized SQLiteDatabase getWritableDatabase(String password) {
-        if (writableDatabase == null || !writableDatabase.isOpen()) {
-            if (writableDatabase != null) {
-                writableDatabase.close();
-            }
-            writableDatabase = super.getWritableDatabase(password);
-        }
-        return writableDatabase;
-    }
-
-    @Override
     public synchronized void close() {
         if (readableDatabase != null) {
             readableDatabase.close();
@@ -161,6 +161,22 @@ public class GizMalawiRepository extends Repository {
             writableDatabase.close();
         }
         super.close();
+    }
+
+    private void runLegacyUpgrades(SQLiteDatabase database) {
+        upgradeToVersion2(database);
+        upgradeToVersion3(database);
+        upgradeToVersion4(database);
+        upgradeToVersion5(database);
+        upgradeToVersion6(database);
+        upgradeToVersion7OutOfArea(database);
+        upgradeToVersion8RecurringServiceUpdate(database);
+        //upgradeToVersion9(database);
+        upgradeToVersion12(database);
+        upgradeToVersion13(database);
+        upgradeToVersion14(database);
+        upgradeToVersion15RemoveUnnecessaryTables(database);
+
     }
 
     /**
@@ -264,24 +280,18 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion9(SQLiteDatabase database) {
+    /*private void upgradeToVersion9(SQLiteDatabase database) {
         try {
-            String ALTER_EVENT_TABLE_VALIDATE_COLUMN = "ALTER TABLE " + EventClientRepository.Table.event + " ADD COLUMN " + EventClientRepository.event_column.validationStatus + " VARCHAR";
-            database.execSQL(ALTER_EVENT_TABLE_VALIDATE_COLUMN);
-
             String ALTER_CLIENT_TABLE_VALIDATE_COLUMN = "ALTER TABLE " + EventClientRepository.Table.client + " ADD COLUMN " + EventClientRepository.client_column.validationStatus + " VARCHAR";
             database.execSQL(ALTER_CLIENT_TABLE_VALIDATE_COLUMN);
 
-            EventClientRepository
-                    .createIndex(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
             EventClientRepository
                     .createIndex(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
 
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion9 " + e.getMessage());
         }
-    }
-
+    }*/
 
     private void upgradeToVersion12(SQLiteDatabase db) {
         try {
@@ -352,22 +362,6 @@ public class GizMalawiRepository extends Repository {
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion15RemoveUnnecessaryTables " + e.getMessage());
         }
-    }
-
-    private void runLegacyUpgrades(SQLiteDatabase database) {
-        upgradeToVersion2(database);
-        upgradeToVersion3(database);
-        upgradeToVersion4(database);
-        upgradeToVersion5(database);
-        upgradeToVersion6(database);
-        upgradeToVersion7OutOfArea(database);
-        upgradeToVersion8RecurringServiceUpdate(database);
-        upgradeToVersion9(database);
-        upgradeToVersion12(database);
-        upgradeToVersion13(database);
-        upgradeToVersion14(database);
-        upgradeToVersion15RemoveUnnecessaryTables(database);
-
     }
 
 

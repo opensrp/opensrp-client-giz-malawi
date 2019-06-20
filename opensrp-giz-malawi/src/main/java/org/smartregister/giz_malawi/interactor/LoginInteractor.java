@@ -62,5 +62,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         //        schedule jobs
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //need these asap!
+        ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
     }
 }
