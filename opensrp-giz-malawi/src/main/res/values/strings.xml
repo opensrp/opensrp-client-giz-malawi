@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name" translatable="false">MECHR</string>
+    <string name="app_name" translatable="false">Malawi HIS</string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="sync" translatable="false">Sync</string>
     <string name="action_log_out">Logging Out</string>
     <string name="powered_by" translatable="false">Powered by</string>
-    <string name="malawi_app_name">MECHR</string>
+    <string name="malawi_app_name">Malawi HIS</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
 
@@ -23,110 +23,82 @@
     <string name="english" translatable="false">English</string>
     <string name="french" translatable="false">Français</string>
     <string name="arabic" translatable="false">عربى</string>
+    <string name="zeir_id" translatable="false">MER ID</string>
+    <string name="iz_id_hint">MER ID number</string>
 
     <string name="nav_logo" translatable="false">Malawi-eRegister</string>
     <string name="title_activity_child_immunization" translatable="false">ChildImmunizationActivity</string>
-
-
     <string name="wellness_pass_home_logo" translatable="false">Wellness pass</string>
-
 
     <!-- Nfc-->
     <string name="error_code">Error: %1$s</string>
-
     <string name="something_went_wrong">Something went wrong&#8230;</string>
-
     <string name="please_install_nfc_sdk">Please install the Nfc SDK first</string>
-
     <string name="install">Install</string>
-
     <string name="activate">Activate</string>
-
     <string name="please_activate_nfc_sdk">Nfc SDK NOT activated. Please activate&#8230;</string>
-
     <string name="nfc_sdk_missing">The Nfc SDK is missing </string>
-
     <string name="nfc_error">Please contact the helpdesk with error code %1$s %2$s %3$s</string>
-
     <string name="alert">Alert</string>
-
     <string name="card_not_registered">This card is not registered&#8230;</string>
-
     <string name="successfully_updated_card">Successfully updated card &#8230;</string>
-
     <string name="card_already_registered">This card is already registered&#8230;</string>
-
     <string name="card_no">Card No. %1$s </string>
-
     <string name="no_information_on_card">No information on the card. The card does not have a store for this application</string>
-
     <string name="the_card_is_full">The card is full and unusable. Please register another card</string>
-
     <string name="there_is_an_error_with_record"> There is an error with this record. Please contact the helpdesk with error code  %1$s %2$s %3$s and the client’s ID</string>
-
     <string name="the_operation_was_cancelled">The operation was cancelled. Please try again</string>
-
     <string name="the_sdk_is_not_activated">The SDK is not activated. Please activate the SDK by going to settings and touching Activate Nfc SDK and try again after successful activation</string>
-
     <string name="the_operation_failed">The operation failed. Please try again. Please contact the helpdesk with error code %1$s %2$s %3$s</string>
-
     <string name="this_card_is_invalid">This card is invalid. Please use another card</string>
-
     <string name="new_child_record">New child record </string>
-
     <string name="no_child_record_found">No record found on this device for this card, would you like to create one ?</string>
-
     <string name="operation_not_allowed">Operation not allowed</string>
-
     <string name="store_already_exists">Store already exists</string>
-
     <string name="store_does_not_exist">Store does not exist</string>
-
     <string name="store_full">Store full</string>
-
     <string name="operation_Cancelled">Operation Cancelled</string>
-
     <string name="authentication_failed">Authentication Failed</string>
-
     <string name="sdk_is_not_configured">SDK is not configured</string>
-
     <string name="operation_failed">Operation Failed</string>
-
     <string name="authentication_method_not_supported">Authentication method not supported</string>
-
     <string name="read_card_write_timed_out">Read Card/Write Timed out</string>
-
     <string name="unable_to_read_card">Unable to read card</string>
-
     <string name="not_a_valid_card">Not a valid card</string>
-
     <string name="key_expired">Key Expired</string>
-
     <string name="Key_validation_error">Key validation error</string>
-
     <string name="incorrect_key">Incorrect Key</string>
-
     <string name="key_revoked">Key revoked</string>
-
     <string name="application_ey_mismatch">Application-Key mismatch</string>
-
     <string name="not_found">Not Found</string>
-
     <string name="record_data_exceeds_limit">Record data exceeds limit</string>
-
     <string name="partially_successful">Partially Successful</string>
-
     <string name="user_authentication_failed">User Authentication Failed</string>
-
     <string name="new_card_registration">New card registration </string>
-
     <string name="no_child_registration_found">No card associated with this child on this device, would you to register card ?</string>
-
     <string name="reset_card">Reset card</string>
-
     <string name="are_you_sure_reset_card">Are you sure you want to Reset this card? \n\nThis action CANNOT be reversed&#8230;</string>
-
     <string name="arabic_not_supported">Vaccination in Arabic is not supported in this version</string>
     <string name="logo_string">logo</string>
 
+     <string name="birth_registration_number">Birth registration number</string>
+     <string name="middle_name">Middle Number</string>
+     <string name="home_address">Home Address</string>
+     <string name="village">Village</string>
+     <string name="traditional_authority">Traditional Authority</string>
+     <string name="mother_guardian_nid">Mother Guardian NID</string>
+     <string name="protected_at_birth">Protected at Birth</string>
+     <string name="mother_hiv_status">Mother Hiv Status</string>
+     <string name="child_hiv_status">Child Hiv Status</string>
+     <string name="child_treatment">Child Treatment</string>
+
+    <string name="nav_registers">Registers</string>
+    <string name="nav_logout_as">Logout as</string>
+    <string name="nav_sync">Sync</string>
+    <string name="nav_last">"Last: </string>
+    <string name="nav_last_sync_time">HH:mm a , MMM DD</string>
+    <string name="log_out_as">Log out as</string>
+    <string name="device_to_device_sync">Device-to-device Sync</string>
+    <string name="action_start_sync">Sync Started</string>
+    <string name="all_registers">All Registers</string>
 </resources>

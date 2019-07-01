@@ -2,14 +2,14 @@
 name: step1_child_hiv_status
 description: child_hiv_status
 priority: 1
-condition: "step1_mother_hiv_status == 'Positive' || step1_mother_hiv_status == 'Negative'"
+condition: "step1_mother_hiv_status == 'Positive' || step1_mother_hiv_status == 'Unknown'"
 actions:
   - "isRelevant = true"
 ---
 name: step1_child_treatment
 description: child_treatment
 priority: 1
-condition: "step1_child_hiv_status == 'Positive' || step1_child_hiv_status == 'Negative'"
+condition: "step1_child_hiv_status == 'Positive' || step1_child_hiv_status == 'Exposed'"
 actions:
   - "isRelevant = true"
 ---

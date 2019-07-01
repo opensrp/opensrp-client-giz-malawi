@@ -2,6 +2,7 @@ package org.smartregister.giz_malawi.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -11,10 +12,11 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.AllConstants;
 import org.smartregister.child.activity.BaseChildDetailTabbedActivity;
+import org.smartregister.child.activity.BaseChildFormActivity;
 import org.smartregister.child.fragment.StatusEditDialogFragment;
-import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.giz_malawi.R;
 import org.smartregister.giz_malawi.fragment.ChildRegistrationDataFragment;
+import org.smartregister.giz_malawi.util.GizJsonFormUtils;
 import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.util.Utils;
 
@@ -47,6 +49,14 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        overflow.findItem(org.smartregister.child.R.id.register_card).setVisible(false);
+        overflow.findItem(org.smartregister.child.R.id.write_to_card).setVisible(false);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         super.onOptionsItemSelected(item);
@@ -55,7 +65,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
         switch (item.getItemId()) {
             case R.id.registration_data:
-                String populatedForm = JsonFormUtils.getMetadataForEditForm(this, detailsMap);
+                String populatedForm = GizJsonFormUtils.getMetadataForEditForm(this, detailsMap);
                 startFormActivity(populatedForm);
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -134,8 +144,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
     @Override
     protected void startFormActivity(String formData) {
-
-        Intent intent = new Intent(getApplicationContext(), ChildFormActivity.class);
+        Intent intent = new Intent(getApplicationContext(), BaseChildFormActivity.class);
 
         Form formParam = new Form();
         formParam.setWizard(false);

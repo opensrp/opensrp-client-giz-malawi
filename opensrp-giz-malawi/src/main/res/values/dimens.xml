@@ -51,4 +51,7 @@
     <dimen name="login_logo_height">190dp</dimen>
     <dimen name="login_logo_width">190dp</dimen>
 
+    <dimen name="sync_time_padding_right">20dp</dimen>
+    <dimen name="sync_time_padding">15dp</dimen>
+
 </resources>

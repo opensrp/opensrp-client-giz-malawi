@@ -86,7 +86,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
     }
 
     @Override
-    protected void assignedValuesBeforeBarcode() {
+    public void assignedValuesBeforeBarcode() {
         if (searchFormData.size() > 0) {
             firstName.setText(searchFormData.get(DBConstants.KEY.FIRST_NAME));
             lastName.setText(searchFormData.get(DBConstants.KEY.LAST_NAME));
@@ -105,7 +105,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         lastName = view.findViewById(org.smartregister.child.R.id.last_name);
         advancedFormSearchableFields.put(DBConstants.KEY.LAST_NAME, lastName);
 
-        openSrpId = view.findViewById(org.smartregister.child.R.id.zeir_id);
+        openSrpId = view.findViewById(org.smartregister.child.R.id.opensrp_id);
         advancedFormSearchableFields.put(DBConstants.KEY.MER_ID, openSrpId);
 
         motherGuardianName = view.findViewById(org.smartregister.child.R.id.mother_guardian_name);

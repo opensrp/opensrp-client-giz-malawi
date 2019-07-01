@@ -1,10 +1,10 @@
 package org.smartregister.giz_malawi.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,22 +33,8 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         super.attachBaseContext(GizUtils.setAppLocale(base, lang));
     }
 
-    @Override
-    protected void initializePresenter() {
-        presenter = new BaseChildRegisterPresenter(this, new BaseChildRegisterModel());
-    }
-
-    @Override
-    protected BaseRegisterFragment getRegisterFragment() {
-        WeakReference<ChildRegisterFragment> childRegisterFragmentWeakReference = new WeakReference<>(
-                new ChildRegisterFragment());
-
-        return childRegisterFragmentWeakReference.get();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -74,6 +60,11 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
@@ -87,6 +78,19 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     @Override
     public void startNFCCardScanner() {
         // Todo
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new BaseChildRegisterPresenter(this, new BaseChildRegisterModel());
+    }
+
+    @Override
+    protected BaseRegisterFragment getRegisterFragment() {
+        WeakReference<ChildRegisterFragment> childRegisterFragmentWeakReference = new WeakReference<>(
+                new ChildRegisterFragment());
+
+        return childRegisterFragmentWeakReference.get();
     }
 
     @Override
@@ -110,12 +114,19 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         }
     }
 
+    @Override
+    protected void onResumption() {
+        super.onResumption();
+        openDrawer();
+    }
+
     private void showNfcDialog() {
         GizUtils.showDialogMessage(this, R.string.nfc_sdk_missing, R.string.please_install_nfc_sdk);
     }
 
     public void openDrawer() {
-        NavigationMenu.getInstance(this).getDrawer().openDrawer(GravityCompat.START);
+        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
+                .setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
     }
 
     public void refresh() {

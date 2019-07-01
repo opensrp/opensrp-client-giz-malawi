@@ -9,12 +9,13 @@
     tools:openDrawer="start">
 
     <RelativeLayout
-        android:id="@+id/navigation_content"
+        android:id="@+id/nav_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></RelativeLayout>
 
     <android.support.design.widget.NavigationView
-        android:layout_width="wrap_content"
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#2c2c2c"
@@ -22,7 +23,7 @@
         app:itemBackground="@drawable/drawer_item_background"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="@android:color/white"
-        app:theme="@style/NavigationDrawerStyle">
+        app:theme="@style/AppTheme.AppBarOverlay.NavigationDrawerStyle">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,7 +31,7 @@
             android:fitsSystemWindows="false">
 
             <RelativeLayout
-                android:id="@+id/rl_logo"
+                android:id="@+id/rlLogo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -38,214 +39,266 @@
                 android:paddingTop="30dp">
 
                 <ImageView
+                    android:id="@+id/ivLogo"
                     android:layout_width="75dp"
                     android:layout_height="75dp"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:contentDescription="@string/nav_logo"
-                    android:visibility="gone"
-                    app:srcCompat="@drawable/ic_launcher" />
+                    android:src="@drawable/ic_logo"
+                    android:visibility="gone" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvLogo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingTop="32dp">
-
-                    <ImageButton
-                        android:id="@+id/cancel_button"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_gravity="end"
-                        android:background="@null"
-                        android:src="@drawable/ic_action_clear" />
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@null">
-
-                        <TextView
-                            android:id="@+id/user_initials_text_view"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/round_white_background"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:text="MM"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="48dp" />
-
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/logged_in_user_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="center_horizontal"
-                        android:text="John Doe"
-                        android:textColor="@android:color/white"
-                        android:textSize="30dp" />
-
-                    <Button
-                        android:id="@+id/logout_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/login_button"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:shadowDx="0"
-                        android:shadowDy="1"
-                        android:text="@string/log_out_text"
-                        android:textAllCaps="false"
-                        android:textColor="#666666"
-                        android:textSize="18dp" />
-
-                </LinearLayout>
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="15dp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="#959595"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
             <View
-                android:id="@+id/divider"
+                android:id="@+id/vDiv1"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/rl_logo"
-                android:layout_marginStart="@dimen/divider_margin"
-                android:layout_marginEnd="@dimen/divider_margin"
-                android:layout_marginBottom="10dp"
-                android:background="#DFDFDF" />
+                android:layout_height="2dp"
+                android:layout_below="@+id/rlLogo"
+                android:background="#000000" />
 
-            <TextView
-                android:id="@+id/attribution"
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/divider"
-                android:layout_marginStart="@dimen/drawer_margin"
-                android:gravity="center"
-                android:paddingEnd="16dp"
-                android:text="@string/attribution_text"
-                android:textColor="@color/light_grey"
-                android:visibility="invisible" />
+                android:layout_above="@+id/rlSync"
+                android:layout_below="@+id/vDiv1">
+
+                <RelativeLayout
+                    android:id="@+id/rlMid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvRegisters"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_margin="15dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/nav_registers"
+                        android:textSize="24sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rvOptions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvRegisters"
+                        android:layout_margin="15dp" />
+
+                    <View
+                        android:id="@+id/vDiv2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/rvOptions"
+                        android:background="#000000" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/vDiv2"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="25dp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/rlIconLang"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:paddingStart="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingBottom="15dp">
+
+                            <ImageView
+                                android:id="@+id/ivIconLang"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/ic_nav_language" />
+
+                            <TextView
+                                android:id="@+id/tvLang"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_toEndOf="@+id/ivIconLang"
+                                android:layout_toRightOf="@+id/ivIconLang"
+                                android:fontFamily="sans-serif"
+                                android:text="English"
+                                android:textSize="20sp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rlIconDevice"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:paddingStart="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingBottom="15dp">
+
+                            <ImageView
+                                android:id="@+id/ivIconDevice"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/ic_nav_device_share" />
+
+                            <TextView
+                                android:id="@+id/tvDeviceToDevice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_toEndOf="@+id/ivIconDevice"
+                                android:layout_toRightOf="@+id/ivIconDevice"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/device_to_device_sync"
+                                android:textSize="20sp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/rlLogout"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:paddingStart="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingBottom="15dp">
+
+                            <ImageView
+                                android:id="@+id/ivLogout"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/ic_nav_logout" />
+
+                            <TextView
+                                android:id="@+id/tvLogout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_toEndOf="@+id/ivLogout"
+                                android:layout_toRightOf="@+id/ivLogout"
+                                android:fontFamily="sans-serif"
+                                android:text="@string/log_out_as"
+                                android:textSize="20sp" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </ScrollView>
 
             <RelativeLayout
+                android:id="@+id/rlSync"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/attribution">
+                android:layout_alignParentBottom="true"
+                android:background="#3d3d3d"
+                android:paddingStart="@dimen/sync_time_padding"
+                android:paddingLeft="@dimen/sync_time_padding"
+                android:paddingTop="@dimen/sync_time_padding"
+                android:paddingEnd="@dimen/sync_time_padding_right"
+                android:paddingRight="@dimen/sync_time_padding_right"
+                android:paddingBottom="@dimen/sync_time_padding">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/rlIconSync"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:id="@+id/enrollment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivSyncIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:clickable="true"
+                        android:contentDescription="@string/nav_sync"
+                        android:focusable="true"
+                        app:srcCompat="@mipmap/sidemenu_sync" />
 
-                        <ImageView
-                            android:layout_width="@dimen/custom_navigation_icon_size"
-                            android:layout_height="@dimen/custom_navigation_icon_size"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:paddingTop="5dp"
-                            android:src="@drawable/ic_action_add" />
+                    <ProgressBar
+                        android:id="@+id/pbSync"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:indeterminate="true" />
 
-                        <org.smartregister.view.customcontrols.CustomFontTextView
-                            style="@style/CustomFontTextViewStyle.ClientList.Light.twoline"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:text="@string/side_nav_add"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/table_contents_text_size" />
-                    </LinearLayout>
+                </RelativeLayout>
 
-                    <LinearLayout
-                        android:id="@+id/out_of_area_menu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                <TextView
+                    android:id="@+id/tvSync"
+                    android:layout_width="80sp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toEndOf="@+id/rlIconSync"
+                    android:clickable="true"
+                    android:ellipsize="end"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif"
+                    android:maxLines="1"
+                    android:text="@string/nav_sync"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-                        <ImageView
-                            android:layout_width="@dimen/custom_navigation_icon_size"
-                            android:layout_height="@dimen/custom_navigation_icon_size"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:src="@drawable/ic_action_out_catchment" />
+                <TextView
+                    android:id="@+id/tvSyncTimeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/tvSyncTime"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_last"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
-                        <org.smartregister.view.customcontrols.CustomFontTextView
-                            style="@style/CustomFontTextViewStyle.ClientList.Light.twoline"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:text="@string/side_nav_out_of_catchment"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/table_contents_text_size" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/sync_menu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/custom_navigation_icon_size"
-                            android:layout_height="@dimen/custom_navigation_icon_size"
-                            android:layout_marginStart="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:src="@drawable/ic_action_sync" />
-
-                        <org.smartregister.view.customcontrols.CustomFontTextView
-                            android:id="@+id/sync_text_view"
-                            style="@style/CustomFontTextViewStyle.ClientList.Light.twoline"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:text="@string/sync"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/table_contents_text_size" />
-                    </LinearLayout>
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvSyncTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_last_sync_time"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
-
-
         </RelativeLayout>
-
     </android.support.design.widget.NavigationView>
-
 </android.support.v4.widget.DrawerLayout>

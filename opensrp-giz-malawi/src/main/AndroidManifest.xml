@@ -56,7 +56,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
         <activity
-            android:name="org.smartregister.giz_malawi.activity.ChildFormActivity"
+            android:name="org.smartregister.child.activity.BaseChildFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar"

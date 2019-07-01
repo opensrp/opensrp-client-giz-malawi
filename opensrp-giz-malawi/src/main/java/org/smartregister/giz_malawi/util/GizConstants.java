@@ -10,9 +10,11 @@ public class GizConstants {
     public static final String LAST_NAME = "last_name";
     public static final String GENDER = "gender";
     public static final String BIRTH_WEIGHT = "Birth_Weight";
+    public static final String BIRTH_HEIGHT = "Birth_Height";
     public static final String BIRTH_TETANUS_PROTECTION = "Birth_Tetanus_Protection";
-    public static final String MOTHER_FIRST_NAME = "mother_first_name";
-    public static final String MOTHER_LAST_NAME = "mother_last_name";
+    public static final String MOTHER_FIRST_NAME = "first_name";
+    public static final String MOTHER_LAST_NAME = "last_name";
+    public static final String MOTHER_MIDDLE_NAME = "middle_name";
     public static final String MOTHER_GUARDIAN_PHONE_NUMBER = "Mother_Guardian_Phone_Number";
     public static final String MOTHER_GUARDIAN_NUMBER = "Mother_Guardian_Number";
     public static final String FATHER_GUARDIAN_FIRST_NAME = "Father_Guardian_First_Name";
@@ -29,7 +31,7 @@ public class GizConstants {
     public static final String ADDRESS_1 = "address1";
     public static final String PREFERRED_LANGUAGE = "Preferred_Language";
     public static final String FIRST_HEALTH_FACILITY_CONTACT = "First_Health_Facility_Contact";
-    public static final String MOTHER_DOB = "mother_dob";
+    public static final String MOTHER_DOB = "dob";
     public static final String PLACE_BIRTH = "Place_Birth";
     public static final int ON_KEY_BACK_PRESSED = 610;
     public static final String ITEM_LIST = "ITEM_LIST";
@@ -47,7 +49,27 @@ public class GizConstants {
     public static final String NEW_CARD = "NEW_CARD";
     public static final String writeMessage = "to write information";
     public static final String readMessage = "to read information";
+    public static final String BIRTH_FACILITY_NAME = "Birth_Facility_Name";
+    public static final String RESIDENTIAL_AREA = "Residential_Area";
+    public static final String MOTHER = "mother";
+    public static final String MOTHER_ = "mother_";
     public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
+
+    public static final class DrawerMenu {
+        public static final String ALL_FAMILIES = "All Families";
+        public static final String ANC_CLIENTS = "ANC Clients";
+        public static final String CHILD_CLIENTS = "Child Clients";
+        public static final String HIV_CLIENTS = "Hiv Clients";
+        public static final String ANC = "ANC";
+        public static final String LD = "L&D";
+        public static final String PNC = "PNC";
+        public static final String FAMILY_PLANNING = "Family Planning";
+        public static final String MALARIA = "Malaria";
+    }
+
+    public static final class RQ_CODE {
+        public static final int STORAGE_PERMISIONS = 1;
+    }
 
     public static class CONFIGURATION {
         public static final String LOGIN = "login";
@@ -77,6 +99,13 @@ public class GizConstants {
     public static class TABLE_NAME {
         public static final String CHILD = "ec_child";
         public static final String MOTHER_TABLE_NAME = "ec_mother";
+        public static final String FAMILY = "ec_family";
+        public static final String FAMILY_MEMBER = "ec_family_member";
+        public static final String CHILD_ACTIVITY = "ec_child_activity";
+        public static final String ANC_MEMBER = "ec_anc_register";
+        public static final String ANC_MEMBER_LOG = "ec_anc_log";
+        public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
+        public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
     }
 
     public static final class VACCINE {

@@ -41,9 +41,10 @@ public class DBConstants {
         public static final String OBJECT_ID = "object_id";
         public static final String OBJECT_RELATIONAL_ID = "object_relational_id";
         public static final String ENTITY_TYPE = "entity_type";
-        public static final String MOTHER_FIRST_NAME = "mother_guardian_first_name";
-        public static final String MOTHER_LAST_NAME = "mother_guardian_last_name";
-        public static final String MOTHER_DOB = "mother_guardian_date_birth";
+        public static final String MOTHER_FIRST_NAME = "first_name";
+        public static final String MOTHER_LAST_NAME = "last_name";
+        public static final String MOTHER_MIDDLE_NAME = "middle_name";
+        public static final String MOTHER_DOB = "dob";
         public static final String MOTHER_NID = "mother_guardian_nid";
         public static final String MOTHER_GUARDIAN_NUMBER = "mother_guardian_number";
         public static final String SECOND_PHONE_NUMBER = "second_phone_number";

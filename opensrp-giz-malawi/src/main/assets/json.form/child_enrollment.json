@@ -93,12 +93,12 @@
         "hint": "Child's Birth Registration Number",
         "edit_type": "name",
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Please enter the Birth Registration Number"
         },
         "v_regex": {
-          "value": "[A-Za-z]*",
-          "err": "Please enter a valid Birth Registration Number"
+          "value": "([A-Z]{2,3}/[0-9]{8}/[0-9]{4})|\\s*",
+          "err": "Number must take the format of ###/########/####"
         }
       },
       {
@@ -142,6 +142,10 @@
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please enter the child's middle name"
         }
       },
       {
@@ -200,7 +204,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Child's Home Address",
+        "hint": "Address/Location",
         "tree": [],
         "v_required": {
           "value": false,
@@ -214,8 +218,7 @@
         "openmrs_entity_id": "",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Child's Village",
-        "tree": []
+        "hint": "Child's Village"
       },
       {
         "key": "traditional_authority",
@@ -223,17 +226,7 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "address5",
         "hint": "Traditional Authority",
-        "type": "edit_text",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the Traditional Authority"
-        },
-        "relevance": {
-          "step1:Residential_Area": {
-            "type": "string",
-            "ex": "equalTo(., \"[\"Other\"]\")"
-          }
-        }
+        "type": "edit_text"
       },
       {
         "key": "Birth_Weight",
@@ -273,7 +266,7 @@
           "err": "Enter a valid height"
         },
         "v_required": {
-          "value": "true",
+          "value": false,
           "err": "Enter the child's birth height"
         }
       },
@@ -351,10 +344,6 @@
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Mother/guardian phone number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
-        },
         "v_regex": {
           "value": "(09[5-7][0-9]{7})|\\s*",
           "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
@@ -367,10 +356,6 @@
         "openmrs_entity_id": "second_phone_number",
         "type": "edit_text",
         "hint": "Second phone number",
-        "v_numeric": {
-          "value": "true",
-          "err": "Number must be a total of 10 digits in length"
-        },
         "v_regex": {
           "value": "(09[5-7][0-9]{7})|\\s*",
           "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
@@ -429,7 +414,8 @@
         "values": [
           "Positive",
           "Negative",
-          "Unknown"
+          "Unknown",
+          "Exposed"
         ],
         "openmrs_choice_ids": {
           "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

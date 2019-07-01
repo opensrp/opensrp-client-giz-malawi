@@ -1,89 +1,146 @@
 package org.smartregister.giz_malawi.view;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.text.TextUtils;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.Hours;
-import org.joda.time.Minutes;
-import org.joda.time.Seconds;
-import org.smartregister.child.ChildLibrary;
+import com.github.ybq.android.spinkit.style.FadingCircle;
+
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.adapter.NavigationAdapter;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.contract.NavigationContract;
+import org.smartregister.giz_malawi.model.NavigationOption;
 import org.smartregister.giz_malawi.presenter.NavigationPresenter;
+import org.smartregister.giz_malawi.util.GizConstants;
+import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.util.PermissionUtils;
 
 import java.lang.ref.WeakReference;
-import java.util.Calendar;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import timber.log.Timber;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
-
+    public static final String OUT_OF_CATCHMENT_SERVICE = "out_of_catchment_service";
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
-    private static int nfcCardPurgeCount;
-    private LinearLayout syncMenuItem;
+    private String TAG = NavigationMenu.class.getCanonicalName();
+    private DrawerLayout drawer;
+    private Toolbar toolbar;
+    private NavigationAdapter navigationAdapter;
+    private RecyclerView recyclerView;
+    private TextView tvLogout;
+    private View rootView = null;
+    private ImageView ivSync;
+    private ProgressBar syncProgressBar;
     private LinearLayout enrollmentMenuItem;
     private LinearLayout outOfAreaMenu;
-    private TextView loggedInUserTextView;
-    private TextView syncTextView;
-    private TextView userInitialsTextView;
-    private TextView logoutButton;
-    private NavigationContract.Presenter mPresenter;
-    private DrawerLayout drawer;
     private ImageButton cancelButton;
+    private NavigationContract.Presenter mPresenter;
+    private View parentView;
+    private List<NavigationOption> navigationOptions = new ArrayList<>();
 
-    public static NavigationMenu getInstance(Activity activity) {
-        nfcCardPurgeCount = 0;
+    private NavigationMenu() {
 
+    }
+
+    public static NavigationMenu getInstance(Activity activity, View parentView, Toolbar myToolbar) {
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(instance);
-        int orientation = activity.getResources().getConfiguration().orientation;
         activityWeakReference = new WeakReference<>(activity);
+        int orientation = activity.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             if (instance == null) {
                 instance = new NavigationMenu();
             }
-            instance.init(activity);
             SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(instance);
+            instance.init(activity, parentView, myToolbar);
             return instance;
         } else {
             return null;
         }
     }
 
-    private void init(Activity activity) {
+    private void init(Activity activity, View myParentView, Toolbar myToolbar) {
+        // parentActivity = activity;
         try {
+            setParentView(activity, parentView);
+            toolbar = myToolbar;
+            parentView = myParentView;
             mPresenter = new NavigationPresenter(this);
             registerDrawer(activity);
-            setParentView(activity);
             prepareViews(activity);
-            appLogout(activity);
-            syncApp(activity);
-            enrollment(activity);
-            recordOutOfArea(activity);
-            attachCloseDrawer();
-
         } catch (Exception e) {
-            Timber.e(e.toString());
+            Log.e(TAG, e.toString());
+        }
+    }
+
+    private void setParentView(Activity activity, View parentView) {
+        if (parentView != null) {
+            rootView = parentView;
+        } else {
+            // get current view
+            // ViewGroup current = parentActivity.getWindow().getDecorView().findViewById(android.R.id.content);
+            ViewGroup current = (ViewGroup) ((ViewGroup) (activity.findViewById(android.R.id.content))).getChildAt(0);
+            if (!(current instanceof DrawerLayout)) {
+                if (current.getParent() != null) {
+                    ((ViewGroup) current.getParent()).removeView(current); // <- fix
+                }
+
+                // swap content view
+                LayoutInflater mInflater = LayoutInflater.from(activity);
+                ViewGroup contentView = (ViewGroup) mInflater.inflate(R.layout.side_navigation, null);
+                activity.setContentView(contentView);
+
+                rootView = activity.findViewById(R.id.nav_view);
+                RelativeLayout mainView = activity.findViewById(R.id.nav_content);
+
+                if (current.getParent() != null) {
+                    ((ViewGroup) current.getParent()).removeView(current); // <- fix
+                }
+
+                if (current instanceof RelativeLayout) {
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                    params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+                    current.setLayoutParams(params);
+                    mainView.addView(current);
+                } else {
+                    mainView.addView(current);
+                }
+            } else {
+                rootView = current;
+            }
         }
     }
 
@@ -91,59 +148,65 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (drawer != null) {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    parentActivity, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                    parentActivity, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
             drawer.addDrawerListener(toggle);
             toggle.syncState();
 
         }
     }
 
-    private void setParentView(Activity activity) {
-        ViewGroup current = (ViewGroup) ((ViewGroup) (activity.findViewById(android.R.id.content))).getChildAt(0);
-        if (!(current instanceof DrawerLayout)) {
-            if (current.getParent() != null) {
-                ((ViewGroup) current.getParent()).removeView(current); // <- fix
-            }
+    @Override
+    public void prepareViews(Activity activity) {
+        drawer = activity.findViewById(R.id.drawer_layout);
+        recyclerView = rootView.findViewById(R.id.rvOptions);
+        // NavigationView navigationView = rootView.findViewById(R.id.nav_view);
+        tvLogout = rootView.findViewById(R.id.tvLogout);
+        recyclerView = rootView.findViewById(R.id.rvOptions);
+        ivSync = rootView.findViewById(R.id.ivSyncIcon);
+        syncProgressBar = rootView.findViewById(R.id.pbSync);
+        outOfAreaMenu = activity.findViewById(R.id.out_of_area_menu);
+        enrollmentMenuItem = activity.findViewById(R.id.enrollment);
+        cancelButton = drawer.findViewById(R.id.cancel_button);
+        ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
+        ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
+        ivLogo.setImageResource(R.drawable.ic_logo);
 
-            LayoutInflater mInflater = LayoutInflater.from(activity);
-            ViewGroup contentView = (ViewGroup) mInflater.inflate(R.layout.side_navigation, null);
-            activity.setContentView(contentView);
+        TextView tvLogo = rootView.findViewById(R.id.tvLogo);
+        tvLogo.setText(activity.getString(R.string.nav_logo));
 
-            RelativeLayout rl = activity.findViewById(R.id.navigation_content);
-
-            if (current.getParent() != null) {
-                ((ViewGroup) current.getParent()).removeView(current);
-            }
-
-            if (current instanceof RelativeLayout) {
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-                current.setLayoutParams(params);
-                rl.addView(current);
-            } else {
-                rl.addView(current);
-            }
+        if (syncProgressBar != null) {
+            FadingCircle circle = new FadingCircle();
+            syncProgressBar.setIndeterminateDrawable(circle);
         }
+
+        // register all objects
+        registerDrawer(activity);
+        registerNavigation(activity);
+        registerLogout(activity);
+        registerSync(activity);
+        registerLanguageSwitcher(activity);
+
+        registerDeviceToDeviceSync(activity);
+        enrollment(activity);
+        recordOutOfArea(activity);
+       /*
+        attachCloseDrawer();*/
+        // update all actions
+        mPresenter.refreshLastSync();
     }
 
-    private void appLogout(final Activity parentActivity) {
-        mPresenter.displayCurrentUser();
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logout(parentActivity);
+    private void registerNavigation(Activity parentActivity) {
+        if (recyclerView != null) {
+            // navigationOptions = mPresenter.getOptions();
+            if (navigationAdapter == null) {
+                navigationAdapter = new NavigationAdapter(navigationOptions, parentActivity);
             }
-        });
-    }
 
-    private void syncApp(final Activity parentActivity) {
-        syncMenuItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPresenter.sync(parentActivity);
-            }
-        });
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(parentActivity);
+            recyclerView.setLayoutManager(mLayoutManager);
+            recyclerView.setItemAnimator(new DefaultItemAnimator());
+            recyclerView.setAdapter(navigationAdapter);
+        }
     }
 
     private void enrollment(final Activity parentActivity) {
@@ -157,10 +220,11 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     private void recordOutOfArea(final Activity parentActivity) {
+
         outOfAreaMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startFormActivity(parentActivity, "out_of_catchment_service");
+                startFormActivity(parentActivity, OUT_OF_CATCHMENT_SERVICE);
             }
         });
     }
@@ -176,6 +240,56 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         });
     }
 
+    private void registerLogout(final Activity parentActivity) {
+        mPresenter.displayCurrentUser();
+        tvLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout(parentActivity);
+            }
+        });
+    }
+
+    private void registerSync(final Activity parentActivity) {
+
+        TextView tvSync = rootView.findViewById(R.id.tvSync);
+        ivSync = rootView.findViewById(R.id.ivSyncIcon);
+        syncProgressBar = rootView.findViewById(R.id.pbSync);
+
+        View.OnClickListener syncClicker = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(parentActivity, parentActivity.getResources().getText(R.string.action_start_sync),
+                        Toast.LENGTH_SHORT).show();
+                mPresenter.sync(parentActivity);
+            }
+        };
+
+
+        tvSync.setOnClickListener(syncClicker);
+        ivSync.setOnClickListener(syncClicker);
+
+        refreshSyncProgressSpinner();
+    }
+
+    private void registerLanguageSwitcher(final Activity context) {
+
+        View rlIconLang = rootView.findViewById(R.id.rlIconLang);
+        final TextView tvLang = rootView.findViewById(R.id.tvLang);
+        Locale current = context.getResources().getConfiguration().locale;
+        tvLang.setText(StringUtils.capitalize(current.getDisplayLanguage()));
+    }
+
+    private void registerDeviceToDeviceSync(@NonNull final Activity activity) {
+        rootView.findViewById(R.id.rlIconDevice)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startP2PActivity(activity);
+                    }
+                });
+    }
+
     protected void startFormActivity(Activity activity, String formName) {
         try {
             JsonFormUtils.startForm(activity, JsonFormUtils.REQUEST_CODE_GET_JSON, formName, null, null);
@@ -184,28 +298,43 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
     }
 
-    @Override
-    public void onSyncStart() {
-        // Todo
+    protected void refreshSyncProgressSpinner() {
+        if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+            syncProgressBar.setVisibility(View.VISIBLE);
+            ivSync.setVisibility(View.INVISIBLE);
+        } else {
+            syncProgressBar.setVisibility(View.INVISIBLE);
+            ivSync.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void startP2PActivity(@NonNull Activity activity) {
+        if (PermissionUtils.isPermissionGranted(activity
+                , new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
+                , GizConstants.RQ_CODE.STORAGE_PERMISIONS)) {
+            activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
+        }
     }
 
     @Override
-    public void onSyncInProgress(FetchStatus fetchStatus) {
-        // Todo
-    }
-
-    @Override
-    public void onSyncComplete(FetchStatus fetchStatus) {
-        mPresenter.refreshLastSync();
+    public void refreshLastSync(Date lastSync) {
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa, MMM d", Locale.getDefault());
+        if (rootView != null) {
+            TextView tvLastSyncTime = rootView.findViewById(R.id.tvSyncTime);
+            if (lastSync != null) {
+                tvLastSyncTime.setVisibility(View.VISIBLE);
+                tvLastSyncTime.setText(MessageFormat.format(" {0}", sdf.format(lastSync)));
+            } else {
+                tvLastSyncTime.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     @Override
     public void refreshCurrentUser(String name) {
-        if (loggedInUserTextView != null) {
-            loggedInUserTextView.setText(name);
-        }
-        if (userInitialsTextView != null) {
-            userInitialsTextView.setText(mPresenter.getLoggedInUserInitials());
+        if (tvLogout != null && activityWeakReference.get() != null) {
+            tvLogout.setText(
+                    String.format("%s %s", activityWeakReference.get().getResources().getString(R.string.log_out_as), name));
         }
     }
 
@@ -217,66 +346,58 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     @Override
-    public void prepareViews(final Activity activity) {
-        drawer = activity.findViewById(R.id.drawer_layout);
-        logoutButton = activity.findViewById(R.id.logout_button);
-        syncMenuItem = activity.findViewById(R.id.sync_menu);
-        outOfAreaMenu = activity.findViewById(R.id.out_of_area_menu);
-        enrollmentMenuItem = activity.findViewById(R.id.enrollment);
-        loggedInUserTextView = activity.findViewById(R.id.logged_in_user_text_view);
-        syncTextView = activity.findViewById(R.id.sync_text_view);
-        userInitialsTextView = activity.findViewById(R.id.user_initials_text_view);
-        cancelButton = drawer.findViewById(R.id.cancel_button);
-        drawer.findViewById(R.id.attribution).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (nfcCardPurgeCount == 4) {
-                    nfcCardPurgeCount = 0;
-                }
-                nfcCardPurgeCount++;
-            }
-        });
-
-        mPresenter.refreshLastSync();
+    public void refreshCount() {
+        navigationAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void refreshLastSync(Date lastSync) {
-        if (syncTextView != null) {
-            String lastSyncTime = getLastSyncTime();
-            if (lastSync != null && !TextUtils.isEmpty(lastSyncTime)) {
-                lastSyncTime = " " + String
-                        .format(activityWeakReference.get().getResources().getString(R.string.last_sync), lastSyncTime);
-                syncTextView.setText(
-                        String.format(activityWeakReference.get().getResources().getString(R.string.sync_), lastSyncTime));
-            }
+    public void displayToast(Activity activity, String message) {
+        if (activity != null) {
+            Toast.makeText(activity.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private String getLastSyncTime() {
-        String lastSync = "";
-        long milliseconds = ChildLibrary.getInstance().getEcSyncHelper().getLastCheckTimeStamp();
-        if (milliseconds > 0) {
-            DateTime lastSyncTime = new DateTime(milliseconds);
-            DateTime now = new DateTime(Calendar.getInstance());
-            Minutes minutes = Minutes.minutesBetween(lastSyncTime, now);
-            if (minutes.getMinutes() < 1) {
-                Seconds seconds = Seconds.secondsBetween(lastSyncTime, now);
-                lastSync = seconds.getSeconds() + "s";
-            } else if (minutes.getMinutes() >= 1 && minutes.getMinutes() < 60) {
-                lastSync = minutes.getMinutes() + "m";
-            } else if (minutes.getMinutes() >= 60 && minutes.getMinutes() < 1440) {
-                Hours hours = Hours.hoursBetween(lastSyncTime, now);
-                lastSync = hours.getHours() + "h";
-            } else {
-                Days days = Days.daysBetween(lastSyncTime, now);
-                lastSync = days.getDays() + "d";
-            }
-        }
-        return lastSync;
+    public NavigationAdapter getNavigationAdapter() {
+        return navigationAdapter;
     }
 
-    public DrawerLayout getDrawer() {
-        return drawer;
+    public void lockDrawer(Activity activity) {
+        prepareViews(activity);
+        if (drawer != null) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+    }
+
+    public boolean onBackPressed() {
+        boolean res = false;
+        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            res = true;
+        }
+        return res;
+    }
+
+    @Override
+    public void onSyncStart() {
+        // set the sync icon to be a rotating menu
+        refreshSyncProgressSpinner();
+    }
+
+    @Override
+    public void onSyncInProgress(FetchStatus fetchStatus) {
+        Log.v(TAG, "onSyncInProgress");
+    }
+
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        // hide the rotating menu
+        refreshSyncProgressSpinner();
+        // update the time
+        mPresenter.refreshLastSync();
+        // refreshLastSync(new Date());
+
+        if (activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()) {
+            mPresenter.refreshNavigationCount(activityWeakReference.get());
+        }
     }
 }

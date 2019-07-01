@@ -10,31 +10,47 @@ public interface NavigationContract {
 
         NavigationContract.View getNavigationView();
 
-        void displayCurrentUser();
-
-        String getLoggedInUserInitials();
+        void refreshNavigationCount(Activity activity);
 
         void refreshLastSync();
+
+        void displayCurrentUser();
 
         void sync(Activity activity);
     }
 
     interface View {
 
+        void prepareViews(Activity activity);
+
+        void refreshLastSync(Date lastSync);
+
         void refreshCurrentUser(String name);
 
         void logout(Activity activity);
 
-        void prepareViews(Activity activity);
+        void refreshCount();
 
-        void refreshLastSync(Date lastSync);
+        void displayToast(Activity activity, String message);
+    }
+
+    interface Model {
+        String getCurrentUser();
     }
 
     interface Interactor {
 
         Date getLastSync();
 
+        void getRegisterCount(String tableName, InteractorCallback<Integer> callback);
+
+        Date Sync();
+
     }
 
+    interface InteractorCallback<T> {
+        void onResult(T result);
 
+        void onError(Exception e);
+    }
 }

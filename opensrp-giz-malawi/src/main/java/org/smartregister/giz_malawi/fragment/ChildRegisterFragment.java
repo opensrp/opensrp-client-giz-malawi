@@ -1,5 +1,6 @@
 package org.smartregister.giz_malawi.fragment;
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import org.smartregister.child.domain.RegisterClickables;
@@ -12,11 +13,13 @@ import org.smartregister.giz_malawi.activity.ChildRegisterActivity;
 import org.smartregister.giz_malawi.model.ChildRegisterFragmentModel;
 import org.smartregister.giz_malawi.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.giz_malawi.util.DBQueryHelper;
+import org.smartregister.giz_malawi.view.NavigationMenu;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.HashMap;
 
 public class ChildRegisterFragment extends BaseChildRegisterFragment {
+    private View view;
 
     @Override
     protected void initializePresenter() {
@@ -44,20 +47,25 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
+
+    @Override
     protected void onViewClicked(View view) {
-
         super.onViewClicked(view);
-
-
         RegisterClickables registerClickables = new RegisterClickables();
-
         if (view.getTag(org.smartregister.child.R.id.record_action) != null) {
-
             registerClickables.setRecordWeight(
-                    Constants.RECORD_ACTION.WEIGHT.equals(view.getTag(org.smartregister.child.R.id.record_action)));
+                    Constants.RECORD_ACTION.GROWTH.equals(view.getTag(org.smartregister.child.R.id.record_action)));
             registerClickables.setRecordAll(
                     Constants.RECORD_ACTION.VACCINATION.equals(view.getTag(org.smartregister.child.R.id.record_action)));
-
         }
 
         CommonPersonObjectClient client = null;
@@ -67,15 +75,12 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
 
         switch (view.getId()) {
             case R.id.child_profile_info_layout:
-
                 ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
-
                 break;
             case R.id.record_weight:
                 registerClickables.setRecordWeight(true);
                 ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
                 break;
-
             case R.id.record_vaccination:
                 registerClickables.setRecordAll(true);
                 ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
@@ -83,22 +88,25 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
             case R.id.filter_selection:
                 toggleFilterSelection();
                 break;
-
             case R.id.global_search:
                 ((ChildRegisterActivity) getActivity()).startAdvancedSearch();
                 break;
-
             case R.id.scan_qr_code:
                 ((ChildRegisterActivity) getActivity()).startQrCodeScanner();
                 break;
             case R.id.back_button:
-
                 ((ChildRegisterActivity) getActivity()).openDrawer();
                 break;
             default:
                 break;
         }
 
+    }
+
+    @Override
+    public void setupViews(View view) {
+        this.view = view;
+        super.setupViews(view);
     }
 
     @Override

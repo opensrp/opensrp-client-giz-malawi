@@ -18,21 +18,28 @@
           }
         },
         {
-          "column_name": "mother_guardian_first_name",
+          "column_name": "first_name",
           "type": "Client",
           "json_mapping": {
             "field": "firstName"
           }
         },
         {
-          "column_name": "mother_guardian_last_name",
+          "column_name": "last_name",
           "type": "Client",
           "json_mapping": {
             "field": "lastName"
           }
         },
         {
-          "column_name": "mother_guardian_date_birth",
+          "column_name": "middle_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "middleName"
+          }
+        },
+        {
+          "column_name": "dob",
           "type": "Client",
           "json_mapping": {
             "field": "birthdate"
@@ -96,13 +103,6 @@
           }
         },
         {
-          "column_name": "last_name",
-          "type": "Client",
-          "json_mapping": {
-            "field": "lastName"
-          }
-        },
-        {
           "column_name": "gender",
           "type": "Client",
           "json_mapping": {
@@ -142,6 +142,13 @@
           "type": "Event",
           "json_mapping": {
             "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "date_removed",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.dateRemoved"
           }
         }
       ]

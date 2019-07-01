@@ -1,32 +1,41 @@
 package org.smartregister.giz_malawi.presenter;
 
 import android.app.Activity;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
 
-import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.contract.NavigationContract;
 import org.smartregister.giz_malawi.interactor.NavigationInteractor;
+import org.smartregister.giz_malawi.model.NavigationModel;
+import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
-import org.smartregister.repository.AllSharedPreferences;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
 public class NavigationPresenter implements NavigationContract.Presenter {
 
-    private AllSharedPreferences allSharedPreferences;
-    private WeakReference<NavigationContract.View> mView;
+    private NavigationContract.Model mModel;
     private NavigationContract.Interactor mInteractor;
+    private WeakReference<NavigationContract.View> mView;
+
+    private HashMap<String, String> tableMap = new HashMap<>();
 
     public NavigationPresenter(NavigationContract.View view) {
         mView = new WeakReference<>(view);
-        allSharedPreferences = new AllSharedPreferences(PreferenceManager.getDefaultSharedPreferences(
-                GizMalawiApplication.getInstance().getApplicationContext()));
         mInteractor = NavigationInteractor.getInstance();
+        mModel = NavigationModel.getInstance();
+        initialize();
+    }
+
+    private void initialize() {
+        tableMap.put(GizConstants.DrawerMenu.ALL_FAMILIES, GizConstants.TABLE_NAME.FAMILY);
+        tableMap.put(GizConstants.DrawerMenu.CHILD_CLIENTS, GizConstants.TABLE_NAME.CHILD);
+        tableMap.put(GizConstants.DrawerMenu.ANC_CLIENTS, GizConstants.TABLE_NAME.ANC_MEMBER);
+        tableMap.put(GizConstants.DrawerMenu.ANC, GizConstants.TABLE_NAME.ANC_MEMBER);
     }
 
     @Override
@@ -35,46 +44,49 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     }
 
     @Override
-    public void displayCurrentUser() {
-        getNavigationView()
-                .refreshCurrentUser(allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM()));
+    public void refreshNavigationCount(final Activity activity) {
+
+        int x = 0;
+       /* while (x < mModel.getNavigationItems().size()) {
+            final int finalX = x;
+            mInteractor.getRegisterCount(tableMap.get(mModel.getNavigationItems().get(x).getMenuTitle()),
+                    new NavigationContract.InteractorCallback<Integer>() {
+                        @Override
+                        public void onResult(Integer result) {
+                            mModel.getNavigationItems().get(finalX).setRegisterCount(result);
+                            getNavigationView().refreshCount();
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            // getNavigationView().displayToast(activity, "Error retrieving count for " + tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
+                            Timber.e("Error retrieving count for %s",
+                                    tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
+                        }
+                    });
+            x++;
+        }*/
+
     }
 
     @Override
-    public String getLoggedInUserInitials() {
+    public void refreshLastSync() {
+        // get last sync date
+        getNavigationView().refreshLastSync(mInteractor.Sync());
+    }
 
-        try {
-            String preferredName = allSharedPreferences.getANMPreferredName(allSharedPreferences.fetchRegisteredANM());
-            if (!TextUtils.isEmpty(preferredName)) {
-                String[] initialsArray = preferredName.split(" ");
-                String initials = "";
-                if (initialsArray.length > 0) {
-                    initials = initialsArray[0].substring(0, 1);
-                    if (initialsArray.length > 1) {
-                        initials = initials + initialsArray[1].substring(0, 1);
-                    }
-                }
-                return initials.toUpperCase();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+    @Override
+    public void displayCurrentUser() {
+        getNavigationView().refreshCurrentUser(mModel.getCurrentUser());
     }
 
     @Override
     public void sync(Activity activity) {
+        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
         WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
         HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
-    }
-
-    @Override
-    public void refreshLastSync() {
-        getNavigationView().refreshLastSync(mInteractor.getLastSync());
     }
 }

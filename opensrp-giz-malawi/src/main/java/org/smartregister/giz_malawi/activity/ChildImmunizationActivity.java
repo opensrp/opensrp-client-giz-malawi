@@ -16,6 +16,8 @@ import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.location.helper.LocationHelper;
 
+import timber.log.Timber;
+
 public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     @Override
     protected void attachBaseContext(Context base) {
@@ -54,7 +56,7 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
 
         Intent intent = new Intent(fromContext, ChildDetailTabbedActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY.LOCATION_NAME,
+        bundle.putString(Constants.INTENT_KEY.LOCATION_ID,
                 LocationHelper.getInstance().getOpenMrsLocationId(getCurrentLocation()));
         bundle.putSerializable(Constants.INTENT_KEY.EXTRA_CHILD_DETAILS, childDetails);
         bundle.putSerializable(Constants.INTENT_KEY.EXTRA_REGISTER_CLICKABLES, registerClickables);

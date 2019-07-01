@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.child.ChildLibrary;
+import org.smartregister.child.activity.BaseChildFormActivity;
 import org.smartregister.child.domain.ChildMetadata;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.giz_malawi.BuildConfig;
-import org.smartregister.giz_malawi.activity.ChildFormActivity;
 import org.smartregister.giz_malawi.activity.ChildImmunizationActivity;
 import org.smartregister.giz_malawi.activity.ChildProfileActivity;
 import org.smartregister.giz_malawi.activity.LoginActivity;
@@ -52,6 +52,7 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
+import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -73,6 +74,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private EventClientRepository eventClientRepository;
     private String password;
     private boolean lastModified;
+    private ECSyncHelper ecSyncHelper;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -139,7 +141,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private ChildMetadata getMetadata() {
-        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
+        ChildMetadata metadata = new ChildMetadata(BaseChildFormActivity.class, ChildProfileActivity.class,
                 ChildImmunizationActivity.class, true);
         metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
                 GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
@@ -164,11 +166,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
         }
-    }
-
-    public void startZscoreRefreshService() {
-        Intent intent = new Intent(this.getApplicationContext(), ZScoreRefreshIntentService.class);
-        this.getApplicationContext().startService(intent);
     }
 
     private static String[] getFtsTables() {
@@ -279,6 +276,11 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return GizMalawiProcessorForJava.getInstance(this);
     }
 
+    public void startZscoreRefreshService() {
+        Intent intent = new Intent(this.getApplicationContext(), ZScoreRefreshIntentService.class);
+        this.getApplicationContext().startService(intent);
+    }
+
     @Override
     public void onTerminate() {
         logInfo("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
@@ -334,6 +336,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public void setLastModified(boolean lastModified) {
         this.lastModified = lastModified;
+    }
+
+    public ECSyncHelper getEcSyncHelper() {
+        if (ecSyncHelper == null) {
+            ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
+        }
+        return ecSyncHelper;
     }
 }
 
