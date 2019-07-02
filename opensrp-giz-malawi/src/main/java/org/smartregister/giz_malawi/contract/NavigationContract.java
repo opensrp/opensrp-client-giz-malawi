@@ -2,7 +2,10 @@ package org.smartregister.giz_malawi.contract;
 
 import android.app.Activity;
 
+import org.smartregister.giz_malawi.model.NavigationOption;
+
 import java.util.Date;
+import java.util.List;
 
 public interface NavigationContract {
 
@@ -17,6 +20,8 @@ public interface NavigationContract {
         void displayCurrentUser();
 
         void sync(Activity activity);
+
+        List<NavigationOption> getOptions();
     }
 
     interface View {
@@ -35,6 +40,8 @@ public interface NavigationContract {
     }
 
     interface Model {
+        List<NavigationOption> getNavigationItems();
+
         String getCurrentUser();
     }
 

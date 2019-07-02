@@ -1,11 +1,18 @@
 package org.smartregister.giz_malawi.interactor;
 
+import android.database.Cursor;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.contract.NavigationContract;
 import org.smartregister.giz_malawi.util.AppExecutors;
+import org.smartregister.giz_malawi.util.DBConstants;
+import org.smartregister.giz_malawi.util.GizChildDbConstants;
+import org.smartregister.giz_malawi.util.GizConstants;
 
+import java.text.MessageFormat;
 import java.util.Date;
 
 import timber.log.Timber;
@@ -61,29 +68,12 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
     private int getCount(String tableName) {
 
-        int count = 0;
-     /*   Cursor c = null;
+        int count;
+        Cursor c = null;
         String mainCondition;
         if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.CHILD)) {
-            mainCondition = String.format(" where %s is null AND %s", DBGizConstants.KEY.DATE_REMOVED, ChildDBGizConstants.childAgeLimitFilter());
-        } else if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.FAMILY)) {
-            mainCondition = String.format(" where %s is null ", DBGizConstants.KEY.DATE_REMOVED);
-        } else if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.ANC_MEMBER)) {
-            StringBuilder stb = new StringBuilder();
-
-            stb.append(MessageFormat.format(" inner join {0} ", GizConstants.TABLE_NAME.FAMILY_MEMBER));
-            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", GizConstants.TABLE_NAME.FAMILY_MEMBER, DBGizConstants.KEY.BASE_ENTITY_ID,
-                    GizConstants.TABLE_NAME.ANC_MEMBER, DBGizConstants.KEY.BASE_ENTITY_ID));
-
-            stb.append(MessageFormat.format(" inner join {0} ", GizConstants.TABLE_NAME.FAMILY));
-            stb.append(MessageFormat.format(" on {0}.{1} = {2}.{3} ", GizConstants.TABLE_NAME.FAMILY, DBGizConstants.KEY.BASE_ENTITY_ID,
-                    GizConstants.TABLE_NAME.FAMILY_MEMBER, DBGizConstants.KEY.RELATIONAL_ID));
-
-            stb.append(MessageFormat.format(" where {0}.{1} is null ", GizConstants.TABLE_NAME.FAMILY_MEMBER, DBGizConstants.KEY.DATE_REMOVED));
-            stb.append(MessageFormat.format(" and {0}.{1} is 0 ", GizConstants.TABLE_NAME.ANC_MEMBER, org.smartregister.chw.anc.util.DBGizConstants.KEY.IS_CLOSED));
-
-
-            mainCondition = stb.toString();
+            mainCondition = String.format(" where %s is null AND %s", DBConstants.KEY.DATE_REMOVED,
+                    GizChildDbConstants.childAgeLimitFilter());
         } else {
             mainCondition = " where 1 = 1 ";
         }
@@ -104,10 +94,14 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             if (c != null) {
                 c.close();
             }
-        }*/
+        }
 
 
         return count;
+    }
+
+    private CommonRepository commonRepository(String tableName) {
+        return GizMalawiApplication.getInstance().getContext().commonrepository(tableName);
     }
 
     @Override
@@ -129,10 +123,6 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         return commonRepository.isFts() && filters != null && !StringUtils
                 .containsIgnoreCase(filters, "like") && !StringUtils
                 .startsWithIgnoreCase(filters.trim(), "and ");
-    }
-
-    private CommonRepository commonRepository(String tableName) {
-        return GizMalawiApplication.getInstance().getContext().commonrepository(tableName);
     }
 
 }

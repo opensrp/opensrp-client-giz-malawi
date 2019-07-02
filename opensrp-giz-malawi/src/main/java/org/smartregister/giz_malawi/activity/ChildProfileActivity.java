@@ -7,8 +7,6 @@ import org.smartregister.child.util.Utils;
 import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
-import timber.log.Timber;
-
 public class ChildProfileActivity extends BaseProfileActivity {
     @Override
     protected void attachBaseContext(android.content.Context base) {

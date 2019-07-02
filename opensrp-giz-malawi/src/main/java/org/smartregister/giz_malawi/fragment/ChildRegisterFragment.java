@@ -2,6 +2,7 @@ package org.smartregister.giz_malawi.fragment;
 
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.fragment.BaseChildRegisterFragment;
@@ -37,6 +38,12 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
     }
 
     @Override
+    public void setupViews(View view) {
+        this.view = view;
+        super.setupViews(view);
+    }
+
+    @Override
     public String getMainCondition() {
         return presenter().getMainCondition();
     }
@@ -44,17 +51,6 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
     @Override
     protected String getDefaultSortQuery() {
         return presenter().getDefaultSortQuery();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setContentInsetsAbsolute(0, 0);
-        toolbar.setContentInsetsRelative(0, 0);
-        toolbar.setContentInsetStartWithNavigation(0);
-
-        NavigationMenu.getInstance(getActivity(), null, toolbar);
     }
 
     @Override
@@ -104,9 +100,21 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
     }
 
     @Override
-    public void setupViews(View view) {
-        this.view = view;
-        super.setupViews(view);
+    public void onResume() {
+        super.onResume();
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setContentInsetsAbsolute(0, 0);
+        toolbar.setContentInsetsRelative(0, 0);
+        toolbar.setContentInsetStartWithNavigation(0);
+
+        removeRedundantHomeButton(toolbar);
+
+        NavigationMenu.getInstance(getActivity(), null, toolbar);
+    }
+
+    private void removeRedundantHomeButton(Toolbar toolbar) {
+        RelativeLayout backButton = toolbar.findViewById(R.id.back_btn_layout);
+        backButton.setVisibility(View.GONE);
     }
 
     @Override

@@ -94,6 +94,17 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     @Override
+    protected void onResumption() {
+        super.onResumption();
+        openDrawer();
+    }
+
+    public void openDrawer() {
+        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
+                .setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
+    }
+
+    @Override
     public void onPause() {
         EventBus.getDefault().unregister(this);
         super.onPause();
@@ -114,19 +125,8 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         }
     }
 
-    @Override
-    protected void onResumption() {
-        super.onResumption();
-        openDrawer();
-    }
-
     private void showNfcDialog() {
         GizUtils.showDialogMessage(this, R.string.nfc_sdk_missing, R.string.please_install_nfc_sdk);
-    }
-
-    public void openDrawer() {
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
     }
 
     public void refresh() {

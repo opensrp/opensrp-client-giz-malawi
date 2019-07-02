@@ -16,8 +16,6 @@ import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.util.GizUtils;
 import org.smartregister.location.helper.LocationHelper;
 
-import timber.log.Timber;
-
 public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     @Override
     protected void attachBaseContext(Context base) {

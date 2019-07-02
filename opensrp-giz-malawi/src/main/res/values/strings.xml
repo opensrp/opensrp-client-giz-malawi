@@ -26,9 +26,8 @@
     <string name="zeir_id" translatable="false">MER ID</string>
     <string name="iz_id_hint">MER ID number</string>
 
-    <string name="nav_logo" translatable="false">Malawi-eRegister</string>
+    <string name="nav_logo" translatable="false">Malawi HIS</string>
     <string name="title_activity_child_immunization" translatable="false">ChildImmunizationActivity</string>
-    <string name="wellness_pass_home_logo" translatable="false">Wellness pass</string>
 
     <!-- Nfc-->
     <string name="error_code">Error: %1$s</string>
@@ -101,4 +100,5 @@
     <string name="device_to_device_sync">Device-to-device Sync</string>
     <string name="action_start_sync">Sync Started</string>
     <string name="all_registers">All Registers</string>
+    <string name="menu_child_clients">Child Clients</string>
 </resources>

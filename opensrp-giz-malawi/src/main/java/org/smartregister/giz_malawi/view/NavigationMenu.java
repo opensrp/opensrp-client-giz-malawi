@@ -16,9 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,7 +26,6 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.util.JsonFormUtils;
-import org.smartregister.child.util.Utils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz_malawi.R;
 import org.smartregister.giz_malawi.adapter.NavigationAdapter;
@@ -64,9 +61,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private View rootView = null;
     private ImageView ivSync;
     private ProgressBar syncProgressBar;
-    private LinearLayout enrollmentMenuItem;
-    private LinearLayout outOfAreaMenu;
-    private ImageButton cancelButton;
     private NavigationContract.Presenter mPresenter;
     private View parentView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
@@ -119,7 +113,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
                 // swap content view
                 LayoutInflater mInflater = LayoutInflater.from(activity);
-                ViewGroup contentView = (ViewGroup) mInflater.inflate(R.layout.side_navigation, null);
+                ViewGroup contentView = (ViewGroup) mInflater.inflate(R.layout.navigation_drawer, null);
                 activity.setContentView(contentView);
 
                 rootView = activity.findViewById(R.id.nav_view);
@@ -164,9 +158,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         recyclerView = rootView.findViewById(R.id.rvOptions);
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
         syncProgressBar = rootView.findViewById(R.id.pbSync);
-        outOfAreaMenu = activity.findViewById(R.id.out_of_area_menu);
-        enrollmentMenuItem = activity.findViewById(R.id.enrollment);
-        cancelButton = drawer.findViewById(R.id.cancel_button);
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
@@ -187,17 +178,13 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerLanguageSwitcher(activity);
 
         registerDeviceToDeviceSync(activity);
-        enrollment(activity);
-        recordOutOfArea(activity);
-       /*
-        attachCloseDrawer();*/
         // update all actions
         mPresenter.refreshLastSync();
     }
 
     private void registerNavigation(Activity parentActivity) {
         if (recyclerView != null) {
-            // navigationOptions = mPresenter.getOptions();
+            navigationOptions = mPresenter.getOptions();
             if (navigationAdapter == null) {
                 navigationAdapter = new NavigationAdapter(navigationOptions, parentActivity);
             }
@@ -209,17 +196,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
     }
 
-    private void enrollment(final Activity parentActivity) {
-        enrollmentMenuItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startFormActivity(parentActivity,
-                        Utils.metadata().childRegister.formName);
-            }
-        });
-    }
-
-    private void recordOutOfArea(final Activity parentActivity) {
+    /*private void recordOutOfArea(final Activity parentActivity) {
 
         outOfAreaMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,18 +204,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                 startFormActivity(parentActivity, OUT_OF_CATCHMENT_SERVICE);
             }
         });
-    }
-
-    private void attachCloseDrawer() {
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (drawer.isDrawerOpen(GravityCompat.START)) {
-                    drawer.closeDrawer(GravityCompat.START);
-                }
-            }
-        });
-    }
+    }*/
 
     private void registerLogout(final Activity parentActivity) {
         mPresenter.displayCurrentUser();
@@ -288,14 +254,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                         startP2PActivity(activity);
                     }
                 });
-    }
-
-    protected void startFormActivity(Activity activity, String formName) {
-        try {
-            JsonFormUtils.startForm(activity, JsonFormUtils.REQUEST_CODE_GET_JSON, formName, null, null);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
     }
 
     protected void refreshSyncProgressSpinner() {
@@ -354,6 +312,14 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     public void displayToast(Activity activity, String message) {
         if (activity != null) {
             Toast.makeText(activity.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    protected void startFormActivity(Activity activity, String formName) {
+        try {
+            JsonFormUtils.startForm(activity, JsonFormUtils.REQUEST_CODE_GET_JSON, formName, null, null);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 

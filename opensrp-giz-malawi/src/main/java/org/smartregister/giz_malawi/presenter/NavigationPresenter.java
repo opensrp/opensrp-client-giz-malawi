@@ -5,6 +5,7 @@ import android.app.Activity;
 import org.smartregister.giz_malawi.contract.NavigationContract;
 import org.smartregister.giz_malawi.interactor.NavigationInteractor;
 import org.smartregister.giz_malawi.model.NavigationModel;
+import org.smartregister.giz_malawi.model.NavigationOption;
 import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
@@ -15,6 +16,9 @@ import org.smartregister.job.SyncServiceJob;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.List;
+
+import timber.log.Timber;
 
 public class NavigationPresenter implements NavigationContract.Presenter {
 
@@ -47,7 +51,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     public void refreshNavigationCount(final Activity activity) {
 
         int x = 0;
-       /* while (x < mModel.getNavigationItems().size()) {
+        while (x < mModel.getNavigationItems().size()) {
             final int finalX = x;
             mInteractor.getRegisterCount(tableMap.get(mModel.getNavigationItems().get(x).getMenuTitle()),
                     new NavigationContract.InteractorCallback<Integer>() {
@@ -65,7 +69,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
                         }
                     });
             x++;
-        }*/
+        }
 
     }
 
@@ -88,5 +92,10 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
         HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
+    }
+
+    @Override
+    public List<NavigationOption> getOptions() {
+        return mModel.getNavigationItems();
     }
 }
