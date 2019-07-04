@@ -80,16 +80,16 @@
     <string name="arabic_not_supported">Vaccination in Arabic is not supported in this version</string>
     <string name="logo_string">logo</string>
 
-     <string name="birth_registration_number">Birth registration number</string>
-     <string name="middle_name">Middle Number</string>
-     <string name="home_address">Home Address</string>
-     <string name="village">Village</string>
-     <string name="traditional_authority">Traditional Authority</string>
-     <string name="mother_guardian_nid">Mother Guardian NID</string>
-     <string name="protected_at_birth">Protected at Birth</string>
-     <string name="mother_hiv_status">Mother Hiv Status</string>
-     <string name="child_hiv_status">Child Hiv Status</string>
-     <string name="child_treatment">Child Treatment</string>
+    <string name="birth_registration_number">Birth registration number</string>
+    <string name="middle_name">Middle Number</string>
+    <string name="home_address">Home Address</string>
+    <string name="village">Village</string>
+    <string name="traditional_authority">Traditional Authority</string>
+    <string name="mother_guardian_nid">Mother Guardian NID</string>
+    <string name="protected_at_birth">Protected at Birth</string>
+    <string name="mother_hiv_status">Mother Hiv Status</string>
+    <string name="child_hiv_status">Child Hiv Status</string>
+    <string name="child_treatment">Child Treatment</string>
 
     <string name="nav_registers">Registers</string>
     <string name="nav_logout_as">Logout as</string>

@@ -7,12 +7,20 @@ import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.domain.Form;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
+import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.model.BaseChildRegisterModel;
 import org.smartregister.child.presenter.BaseChildRegisterPresenter;
+import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.JsonFormUtils;
+import org.smartregister.child.util.Utils;
 import org.smartregister.giz_malawi.R;
 import org.smartregister.giz_malawi.event.LoginEvent;
 import org.smartregister.giz_malawi.fragment.AdvancedSearchFragment;
@@ -133,5 +141,23 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         Intent intent = new Intent(ChildRegisterActivity.this, ChildRegisterActivity.class);
         getApplicationContext()
                 .startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    }
+
+    @Override
+    public void startFormActivity(JSONObject jsonForm) {
+        Intent intent = new Intent(this, Utils.metadata().childFormActivity);
+        if (jsonForm.has(GizConstants.ENCOUNTER_TYPE) && jsonForm.optString(GizConstants.ENCOUNTER_TYPE).equals(
+                GizConstants.BIRTH_REGISTRATION)){
+            JsonFormUtils.addChildRegLocHierarchyQuestions(jsonForm, GizConstants.REGISTRATION_HOME_ADDRESS, LocationHierarchy.ENTIRE_TREE);
+        }
+        intent.putExtra(Constants.INTENT_KEY.JSON, jsonForm.toString());
+
+        Form form = new Form();
+        form.setWizard(false);
+        form.setHideSaveLabel(true);
+        form.setNextLabel("");
+
+        intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
+        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 }

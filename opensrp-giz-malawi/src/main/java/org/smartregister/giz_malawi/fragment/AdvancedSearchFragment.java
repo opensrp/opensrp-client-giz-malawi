@@ -62,7 +62,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         }
 
         if (StringUtils.isNotBlank(motherGuardianNidString)) {
-            searchParams.put(DBConstants.KEY.MOTHER_NID, motherGuardianNidString);
+            searchParams.put(DBConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNidString);
         }
 
         if (StringUtils.isNotBlank(motherGuardianPhoneNumberString)) {
@@ -91,7 +91,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
             firstName.setText(searchFormData.get(DBConstants.KEY.FIRST_NAME));
             lastName.setText(searchFormData.get(DBConstants.KEY.LAST_NAME));
             motherGuardianName.setText(searchFormData.get(DBConstants.KEY.MOTHER_FIRST_NAME));
-            motherGuardianNid.setText(searchFormData.get(DBConstants.KEY.MOTHER_NID));
+            motherGuardianNid.setText(searchFormData.get(DBConstants.KEY.MOTHER_NRC_NUMBER));
             motherGuardianPhoneNumber.setText(searchFormData.get(DBConstants.KEY.CONTACT_PHONE_NUMBER));
             openSrpId.setText(searchFormData.get(DBConstants.KEY.MER_ID));
         }
@@ -112,7 +112,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName);
 
         motherGuardianNid = view.findViewById(org.smartregister.child.R.id.mother_guardian_nrc);
-        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_NID, motherGuardianNid);
+        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid);
 
         motherGuardianPhoneNumber = view.findViewById(org.smartregister.child.R.id.mother_guardian_phone_number);
         advancedFormSearchableFields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber);
@@ -132,7 +132,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         fields.put(DBConstants.KEY.FIRST_NAME, firstName.getText().toString());
         fields.put(DBConstants.KEY.LAST_NAME, lastName.getText().toString());
         fields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName.getText().toString());
-        fields.put(DBConstants.KEY.MOTHER_NID, motherGuardianNid.getText().toString());
+        fields.put(DBConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid.getText().toString());
         fields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber.getText().toString());
         fields.put(DBConstants.KEY.MER_ID, openSrpId.getText().toString());
         return fields;

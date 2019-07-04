@@ -1,7 +1,6 @@
 package org.smartregister.giz_malawi.model;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.AllConstants;
 import org.smartregister.child.model.BaseChildAdvancedSearchModel;
 import org.smartregister.giz_malawi.util.DBConstants;
 
@@ -71,30 +70,31 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
 
     @Override
     protected String[] mainColumns(String tableName, String parentTableName) {
-        String[] columns = new String[] {
-
+        return new String[] {
                 tableName + "." + DBConstants.KEY.RELATIONALID,
                 tableName + "." + DBConstants.KEY.DETAILS,
                 tableName + "." + DBConstants.KEY.MER_ID,
                 tableName + "." + DBConstants.KEY.RELATIONAL_ID,
                 tableName + "." + DBConstants.KEY.FIRST_NAME,
                 tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + AllConstants.ChildRegistrationFields.GENDER,
+                tableName + "." + DBConstants.KEY.HOME_ADDRESS,
+                tableName + "." + DBConstants.KEY.VILLAGE,
+                tableName + "." + DBConstants.KEY.TRADITIONAL_AUTHORITY,
+                tableName + "." + DBConstants.KEY.CHILD_TREATMENT,
+                tableName + "." + DBConstants.KEY.CHILD_HIV_STATUS,
+                tableName + "." + DBConstants.KEY.GENDER,
                 tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
                 parentTableName + "." + DBConstants.KEY.MOTHER_FIRST_NAME + " as mother_first_name",
                 parentTableName + "." + DBConstants.KEY.MOTHER_LAST_NAME + " as mother_last_name",
                 parentTableName + "." + DBConstants.KEY.MOTHER_DOB + " as mother_dob",
-                parentTableName + "." + DBConstants.KEY.MOTHER_NID + " as mother_nid",
-                tableName + "." + DBConstants.KEY.FATHER_FIRST_NAME,
+                parentTableName + "." + DBConstants.KEY.MOTHER_NRC_NUMBER + " as mother_nid",
+                parentTableName + "." + DBConstants.KEY.MOTHER_GUARDIAN_NUMBER,
+                parentTableName + "." + DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER,
+                parentTableName + "." + DBConstants.KEY.PROTECTED_AT_BIRTH,
+                parentTableName + "." + DBConstants.KEY.MOTHER_HIV_STATUS,
                 tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + DBConstants.KEY.CONTACT_PHONE_NUMBER,
-                tableName + "." + DBConstants.KEY.PROVIDER_UC,
-                tableName + "." + DBConstants.KEY.PROVIDER_TOWN,
-                tableName + "." + DBConstants.KEY.PROVIDER_ID,
-                tableName + "." + DBConstants.KEY.PROVIDER_LOCATION_ID,
                 tableName + "." + DBConstants.KEY.CLIENT_REG_DATE,
                 tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH
         };
-        return columns;
     }
 }

@@ -8,6 +8,7 @@ public class GizConstants {
     public static final String CHILD_REGISTER_CARD_NUMBER = "Child_Register_Card_Number";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
+    public static final String MIDDLE_NAME = "middle_name";
     public static final String GENDER = "gender";
     public static final String BIRTH_WEIGHT = "Birth_Weight";
     public static final String BIRTH_HEIGHT = "Birth_Height";
@@ -17,11 +18,6 @@ public class GizConstants {
     public static final String MOTHER_MIDDLE_NAME = "middle_name";
     public static final String MOTHER_GUARDIAN_PHONE_NUMBER = "Mother_Guardian_Phone_Number";
     public static final String MOTHER_GUARDIAN_NUMBER = "Mother_Guardian_Number";
-    public static final String FATHER_GUARDIAN_FIRST_NAME = "Father_Guardian_First_Name";
-    public static final String FATHER_GUARDIAN_LAST_NAME = "Father_Guardian_Last_Name";
-    public static final String FATHER_GUARDIAN_PHONE_NUMBER = "Father_Guardian_Phone_Number";
-    public static final String FATHER_GUARDIAN_NUMBER = "Father_Guardian_Number";
-    public static final String FATHER_GUARDIAN_DATE_BIRTH = "Father_Guardian_Date_Birth";
     public static final String IS_PLACE_BIRTH = "isPlace_Birth";
     public static final String OTHER = "other";
     public static final String BIRTH_FACILITY_NAME_OTHER = "Birth_Facility_Name_Other";
@@ -53,6 +49,10 @@ public class GizConstants {
     public static final String RESIDENTIAL_AREA = "Residential_Area";
     public static final String MOTHER = "mother";
     public static final String MOTHER_ = "mother_";
+    public static final String ENCOUNTER_TYPE = "encounter_type";
+    public static final String BIRTH_REGISTRATION = "Birth Registration";
+    public static final String REGISTRATION_HOME_ADDRESS = "home_address";
+    public static final String TITLE = "title";
     public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
 
     public static final class DrawerMenu {

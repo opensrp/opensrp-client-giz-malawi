@@ -110,7 +110,7 @@
         "hint": "Last name",
         "edit_type": "name",
         "v_required": {
-          "value": "true",
+          "value": true,
           "err": "Please enter the last name"
         },
         "v_regex": {
@@ -132,7 +132,7 @@
         }
       },
       {
-        "key": "Middle_Name",
+        "key": "middle_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
         "openmrs_entity_id": "middle_name",
@@ -144,7 +144,7 @@
           "err": "Please enter a valid name"
         },
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "Please enter the child's middle name"
         }
       },
@@ -198,14 +198,13 @@
         }
       },
       {
-        "key": "Home_Address",
+        "key": "home_address",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
-        "type": "edit_text",
+        "type": "tree",
         "hint": "Address/Location",
-        "tree": [],
         "v_required": {
           "value": false,
           "err": "Please enter the Child's Home Address"
@@ -214,17 +213,17 @@
       {
         "key": "village",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address1",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Child's Village"
       },
       {
         "key": "traditional_authority",
-        "openmrs_entity_parent": "usual_residence",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address5",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "traditional_authority",
         "hint": "Traditional Authority",
         "type": "edit_text"
       },
@@ -325,7 +324,7 @@
         "max_date": "today-10y"
       },
       {
-        "key": "mother_guardian_nid",
+        "key": "nrc_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "National_ID",
@@ -342,6 +341,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "entity_id": "mother",
         "type": "edit_text",
         "hint": "Mother/guardian phone number",
         "v_regex": {
@@ -354,6 +354,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "second_phone_number",
+        "entity_id": "mother",
         "type": "edit_text",
         "hint": "Second phone number",
         "v_regex": {
@@ -368,6 +369,7 @@
         "openmrs_entity_id": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "Child's mother received 2+ doses of TT.",
+        "entity_id": "mother",
         "values": [
           "Yes",
           "No",
@@ -391,6 +393,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "entity_id": "mother",
         "type": "spinner",
         "hint": "HIV Status of the Child's Mother",
         "values": [

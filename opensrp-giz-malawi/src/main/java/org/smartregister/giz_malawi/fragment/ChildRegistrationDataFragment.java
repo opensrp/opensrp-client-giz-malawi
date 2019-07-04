@@ -25,7 +25,7 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
         resourceIds.put("Birth_Weight", R.string.birth_weight);
         resourceIds.put("Birth_Height", R.string.birth_height);
         resourceIds.put("Home_Address", R.string.home_address);
-        resourceIds.put("village", R.string.child_register_card_number);
+        resourceIds.put("village", R.string.village);
         resourceIds.put("traditional_authority", R.string.traditional_authority);
         resourceIds.put("mother_guardian_first_name", R.string.mother_guardian_name);
         resourceIds.put("mother_guardian_last_name", R.string.mother_second_name);

@@ -46,7 +46,7 @@
           }
         },
         {
-          "column_name": "mother_guardian_nid",
+          "column_name": "nrc_number",
           "type": "Client",
           "json_mapping": {
             "field": "attributes.National_ID"
@@ -61,38 +61,17 @@
           }
         },
         {
-          "column_name": "nrc_number",
+          "column_name": "second_phone_number",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.NRC_Number"
+            "field": "attributes.second_phone_number"
           }
         },
         {
-          "column_name": "provider_uc",
+          "column_name": "mother_guardian_number",
           "type": "Client",
           "json_mapping": {
-            "field": "provider_uc"
-          }
-        },
-        {
-          "column_name": "provider_town",
-          "type": "Client",
-          "json_mapping": {
-            "field": "provider_town"
-          }
-        },
-        {
-          "column_name": "provider_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "provider_id"
-          }
-        },
-        {
-          "column_name": "provider_location_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "provider_location_id"
+            "field": "attributes.mother_guardian_number"
           }
         },
         {
@@ -110,31 +89,19 @@
           }
         },
         {
-          "column_name": "town",
-          "type": "Client",
+          "column_name": "protected_at_birth",
+          "type": "Event",
           "json_mapping": {
-            "field": "addresses.town"
+            "field": "obs.fieldCode",
+            "concept": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
-          "column_name": "union_council",
-          "type": "Client",
+          "column_name": "mother_hiv_status",
+          "type": "Event",
           "json_mapping": {
-            "field": "addresses.subTown"
-          }
-        },
-        {
-          "column_name": "address1",
-          "type": "Client",
-          "json_mapping": {
-            "field": "addresses.addressFields.address1"
-          }
-        },
-        {
-          "column_name": "address",
-          "type": "Client",
-          "json_mapping": {
-            "field": "addresses.addressType"
+            "field": "obs.fieldCode",
+            "concept": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -178,20 +145,6 @@
           }
         },
         {
-          "column_name": "Child_Register_Card_Number",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.Child_Register_Card_Number"
-          }
-        },
-        {
-          "column_name": "mother_guardian_nid",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.National_ID"
-          }
-        },
-        {
           "column_name": "relational_id",
           "type": "Client",
           "json_mapping": {
@@ -213,7 +166,7 @@
           }
         },
         {
-          "column_name": "Middle_Name",
+          "column_name": "middle_name",
           "type": "Client",
           "json_mapping": {
             "field": "middleName"
@@ -224,54 +177,6 @@
           "type": "Client",
           "json_mapping": {
             "field": "gender"
-          }
-        },
-        {
-          "column_name": "mother_first_name",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Mother_Guardian_First_Name"
-          }
-        },
-        {
-          "column_name": "mother_last_name",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Mother_Guardian_Last_Name"
-          }
-        },
-        {
-          "column_name": "father_first_name",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Father_Guardian_First_Name"
-          }
-        },
-        {
-          "column_name": "father_last_name",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Father_Guardian_Last_Name"
-          }
-        },
-        {
-          "column_name": "father_dob",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Father_Guardian_Date_Birth"
-          }
-        },
-        {
-          "column_name": "father_number",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "formSubmissionField": "Father_Guardian_Phone_Number"
           }
         },
         {
@@ -286,45 +191,6 @@
           "type": "Client",
           "json_mapping": {
             "field": "deathdate"
-          }
-        },
-        {
-          "column_name": "Second_Phone_Number",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.Second_Phone_Number"
-          }
-        },
-        {
-          "column_name": "contact_phone_number",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "mother_guardian_number",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "protected_at_birth",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        },
-        {
-          "column_name": "mother_hiv_status",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -344,34 +210,6 @@
           }
         },
         {
-          "column_name": "provider_uc",
-          "type": "Client",
-          "json_mapping": {
-            "field": "provider_uc"
-          }
-        },
-        {
-          "column_name": "provider_town",
-          "type": "Client",
-          "json_mapping": {
-            "field": "provider_town"
-          }
-        },
-        {
-          "column_name": "provider_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "provider_id"
-          }
-        },
-        {
-          "column_name": "provider_location_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "provider_location_id"
-          }
-        },
-        {
           "column_name": "client_reg_date",
           "type": "Event",
           "json_mapping": {
@@ -379,31 +217,25 @@
           }
         },
         {
-          "column_name": "town",
-          "type": "Client",
+          "column_name": "home_address",
+          "type": "Event",
           "json_mapping": {
-            "field": "addresses.town"
+            "field": "obs.fieldCode",
+            "concept": "162725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
-          "column_name": "union_council",
+          "column_name": "traditional_authority",
           "type": "Client",
           "json_mapping": {
-            "field": "addresses.subTown"
+            "field": "attributes.traditional_authority"
           }
         },
         {
-          "column_name": "address1",
+          "column_name": "village",
           "type": "Client",
           "json_mapping": {
             "field": "addresses.addressFields.address1"
-          }
-        },
-        {
-          "column_name": "address",
-          "type": "Client",
-          "json_mapping": {
-            "field": "addresses.addressType"
           }
         },
         {
