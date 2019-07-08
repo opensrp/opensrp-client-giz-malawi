@@ -3,7 +3,7 @@ package org.smartregister.giz_malawi.util;
 public class GizConstants {
     public static final String VIEW_CONFIGURATION_PREFIX = "ViewConfiguration_";
     public static final String ARABIC_LOCALE = "ar";
-    public static final String HOME_FACILITY = "Home_Facility";
+    public static final String HOME_FACILITY = "home_address";
     public static final String MER_ID = "mer_id";
     public static final String CHILD_REGISTER_CARD_NUMBER = "Child_Register_Card_Number";
     public static final String FIRST_NAME = "first_name";
