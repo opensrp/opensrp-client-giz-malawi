@@ -73,6 +73,7 @@
         "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "Child's MER ID",
+        "label_info_text": "Write this number down on the child's health passport.",
         "scanButtonText": "Scan QR Code",
         "value": "0",
         "v_numeric": {
@@ -91,6 +92,7 @@
         "openmrs_entity_id": "Birth_Certificate",
         "type": "edit_text",
         "hint": "Child's Birth Registration Number",
+        "label_info_text": "If the child was registered in vital registration, enter the registration number here.",
         "edit_type": "name",
         "v_required": {
           "value": false,
@@ -219,6 +221,7 @@
         "openmrs_entity_id": "address1",
         "openmrs_data_type": "text",
         "type": "edit_text",
+        "label_info_text": "Indicate the village where the child comes from.",
         "hint": "Child's Village"
       },
       {
@@ -227,6 +230,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "traditional_authority",
         "hint": "Traditional Authority",
+        "label_info_text": "Indicate the name of the Traditional Authority for the child.",
         "type": "edit_text"
       },
       {
@@ -236,6 +240,7 @@
         "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
+        "label_info_text": "The weight as measured when the child is born",
         "hint": "Birth weight (kg)",
         "v_min": {
           "value": "0.1",
@@ -370,7 +375,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Child's mother received 2+ doses of TT.",
+        "label_info_text": "Whether the child's mother received 2+ doses of Td.",
+        "hint": "Protected at birth (PAB)",
         "entity_id": "mother",
         "values": [
           "Yes",
@@ -442,7 +448,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
-        "hint": "Indicate whether the child is on CPT and/or ART.",
+        "label_info_text": "Indicate whether the child is on CPT and/or ART.",
+        "hint": "Child's treatment",
         "values": [
           "CPT",
           "ART",

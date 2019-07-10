@@ -1,6 +1,8 @@
 package org.smartregister.giz_malawi.model;
 
+import org.smartregister.child.cursor.AdvancedMatrixCursor;
 import org.smartregister.child.model.BaseChildRegisterFragmentModel;
+import org.smartregister.domain.Response;
 import org.smartregister.giz_malawi.util.DBConstants;
 
 /**
@@ -8,8 +10,14 @@ import org.smartregister.giz_malawi.util.DBConstants;
  */
 public class ChildRegisterFragmentModel extends BaseChildRegisterFragmentModel {
     @Override
+    public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
+        //Just overriddenn
+        return null;
+    }
+
+    @Override
     protected String[] mainColumns(String tableName, String parentTableName) {
-        return new String[] {
+        return new String[]{
                 tableName + "." + DBConstants.KEY.RELATIONALID,
                 tableName + "." + DBConstants.KEY.DETAILS,
                 tableName + "." + DBConstants.KEY.MER_ID,

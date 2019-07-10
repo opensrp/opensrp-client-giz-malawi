@@ -13,11 +13,11 @@ import org.json.JSONObject;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.util.Constants;
-import org.smartregister.child.util.FormUtils;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.AssetHandler;
+import org.smartregister.util.FormUtils;
 
 import java.util.ArrayList;
 import java.util.List;

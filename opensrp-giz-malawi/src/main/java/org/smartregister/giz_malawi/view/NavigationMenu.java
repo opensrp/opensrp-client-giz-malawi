@@ -196,16 +196,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
     }
 
-    /*private void recordOutOfArea(final Activity parentActivity) {
-
-        outOfAreaMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startFormActivity(parentActivity, OUT_OF_CATCHMENT_SERVICE);
-            }
-        });
-    }*/
-
     private void registerLogout(final Activity parentActivity) {
         mPresenter.displayCurrentUser();
         tvLogout.setOnClickListener(new View.OnClickListener() {
@@ -315,32 +305,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
     }
 
-    protected void startFormActivity(Activity activity, String formName) {
-        try {
-            JsonFormUtils.startForm(activity, JsonFormUtils.REQUEST_CODE_GET_JSON, formName, null, null);
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
-
     public NavigationAdapter getNavigationAdapter() {
         return navigationAdapter;
     }
 
-    public void lockDrawer(Activity activity) {
-        prepareViews(activity);
-        if (drawer != null) {
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        }
-    }
-
-    public boolean onBackPressed() {
-        boolean res = false;
-        if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-            res = true;
-        }
-        return res;
+    public void runRegisterCount() {
+        mPresenter.refreshNavigationCount();
     }
 
     @Override
@@ -361,9 +331,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         // update the time
         mPresenter.refreshLastSync();
         // refreshLastSync(new Date());
-
-        if (activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()) {
-            mPresenter.refreshNavigationCount(activityWeakReference.get());
-        }
+        mPresenter.refreshNavigationCount();
     }
 }

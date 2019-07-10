@@ -21,7 +21,8 @@ import java.util.Map;
  */
 public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
     protected MaterialEditText openSrpId;
-    protected MaterialEditText motherGuardianName;
+    protected MaterialEditText motherGuardianLastName;
+    protected MaterialEditText motherGuardianFirstName;
     protected MaterialEditText motherGuardianNid;
     protected MaterialEditText motherGuardianPhoneNumber;
     private AdvancedSearchPresenter presenter;
@@ -44,21 +45,26 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
     }
 
     @Override
-    protected Map<String, String> getSearchMap() {
+    protected Map<String, String> getSearchMap(boolean b) {
         Map<String, String> searchParams = new HashMap<>();
 
         String fn = firstName.getText().toString();
         String ln = lastName.getText().toString();
 
 
-        String motherGuardianNameString = motherGuardianName.getText().toString();
+        String motherGuardianFirstNameString = motherGuardianFirstName.getText().toString();
+        String motherGuardianLastNameString = motherGuardianLastName.getText().toString();
         String motherGuardianNidString = motherGuardianNid.getText().toString();
         String motherGuardianPhoneNumberString = motherGuardianPhoneNumber.getText().toString();
         String zeir = openSrpId.getText().toString();
 
 
-        if (StringUtils.isNotBlank(motherGuardianNameString)) {
-            searchParams.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianNameString);
+        if (StringUtils.isNotBlank(motherGuardianFirstNameString)) {
+            searchParams.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianFirstNameString);
+        }
+
+        if (StringUtils.isNotBlank(motherGuardianLastNameString)) {
+            searchParams.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianLastNameString);
         }
 
         if (StringUtils.isNotBlank(motherGuardianNidString)) {
@@ -90,7 +96,8 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         if (searchFormData.size() > 0) {
             firstName.setText(searchFormData.get(DBConstants.KEY.FIRST_NAME));
             lastName.setText(searchFormData.get(DBConstants.KEY.LAST_NAME));
-            motherGuardianName.setText(searchFormData.get(DBConstants.KEY.MOTHER_FIRST_NAME));
+            motherGuardianFirstName.setText(searchFormData.get(DBConstants.KEY.MOTHER_FIRST_NAME));
+            motherGuardianLastName.setText(searchFormData.get(DBConstants.KEY.MOTHER_LAST_NAME));
             motherGuardianNid.setText(searchFormData.get(DBConstants.KEY.MOTHER_NRC_NUMBER));
             motherGuardianPhoneNumber.setText(searchFormData.get(DBConstants.KEY.CONTACT_PHONE_NUMBER));
             openSrpId.setText(searchFormData.get(DBConstants.KEY.MER_ID));
@@ -108,8 +115,11 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         openSrpId = view.findViewById(org.smartregister.child.R.id.opensrp_id);
         advancedFormSearchableFields.put(DBConstants.KEY.MER_ID, openSrpId);
 
-        motherGuardianName = view.findViewById(org.smartregister.child.R.id.mother_guardian_name);
-        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName);
+        motherGuardianFirstName = view.findViewById(org.smartregister.child.R.id.mother_guardian_first_name);
+        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianFirstName);
+
+        motherGuardianLastName = view.findViewById(org.smartregister.child.R.id.mother_guardian_last_name);
+        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_LAST_NAME, motherGuardianLastName);
 
         motherGuardianNid = view.findViewById(org.smartregister.child.R.id.mother_guardian_nrc);
         advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid);
@@ -121,7 +131,8 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         firstName.addTextChangedListener(advancedSearchTextwatcher);
         lastName.addTextChangedListener(advancedSearchTextwatcher);
         openSrpId.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianName.addTextChangedListener(advancedSearchTextwatcher);
+        motherGuardianFirstName.addTextChangedListener(advancedSearchTextwatcher);
+        motherGuardianLastName.addTextChangedListener(advancedSearchTextwatcher);
         motherGuardianNid.addTextChangedListener(advancedSearchTextwatcher);
         motherGuardianPhoneNumber.addTextChangedListener(advancedSearchTextwatcher);
     }
@@ -131,7 +142,8 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         HashMap<String, String> fields = new HashMap<>();
         fields.put(DBConstants.KEY.FIRST_NAME, firstName.getText().toString());
         fields.put(DBConstants.KEY.LAST_NAME, lastName.getText().toString());
-        fields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianName.getText().toString());
+        fields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianFirstName.getText().toString());
+        fields.put(DBConstants.KEY.MOTHER_LAST_NAME, motherGuardianLastName.getText().toString());
         fields.put(DBConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid.getText().toString());
         fields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber.getText().toString());
         fields.put(DBConstants.KEY.MER_ID, openSrpId.getText().toString());
@@ -145,7 +157,8 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         openSrpId.setText("");
         firstName.setText("");
         lastName.setText("");
-        motherGuardianName.setText("");
+        motherGuardianFirstName.setText("");
+        motherGuardianLastName.setText("");
         motherGuardianNid.setText("");
         motherGuardianPhoneNumber.setText("");
 

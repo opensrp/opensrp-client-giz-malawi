@@ -67,9 +67,8 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     private int getCount(String tableName) {
-
         int count;
-        Cursor c = null;
+        Cursor cursor = null;
         String mainCondition;
         if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.CHILD)) {
             mainCondition = String.format(" where %s is null AND %s", DBConstants.KEY.DATE_REMOVED,
@@ -79,20 +78,20 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         }
         try {
 
-            SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
+            SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
             String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
-            query = sqb.Endquery(query);
+            query = smartRegisterQueryBuilder.Endquery(query);
             Timber.i("2%s", query);
-            c = commonRepository(tableName).rawCustomQueryForAdapter(query);
-            if (c.moveToFirst()) {
-                count = c.getInt(0);
+            cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
+            if (cursor.moveToFirst()) {
+                count = cursor.getInt(0);
             } else {
                 count = 0;
             }
 
         } finally {
-            if (c != null) {
-                c.close();
+            if (cursor != null) {
+                cursor.close();
             }
         }
 

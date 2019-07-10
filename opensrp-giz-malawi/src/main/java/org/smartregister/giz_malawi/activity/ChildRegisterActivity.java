@@ -108,8 +108,9 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     public void openDrawer() {
-        NavigationMenu.getInstance(this, null, null).getNavigationAdapter()
-                .setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
+        NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
+        navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
+        navigationMenu.runRegisterCount();
     }
 
     @Override
@@ -118,7 +119,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         super.onPause();
     }
 
-    @Subscribe (sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     public void showNfcNotInstalledDialog(LoginEvent event) {
         if (event != null) {
             GizUtils.removeStickyEvent(event);
@@ -147,7 +148,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(this, Utils.metadata().childFormActivity);
         if (jsonForm.has(GizConstants.ENCOUNTER_TYPE) && jsonForm.optString(GizConstants.ENCOUNTER_TYPE).equals(
-                GizConstants.BIRTH_REGISTRATION)){
+                GizConstants.BIRTH_REGISTRATION)) {
             JsonFormUtils.addChildRegLocHierarchyQuestions(jsonForm, GizConstants.REGISTRATION_HOME_ADDRESS, LocationHierarchy.ENTIRE_TREE);
         }
         intent.putExtra(Constants.INTENT_KEY.JSON, jsonForm.toString());

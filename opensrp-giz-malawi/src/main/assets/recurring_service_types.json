@@ -21,7 +21,8 @@
         "schedule": {
           "due": {
             "reference": "dob",
-            "offset": "+0d"
+            "offset": "+0d",
+            "window": "+1d"
           },
           "expiry": {
             "reference": "dob",
