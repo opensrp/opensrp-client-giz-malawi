@@ -41,6 +41,8 @@ public class GizMalawiJobCreator implements JobCreator {
                 return new HeightIntentServiceJob();
             case ZScoreRefreshIntentServiceJob.TAG:
                 return new ZScoreRefreshIntentServiceJob();
+            case RecurringIndicatorGeneratingJob.TAG:
+                return new RecurringIndicatorGeneratingJob();
             default:
                 Log.w(GizMalawiJobCreator.class.getCanonicalName(), tag + " is not declared in Job Creator");
                 return null;

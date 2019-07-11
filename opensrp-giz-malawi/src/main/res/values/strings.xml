@@ -101,4 +101,9 @@
     <string name="action_start_sync">Sync Started</string>
     <string name="all_registers">All Registers</string>
     <string name="menu_child_clients">Child Clients</string>
+    <style name="report">Report</style>
+    <string name="loading">Loading</string>
+    <string name="please_wait_message">Please wait</string>
+    <string name="report">Reports</string>
+
 </resources>

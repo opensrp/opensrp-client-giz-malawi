@@ -39,6 +39,9 @@ public class GizMalawiRepository extends Repository {
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
+    private String indicatorsConfigFile = "config/indicator-definitions.yml";
+    private String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
+    private String appVersionCodePref = "APP_VERSION_CODE";
 
     public GizMalawiRepository(Context context, org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
@@ -63,10 +66,24 @@ public class GizMalawiRepository extends Repository {
         WeightRepository.createTable(database);
         HeightRepository.createTable(database);
         VaccineRepository.createTable(database);
+        MonthlyTalliesRepository.createTable(database);
 
         runLegacyUpgrades(database);
 
         onUpgrade(database, 7, BuildConfig.DATABASE_VERSION);
+
+        // initialize from yml file
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        // Check if indicator data initialised
+        boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
+                .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
+        boolean isUpdated = checkIfAppUpdated();
+        if (!indicatorDataInitialised || isUpdated) {
+            Log.d("REPO 2!", "initialising");
+            reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        }
     }
 
 
@@ -361,6 +378,16 @@ public class GizMalawiRepository extends Repository {
 
         } catch (Exception e) {
             Log.e(TAG, "upgradeToVersion15RemoveUnnecessaryTables " + e.getMessage());
+        }
+    }
+
+    private boolean checkIfAppUpdated() {
+        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
+        if (savedAppVersion.isEmpty()) {
+            return true;
+        } else {
+            int savedVersion = Integer.parseInt(savedAppVersion);
+            return (BuildConfig.VERSION_CODE > savedVersion);
         }
     }
 

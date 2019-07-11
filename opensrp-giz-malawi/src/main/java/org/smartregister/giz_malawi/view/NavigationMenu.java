@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.activity.HIA2ReportsActivity;
 import org.smartregister.giz_malawi.adapter.NavigationAdapter;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
 import org.smartregister.giz_malawi.contract.NavigationContract;
@@ -63,6 +65,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private ProgressBar syncProgressBar;
     private NavigationContract.Presenter mPresenter;
     private View parentView;
+    private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
 
     private NavigationMenu() {
@@ -92,6 +95,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             toolbar = myToolbar;
             parentView = myParentView;
             mPresenter = new NavigationPresenter(this);
+            goToReport();
             registerDrawer(activity);
             prepareViews(activity);
         } catch (Exception e) {
@@ -180,6 +184,25 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerDeviceToDeviceSync(activity);
         // update all actions
         mPresenter.refreshLastSync();
+    }
+
+    private void goToReport() {
+        reportView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startReportActivity();
+            }
+        });
+    }
+
+    private void startReportActivity(){
+
+        if (activityWeakReference.get() instanceof HIA2ReportsActivity) {
+            drawer.closeDrawer(GravityCompat.START);
+            return;
+        }
+        Intent intent = new Intent(activityWeakReference.get(), HIA2ReportsActivity.class);
+        activityWeakReference.get().startActivity(intent);
     }
 
     private void registerNavigation(Activity parentActivity) {

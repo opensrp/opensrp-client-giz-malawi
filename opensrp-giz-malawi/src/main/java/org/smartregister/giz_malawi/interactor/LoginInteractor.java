@@ -55,6 +55,9 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
                 .scheduleJob(ImageUploadServiceJob.TAG, TimeUnit.MINUTES.toMillis(BuildConfig.IMAGE_UPLOAD_MINUTES),
                         getFlexValue(BuildConfig.IMAGE_UPLOAD_MINUTES));
 
+        RecurringIndicatorGeneratingJob.scheduleJob(RecurringIndicatorGeneratingJob.TAG,
+                TimeUnit.MINUTES.toMillis(org.smartregister.reporting.BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES), TimeUnit.MINUTES.toMillis(1));
+
     }
 
     @Override
