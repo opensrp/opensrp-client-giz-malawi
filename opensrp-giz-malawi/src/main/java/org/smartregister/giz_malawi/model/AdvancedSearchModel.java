@@ -52,7 +52,7 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
                 parentTableName + "." + DBConstants.KEY.MOTHER_FIRST_NAME + " as mother_first_name",
                 parentTableName + "." + DBConstants.KEY.MOTHER_LAST_NAME + " as mother_last_name",
                 parentTableName + "." + DBConstants.KEY.MOTHER_DOB + " as mother_dob",
-                parentTableName + "." + DBConstants.KEY.MOTHER_NRC_NUMBER + " as mother_nid",
+                parentTableName + "." + DBConstants.KEY.MOTHER_NRC_NUMBER,
                 parentTableName + "." + DBConstants.KEY.MOTHER_GUARDIAN_NUMBER,
                 parentTableName + "." + DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER,
                 parentTableName + "." + DBConstants.KEY.PROTECTED_AT_BIRTH,

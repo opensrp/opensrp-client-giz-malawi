@@ -352,8 +352,8 @@
         "type": "edit_text",
         "hint": "Mother/guardian phone number",
         "v_regex": {
-          "value": "(09[5-7][0-9]{7})|\\s*",
-          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
+          "value": "([0][0-9]{9})|\\s*",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
         }
       },
       {
@@ -365,8 +365,8 @@
         "type": "edit_text",
         "hint": "Second phone number",
         "v_regex": {
-          "value": "(09[5-7][0-9]{7})|\\s*",
-          "err": "Number must begin with 095, 096, or 097 and must be a total of 10 digits in length"
+          "value": "([0][0-9]{9})|\\s*",
+          "err": "Number must begin with 0 and must be a total of 10 digits in length"
         }
       },
       {

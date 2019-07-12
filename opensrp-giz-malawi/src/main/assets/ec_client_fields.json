@@ -53,7 +53,7 @@
           }
         },
         {
-          "column_name": "contact_phone_number",
+          "column_name": "mother_guardian_number",
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
@@ -65,13 +65,6 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.second_phone_number"
-          }
-        },
-        {
-          "column_name": "mother_guardian_number",
-          "type": "Client",
-          "json_mapping": {
-            "field": "attributes.mother_guardian_number"
           }
         },
         {

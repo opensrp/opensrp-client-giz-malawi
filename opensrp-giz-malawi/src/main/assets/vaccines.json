@@ -544,7 +544,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "dob",
+              "reference": "prerequisite",
+              "prerequisite": "MV 1",
               "offset": "+6m",
               "window": "+14d"
             }
@@ -581,7 +582,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "dob",
+              "reference": "prerequisite",
+              "prerequisite": "MV 2",
               "offset": "+7m",
               "window": "+14d"
             }
@@ -800,7 +802,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "dob",
+              "reference": "prerequisite",
+              "prerequisite": "MV 3",
               "offset": "+8m",
               "window": "+14d"
             }

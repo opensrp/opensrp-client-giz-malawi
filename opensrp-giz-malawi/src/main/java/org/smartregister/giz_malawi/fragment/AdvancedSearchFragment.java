@@ -72,7 +72,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         }
 
         if (StringUtils.isNotBlank(motherGuardianPhoneNumberString)) {
-            searchParams.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumberString);
+            searchParams.put(DBConstants.KEY.MOTHER_GUARDIAN_NUMBER, motherGuardianPhoneNumberString);
         }
 
 
@@ -99,7 +99,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
             motherGuardianFirstName.setText(searchFormData.get(DBConstants.KEY.MOTHER_FIRST_NAME));
             motherGuardianLastName.setText(searchFormData.get(DBConstants.KEY.MOTHER_LAST_NAME));
             motherGuardianNid.setText(searchFormData.get(DBConstants.KEY.MOTHER_NRC_NUMBER));
-            motherGuardianPhoneNumber.setText(searchFormData.get(DBConstants.KEY.CONTACT_PHONE_NUMBER));
+            motherGuardianPhoneNumber.setText(searchFormData.get(DBConstants.KEY.MOTHER_GUARDIAN_NUMBER));
             openSrpId.setText(searchFormData.get(DBConstants.KEY.MER_ID));
         }
     }
@@ -125,7 +125,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid);
 
         motherGuardianPhoneNumber = view.findViewById(org.smartregister.child.R.id.mother_guardian_phone_number);
-        advancedFormSearchableFields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber);
+        advancedFormSearchableFields.put(DBConstants.KEY.MOTHER_GUARDIAN_NUMBER, motherGuardianPhoneNumber);
 
 
         firstName.addTextChangedListener(advancedSearchTextwatcher);
@@ -145,7 +145,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
         fields.put(DBConstants.KEY.MOTHER_FIRST_NAME, motherGuardianFirstName.getText().toString());
         fields.put(DBConstants.KEY.MOTHER_LAST_NAME, motherGuardianLastName.getText().toString());
         fields.put(DBConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid.getText().toString());
-        fields.put(DBConstants.KEY.CONTACT_PHONE_NUMBER, motherGuardianPhoneNumber.getText().toString());
+        fields.put(DBConstants.KEY.MOTHER_GUARDIAN_NUMBER, motherGuardianPhoneNumber.getText().toString());
         fields.put(DBConstants.KEY.MER_ID, openSrpId.getText().toString());
         return fields;
     }

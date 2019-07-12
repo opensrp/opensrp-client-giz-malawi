@@ -80,8 +80,8 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvName, tvCount;
-        public ImageView ivIcon;
+        TextView tvName, tvCount;
+        ImageView ivIcon;
 
         private View myView;
 

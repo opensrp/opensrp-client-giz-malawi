@@ -159,12 +159,12 @@ public class GizJsonFormUtils extends JsonFormUtils {
                 jsonObject.put(JsonFormUtils.VALUE, middleName);
             }
             if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.MOTHER_NRC_NUMBER)) {
-                String nidNumber = Utils.getValue(childDetails, DBConstants.KEY.MOTHER_NID, true);
+                String nidNumber = Utils.getValue(childDetails, DBConstants.KEY.MOTHER_NRC_NUMBER, true);
                 jsonObject.put(JsonFormUtils.VALUE, nidNumber);
             }
             if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER)) {
-                String middleName = Utils.getValue(childDetails, DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER, true);
-                jsonObject.put(JsonFormUtils.VALUE, middleName);
+                String secondaryNumber = Utils.getValue(childDetails, DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER, true);
+                jsonObject.put(JsonFormUtils.VALUE, secondaryNumber);
             }
             if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.HOME_ADDRESS)) {
                 String homeAddress = Utils.getValue(childDetails, DBConstants.KEY.HOME_ADDRESS, true);
