@@ -13,7 +13,9 @@ import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.giz_malawi.util.GizUtils;
+import org.smartregister.giz_malawi.view.NavigationMenu;
 import org.smartregister.location.helper.LocationHelper;
 
 public class ChildImmunizationActivity extends BaseChildImmunizationActivity {

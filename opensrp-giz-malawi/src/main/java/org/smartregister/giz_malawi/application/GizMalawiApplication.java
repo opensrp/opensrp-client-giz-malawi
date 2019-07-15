@@ -8,6 +8,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +28,7 @@ import org.smartregister.giz_malawi.activity.LoginActivity;
 import org.smartregister.giz_malawi.job.GizMalawiJobCreator;
 import org.smartregister.giz_malawi.repository.GizMalawiRepository;
 import org.smartregister.giz_malawi.sync.GizMalawiProcessorForJava;
+import org.smartregister.giz_malawi.util.CrashLyticsTree;
 import org.smartregister.giz_malawi.util.DBConstants;
 import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.giz_malawi.util.GizUtils;
@@ -62,6 +65,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
+
 import static org.smartregister.util.Log.logInfo;
 
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
@@ -90,6 +96,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new CrashLyticsTree());
+        }
+
         mInstance = this;
         context = Context.getInstance();
 
@@ -114,6 +127,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 BuildConfig.DATABASE_VERSION);
         ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         initRepositories();
         initOfflineSchedules();
@@ -169,12 +184,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[] {GizConstants.TABLE_NAME.CHILD};
+        return new String[]{GizConstants.TABLE_NAME.CHILD};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-            return new String[] {DBConstants.KEY.MER_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME};
+            return new String[]{DBConstants.KEY.MER_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME};
         }
         return null;
     }
