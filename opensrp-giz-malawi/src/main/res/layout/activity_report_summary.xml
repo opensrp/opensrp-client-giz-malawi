@@ -7,16 +7,11 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <RelativeLayout
-        android:id="@+id/navigation_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></RelativeLayout>
-
     <include
-        layout="@layout/app_hia2_reports"
+        layout="@layout/app_bar_report_summary"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include layout="@layout/side_nav_report" />
+    <include layout="@layout/custom_nav_view_base"/>
 
 </android.support.v4.widget.DrawerLayout>
