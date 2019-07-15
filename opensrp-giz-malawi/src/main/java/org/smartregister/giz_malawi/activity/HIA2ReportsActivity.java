@@ -131,10 +131,18 @@ public class HIA2ReportsActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-	        /*final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-	        // TODO: This should go to the base class?
-	        LinearLayout hia2 = (LinearLayout) drawer.findViewById(R.id.hia2_reports);
-	        hia2.setBackgroundColor(getResources().getColor(R.color.primary));*/
+        /*final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        // TODO: This should go to the base class?
+        LinearLayout hia2 = (LinearLayout) drawer.findViewById(R.id.hia2_reports);
+        hia2.setBackgroundColor(getResources().getColor(R.color.primary));*/
+
+        openDrawer();
+    }
+
+
+    public void openDrawer() {
+        NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
+        navigationMenu.runRegisterCount();
     }
 
     @Override
@@ -565,7 +573,7 @@ public class HIA2ReportsActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_back_to_home:
 
-                NavigationMenu.getInstance(this, null, null).getDrawer().openDrawer(GravityCompat.START);
+                openDrawer();
                 break;
             default:
                 break;
