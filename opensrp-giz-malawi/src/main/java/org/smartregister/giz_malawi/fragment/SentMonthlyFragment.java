@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
+import org.smartregister.giz_malawi.R;
 import org.smartregister.util.Utils;
-import org.smartregister.wellnesspass.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

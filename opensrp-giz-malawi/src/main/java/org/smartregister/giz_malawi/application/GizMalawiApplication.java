@@ -24,7 +24,10 @@ import org.smartregister.giz_malawi.activity.ChildImmunizationActivity;
 import org.smartregister.giz_malawi.activity.ChildProfileActivity;
 import org.smartregister.giz_malawi.activity.LoginActivity;
 import org.smartregister.giz_malawi.job.GizMalawiJobCreator;
+import org.smartregister.giz_malawi.repository.DailyTalliesRepository;
 import org.smartregister.giz_malawi.repository.GizMalawiRepository;
+import org.smartregister.giz_malawi.repository.HIA2IndicatorsRepository;
+import org.smartregister.giz_malawi.repository.MonthlyTalliesRepository;
 import org.smartregister.giz_malawi.sync.GizMalawiProcessorForJava;
 import org.smartregister.giz_malawi.util.DBConstants;
 import org.smartregister.giz_malawi.util.GizConstants;
@@ -48,6 +51,7 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -72,6 +76,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private static JsonSpecHelper jsonSpecHelper;
     private static GizMalawiProcessorForJava gizMalawiProcessorForJava;
     private EventClientRepository eventClientRepository;
+    private HIA2IndicatorsRepository hIA2IndicatorsRepository;
+    private DailyTalliesRepository dailyTalliesRepository;
+    private MonthlyTalliesRepository monthlyTalliesRepository;
     private String password;
     private boolean lastModified;
     private ECSyncHelper ecSyncHelper;
@@ -114,6 +121,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 BuildConfig.DATABASE_VERSION);
         ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        // Init Reporting library
+        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
 
         initRepositories();
         initOfflineSchedules();
@@ -343,6 +353,28 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
         }
         return ecSyncHelper;
+    }
+
+    public DailyTalliesRepository dailyTalliesRepository() {
+        if (dailyTalliesRepository == null) {
+            dailyTalliesRepository = new DailyTalliesRepository(getRepository());
+        }
+        return dailyTalliesRepository;
+    }
+
+    public HIA2IndicatorsRepository hIA2IndicatorsRepository() {
+        if (hIA2IndicatorsRepository == null) {
+            hIA2IndicatorsRepository = new HIA2IndicatorsRepository(getRepository());
+        }
+        return hIA2IndicatorsRepository;
+    }
+
+    public MonthlyTalliesRepository monthlyTalliesRepository() {
+        if (monthlyTalliesRepository == null) {
+            monthlyTalliesRepository = new MonthlyTalliesRepository(getRepository());
+        }
+
+        return monthlyTalliesRepository;
     }
 }
 

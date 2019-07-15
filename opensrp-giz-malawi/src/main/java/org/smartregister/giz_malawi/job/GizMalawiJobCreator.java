@@ -16,6 +16,7 @@ import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
+import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.sync.intent.SyncIntentService;
 
 public class GizMalawiJobCreator implements JobCreator {

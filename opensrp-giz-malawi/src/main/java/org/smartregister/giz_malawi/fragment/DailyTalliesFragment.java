@@ -12,13 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import org.smartregister.wellnesspass.R;
-import org.smartregister.wellnesspass.activity.HIA2ReportsActivity;
-import org.smartregister.wellnesspass.activity.ReportSummaryActivity;
-import org.smartregister.wellnesspass.adapter.ExpandedListAdapter;
-import org.smartregister.wellnesspass.application.WellnessPassApplication;
-import org.smartregister.wellnesspass.domain.DailyTally;
-import org.smartregister.wellnesspass.domain.Hia2Indicator;
+import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.activity.HIA2ReportsActivity;
+import org.smartregister.giz_malawi.activity.ReportSummaryActivity;
+import org.smartregister.giz_malawi.adapter.ExpandedListAdapter;
+import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.giz_malawi.domain.DailyTally;
+import org.smartregister.giz_malawi.domain.Hia2Indicator;
+import org.smartregister.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class DailyTalliesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Utils.startAsyncTask(new GetAllTalliesTask(), null);
+        Utils.startAsyncTask(new GetAllTalliesTask(), null);
     }
 
     @Override
@@ -230,7 +231,7 @@ public class DailyTalliesFragment extends Fragment {
         protected HashMap<String, ArrayList<DailyTally>> doInBackground(Void... params) {
             Calendar startDate = Calendar.getInstance();
 
-            List<Hia2Indicator> indicators = WellnessPassApplication.getInstance()
+            List<Hia2Indicator> indicators = GizMalawiApplication.getInstance()
                     .hIA2IndicatorsRepository().fetchAll();
             for (Hia2Indicator curIndicator : indicators) {
                 if (curIndicator != null) {
@@ -244,7 +245,7 @@ public class DailyTalliesFragment extends Fragment {
             startDate.set(Calendar.SECOND, 0);
             startDate.set(Calendar.MILLISECOND, 0);
             startDate.add(Calendar.MONTH, -1 * HIA2ReportsActivity.MONTH_SUGGESTION_LIMIT);
-            return WellnessPassApplication.getInstance().dailyTalliesRepository()
+            return GizMalawiApplication.getInstance().dailyTalliesRepository()
                     .findAll(DAY_FORMAT, startDate.getTime(), Calendar.getInstance().getTime());
         }
 

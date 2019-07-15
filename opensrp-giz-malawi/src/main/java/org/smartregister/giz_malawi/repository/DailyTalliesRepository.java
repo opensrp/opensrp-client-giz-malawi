@@ -5,11 +5,11 @@ import android.database.SQLException;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.giz_malawi.domain.DailyTally;
+import org.smartregister.giz_malawi.domain.Hia2Indicator;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
-import org.smartregister.wellnesspass.application.WellnessPassApplication;
-import org.smartregister.wellnesspass.domain.DailyTally;
-import org.smartregister.wellnesspass.domain.Hia2Indicator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -114,7 +114,7 @@ public class DailyTalliesRepository extends BaseRepository {
         Map<Long, List<DailyTally>> talliesFromMonth = new HashMap<>();
         Cursor cursor = null;
         try {
-            HashMap<String, Hia2Indicator> indicatorMap = WellnessPassApplication.getInstance()
+            HashMap<String, Hia2Indicator> indicatorMap = GizMalawiApplication.getInstance()
                     .hIA2IndicatorsRepository().findAll();
 
             Calendar startDate = Calendar.getInstance();
@@ -174,7 +174,7 @@ public class DailyTalliesRepository extends BaseRepository {
         HashMap<String, ArrayList<DailyTally>> tallies = new HashMap<>();
         Cursor cursor = null;
         try {
-            HashMap<String, Hia2Indicator> indicatorMap = WellnessPassApplication.getInstance()
+            HashMap<String, Hia2Indicator> indicatorMap = GizMalawiApplication.getInstance()
                     .hIA2IndicatorsRepository().findAll();
             cursor = getReadableDatabase()
                     .query(TABLE_NAME, TABLE_COLUMNS,

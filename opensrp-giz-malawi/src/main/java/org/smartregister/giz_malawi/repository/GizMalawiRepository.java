@@ -20,6 +20,10 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
+import org.smartregister.reporting.repository.IndicatorQueryRepository;
+import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Hia2ReportRepository;
@@ -66,6 +70,11 @@ public class GizMalawiRepository extends Repository {
         WeightRepository.createTable(database);
         HeightRepository.createTable(database);
         VaccineRepository.createTable(database);
+
+        //reporting
+        IndicatorRepository.createTable(database);
+        IndicatorQueryRepository.createTable(database);
+        DailyIndicatorCountRepository.createTable(database);
         MonthlyTalliesRepository.createTable(database);
 
         runLegacyUpgrades(database);

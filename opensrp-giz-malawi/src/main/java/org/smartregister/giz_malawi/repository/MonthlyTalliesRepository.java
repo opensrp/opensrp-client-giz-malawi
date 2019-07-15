@@ -8,12 +8,12 @@ import android.util.Log;
 import net.sqlcipher.SQLException;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.giz_malawi.domain.DailyTally;
+import org.smartregister.giz_malawi.domain.Hia2Indicator;
+import org.smartregister.giz_malawi.domain.MonthlyTally;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
-import org.smartregister.wellnesspass.application.WellnessPassApplication;
-import org.smartregister.wellnesspass.domain.DailyTally;
-import org.smartregister.wellnesspass.domain.Hia2Indicator;
-import org.smartregister.wellnesspass.domain.MonthlyTally;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -99,7 +99,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
      * @return List of months with unsent monthly tallies
      */
     public List<Date> findUneditedDraftMonths(Date startDate, Date endDate) {
-        List<String> allTallyMonths = WellnessPassApplication.getInstance().dailyTalliesRepository()
+        List<String> allTallyMonths = GizMalawiApplication.getInstance().dailyTalliesRepository()
                 .findAllDistinctMonths(DF_YYYYMM, startDate, endDate);
         Cursor cursor = null;
         try {
@@ -171,7 +171,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
             if (monthlyTallies.size() == 0) { // No tallies generated yet
                 Log.w(TAG, "Using daily tallies instead of monthly");
-                Map<Long, List<DailyTally>> dailyTallies = WellnessPassApplication.getInstance()
+                Map<Long, List<DailyTally>> dailyTallies = GizMalawiApplication.getInstance()
                         .dailyTalliesRepository().findTalliesInMonth(DF_YYYYMM.parse(month));
                 for (List<DailyTally> curList : dailyTallies.values()) {
                     MonthlyTally curTally = addUpDailyTallies(curList);
@@ -220,7 +220,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
     }
 
     private MonthlyTally addUpDailyTallies(List<DailyTally> dailyTallies) {
-        String userName = WellnessPassApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM();
+        String userName = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM();
         MonthlyTally monthlyTally = null;
         double value = 0d;
         for (int i = 0; i < dailyTallies.size(); i++) {
@@ -248,7 +248,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
         HashMap<String, ArrayList<MonthlyTally>> tallies = new HashMap<>();
         Cursor cursor = null;
         try {
-            HashMap<String, Hia2Indicator> indicatorMap = WellnessPassApplication.getInstance()
+            HashMap<String, Hia2Indicator> indicatorMap = GizMalawiApplication.getInstance()
                     .hIA2IndicatorsRepository().findAll();
             cursor = getReadableDatabase()
                     .query(TABLE_NAME, TABLE_COLUMNS,
@@ -324,7 +324,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
         try {
             database.beginTransaction();
             if (draftFormValues != null && !draftFormValues.isEmpty() && month != null) {
-                String userName = WellnessPassApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM();
+                String userName = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM();
 
                 for (String key : draftFormValues.keySet()) {
                     String value = draftFormValues.get(key);
@@ -364,7 +364,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
     private List<MonthlyTally> readAllDataElements(Cursor cursor) {
         List<MonthlyTally> tallies = new ArrayList<>();
-        HashMap<String, Hia2Indicator> indicatorMap = WellnessPassApplication.getInstance()
+        HashMap<String, Hia2Indicator> indicatorMap = GizMalawiApplication.getInstance()
                 .hIA2IndicatorsRepository().findAll();
 
         try {

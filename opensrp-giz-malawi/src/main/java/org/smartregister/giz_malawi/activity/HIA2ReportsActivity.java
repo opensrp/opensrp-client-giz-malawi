@@ -14,15 +14,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.JsonArray;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.tuple.Triple;
@@ -30,36 +24,31 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.child.activity.BaseActivity;
-import org.smartregister.child.contract.ChildRegisterFragmentContract;
 import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.giz_malawi.domain.Hia2Indicator;
+import org.smartregister.giz_malawi.domain.MonthlyTally;
+import org.smartregister.giz_malawi.fragment.DailyTalliesFragment;
+import org.smartregister.giz_malawi.fragment.DraftMonthlyFragment;
+import org.smartregister.giz_malawi.fragment.SendMonthlyDraftDialogFragment;
+import org.smartregister.giz_malawi.fragment.SentMonthlyFragment;
+import org.smartregister.giz_malawi.repository.HIA2IndicatorsRepository;
+import org.smartregister.giz_malawi.repository.MonthlyTalliesRepository;
+import org.smartregister.giz_malawi.util.GizConstants;
+import org.smartregister.giz_malawi.view.NavigationMenu;
+import org.smartregister.reporting.service.IndicatorGeneratorIntentService;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
-import org.smartregister.wellnesspass.R;
-import org.smartregister.wellnesspass.application.WellnessPassApplication;
-import org.smartregister.wellnesspass.domain.Hia2Indicator;
-import org.smartregister.wellnesspass.domain.MonthlyTally;
-import org.smartregister.wellnesspass.fragment.DailyTalliesFragment;
-import org.smartregister.wellnesspass.fragment.DraftMonthlyFragment;
-import org.smartregister.wellnesspass.fragment.SendMonthlyDraftDialogFragment;
-import org.smartregister.wellnesspass.fragment.SentMonthlyFragment;
-import org.smartregister.wellnesspass.repository.DailyTalliesRepository;
-import org.smartregister.wellnesspass.repository.HIA2IndicatorsRepository;
-import org.smartregister.wellnesspass.repository.MonthlyTalliesRepository;
-import org.smartregister.wellnesspass.util.Constants;
-import org.smartregister.wellnesspass.view.NavigationMenu;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -130,6 +119,8 @@ public class HIA2ReportsActivity extends BaseActivity {
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();
+
+        //startService(new Intent(this, IndicatorGeneratorIntentService.class));
     }
 
     @Override
@@ -229,7 +220,7 @@ public class HIA2ReportsActivity extends BaseActivity {
 	                /*for (String key : result.keySet()) {
 	                    Log.d("TO_SAVE", key + " -> " + result.get(key));
 	                }*/
-                WellnessPassApplication.getInstance().monthlyTalliesRepository().save(result, month);
+                GizMalawiApplication.getInstance().monthlyTalliesRepository().save(result, month);
                 if (saveClicked && !skipValidationSet) {
                     sendReport(month);
                 }
@@ -386,10 +377,10 @@ public class HIA2ReportsActivity extends BaseActivity {
         @Override
         protected Intent doInBackground(Void... params) {
             try {
-                MonthlyTalliesRepository monthlyTalliesRepository = WellnessPassApplication.getInstance().monthlyTalliesRepository();
+                MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication.getInstance().monthlyTalliesRepository();
                 List<MonthlyTally> monthlyTallies = monthlyTalliesRepository.findDrafts(MonthlyTalliesRepository.DF_YYYYMM.format(date));
 
-                HIA2IndicatorsRepository hIA2IndicatorsRepository = WellnessPassApplication.getInstance().hIA2IndicatorsRepository();
+                HIA2IndicatorsRepository hIA2IndicatorsRepository = GizMalawiApplication.getInstance().hIA2IndicatorsRepository();
                 List<Hia2Indicator> hia2Indicators = hIA2IndicatorsRepository.fetchAll();
                 if (hia2Indicators == null || hia2Indicators.isEmpty()) {
                     return null;
@@ -398,7 +389,7 @@ public class HIA2ReportsActivity extends BaseActivity {
                 JSONObject form = FormUtils.getInstance(baseActivity).getFormJson(formName);
                 JSONObject step1 = form.getJSONObject("step1");
                 String title = MonthlyTalliesRepository.DF_YYYYMM.format(date).concat(" Draft");
-                step1.put(Constants.KEY.TITLE, title);
+                step1.put(GizConstants.KEY.TITLE, title);
 
                 JSONArray fieldsArray = step1.getJSONArray("fields");
 
@@ -433,7 +424,7 @@ public class HIA2ReportsActivity extends BaseActivity {
                     jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, "");
                     jsonObject.put(JsonFormConstants.OPENMRS_ENTITY, "");
                     jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-                    jsonObject.put(Constants.KEY.HIA_2_INDICATOR, hia2Indicator.getIndicatorCode());
+                    jsonObject.put(GizConstants.KEY.HIA_2_INDICATOR, hia2Indicator.getIndicatorCode());
 
                     fieldsArray.put(jsonObject);
                 }
@@ -456,7 +447,7 @@ public class HIA2ReportsActivity extends BaseActivity {
                 form.put(JsonFormConstants.REPORT_MONTH, dfyymmdd.format(date));
                 form.put("identifier", "HIA2ReportForm");
 
-                Intent intent = new Intent(baseActivity, WellnessJsonFormActivity.class);
+                Intent intent = new Intent(baseActivity, GizJsonFormActivity.class);
                 intent.putExtra("json", form.toString());
 
 	                /*final int chunkSize = 4000;
@@ -499,7 +490,7 @@ public class HIA2ReportsActivity extends BaseActivity {
 
         @Override
         protected List<MonthlyTally> doInBackground(Void... params) {
-            MonthlyTalliesRepository monthlyTalliesRepository = WellnessPassApplication.getInstance().monthlyTalliesRepository();
+            MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication.getInstance().monthlyTalliesRepository();
             Calendar endDate = Calendar.getInstance();
             endDate.set(Calendar.DAY_OF_MONTH, 1); // Set date to first day of this month
             endDate.set(Calendar.HOUR_OF_DAY, 23);
@@ -574,7 +565,7 @@ public class HIA2ReportsActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_back_to_home:
 
-                NavigationMenu.getInstance(this).getDrawer().openDrawer(GravityCompat.START);
+                NavigationMenu.getInstance(this, null, null).getDrawer().openDrawer(GravityCompat.START);
                 break;
             default:
                 break;

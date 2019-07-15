@@ -10,7 +10,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.tuple.Triple;
-import org.smartregister.wellnesspass.R;
+import org.smartregister.giz_malawi.R;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

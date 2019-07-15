@@ -9,10 +9,10 @@ import android.widget.LinearLayout;
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.child.activity.BaseActivity;
 import org.smartregister.child.toolbar.SimpleToolbar;
+import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.domain.Tally;
+import org.smartregister.giz_malawi.view.IndicatorCategoryView;
 import org.smartregister.view.customcontrols.CustomFontTextView;
-import org.smartregister.wellnesspass.R;
-import org.smartregister.wellnesspass.domain.Tally;
-import org.smartregister.wellnesspass.view.IndicatorCategoryView;
 
 import java.io.Serializable;
 import java.util.ArrayList;

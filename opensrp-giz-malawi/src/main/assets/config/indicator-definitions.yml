@@ -1,0 +1,668 @@
+indicators:
+  - key: "EPNT_M"
+    description: "EPNT_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM ec_child child WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(child.date/1000, 'unixepoch')) AND child.Birth_Tetanus_Protection = 'Yes'"
+
+  - key: "EPNT_F"
+    description: "EPNT_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM ec_child child WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(child.date/1000, 'unixepoch')) AND child.Birth_Tetanus_Protection = 'Yes'"
+
+  - key: "EPNT"
+    description: "EPNT_label"
+    indicatorQuery: "SELECT count(*) AS count FROM ec_child child WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(child.date/1000, 'unixepoch')) AND child.Birth_Tetanus_Protection = 'Yes'"
+
+  - key: "EPNT_M_horsZone"
+    description: "EPNT_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM ec_child child INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = child.base_entity_id WHERE child.gender = 'Male' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "EPNT_F_horsZone"
+    description: "EPNT_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM ec_child child INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = child.base_entity_id WHERE child.gender = 'Female' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "BCG_M"
+    description: "BCG_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'bcg'"
+
+  - key: "BCG_F"
+    description: "BCG_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'bcg'"
+
+  - key: "BCG"
+    description: "BCG_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'bcg'"
+
+  - key: "BCG_M_horsZone"
+    description: "BCG_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'bcg' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "BCG_F_horsZone"
+    description: "BCG_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'bcg' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "BCG_M_plus12m"
+    description: "BCG_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'bcg'"
+
+  - key: "BCG_F_plus12m"
+    description: "BCG_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'bcg'"
+
+  - key: "BCG_plus12m"
+    description: "BCG_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'bcg'"
+
+  - key: "HepBnaissance_M"
+    description: "HepBnaissance_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'hepb'"
+
+  - key: "HepBnaissance_F"
+    description: "HepBnaissance_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'hepb'"
+
+  - key: "HepBnaissance"
+    description: "HepBnaissance_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'hepb'"
+
+  - key: "HepBnaissance_M_horsZone"
+    description: "HepBnaissance_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'opv_0' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "HepBnaissance_F_horsZone"
+    description: "HepBnaissance_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'opv_0' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_0_M"
+    description: "VPO_0_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_0'"
+
+  - key: "VPO_0_F"
+    description: "VPO_0_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_0'"
+
+  - key: "VPO_0"
+    description: "VPO_0_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_0'"
+
+  - key: "VPO_0_M_horsZone"
+    description: "VPO_0_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'opv_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_0_F_horsZone"
+    description: "VPO_0_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'opv_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_1_M"
+    description: "VPO_1_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_1'"
+
+  - key: "VPO_1_F"
+    description: "VPO_1_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_1'"
+
+  - key: "VPO_1"
+    description: "VPO_1_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_1'"
+
+  - key: "VPO_1_M_horsZone"
+    description: "VPO_1_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'opv_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_1_F_horsZone"
+    description: "VPO_1_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'opv_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_1_M_plus12m"
+    description: "VPO_1_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'opv_1'"
+
+  - key: "VPO_1_F_plus12m"
+    description: "VPO_1_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'opv_1'"
+
+  - key: "VPO_1_plus12m"
+    description: "VPO_1_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'opv_1'"
+
+  - key: "VPO_2_M"
+    description: "VPO_2_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_2'"
+
+  - key: "VPO_2_F"
+    description: "VPO_2_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_2'"
+
+  - key: "VPO_2"
+    description: "VPO_2_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_2'"
+
+  - key: "VPO_2_M_horsZone"
+    description: "VPO_2_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'opv_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_2_F_horsZone"
+    description: "VPO_2_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'opv_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_2_M_plus12m"
+    description: "VPO_2_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'opv_2'"
+
+  - key: "VPO_2_F_plus12m"
+    description: "VPO_2_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'opv_2'"
+
+  - key: "VPO_2_plus12m"
+    description: "VPO_2_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'opv_2'"
+
+  - key: "VPO_3_M"
+    description: "VPO_3_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_3'"
+
+  - key: "VPO_3_F"
+    description: "VPO_3_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_3'"
+
+  - key: "VPO_3"
+    description: "VPO_3_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'opv_3'"
+
+  - key: "VPO_3_M_horsZone"
+    description: "VPO_3_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'opv_3' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_3_F_horsZone"
+    description: "VPO_3_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'opv_3' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPO_3_M_plus12m"
+    description: "VPO_3_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'opv_3'"
+
+  - key: "VPO_3_F_plus12m"
+    description: "VPO_3_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'opv_3'"
+
+  - key: "VPO_3_plus12m"
+    description: "VPO_3_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'opv_3'"
+
+  - key: "VPI_M"
+    description: "VPI_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'ipv'"
+
+  - key: "VPI_F"
+    description: "VPI_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'ipv'"
+
+  - key: "VPI"
+    description: "VPI_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'ipv'"
+
+  - key: "VPI_M_horsZone"
+    description: "VPI_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'ipv' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPI_F_horsZone"
+    description: "VPI_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'ipv' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VPI_M_plus12m"
+    description: "VPI_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'ipv'"
+
+  - key: "VPI_F_plus12m"
+    description: "VPI_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'ipv'"
+
+  - key: "VPI_plus12m"
+    description: "VPI_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'ipv'"
+
+  - key: "Penta_1_M"
+    description: "Penta_1_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_1'"
+
+  - key: "Penta_1_F"
+    description: "Penta_1_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_1'"
+
+  - key: "Penta_1"
+    description: "Penta_1_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_1'"
+
+  - key: "Penta_1_M_horsZone"
+    description: "Penta_1_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'penta_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Penta_1_F_horsZone"
+    description: "Penta_1_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'penta_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Penta_1_M_plus12m"
+    description: "Penta_1_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'penta_1'"
+
+  - key: "Penta_1_F_plus12m"
+    description: "Penta_1_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'penta_1'"
+
+  - key: "Penta_1_plus12m"
+    description: "Penta_1_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'penta_1'"
+
+  - key: "Penta_2_M"
+    description: "Penta_2_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_2'"
+
+  - key: "Penta_2_F"
+    description: "Penta_2_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_2'"
+
+  - key: "Penta_2"
+    description: "Penta_2_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_2'"
+
+  - key: "Penta_2_M_horsZone"
+    description: "Penta_2_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'penta_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Penta_2_F_horsZone"
+    description: "Penta_2_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'penta_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Penta_2_M_plus12m"
+    description: "Penta_2_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'penta_2'"
+
+  - key: "Penta_2_F_plus12m"
+    description: "Penta_2_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'penta_2'"
+
+  - key: "Penta_2_plus12m"
+    description: "Penta_2_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'penta_2'"
+
+  - key: "Penta_3_M"
+    description: "Penta_3_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_3'"
+
+  - key: "Penta_3_F"
+    description: "Penta_3_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_3'"
+
+  - key: "Penta_3"
+    description: "Penta_3_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'penta_3'"
+
+  - key: "Penta_3_M_horsZone"
+    description: "Penta_3_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'penta_3' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Penta_3_F_horsZone"
+    description: "Penta_3_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'penta_3' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Penta_3_M_plus12m"
+    description: "Penta_3_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'penta_3'"
+
+  - key: "Penta_3_F_plus12m"
+    description: "Penta_3_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'penta_3'"
+
+  - key: "Penta_3_plus12m"
+    description: "Penta_3_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'penta_3'"
+
+  - key: "Pneumo_1_M"
+    description: "Pneumo_1_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_1'"
+
+  - key: "Pneumo_1_F"
+    description: "Pneumo_1_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_1'"
+
+  - key: "Pneumo_1"
+    description: "Pneumo_1_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_1'"
+
+  - key: "Pneumo_1_M_horsZone"
+    description: "Pneumo_1_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Pneumo_1_F_horsZone"
+    description: "Pneumo_1_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Pneumo_1_M_plus12m"
+    description: "Pneumo_1_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_1'"
+
+  - key: "Pneumo_1_F_plus12m"
+    description: "Pneumo_1_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_1'"
+
+  - key: "Pneumo_1_plus12m"
+    description: "Pneumo_1_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'pcv_1'"
+
+  - key: "Pneumo_2_M"
+    description: "Pneumo_2_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_2'"
+
+  - key: "Pneumo_2_F"
+    description: "Pneumo_2_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_2'"
+
+  - key: "Pneumo_2"
+    description: "Pneumo_2_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_2'"
+
+  - key: "Pneumo_2_M_horsZone"
+    description: "Pneumo_2_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Pneumo_2_F_horsZone"
+    description: "Pneumo_2_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Pneumo_2_M_plus12m"
+    description: "Pneumo_2_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_2'"
+
+  - key: "Pneumo_2_F_plus12m"
+    description: "Pneumo_2_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_2'"
+
+  - key: "Pneumo_2_plus12m"
+    description: "Pneumo_2_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'pcv_2'"
+
+  - key: "Pneumo_3_M"
+    description: "Pneumo_3_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_3'"
+
+  - key: "Pneumo_3_F"
+    description: "Pneumo_3_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_3'"
+
+  - key: "Pneumo_3"
+    description: "Pneumo_3_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'pcv_3'"
+
+  - key: "Pneumo_3_M_horsZone"
+    description: "Pneumo_3_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_3' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Pneumo_3_F_horsZone"
+    description: "Pneumo_3_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_3' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Pneumo_3_M_plus12m"
+    description: "Pneumo_3_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_3'"
+
+  - key: "Pneumo_3_F_plus12m"
+    description: "Pneumo_3_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'pcv_3'"
+
+  - key: "Pneumo_3_plus12m"
+    description: "Pneumo_3_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'pcv_3'"
+
+  - key: "Rota_1_M"
+    description: "Rota_1_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'rota_1'"
+
+  - key: "Rota_1_F"
+    description: "Rota_1_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'rota_1'"
+
+  - key: "Rota_1"
+    description: "Rota_1_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'rota_1'"
+
+  - key: "Rota_1_M_horsZone"
+    description: "Rota_1_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'rota_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Rota_1_F_horsZone"
+    description: "Rota_1_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'rota_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Rota_1_M_plus12m"
+    description: "Rota_1_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'rota_1'"
+
+  - key: "Rota_1_F_plus12m"
+    description: "Rota_1_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'rota_1'"
+
+  - key: "Rota_1_plus12m"
+    description: "Rota_1_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'rota_1'"
+
+  - key: "Rota_2_M"
+    description: "Rota_2_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'rota_2'"
+
+  - key: "Rota_2_F"
+    description: "Rota_2_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'rota_2'"
+
+  - key: "Rota_2"
+    description: "Rota_2_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'rota_2'"
+
+  - key: "Rota_2_M_horsZone"
+    description: "Rota_2_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'rota_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Rota_2_F_horsZone"
+    description: "Rota_2_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'rota_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "Rota_2_M_plus12m"
+    description: "Rota_2_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'rota_2'"
+
+  - key: "Rota_2_F_plus12m"
+    description: "Rota_2_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'rota_2'"
+
+  - key: "Rota_2_plus12m"
+    description: "Rota_2_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'rota_2'"
+
+  - key: "RR_1_M"
+    description: "RR_1_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'mr_1'"
+
+  - key: "RR_1_F"
+    description: "RR_1_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'mr_1'"
+
+  - key: "RR_1"
+    description: "RR_1_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'mr_1'"
+
+  - key: "RR_1_M_horsZone"
+    description: "RR_1_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'mr_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "RR_1_F_horsZone"
+    description: "RR_1_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'mr_1' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "RR_1_M_plus12m"
+    description: "RR_1_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'mr_1'"
+
+  - key: "RR_1_F_plus12m"
+    description: "RR_1_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'mr_1'"
+
+  - key: "RR_1_plus12m"
+    description: "RR_1_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'mr_1'"
+
+  - key: "RR_2_M"
+    description: "RR_2_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'mr_2'"
+
+  - key: "RR_2_F"
+    description: "RR_2_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'mr_2'"
+
+  - key: "RR_2"
+    description: "RR_2_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'mr_2'"
+
+  - key: "RR_2_M_horsZone"
+    description: "RR_2_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'mr_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "RR_2_F_horsZone"
+    description: "RR_2_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'mr_2' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "RR_2_M_plus12m"
+    description: "RR_2_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'mr_2'"
+
+  - key: "RR_2_F_plus12m"
+    description: "RR_2_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'mr_2'"
+
+  - key: "RR_2_plus12m"
+    description: "RR_2_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'mr_2'"
+
+  - key: "MenA_M"
+    description: "MenA_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'men'"
+
+  - key: "MenA_F"
+    description: "MenA_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'men'"
+
+  - key: "MenA"
+    description: "MenA_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'men'"
+
+  - key: "MenA_M_horsZone"
+    description: "MenA_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'men' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "MenA_F_horsZone"
+    description: "MenA_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'men' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "MenA_M_plus12m"
+    description: "MenA_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'men'"
+
+  - key: "MenA_F_plus12m"
+    description: "MenA_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'men'"
+
+  - key: "MenA_plus12m"
+    description: "MenA_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'men'"
+
+  - key: "FJaune_M"
+    description: "FJaune_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'yf'"
+
+  - key: "FJaune_F"
+    description: "FJaune_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'yf'"
+
+  - key: "FJaune"
+    description: "FJaune_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND lower(v.name) = 'yf'"
+
+  - key: "FJaune_M_horsZone"
+    description: "FJaune_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'yf' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "FJaune_F_horsZone"
+    description: "FJaune_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = v.base_entity_id WHERE child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'yf' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "FJaune_M_plus12m"
+    description: "FJaune_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND v.out_of_area = 0 AND lower(v.name) = 'yf'"
+
+  - key: "FJaune_F_plus12m"
+    description: "FJaune_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND v.out_of_area = 0 AND lower(v.name) = 'yf'"
+
+  - key: "FJaune_plus12m"
+    description: "FJaune_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM vaccines v INNER JOIN ec_child child ON child.base_entity_id = v.base_entity_id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(v.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND v.out_of_area = 0 AND lower(v.name) = 'yf'"
+
+  - key: "VitA_M"
+    description: "VitA_M_label"
+    indicatorQuery: "SELECT count(*) AS count FROM recurring_service_records rsr INNER JOIN ec_child child ON child.base_entity_id = rsr.base_entity_id inner join recurring_service_types rst on rsr.recurring_service_id = rst._id WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(rsr.date/1000, 'unixepoch')) AND lower(rst.type) = 'vit_a'"
+
+  - key: "VitA_F"
+    description: "VitA_F_label"
+    indicatorQuery: "SELECT count(*) AS count FROM recurring_service_records rsr INNER JOIN ec_child child ON child.base_entity_id = rsr.base_entity_id inner join recurring_service_types rst on rsr.recurring_service_id = rst._id WHERE child.gender = 'Female' AND '%s' = strftime('%%Y-%%m-%%d',datetime(rsr.date/1000, 'unixepoch')) AND lower(rst.type) = 'vit_a'"
+
+  - key: "VitA"
+    description: "VitA_label"
+    indicatorQuery: "SELECT count(*) AS count FROM recurring_service_records rsr INNER JOIN ec_child child ON child.base_entity_id = rsr.base_entity_id inner join recurring_service_types rst on rsr.recurring_service_id = rst._id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(rsr.date/1000, 'unixepoch')) AND lower(rst.type) = 'vit_a'"
+
+  - key: "VitA_M_horsZone"
+    description: "VitA_M_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM recurring_service_records rsr INNER JOIN ec_child child ON child.base_entity_id = rsr.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = rsr.base_entity_id  WHERE child.gender = 'Male' AND  lower(rsr.recurring_service_id) = 'vit_a' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VitA_F_horsZone"
+    description: "VitA_F_horsZone_label"
+    indicatorQuery: "SELECT count(*) AS count FROM recurring_service_records rsr INNER JOIN ec_child child ON child.base_entity_id = rsr.base_entity_id INNER JOIN (SELECT base_entity_id, key, value, max(event_date) as event_date FROM ec_details details WHERE details.key = 'Home_Facility' GROUP BY details.base_entity_id) ecDetails ON ecDetails.base_entity_id = rsr.base_entity_id WHERE child.gender = 'Female' AND  lower(rsr.recurring_service_id) = 'vit_a' AND ecDetails.value != '6ca7788c-d995-4431-a8a3-2f030db1aee0'"
+
+  - key: "VitA_M_plus12m"
+    description: "VitA_M_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM recurring_service_records rsr INNER JOIN ec_child child ON child.base_entity_id = rsr.base_entity_id inner join recurring_service_types rst on rsr.recurring_service_id = rst._id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(rsr.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Male' AND lower(rst.type) = 'vit_a'"
+
+  - key: "VitA_F_plus12m"
+    description: "VitA_F_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM recurring_service_records rsr INNER JOIN ec_child child ON child.base_entity_id = rsr.base_entity_id inner join recurring_service_types rst on rsr.recurring_service_id = rst._id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(rsr.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND child.gender = 'Female' AND lower(rst.type) = 'vit_a'"
+
+  - key: "VitA_plus12m"
+    description: "VitA_plus12m_label"
+    indicatorQuery: "SELECT count(*) AS count FROM recurring_service_records rsr INNER JOIN ec_child child ON child.base_entity_id = rsr.base_entity_id inner join recurring_service_types rst on rsr.recurring_service_id = rst._id WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(rsr.date/1000, 'unixepoch')) AND CAST((julianday('now') - julianday(strftime('%%Y-%%m-%%d',child.dob)))/(365/12) AS INTEGER) >12 AND lower(rst.type) = 'vit_a'"
+
+  - key: "ECV_M"
+    description: "ECV_M_label"
+    indicatorQuery: "SELECT 99 AS count FROM ec_child child Limit 1"
+
+  - key: "ECV_F"
+    description: "ECV_F_label"
+    indicatorQuery: "SELECT 99 AS count FROM ec_child child Limit 1"
+
+  - key: "ECV"
+    description: "ECV_label"
+    indicatorQuery: "SELECT 99 AS count FROM ec_child child Limit 1"
+
+  - key: "ECV_M_horsZone"
+    description: "ECV_M_horsZone_label"
+    indicatorQuery: "SELECT 99 AS count FROM ec_child child Limit 1"
+
+  - key: "ECV_F_horsZone"
+    description: "ECV_F_horsZone_label"
+    indicatorQuery: "SELECT 99 AS count FROM ec_child child Limit 1"
+
+  - key: "ECV_M_plus12m"
+    description: "ECV_M_plus12m_label"
+    indicatorQuery: "SELECT 99 AS count FROM ec_child child Limit 1"
+
+  - key: "ECV_F_plus12m"
+    description: "ECV_F_plus12m_label"
+    indicatorQuery: "SELECT 99 AS count FROM ec_child child Limit 1"
+
+  - key: "ECV_plus12m"
+    description: "ECV_plus12m_label"
+    indicatorQuery: "SELECT 99 AS count FROM ec_child child Limit 1"

@@ -15,10 +15,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.smartregister.giz_malawi.R;
 import org.smartregister.giz_malawi.domain.Tally;
 import org.smartregister.view.customcontrols.CustomFontTextView;
-import org.smartregister.wellnesspass.R;
-import org.smartregister.wellnesspass.domain.Tally;
 
 import java.util.ArrayList;
 

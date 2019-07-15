@@ -12,9 +12,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import org.smartregister.wellnesspass.R;
-import org.smartregister.wellnesspass.application.WellnessPassApplication;
-
+import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.application.GizMalawiApplication;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
@@ -61,7 +60,7 @@ public class SendMonthlyDraftDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        String provider = WellnessPassApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM();
+        String provider = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM();
         View view = inflater.inflate(
                 R.layout.dialog_fragment_send_monthly,
                 container, false);

@@ -2,22 +2,23 @@ package org.smartregister.giz_malawi.activity;
 
 import android.os.Bundle;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.giz_malawi.fragment.GizMalawiJsonFormFragment;
 import org.smartregister.stock.activity.StockJsonFormActivity;
-import org.smartregister.wellnesspass.fragment.WellnessJsonFormFragment;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
-public class WellnessJsonFormActivity extends StockJsonFormActivity {
+public class GizJsonFormActivity extends StockJsonFormActivity {
 
-    private WellnessJsonFormFragment wellnessJsonFormFragment;
+    private GizMalawiJsonFormFragment wellnessJsonFormFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class WellnessJsonFormActivity extends StockJsonFormActivity {
 
     @Override
     public void initializeFormFragment() {
-        wellnessJsonFormFragment = WellnessJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        wellnessJsonFormFragment = GizMalawiJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
         getSupportFragmentManager().beginTransaction()
                 .add(com.vijay.jsonwizard.R.id.container, wellnessJsonFormFragment).commit();
     }
@@ -35,7 +36,6 @@ public class WellnessJsonFormActivity extends StockJsonFormActivity {
     public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId) throws JSONException {
         super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId);
         refreshCalculateLogic(key, value);
-
     }
 
     public boolean checkIfBalanceNegative() {

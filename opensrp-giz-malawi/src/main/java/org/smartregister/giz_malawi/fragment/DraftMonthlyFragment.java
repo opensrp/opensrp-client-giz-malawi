@@ -18,14 +18,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.activity.HIA2ReportsActivity;
+import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.giz_malawi.domain.MonthlyTally;
+import org.smartregister.giz_malawi.repository.MonthlyTalliesRepository;
 import org.smartregister.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;
-import org.smartregister.wellnesspass.R;
-import org.smartregister.wellnesspass.activity.HIA2ReportsActivity;
-import org.smartregister.wellnesspass.application.WellnessPassApplication;
-import org.smartregister.wellnesspass.domain.MonthlyTally;
-import org.smartregister.wellnesspass.repository.MonthlyTalliesRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -115,7 +115,7 @@ public class DraftMonthlyFragment extends Fragment {
         Utils.startAsyncTask(new AsyncTask<Void, Void, List<Date>>() {
             @Override
             protected List<Date> doInBackground(Void... params) {
-                MonthlyTalliesRepository monthlyTalliesRepository = WellnessPassApplication
+                MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication
                         .getInstance().monthlyTalliesRepository();
                 Calendar startDate = Calendar.getInstance();
                 startDate.set(Calendar.DAY_OF_MONTH, 1);

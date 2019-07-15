@@ -5,9 +5,9 @@ import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.giz_malawi.domain.Hia2Indicator;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
-import org.smartregister.wellnesspass.domain.Hia2Indicator;
 
 import java.util.ArrayList;
 import java.util.HashMap;

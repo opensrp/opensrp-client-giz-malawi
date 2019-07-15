@@ -36,11 +36,11 @@ import org.smartregister.child.util.MotherLookUpUtils;
 import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.event.Listener;
+import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.activity.GizJsonFormActivity;
+import org.smartregister.giz_malawi.application.GizMalawiApplication;
+import org.smartregister.giz_malawi.util.GizConstants;
 import org.smartregister.util.Utils;
-import org.smartregister.wellnesspass.R;
-import org.smartregister.wellnesspass.activity.WellnessJsonFormActivity;
-import org.smartregister.wellnesspass.application.WellnessPassApplication;
-import org.smartregister.wellnesspass.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,19 +54,18 @@ import static org.smartregister.util.Utils.getValue;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
-public class WellnessJsonFormFragment extends JsonFormFragment {
+public class GizMalawiJsonFormFragment extends JsonFormFragment {
     private Snackbar snackbar = null;
     private AlertDialog alertDialog = null;
     private boolean lookedUp = false;
 
-    public static WellnessJsonFormFragment getFormFragment(String stepName) {
-        WellnessJsonFormFragment jsonFormFragment = new WellnessJsonFormFragment();
+    public static GizMalawiJsonFormFragment getFormFragment(String stepName) {
+        GizMalawiJsonFormFragment jsonFormFragment = new GizMalawiJsonFormFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.KEY.STEPNAME, stepName);
+        bundle.putString(GizConstants.KEY.STEPNAME, stepName);
         jsonFormFragment.setArguments(bundle);
         return jsonFormFragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -80,13 +79,12 @@ public class WellnessJsonFormFragment extends JsonFormFragment {
 
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
-        return new JsonFormFragmentPresenter(this, ChildFormInteractor.getWellnessInteractorInstance());
+        return new JsonFormFragmentPresenter(this, ChildFormInteractor.getChildInteractorInstance());
     }
 
     public Context context() {
-        return WellnessPassApplication.getInstance().context();
+        return GizMalawiApplication.getInstance().context();
     }
-
 
     //Mother Lookup
     public Listener<HashMap<CommonPersonObject, List<CommonPersonObject>>> motherLookUpListener() {
@@ -165,8 +163,8 @@ public class WellnessJsonFormFragment extends JsonFormFragment {
 
     private void clearMotherLookUp() {
         Map<String, List<View>> lookupMap = getLookUpMap();
-        if (lookupMap.containsKey(Constants.KEY.MOTHER)) {
-            List<View> lookUpViews = lookupMap.get(Constants.KEY.MOTHER);
+        if (lookupMap.containsKey(GizConstants.KEY.MOTHER)) {
+            List<View> lookUpViews = lookupMap.get(GizConstants.KEY.MOTHER);
             if (lookUpViews != null && !lookUpViews.isEmpty()) {
                 for (View view : lookUpViews) {
                     if (view instanceof MaterialEditText) {
@@ -179,8 +177,8 @@ public class WellnessJsonFormFragment extends JsonFormFragment {
                 }
 
                 Map<String, String> metadataMap = new HashMap<>();
-                metadataMap.put(Constants.KEY.ENTITY_ID, "");
-                metadataMap.put(Constants.KEY.VALUE, "");
+                metadataMap.put(GizConstants.KEY.ENTITY_ID, "");
+                metadataMap.put(GizConstants.KEY.VALUE, "");
 
                 writeMetaDataValue(FormUtils.LOOK_UP_JAVAROSA_PROPERTY, metadataMap);
 
@@ -279,8 +277,8 @@ public class WellnessJsonFormFragment extends JsonFormFragment {
         if (pc != null) {
 
             Map<String, List<View>> lookupMap = getLookUpMap();
-            if (lookupMap.containsKey(Constants.KEY.MOTHER)) {
-                List<View> lookUpViews = lookupMap.get(Constants.KEY.MOTHER);
+            if (lookupMap.containsKey(GizConstants.KEY.MOTHER)) {
+                List<View> lookUpViews = lookupMap.get(GizConstants.KEY.MOTHER);
                 if (lookUpViews != null && !lookUpViews.isEmpty()) {
 
                     for (View view : lookUpViews) {
@@ -319,8 +317,8 @@ public class WellnessJsonFormFragment extends JsonFormFragment {
                     }
 
                     Map<String, String> metadataMap = new HashMap<>();
-                    metadataMap.put(Constants.KEY.ENTITY_ID, Constants.KEY.MOTHER);
-                    metadataMap.put(Constants.KEY.VALUE, getValue(pc.getColumnmaps(), MotherLookUpUtils.baseEntityId, false));
+                    metadataMap.put(GizConstants.KEY.ENTITY_ID, GizConstants.KEY.MOTHER);
+                    metadataMap.put(GizConstants.KEY.VALUE, getValue(pc.getColumnmaps(), MotherLookUpUtils.baseEntityId, false));
 
                     writeMetaDataValue(FormUtils.LOOK_UP_JAVAROSA_PROPERTY, metadataMap);
 
@@ -404,11 +402,11 @@ public class WellnessJsonFormFragment extends JsonFormFragment {
             JSONObject object = getStep("step1");
             try {
                 if (object.getString("title").contains("Stock Issued") || object.getString("title").contains("Stock Received") || object.getString("title").contains("Stock Loss/Adjustment")) {
-                    balanceCheck = ((WellnessJsonFormActivity) getActivity()).checkIfBalanceNegative();
+                    balanceCheck = ((GizJsonFormActivity) getActivity()).checkIfBalanceNegative();
                 }
 
                 if (object.getString("title").contains("Record out of catchment area service")) {
-                    fillFormCheck = ((WellnessJsonFormActivity) getActivity()).checkIfAtLeastOneServiceGiven();
+                    fillFormCheck = ((GizJsonFormActivity) getActivity()).checkIfAtLeastOneServiceGiven();
                 }
             } catch (Exception e) {
                 Log.e(getClass().getName(), e.toString(), e);

@@ -62,7 +62,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
 
         holder.getView().setTag(model.getMenuTitle());
 
-
         if (selectedView != null && selectedView.equals(model.getMenuTitle())) {
             holder.tvCount.setTextColor(context.getResources().getColor(R.color.holo_blue));
             holder.tvName.setTextColor(context.getResources().getColor(R.color.holo_blue));
