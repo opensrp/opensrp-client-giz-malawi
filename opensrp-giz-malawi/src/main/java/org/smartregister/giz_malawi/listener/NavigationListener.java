@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import org.smartregister.giz_malawi.R;
+import org.smartregister.giz_malawi.activity.ChildRegisterActivity;
 import org.smartregister.giz_malawi.adapter.NavigationAdapter;
 import org.smartregister.giz_malawi.util.GizConstants;
 

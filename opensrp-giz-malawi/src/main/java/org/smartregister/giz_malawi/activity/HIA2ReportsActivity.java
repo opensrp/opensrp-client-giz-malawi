@@ -573,7 +573,11 @@ public class HIA2ReportsActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_back_to_home:
 
-                openDrawer();
+                NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
+                if (navigationMenu != null) {
+                    navigationMenu.getDrawer()
+                            .openDrawer(GravityCompat.START);
+                }
                 break;
             default:
                 break;
