@@ -48,7 +48,7 @@ public class ReportSummaryActivity extends BaseActivity {
                 finish();
             }
         });
-        toolbar.setBackground(new ColorDrawable(getResources().getColor(R.color.colorGreen)));
+        toolbar.setBackground(new ColorDrawable(getResources().getColor(R.color.smart_register_blue)));
 
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {

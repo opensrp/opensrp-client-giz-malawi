@@ -408,7 +408,9 @@ public class HIA2ReportsActivity extends BaseActivity {
                     if (hia2Indicator.getDescription() == null) {
                         hia2Indicator.setDescription("");
                     }
-                    String label = hia2Indicator.getIndicatorCode() + ": " + hia2Indicator.getDescription() + " *";
+
+                    int resourceId = baseActivity.getResources().getIdentifier(hia2Indicator.getDescription(), "string", baseActivity.getPackageName());
+                    String label = baseActivity.getResources().getString(resourceId);
 
                     JSONObject vRequired = new JSONObject();
                     vRequired.put(JsonFormConstants.VALUE, "true");
