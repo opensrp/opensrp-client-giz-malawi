@@ -1,7 +1,5 @@
 package org.smartregister.giz.util;
 
-import org.apache.commons.lang3.StringUtils;
-
 public class GizChildDbConstants {
     private static final int FIVE_YEAR = 5;
 
@@ -13,7 +11,7 @@ public class GizChildDbConstants {
         return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
     }
 
-    private static String matchPhrase(String phrase) {
+    /*private static String matchPhrase(String phrase) {
         if (phrase == null) {
             phrase = "";
         }
@@ -43,7 +41,7 @@ public class GizChildDbConstants {
             return "";
         }
         return tableName.concat(".").concat(columnName);
-    }
+    }*/
 
     public static final class KEY {
         //public static final String VISIT_STATUS = "visit_status";

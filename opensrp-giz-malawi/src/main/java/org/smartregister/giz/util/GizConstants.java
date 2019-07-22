@@ -79,13 +79,11 @@ public class GizConstants {
 
     public static final class EventType {
         public static final String CHILD_REGISTRATION = "Birth Registration";
-
         public static final String UPDATE_CHILD_REGISTRATION = "Update Birth Registration";
 
     }
 
     public static class JSON_FORM {
-
         public static String CHILD_ENROLLMENT = "child_enrollment";
         public static String OUT_OF_CATCHMENT_SERVICE = "out_of_catchment_service";
 
@@ -109,18 +107,15 @@ public class GizConstants {
     }
 
     public static final class VACCINE {
-
         public static final String CHILD = "child";
     }
 
 
     public static final class EntityType {
-
         public static final String CHILD = "child";
     }
 
     public static final class EC_CHILD_TABLE {
-
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String DOB = "dob";
         public static final String DOD = "dod";
@@ -132,27 +127,23 @@ public class GizConstants {
     }
 
     public static final class GENDER {
-
         public static final String MALE = "Male";
         public static final String FEMALE = "Female";
         public static final String TRANSGENDER = "Transgender";
     }
 
     public static final class GENDER_KEY {
-
         public static final String MALE = "1";
         public static final String FEMALE = "2";
         public static final String TRANSGENDER = "3";
     }
 
     public static final class ANSWER {
-
         public static final String YES = "Yes";
         public static final String NO = "No";
     }
 
     public static final class ANSWER_KEY {
-
         public static final String YES = "1";
         public static final String NO = "2";
     }
@@ -168,7 +159,7 @@ public class GizConstants {
         public static final String BIRTHDATE_ESTIMATED = "birthdate_estimated";
         public static final String EPI_CARD_NUMBER = "epi_card_number";
         public static final String MOTHER_LAST_NAME = "mother_last_name";
-        public static final String mer_id = "mer_id";
+        public static final String MER_ID = "zeir_id";
         public static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
         public static final String GENDER = "gender";
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";

@@ -28,7 +28,6 @@ import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.sync.GizMalawiProcessorForJava;
-import org.smartregister.giz.util.CrashLyticsTree;
 import org.smartregister.giz.util.DBConstants;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
@@ -66,17 +65,13 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
-import timber.log.Timber;
 
 import static org.smartregister.util.Log.logInfo;
 
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
-    public static final String ENGLISH_LOCALE = "en";
     private static final String TAG = GizMalawiApplication.class.getCanonicalName();
-    public static boolean isManualClick = true;
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
-    private static GizMalawiProcessorForJava gizMalawiProcessorForJava;
     private EventClientRepository eventClientRepository;
     private String password;
     private boolean lastModified;
@@ -86,23 +81,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return jsonSpecHelper;
     }
 
-    public GizMalawiProcessorForJava getClientProcessorForJava() {
-        if (gizMalawiProcessorForJava == null) {
-            gizMalawiProcessorForJava = GizMalawiProcessorForJava.getInstance(getApplicationContext());
-        }
-        return gizMalawiProcessorForJava;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-
-        if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
-        } else {
-            Timber.plant(new CrashLyticsTree());
-        }
-
         mInstance = this;
         context = Context.getInstance();
 
@@ -289,11 +270,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     @Override
     public ClientProcessorForJava getClientProcessor() {
         return GizMalawiProcessorForJava.getInstance(this);
-    }
-
-    public void startZscoreRefreshService() {
-        Intent intent = new Intent(this.getApplicationContext(), ZScoreRefreshIntentService.class);
-        this.getApplicationContext().startService(intent);
     }
 
     @Override

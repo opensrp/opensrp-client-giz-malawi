@@ -14,13 +14,15 @@ import org.smartregister.AllConstants;
 import org.smartregister.child.activity.BaseChildDetailTabbedActivity;
 import org.smartregister.child.activity.BaseChildFormActivity;
 import org.smartregister.child.fragment.StatusEditDialogFragment;
+import org.smartregister.child.task.LoadAsyncTask;
 import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.ChildRegistrationDataFragment;
-import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizJsonFormUtils;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.util.Utils;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.smartregister.giz.util.GizUtils.setAppLocale;
 
@@ -28,6 +30,7 @@ import static org.smartregister.giz.util.GizUtils.setAppLocale;
  * Created by ndegwamartin on 06/03/2019.
  */
 public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
+    private static List<String> nonEditableFields = Arrays.asList("Date_Birth", "Sex", "ZEIR_ID", "Birth_Facility_Name", "Birth_Facility_Name_Other");
 
     @Override
     protected void attachBaseContext(android.content.Context base) {
@@ -67,7 +70,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
         switch (item.getItemId()) {
             case R.id.registration_data:
-                String populatedForm = GizJsonFormUtils.getMetadataForEditForm(this, detailsMap);
+                String populatedForm = GizJsonFormUtils.getMetadataForEditForm(this, detailsMap, nonEditableFields);
                 startFormActivity(populatedForm);
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -76,7 +79,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
                     viewPager.setCurrentItem(1);
                 }
                 Utils.startAsyncTask(
-                        new BaseChildDetailTabbedActivity.LoadAsyncTask(BaseChildDetailTabbedActivity.STATUS.EDIT_VACCINE),
+                        new LoadAsyncTask(org.smartregister.child.enums.Status.EDIT_VACCINE, detailsMap, getChildDetails(), this, getChildDataFragment(), getChildUnderFiveFragment(), getOverflow()),
                         null);
                 saveButton.setVisibility(View.VISIBLE);
                 for (int i = 0; i < overflow.size(); i++) {
@@ -89,7 +92,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
                     viewPager.setCurrentItem(1);
                 }
                 Utils.startAsyncTask(
-                        new BaseChildDetailTabbedActivity.LoadAsyncTask(BaseChildDetailTabbedActivity.STATUS.EDIT_SERVICE),
+                        new LoadAsyncTask(org.smartregister.child.enums.Status.EDIT_SERVICE, detailsMap, getChildDetails(), this, getChildDataFragment(), getChildUnderFiveFragment(), getOverflow()),
                         null);
                 saveButton.setVisibility(View.VISIBLE);
                 for (int i = 0; i < overflow.size(); i++) {
@@ -100,7 +103,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
                 if (viewPager.getCurrentItem() != 1) {
                     viewPager.setCurrentItem(1);
                 }
-                Utils.startAsyncTask(new BaseChildDetailTabbedActivity.LoadAsyncTask(STATUS.EDIT_GROWTH), null);
+                Utils.startAsyncTask(new LoadAsyncTask(org.smartregister.child.enums.Status.EDIT_GROWTH, detailsMap, getChildDetails(), this, getChildDataFragment(), getChildUnderFiveFragment(), getOverflow()), null);
                 saveButton.setVisibility(View.VISIBLE);
                 for (int i = 0; i < overflow.size(); i++) {
                     overflow.getItem(i).setVisible(false);
@@ -144,7 +147,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     }
 
     @Override
-    protected void startFormActivity(String formData) {
+    public void startFormActivity(String formData) {
         Intent intent = new Intent(getApplicationContext(), BaseChildFormActivity.class);
 
         Form formParam = new Form();

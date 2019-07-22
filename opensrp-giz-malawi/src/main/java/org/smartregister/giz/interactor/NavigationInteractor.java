@@ -2,7 +2,6 @@ package org.smartregister.giz.interactor;
 
 import android.database.Cursor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.giz.application.GizMalawiApplication;
@@ -20,7 +19,7 @@ import timber.log.Timber;
 public class NavigationInteractor implements NavigationContract.Interactor {
 
     private static NavigationInteractor instance;
-    AppExecutors appExecutors = new AppExecutors();
+    private AppExecutors appExecutors = new AppExecutors();
 
     private NavigationInteractor() {
 
@@ -104,7 +103,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     @Override
-    public Date Sync() {
+    public Date sync() {
         Date res = null;
         try {
             res = new Date(getLastCheckTimeStamp());
@@ -118,10 +117,10 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         return GizMalawiApplication.getInstance().getEcSyncHelper().getLastCheckTimeStamp();
     }
 
-    private boolean isValidFilterForFts(CommonRepository commonRepository, String filters) {
+   /* private boolean isValidFilterForFts(CommonRepository commonRepository, String filters) {
         return commonRepository.isFts() && filters != null && !StringUtils
                 .containsIgnoreCase(filters, "like") && !StringUtils
                 .startsWithIgnoreCase(filters.trim(), "and ");
-    }
+    }*/
 
 }

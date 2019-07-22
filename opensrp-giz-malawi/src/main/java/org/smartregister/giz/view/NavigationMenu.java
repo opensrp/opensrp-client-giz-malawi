@@ -45,7 +45,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
-    public static final String OUT_OF_CATCHMENT_SERVICE = "out_of_catchment_service";
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
     private String TAG = NavigationMenu.class.getCanonicalName();
@@ -229,8 +228,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     private void registerLanguageSwitcher(final Activity context) {
-
-        View rlIconLang = rootView.findViewById(R.id.rlIconLang);
         final TextView tvLang = rootView.findViewById(R.id.tvLang);
         Locale current = context.getResources().getConfiguration().locale;
         tvLang.setText(StringUtils.capitalize(current.getDisplayLanguage()));

@@ -74,7 +74,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     @Override
     public void refreshLastSync() {
         // get last sync date
-        getNavigationView().refreshLastSync(mInteractor.Sync());
+        getNavigationView().refreshLastSync(mInteractor.sync());
     }
 
     @Override

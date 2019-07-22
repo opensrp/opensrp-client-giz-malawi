@@ -430,9 +430,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             //DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
             //ECSyncHelper ecUpdater = ECSyncHelper.getInstance(getContext());
 
-            for (Event event : events) {
+           /* for (Event event : events) {
                 unSync(bindObjects, event, registeredAnm);
-            }
+            }*/
 
             return true;
 
@@ -516,7 +516,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         return serviceObj;
     }
 
-    private boolean unSync(List<Table> bindObjects, Event event, String registeredAnm) {
+   /* private boolean unSync(List<Table> bindObjects, Event event, String registeredAnm) {
         try {
             // String baseEntityId = event.getBaseEntityId();
             String providerId = event.getProviderId();
@@ -537,7 +537,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             Timber.e(e, e.toString());
         }
         return false;
-    }
+    }*/
 
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
