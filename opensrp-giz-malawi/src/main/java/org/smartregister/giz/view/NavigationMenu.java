@@ -1,6 +1,5 @@
 package org.smartregister.giz.view;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -31,10 +30,8 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationContract;
 import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
-import org.smartregister.giz.util.GizConstants;
 import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
-import org.smartregister.util.PermissionUtils;
 
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
@@ -43,6 +40,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
     private static NavigationMenu instance;
@@ -81,16 +80,14 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     private void init(Activity activity, View myParentView, Toolbar myToolbar) {
-        // parentActivity = activity;
         try {
             setParentView(activity, parentView);
             toolbar = myToolbar;
             parentView = myParentView;
             mPresenter = new NavigationPresenter(this);
-            registerDrawer(activity);
             prepareViews(activity);
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            Timber.e(e,"NavigationMenu --> init");
         }
     }
 
@@ -99,7 +96,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             rootView = parentView;
         } else {
             // get current view
-            // ViewGroup current = parentActivity.getWindow().getDecorView().findViewById(android.R.id.content);
             ViewGroup current = (ViewGroup) ((ViewGroup) (activity.findViewById(android.R.id.content))).getChildAt(0);
             if (!(current instanceof DrawerLayout)) {
                 if (current.getParent() != null) {
@@ -148,7 +144,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     public void prepareViews(Activity activity) {
         drawer = activity.findViewById(R.id.drawer_layout);
         recyclerView = rootView.findViewById(R.id.rvOptions);
-        // NavigationView navigationView = rootView.findViewById(R.id.nav_view);
         tvLogout = rootView.findViewById(R.id.tvLogout);
         recyclerView = rootView.findViewById(R.id.rvOptions);
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
@@ -254,11 +249,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     public void startP2PActivity(@NonNull Activity activity) {
-        if (PermissionUtils.isPermissionGranted(activity
-                , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
-                , GizConstants.RQ_CODE.STORAGE_PERMISIONS)) {
-            activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
-        }
+        activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
     }
 
     @Override
