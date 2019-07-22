@@ -73,7 +73,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
                 gradientDrawable.setShape(GradientDrawable.RECTANGLE);
                 gradientDrawable.setOrientation(
                         GradientDrawable.Orientation.valueOf(background.getOrientation()));
-                gradientDrawable.setColors(new int[] {Color.parseColor(background.getStartColor()),
+                gradientDrawable.setColors(new int[]{Color.parseColor(background.getStartColor()),
                         Color.parseColor(background.getEndColor())});
                 loginLayout.setBackground(gradientDrawable);
             }

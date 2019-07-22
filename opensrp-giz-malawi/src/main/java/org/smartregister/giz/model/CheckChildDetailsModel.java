@@ -10,6 +10,7 @@ import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.giz.util.GizJsonFormUtils;
 
 import java.util.Date;
+import java.util.Map;
 
 public class CheckChildDetailsModel {
     private boolean myResult;
@@ -26,22 +27,22 @@ public class CheckChildDetailsModel {
     private String lostToFollowUp;
     private String nfcCardId;
 
-    public CheckChildDetailsModel(JSONObject client, String entityId, String firstName, String middleName, String lastName, String gender, String dob, String zeirId, String epiCardNumber, String inactive, String lostToFollowUp, String nfcCardId) {
+    public CheckChildDetailsModel(JSONObject client, Map<String, String> childDetails) {
         this.client = client;
-        this.entityId = entityId;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.dob = dob;
-        this.zeirId = zeirId;
-        this.epiCardNumber = epiCardNumber;
-        this.inactive = inactive;
-        this.lostToFollowUp = lostToFollowUp;
-        this.nfcCardId = nfcCardId;
+        this.entityId = childDetails.get("entityId");
+        this.firstName = childDetails.get("firstName");
+        this.middleName = childDetails.get("middleName");
+        this.lastName = childDetails.get("lastName");
+        this.gender = childDetails.get("gender");
+        this.dob = childDetails.get("dob");
+        this.zeirId = childDetails.get("zeirId");
+        this.epiCardNumber = childDetails.get("epiCardNumber");
+        this.inactive = childDetails.get("inactive");
+        this.lostToFollowUp = childDetails.get("lostToFollowUp");
+        this.nfcCardId = childDetails.get("nfcCardId");
     }
 
-    boolean is() {
+    public boolean is() {
         return myResult;
     }
 

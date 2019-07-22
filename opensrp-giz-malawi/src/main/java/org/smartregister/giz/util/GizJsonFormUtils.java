@@ -6,6 +6,7 @@ import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,23 +67,17 @@ public class GizJsonFormUtils extends JsonFormUtils {
         String prefix;
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
-            prefix = jsonObject.has(JsonFormUtils.ENTITY_ID) && jsonObject.getString(JsonFormUtils.ENTITY_ID)
-                    .equalsIgnoreCase(GizConstants.MOTHER) ? GizConstants.MOTHER_ : "";
+            prefix = getPrefix(jsonObject);
 
             if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.KEY.PHOTO)) {
                 processPhoto(childDetails.get(Constants.KEY.BASE_ENTITY_ID), jsonObject);
-            } else if (jsonObject.getString(JsonFormUtils.KEY)
-                    .equalsIgnoreCase(Constants.JSON_FORM_KEY.DOB_UNKNOWN)) {
-                JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
-                optionsObject.put(JsonFormUtils.VALUE,
-                        Utils.getValue(childDetails, Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+            } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.DOB_UNKNOWN)) {
+                getDobUnknown(childDetails, jsonObject);
             } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(Constants.JSON_FORM_KEY.AGE)) {
                 processAge(Utils.getValue(childDetails, Constants.JSON_FORM_KEY.DOB, false), jsonObject);
-            } else if (jsonObject.getString(JsonFormConstants.TYPE)
-                    .equalsIgnoreCase(JsonFormConstants.DATE_PICKER)) {
+            } else if (jsonObject.getString(JsonFormConstants.TYPE).equalsIgnoreCase(JsonFormConstants.DATE_PICKER)) {
                 processDate(childDetails, prefix, jsonObject);
-            } else if (jsonObject.getString(JsonFormUtils.OPENMRS_ENTITY)
-                    .equalsIgnoreCase(JsonFormUtils.PERSON_INDENTIFIER)) {
+            } else if (jsonObject.getString(JsonFormUtils.OPENMRS_ENTITY).equalsIgnoreCase(JsonFormUtils.PERSON_INDENTIFIER)) {
                 jsonObject.put(JsonFormUtils.VALUE, Utils.getValue(childDetails,
                         jsonObject.getString(JsonFormUtils.OPENMRS_ENTITY_ID).toLowerCase(), true).replace("-", ""));
             } else if (jsonObject.getString(JsonFormUtils.OPENMRS_ENTITY).equalsIgnoreCase(JsonFormUtils.CONCEPT)) {
@@ -109,6 +104,20 @@ public class GizJsonFormUtils extends JsonFormUtils {
                 jsonObject.put(JsonFormUtils.VALUE, secondaryNumber);
             }
         }
+    }
+
+    private static void getDobUnknown(Map<String, String> childDetails, JSONObject jsonObject) throws JSONException {
+        JSONObject optionsObject = jsonObject.getJSONArray(Constants.JSON_FORM_KEY.OPTIONS).getJSONObject(0);
+        optionsObject.put(JsonFormUtils.VALUE,
+                Utils.getValue(childDetails, Constants.JSON_FORM_KEY.DOB_UNKNOWN, false));
+    }
+
+    @NotNull
+    private static String getPrefix(JSONObject jsonObject) throws JSONException {
+        String prefix;
+        prefix = jsonObject.has(JsonFormUtils.ENTITY_ID) && jsonObject.getString(JsonFormUtils.ENTITY_ID)
+                .equalsIgnoreCase(GizConstants.MOTHER) ? GizConstants.MOTHER_ : "";
+        return prefix;
     }
 
     private static void processLocationTree(Map<String, String> childDetails, List<String> nonEditableFields, JSONObject jsonObject) throws JSONException {

@@ -2,13 +2,12 @@ package org.smartregister.giz.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
@@ -42,7 +41,6 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
@@ -336,11 +334,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
             // save the values to db
             if (contentValues != null && contentValues.size() > 0) {
-
-                String name = contentValues.getAsString(RecurringServiceTypeRepository.NAME);
-                if (StringUtils.isNotBlank(name)) {
-                    name = name.replaceAll("_", " ").replace("dose", "").trim();
-                }
+                String name = getServiceTypeName(contentValues);
 
                 String eventDateStr = contentValues.getAsString(RecurringServiceRecordRepository.DATE);
                 Date date = getDate(eventDateStr);
@@ -354,17 +348,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         date = simpleDateFormat.parse(itnDateString);
                     }
 
-
-                    value = RecurringIntentService.ITN_PROVIDED;
-                    if (contentValues.getAsString("itn_has_net") != null) {
-                        value = RecurringIntentService.CHILD_HAS_NET;
-                    }
+                    value = getServiceValue(contentValues);
 
                 }
 
-                RecurringServiceTypeRepository recurringServiceTypeRepository = GizMalawiApplication.getInstance()
-                        .recurringServiceTypeRepository();
-                List<ServiceType> serviceTypeList = recurringServiceTypeRepository.searchByName(name);
+                List<ServiceType> serviceTypeList = getServiceTypes(name);
                 if (serviceTypeList == null || serviceTypeList.isEmpty()) {
                     return false;
                 }
@@ -373,14 +361,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     return false;
                 }
 
-                RecurringServiceRecordRepository recurringServiceRecordRepository = GizMalawiApplication.getInstance()
-                        .recurringServiceRecordRepository();
-                ServiceRecord serviceObj = getServiceRecord(service, contentValues, name, date, value, serviceTypeList);
-                String createdAtString = contentValues.getAsString(RecurringServiceRecordRepository.CREATED_AT);
-                Date createdAt = getDate(createdAtString);
-                serviceObj.setCreatedAt(createdAt);
-
-                recurringServiceRecordRepository.add(serviceObj);
+                recordServiceRecord(service, contentValues, name, date, value, serviceTypeList);
 
                 Timber.d("Ending processService table: %s", serviceTable.name);
             }
@@ -390,6 +371,42 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             Timber.e(e, "Process Service Error");
             return null;
         }
+    }
+
+    @NotNull
+    private String getServiceValue(ContentValues contentValues) {
+        String value;
+        value = RecurringIntentService.ITN_PROVIDED;
+        if (contentValues.getAsString("itn_has_net") != null) {
+            value = RecurringIntentService.CHILD_HAS_NET;
+        }
+        return value;
+    }
+
+    @Nullable
+    private String getServiceTypeName(ContentValues contentValues) {
+        String name = contentValues.getAsString(RecurringServiceTypeRepository.NAME);
+        if (StringUtils.isNotBlank(name)) {
+            name = name.replaceAll("_", " ").replace("dose", "").trim();
+        }
+        return name;
+    }
+
+    private void recordServiceRecord(EventClient service, ContentValues contentValues, String name, Date date, String value, List<ServiceType> serviceTypeList) {
+        RecurringServiceRecordRepository recurringServiceRecordRepository = GizMalawiApplication.getInstance()
+                .recurringServiceRecordRepository();
+        ServiceRecord serviceObj = getServiceRecord(service, contentValues, name, date, value, serviceTypeList);
+        String createdAtString = contentValues.getAsString(RecurringServiceRecordRepository.CREATED_AT);
+        Date createdAt = getDate(createdAtString);
+        serviceObj.setCreatedAt(createdAt);
+
+        recurringServiceRecordRepository.add(serviceObj);
+    }
+
+    private List<ServiceType> getServiceTypes(String name) {
+        RecurringServiceTypeRepository recurringServiceTypeRepository = GizMalawiApplication.getInstance()
+                .recurringServiceTypeRepository();
+        return recurringServiceTypeRepository.searchByName(name);
     }
 
     private void processBCGScarEvent(EventClient bcgScarEventClient) {
@@ -417,24 +434,13 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 return false;
             }
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            AllSharedPreferences allSharedPreferences = new AllSharedPreferences(preferences);
-            String registeredAnm = allSharedPreferences.fetchRegisteredANM();
-
             ClientField clientField = assetJsonToJava("ec_client_fields.json", ClientField.class);
-            if (clientField == null) {
-                return false;
-            }
-
-            List<Table> bindObjects = clientField.bindobjects;
-            //DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
+            return clientField != null;//DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
             //ECSyncHelper ecUpdater = ECSyncHelper.getInstance(getContext());
 
            /* for (Event event : events) {
                 unSync(bindObjects, event, registeredAnm);
             }*/
-
-            return true;
 
         } catch (Exception e) {
             Log.e(TAG, e.toString(), e);
@@ -568,6 +574,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public String[] getOpenmrsGenIds() {
-        return new String[] {"zeir_id"};
+        return new String[]{"zeir_id"};
     }
 }

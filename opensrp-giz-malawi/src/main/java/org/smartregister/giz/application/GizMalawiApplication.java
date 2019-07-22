@@ -37,7 +37,6 @@ import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
 import org.smartregister.growthmonitoring.repository.WeightZScoreRepository;
-import org.smartregister.growthmonitoring.service.intent.ZScoreRefreshIntentService;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.VaccineSchedule;
@@ -81,48 +80,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return jsonSpecHelper;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mInstance = this;
-        context = Context.getInstance();
-
-        String lang = GizUtils.getLanguage(getApplicationContext());
-        Locale locale = new Locale(lang);
-        Resources res = getApplicationContext().getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = locale;
-        res.updateConfiguration(conf, dm);
-
-        context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
-
-        //Initialize Modules
-        CoreLibrary.init(context, new GizMalawiSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
-
-        GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
-        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION,
-                growthMonitoringConfig);
-        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(), BuildConfig.VERSION_CODE,
-                BuildConfig.DATABASE_VERSION);
-        ConfigurableViewsLibrary.init(context, getRepository());
-        ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
-
-        initRepositories();
-        initOfflineSchedules();
-
-        SyncStatusBroadcastReceiver.init(this);
-        LocationHelper.init(GizUtils.ALLOWED_LEVELS, GizUtils.DEFAULT_LOCATION_LEVEL);
-        jsonSpecHelper = new JsonSpecHelper(this);
-
-        //init Job Manager
-        JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-    }
-
     public static CommonFtsObject createCommonFtsObject() {
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
@@ -134,34 +91,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap());
 
         return commonFtsObject;
-    }
-
-    private ChildMetadata getMetadata() {
-        ChildMetadata metadata = new ChildMetadata(BaseChildFormActivity.class, ChildProfileActivity.class,
-                ChildImmunizationActivity.class, true);
-        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
-                GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
-                GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER,
-                GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
-        return metadata;
-    }
-
-    private void initRepositories() {
-        weightRepository();
-        heightRepository();
-        vaccineRepository();
-        weightZScoreRepository();
-        heightZScoreRepository();
-    }
-
-    private void initOfflineSchedules() {
-        try {
-            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
-            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-            VaccineSchedule.init(childVaccines, specialVaccines, "child");
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
     }
 
     private static String[] getFtsTables() {
@@ -209,6 +138,76 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public static synchronized GizMalawiApplication getInstance() {
         return (GizMalawiApplication) mInstance;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mInstance = this;
+        context = Context.getInstance();
+
+        String lang = GizUtils.getLanguage(getApplicationContext());
+        Locale locale = new Locale(lang);
+        Resources res = getApplicationContext().getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = locale;
+        res.updateConfiguration(conf, dm);
+
+        context.updateApplicationContext(getApplicationContext());
+        context.updateCommonFtsObject(createCommonFtsObject());
+
+        //Initialize Modules
+        CoreLibrary.init(context, new GizMalawiSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
+
+        GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
+        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION,
+                growthMonitoringConfig);
+        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(), BuildConfig.VERSION_CODE,
+                BuildConfig.DATABASE_VERSION);
+        ConfigurableViewsLibrary.init(context, getRepository());
+        ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+
+        initRepositories();
+        initOfflineSchedules();
+
+        SyncStatusBroadcastReceiver.init(this);
+        LocationHelper.init(GizUtils.ALLOWED_LEVELS, GizUtils.DEFAULT_LOCATION_LEVEL);
+        jsonSpecHelper = new JsonSpecHelper(this);
+
+        //init Job Manager
+        JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
+    private ChildMetadata getMetadata() {
+        ChildMetadata metadata = new ChildMetadata(BaseChildFormActivity.class, ChildProfileActivity.class,
+                ChildImmunizationActivity.class, true);
+        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
+                GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
+                GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER,
+                GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
+        return metadata;
+    }
+
+    private void initRepositories() {
+        weightRepository();
+        heightRepository();
+        vaccineRepository();
+        weightZScoreRepository();
+        heightZScoreRepository();
+    }
+
+    private void initOfflineSchedules() {
+        try {
+            List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
+            List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
+            VaccineSchedule.init(childVaccines, specialVaccines, "child");
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
     }
 
     public WeightRepository weightRepository() {

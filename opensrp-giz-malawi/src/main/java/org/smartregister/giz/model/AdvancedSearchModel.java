@@ -1,6 +1,7 @@
 package org.smartregister.giz.model;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,6 +14,7 @@ import org.smartregister.giz.util.DBConstants;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,36 +82,26 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
             sortValues(jsonValues);
 
             for (JSONObject client : jsonValues) {
-                String entityId = "";
-                String firstName = "";
-                String middleName = "";
-                String lastName = "";
-                String gender = "";
-                String dob = "";
-                String zeirId = "";
-                String epiCardNumber = "";
-                String inactive = "";
-                String lostToFollowUp = "";
-                String nfcCardId = "";
 
                 if (client == null) {
                     continue;
                 }
 
-                CheckChildDetailsModel checkChildDetails = new CheckChildDetailsModel(client, entityId, firstName, middleName, lastName, gender, dob, zeirId, epiCardNumber, inactive, lostToFollowUp, nfcCardId).invoke();
+                Map<String, String> childDetails = createChildDetailsMap();
+                CheckChildDetailsModel checkChildDetails = new CheckChildDetailsModel(client, childDetails).invoke();
                 if (checkChildDetails.is())
                     continue;
-                entityId = checkChildDetails.getEntityId();
-                firstName = checkChildDetails.getFirstName();
-                middleName = checkChildDetails.getMiddleName();
-                lastName = checkChildDetails.getLastName();
-                gender = checkChildDetails.getGender();
-                dob = checkChildDetails.getDob();
-                zeirId = checkChildDetails.getZeirId();
-                epiCardNumber = checkChildDetails.getEpiCardNumber();
-                inactive = checkChildDetails.getInactive();
-                lostToFollowUp = checkChildDetails.getLostToFollowUp();
-                nfcCardId = checkChildDetails.getNfcCardId();
+                String entityId = checkChildDetails.getEntityId();
+                String firstName = checkChildDetails.getFirstName();
+                String middleName = checkChildDetails.getMiddleName();
+                String lastName = checkChildDetails.getLastName();
+                String gender = checkChildDetails.getGender();
+                String dob = checkChildDetails.getDob();
+                String zeirId = checkChildDetails.getZeirId();
+                String epiCardNumber = checkChildDetails.getEpiCardNumber();
+                String inactive = checkChildDetails.getInactive();
+                String lostToFollowUp = checkChildDetails.getLostToFollowUp();
+                String nfcCardId = checkChildDetails.getNfcCardId();
 
 
                 CheckMotherDetailsModel checkMotherDetails = new CheckMotherDetailsModel(client).invoke();
@@ -124,6 +116,24 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
         } else {
             return matrixCursor;
         }
+    }
+
+    @NotNull
+    private Map<String, String> createChildDetailsMap() {
+
+        Map<String, String> childDetails = new HashMap<>();
+        childDetails.put("entityId", "");
+        childDetails.put("firstName", "");
+        childDetails.put("middleName", "");
+        childDetails.put("lastName", "");
+        childDetails.put("gender", "");
+        childDetails.put("dob", "");
+        childDetails.put("zeirId", "");
+        childDetails.put("epiCardNumber", "");
+        childDetails.put("inactive", "");
+        childDetails.put("lostToFollowUp", "");
+        childDetails.put("nfcCardId", "");
+        return childDetails;
     }
 
     private void sortValues(List<JSONObject> jsonValues) {
