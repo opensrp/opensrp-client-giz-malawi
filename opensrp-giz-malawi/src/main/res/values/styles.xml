@@ -29,8 +29,6 @@
         <item name="actionMenuTextColor">#FFFFFF</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.Login" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -45,5 +43,11 @@
         <item name="android:listPreferredItemHeightSmall">70dp</item>
         <!-- item size in menu-->
     </style>
-
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay.NavigationDrawerStyle">
+        <item name="android:textSize">20sp</item>
+        <!-- text size in menu-->
+        <item name="android:listPreferredItemHeightSmall">70dp</item>
+        <!-- item size in menu-->
+    </style>
 </resources>
