@@ -4,7 +4,6 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
-import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.giz.util.GizConstants;
@@ -22,10 +21,8 @@ public class CheckChildDetailsModel {
     private String gender;
     private String dob;
     private String zeirId;
-    private String epiCardNumber;
     private String inactive;
     private String lostToFollowUp;
-    private String nfcCardId;
 
     public CheckChildDetailsModel(JSONObject client) {
         this.client = client;
@@ -63,20 +60,12 @@ public class CheckChildDetailsModel {
         return zeirId;
     }
 
-    public String getEpiCardNumber() {
-        return epiCardNumber;
-    }
-
     public String getInactive() {
         return inactive;
     }
 
     public String getLostToFollowUp() {
         return lostToFollowUp;
-    }
-
-    public String getNfcCardId() {
-        return nfcCardId;
     }
 
     public CheckChildDetailsModel invoke() {
@@ -121,12 +110,8 @@ public class CheckChildDetailsModel {
                 zeirId = zeirId.replace("-", "");
             }
 
-            epiCardNumber = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.CHILD_REGISTER_CARD_NUMBER);
-
             inactive = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.INACTIVE);
             lostToFollowUp = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.LOST_TO_FOLLOW_UP);
-            nfcCardId = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.ATTRIBUTES), Constants.KEY.NFC_CARD_IDENTIFIER);
-
         }
         myResult = false;
         return this;
