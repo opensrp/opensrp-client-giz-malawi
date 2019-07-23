@@ -271,7 +271,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     @Override
     public void onTerminate() {
-        logInfo("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
+        Timber.i("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
         cleanUpSyncState();
         TimeChangedBroadcastReceiver.destroy(this);
         SyncStatusBroadcastReceiver.destroy(this);
