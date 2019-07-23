@@ -64,8 +64,6 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-import static org.smartregister.util.Log.logInfo;
-
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
