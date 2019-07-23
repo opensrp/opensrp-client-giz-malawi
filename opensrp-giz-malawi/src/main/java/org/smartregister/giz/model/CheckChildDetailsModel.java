@@ -7,10 +7,10 @@ import org.json.JSONObject;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.DateUtil;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizJsonFormUtils;
 
 import java.util.Date;
-import java.util.Map;
 
 public class CheckChildDetailsModel {
     private boolean myResult;
@@ -27,19 +27,8 @@ public class CheckChildDetailsModel {
     private String lostToFollowUp;
     private String nfcCardId;
 
-    public CheckChildDetailsModel(JSONObject client, Map<String, String> childDetails) {
+    public CheckChildDetailsModel(JSONObject client) {
         this.client = client;
-        this.entityId = childDetails.get("entityId");
-        this.firstName = childDetails.get("firstName");
-        this.middleName = childDetails.get("middleName");
-        this.lastName = childDetails.get("lastName");
-        this.gender = childDetails.get("gender");
-        this.dob = childDetails.get("dob");
-        this.zeirId = childDetails.get("zeirId");
-        this.epiCardNumber = childDetails.get("epiCardNumber");
-        this.inactive = childDetails.get("inactive");
-        this.lostToFollowUp = childDetails.get("lostToFollowUp");
-        this.nfcCardId = childDetails.get("nfcCardId");
     }
 
     public boolean is() {
@@ -91,22 +80,32 @@ public class CheckChildDetailsModel {
     }
 
     public CheckChildDetailsModel invoke() {
-        if (client.has("child")) {
-            JSONObject child = GizJsonFormUtils.getJsonObject(client, "child");
+        this.entityId = "";
+        this.firstName = "";
+        this.middleName = "";
+        this.lastName = "";
+        this.gender = "";
+        this.dob = "";
+        this.zeirId = "";
+        this.inactive = "";
+        this.lostToFollowUp = "";
+
+        if (client.has(GizConstants.KEY.CHILD)) {
+            JSONObject child = GizJsonFormUtils.getJsonObject(client, GizConstants.KEY.CHILD);
 
             // Skip deceased children
-            if (StringUtils.isNotBlank(GizJsonFormUtils.getJsonString(child, "deathdate"))) {
+            if (StringUtils.isNotBlank(GizJsonFormUtils.getJsonString(child, GizConstants.KEY.DEATHDATE))) {
                 myResult = true;
                 return this;
             }
 
-            entityId = GizJsonFormUtils.getJsonString(child, "baseEntityId");
-            firstName = GizJsonFormUtils.getJsonString(child, "firstName");
-            middleName = GizJsonFormUtils.getJsonString(child, "middleName");
-            lastName = GizJsonFormUtils.getJsonString(child, "lastName");
+            entityId = GizJsonFormUtils.getJsonString(child, GizConstants.KEY.BASE_ENTITY_ID);
+            firstName = GizJsonFormUtils.getJsonString(child, GizConstants.KEY.FIRSTNAME);
+            middleName = GizJsonFormUtils.getJsonString(child, GizConstants.KEY.MIDDLENAME);
+            lastName = GizJsonFormUtils.getJsonString(child, GizConstants.KEY.LASTNAME);
 
-            gender = GizJsonFormUtils.getJsonString(child, "gender");
-            dob = GizJsonFormUtils.getJsonString(child, "birthdate");
+            gender = GizJsonFormUtils.getJsonString(child, GizConstants.KEY.GENDER);
+            dob = GizJsonFormUtils.getJsonString(child, GizConstants.KEY.BIRTHDATE);
             if (StringUtils.isNotBlank(dob) && StringUtils.isNumeric(dob)) {
                 try {
                     Long dobLong = Long.valueOf(dob);
@@ -117,16 +116,16 @@ public class CheckChildDetailsModel {
                 }
             }
 
-            zeirId = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, "identifiers"), JsonFormUtils.ZEIR_ID);
+            zeirId = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.IDENTIFIERS), JsonFormUtils.ZEIR_ID);
             if (StringUtils.isNotBlank(zeirId)) {
                 zeirId = zeirId.replace("-", "");
             }
 
-            epiCardNumber = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, "attributes"), "Child_Register_Card_Number");
+            epiCardNumber = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.CHILD_REGISTER_CARD_NUMBER);
 
-            inactive = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, "attributes"), "inactive");
-            lostToFollowUp = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, "attributes"), "lost_to_follow_up");
-            nfcCardId = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, "attributes"), Constants.KEY.NFC_CARD_IDENTIFIER);
+            inactive = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.INACTIVE);
+            lostToFollowUp = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.LOST_TO_FOLLOW_UP);
+            nfcCardId = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.ATTRIBUTES), Constants.KEY.NFC_CARD_IDENTIFIER);
 
         }
         myResult = false;

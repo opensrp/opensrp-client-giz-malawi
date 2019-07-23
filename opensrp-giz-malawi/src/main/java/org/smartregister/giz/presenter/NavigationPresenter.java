@@ -62,7 +62,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
                         @Override
                         public void onError(Exception e) {
-                            Timber.e("Error retrieving count for %s",
+                            Timber.e(e, "Error retrieving count for %s",
                                     tableMap.get(mModel.getNavigationItems().get(finalNavigationItems).getMenuTitle()));
                         }
                     });

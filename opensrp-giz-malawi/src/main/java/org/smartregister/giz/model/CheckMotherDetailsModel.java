@@ -1,6 +1,7 @@
 package org.smartregister.giz.model;
 
 import org.json.JSONObject;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizJsonFormUtils;
 
 public class CheckMotherDetailsModel {
@@ -30,11 +31,11 @@ public class CheckMotherDetailsModel {
         motherFirstName = "";
         motherLastName = "";
 
-        if (client.has("mother")) {
-            JSONObject mother = GizJsonFormUtils.getJsonObject(client, "mother");
-            motherFirstName = GizJsonFormUtils.getJsonString(mother, "firstName");
-            motherLastName = GizJsonFormUtils.getJsonString(mother, "lastName");
-            motherBaseEntityId = GizJsonFormUtils.getJsonString(mother, "baseEntityId");
+        if (client.has(GizConstants.KEY.MOTHER)) {
+            JSONObject mother = GizJsonFormUtils.getJsonObject(client, GizConstants.KEY.MOTHER);
+            motherFirstName = GizJsonFormUtils.getJsonString(mother, GizConstants.KEY.FIRSTNAME);
+            motherLastName = GizJsonFormUtils.getJsonString(mother, GizConstants.KEY.LASTNAME);
+            motherBaseEntityId = GizJsonFormUtils.getJsonString(mother, GizConstants.KEY.BASE_ENTITY_ID);
         }
         return this;
     }

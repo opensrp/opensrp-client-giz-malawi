@@ -2,7 +2,7 @@ package org.smartregister.giz.cursor;
 
 import android.database.Cursor;
 
-import org.smartregister.giz.util.DBConstants;
+import org.smartregister.giz.util.GizConstants;
 
 
 public class CreateRemoteLocalCursor {
@@ -18,15 +18,15 @@ public class CreateRemoteLocalCursor {
 
     public CreateRemoteLocalCursor(Cursor cursor, boolean isRemote) {
         if (isRemote) {
-            id = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.ID_LOWER_CASE));
+            id = cursor.getString(cursor.getColumnIndex(GizConstants.KEY.ID_LOWER_CASE));
         } else {
-            id = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.BASE_ENTITY_ID));
+            id = cursor.getString(cursor.getColumnIndex(GizConstants.KEY.BASE_ENTITY_ID));
         }
-        relationalId = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.RELATIONALID));
-        firstName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.FIRST_NAME));
-        lastName = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.LAST_NAME));
-        dob = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.DOB));
-        openSrpId = cursor.getString(cursor.getColumnIndex(DBConstants.KEY.MER_ID));
+        relationalId = cursor.getString(cursor.getColumnIndex(GizConstants.KEY.RELATIONALID));
+        firstName = cursor.getString(cursor.getColumnIndex(GizConstants.KEY.FIRST_NAME));
+        lastName = cursor.getString(cursor.getColumnIndex(GizConstants.KEY.LAST_NAME));
+        dob = cursor.getString(cursor.getColumnIndex(GizConstants.KEY.DOB));
+        openSrpId = cursor.getString(cursor.getColumnIndex(GizConstants.KEY.ZEIR_ID));
     }
 
     public String getId() {

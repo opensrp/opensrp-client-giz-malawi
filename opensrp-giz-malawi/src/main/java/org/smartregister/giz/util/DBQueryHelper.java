@@ -109,6 +109,6 @@ public class DBQueryHelper {
     }
 
     public static String getSortQuery() {
-        return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 }

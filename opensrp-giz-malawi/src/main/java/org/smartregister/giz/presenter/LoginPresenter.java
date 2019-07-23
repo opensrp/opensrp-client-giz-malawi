@@ -45,7 +45,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     public void processViewCustomizations() {
         try {
             String jsonString = getJsonViewFromPreference(
-                    GizConstants.VIEW_CONFIGURATION_PREFIX + GizConstants.CONFIGURATION.LOGIN);
+                    GizConstants.KEY.VIEW_CONFIGURATION_PREFIX + GizConstants.CONFIGURATION.LOGIN);
             if (jsonString == null) {
                 return;
             }

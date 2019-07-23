@@ -7,9 +7,8 @@ import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationContract;
 import org.smartregister.giz.util.AppExecutors;
-import org.smartregister.giz.util.DBConstants;
-import org.smartregister.giz.util.GizChildDbConstants;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizUtils;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -21,20 +20,11 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     private static NavigationInteractor instance;
     private AppExecutors appExecutors = new AppExecutors();
 
-    private NavigationInteractor() {
-
-    }
-
     public static NavigationInteractor getInstance() {
         if (instance == null)
             instance = new NavigationInteractor();
 
         return instance;
-    }
-
-    @Override
-    public Date getLastSync() {
-        return null;
     }
 
     @Override
@@ -66,17 +56,17 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     }
 
     private int getCount(String tableName) {
-        int count;
+        int count = 0;
         Cursor cursor = null;
         String mainCondition;
         if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.CHILD)) {
-            mainCondition = String.format(" where %s is null AND %s", DBConstants.KEY.DATE_REMOVED,
-                    GizChildDbConstants.childAgeLimitFilter());
+            mainCondition = String.format(" where %s is null AND %s", GizConstants.KEY.DATE_REMOVED,
+                    GizUtils.childAgeLimitFilter());
         } else {
             mainCondition = " where 1 = 1 ";
         }
-        try {
 
+        try {
             SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
             String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
             query = smartRegisterQueryBuilder.Endquery(query);
@@ -84,16 +74,14 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
             if (cursor.moveToFirst()) {
                 count = cursor.getInt(0);
-            } else {
-                count = 0;
             }
-
+        } catch (Exception e) {
+            Timber.e(e, "NavigationInteractor --> getCount");
         } finally {
             if (cursor != null) {
                 cursor.close();
             }
         }
-
 
         return count;
     }
@@ -104,23 +92,16 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
     @Override
     public Date sync() {
-        Date res = null;
+        Date syncDate = null;
         try {
-            res = new Date(getLastCheckTimeStamp());
+            syncDate = new Date(getLastCheckTimeStamp());
         } catch (Exception e) {
-            Timber.e(e.toString());
+            Timber.e(e, "NavigationInteractor --> sync");
         }
-        return res;
+        return syncDate;
     }
 
     private Long getLastCheckTimeStamp() {
         return GizMalawiApplication.getInstance().getEcSyncHelper().getLastCheckTimeStamp();
     }
-
-   /* private boolean isValidFilterForFts(CommonRepository commonRepository, String filters) {
-        return commonRepository.isFts() && filters != null && !StringUtils
-                .containsIgnoreCase(filters, "like") && !StringUtils
-                .startsWithIgnoreCase(filters.trim(), "and ");
-    }*/
-
 }

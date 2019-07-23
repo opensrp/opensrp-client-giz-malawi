@@ -1,20 +1,17 @@
 package org.smartregister.giz.model;
 
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.child.cursor.AdvancedMatrixCursor;
 import org.smartregister.child.model.BaseChildAdvancedSearchModel;
-import org.smartregister.child.util.Constants;
 import org.smartregister.domain.Response;
-import org.smartregister.giz.util.DBConstants;
+import org.smartregister.giz.util.GizConstants;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,10 +19,6 @@ import java.util.Map;
  * Created by ndegwamartin on 2019-05-27.
  */
 public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
-    private static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
-    private static final String MOTHER_GUARDIAN_FIRST_NAME = "mother_first_name";
-    private static final String MOTHER_GUARDIAN_LAST_NAME = "mother_last_name";
-
     @Override
     public Map<String, String> createEditMap(Map<String, String> editMap) {
         return editMap;
@@ -34,37 +27,43 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
     @Override
     protected String[] mainColumns(String tableName, String parentTableName) {
         return new String[]{
-                tableName + "." + DBConstants.KEY.RELATIONALID,
-                tableName + "." + DBConstants.KEY.DETAILS,
-                tableName + "." + DBConstants.KEY.MER_ID,
-                tableName + "." + DBConstants.KEY.RELATIONAL_ID,
-                tableName + "." + DBConstants.KEY.FIRST_NAME,
-                tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + DBConstants.KEY.HOME_ADDRESS,
-                tableName + "." + DBConstants.KEY.VILLAGE,
-                tableName + "." + DBConstants.KEY.TRADITIONAL_AUTHORITY,
-                tableName + "." + DBConstants.KEY.CHILD_TREATMENT,
-                tableName + "." + DBConstants.KEY.CHILD_HIV_STATUS,
-                tableName + "." + DBConstants.KEY.GENDER,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
-                parentTableName + "." + DBConstants.KEY.MOTHER_FIRST_NAME + " as mother_first_name",
-                parentTableName + "." + DBConstants.KEY.MOTHER_LAST_NAME + " as mother_last_name",
-                parentTableName + "." + DBConstants.KEY.MOTHER_DOB + " as mother_dob",
-                parentTableName + "." + DBConstants.KEY.MOTHER_NRC_NUMBER,
-                parentTableName + "." + DBConstants.KEY.MOTHER_GUARDIAN_NUMBER,
-                parentTableName + "." + DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER,
-                parentTableName + "." + DBConstants.KEY.PROTECTED_AT_BIRTH,
-                parentTableName + "." + DBConstants.KEY.MOTHER_HIV_STATUS,
-                tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + DBConstants.KEY.CLIENT_REG_DATE,
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH
+                tableName + "." + GizConstants.KEY.RELATIONALID,
+                tableName + "." + GizConstants.KEY.DETAILS,
+                tableName + "." + GizConstants.KEY.ZEIR_ID,
+                tableName + "." + GizConstants.KEY.RELATIONAL_ID,
+                tableName + "." + GizConstants.KEY.FIRST_NAME,
+                tableName + "." + GizConstants.KEY.LAST_NAME,
+                tableName + "." + GizConstants.KEY.HOME_ADDRESS,
+                tableName + "." + GizConstants.KEY.VILLAGE,
+                tableName + "." + GizConstants.KEY.TRADITIONAL_AUTHORITY,
+                tableName + "." + GizConstants.KEY.CHILD_TREATMENT,
+                tableName + "." + GizConstants.KEY.CHILD_HIV_STATUS,
+                tableName + "." + GizConstants.KEY.GENDER,
+                tableName + "." + GizConstants.KEY.BASE_ENTITY_ID,
+                parentTableName + "." + GizConstants.KEY.FIRST_NAME + " as " + GizConstants.KEY.MOTHER_FIRST_NAME,
+                parentTableName + "." + GizConstants.KEY.LAST_NAME + " as " + GizConstants.KEY.MOTHER_LAST_NAME,
+                parentTableName + "." + GizConstants.KEY.MOTHER_DOB + " as " + GizConstants.KEY.DB_MOTHER_DOB,
+                parentTableName + "." + GizConstants.KEY.MOTHER_NRC_NUMBER,
+                parentTableName + "." + GizConstants.KEY.MOTHER_GUARDIAN_NUMBER,
+                parentTableName + "." + GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER,
+                parentTableName + "." + GizConstants.KEY.PROTECTED_AT_BIRTH,
+                parentTableName + "." + GizConstants.KEY.MOTHER_HIV_STATUS,
+                tableName + "." + GizConstants.KEY.DOB,
+                tableName + "." + GizConstants.KEY.CLIENT_REG_DATE,
+                tableName + "." + GizConstants.KEY.LAST_INTERACTED_WITH
         };
     }
 
     @Override
     public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
 
-        String[] columns = new String[]{Constants.KEY.ID_LOWER_CASE, Constants.KEY.RELATIONALID, Constants.KEY.FIRST_NAME, "middle_name", Constants.KEY.LAST_NAME, Constants.KEY.GENDER, Constants.KEY.DOB, Constants.KEY.ZEIR_ID, Constants.KEY.EPI_CARD_NUMBER, Constants.KEY.NFC_CARD_IDENTIFIER, MOTHER_BASE_ENTITY_ID, MOTHER_GUARDIAN_FIRST_NAME, MOTHER_GUARDIAN_LAST_NAME, org.smartregister.child.util.Constants.CHILD_STATUS.INACTIVE, org.smartregister.child.util.Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP};
+        String[] columns = new String[]{GizConstants.KEY.ID_LOWER_CASE, GizConstants.KEY.RELATIONALID,
+                GizConstants.KEY.FIRST_NAME, GizConstants.KEY.MIDDLE_NAME, GizConstants.KEY.LAST_NAME,
+                GizConstants.KEY.GENDER, GizConstants.KEY.DOB, GizConstants.KEY.ZEIR_ID,
+                GizConstants.KEY.MOTHER_BASE_ENTITY_ID, GizConstants.KEY.MOTHER_FIRST_NAME,
+                GizConstants.KEY.MOTHER_FIRST_NAME, GizConstants.KEY.INACTIVE,
+                GizConstants.KEY.LOST_TO_FOLLOW_UP};
+
         AdvancedMatrixCursor matrixCursor = new AdvancedMatrixCursor(columns);
 
         if (response == null || response.isFailure() || StringUtils.isBlank(response.payload())) {
@@ -87,8 +86,7 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
                     continue;
                 }
 
-                Map<String, String> childDetails = createChildDetailsMap();
-                CheckChildDetailsModel checkChildDetails = new CheckChildDetailsModel(client, childDetails).invoke();
+                CheckChildDetailsModel checkChildDetails = new CheckChildDetailsModel(client).invoke();
                 if (checkChildDetails.is())
                     continue;
                 String entityId = checkChildDetails.getEntityId();
@@ -98,10 +96,8 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
                 String gender = checkChildDetails.getGender();
                 String dob = checkChildDetails.getDob();
                 String zeirId = checkChildDetails.getZeirId();
-                String epiCardNumber = checkChildDetails.getEpiCardNumber();
                 String inactive = checkChildDetails.getInactive();
                 String lostToFollowUp = checkChildDetails.getLostToFollowUp();
-                String nfcCardId = checkChildDetails.getNfcCardId();
 
 
                 CheckMotherDetailsModel checkMotherDetails = new CheckMotherDetailsModel(client).invoke();
@@ -109,7 +105,7 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
                 String motherFirstName = checkMotherDetails.getMotherFirstName();
                 String motherLastName = checkMotherDetails.getMotherLastName();
 
-                matrixCursor.addRow(new Object[]{entityId, null, firstName, middleName, lastName, gender, dob, zeirId, epiCardNumber, nfcCardId, motherBaseEntityId, motherFirstName, motherLastName, inactive, lostToFollowUp});
+                matrixCursor.addRow(new Object[]{entityId, null, firstName, middleName, lastName, gender, dob, zeirId, motherBaseEntityId, motherFirstName, motherLastName, inactive, lostToFollowUp});
             }
 
             return matrixCursor;
@@ -118,38 +114,20 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
         }
     }
 
-    @NotNull
-    private Map<String, String> createChildDetailsMap() {
-
-        Map<String, String> childDetails = new HashMap<>();
-        childDetails.put("entityId", "");
-        childDetails.put("firstName", "");
-        childDetails.put("middleName", "");
-        childDetails.put("lastName", "");
-        childDetails.put("gender", "");
-        childDetails.put("dob", "");
-        childDetails.put("zeirId", "");
-        childDetails.put("epiCardNumber", "");
-        childDetails.put("inactive", "");
-        childDetails.put("lostToFollowUp", "");
-        childDetails.put("nfcCardId", "");
-        return childDetails;
-    }
-
     private void sortValues(List<JSONObject> jsonValues) {
         Collections.sort(jsonValues, new Comparator<JSONObject>() {
             @Override
             public int compare(JSONObject lhs, JSONObject rhs) {
 
-                if (!lhs.has("child") || !rhs.has("child")) {
+                if (!lhs.has(GizConstants.KEY.CHILD) || !rhs.has(GizConstants.KEY.CHILD)) {
                     return 0;
                 }
 
-                JSONObject lhsChild = getJsonObject(lhs, "child");
-                JSONObject rhsChild = getJsonObject(rhs, "child");
+                JSONObject lhsChild = getJsonObject(lhs, GizConstants.KEY.CHILD);
+                JSONObject rhsChild = getJsonObject(rhs, GizConstants.KEY.CHILD);
 
-                String lhsInactive = getJsonString(getJsonObject(lhsChild, "attributes"), "inactive");
-                String rhsInactive = getJsonString(getJsonObject(rhsChild, "attributes"), "inactive");
+                String lhsInactive = getJsonString(getJsonObject(lhsChild, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.INACTIVE);
+                String rhsInactive = getJsonString(getJsonObject(rhsChild, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.INACTIVE);
 
                 int aComp = 0;
                 if (lhsInactive.equalsIgnoreCase(Boolean.TRUE.toString()) && !rhsInactive.equalsIgnoreCase(Boolean.TRUE.toString())) {
@@ -173,8 +151,8 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
 
     @Nullable
     private Integer getLostToFollowUp(JSONObject lhsChild, JSONObject rhsChild) {
-        String lhsLostToFollowUp = getJsonString(getJsonObject(lhsChild, "attributes"), "lost_to_follow_up");
-        String rhsLostToFollowUp = getJsonString(getJsonObject(rhsChild, "attributes"), "lost_to_follow_up");
+        String lhsLostToFollowUp = getJsonString(getJsonObject(lhsChild, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.LOST_TO_FOLLOW_UP);
+        String rhsLostToFollowUp = getJsonString(getJsonObject(rhsChild, GizConstants.KEY.ATTRIBUTES), GizConstants.KEY.LOST_TO_FOLLOW_UP);
         if (lhsLostToFollowUp.equalsIgnoreCase(Boolean.TRUE.toString()) && !rhsLostToFollowUp.equalsIgnoreCase(Boolean.TRUE.toString())) {
             return 1;
         } else if (!lhsLostToFollowUp.equalsIgnoreCase(Boolean.TRUE.toString()) && rhsLostToFollowUp.equalsIgnoreCase(Boolean.TRUE.toString())) {

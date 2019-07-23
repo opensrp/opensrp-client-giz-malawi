@@ -28,7 +28,6 @@ import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.sync.GizMalawiProcessorForJava;
-import org.smartregister.giz.util.DBConstants;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
@@ -99,7 +98,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-            return new String[]{DBConstants.KEY.MER_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME};
+            return new String[]{GizConstants.KEY.ZEIR_ID, GizConstants.KEY.FIRST_NAME, GizConstants.KEY.LAST_NAME};
         }
         return null;
     }
@@ -109,14 +108,14 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
             ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD);
             List<String> names = new ArrayList<>();
-            names.add(DBConstants.KEY.FIRST_NAME);
-            names.add(DBConstants.KEY.DOB);
-            names.add(DBConstants.KEY.MER_ID);
-            names.add(DBConstants.KEY.LAST_INTERACTED_WITH);
-            names.add(DBConstants.KEY.INACTIVE);
-            names.add(DBConstants.KEY.LOST_TO_FOLLOW_UP);
-            names.add(DBConstants.KEY.DOD);
-            names.add(DBConstants.KEY.DATE_REMOVED);
+            names.add(GizConstants.KEY.FIRST_NAME);
+            names.add(GizConstants.KEY.DOB);
+            names.add(GizConstants.KEY.ZEIR_ID);
+            names.add(GizConstants.KEY.LAST_INTERACTED_WITH);
+            names.add(GizConstants.KEY.INACTIVE);
+            names.add(GizConstants.KEY.LOST_TO_FOLLOW_UP);
+            names.add(GizConstants.KEY.DOD);
+            names.add(GizConstants.KEY.DATE_REMOVED);
 
             for (VaccineRepo.Vaccine vaccine : vaccines) {
                 names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.display()));

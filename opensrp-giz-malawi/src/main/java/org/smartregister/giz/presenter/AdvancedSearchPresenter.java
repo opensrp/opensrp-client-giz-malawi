@@ -8,8 +8,8 @@ import org.smartregister.child.cursor.AdvancedMatrixCursor;
 import org.smartregister.child.presenter.BaseChildAdvancedSearchPresenter;
 import org.smartregister.giz.cursor.CreateRemoteLocalCursor;
 import org.smartregister.giz.model.AdvancedSearchModel;
-import org.smartregister.giz.util.DBConstants;
 import org.smartregister.giz.util.DBQueryHelper;
+import org.smartregister.giz.util.GizConstants;
 
 /**
  * Created by ndegwamartin on 11/04/2019.
@@ -25,11 +25,11 @@ public class AdvancedSearchPresenter extends BaseChildAdvancedSearchPresenter {
         Cursor cursor = getView().getRawCustomQueryForAdapter(query);
         if (cursor != null && cursor.getCount() > 0) {
             AdvancedMatrixCursor remoteLocalCursor = new AdvancedMatrixCursor(
-                    new String[]{DBConstants.KEY.ID_LOWER_CASE, DBConstants.KEY.RELATIONALID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.DOB, DBConstants.KEY.MER_ID});
+                    new String[]{GizConstants.KEY.ID_LOWER_CASE, GizConstants.KEY.RELATIONALID, GizConstants.KEY.FIRST_NAME, GizConstants.KEY.LAST_NAME, GizConstants.KEY.DOB, GizConstants.KEY.ZEIR_ID});
 
             CursorJoiner joiner = new CursorJoiner(matrixCursor,
-                    new String[]{DBConstants.KEY.MER_ID, DBConstants.KEY.ID_LOWER_CASE}, cursor,
-                    new String[]{DBConstants.KEY.MER_ID, DBConstants.KEY.ID_LOWER_CASE});
+                    new String[]{GizConstants.KEY.ZEIR_ID, GizConstants.KEY.ID_LOWER_CASE}, cursor,
+                    new String[]{GizConstants.KEY.ZEIR_ID, GizConstants.KEY.ID_LOWER_CASE});
             for (CursorJoiner.Result joinerResult : joiner) {
                 switch (joinerResult) {
                     case BOTH:

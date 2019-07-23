@@ -87,7 +87,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             mPresenter = new NavigationPresenter(this);
             prepareViews(activity);
         } catch (Exception e) {
-            Timber.e(e,"NavigationMenu --> init");
+            Timber.e(e, "NavigationMenu --> init");
         }
     }
 
@@ -284,13 +284,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     @Override
     public void refreshCount() {
         navigationAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void displayToast(Activity activity, String message) {
-        if (activity != null) {
-            Toast.makeText(activity.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-        }
     }
 
     public NavigationAdapter getNavigationAdapter() {
