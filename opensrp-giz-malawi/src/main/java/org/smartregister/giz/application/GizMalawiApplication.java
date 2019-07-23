@@ -67,7 +67,6 @@ import timber.log.Timber;
 import static org.smartregister.util.Log.logInfo;
 
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
-    private static final String TAG = GizMalawiApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
     private EventClientRepository eventClientRepository;
