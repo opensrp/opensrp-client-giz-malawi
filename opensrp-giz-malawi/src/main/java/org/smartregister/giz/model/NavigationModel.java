@@ -15,7 +15,6 @@ import static java.util.Arrays.asList;
 public class NavigationModel implements NavigationContract.Model {
     private static NavigationModel instance;
     private static List<NavigationOption> navigationOptions = new ArrayList<>();
-    private String TAG = NavigationModel.class.getCanonicalName();
 
     public static NavigationModel getInstance() {
         if (instance == null)
