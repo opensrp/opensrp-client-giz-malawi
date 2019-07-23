@@ -7,6 +7,7 @@
     <string name="malawi_app_name">Malawi HIS</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="done">Done</string>
 
     <!-- Navigation Strings -->
     <string name="navigation_drawer_close">Close</string>
