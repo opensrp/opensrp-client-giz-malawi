@@ -2,6 +2,7 @@ package org.smartregister.giz.interactor;
 
 import android.database.Cursor;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.giz.application.GizMalawiApplication;
@@ -64,20 +65,22 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                     GizUtils.childAgeLimitFilter());
         }
 
-        try {
-            SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
-            String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
-            query = smartRegisterQueryBuilder.Endquery(query);
-            Timber.i("2%s", query);
-            cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
-            if (cursor.moveToFirst()) {
-                count = cursor.getInt(0);
-            }
-        } catch (Exception e) {
-            Timber.e(e, "NavigationInteractor --> getCount");
-        } finally {
-            if (cursor != null) {
-                cursor.close();
+        if (StringUtils.isNoneEmpty(mainCondition)) {
+            try {
+                SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
+                String query = MessageFormat.format("select count(*) from {0} {1}", tableName, mainCondition);
+                query = smartRegisterQueryBuilder.Endquery(query);
+                Timber.i("2%s", query);
+                cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
+                if (cursor.moveToFirst()) {
+                    count = cursor.getInt(0);
+                }
+            } catch (Exception e) {
+                Timber.e(e, "NavigationInteractor --> getCount");
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
             }
         }
 
