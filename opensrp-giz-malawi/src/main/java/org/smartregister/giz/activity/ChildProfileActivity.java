@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import org.smartregister.child.util.Utils;
-import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 public class ChildProfileActivity extends BaseProfileActivity {
@@ -26,13 +24,6 @@ public class ChildProfileActivity extends BaseProfileActivity {
     @Override
     protected void onResumption() {
         super.onResumption();
-        openDrawer();
-    }
-
-    public void openDrawer() {
-        NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
-        navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
-        navigationMenu.runRegisterCount();
     }
 
     @Override

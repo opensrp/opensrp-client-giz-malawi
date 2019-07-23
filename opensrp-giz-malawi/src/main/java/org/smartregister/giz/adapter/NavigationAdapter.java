@@ -32,13 +32,6 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
         this.onClickListener = new NavigationListener(context, this);
     }
 
-    public String getSelectedView() {
-        if (selectedView == null || selectedView.equals(""))
-            setSelectedView(GizConstants.DrawerMenu.ALL_FAMILIES);
-
-        return selectedView;
-    }
-
     public void setSelectedView(String selectedView) {
         this.selectedView = selectedView;
         this.notifyDataSetChanged();

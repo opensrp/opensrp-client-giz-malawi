@@ -58,12 +58,10 @@ public class NavigationInteractor implements NavigationContract.Interactor {
     private int getCount(String tableName) {
         int count = 0;
         Cursor cursor = null;
-        String mainCondition;
+        String mainCondition = "";
         if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.CHILD)) {
             mainCondition = String.format(" where %s is null AND %s", GizConstants.KEY.DATE_REMOVED,
                     GizUtils.childAgeLimitFilter());
-        } else {
-            mainCondition = " where 1 = 1 ";
         }
 
         try {

@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.Pair;
 
 import com.crashlytics.android.Crashlytics;
@@ -63,6 +62,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
+import timber.log.Timber;
 
 import static org.smartregister.util.Log.logInfo;
 
@@ -203,9 +203,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
             List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-            VaccineSchedule.init(childVaccines, specialVaccines, "child");
+            VaccineSchedule.init(childVaccines, specialVaccines, GizConstants.KEY.CHILD);
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, "GizMalawiApplication --> initOfflineSchedules");
         }
     }
 
@@ -247,7 +247,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 repository = new GizMalawiRepository(getInstance().getApplicationContext(), context);
             }
         } catch (UnsatisfiedLinkError e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e, "GizMalawiApplication --> getRepository");
         }
         return repository;
     }
@@ -284,7 +284,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             DrishtiSyncScheduler.stop(getApplicationContext());
             context.allSharedPreferences().saveIsSyncInProgress(false);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, "GizMalawiApplication --> cleanUpSyncState");
         }
     }
 
