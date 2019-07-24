@@ -32,7 +32,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
             JSONObject birthRegistrationForm = FormUtils.getInstance(context)
                     .getFormJson(Utils.metadata().childRegister.formName);
             updateRegistrationEventType(birthRegistrationForm);
-            JsonFormUtils.addChildRegLocHierarchyQuestions(birthRegistrationForm, GizConstants.REGISTRATION_HOME_ADDRESS,
+            JsonFormUtils.addChildRegLocHierarchyQuestions(birthRegistrationForm, GizConstants.KEY.REGISTRATION_HOME_ADDRESS,
                     LocationHierarchy.ENTIRE_TREE);
 
             if (birthRegistrationForm != null) {
@@ -40,7 +40,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
                 birthRegistrationForm.put(JsonFormUtils.ENCOUNTER_TYPE, Utils.metadata().childRegister.updateEventType);
                 birthRegistrationForm.put(JsonFormUtils.RELATIONAL_ID, childDetails.get(RELATIONAL_ID));
                 birthRegistrationForm.put(JsonFormUtils.CURRENT_ZEIR_ID,
-                        Utils.getValue(childDetails, GizConstants.MER_ID, true).replace("-",
+                        Utils.getValue(childDetails, GizConstants.KEY.MALAWI_ID, true).replace("-",
                                 ""));
                 birthRegistrationForm.put(JsonFormUtils.CURRENT_OPENSRP_ID,
                         Utils.getValue(childDetails, Constants.JSON_FORM_KEY.UNIQUE_ID, false));
@@ -91,16 +91,16 @@ public class GizJsonFormUtils extends JsonFormUtils {
 
             processLocationTree(childDetails, nonEditableFields, jsonObject);
 
-            if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.MIDDLE_NAME)) {
-                String middleName = Utils.getValue(childDetails, GizConstants.MIDDLE_NAME, true);
+            if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.KEY.MIDDLE_NAME)) {
+                String middleName = Utils.getValue(childDetails, GizConstants.KEY.MIDDLE_NAME, true);
                 jsonObject.put(JsonFormUtils.VALUE, middleName);
             }
-            if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.MOTHER_NRC_NUMBER)) {
-                String nidNumber = Utils.getValue(childDetails, DBConstants.KEY.MOTHER_NRC_NUMBER, true);
+            if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.KEY.MOTHER_NRC_NUMBER)) {
+                String nidNumber = Utils.getValue(childDetails, GizConstants.KEY.MOTHER_NRC_NUMBER, true);
                 jsonObject.put(JsonFormUtils.VALUE, nidNumber);
             }
-            if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER)) {
-                String secondaryNumber = Utils.getValue(childDetails, DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER, true);
+            if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER)) {
+                String secondaryNumber = Utils.getValue(childDetails, GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER, true);
                 jsonObject.put(JsonFormUtils.VALUE, secondaryNumber);
             }
         }
@@ -116,16 +116,16 @@ public class GizJsonFormUtils extends JsonFormUtils {
     private static String getPrefix(JSONObject jsonObject) throws JSONException {
         String prefix;
         prefix = jsonObject.has(JsonFormUtils.ENTITY_ID) && jsonObject.getString(JsonFormUtils.ENTITY_ID)
-                .equalsIgnoreCase(GizConstants.MOTHER) ? GizConstants.MOTHER_ : "";
+                .equalsIgnoreCase(GizConstants.KEY.MOTHER) ? GizConstants.KEY.MOTHER_ : "";
         return prefix;
     }
 
     private static void processLocationTree(Map<String, String> childDetails, List<String> nonEditableFields, JSONObject jsonObject) throws JSONException {
         updateBirthFacilityHierarchy(childDetails, jsonObject);
-        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.BIRTH_FACILITY_NAME_OTHER)) {
+        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.KEY.BIRTH_FACILITY_NAME_OTHER)) {
             jsonObject
                     .put(JsonFormUtils.VALUE, Utils.getValue(childDetails,
-                            GizConstants.BIRTH_FACILITY_NAME_OTHER, false));
+                            GizConstants.KEY.BIRTH_FACILITY_NAME_OTHER, false));
             jsonObject.put(JsonFormUtils.READ_ONLY, true);
         }
         updateResidentialAreaHierarchy(childDetails, jsonObject);
@@ -134,12 +134,12 @@ public class GizJsonFormUtils extends JsonFormUtils {
     }
 
     private static void updateBirthFacilityHierarchy(Map<String, String> childDetails, JSONObject jsonObject) throws JSONException {
-        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.BIRTH_FACILITY_NAME)) {
+        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.KEY.BIRTH_FACILITY_NAME)) {
             jsonObject.put(JsonFormUtils.READ_ONLY, true);
             List<String> birthFacilityHierarchy = null;
-            String birthFacilityName = Utils.getValue(childDetails, GizConstants.BIRTH_FACILITY_NAME, false);
+            String birthFacilityName = Utils.getValue(childDetails, GizConstants.KEY.BIRTH_FACILITY_NAME, false);
             if (birthFacilityName != null) {
-                if (birthFacilityName.equalsIgnoreCase(GizConstants.OTHER)) {
+                if (birthFacilityName.equalsIgnoreCase(GizConstants.KEY.OTHER)) {
                     birthFacilityHierarchy = new ArrayList<>();
                     birthFacilityHierarchy.add(birthFacilityName);
                 } else {
@@ -158,10 +158,10 @@ public class GizJsonFormUtils extends JsonFormUtils {
     }
 
     private static void updateResidentialAreaHierarchy(Map<String, String> childDetails, JSONObject jsonObject) throws JSONException {
-        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.RESIDENTIAL_AREA)) {
+        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.KEY.RESIDENTIAL_AREA)) {
             List<String> residentialAreaHierarchy;
-            String address3 = Utils.getValue(childDetails, GizConstants.ADDRESS_3, false);
-            if (address3 != null && address3.equalsIgnoreCase(GizConstants.OTHER)) {
+            String address3 = Utils.getValue(childDetails, GizConstants.KEY.ADDRESS_3, false);
+            if (address3 != null && address3.equalsIgnoreCase(GizConstants.KEY.OTHER)) {
                 residentialAreaHierarchy = new ArrayList<>();
                 residentialAreaHierarchy.add(address3);
             } else {
@@ -179,10 +179,10 @@ public class GizJsonFormUtils extends JsonFormUtils {
     }
 
     private static void updateHomeFacilityHierarchy(Map<String, String> childDetails, JSONObject jsonObject) throws JSONException {
-        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.HOME_FACILITY)) {
+        if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase(GizConstants.KEY.HOME_FACILITY)) {
             List<String> homeFacilityHierarchy = LocationHelper.getInstance()
                     .getOpenMrsLocationHierarchy(Utils.getValue(childDetails,
-                            GizConstants.HOME_FACILITY, false), true);
+                            GizConstants.KEY.HOME_FACILITY, false), true);
             String homeFacilityHierarchyString = AssetHandler
                     .javaToJsonString(homeFacilityHierarchy, new TypeToken<List<String>>() {
                     }.getType());
@@ -203,9 +203,9 @@ public class GizJsonFormUtils extends JsonFormUtils {
             form.put(JsonFormUtils.ENCOUNTER_TYPE, Constants.EventType.UPDATE_BITRH_REGISTRATION);
         }
 
-        if (form.has(JsonFormUtils.STEP1) && form.getJSONObject(JsonFormUtils.STEP1).has(GizConstants.TITLE) && form.getJSONObject(JsonFormUtils.STEP1).getString(GizConstants.TITLE)
+        if (form.has(JsonFormUtils.STEP1) && form.getJSONObject(JsonFormUtils.STEP1).has(GizConstants.KEY.TITLE) && form.getJSONObject(JsonFormUtils.STEP1).getString(GizConstants.KEY.TITLE)
                 .equals(Constants.EventType.BITRH_REGISTRATION)) {
-            form.getJSONObject(JsonFormUtils.STEP1).put(GizConstants.TITLE, Constants.EventType.UPDATE_BITRH_REGISTRATION);
+            form.getJSONObject(JsonFormUtils.STEP1).put(GizConstants.KEY.TITLE, Constants.EventType.UPDATE_BITRH_REGISTRATION);
         }
     }
 

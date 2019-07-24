@@ -110,4 +110,12 @@ public class GizUtils extends org.smartregister.child.util.Utils {
     public static void removeStickyEvent(BaseEvent event) {
         EventBus.getDefault().removeStickyEvent(event);
     }
+
+    public static String childAgeLimitFilter() {
+        return childAgeLimitFilter(GizConstants.KEY.DOB, GizConstants.KEY.FIVE_YEAR);
+    }
+
+    private static String childAgeLimitFilter(String dateColumn, int age) {
+        return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
+    }
 }

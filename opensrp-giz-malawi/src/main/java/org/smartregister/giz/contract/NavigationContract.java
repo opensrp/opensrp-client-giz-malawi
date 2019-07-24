@@ -35,8 +35,6 @@ public interface NavigationContract {
         void logout(Activity activity);
 
         void refreshCount();
-
-        void displayToast(Activity activity, String message);
     }
 
     interface Model {
@@ -46,8 +44,6 @@ public interface NavigationContract {
     }
 
     interface Interactor {
-
-        Date getLastSync();
 
         void getRegisterCount(String tableName, InteractorCallback<Integer> callback);
 

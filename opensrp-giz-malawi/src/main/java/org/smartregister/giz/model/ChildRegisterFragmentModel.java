@@ -3,7 +3,7 @@ package org.smartregister.giz.model;
 import org.smartregister.child.cursor.AdvancedMatrixCursor;
 import org.smartregister.child.model.BaseChildRegisterFragmentModel;
 import org.smartregister.domain.Response;
-import org.smartregister.giz.util.DBConstants;
+import org.smartregister.giz.util.GizConstants;
 
 /**
  * Created by ndegwamartin on 2019-05-27.
@@ -18,30 +18,30 @@ public class ChildRegisterFragmentModel extends BaseChildRegisterFragmentModel {
     @Override
     protected String[] mainColumns(String tableName, String parentTableName) {
         return new String[]{
-                tableName + "." + DBConstants.KEY.RELATIONALID,
-                tableName + "." + DBConstants.KEY.DETAILS,
-                tableName + "." + DBConstants.KEY.MER_ID,
-                tableName + "." + DBConstants.KEY.RELATIONAL_ID,
-                tableName + "." + DBConstants.KEY.FIRST_NAME,
-                tableName + "." + DBConstants.KEY.LAST_NAME,
-                tableName + "." + DBConstants.KEY.HOME_ADDRESS,
-                tableName + "." + DBConstants.KEY.VILLAGE,
-                tableName + "." + DBConstants.KEY.TRADITIONAL_AUTHORITY,
-                tableName + "." + DBConstants.KEY.CHILD_TREATMENT,
-                tableName + "." + DBConstants.KEY.CHILD_HIV_STATUS,
-                tableName + "." + DBConstants.KEY.GENDER,
-                tableName + "." + DBConstants.KEY.BASE_ENTITY_ID,
-                parentTableName + "." + DBConstants.KEY.MOTHER_FIRST_NAME + " as mother_first_name",
-                parentTableName + "." + DBConstants.KEY.MOTHER_LAST_NAME + " as mother_last_name",
-                parentTableName + "." + DBConstants.KEY.MOTHER_DOB + " as mother_dob",
-                parentTableName + "." + DBConstants.KEY.MOTHER_NRC_NUMBER,
-                parentTableName + "." + DBConstants.KEY.MOTHER_GUARDIAN_NUMBER,
-                parentTableName + "." + DBConstants.KEY.MOTHER_SECOND_PHONE_NUMBER,
-                parentTableName + "." + DBConstants.KEY.PROTECTED_AT_BIRTH,
-                parentTableName + "." + DBConstants.KEY.MOTHER_HIV_STATUS,
-                tableName + "." + DBConstants.KEY.DOB,
-                tableName + "." + DBConstants.KEY.CLIENT_REG_DATE,
-                tableName + "." + DBConstants.KEY.LAST_INTERACTED_WITH
+                tableName + "." + GizConstants.KEY.RELATIONALID,
+                tableName + "." + GizConstants.KEY.DETAILS,
+                tableName + "." + GizConstants.KEY.ZEIR_ID,
+                tableName + "." + GizConstants.KEY.RELATIONAL_ID,
+                tableName + "." + GizConstants.KEY.FIRST_NAME,
+                tableName + "." + GizConstants.KEY.LAST_NAME,
+                tableName + "." + GizConstants.KEY.HOME_ADDRESS,
+                tableName + "." + GizConstants.KEY.VILLAGE,
+                tableName + "." + GizConstants.KEY.TRADITIONAL_AUTHORITY,
+                tableName + "." + GizConstants.KEY.CHILD_TREATMENT,
+                tableName + "." + GizConstants.KEY.CHILD_HIV_STATUS,
+                tableName + "." + GizConstants.KEY.GENDER,
+                tableName + "." + GizConstants.KEY.BASE_ENTITY_ID,
+                parentTableName + "." + GizConstants.KEY.FIRST_NAME + " as " + GizConstants.KEY.MOTHER_FIRST_NAME,
+                parentTableName + "." + GizConstants.KEY.LAST_NAME + " as " + GizConstants.KEY.MOTHER_LAST_NAME,
+                parentTableName + "." + GizConstants.KEY.MOTHER_DOB + " as " + GizConstants.KEY.DB_MOTHER_DOB,
+                parentTableName + "." + GizConstants.KEY.MOTHER_NRC_NUMBER,
+                parentTableName + "." + GizConstants.KEY.MOTHER_GUARDIAN_NUMBER,
+                parentTableName + "." + GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER,
+                parentTableName + "." + GizConstants.KEY.PROTECTED_AT_BIRTH,
+                parentTableName + "." + GizConstants.KEY.MOTHER_HIV_STATUS,
+                tableName + "." + GizConstants.KEY.DOB,
+                tableName + "." + GizConstants.KEY.CLIENT_REG_DATE,
+                tableName + "." + GizConstants.KEY.LAST_INTERACTED_WITH
         };
     }
 }

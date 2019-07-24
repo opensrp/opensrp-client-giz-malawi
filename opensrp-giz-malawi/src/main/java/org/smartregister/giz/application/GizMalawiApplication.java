@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.Pair;
 
 import com.crashlytics.android.Crashlytics;
@@ -31,7 +30,6 @@ import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.sync.GizMalawiProcessorForJava;
-import org.smartregister.giz.util.DBConstants;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
@@ -68,11 +66,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.fabric.sdk.android.Fabric;
-
-import static org.smartregister.util.Log.logInfo;
+import timber.log.Timber;
 
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
-    private static final String TAG = GizMalawiApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
     private EventClientRepository eventClientRepository;
@@ -106,7 +102,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-            return new String[]{DBConstants.KEY.MER_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME};
+            return new String[]{GizConstants.KEY.ZEIR_ID, GizConstants.KEY.FIRST_NAME, GizConstants.KEY.LAST_NAME};
         }
         return null;
     }
@@ -116,14 +112,14 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
             ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD);
             List<String> names = new ArrayList<>();
-            names.add(DBConstants.KEY.FIRST_NAME);
-            names.add(DBConstants.KEY.DOB);
-            names.add(DBConstants.KEY.MER_ID);
-            names.add(DBConstants.KEY.LAST_INTERACTED_WITH);
-            names.add(DBConstants.KEY.INACTIVE);
-            names.add(DBConstants.KEY.LOST_TO_FOLLOW_UP);
-            names.add(DBConstants.KEY.DOD);
-            names.add(DBConstants.KEY.DATE_REMOVED);
+            names.add(GizConstants.KEY.FIRST_NAME);
+            names.add(GizConstants.KEY.DOB);
+            names.add(GizConstants.KEY.ZEIR_ID);
+            names.add(GizConstants.KEY.LAST_INTERACTED_WITH);
+            names.add(GizConstants.KEY.INACTIVE);
+            names.add(GizConstants.KEY.LOST_TO_FOLLOW_UP);
+            names.add(GizConstants.KEY.DOD);
+            names.add(GizConstants.KEY.DATE_REMOVED);
 
             for (VaccineRepo.Vaccine vaccine : vaccines) {
                 names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.display()));
@@ -214,9 +210,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         try {
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
             List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
-            VaccineSchedule.init(childVaccines, specialVaccines, "child");
+            VaccineSchedule.init(childVaccines, specialVaccines, GizConstants.KEY.CHILD);
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e, "GizMalawiApplication --> initOfflineSchedules");
         }
     }
 
@@ -258,7 +254,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 repository = new GizMalawiRepository(getInstance().getApplicationContext(), context);
             }
         } catch (UnsatisfiedLinkError e) {
-            Log.e(TAG, e.getMessage(), e);
+            Timber.e(e, "GizMalawiApplication --> getRepository");
         }
         return repository;
     }
@@ -283,7 +279,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     @Override
     public void onTerminate() {
-        logInfo("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
+        Timber.i("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
         cleanUpSyncState();
         TimeChangedBroadcastReceiver.destroy(this);
         SyncStatusBroadcastReceiver.destroy(this);
@@ -295,7 +291,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             DrishtiSyncScheduler.stop(getApplicationContext());
             context.allSharedPreferences().saveIsSyncInProgress(false);
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e, "GizMalawiApplication --> cleanUpSyncState");
         }
     }
 

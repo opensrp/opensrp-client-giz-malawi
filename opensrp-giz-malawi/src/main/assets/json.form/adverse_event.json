@@ -198,7 +198,7 @@
         ],
         "v_required": {
           "value": false,
-          "err": "Please select at least one occupation"
+          "err": "Please select at least one reaction"
         }
       },
       {

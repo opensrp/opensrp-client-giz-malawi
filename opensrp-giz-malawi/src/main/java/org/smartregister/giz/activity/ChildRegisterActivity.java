@@ -147,9 +147,9 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     @Override
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(this, Utils.metadata().childFormActivity);
-        if (jsonForm.has(GizConstants.ENCOUNTER_TYPE) && jsonForm.optString(GizConstants.ENCOUNTER_TYPE).equals(
-                GizConstants.BIRTH_REGISTRATION)) {
-            JsonFormUtils.addChildRegLocHierarchyQuestions(jsonForm, GizConstants.REGISTRATION_HOME_ADDRESS, LocationHierarchy.ENTIRE_TREE);
+        if (jsonForm.has(GizConstants.KEY.ENCOUNTER_TYPE) && jsonForm.optString(GizConstants.KEY.ENCOUNTER_TYPE).equals(
+                GizConstants.KEY.BIRTH_REGISTRATION)) {
+            JsonFormUtils.addChildRegLocHierarchyQuestions(jsonForm, GizConstants.KEY.REGISTRATION_HOME_ADDRESS, LocationHierarchy.ENTIRE_TREE);
         }
         intent.putExtra(Constants.INTENT_KEY.JSON, jsonForm.toString());
 
