@@ -64,10 +64,7 @@ import java.util.Map;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
-import static org.smartregister.util.Log.logInfo;
-
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
-    private static final String TAG = GizMalawiApplication.class.getCanonicalName();
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
     private EventClientRepository eventClientRepository;
@@ -272,7 +269,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     @Override
     public void onTerminate() {
-        logInfo("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
+        Timber.i("Application is terminating. Stopping sync scheduler and resetting isSyncInProgress setting.");
         cleanUpSyncState();
         TimeChangedBroadcastReceiver.destroy(this);
         SyncStatusBroadcastReceiver.destroy(this);
