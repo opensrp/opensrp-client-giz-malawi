@@ -31,7 +31,7 @@ public class NavigationListener implements View.OnClickListener {
                 case GizConstants.DrawerMenu.ALL_FAMILIES:
                     break;
 
-                case GizConstants.DrawerMenu.ANC:
+                case GizConstants.DrawerMenu.ANC_CLIENTS:
                     activity.startActivity(new Intent(activity, BaseHomeRegisterActivity.class));
                     break;
 
