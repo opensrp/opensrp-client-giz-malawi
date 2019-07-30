@@ -7,6 +7,9 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.child.util.Utils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.domain.db.Column;
@@ -60,6 +63,9 @@ public class GizMalawiRepository extends Repository {
         ConfigurableViewsRepository.createTable(database);
         UniqueIdRepository.createTable(database);
 
+        PartialContactRepository.createTable(database);
+        PreviousContactRepository.createTable(database);
+
         SettingsRepository.onUpgrade(database);
 
         WeightRepository.createTable(database);
@@ -67,8 +73,6 @@ public class GizMalawiRepository extends Repository {
         VaccineRepository.createTable(database);
 
         runLegacyUpgrades(database);
-
-        onUpgrade(database, 7, BuildConfig.DATABASE_VERSION);
     }
 
 
@@ -77,6 +81,7 @@ public class GizMalawiRepository extends Repository {
         Log.w(WeightRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
+
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {
@@ -106,6 +111,8 @@ public class GizMalawiRepository extends Repository {
             }
             upgradeTo++;
         }
+
+        PatientRepository.performMigrations(db);
     }
 
     @Override
@@ -367,6 +374,11 @@ public class GizMalawiRepository extends Repository {
         } catch (Exception e) {
             Timber.e("upgradeToVersion7RemoveUnnecessaryTables( %s", Log.getStackTraceString(e));
         }
+    }
+
+    private void addEcMotherFieldsForAnc(SQLiteDatabase db) {
+        db.execSQL("");
+
     }
 
 
