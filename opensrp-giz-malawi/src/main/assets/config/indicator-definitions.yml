@@ -5,110 +5,109 @@ indicators:
 
   - key: "ME_PAB_Gender"
     description: "ME_PAB_label"
-    indicatorQuery: "select d.key,c.gender,count(*) from ec_details d
-                     WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                     JOIN ec_child c
-                     ON d.base_entity_id=c.base_entity_id
-                     group by d.key,c.gender
-                     HAVING d.key='protected_at_birth';"
+    indicatorQuery: "SELECT ec_child.gender, count(*) from ec_details
+                     JOIN ec_child
+                     ON ec_details.base_entity_id = ec_child.base_entity_id
+                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date) AND
+                     ec_details.key='protected_at_birth'
+                     group by ec_child.gender;"
 
   - key: "ME_PAB_Age"
     description: "ME_PAB_label"
-    indicatorQuery: "select d.key,
-                      CASE
-                        WHEN round(julianday('now')-julianday(c.dob))>365.0 THEN 'Over_1'
-                        WHEN round(julianday('now')-julianday(c.dob)) < 365.0 THEN 'Under_1'
-                       ELSE 'Null'
-                       END age,count(*) counter
-                       FROM ec_details d
-                       JOIN ec_child c
-                       ON d.base_entity_id=c.base_entity_id
-                       group by d.key,age
-                       HAVING d.key='protected_at_birth'
-                     UNION
-                          Select d.key,'Total',count(distinct c.base_entity_id) from ec_details d
-                          JOIN ec_child c
-                                             ON d.base_entity_id=c.base_entity_id
-                          WHERE d.key='protected_at_birth' AND
-                          '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                     ORDER BY counter; "
+    indicatorQuery: "select
+                          CASE
+                          WHEN round(julianday('now')-julianday(c.dob)) > 365.0 THEN 'Over_1'
+                          WHEN round(julianday('now')-julianday(c.dob)) < 365.0 THEN 'Under_1'
+                          ELSE 'Null'
+                          END age, count(*) counter
+                      FROM ec_details d
+                      JOIN ec_child c
+                      ON d.base_entity_id=c.base_entity_id
+                        WHERE d.key='protected_at_birth' AND '%s' = strftime('%%Y-%%m-%%d', c.date)
+                      group by age
+                      UNION
+                        Select 'Total', count(distinct c.base_entity_id) from ec_details d
+                        JOIN ec_child c
+                                           ON d.base_entity_id = c.base_entity_id
+                        WHERE d.key='protected_at_birth' AND '%s' = strftime('%%Y-%%m-%%d', c.date)
+                      ORDER BY counter;"
 
   - key: "ME_Vaccines_Gender"
     description: "ME_Vaccines_Gender"
-    indicatorQuery: "SELECT v.name,c.gender,count(*) from ec_child c
-                    WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                     JOIN vaccines v
-                     ON c.base_entity_id=v.base_entity_id
-                     GROUP BY v.name,c.gender;"
+    indicatorQuery: "SELECT vaccines.name, ec_child.gender, count(*) from ec_child
+                     INNER JOIN vaccines
+                     ON ec_child.base_entity_id = vaccines.base_entity_id
+                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     GROUP BY vaccines.name, ec_child.gender"
 
   - key: "ME_Vaccines_Age"
     description: "ME_Vaccines_Age"
-    indicatorQuery: "SELECT v.name,
-                     CASE
-                        WHEN round(julianday('now')-julianday(c.dob))>365.0 THEN 'Over_1'
-                        WHEN round(julianday('now')-julianday(c.dob)) < 365.0 THEN 'Under_1'
-                        ELSE 'Null'
-                        END age,count(*) counter
-                     FROM ec_child c
-                     WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                     JOIN vaccines v
-                     ON c.base_entity_id=v.base_entity_id
-                     GROUP BY v.name,age;"
+    indicatorQuery: "SELECT vaccines.name,
+                      CASE
+                         WHEN round(julianday('now')-julianday(ec_child.dob))>365.0 THEN 'Over_1'
+                         WHEN round(julianday('now')-julianday(ec_child.dob)) < 365.0 THEN 'Under_1'
+                         ELSE 'Null'
+                         END age,count(*) counter
+                     FROM ec_child
+                     INNER JOIN vaccines
+                     ON ec_child.base_entity_id=vaccines.base_entity_id
+                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     GROUP BY vaccines.name,age;"
 
   - key: "ME_Child_HIV_Under2_Gender"
     description: "ME_HIV_Under2_label"
-    indicatorQuery: "select 'HIV ' || d.value,c.gender,count(*) counter
-                      FROM ec_details d
-                      WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                      JOIN ec_child c
-                      ON d.base_entity_id=c.base_entity_id
-                      WHERE round(julianday('now')-julianday(c.dob)) <730.0
-                      group by d.value,c.gender
-                      HAVING d.key IN ('child_hiv_status',NULL);"
+    indicatorQuery: "SELECT 'HIV ' || d.value ,ec_child.gender,count(*) counter
+                     FROM ec_details
+                     JOIN ec_child
+                     ON d.base_entity_id=ec_child.base_entity_id
+                     WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(ec_child.date/1000, 'unixepoch'))
+                     AND round(julianday('now')-julianday(ec_child.dob)) < 730.0
+                     group by d.value,ec_child.gender
+                     HAVING d.key IN ('child_hiv_status',NULL);"
 
   - key: "ME_Child_HIV_Status_Under2_Gender"
     description: "ME_HIV_Under2_label"
-    indicatorQuery: "select 'HIV ' || d.value,c.gender,count(*) counter
-                       FROM ec_details d
-                       WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                       JOIN ec_child c
-                       ON d.base_entity_id=c.base_entity_id
-                       WHERE round(julianday('now')-julianday(c.dob)) <730.0
-                       group by d.value,c.gender
-                       HAVING d.key IN ('child_hiv_status',NULL);"
+    indicatorQuery: "SELECT 'HIV ' || ec_details.value, ec_child.gender,count(*) counter
+                     FROM ec_details
+                     JOIN ec_child
+                     ON ec_details.base_entity_id = ec_child.base_entity_id
+                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     AND round(julianday('now') - julianday(ec_child.dob)) < 730.0
+                     group by ec_details.value, ec_child.gender
+                     HAVING ec_details.key IN ('child_hiv_status',NULL);"
 
   - key: "ME_Child_HIV_Status_Over2_Gender"
     description: "ME_HIV_Under2_label"
-    indicatorQuery: "select 'HIV ' || d.value,c.gender,count(*) counter
-                             FROM ec_details d
-                             WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                             JOIN ec_child c
-                             ON d.base_entity_id=c.base_entity_id
-                             WHERE round(julianday('now')-julianday(c.dob)) >= 730.0
-                             group by d.value,c.gender
-                             HAVING d.key IN ('child_hiv_status',NULL);"
+    indicatorQuery: "SELECT 'HIV ' || ec_details.value,ec_child.gender,count(*) counter
+                     FROM ec_details
+                     JOIN ec_child
+                     ON ec_details.base_entity_id=ec_child.base_entity_id
+                     WHERE round(julianday('now')-julianday(ec_child.dob)) >= 730.0
+                     AND '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     group by ec_details.value,ec_child.gender
+                     HAVING ec_details.key IN ('child_hiv_status',NULL);"
 
   - key: "ME_Child_HIV_Treatment_Under2_Gender"
     description: "EPNT_M_label"
-    indicatorQuery: "select d.value,c.gender,count(*) counter
-                            FROM ec_details d
-                            WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                            JOIN ec_child c
-                            ON d.base_entity_id=c.base_entity_id
-                            WHERE round(julianday('now')-julianday(c.dob)) <730.0
-                            group by d.value,c.gender
-                            HAVING d.key IN ('child_treatment');"
+    indicatorQuery: "SELECT ec_details.value, ec_child.gender, count(*) counter
+                     FROM ec_details
+                     JOIN ec_child
+                     ON ec_details.base_entity_id = ec_child.base_entity_id
+                     AND '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     WHERE round(julianday('now') - julianday(ec_child.dob)) < 730.0
+                     GROUP BY ec_details.value,ec_child.gender
+                     HAVING ec_details.key IN ('child_treatment')"
 
   - key: "ME_Child_HIV_Treatment_Over2_Gender"
     description: "EPNT_M_label"
-    indicatorQuery: "select d.value,c.gender,count(*) counter
-                        FROM ec_details d
-                        WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(c.date/1000, 'unixepoch'))
-                        JOIN ec_child c
-                        ON d.base_entity_id=c.base_entity_id
-                        WHERE round(julianday('now')-julianday(c.dob)) >= 730.0
-                        group by d.value,c.gender
-                        HAVING d.key IN ('child_treatment');"
+    indicatorQuery: "SELECT ec_details.value, ec_child.gender, count(*) counter
+                     FROM ec_details
+                     JOIN ec_child
+                     ON ec_details.base_entity_id = ec_child.base_entity_id
+                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     AND round(julianday('now') - julianday(ec_child.dob)) >= 730.0
+                     group by ec_details.value,ec_child.gender
+                     HAVING ec_details.key IN ('child_treatment');"
 
   - key: "EPNT_M"
     description: "EPNT_M_label"
