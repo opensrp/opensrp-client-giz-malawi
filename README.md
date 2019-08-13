@@ -1,3 +1,3 @@
 # opensrp-client-giz-malawi
 
-OpenSRP android case management client implementation for Malawi
+OpenSRP android case management client implementation for Malawi Eregister
