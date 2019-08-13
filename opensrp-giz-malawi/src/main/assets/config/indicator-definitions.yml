@@ -1,7 +1,7 @@
 indicators:
   - key: "ME_Child_Total"
       description: "ME_Child_Total"
-      indicatorQuery: "select count(*) from ec_child c WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(child.date/1000, 'unixepoch'));"
+      indicatorQuery: "select count(*) from ec_child child WHERE '%s' = strftime('%%Y-%%m-%%d', child.date);"
 
   - key: "ME_PAB_Gender"
       description: "ME_PAB_label"
