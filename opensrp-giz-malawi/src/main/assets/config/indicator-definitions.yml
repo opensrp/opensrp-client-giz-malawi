@@ -1,44 +1,93 @@
 indicators:
   - key: "ME_Child_Total"
     description: "ME_Child_Total"
-    indicatorQuery: "select count(*) from ec_child child WHERE '%s' = strftime('%%Y-%%m-%%d', child.date);"
+    indicatorQuery: "select count(*) from ec_child child WHERE '%s' = strftime('%%Y-%%m-%%d', child.date)"
 
   - key: "ME_PAB_Gender"
     description: "ME_PAB_label"
     indicatorQuery: "SELECT ec_child.gender, count(*) from ec_details
-                     JOIN ec_child
+                     INNER JOIN ec_child
                      ON ec_details.base_entity_id = ec_child.base_entity_id
-                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date) AND
-                     ec_details.key='protected_at_birth'
-                     group by ec_child.gender;"
+                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     AND ec_details.key = 'protected_at_birth'
+                     AND ec_child.dob >= date('now','-2 years')
+                     group by ec_child.gender"
+    isMultiResult: true
+    expectedIndicators: ["ME_PAB_Gender_Female", "ME_PAB_Gender_Male"]
 
   - key: "ME_PAB_Age"
     description: "ME_PAB_label"
     indicatorQuery: "select
-                          CASE
-                          WHEN round(julianday('now')-julianday(c.dob)) > 365.0 THEN 'Over_1'
-                          WHEN round(julianday('now')-julianday(c.dob)) < 365.0 THEN 'Under_1'
-                          ELSE 'Null'
-                          END age, count(*) counter
-                      FROM ec_details d
-                      JOIN ec_child c
-                      ON d.base_entity_id=c.base_entity_id
-                        WHERE d.key='protected_at_birth' AND '%s' = strftime('%%Y-%%m-%%d', c.date)
-                      group by age
-                      UNION
-                        Select 'Total', count(distinct c.base_entity_id) from ec_details d
-                        JOIN ec_child c
-                                           ON d.base_entity_id = c.base_entity_id
-                        WHERE d.key='protected_at_birth' AND '%s' = strftime('%%Y-%%m-%%d', c.date)
-                      ORDER BY counter;"
+                         CASE
+                         WHEN round(julianday('now') - julianday(ec_child.dob)) > 365.0 THEN 'Over_1'
+                         WHEN round(julianday('now') - julianday(ec_child.dob)) < 365.0 THEN 'Under_1'
+                         ELSE 'Null'
+                         END age, count(*) counter
+                     FROM ec_details
+                     INNER JOIN ec_child
+                     ON ec_details.base_entity_id = ec_child.base_entity_id
+                       WHERE ec_details.key = 'protected_at_birth' AND '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                       AND ec_child.dob >= date('now','-2 years')
+                     group by age
+                     UNION
+                       Select 'Total', count(distinct ec_child.base_entity_id) from ec_details
+                       JOIN ec_child
+                                          ON ec_details.base_entity_id = ec_child.base_entity_id
+                       WHERE ec_details.key = 'protected_at_birth' AND '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                       AND ec_child.dob >= date('now','-2 years')
+                     ORDER BY counter"
+    isMultiResult: true
+    expectedIndicators: ["ME_PAB_Age_Over_1", "ME_PAB_Age_Under_1", "ME_PAB_Age_Total"]
 
   - key: "ME_Vaccines_Gender"
     description: "ME_Vaccines_Gender"
-    indicatorQuery: "SELECT vaccines.name, ec_child.gender, count(*) from ec_child
-                     INNER JOIN vaccines
-                     ON ec_child.base_entity_id = vaccines.base_entity_id
-                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
-                     GROUP BY vaccines.name, ec_child.gender"
+    indicatorQuery: "SELECT vaccines.name, ec_child.gender, count(*) from vaccines
+                      INNER JOIN ec_child
+                      ON vaccines.base_entity_id = ec_child.base_entity_id
+                      WHERE vaccines.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND vaccines.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      AND ec_child.dob >= date('now', '-2 years')
+                      GROUP BY vaccines.name, ec_child.gender"
+    isMultiResult: true
+    expectedIndicators:
+    - "ME_Vaccines_Gender_bcg_Female"
+    - "ME_Vaccines_Gender_bcg_Male"
+    - "ME_Vaccines_Gender_hepb_Female"
+    - "ME_Vaccines_Gender_hepb_Male"
+    - "ME_Vaccines_Gender_opv_0_Male"
+    - "ME_Vaccines_Gender_opv_0_Female"
+    - "ME_Vaccines_Gender_opv_1_Male"
+    - "ME_Vaccines_Gender_opv_1_Female"
+    - "ME_Vaccines_Gender_opv_2_Male"
+    - "ME_Vaccines_Gender_opv_2_Female"
+    - "ME_Vaccines_Gender_opv_3_Male"
+    - "ME_Vaccines_Gender_opv_3_Female"
+    - "ME_Vaccines_Gender_penta_1_Male"
+    - "ME_Vaccines_Gender_penta_1_Female"
+    - "ME_Vaccines_Gender_penta_2_Male"
+    - "ME_Vaccines_Gender_penta_2_Female"
+    - "ME_Vaccines_Gender_penta_3_Male"
+    - "ME_Vaccines_Gender_penta_3_Female"
+    - "ME_Vaccines_Gender_pcv_1_Male"
+    - "ME_Vaccines_Gender_pcv_1_Female"
+    - "ME_Vaccines_Gender_pcv_2_Male"
+    - "ME_Vaccines_Gender_pcv_2_Female"
+    - "ME_Vaccines_Gender_pcv_3_Male"
+    - "ME_Vaccines_Gender_pcv_3_Female"
+    - "ME_Vaccines_Gender_rota_1_Male"
+    - "ME_Vaccines_Gender_rota_1_Female"
+    - "ME_Vaccines_Gender_rota_2_Male"
+    - "ME_Vaccines_Gender_rota_2_Female"
+    - "ME_Vaccines_Gender_mv_1_Male"
+    - "ME_Vaccines_Gender_mv_1_Female"
+    - "ME_Vaccines_Gender_mv_2_Male"
+    - "ME_Vaccines_Gender_mv_2_Female"
+    - "ME_Vaccines_Gender_mv_3_Male"
+    - "ME_Vaccines_Gender_mv_3_Female"
+    - "ME_Vaccines_Gender_measles_1_/_mr_1_Male"
+    - "ME_Vaccines_Gender_measles_1_/_mr_1_Female"
+    - "ME_Vaccines_Gender_measles_2_/_mr_2_Male"
+    - "ME_Vaccines_Gender_measles_2_/_mr_2_Female"
 
   - key: "ME_Vaccines_Age"
     description: "ME_Vaccines_Age"
@@ -53,6 +102,7 @@ indicators:
                      ON ec_child.base_entity_id=vaccines.base_entity_id
                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
                      GROUP BY vaccines.name,age;"
+    isMultiResult: true
 
   - key: "ME_Child_HIV_Under2_Gender"
     description: "ME_HIV_Under2_label"
@@ -64,6 +114,7 @@ indicators:
                      AND round(julianday('now')-julianday(ec_child.dob)) < 730.0
                      group by d.value,ec_child.gender
                      HAVING d.key IN ('child_hiv_status',NULL);"
+    isMultiResult: true
 
   - key: "ME_Child_HIV_Status_Under2_Gender"
     description: "ME_HIV_Under2_label"
@@ -75,6 +126,7 @@ indicators:
                      AND round(julianday('now') - julianday(ec_child.dob)) < 730.0
                      group by ec_details.value, ec_child.gender
                      HAVING ec_details.key IN ('child_hiv_status',NULL);"
+    isMultiResult: true
 
   - key: "ME_Child_HIV_Status_Over2_Gender"
     description: "ME_HIV_Under2_label"
@@ -86,6 +138,7 @@ indicators:
                      AND '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
                      group by ec_details.value,ec_child.gender
                      HAVING ec_details.key IN ('child_hiv_status',NULL);"
+    isMultiResult: true
 
   - key: "ME_Child_HIV_Treatment_Under2_Gender"
     description: "EPNT_M_label"
@@ -97,6 +150,7 @@ indicators:
                      WHERE round(julianday('now') - julianday(ec_child.dob)) < 730.0
                      GROUP BY ec_details.value,ec_child.gender
                      HAVING ec_details.key IN ('child_treatment')"
+    isMultiResult: true
 
   - key: "ME_Child_HIV_Treatment_Over2_Gender"
     description: "EPNT_M_label"
@@ -108,6 +162,7 @@ indicators:
                      AND round(julianday('now') - julianday(ec_child.dob)) >= 730.0
                      group by ec_details.value,ec_child.gender
                      HAVING ec_details.key IN ('child_treatment');"
+    isMultiResult: true
 
   - key: "EPNT_M"
     description: "EPNT_M_label"
