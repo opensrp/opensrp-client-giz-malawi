@@ -139,6 +139,35 @@ indicators:
       - "ME_Vaccines_Age_measles_1_/_mr_1_Over_1"
       - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1"
 
+  - key: "ME_Vaccines_Under2"
+    description: "ME_Vaccines_Under2"
+    indicatorQuery: "SELECT vaccines.name, count(*) counter
+                     FROM vaccines
+                     INNER JOIN ec_child
+                     ON vaccines.base_entity_id = ec_child.base_entity_id
+                     WHERE vaccines.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                     AND vaccines.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                     AND ec_child.dob >= date('now', '-2 years')
+                     GROUP BY vaccines.name"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Vaccines_Under2_bcg"
+      - "ME_Vaccines_Under2_opv_0"
+      - "ME_Vaccines_Under2_opv_1"
+      - "ME_Vaccines_Under2_opv_2"
+      - "ME_Vaccines_Under2_opv_3"
+      - "ME_Vaccines_Under2_penta_1"
+      - "ME_Vaccines_Under2_penta_2"
+      - "ME_Vaccines_Under2_penta_3"
+      - "ME_Vaccines_Under2_pcv_1"
+      - "ME_Vaccines_Under2_pcv_2"
+      - "ME_Vaccines_Under2_rota_1"
+      - "ME_Vaccines_Under2_rota_2"
+      - "ME_Vaccines_Under2_mv_1"
+      - "ME_Vaccines_Under2_mv_2"
+      - "ME_Vaccines_Under2_mv_3"
+      - "ME_Vaccines_Under2_measles_1_/_mr_1"
+
   - key: "ME_Child_HIV_Under2_Gender"
     description: "ME_HIV_Under2_label"
     indicatorQuery: "SELECT 'HIV ' || d.value ,ec_child.gender,count(*) counter
