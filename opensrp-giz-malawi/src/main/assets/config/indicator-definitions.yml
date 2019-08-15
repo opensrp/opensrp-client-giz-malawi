@@ -50,59 +50,94 @@ indicators:
                       GROUP BY vaccines.name, ec_child.gender"
     isMultiResult: true
     expectedIndicators:
-    - "ME_Vaccines_Gender_bcg_Female"
-    - "ME_Vaccines_Gender_bcg_Male"
-    - "ME_Vaccines_Gender_hepb_Female"
-    - "ME_Vaccines_Gender_hepb_Male"
-    - "ME_Vaccines_Gender_opv_0_Male"
-    - "ME_Vaccines_Gender_opv_0_Female"
-    - "ME_Vaccines_Gender_opv_1_Male"
-    - "ME_Vaccines_Gender_opv_1_Female"
-    - "ME_Vaccines_Gender_opv_2_Male"
-    - "ME_Vaccines_Gender_opv_2_Female"
-    - "ME_Vaccines_Gender_opv_3_Male"
-    - "ME_Vaccines_Gender_opv_3_Female"
-    - "ME_Vaccines_Gender_penta_1_Male"
-    - "ME_Vaccines_Gender_penta_1_Female"
-    - "ME_Vaccines_Gender_penta_2_Male"
-    - "ME_Vaccines_Gender_penta_2_Female"
-    - "ME_Vaccines_Gender_penta_3_Male"
-    - "ME_Vaccines_Gender_penta_3_Female"
-    - "ME_Vaccines_Gender_pcv_1_Male"
-    - "ME_Vaccines_Gender_pcv_1_Female"
-    - "ME_Vaccines_Gender_pcv_2_Male"
-    - "ME_Vaccines_Gender_pcv_2_Female"
-    - "ME_Vaccines_Gender_pcv_3_Male"
-    - "ME_Vaccines_Gender_pcv_3_Female"
-    - "ME_Vaccines_Gender_rota_1_Male"
-    - "ME_Vaccines_Gender_rota_1_Female"
-    - "ME_Vaccines_Gender_rota_2_Male"
-    - "ME_Vaccines_Gender_rota_2_Female"
-    - "ME_Vaccines_Gender_mv_1_Male"
-    - "ME_Vaccines_Gender_mv_1_Female"
-    - "ME_Vaccines_Gender_mv_2_Male"
-    - "ME_Vaccines_Gender_mv_2_Female"
-    - "ME_Vaccines_Gender_mv_3_Male"
-    - "ME_Vaccines_Gender_mv_3_Female"
-    - "ME_Vaccines_Gender_measles_1_/_mr_1_Male"
-    - "ME_Vaccines_Gender_measles_1_/_mr_1_Female"
-    - "ME_Vaccines_Gender_measles_2_/_mr_2_Male"
-    - "ME_Vaccines_Gender_measles_2_/_mr_2_Female"
+      - "ME_Vaccines_Gender_bcg_Female"
+      - "ME_Vaccines_Gender_bcg_Male"
+      - "ME_Vaccines_Gender_hepb_Female"
+      - "ME_Vaccines_Gender_hepb_Male"
+      - "ME_Vaccines_Gender_opv_0_Male"
+      - "ME_Vaccines_Gender_opv_0_Female"
+      - "ME_Vaccines_Gender_opv_1_Male"
+      - "ME_Vaccines_Gender_opv_1_Female"
+      - "ME_Vaccines_Gender_opv_2_Male"
+      - "ME_Vaccines_Gender_opv_2_Female"
+      - "ME_Vaccines_Gender_opv_3_Male"
+      - "ME_Vaccines_Gender_opv_3_Female"
+      - "ME_Vaccines_Gender_penta_1_Male"
+      - "ME_Vaccines_Gender_penta_1_Female"
+      - "ME_Vaccines_Gender_penta_2_Male"
+      - "ME_Vaccines_Gender_penta_2_Female"
+      - "ME_Vaccines_Gender_penta_3_Male"
+      - "ME_Vaccines_Gender_penta_3_Female"
+      - "ME_Vaccines_Gender_pcv_1_Male"
+      - "ME_Vaccines_Gender_pcv_1_Female"
+      - "ME_Vaccines_Gender_pcv_2_Male"
+      - "ME_Vaccines_Gender_pcv_2_Female"
+      - "ME_Vaccines_Gender_pcv_3_Male"
+      - "ME_Vaccines_Gender_pcv_3_Female"
+      - "ME_Vaccines_Gender_rota_1_Male"
+      - "ME_Vaccines_Gender_rota_1_Female"
+      - "ME_Vaccines_Gender_rota_2_Male"
+      - "ME_Vaccines_Gender_rota_2_Female"
+      - "ME_Vaccines_Gender_mv_1_Male"
+      - "ME_Vaccines_Gender_mv_1_Female"
+      - "ME_Vaccines_Gender_mv_2_Male"
+      - "ME_Vaccines_Gender_mv_2_Female"
+      - "ME_Vaccines_Gender_mv_3_Male"
+      - "ME_Vaccines_Gender_mv_3_Female"
+      - "ME_Vaccines_Gender_measles_1_/_mr_1_Male"
+      - "ME_Vaccines_Gender_measles_1_/_mr_1_Female"
+      - "ME_Vaccines_Gender_measles_2_/_mr_2_Male"
+      - "ME_Vaccines_Gender_measles_2_/_mr_2_Female"
 
   - key: "ME_Vaccines_Age"
     description: "ME_Vaccines_Age"
     indicatorQuery: "SELECT vaccines.name,
-                      CASE
-                         WHEN round(julianday('now')-julianday(ec_child.dob))>365.0 THEN 'Over_1'
-                         WHEN round(julianday('now')-julianday(ec_child.dob)) < 365.0 THEN 'Under_1'
-                         ELSE 'Null'
-                         END age,count(*) counter
-                     FROM ec_child
-                     INNER JOIN vaccines
-                     ON ec_child.base_entity_id=vaccines.base_entity_id
-                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
-                     GROUP BY vaccines.name,age;"
+                       CASE
+                          WHEN round(julianday('now')-julianday(ec_child.dob)) > 365.0 THEN 'Over_1'
+                          WHEN round(julianday('now')-julianday(ec_child.dob)) < 365.0 THEN 'Under_1'
+                          ELSE 'Null'
+                          END age, count(*) counter
+                      FROM vaccines
+                      INNER JOIN ec_child
+                      ON vaccines.base_entity_id = ec_child.base_entity_id
+                      WHERE vaccines.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND vaccines.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      AND ec_child.dob >= date('now', '-2 years')
+                      GROUP BY vaccines.name, age"
     isMultiResult: true
+    expectedIndicators:
+      - "ME_Vaccines_Age_bcg_Over_1"
+      - "ME_Vaccines_Age_bcg_Under_1"
+      - "ME_Vaccines_Age_opv_0_Over_1"
+      - "ME_Vaccines_Age_opv_0_Under_1"
+      - "ME_Vaccines_Age_opv_1_Over_1"
+      - "ME_Vaccines_Age_opv_1_Under_1"
+      - "ME_Vaccines_Age_opv_2_Over_1"
+      - "ME_Vaccines_Age_opv_2_Under_1"
+      - "ME_Vaccines_Age_opv_3_Over_1"
+      - "ME_Vaccines_Age_opv_3_Under_1"
+      - "ME_Vaccines_Age_penta_1_Over_1"
+      - "ME_Vaccines_Age_penta_1_Under_1"
+      - "ME_Vaccines_Age_penta_2_Over_1"
+      - "ME_Vaccines_Age_penta_2_Under_1"
+      - "ME_Vaccines_Age_penta_3_Over_1"
+      - "ME_Vaccines_Age_penta_3_Under_1"
+      - "ME_Vaccines_Age_pcv_1_Over_1"
+      - "ME_Vaccines_Age_pcv_1_Under_1"
+      - "ME_Vaccines_Age_pcv_2_Over_1"
+      - "ME_Vaccines_Age_pcv_2_Under_1"
+      - "ME_Vaccines_Age_rota_1_Over_1"
+      - "ME_Vaccines_Age_rota_1_Under_1"
+      - "ME_Vaccines_Age_rota_2_Over_1"
+      - "ME_Vaccines_Age_rota_2_Under_1"
+      - "ME_Vaccines_Age_mv_1_Over_1"
+      - "ME_Vaccines_Age_mv_1_Under_1"
+      - "ME_Vaccines_Age_mv_2_Over_1"
+      - "ME_Vaccines_Age_mv_2_Under_1"
+      - "ME_Vaccines_Age_mv_3_Over_1"
+      - "ME_Vaccines_Age_mv_3_Under_1"
+      - "ME_Vaccines_Age_measles_1_/_mr_1_Over_1"
+      - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1"
 
   - key: "ME_Child_HIV_Under2_Gender"
     description: "ME_HIV_Under2_label"
