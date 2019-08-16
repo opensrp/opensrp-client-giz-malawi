@@ -1,10 +1,10 @@
 indicators:
   - key: "ME_Child_Total"
-    description: "ME_Child_Total"
+    description: "ME_Child_Total_label"
     indicatorQuery: "select count(*) from ec_child child WHERE '%s' = strftime('%%Y-%%m-%%d', child.date)"
 
   - key: "ME_PAB_Gender"
-    description: "ME_PAB_label"
+    description: "ME_PAB_Gender_label"
     indicatorQuery: "SELECT ec_child.gender, count(*) from ec_details
                      INNER JOIN ec_child
                      ON ec_details.base_entity_id = ec_child.base_entity_id
@@ -16,7 +16,7 @@ indicators:
     expectedIndicators: ["ME_PAB_Gender_Female", "ME_PAB_Gender_Male"]
 
   - key: "ME_PAB_Age"
-    description: "ME_PAB_label"
+    description: "ME_PAB_Age_label"
     indicatorQuery: "select
                          CASE
                          WHEN round(julianday('now') - julianday(ec_child.dob)) > 365.0 THEN 'Over_1'
@@ -40,7 +40,7 @@ indicators:
     expectedIndicators: ["ME_PAB_Age_Over_1", "ME_PAB_Age_Under_1", "ME_PAB_Age_Total"]
 
   - key: "ME_Vaccines_Gender"
-    description: "ME_Vaccines_Gender"
+    description: "ME_Vaccines_Gender_label"
     indicatorQuery: "SELECT vaccines.name, ec_child.gender, count(*) from vaccines
                       INNER JOIN ec_child
                       ON vaccines.base_entity_id = ec_child.base_entity_id
@@ -90,7 +90,7 @@ indicators:
       - "ME_Vaccines_Gender_measles_2_/_mr_2_Female"
 
   - key: "ME_Vaccines_Age"
-    description: "ME_Vaccines_Age"
+    description: "ME_Vaccines_Age_label"
     indicatorQuery: "SELECT vaccines.name,
                        CASE
                           WHEN round(julianday('now')-julianday(ec_child.dob)) > 365.0 THEN 'Over_1'
@@ -140,7 +140,7 @@ indicators:
       - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1"
 
   - key: "ME_Vaccines_Under2"
-    description: "ME_Vaccines_Under2"
+    description: "ME_Vaccines_Under2_label"
     indicatorQuery: "SELECT vaccines.name, count(*) counter
                      FROM vaccines
                      INNER JOIN ec_child
@@ -169,7 +169,7 @@ indicators:
       - "ME_Vaccines_Under2_measles_1_/_mr_1"
 
   - key: "ME_Child_HIV_Under2_Gender"
-    description: "ME_HIV_Under2_label"
+    description: "ME_Child_HIV_Under2_label"
     indicatorQuery: "SELECT 'HIV ' || d.value ,ec_child.gender,count(*) counter
                      FROM ec_details
                      JOIN ec_child
@@ -181,7 +181,7 @@ indicators:
     isMultiResult: true
 
   - key: "ME_Child_HIV_Status_Under2_Gender"
-    description: "ME_HIV_Under2_label"
+    description: "ME_Child_HIV_Status_Under2_Gender_label"
     indicatorQuery: "SELECT case
                       WHEN ec_details.value IS NULL THEN 'HIV Unknown'
                       ELSE 'HIV ' || ec_details.value
@@ -205,7 +205,7 @@ indicators:
       - "ME_Child_HIV_Status_Under2_Gender_HIV Unknown_Male"
 
   - key: "ME_Child_HIV_Status_Over2_Gender"
-    description: "ME_HIV_Under2_label"
+    description: "ME_Child_HIV_Status_Over2_Gender_label"
     indicatorQuery: "SELECT case
                        WHEN ec_details.value IS NULL THEN 'HIV Unknown'
                        ELSE 'HIV ' || ec_details.value
@@ -230,28 +230,41 @@ indicators:
       - "ME_Child_HIV_Status_Over2_Gender_HIV Unknown_Male"
 
   - key: "ME_Child_HIV_Treatment_Under2_Gender"
-    description: "EPNT_M_label"
+    description: "Me_Child_HIV_Treatment_Under2_Gender_label"
     indicatorQuery: "SELECT ec_details.value, ec_child.gender, count(*) counter
-                     FROM ec_details
-                     JOIN ec_child
-                     ON ec_details.base_entity_id = ec_child.base_entity_id
-                     AND '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
-                     WHERE round(julianday('now') - julianday(ec_child.dob)) < 730.0
-                     GROUP BY ec_details.value,ec_child.gender
-                     HAVING ec_details.key IN ('child_treatment')"
+                      FROM ec_details
+                      JOIN ec_child
+                      ON ec_details.base_entity_id = ec_child.base_entity_id
+                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      AND ec_child.dob >= date('now', '-2 years')
+                      AND ec_details.key = 'child_treatment'
+                      AND ec_details.value IS NOT NULL
+                      GROUP BY ec_details.value,ec_child.gender"
     isMultiResult: true
+    expectedIndicators:
+      - "ME_Child_HIV_Treatment_Under2_Gender_ART_Female"
+      - "ME_Child_HIV_Treatment_Under2_Gender_ART_Male"
+      - "ME_Child_HIV_Treatment_Under2_Gender_CPT_Female"
+      - "ME_Child_HIV_Treatment_Under2_Gender_CPT_Male"
 
   - key: "ME_Child_HIV_Treatment_Over2_Gender"
-    description: "EPNT_M_label"
+    description: "ME_Child_HIV_Treatment_Over2_Gender_label"
     indicatorQuery: "SELECT ec_details.value, ec_child.gender, count(*) counter
-                     FROM ec_details
-                     JOIN ec_child
-                     ON ec_details.base_entity_id = ec_child.base_entity_id
-                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
-                     AND round(julianday('now') - julianday(ec_child.dob)) >= 730.0
-                     group by ec_details.value,ec_child.gender
-                     HAVING ec_details.key IN ('child_treatment');"
+                      FROM ec_details
+                      JOIN ec_child
+                      ON ec_details.base_entity_id = ec_child.base_entity_id
+                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      AND ec_child.dob < date('now', '-2 years')
+                      AND ec_child.dob >= date('now', '-5 years')
+                      AND ec_details.key = 'child_treatment'
+                      AND ec_details.value IS NOT NULL
+                      GROUP BY ec_details.value,ec_child.gender"
     isMultiResult: true
+    expectedIndicators:
+      - "ME_Child_HIV_Treatment_Over2_Gender_ART_Female"
+      - "ME_Child_HIV_Treatment_Over2_Gender_ART_Male"
+      - "ME_Child_HIV_Treatment_Over2_Gender_CPT_Female"
+      - "ME_Child_HIV_Treatment_Over2_Gender_CPT_Male"
 
   - key: "EPNT_M"
     description: "EPNT_M_label"
