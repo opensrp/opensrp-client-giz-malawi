@@ -266,6 +266,28 @@ indicators:
       - "ME_Child_HIV_Treatment_Over2_Gender_CPT_Female"
       - "ME_Child_HIV_Treatment_Over2_Gender_CPT_Male"
 
+  - key: "ME_Child_HIV_Status_Over2"
+    description: "ME_Child_HIV_Status_Over2_label"
+    indicatorQuery: "SELECT case
+                      WHEN ec_details.value IS NULL THEN 'HIV Unknown'
+                      ELSE 'HIV ' || ec_details.value
+                      END as hiv_status, count(*) counter
+                     FROM ec_details
+                     JOIN ec_child
+                     ON ec_details.base_entity_id = ec_child.base_entity_id
+                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     AND ec_child.dob < date('now', '-2 years')
+                     AND ec_child.dob >= date('now', '-5 years')
+                     AND ec_details.key = 'child_hiv_status'
+                     group by ec_details.value"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Child_HIV_Status_Over2_HIV Unknown"
+      - "ME_Child_HIV_Status_Over2_HIV Positive"
+      - "ME_Child_HIV_Status_Over2_HIV Exposed"
+      - "ME_Child_HIV_Status_Over2_HIV Negative"
+
+
   - key: "EPNT_M"
     description: "EPNT_M_label"
     indicatorQuery: "SELECT count(*) AS count FROM ec_child child WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(child.date/1000, 'unixepoch')) AND child.Birth_Tetanus_Protection = 'Yes'"
