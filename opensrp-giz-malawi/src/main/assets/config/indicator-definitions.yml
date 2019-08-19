@@ -84,10 +84,14 @@ indicators:
       - "ME_Vaccines_Gender_mv_2_Female"
       - "ME_Vaccines_Gender_mv_3_Male"
       - "ME_Vaccines_Gender_mv_3_Female"
+      - "ME_Vaccines_Gender_mv_4_Male"
+      - "ME_Vaccines_Gender_mv_4_Female"
       - "ME_Vaccines_Gender_measles_1_/_mr_1_Male"
       - "ME_Vaccines_Gender_measles_1_/_mr_1_Female"
       - "ME_Vaccines_Gender_measles_2_/_mr_2_Male"
       - "ME_Vaccines_Gender_measles_2_/_mr_2_Female"
+      - "ME_Vaccines_Gender_ipv_Male"
+      - "ME_Vaccines_Gender_ipv_Female"
 
   - key: "ME_Vaccines_Age"
     description: "ME_Vaccines_Age_label"
@@ -138,6 +142,8 @@ indicators:
       - "ME_Vaccines_Age_mv_3_Under_1"
       - "ME_Vaccines_Age_measles_1_/_mr_1_Over_1"
       - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1"
+      - "ME_Vaccines_Age_ipv_Over_1"
+      - "ME_Vaccines_Age_ipv_Under_1"
 
   - key: "ME_Vaccines_Under2"
     description: "ME_Vaccines_Under2_label"
