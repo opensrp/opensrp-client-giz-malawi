@@ -307,6 +307,39 @@ indicators:
       - "ME_Child_HIV_Status_Under2_HIV Exposed"
       - "ME_Child_HIV_Status_Under2_HIV Negative"
 
+  - key: "ME_Child_HIV_Treatment_Over2"
+    description: "ME_Child_HIV_Treatment_Over2_label"
+    indicatorQuery: "SELECT ec_details.value, count(*) counter
+                      FROM ec_details
+                      JOIN ec_child
+                      ON ec_details.base_entity_id = ec_child.base_entity_id
+                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      AND ec_child.dob < date('now', '-2 years')
+                      AND ec_child.dob >= date('now', '-5 years')
+                      AND ec_details.key = 'child_treatment'
+                      AND ec_details.value IS NOT NULL
+                      GROUP BY ec_details.value"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Child_HIV_Treatment_Over2_ART"
+      - "ME_Child_HIV_Treatment_Over2_CPT"
+
+  - key: "ME_Child_HIV_Treatment_Under2"
+    description: "ME_Child_HIV_Treatment_Under2_label"
+    indicatorQuery: "SELECT ec_details.value, count(*) counter
+                      FROM ec_details
+                      JOIN ec_child
+                      ON ec_details.base_entity_id = ec_child.base_entity_id
+                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      AND ec_child.dob >= date('now', '-2 years')
+                      AND ec_details.key = 'child_treatment'
+                      AND ec_details.value IS NOT NULL
+                      GROUP BY ec_details.value"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Child_HIV_Treatment_Under2_ART"
+      - "ME_Child_HIV_Treatment_Under2_CPT"
+
   - key: "EPNT_M"
     description: "EPNT_M_label"
     indicatorQuery: "SELECT count(*) AS count FROM ec_child child WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(child.date/1000, 'unixepoch')) AND child.Birth_Tetanus_Protection = 'Yes'"
