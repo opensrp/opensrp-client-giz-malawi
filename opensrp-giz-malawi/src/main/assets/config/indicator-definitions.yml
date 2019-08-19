@@ -464,6 +464,87 @@ indicators:
       - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Female"
       - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Male"
 
+  - key: "ME_Height_Over2_Gender"
+    description: "SELECT
+                  CASE
+                  WHEN heights.z_score > 3 OR heights.z_score < -3 THEN 'Severe'
+                  WHEN heights.z_score > -2 AND heights.z_score < 2 THEN 'Normal'
+                  WHEN heights.z_score <= -2 || heights.z_score >= 2 THEN 'Stunted'
+                  ELSE ''
+                  END AS haz_score, ec_child.gender, count(*)
+                   FROM heights
+                  INNER JOIN ec_child
+                  ON heights.base_entity_id = ec_child.base_entity_id
+                   WHERE heights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                   AND heights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                   AND ec_child.dob < date('now', '-2 years')
+                  AND ec_child.dob >= date('now', '-5 years')
+                  GROUP  BY haz_score, ec_child.gender"
+    expectedIndicators:
+      - "ME_Height_Over2_Gender_Normal_Female"
+      - "ME_Height_Over2_Gender_Normal_Male"
+      - "ME_Height_Over2_Gender_Stunted_Female"
+      - "ME_Height_Over2_Gender_Stunted_Male"
+
+  - key: "ME_Height_Under2_Age"
+    description: "ME_Height_Under2_Age_label"
+    indicatorQuery: "SELECT
+                      CASE
+                      WHEN heights.z_score > -2 AND heights.z_score < 2 THEN 'Normal'
+                      WHEN heights.z_score < -3 OR heights.z_score > 3 THEN 'Severe'
+                      WHEN heights.z_score <= -2 OR heights.z_score >= 2 THEN 'Stunted'
+                      ELSE ''
+                      END AS haz_score,
+                      CASE
+                      WHEN round(julianday('now') - julianday(ec_child.dob)) > 365.0 THEN 'Over_1'
+                      WHEN round(julianday('now') - julianday(ec_child.dob)) < 365.0 THEN 'Under_1'
+                      ELSE 'Null'
+                      END age, count(*)
+                      FROM heights
+                      INNER JOIN ec_child
+                      ON heights.base_entity_id = ec_child.base_entity_id
+                      WHERE heights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND heights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      AND ec_child.dob >= date('now', '-2 years')
+                      GROUP  BY haz_score, age"
+    expectedIndicators:
+      - "ME_Height_Under2_Age_Normal_Under_1"
+      - "ME_Height_Under2_Age_Normal_Over_1"
+      - "ME_Height_Under2_Age_Severe_Under_1"
+      - "ME_Height_Under2_Age_Severe_Over_1"
+      - "ME_Height_Under2_Age_Stunted_Under_1"
+
+  - key: "ME_Height_Under2_Age_Gender"
+    description: "ME_Height_Under2_Age_Gender_label"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN heights.z_score > -2 AND heights.z_score < 2 THEN 'Normal'
+                     WHEN heights.z_score < -3 OR heights.z_score > 3 THEN 'Severe'
+                     WHEN heights.z_score <= -2 OR heights.z_score >= 2 THEN 'Stunted'
+                     ELSE ''
+                     END AS haz_score,
+                     CASE
+                     WHEN round(julianday('now') - julianday(ec_child.dob)) > 365.0 THEN 'Over_1'
+                     WHEN round(julianday('now') - julianday(ec_child.dob)) < 365.0 THEN 'Under_1'
+                     ELSE 'Null'
+                     END age, ec_child.gender, count(*)
+                     FROM heights
+                     INNER JOIN ec_child
+                     ON heights.base_entity_id = ec_child.base_entity_id
+                     WHERE heights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                     AND heights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                     AND ec_child.dob >= date('now', '-2 years')
+                     GROUP  BY haz_score, age, ec_child.gender"
+    expectedIndicators:
+      - "ME_Height_Under2_Age_Gender_Normal_Over_1_Female"
+      - "ME_Height_Under2_Age_Gender_Normal_Over_1_Male"
+      - "ME_Height_Under2_Age_Gender_Normal_Under_1_Female"
+      - "ME_Height_Under2_Age_Gender_Normal_Under_1_Male"
+      - "ME_Height_Under2_Age_Gender_Severe_Over_1_Female"
+      - "ME_Height_Under2_Age_Gender_Severe_Over_1_Male"
+      - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Female"
+      - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"
+
   - key: "EPNT_M"
     description: "EPNT_M_label"
     indicatorQuery: "SELECT count(*) AS count FROM ec_child child WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(child.date/1000, 'unixepoch')) AND child.Birth_Tetanus_Protection = 'Yes'"
