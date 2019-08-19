@@ -346,6 +346,124 @@ indicators:
       - "ME_Child_HIV_Treatment_Under2_ART"
       - "ME_Child_HIV_Treatment_Under2_CPT"
 
+  - key: "ME_Weight_Over2"
+    description: "ME_Weight_Over2_label"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN weights.z_score > -2 AND weights.z_score < 2 THEN 'Normal'
+                     WHEN weights.z_score <= -2 THEN 'Underweight'
+                     WHEN weights.z_score >= 2 THEN 'Overweight'
+                     ELSE 'Severe'
+                     END AS waz_score, count(*)
+                      FROM weights
+                     INNER JOIN ec_child
+                     ON weights.base_entity_id = ec_child.base_entity_id
+                      WHERE weights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND weights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      AND ec_child.dob < date('now', '-2 years')
+                     AND ec_child.dob >= date('now', '-5 years')
+                     AND weights.z_score <= 3
+                     AND weights.z_score >= -3
+                     GROUP  BY waz_score"
+    expectedIndicators:
+      - "ME_Weight_Over2_Normal"
+      - "ME_Weight_Over2_Overweight"
+      - "ME_Weight_Over2_Underweight"
+
+  - key: "ME_Weight_Over2_Gender"
+    description: "ME_Weight_Over2_Gender_label"
+    indicatorQuery: "SELECT
+                      CASE
+                      WHEN weights.z_score > -2 AND weights.z_score < 2 THEN 'Normal'
+                      WHEN weights.z_score <= -2 THEN 'Underweight'
+                      WHEN weights.z_score >= 2 THEN 'Overweight'
+                      ELSE 'Severe'
+                      END AS waz_score, ec_child.gender, count(*)
+                       FROM weights
+                      INNER JOIN ec_child
+                      ON weights.base_entity_id = ec_child.base_entity_id
+                       WHERE weights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                       AND weights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                       AND ec_child.dob < date('now', '-2 years')
+                      AND ec_child.dob >= date('now', '-5 years')
+                      AND weights.z_score <= 3
+                      AND weights.z_score >= -3
+                      GROUP  BY waz_score, ec_child.gender"
+    expectedIndicators:
+      - "ME_Weight_Over2_Gender_Normal_Female"
+      - "ME_Weight_Over2_Gender_Normal_Male"
+      - "ME_Weight_Over2_Gender_Overweight_Female"
+      - "ME_Weight_Over2_Gender_Overweight_Male"
+      - "ME_Weight_Over2_Gender_Underweight_Female"
+      - "ME_Weight_Over2_Gender_Underweight_Male"
+
+  - key: "ME_Weight_Under2_Age"
+    description: "ME_Weight_Under2_Age_label"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN weights.z_score > -2 AND weights.z_score < 2 THEN 'Normal'
+                     WHEN weights.z_score <= -2 THEN 'Underweight'
+                     WHEN weights.z_score >= 2 THEN 'Overweight'
+                     ELSE 'Severe'
+                     END AS waz_score,
+                     CASE
+                     WHEN round(julianday('now') - julianday(ec_child.dob)) > 365.0 THEN 'Over_1'
+                     WHEN round(julianday('now') - julianday(ec_child.dob)) < 365.0 THEN 'Under_1'
+                     ELSE 'Null'
+                     END age, count(*)
+                     FROM weights
+                     INNER JOIN ec_child
+                     ON weights.base_entity_id = ec_child.base_entity_id
+                     WHERE weights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                     AND weights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                     AND ec_child.dob >= date('now', '-2 years')
+                     AND weights.z_score <= 3
+                     AND weights.z_score >= -3
+                     GROUP  BY waz_score, age"
+    expectedIndicators:
+      - "ME_Weight_Under2_Age_Normal_Under_1"
+      - "ME_Weight_Under2_Age_Normal_Over_1"
+      - "ME_Weight_Under2_Age_Overweight_Under_1"
+      - "ME_Weight_Under2_Age_Overweight_Over_1"
+      - "ME_Weight_Under2_Age_Underweight_Under_1"
+
+  - key: "ME_Weight_Under2_Age_Gender"
+    description: "ME_Weight_Under2_Age_Gender_label"
+    indicatorQuery: "SELECT
+                      CASE
+                      WHEN weights.z_score > -2 AND weights.z_score < 2 THEN 'Normal'
+                      WHEN weights.z_score <= -2 THEN 'Underweight'
+                      WHEN weights.z_score >= 2 THEN 'Overweight'
+                      ELSE 'Severe'
+                      END AS waz_score,
+                      CASE
+                      WHEN round(julianday('now') - julianday(ec_child.dob)) > 365.0 THEN 'Over_1'
+                      WHEN round(julianday('now') - julianday(ec_child.dob)) < 365.0 THEN 'Under_1'
+                      ELSE 'Null'
+                      END age, ec_child.gender, count(*)
+                      FROM weights
+                      INNER JOIN ec_child
+                      ON weights.base_entity_id = ec_child.base_entity_id
+                      WHERE weights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND weights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      AND ec_child.dob >= date('now', '-2 years')
+                      AND weights.z_score <= 3
+                      AND weights.z_score >= -3
+                      GROUP  BY waz_score, age, ec_child.gender"
+    expectedIndicators:
+      - "ME_Weight_Under2_Age_Gender_Normal_Over_1_Female"
+      - "ME_Weight_Under2_Age_Gender_Normal_Over_1_Male"
+      - "ME_Weight_Under2_Age_Gender_Normal_Under_1_Female"
+      - "ME_Weight_Under2_Age_Gender_Normal_Under_1_Male"
+      - "ME_Weight_Under2_Age_Gender_Overweight_Over_1_Female"
+      - "ME_Weight_Under2_Age_Gender_Overweight_Over_1_Male"
+      - "ME_Weight_Under2_Age_Gender_Overweight_Under_1_Female"
+      - "ME_Weight_Under2_Age_Gender_Overweight_Under_1_Male"
+      - "ME_Weight_Under2_Age_Gender_Underweight_Over_1_Female"
+      - "ME_Weight_Under2_Age_Gender_Underweight_Over_1_Male"
+      - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Female"
+      - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Male"
+
   - key: "EPNT_M"
     description: "EPNT_M_label"
     indicatorQuery: "SELECT count(*) AS count FROM ec_child child WHERE child.gender = 'Male' AND '%s' = strftime('%%Y-%%m-%%d',datetime(child.date/1000, 'unixepoch')) AND child.Birth_Tetanus_Protection = 'Yes'"
