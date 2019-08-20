@@ -131,6 +131,10 @@
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter a first name"
         }
       },
       {
@@ -146,7 +150,7 @@
           "err": "Please enter a valid name"
         },
         "v_required": {
-          "value": true,
+          "value": false,
           "err": "Please enter the child's middle name"
         }
       },
@@ -291,7 +295,7 @@
           "err": "Please enter the mother/guardian's first name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z0-9\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -310,7 +314,7 @@
           "err": "Please enter the mother/guardian's last name"
         },
         "v_regex": {
-          "value": "[A-Za-z\\s\\.\\-]*",
+          "value": "[A-Za-z0-9\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -327,6 +331,7 @@
         "duration": {
           "label": "Age"
         },
+        "default": "01-01-1960",
         "min_date": "01-01-1900",
         "max_date": "today-10y"
       },
