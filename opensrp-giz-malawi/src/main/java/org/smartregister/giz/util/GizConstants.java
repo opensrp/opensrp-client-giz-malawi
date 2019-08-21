@@ -168,6 +168,7 @@ public class GizConstants {
     public static final class EventType {
         public static final String CHILD_REGISTRATION = "Birth Registration";
         public static final String UPDATE_CHILD_REGISTRATION = "Update Birth Registration";
+        public static final String OUT_OF_CATCHMENT_SERVICE = "Out of Catchment Service";
 
     }
 
@@ -201,6 +202,7 @@ public class GizConstants {
 
     public static final class EntityType {
         public static final String CHILD = "child";
+        public static final String MOTHER = "mother";
     }
 
     public static final class EC_CHILD_TABLE {

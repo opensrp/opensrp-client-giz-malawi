@@ -9,12 +9,15 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
+import org.smartregister.child.ChildLibrary;
+import org.smartregister.child.util.ChildAppProperties;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.MoveToMyCatchmentUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -50,6 +53,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -137,6 +141,13 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     if (client != null) {
                         try {
                             processEvent(event, client, clientClassification);
+
+                            // This is optional in case the project has the mother_first_name & mother_last_name fields
+                            if (!ChildLibrary.getInstance().getProperties().hasProperty(ChildAppProperties.KEY.SEARCH_BY_MOTHER) ||
+                                    ChildLibrary.getInstance().getProperties()
+                                            .getPropertyBoolean(ChildAppProperties.KEY.SEARCH_BY_MOTHER)) {
+                                processSearchByMotherNameFTS(eventType, client); //Add search by mother
+                            }
                         } catch (Exception e) {
                             Log.e(TAG, e.getMessage(), e);
                         }
@@ -148,6 +159,40 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             // Unsync events that are should not be in this device
             if (!unsyncEvents.isEmpty()) {
                 unSync(unsyncEvents);
+            }
+        }
+    }
+
+    private void processSearchByMotherNameFTS(String eventType, Client client) {
+
+        if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType.equals(Constants.EventType.UPDATE_BITRH_REGISTRATION)) {
+
+            List<String> motherIds = client.getRelationships().get(GizConstants.EntityType.MOTHER);
+
+            if (motherIds != null && motherIds.size() > 0) {
+                Map<String, String> details = GizMalawiApplication.getInstance().context().detailsRepository().getAllDetailsForClient(motherIds.get(motherIds.size() - 1));
+
+                ContentValues values = new ContentValues();
+                values.put(Constants.KEY.MOTHER_FIRST_NAME, details.get(GizConstants.KEY.FIRST_NAME));
+                values.put(Constants.KEY.MOTHER_LAST_NAME, details.get(GizConstants.KEY.LAST_NAME));
+                JsonFormUtils.updateChildFTSTables(values, client.getBaseEntityId());
+            }
+        } else {
+
+            List<CommonPersonObject> commonPersonObjectList = GizMalawiApplication.getInstance()
+                    .context()
+                    .commonrepository(GizConstants.TABLE_NAME.CHILD)
+                    .findByRelational_IDs(client.getBaseEntityId());
+
+            for (int i = 0; i < commonPersonObjectList.size(); i++) {
+
+                if (commonPersonObjectList.get(i).getColumnmaps().get(GizConstants.KEY.MOTHER_FIRST_NAME) == null) {
+
+                    ContentValues values = new ContentValues();
+                    values.put(Constants.KEY.MOTHER_FIRST_NAME, client.getFirstName());
+                    values.put(Constants.KEY.MOTHER_LAST_NAME, client.getLastName());
+                    JsonFormUtils.updateChildFTSTables(values, commonPersonObjectList.get(i).getColumnmaps().get(GizConstants.KEY.BASE_ENTITY_ID));
+                }
             }
         }
     }

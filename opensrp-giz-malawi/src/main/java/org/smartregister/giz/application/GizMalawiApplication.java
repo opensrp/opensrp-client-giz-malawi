@@ -163,6 +163,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 BuildConfig.DATABASE_VERSION);
         ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ChildLibrary.getInstance().setClientProcessorForJava(getClientProcessor());
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
@@ -183,7 +184,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 ChildImmunizationActivity.class, true);
         metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
                 GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
-                GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER,
+                GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.EventType.OUT_OF_CATCHMENT_SERVICE, GizConstants.CONFIGURATION.CHILD_REGISTER,
                 GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
         return metadata;
     }
