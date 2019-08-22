@@ -331,18 +331,18 @@
         "duration": {
           "label": "Age"
         },
-        "default": "01-01-1960",
         "min_date": "01-01-1900",
-        "max_date": "today-10y"
+        "max_date": "01-01-1960"
       },
       {
         "key": "nrc_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "National_ID",
+        "openmrs_entity_id": "nrc_number",
         "entity_id": "mother",
         "type": "edit_text",
         "hint": "Mother/guardian Identification number",
+        "look_up": "true",
         "v_regex": {
           "value": "([0-9]{6}/[0-9]{2}/[0-9])|\\s*",
           "err": "Number must take the format of ######/##/#"
