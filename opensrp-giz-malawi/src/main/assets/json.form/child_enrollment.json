@@ -331,8 +331,9 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "01-01-1900",
-        "max_date": "01-01-1960"
+        "default": "01-01-1960",
+        "min_date": "01-01-1960",
+        "max_date": "today-10y"
       },
       {
         "key": "nrc_number",
