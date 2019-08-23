@@ -16,7 +16,7 @@
     "services": [
       {
         "id": "10",
-        "name": "Vit A",
+        "name": "Vit A 1",
         "dose": "50,000",
         "schedule": {
           "due": {
@@ -32,7 +32,7 @@
       },
       {
         "id": "11",
-        "name": "Vit A 1",
+        "name": "Vit A 2",
         "dose": "100,000",
         "schedule": {
           "due": {
@@ -40,7 +40,7 @@
             "multiple": {
               "condition": "OR",
               "prerequisites": [
-                "Vit A",
+                "Vit A 1",
                 "dob"
               ]
             },
@@ -54,22 +54,6 @@
       },
       {
         "id": "12",
-        "name": "Vit A 2",
-        "dose": "200,000",
-        "schedule": {
-          "due": {
-            "reference": "prerequisite",
-            "prerequisite": "Vit A 1",
-            "offset": "+6m"
-          },
-          "expiry": {
-            "reference": "dob",
-            "offset": "+5y"
-          }
-        }
-      },
-      {
-        "id": "13",
         "name": "Vit A 3",
         "dose": "200,000",
         "schedule": {
@@ -85,13 +69,29 @@
         }
       },
       {
-        "id": "14",
+        "id": "13",
         "name": "Vit A 4",
         "dose": "200,000",
         "schedule": {
           "due": {
             "reference": "prerequisite",
             "prerequisite": "Vit A 3",
+            "offset": "+6m"
+          },
+          "expiry": {
+            "reference": "dob",
+            "offset": "+5y"
+          }
+        }
+      },
+      {
+        "id": "14",
+        "name": "Vit A 5",
+        "dose": "200,000",
+        "schedule": {
+          "due": {
+            "reference": "prerequisite",
+            "prerequisite": "Vit A 4",
             "offset": "+6m"
           },
           "expiry": {
