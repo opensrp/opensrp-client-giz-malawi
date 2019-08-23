@@ -68,7 +68,7 @@ public class GizMalawiRepository extends Repository {
 
         runLegacyUpgrades(database);
 
-        onUpgrade(database, 8, BuildConfig.DATABASE_VERSION);
+        onUpgrade(database, 1, BuildConfig.DATABASE_VERSION);
     }
 
 
