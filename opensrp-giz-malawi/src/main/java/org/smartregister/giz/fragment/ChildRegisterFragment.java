@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public class ChildRegisterFragment extends BaseChildRegisterFragment implements CompoundButton.OnCheckedChangeListener {
     private View view;
-    SwitchCompat filterSection;
+    private SwitchCompat filterSection;
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
