@@ -85,7 +85,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
-            buildConfigField "int", "DATABASE_VERSION", '1'
+            buildConfigField "int", "DATABASE_VERSION", '2'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "false"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -166,7 +166,15 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.7.13-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-anc:0.0.1-LOCAL-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
+    implementation('org.smartregister:opensrp-client-core:1.7.14-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'

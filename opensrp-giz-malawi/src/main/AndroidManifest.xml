@@ -81,6 +81,96 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/captured_images_path" />
         </provider>
+        
+        <!-- ANC ACTIVITIES -->
+        <activity
+            android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="org.smartregister.anc.library.activity.ContactJsonFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="org.smartregister.anc.library.activity.EditJsonFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="org.smartregister.anc.library.activity.BaseHomeRegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.anc.library.activity.ProfileActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.anc.library.activity.PopulationCharacteristicsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.anc.library.activity.MainContactActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.anc.library.activity.ContactSummarySendActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.anc.library.activity.ContactSummaryFinishActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+
+        <activity
+            android:name="org.smartregister.anc.library.activity.SiteCharacteristicsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.anc.library.activity.SiteCharacteristicsEnterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.anc.library.activity.SiteCharacteristicsExitActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+        <activity
+            android:name="org.smartregister.anc.library.activity.PreviousContactsDetailsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="org.smartregister.anc.library.activity.PreviousContactsTestsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+
+
+        <!-- END OF ANC ACTIVITIES -->
 
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />

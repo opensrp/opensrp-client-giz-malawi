@@ -102,6 +102,7 @@
     <string name="action_start_sync">Sync Started</string>
     <string name="all_registers">All Registers</string>
     <string name="menu_child_clients">Child Clients</string>
+    <string name="menu_anc_clients">ANC Clients</string>
 
     <string name="vit_a_1">Vit A 1</string>
     <string name="vit_a_2">Vit A 2</string>
