@@ -68,7 +68,7 @@ public class GizMalawiRepository extends Repository {
 
         runLegacyUpgrades(database);
 
-        onUpgrade(database, 1, BuildConfig.DATABASE_VERSION);
+        onUpgrade(database, 7, BuildConfig.DATABASE_VERSION);
     }
 
 
@@ -99,7 +99,7 @@ public class GizMalawiRepository extends Repository {
                     upgradeToVersion7OutOfArea(db);
                     break;
                 case 8:
-                    upgradeToVersion16AddServiceGroupColumn(db);
+                    upgradeToVersion8AddServiceGroupColumn(db);
                     break;
                 default:
                     break;
@@ -175,14 +175,12 @@ public class GizMalawiRepository extends Repository {
         upgradeToVersion5(database);
         upgradeToVersion6(database);
         upgradeToVersion7OutOfArea(database);
-        upgradeToVersion8RecurringServiceUpdate(database);
-        //upgradeToVersion9(database);
-        upgradeToVersion12(database);
-        upgradeToVersion13(database);
-        upgradeToVersion14(database);
-        upgradeToVersion15RemoveUnnecessaryTables(database);
-        upgradeToVersion16AddServiceGroupColumn(database);
-
+        upgradeToVersion7RecurringServiceUpdate(database);
+        upgradeToVersion7EventWeightHeightVaccineRecurringChange(database);
+        upgradeToVersion7VaccineRecurringServiceRecordChange(database);
+        upgradeToVersion7WeightHeightVaccineRecurringServiceChange(database);
+        upgradeToVersion7RemoveUnnecessaryTables(database);
+        upgradeToVersion8AddServiceGroupColumn(database);
     }
 
     /**
@@ -190,12 +188,12 @@ public class GizMalawiRepository extends Repository {
      *
      * @param database
      */
-    private void upgradeToVersion16AddServiceGroupColumn(SQLiteDatabase database) {
+    private void upgradeToVersion8AddServiceGroupColumn(SQLiteDatabase database) {
         try{
             database.execSQL(RecurringServiceTypeRepository.ADD_SERVICE_GROUP_COLUMN);
         }
         catch (Exception e){
-            Timber.e(e,"upgradeToVersion16");
+            Timber.e(e,"upgradeToVersion8AddServiceGroupColumn");
         }
     }
 
@@ -287,7 +285,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion8RecurringServiceUpdate(SQLiteDatabase db) {
+    private void upgradeToVersion7RecurringServiceUpdate(SQLiteDatabase db) {
         try {
 
             // Recurring service json changed. update
@@ -296,24 +294,11 @@ public class GizMalawiRepository extends Repository {
             IMDatabaseUtils.populateRecurringServices(context, db, recurringServiceTypeRepository);
 
         } catch (Exception e) {
-            Timber.e("upgradeToVersion8 %s", Log.getStackTraceString(e));
+            Timber.e("upgradeToVersion7RecurringServiceUpdate %s", Log.getStackTraceString(e));
         }
     }
 
-    /*private void upgradeToVersion9(SQLiteDatabase database) {
-        try {
-            String ALTER_CLIENT_TABLE_VALIDATE_COLUMN = "ALTER TABLE " + EventClientRepository.Table.client + " ADD COLUMN " + EventClientRepository.client_column.validationStatus + " VARCHAR";
-            database.execSQL(ALTER_CLIENT_TABLE_VALIDATE_COLUMN);
-
-            EventClientRepository
-                    .createIndex(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
-
-        } catch (Exception e) {
-            Log.e(TAG, "upgradeToVersion9 " + e.getMessage());
-        }
-    }*/
-
-    private void upgradeToVersion12(SQLiteDatabase db) {
+    private void upgradeToVersion7EventWeightHeightVaccineRecurringChange(SQLiteDatabase db) {
         try {
             Column[] columns = {EventClientRepository.event_column.formSubmissionId};
             EventClientRepository.createIndex(db, EventClientRepository.Table.event, columns);
@@ -331,11 +316,11 @@ public class GizMalawiRepository extends Repository {
             RecurringServiceRecordRepository.migrateCreatedAt(db);
 
         } catch (Exception e) {
-            Timber.e("upgradeToVersion12 %s", Log.getStackTraceString(e));
+            Timber.e("upgradeToVersion7EventWeightHeightVaccineRecurringChange %s", Log.getStackTraceString(e));
         }
     }
 
-    private void upgradeToVersion13(SQLiteDatabase db) {
+    private void upgradeToVersion7VaccineRecurringServiceRecordChange(SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_COL);
@@ -343,11 +328,11 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion13%s", Log.getStackTraceString(e));
+            Timber.e("upgradeToVersion7VaccineRecurringServiceRecordChange %s", Log.getStackTraceString(e));
         }
     }
 
-    private void upgradeToVersion14(SQLiteDatabase db) {
+    private void upgradeToVersion7WeightHeightVaccineRecurringServiceChange(SQLiteDatabase db) {
         try {
 
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
@@ -363,11 +348,11 @@ public class GizMalawiRepository extends Repository {
 
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion14 %s", Log.getStackTraceString(e));
+            Timber.e("upgradeToVersion7WeightHeightVaccineRecurringServiceChange %s", Log.getStackTraceString(e));
         }
     }
 
-    private void upgradeToVersion15RemoveUnnecessaryTables(SQLiteDatabase db) {
+    private void upgradeToVersion7RemoveUnnecessaryTables(SQLiteDatabase db) {
         try {
             db.execSQL("DROP TABLE IF EXISTS address");
             db.execSQL("DROP TABLE IF EXISTS obs");
@@ -380,7 +365,7 @@ public class GizMalawiRepository extends Repository {
 
 
         } catch (Exception e) {
-            Timber.e("upgradeToVersion15 %s", Log.getStackTraceString(e));
+            Timber.e("upgradeToVersion7RemoveUnnecessaryTables( %s", Log.getStackTraceString(e));
         }
     }
 
