@@ -181,8 +181,6 @@ public class GizMalawiRepository extends Repository {
         upgradeToVersion13(database);
         upgradeToVersion14(database);
         upgradeToVersion15RemoveUnnecessaryTables(database);
-        upgradeToVersion16AddServiceGroupColumn(database);
-
     }
 
     /**
