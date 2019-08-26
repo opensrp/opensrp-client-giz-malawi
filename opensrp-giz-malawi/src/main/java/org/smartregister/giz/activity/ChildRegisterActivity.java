@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -45,6 +46,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     protected void registerBottomNavigation() {
         super.registerBottomNavigation();
@@ -55,6 +57,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
         }
         bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
         bottomNavigationView.getMenu().removeItem(R.id.action_scan_card);
+        bottomNavigationView.setVisibility(View.GONE);
     }
 
     @Override
@@ -66,6 +69,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
 
         return fragments;
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
