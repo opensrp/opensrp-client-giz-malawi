@@ -1,4 +1,4 @@
-package org.smartregister.giz.view;
+package org.smartregister.giz.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import org.smartregister.adapter.ServiceLocationsAdapter;
 import org.smartregister.giz.R;
 import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
 

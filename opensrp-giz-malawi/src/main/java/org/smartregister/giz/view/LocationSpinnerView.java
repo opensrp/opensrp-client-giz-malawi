@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import org.smartregister.CoreLibrary;
 import org.smartregister.giz.R;
+import org.smartregister.giz.adapter.ServiceLocationSpinnerAdapter;
 import org.smartregister.location.helper.LocationHelper;
 
 import java.util.ArrayList;
@@ -66,6 +67,6 @@ public class LocationSpinnerView extends LinearLayout implements AdapterView.OnI
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-
+        //do something
     }
 }
