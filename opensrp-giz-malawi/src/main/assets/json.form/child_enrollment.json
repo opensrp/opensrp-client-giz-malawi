@@ -295,7 +295,7 @@
           "err": "Please enter the mother/guardian's first name"
         },
         "v_regex": {
-          "value": "[A-Za-z0-9\\s\\.\\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -314,7 +314,7 @@
           "err": "Please enter the mother/guardian's last name"
         },
         "v_regex": {
-          "value": "[A-Za-z0-9\\s\\.\\-]*",
+          "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
         }
       },
@@ -345,7 +345,7 @@
         "hint": "Mother/guardian Identification number",
         "look_up": "true",
         "v_regex": {
-          "value": "([0-9]{6}/[0-9]{2}/[0-9])|\\s*",
+          "value": "([A-Za-z0-9]{6}/[A-Za-z0-9]{2}/[A-Za-z0-9])|\\s*",
           "err": "Number must take the format of ######/##/#"
         }
       },
