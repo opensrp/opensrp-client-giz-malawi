@@ -14,23 +14,37 @@
         android:theme="?attr/actionBarTheme"
         tools:layout_editor_absoluteX="-10dp"
         tools:layout_editor_absoluteY="2dp" >
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:gravity="end"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/title_child"
+                    android:textSize="22dp"
+                    android:layout_marginRight="70sp"
+                    />
+            </LinearLayout>
             <ImageButton
                 android:id="@+id/register_client"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_height="fill_parent"
                 android:background="@drawable/transparent_gray_background"
-                android:gravity="center"
+                android:paddingStart="22dp"
                 android:paddingLeft="22dp"
-                android:paddingRight="22dp"
-                android:src="@drawable/ic_add"
                 android:paddingEnd="22dp"
-                android:paddingStart="22dp" />
-        </LinearLayout>
+                android:paddingRight="22dp"
+                android:src="@drawable/ic_add" />
+        </FrameLayout>
 
     </android.support.v7.widget.Toolbar>
 </LinearLayout>
