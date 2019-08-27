@@ -85,7 +85,7 @@
         android:layout_width="0dp"
         android:layout_weight="0.5"
         android:layout_marginLeft="0sp"
-        android:layout_gravity="center"
+        android:layout_gravity="center|end"
         android:layout_height="wrap_content">
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/switch_selection"
@@ -94,6 +94,7 @@
             android:layout_height="wrap_content"
             android:text="@string/due_only"
             android:textSize="20dp"
+            android:layout_gravity="center"
             app:switchPadding="5dp"
             android:textColor="@color/white_dark"
             />
