@@ -344,7 +344,7 @@
         "hint": "Mother/guardian Identification number",
         "look_up": "true",
         "v_regex": {
-          "value": "([A-Za-z0-9]{0,11})|\\s*",
+          "value": "([A-Za-z0-9]{1,11})|\\s*",
           "err": "ID should be at-most 11 characters in length"
         }
       },
