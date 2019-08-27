@@ -28,7 +28,7 @@
                     android:gravity="center"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@string/anc_register"
+                    android:text="@string/title_child"
                     android:textSize="22dp"
                     android:layout_marginRight="70sp"
                     />
