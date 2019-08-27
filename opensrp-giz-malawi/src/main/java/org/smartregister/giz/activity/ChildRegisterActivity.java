@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
-import android.view.MenuItem;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -46,18 +45,6 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     @Override
-    protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
-
-        MenuItem clients = bottomNavigationView.getMenu().findItem(org.smartregister.child.R.id.action_clients);
-        if (clients != null) {
-            clients.setTitle(getString(org.smartregister.child.R.string.header_children));
-        }
-        bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
-        bottomNavigationView.getMenu().removeItem(R.id.action_scan_card);
-    }
-
-    @Override
     protected Fragment[] getOtherFragments() {
         ADVANCED_SEARCH_POSITION = 1;
 
@@ -70,6 +57,11 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void registerBottomNavigation() {
+        //do nothing
     }
 
     @Override
