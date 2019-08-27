@@ -49,7 +49,7 @@
           "column_name": "nrc_number",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.National_ID"
+            "field": "attributes.nrc_number"
           }
         },
         {
