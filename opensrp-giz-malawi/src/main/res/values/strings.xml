@@ -102,5 +102,6 @@
     <string name="action_start_sync">Sync Started</string>
     <string name="all_registers">All Registers</string>
     <string name="menu_child_clients">Child Clients</string>
-    <string name="due_only">Due Only</string>
+    <string name="due_only">Due only</string>
+    <string name="anc_register">ANC Register</string>
 </resources>
