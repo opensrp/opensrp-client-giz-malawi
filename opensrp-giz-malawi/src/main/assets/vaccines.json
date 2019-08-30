@@ -23,13 +23,13 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+10d"
+              "window": "+15d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+13d"
+              "offset": "+15d"
             }
           ]
         }
@@ -53,43 +53,13 @@
             {
               "reference": "dob",
               "offset": "+0d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+1y"
-            }
-          ]
-        }
-      },
-      {
-        "name": "HepB",
-        "type": "HepB",
-        "openmrs_date": {
-          "parent_entity": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "openmrs_calculate": {
-          "parent_entity": "782AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "entity": "concept",
-          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "calculation": 1
-        },
-        "schedule": {
-          "due": [
-            {
-              "reference": "dob",
-              "offset": "+0d",
-              "window": "+10d"
-            }
-          ],
-          "expiry": [
-            {
-              "reference": "dob",
-              "offset": "+1y"
+              "offset": "+2y"
             }
           ]
         }
@@ -120,13 +90,13 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+4y,10m"
+              "offset": "+2y"
             }
           ]
         }
@@ -150,13 +120,13 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+4y,10m"
+              "offset": "+2ym"
             }
           ]
         }
@@ -180,13 +150,13 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+4y,10m"
+              "offset": "+2y"
             }
           ]
         }
@@ -210,13 +180,13 @@
             {
               "reference": "dob",
               "offset": "+42d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+7m"
+              "offset": "+2y"
             }
           ]
         }
@@ -248,13 +218,13 @@
               "reference": "prerequisite",
               "prerequisite": "OPV 1",
               "offset": "+28d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+4y,11m"
+              "offset": "+2y"
             }
           ]
         }
@@ -279,13 +249,13 @@
               "reference": "prerequisite",
               "prerequisite": "Penta 1",
               "offset": "+28d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+4y,11m"
+              "offset": "+2y"
             }
           ]
         }
@@ -310,13 +280,13 @@
               "reference": "prerequisite",
               "prerequisite": "PCV 1",
               "offset": "+28d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+4y,11m"
+              "offset": "+2y"
             }
           ]
         }
@@ -341,13 +311,13 @@
               "reference": "prerequisite",
               "prerequisite": "Rota 1",
               "offset": "+28d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+8m"
+              "offset": "+2ym"
             }
           ]
         }
@@ -441,13 +411,13 @@
               "reference": "prerequisite",
               "prerequisite": "Penta 2",
               "offset": "+28d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+5y"
+              "offset": "+2y"
             }
           ]
         }
@@ -472,13 +442,13 @@
               "reference": "prerequisite",
               "prerequisite": "PCV 2",
               "offset": "+28d",
-              "window": "+10d"
+              "window": "+14d"
             }
           ],
           "expiry": [
             {
               "reference": "dob",
-              "offset": "+5y"
+              "offset": "+2y"
             }
           ]
         }
