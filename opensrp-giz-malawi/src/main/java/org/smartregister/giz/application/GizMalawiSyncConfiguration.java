@@ -1,9 +1,12 @@
 package org.smartregister.giz.application;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.giz.BuildConfig;
-import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.location.helper.LocationHelper;
+
+import java.util.ArrayList;
 
 public class GizMalawiSyncConfiguration extends SyncConfiguration {
     @Override
@@ -18,9 +21,13 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
 
     @Override
     public String getSyncFilterValue() {
-        AllSharedPreferences sharedPreferences = GizMalawiApplication.getInstance().context().userService()
-                .getAllSharedPreferences();
-        return sharedPreferences.fetchDefaultLocalityId(sharedPreferences.fetchRegisteredANM());
+        LocationHelper locationHelper = LocationHelper.getInstance();
+        ArrayList<String> locationIds = locationHelper.locationsFromHierarchy(true, locationHelper.getDefaultLocation());
+        if (locationIds.size() > 0) {
+            return StringUtils.join(locationIds, ",");
+        }
+
+        return "";
     }
 
     @Override
