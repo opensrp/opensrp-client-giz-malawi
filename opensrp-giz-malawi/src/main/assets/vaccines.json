@@ -687,9 +687,8 @@
         "schedule": {
           "due": [
             {
-              "reference": "prerequisite",
-              "prerequisite": "MR 1",
-              "offset": "+6m",
+              "reference": "dob",
+              "offset": "+15m",
               "window": "+35d"
             }
           ],
@@ -697,6 +696,14 @@
             {
               "reference": "dob",
               "offset": "+5y"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "given",
+              "vaccine": "MR 1",
+              "comparison": "at_least",
+              "value": "+0d"
             }
           ]
         }

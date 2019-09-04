@@ -340,6 +340,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
         replacementVaccines.put("MR 2", new VaccineDuplicate("MR 2", VaccineRepo.Vaccine.mr1, -1, 548, 183, "child"));
+        replacementVaccines.put("BCG 2", new VaccineDuplicate("BCG 2", VaccineRepo.Vaccine.bcg, 1825, 0, 42, "child"));
 
         for (VaccineRepo.Vaccine vaccine: vaccines) {
             if (replacementVaccines.containsKey(vaccine.display())) {
