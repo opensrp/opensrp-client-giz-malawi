@@ -46,11 +46,13 @@
     },
     "encounter_location": ""
   },
+
+
   "step1": {
     "title": "Report Death",
     "fields": [
       {
-        "key": "Date_of_Death",
+        "key": "death_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -73,16 +75,7 @@
         ]
       },
       {
-        "key": "Cause_Death",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Suspected cause of death",
-        "edit_type": "name"
-      },
-      {
-        "key": "Place_Death",
+        "key": "place_of_death",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -106,14 +99,59 @@
         }
       },
       {
-        "key": "Date_Birth",
+        "key": "death_cause",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "date_picker",
-        "hint": "Child's DOB",
-        "read_only": true,
-        "hidden": true
+        "type": "spinner",
+        "hint": "The cause of death",
+        "values": [
+          "Sepsis",
+          "Malaria",
+          "Diarrhoea",
+          "Palmor Pallor",
+          "Acute Respiratory Infection",
+          "Meningococal Meningitis",
+          "Skin Infection",
+          "Diabetes",
+          "Cancer",
+          "Other"
+        ],
+        "keys": [
+          "sepsis",
+          "malaria",
+          "diarrhoea",
+          "palmor_pallor",
+          "acute_respiratory_infection",
+          "meningococal_meningitis",
+          "skin_infection",
+          "diabetes",
+          "cancer",
+          "other"
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please select one option"
+        }
+      },
+      {
+        "key": "other_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other cause of death",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the cause of death"
+        },
+        "relevance": {
+          "step1:death_cause": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
       }
     ]
   }
