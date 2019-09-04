@@ -152,6 +152,16 @@
             "ex": "equalTo(., \"other\")"
           }
         }
+      },
+      {
+        "key": "Date_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Child's DOB",
+        "read_only": true,
+        "hidden": true
       }
     ]
   }
