@@ -20,6 +20,7 @@ import java.util.Collections;
 public class LocationSpinnerView extends LinearLayout implements AdapterView.OnItemSelectedListener {
     private final Context context;
     private ServiceLocationSpinnerAdapter serviceLocationsAdapter;
+    private OnLocationChangeListener onLocationChangeListener;
 
     public LocationSpinnerView(Context context) {
         super(context);
@@ -38,6 +39,7 @@ public class LocationSpinnerView extends LinearLayout implements AdapterView.OnI
 
     public void init(){
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         View view = layoutInflater.inflate(R.layout.location_spinner_view, this, true);
         String defaultLocation = LocationHelper.getInstance().getDefaultLocation();
         serviceLocationsAdapter = new ServiceLocationSpinnerAdapter(context, getLocations(defaultLocation));
@@ -54,19 +56,33 @@ public class LocationSpinnerView extends LinearLayout implements AdapterView.OnI
         }
         Collections.sort(locations);
         locations.add(0, defaultLocation);
+
         return locations;
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if(serviceLocationsAdapter != null) {
-            CoreLibrary.getInstance().context().allSharedPreferences()
-                    .saveCurrentLocality(serviceLocationsAdapter.getLocationAt(i));
+            CoreLibrary.getInstance().context().allSharedPreferences().saveCurrentLocality(serviceLocationsAdapter.getLocationAt(i));
+
+            if (onLocationChangeListener != null) {
+                onLocationChangeListener.onLocationChange(serviceLocationsAdapter
+                        .getLocationAt(i));
+            }
         }
+
+    }
+
+    private void setOnLocationChangeListener(OnLocationChangeListener onLocationChangeListener) {
+        this.onLocationChangeListener = onLocationChangeListener;
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         //do something
+    }
+
+    public interface OnLocationChangeListener {
+        void onLocationChange(String newLocation);
     }
 }
