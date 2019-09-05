@@ -52,7 +52,7 @@
     "title": "Report Death",
     "fields": [
       {
-        "key": "death_date",
+        "key": "Date_of_Death",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -65,14 +65,7 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of death"
-        },
-        "constraints": [
-          {
-            "type": "date",
-            "ex": "greaterThanEqualTo(., step1:Date_Birth)",
-            "err": "The date of death is before the date of birth"
-          }
-        ]
+        }
       },
       {
         "key": "place_of_death",
@@ -91,7 +84,7 @@
         ],
         "openmrs_choice_ids": {
           "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Health Facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -135,7 +128,7 @@
         }
       },
       {
-        "key": "other_cause",
+        "key": "death_cause_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
