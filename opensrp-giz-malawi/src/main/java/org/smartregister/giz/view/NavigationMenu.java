@@ -32,6 +32,7 @@ import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
 import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.view.LocationPickerView;
 
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
@@ -149,8 +150,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
         syncProgressBar = rootView.findViewById(R.id.pbSync);
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
-        LocationSpinnerView locationSpinnerView = rootView.findViewById(R.id.clinic_selection);
-        locationSpinnerView.init();
+        LocationPickerView locationPickerView = rootView.findViewById(R.id.clinic_selection);
+        locationPickerView.init();
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
 
