@@ -3,6 +3,7 @@ package org.smartregister.giz.activity;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
@@ -16,6 +17,8 @@ import org.smartregister.giz.view.NavigationMenu;
 
 public class AncRegisterActivity extends BaseHomeRegisterActivity {
 
+    private ImageView openNavBtn;
+    private ImageView addPatientBtn;
 
     @Override
     protected void registerBottomNavigation() {
@@ -37,6 +40,27 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity {
         NavigationMenu.getInstance(this, null, null);
     }
 
+    @Override
+    protected void onCreation() {
+        super.onCreation();
+
+        openNavBtn = findViewById(R.id.toolbarBackButton);
+        addPatientBtn = findViewById(R.id.add_child_image_view);
+
+        openNavBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDrawer();
+            }
+        });
+
+        addPatientBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startRegistration();
+            }
+        });
+    }
 
     public void createDrawer() {
         NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);

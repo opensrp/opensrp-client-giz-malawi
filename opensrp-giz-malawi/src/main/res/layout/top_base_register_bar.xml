@@ -15,12 +15,12 @@
         android:layout_centerVertical="true">
 
         <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
             android:id="@+id/scanQrCode"/>
         <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
             android:id="@+id/sync_refresh"/>
 
         <ImageView
