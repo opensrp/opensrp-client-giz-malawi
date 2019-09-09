@@ -63,6 +63,8 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.CHILD)) {
             mainCondition = String.format(" where %s is null AND %s", GizConstants.KEY.DATE_REMOVED,
                     GizUtils.childAgeLimitFilter());
+        } else if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.MOTHER_TABLE_NAME)) {
+            mainCondition = "WHERE next_contact IS NOT NULL";
         }
 
         if (StringUtils.isNoneEmpty(mainCondition)) {
