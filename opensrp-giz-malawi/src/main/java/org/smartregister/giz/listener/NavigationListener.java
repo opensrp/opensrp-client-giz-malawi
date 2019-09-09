@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
@@ -32,7 +33,7 @@ public class NavigationListener implements View.OnClickListener {
                     break;
 
                 case GizConstants.DrawerMenu.ANC_CLIENTS:
-                    activity.startActivity(new Intent(activity, BaseHomeRegisterActivity.class));
+                    activity.startActivity(new Intent(activity, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass()));
                     break;
 
                 case GizConstants.DrawerMenu.LD:
