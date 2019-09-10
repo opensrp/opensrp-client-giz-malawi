@@ -14,25 +14,19 @@
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true">
 
+        <!-- These two views here are mandatory in ANC & adding them prevents crashes -->
         <ImageView
             android:layout_height="0dp"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:id="@+id/scanQrCode"/>
         <ImageView
             android:layout_height="0dp"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:id="@+id/sync_refresh"/>
 
-        <ImageView
-            android:id="@+id/toolbarBackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="3dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:gravity="center"
-            android:src="@drawable/ic_action_menu" />
+        <!-- END of useless ANC views -->
 
         <ImageView
             android:id="@+id/left_menu"
@@ -41,8 +35,7 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="3dp"
             android:gravity="center"
-            android:src="@drawable/ic_action_menu"
-            android:visibility="gone" />
+            android:src="@drawable/ic_action_menu" />
 
     </RelativeLayout>
 
@@ -107,8 +100,8 @@
 
         <ProgressBar
             android:id="@+id/sync_progress_bar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_centerInParent="true"
             android:indeterminate="true"
             android:visibility="gone" />
