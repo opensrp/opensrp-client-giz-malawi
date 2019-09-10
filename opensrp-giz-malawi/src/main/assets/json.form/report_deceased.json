@@ -122,6 +122,15 @@
           "cancer",
           "other"
         ],
+        "openmrs_choice_ids": {
+          "Sepsis": "126721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Diarrhea": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "MALNUTRITION": "115122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "acute respiratory infection": "154983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Meningococal Meningitis": "134369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "infection of skin": "137293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
