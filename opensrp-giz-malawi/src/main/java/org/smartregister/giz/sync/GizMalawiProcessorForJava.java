@@ -161,7 +161,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private boolean childExists(String entityId) {
-        return ChildLibrary.getInstance().eventClientRepository().checkIfExists(EventClientRepository.Table.client, entityId);
+        return GizMalawiApplication.getInstance().eventClientRepository().checkIfExists(EventClientRepository.Table.client, entityId);
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
