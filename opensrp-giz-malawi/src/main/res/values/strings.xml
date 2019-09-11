@@ -106,4 +106,5 @@
     <string name="anc_register">ANC Register</string>
     <string name="due_only">Due only</string>
     <string name="title_child">Child</string>
+    <string name="settings">Settings</string>
 </resources>

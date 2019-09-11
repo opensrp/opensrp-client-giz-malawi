@@ -2,14 +2,15 @@ package org.smartregister.giz.listener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
 import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.view.RegisterViewWithDrawer;
 
 public class NavigationListener implements View.OnClickListener {
 
@@ -28,16 +29,14 @@ public class NavigationListener implements View.OnClickListener {
 
             switch (tag) {
                 case GizConstants.DrawerMenu.CHILD_CLIENTS:
-                    activity.startActivity(new Intent(activity, ChildRegisterActivity.class));
-                    activity.finish();
+                    navigateToActivity(ChildRegisterActivity.class);
                     break;
 
                 case GizConstants.DrawerMenu.ALL_FAMILIES:
                     break;
 
                 case GizConstants.DrawerMenu.ANC_CLIENTS:
-                    activity.startActivity(new Intent(activity, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass()));
-                    activity.finish();
+                    navigateToActivity(AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
                     break;
 
                 case GizConstants.DrawerMenu.LD:
@@ -65,6 +64,16 @@ public class NavigationListener implements View.OnClickListener {
             }
             navigationAdapter.setSelectedView(tag);
         }
+    }
+
+    private void navigateToActivity(@NonNull Class<?> clas) {
+        if (activity instanceof RegisterViewWithDrawer) {
+            ((RegisterViewWithDrawer) activity).finishActivity();
+        } else {
+            activity.finish();
+        }
+
+        activity.startActivity(new Intent(activity, clas));
     }
 
     /*private void startRegisterActivity(Class registerClass) {
