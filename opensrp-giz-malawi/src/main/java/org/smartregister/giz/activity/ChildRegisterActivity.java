@@ -130,7 +130,6 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
                     showNfcDialog();
                 }
             });
-
         }
     }
 
