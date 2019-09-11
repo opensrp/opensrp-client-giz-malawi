@@ -10,6 +10,7 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.view.RegisterViewWithDrawer;
 
 public class NavigationListener implements View.OnClickListener {
@@ -67,13 +68,17 @@ public class NavigationListener implements View.OnClickListener {
     }
 
     private void navigateToActivity(@NonNull Class<?> clas) {
-        if (activity instanceof RegisterViewWithDrawer) {
-            ((RegisterViewWithDrawer) activity).finishActivity();
-        } else {
-            activity.finish();
-        }
+        NavigationMenu.closeDrawer();
 
-        activity.startActivity(new Intent(activity, clas));
+        if (activity.getClass() != clas) {
+            if (activity instanceof RegisterViewWithDrawer) {
+                ((RegisterViewWithDrawer) activity).finishActivity();
+            } else {
+                activity.finish();
+            }
+
+            activity.startActivity(new Intent(activity, clas));
+        }
     }
 
     /*private void startRegisterActivity(Class registerClass) {

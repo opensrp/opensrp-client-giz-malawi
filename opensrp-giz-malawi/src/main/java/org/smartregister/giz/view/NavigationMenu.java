@@ -347,7 +347,13 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         drawer.openDrawer(GravityCompat.START);
     }
 
-    public void closeDrawer() {
-        drawer.closeDrawer(Gravity.START);
+    public DrawerLayout getDrawer() {
+        return drawer;
+    }
+
+    public static void closeDrawer() {
+        if (instance != null && instance.getDrawer() != null) {
+            instance.getDrawer().closeDrawer(Gravity.START);
+        }
     }
 }
