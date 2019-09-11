@@ -65,13 +65,13 @@
             android:visibility="gone"
             android:src="@drawable/logo_opensrp_256" />
 
-        <org.smartregister.view.customcontrols.CustomFontTextView
+        <TextView
             android:id="@+id/txt_title_label"
-            style="@style/CustomFontTextViewStyle.NavBar.Black"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
             android:gravity="center"
+            android:textSize="22sp"
+            android:textColor="@color/white"
             android:text="@string/anc_register" />
 
     </RelativeLayout>
@@ -96,7 +96,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:gravity="center"
-            android:src="@drawable/ic_action_add" />
+            android:src="@drawable/ic_add" />
 
         <ProgressBar
             android:id="@+id/sync_progress_bar"

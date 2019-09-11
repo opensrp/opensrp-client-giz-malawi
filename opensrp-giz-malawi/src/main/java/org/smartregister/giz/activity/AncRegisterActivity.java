@@ -4,7 +4,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.view.View;
 
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
-import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.AncRegisterFragment;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
@@ -20,10 +19,7 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity {
 
     @Override
     protected void registerBottomNavigation() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) this.findViewById(R.id.bottom_navigation);
-        if (bottomNavigationView != null) {
-            bottomNavigationView.setVisibility(View.GONE);
-        }
+        // Do nothing because the bottom navigation was removed and overriden by someone
     }
 
     @Override

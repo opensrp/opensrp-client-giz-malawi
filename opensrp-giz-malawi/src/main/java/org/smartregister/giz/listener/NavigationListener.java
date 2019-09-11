@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
+import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
 
@@ -27,6 +28,8 @@ public class NavigationListener implements View.OnClickListener {
 
             switch (tag) {
                 case GizConstants.DrawerMenu.CHILD_CLIENTS:
+                    activity.startActivity(new Intent(activity, ChildRegisterActivity.class));
+                    activity.finish();
                     break;
 
                 case GizConstants.DrawerMenu.ALL_FAMILIES:
@@ -34,6 +37,7 @@ public class NavigationListener implements View.OnClickListener {
 
                 case GizConstants.DrawerMenu.ANC_CLIENTS:
                     activity.startActivity(new Intent(activity, AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass()));
+                    activity.finish();
                     break;
 
                 case GizConstants.DrawerMenu.LD:
