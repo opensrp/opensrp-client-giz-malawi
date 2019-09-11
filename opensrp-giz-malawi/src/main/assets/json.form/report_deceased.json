@@ -52,7 +52,7 @@
     "title": "Report Death",
     "fields": [
       {
-        "key": "death_date",
+        "key": "Date_of_Death",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -65,14 +65,7 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of death"
-        },
-        "constraints": [
-          {
-            "type": "date",
-            "ex": "greaterThanEqualTo(., step1:Date_Birth)",
-            "err": "The date of death is before the date of birth"
-          }
-        ]
+        }
       },
       {
         "key": "place_of_death",
@@ -91,7 +84,7 @@
         ],
         "openmrs_choice_ids": {
           "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Health Facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -101,41 +94,52 @@
       {
         "key": "death_cause",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162580AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "spinner",
         "hint": "The cause of death",
         "values": [
-          "Sepsis",
-          "Malaria",
-          "Diarrhoea",
-          "Palmor Pallor",
           "Acute Respiratory Infection",
-          "Meningococal Meningitis",
-          "Skin Infection",
-          "Diabetes",
           "Cancer",
+          "Diabetes",
+          "Diarrhoea",
+          "Malaria",
+          "Malnutrition",
+          "Meningococal Meningitis",
+          "Palmor Pallor",
+          "Sepsis",
+          "Skin Infection",
           "Other"
         ],
         "keys": [
-          "sepsis",
-          "malaria",
-          "diarrhoea",
-          "palmor_pallor",
-          "acute_respiratory_infection",
-          "meningococal_meningitis",
-          "skin_infection",
-          "diabetes",
-          "cancer",
-          "other"
+          "Acute Respiratory Infection",
+          "Cancer",
+          "Diabetes",
+          "Diarrhoea",
+          "Malaria",
+          "Malnutrition",
+          "Meningococal Meningitis",
+          "Palmor Pallor",
+          "Sepsis",
+          "Skin Infection",
+          "Other"
         ],
+        "openmrs_choice_ids": {
+          "Sepsis": "126721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Malaria": "116128AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Diarrhoea": "142412AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Malnutrition": "115122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Acute Respiratory Infection": "154983AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Meningococal Meningitis": "134369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Skin Infection": "137293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         "v_required": {
           "value": "true",
           "err": "Please select one option"
         }
       },
       {
-        "key": "other_cause",
+        "key": "death_cause_other",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -152,6 +156,16 @@
             "ex": "equalTo(., \"other\")"
           }
         }
+      },
+      {
+        "key": "Date_Birth",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Child's DOB",
+        "read_only": true,
+        "hidden": true
       }
     ]
   }
