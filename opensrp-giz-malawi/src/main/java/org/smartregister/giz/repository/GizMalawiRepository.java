@@ -73,8 +73,6 @@ public class GizMalawiRepository extends Repository {
         VaccineRepository.createTable(database);
 
         runLegacyUpgrades(database);
-
-        onUpgrade(database, 7, BuildConfig.DATABASE_VERSION);
     }
 
 
@@ -83,6 +81,7 @@ public class GizMalawiRepository extends Repository {
         Log.w(WeightRepository.class.getName(),
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
+
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {

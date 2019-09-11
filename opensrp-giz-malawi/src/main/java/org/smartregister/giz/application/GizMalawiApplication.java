@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.activity.ActivityConfiguration;
 import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.activity.BaseChildFormActivity;
@@ -23,6 +24,7 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.giz.BuildConfig;
+import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
@@ -176,7 +178,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION);
+
+        ActivityConfiguration activityConfiguration = new ActivityConfiguration();
+        activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
+        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 

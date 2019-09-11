@@ -2,12 +2,16 @@ package org.smartregister.giz.listener;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
-import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.view.NavigationMenu;
+import org.smartregister.giz.view.RegisterViewWithDrawer;
 
 public class NavigationListener implements View.OnClickListener {
 
@@ -26,13 +30,14 @@ public class NavigationListener implements View.OnClickListener {
 
             switch (tag) {
                 case GizConstants.DrawerMenu.CHILD_CLIENTS:
+                    navigateToActivity(ChildRegisterActivity.class);
                     break;
 
                 case GizConstants.DrawerMenu.ALL_FAMILIES:
                     break;
 
                 case GizConstants.DrawerMenu.ANC_CLIENTS:
-                    activity.startActivity(new Intent(activity, BaseHomeRegisterActivity.class));
+                    navigateToActivity(AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
                     break;
 
                 case GizConstants.DrawerMenu.LD:
@@ -59,6 +64,20 @@ public class NavigationListener implements View.OnClickListener {
                     break;
             }
             navigationAdapter.setSelectedView(tag);
+        }
+    }
+
+    private void navigateToActivity(@NonNull Class<?> clas) {
+        NavigationMenu.closeDrawer();
+
+        if (activity.getClass() != clas) {
+            if (activity instanceof RegisterViewWithDrawer) {
+                ((RegisterViewWithDrawer) activity).finishActivity();
+            } else {
+                activity.finish();
+            }
+
+            activity.startActivity(new Intent(activity, clas));
         }
     }
 

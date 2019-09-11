@@ -81,7 +81,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/captured_images_path" />
         </provider>
-        
+
         <!-- ANC ACTIVITIES -->
         <activity
             android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
@@ -102,7 +102,7 @@
             android:theme="@style/AncAppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
         <activity
-            android:name="org.smartregister.anc.library.activity.BaseHomeRegisterActivity"
+            android:name=".activity.AncRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
