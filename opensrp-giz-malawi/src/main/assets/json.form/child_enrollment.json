@@ -197,7 +197,7 @@
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "registration_calculation_rules.yml"
+              "rules-file": "child_register_registration_calculation_rules.yml"
             }
           }
         }
@@ -396,7 +396,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "registration_relevance_rules.yml"
+              "rules-file": "child_register_registration_relevance_rules.yml"
             }
           }
         }
@@ -442,7 +442,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "registration_relevance_rules.yml"
+              "rules-file": "child_register_registration_relevance_rules.yml"
             }
           }
         }
@@ -468,7 +468,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "registration_relevance_rules.yml"
+              "rules-file": "child_register_registration_relevance_rules.yml"
             }
           }
         }

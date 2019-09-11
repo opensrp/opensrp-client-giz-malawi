@@ -1,9 +1,11 @@
 package org.smartregister.giz.listener;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
 
@@ -25,26 +27,34 @@ public class NavigationListener implements View.OnClickListener {
             switch (tag) {
                 case GizConstants.DrawerMenu.CHILD_CLIENTS:
                     break;
+
                 case GizConstants.DrawerMenu.ALL_FAMILIES:
                     break;
-                case GizConstants.DrawerMenu.ANC:
+
+                case GizConstants.DrawerMenu.ANC_CLIENTS:
+                    activity.startActivity(new Intent(activity, BaseHomeRegisterActivity.class));
                     break;
+
                 case GizConstants.DrawerMenu.LD:
                     Toast.makeText(activity.getApplicationContext(), GizConstants.DrawerMenu.LD, Toast.LENGTH_SHORT)
                             .show();
                     break;
+
                 case GizConstants.DrawerMenu.PNC:
                     Toast.makeText(activity.getApplicationContext(), GizConstants.DrawerMenu.PNC, Toast.LENGTH_SHORT)
                             .show();
                     break;
+
                 case GizConstants.DrawerMenu.FAMILY_PLANNING:
                     Toast.makeText(activity.getApplicationContext(), GizConstants.DrawerMenu.FAMILY_PLANNING,
                             Toast.LENGTH_SHORT).show();
                     break;
+
                 case GizConstants.DrawerMenu.MALARIA:
                     Toast.makeText(activity.getApplicationContext(), GizConstants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT)
                             .show();
                     break;
+
                 default:
                     break;
             }

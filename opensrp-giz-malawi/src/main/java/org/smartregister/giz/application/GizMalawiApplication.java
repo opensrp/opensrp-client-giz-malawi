@@ -14,6 +14,8 @@ import com.evernote.android.job.JobManager;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.util.DBConstants;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.activity.BaseChildFormActivity;
 import org.smartregister.child.domain.ChildMetadata;
@@ -29,6 +31,7 @@ import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.sync.GizMalawiProcessorForJava;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.giz.util.SampleIConstants;
 import org.smartregister.giz.util.VaccineDuplicate;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
@@ -91,13 +94,16 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[]{GizConstants.TABLE_NAME.CHILD};
+        return new String[]{GizConstants.TABLE_NAME.CHILD, DBConstants.WOMAN_TABLE_NAME};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
             return new String[]{GizConstants.KEY.ZEIR_ID, GizConstants.KEY.FIRST_NAME, GizConstants.KEY.LAST_NAME};
+        } else if (tableName.equalsIgnoreCase(DBConstants.WOMAN_TABLE_NAME)) {
+            return new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.ANC_ID};
         }
+
         return null;
     }
 
@@ -120,7 +126,11 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             }
 
             return names.toArray(new String[names.size()]);
+        } else if (tableName.equals(DBConstants.WOMAN_TABLE_NAME)) {
+            return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
+                    DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
         }
+
         return null;
     }
 
@@ -166,6 +176,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION);
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 

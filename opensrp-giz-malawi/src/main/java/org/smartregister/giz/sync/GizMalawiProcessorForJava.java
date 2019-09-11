@@ -9,6 +9,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
+import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
+import org.smartregister.anc.library.sync.MiniClientProcessorForJava;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.MoveToMyCatchmentUtils;
@@ -50,6 +52,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import timber.log.Timber;
@@ -59,8 +63,19 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     private static final String TAG = GizMalawiProcessorForJava.class.getName();
     private static GizMalawiProcessorForJava instance;
 
+    private HashMap<String, MiniClientProcessorForJava> processorMap = new HashMap<>();
+    private HashMap<MiniClientProcessorForJava, List<Event>> unsyncEventsPerProcessor = new HashMap<>();
+
     private GizMalawiProcessorForJava(Context context) {
         super(context);
+
+        BaseAncClientProcessorForJava baseAncClientProcessorForJava = new BaseAncClientProcessorForJava(context);
+        unsyncEventsPerProcessor.put(baseAncClientProcessorForJava, new ArrayList<Event>());
+        HashSet<String> eventTypes = baseAncClientProcessorForJava.getEventTypes();
+
+        for (String eventType: eventTypes) {
+            processorMap.put(eventType, baseAncClientProcessorForJava);
+        }
     }
 
     public static GizMalawiProcessorForJava getInstance(Context context) {
@@ -71,7 +86,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @Override
-    public void processClient(List<EventClient> eventClients) throws Exception {
+    public synchronized void processClient(List<EventClient> eventClients) throws Exception {
 
         ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json",
                 ClientClassification.class);
@@ -149,12 +164,28 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         }
 
                     }
+                } else if (processorMap.containsKey(eventType)) {
+                    MiniClientProcessorForJava miniClientProcessorForJava = processorMap.get(eventType);
+                    if (miniClientProcessorForJava != null) {
+                        List<Event> processorUnsyncEvents = unsyncEventsPerProcessor.get(miniClientProcessorForJava);
+                        if (processorUnsyncEvents == null) {
+                            processorUnsyncEvents = new ArrayList<Event>();
+                            unsyncEventsPerProcessor.put(miniClientProcessorForJava, processorUnsyncEvents);
+                        }
+
+                        miniClientProcessorForJava.processEventClient(eventClient, processorUnsyncEvents, clientClassification);
+                    }
                 }
             }
 
             // Unsync events that are should not be in this device
             if (!unsyncEvents.isEmpty()) {
                 unSync(unsyncEvents);
+            }
+
+            for (MiniClientProcessorForJava miniClientProcessorForJava: unsyncEventsPerProcessor.keySet()) {
+                List<Event> processorUnsyncEvents = unsyncEventsPerProcessor.get(miniClientProcessorForJava);
+                miniClientProcessorForJava.unSync(processorUnsyncEvents);
             }
         }
     }
