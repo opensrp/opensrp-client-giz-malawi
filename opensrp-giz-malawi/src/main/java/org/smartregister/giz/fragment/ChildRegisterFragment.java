@@ -73,7 +73,7 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
             case R.id.child_profile_info_layout:
                 ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
                 break;
-            case R.id.record_weight:
+            case R.id.record_growth:
                 registerClickables.setRecordWeight(true);
                 ChildImmunizationActivity.launchActivity(getActivity(), client, registerClickables);
                 break;

@@ -58,7 +58,7 @@
     "title": "Birth Registration",
     "fields": [
       {
-        "key": "child_photo",
+        "key": "photo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -70,8 +70,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "zeir_id",
-        "type": "barcode",
-        "barcode_type": "qrcode",
+        "type": "edit_text",
         "hint": "Child's MER ID",
         "label_info_text": "Write this number down on the child's health passport.",
         "scanButtonText": "Scan QR Code",
