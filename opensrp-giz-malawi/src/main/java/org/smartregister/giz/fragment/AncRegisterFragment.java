@@ -2,6 +2,7 @@ package org.smartregister.giz.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,9 @@ public class AncRegisterFragment extends HomeRegisterFragment {
                     }
                 });
             }
+
+            // Disable go-back on clicking the ANC Register title
+            view.findViewById(R.id.title_layout).setOnClickListener(null);
         }
 
         return view;
