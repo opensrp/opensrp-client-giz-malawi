@@ -330,11 +330,10 @@
     "days_after_birth_due": 98,
     "vaccines": [
       {
-        "name": "OPV 3 / IPV",
-        "type": "OPV / IPV",
-        "vaccine_separator": " / ",
+        "name": "OPV 3",
+        "type": "OPV",
         "openmrs_date": {
-          "parent_entity": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/1422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "parent_entity": "783AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "entity": "concept",
           "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
@@ -344,51 +343,21 @@
           "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "calculation": 3
         },
-        "schedules": {
-          "OPV 3": {
-            "due": [
-              {
-                "reference": "prerequisite",
-                "prerequisite": "OPV 2",
-                "offset": "+28d",
-                "window": "+10d"
-              }
-            ],
-            "expiry": [
-              {
-                "reference": "dob",
-                "offset": "+5y"
-              }
-            ],
-            "conditions": [
-              {
-                "type": "not_given",
-                "vaccine": "IPV"
-              }
-            ]
-          },
-          "IPV": {
-            "due": [
-              {
-                "reference": "prerequisite",
-                "prerequisite": "OPV 2",
-                "offset": "+28d",
-                "window": "+10d"
-              }
-            ],
-            "expiry": [
-              {
-                "reference": "dob",
-                "offset": "+5y"
-              }
-            ],
-            "conditions": [
-              {
-                "type": "not_given",
-                "vaccine": "OPV 3"
-              }
-            ]
-          }
+        "schedule": {
+          "due": [
+            {
+              "reference": "prerequisite",
+              "prerequisite": "OPV 2",
+              "offset": "+28d",
+              "window": "+14d"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+2y"
+            }
+          ]
         }
       },
       {
@@ -441,6 +410,36 @@
             {
               "reference": "prerequisite",
               "prerequisite": "PCV 2",
+              "offset": "+28d",
+              "window": "+14d"
+            }
+          ],
+          "expiry": [
+            {
+              "reference": "dob",
+              "offset": "+2y"
+            }
+          ]
+        }
+      },
+      {
+        "name": "IPV",
+        "type": "IPV",
+        "openmrs_date": {
+          "parent_entity": "1422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "openmrs_calculate": {
+          "parent_entity": "1422AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "entity": "concept",
+          "entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "calculation": 3
+        },
+        "schedule": {
+          "due": [
+            {
+              "reference": "dob",
               "offset": "+28d",
               "window": "+14d"
             }
