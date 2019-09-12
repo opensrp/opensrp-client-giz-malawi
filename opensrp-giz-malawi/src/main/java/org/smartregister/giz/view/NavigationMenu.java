@@ -58,7 +58,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private NavigationContract.Presenter mPresenter;
     private View parentView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
-
     private NavigationMenu() {
 
     }
@@ -156,11 +155,11 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         tvLogo.setText(activity.getString(R.string.nav_logo));
 
         if (syncProgressBar != null) {
-            FadingCircle circle = new FadingCircle();
-            syncProgressBar.setIndeterminateDrawable(circle);
+
+            syncProgressBar.setIndeterminateDrawable(new FadingCircle());
 
             if (toolbar != null) {
-                toolbar.setNavigationIcon(circle);
+                toolbar.setNavigationIcon(new FadingCircle());
             }
         }
 
