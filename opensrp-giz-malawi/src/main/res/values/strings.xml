@@ -121,4 +121,7 @@
     <string name="bcg_scar_not_present_label">Child does not have a BCG scar so BCG Repeated Dose is necessary.</string>
     <string name="bcg_scar_present_label">BCG scar is present so no BCG Repeated Dose is necessary.</string>
     <string name="settings">Settings</string>
+
+    <string name="ipv">IPV</string>
+    <string name="bcg">BCG</string>
 </resources>
