@@ -70,6 +70,12 @@ public class NavigationListener implements View.OnClickListener {
     private void navigateToActivity(@NonNull Class<?> clas) {
         NavigationMenu.closeDrawer();
 
+        if (activity instanceof RegisterViewWithDrawer) {
+            ((RegisterViewWithDrawer) activity).finishActivity();
+        } else {
+            activity.finish();
+        }
+
         if (activity.getClass() != clas) {
             if (activity instanceof RegisterViewWithDrawer) {
                 ((RegisterViewWithDrawer) activity).finishActivity();
