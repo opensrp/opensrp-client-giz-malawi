@@ -1,1 +1,1 @@
-include ':opensrp-giz-malawi'
+include ':opensrp-giz-malawi', ':opensrp-opd'
