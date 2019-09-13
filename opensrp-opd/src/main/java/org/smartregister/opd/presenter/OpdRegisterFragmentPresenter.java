@@ -1,5 +1,6 @@
 package org.smartregister.opd.presenter;
 
+import org.smartregister.opd.R;
 import org.smartregister.opd.contract.OpdRegisterFragmentContract;
 
 /**
@@ -11,6 +12,7 @@ import org.smartregister.configurableviews.model.Field;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.opd.utils.OpdDbConstants;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -52,11 +54,20 @@ public class OpdRegisterFragmentPresenter implements OpdRegisterFragmentContract
 
     @Override
     public void initializeQueries(String mainCondition) {
-
+/*
         String countSelect = model.countSelect(CoreConstants.TABLE_NAME.CHILD, mainCondition);
         String mainSelect = model.mainSelect(CoreConstants.TABLE_NAME.CHILD, CoreConstants.TABLE_NAME.FAMILY, CoreConstants.TABLE_NAME.FAMILY_MEMBER, mainCondition);
 
         getView().initializeQueryParams(CoreConstants.TABLE_NAME.CHILD, countSelect, mainSelect);
+        getView().initializeAdapter(visibleColumns);
+
+        getView().countExecute();
+        getView().filterandSortInInitializeQueries();*/
+
+        String countSelect = model.countSelect("ec_child", mainCondition);
+        String mainSelect = model.mainSelect("ec_child", null, null, mainCondition);
+
+        getView().initializeQueryParams("ec_child", countSelect, mainSelect);
         getView().initializeAdapter(visibleColumns);
 
         getView().countExecute();
@@ -95,22 +106,26 @@ public class OpdRegisterFragmentPresenter implements OpdRegisterFragmentContract
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
+        return String.format("1 = 1");
+        //return String.format(" %s is null AND %s", DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter());
     }
 
     @Override
     public String getMainCondition(String tableName) {
-        return String.format(" %s is null AND %s", tableName + "." + DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter(tableName));
+        //return String.format(" %s is null AND %s", tableName + "." + DBConstants.KEY.DATE_REMOVED, ChildDBConstants.childAgeLimitFilter(tableName));
+        return String.format("1 = 1");
     }
 
     @Override
     public String getDefaultSortQuery() {
-        return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";// AND "+ChildDBConstants.childAgeLimitFilter();
+        //return DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";// AND "+ChildDBConstants.childAgeLimitFilter();
+        return "last_interacted_with DESC";
     }
 
     @Override
     public String getDueFilterCondition() {
-        return getMainCondition() + " AND " + ChildDBConstants.childDueFilter();
+        //return getMainCondition() + " AND " + ChildDBConstants.childDueFilter();
+        return getMainCondition();
     }
 
     public void setModel(OpdRegisterFragmentContract.Model model) {

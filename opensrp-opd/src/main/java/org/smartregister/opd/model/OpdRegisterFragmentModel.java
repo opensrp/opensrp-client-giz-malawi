@@ -52,8 +52,10 @@ public class OpdRegisterFragmentModel implements OpdRegisterFragmentContract.Mod
 
     @Override
     public String mainSelect(String tableName, String familyName, String familyMemberName, String mainCondition) {
-        //return CoreChildUtils.mainSelectRegisterWithoutGroupby(tableName, familyName, familyMemberName, mainCondition);
-        return "";
+        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
+        queryBUilder.SelectInitiateMainTable(tableName, new String[]{"*"});
+
+        return queryBUilder.mainCondition(mainCondition);
     }
 
     @Override

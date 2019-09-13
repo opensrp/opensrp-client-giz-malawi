@@ -327,9 +327,9 @@ public class OpdRegisterFragment extends BaseRegisterFragment implements OpdRegi
                     @Override
                     public Cursor loadInBackground() {
                         // Count query
-                        String query = "";
+                        String query = "SELECT * FROM ec_child";
                         // Select register query
-                        query = filterandSortQuery();
+                        //query = filterandSortQuery();
                         return commonRepository().rawCustomQueryForAdapter(query);
                     }
                 };
@@ -337,7 +337,7 @@ public class OpdRegisterFragment extends BaseRegisterFragment implements OpdRegi
             return null;
         }
     }
-
+/*
     private String filterandSortQuery() {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder(mainSelect);
 
@@ -360,5 +360,5 @@ public class OpdRegisterFragment extends BaseRegisterFragment implements OpdRegi
         }
 
         return query;
-    }
+    }*/
 }
