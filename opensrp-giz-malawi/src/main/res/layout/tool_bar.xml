@@ -29,8 +29,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:text="@string/title_child"
-                    android:textSize="22dp"
-                    android:layout_marginRight="60sp"
+                    android:textSize="22sp"
+                    android:layout_marginRight="60dp"
                     />
             </LinearLayout>
             <ImageButton

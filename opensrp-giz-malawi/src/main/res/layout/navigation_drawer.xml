@@ -116,9 +116,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:fontFamily="sans-serif"
-                            android:textSize="24dp"
+                            android:textSize="24sp"
                             android:text="@string/service_location"/>
 
                         <LinearLayout
@@ -144,7 +144,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:typeface="normal"
-                                android:layout_marginStart="10sp"
+                                android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
                                 android:paddingEnd="5dp"
                                 android:paddingStart="5dp"
