@@ -12,6 +12,7 @@ import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.view.RegisterViewWithDrawer;
+import org.smartregister.opd.activity.OpdRegisterActivity;
 
 public class NavigationListener implements View.OnClickListener {
 
@@ -33,7 +34,8 @@ public class NavigationListener implements View.OnClickListener {
                     navigateToActivity(ChildRegisterActivity.class);
                     break;
 
-                case GizConstants.DrawerMenu.ALL_FAMILIES:
+                case GizConstants.DrawerMenu.ALL_CLIENTS:
+                    navigateToActivity(OpdRegisterActivity.class);
                     break;
 
                 case GizConstants.DrawerMenu.ANC_CLIENTS:

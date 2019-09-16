@@ -42,20 +42,6 @@ public class OpdRegisterActivityInteractor implements OpdRegisterActivityContrac
         //TODO set presenter or model to null
     }
 
-    @Override
-    public void getNextUniqueId(final Triple<String, String, String> triple, final OpdRegisterActivityContract.InteractorCallBack callBack, final String familyId) {
-
-    }
-
-    @Override
-    public void saveRegistration(final Pair<Client, Event> pair, final String jsonString, final boolean isEditMode, final OpdRegisterActivityContract.InteractorCallBack callBack) {
-
-    }
-
-    @Override
-    public void removeChildFromRegister(final String closeFormJsonString, final String providerId) {
-    }
-
 
     public ECSyncHelper getSyncHelper() {
         return OpdLibrary.getInstance().getEcSyncHelper();

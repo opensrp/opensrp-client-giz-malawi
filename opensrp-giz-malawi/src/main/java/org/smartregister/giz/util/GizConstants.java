@@ -145,6 +145,7 @@ public class GizConstants {
 
     public static final class DrawerMenu {
         public static final String ALL_FAMILIES = "All Families";
+        public static final String ALL_CLIENTS = "All Clients";
         public static final String ANC_CLIENTS = "ANC Clients";
         public static final String CHILD_CLIENTS = "Child Clients";
         public static final String HIV_CLIENTS = "Hiv Clients";

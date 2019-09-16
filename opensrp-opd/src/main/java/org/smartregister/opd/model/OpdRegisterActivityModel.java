@@ -25,12 +25,16 @@ public class OpdRegisterActivityModel implements OpdRegisterActivityContract.Mod
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().registerViewConfigurations(viewIdentifiers);
+        if (viewIdentifiers != null) {
+            ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().registerViewConfigurations(viewIdentifiers);
+        }
     }
 
     @Override
     public void unregisterViewConfiguration(List<String> viewIdentifiers) {
-        ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(viewIdentifiers);
+        if (viewIdentifiers != null) {
+            ConfigurableViewsLibrary.getInstance().getConfigurableViewsHelper().unregisterViewConfiguration(viewIdentifiers);
+        }
     }
 
     @Override

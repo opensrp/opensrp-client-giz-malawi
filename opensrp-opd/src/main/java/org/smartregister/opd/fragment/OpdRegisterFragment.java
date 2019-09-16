@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -58,12 +59,13 @@ public class OpdRegisterFragment extends BaseRegisterFragment implements OpdRegi
         super.setupViews(view);
 
         this.view = view;
-/*
+        /*
         Toolbar toolbar = view.findViewById(org.smartregister.R.id.register_toolbar);
         toolbar.setContentInsetsAbsolute(0, 0);
         toolbar.setContentInsetsRelative(0, 0);
         toolbar.setContentInsetStartWithNavigation(0);
         NavigationMenu.getInstance(getActivity(), null, toolbar);*/
+
         // Update top left icon
         qrCodeScanImageView = view.findViewById(org.smartregister.R.id.scanQrCode);
         if (qrCodeScanImageView != null) {
@@ -93,11 +95,11 @@ public class OpdRegisterFragment extends BaseRegisterFragment implements OpdRegi
             logo.setVisibility(View.GONE);
         }
 
-        CustomFontTextView titleView = view.findViewById(R.id.txt_title_label);
+        AppCompatTextView titleView = view.findViewById(R.id.txt_title_label);
         if (titleView != null) {
             titleView.setVisibility(View.VISIBLE);
             titleView.setText(getString(getToolBarTitle()));
-            titleView.setFontVariant(FontVariant.REGULAR);
+            //titleView.setFontVariant(FontVariant.REGULAR);
             titleView.setPadding(0, titleView.getTop(), titleView.getPaddingRight(), titleView.getPaddingBottom());
         }
 
@@ -128,8 +130,9 @@ public class OpdRegisterFragment extends BaseRegisterFragment implements OpdRegi
             return;
         }
 
-        String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
-        presenter = new OpdRegisterFragmentPresenter(this, new OpdRegisterFragmentModel(), viewConfigurationIdentifier);
+        //String viewConfigurationIdentifier = ((BaseRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        //presenter = new OpdRegisterFragmentPresenter(this, new OpdRegisterFragmentModel(), viewConfigurationIdentifier);
+        presenter = new OpdRegisterFragmentPresenter(this, new OpdRegisterFragmentModel(), "");
 
     }
 
