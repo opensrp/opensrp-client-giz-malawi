@@ -8,11 +8,12 @@ import android.widget.Toast;
 
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.giz.activity.ChildRegisterActivity;
+import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.view.RegisterViewWithDrawer;
-import org.smartregister.opd.activity.OpdRegisterActivity;
+import org.smartregister.opd.activity.BaseOpdRegisterActivity;
 
 public class NavigationListener implements View.OnClickListener {
 
