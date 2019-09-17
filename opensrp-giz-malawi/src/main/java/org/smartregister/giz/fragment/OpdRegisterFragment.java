@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AncRegisterActivity;
+import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 
 /**
@@ -23,6 +24,10 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         if (view != null) {
+
+            View topLeftLayout = view.findViewById(org.smartregister.opd.R.id.top_left_layout);
+            topLeftLayout.setVisibility(View.VISIBLE);
+
             ImageView addPatientBtn = view.findViewById(R.id.add_child_image_view);
 
             if (addPatientBtn != null) {
@@ -39,8 +44,8 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
                 hamburgerMenu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (getActivity() instanceof AncRegisterActivity) {
-                            ((AncRegisterActivity) getActivity()).openDrawer();
+                        if (getActivity() instanceof NavDrawerActivity) {
+                            ((NavDrawerActivity) getActivity()).openDrawer();
                         }
                     }
                 });
@@ -48,9 +53,6 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
             // Disable go-back on clicking the ANC Register title
             view.findViewById(R.id.title_layout).setOnClickListener(null);
-
-            View topLeftLayout = view.findViewById(org.smartregister.opd.R.id.top_left_layout);
-            topLeftLayout.setVisibility(View.VISIBLE);
         }
 
         return view;

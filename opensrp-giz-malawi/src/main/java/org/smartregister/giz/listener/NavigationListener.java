@@ -12,8 +12,7 @@ import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.giz.view.RegisterViewWithDrawer;
-import org.smartregister.opd.activity.BaseOpdRegisterActivity;
+import org.smartregister.giz.view.NavDrawerActivity;
 
 public class NavigationListener implements View.OnClickListener {
 
@@ -73,21 +72,19 @@ public class NavigationListener implements View.OnClickListener {
     private void navigateToActivity(@NonNull Class<?> clas) {
         NavigationMenu.closeDrawer();
 
-        if (activity instanceof RegisterViewWithDrawer) {
-            ((RegisterViewWithDrawer) activity).finishActivity();
+        if (activity instanceof NavDrawerActivity) {
+            ((NavDrawerActivity) activity).finishActivity();
         } else {
             activity.finish();
         }
 
-        if (activity.getClass() != clas) {
-            if (activity instanceof RegisterViewWithDrawer) {
-                ((RegisterViewWithDrawer) activity).finishActivity();
-            } else {
-                activity.finish();
-            }
-
-            activity.startActivity(new Intent(activity, clas));
+        if (activity instanceof NavDrawerActivity) {
+            ((NavDrawerActivity) activity).finishActivity();
+        } else {
+            activity.finish();
         }
+
+        activity.startActivity(new Intent(activity, clas));
     }
 
     /*private void startRegisterActivity(Class registerClass) {

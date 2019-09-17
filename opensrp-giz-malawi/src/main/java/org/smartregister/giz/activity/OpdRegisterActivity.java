@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.opd.activity.BaseOpdRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -12,7 +13,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-17
  */
 
-public class OpdRegisterActivity extends BaseOpdRegisterActivity {
+public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavDrawerActivity {
 
     private NavigationMenu navigationMenu;
 
@@ -39,5 +40,25 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity {
     protected void onResumption() {
         super.onResumption();
         createDrawer();
+    }
+
+    @Override
+    public void finishActivity() {
+
+    }
+
+
+    @Override
+    public void openDrawer() {
+        if (navigationMenu != null) {
+            navigationMenu.openDrawer();
+        }
+    }
+
+    @Override
+    public void closeDrawer() {
+        if (navigationMenu != null) {
+            navigationMenu.closeDrawer();
+        }
     }
 }

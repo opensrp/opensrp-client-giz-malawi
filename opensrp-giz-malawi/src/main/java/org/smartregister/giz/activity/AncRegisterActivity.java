@@ -7,7 +7,7 @@ import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.fragment.AncRegisterFragment;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.giz.view.RegisterViewWithDrawer;
+import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -15,7 +15,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-09
  */
 
-public class AncRegisterActivity extends BaseHomeRegisterActivity implements RegisterViewWithDrawer {
+public class AncRegisterActivity extends BaseHomeRegisterActivity implements NavDrawerActivity {
 
     private NavigationMenu navigationMenu;
 
