@@ -1,12 +1,18 @@
 package org.smartregister.giz.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
+import org.json.JSONObject;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
+import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.opd.activity.BaseOpdRegisterActivity;
+import org.smartregister.opd.contract.OpdRegisterActivityContract;
+import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 /**
@@ -21,6 +27,11 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //NavigationMenu.getInstance(this, null, null);
+    }
+
+    @Override
+    protected BaseOpdRegisterActivityPresenter createPresenter(@NonNull OpdRegisterActivityContract.View view, @NonNull OpdRegisterActivityContract.Model model) {
+        return new OpdRegisterActivityPresenter(view, model);
     }
 
 
@@ -40,6 +51,26 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     protected void onResumption() {
         super.onResumption();
         createDrawer();
+    }
+
+    @Override
+    public void startRegistration() {
+
+    }
+
+    @Override
+    public void startFormActivity(String formName, String entityId, String metaData) {
+
+    }
+
+    @Override
+    public void startFormActivity(JSONObject form) {
+
+    }
+
+    @Override
+    protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
+
     }
 
     @Override

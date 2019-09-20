@@ -33,7 +33,6 @@ import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.sync.GizMalawiProcessorForJava;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.giz.util.SampleIConstants;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
@@ -182,7 +181,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
 
-        OpdLibrary.init(context, getRepository(), new OpdConfiguration());
+        OpdLibrary.init(context, getRepository(), new OpdConfiguration.Builder().build());
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
