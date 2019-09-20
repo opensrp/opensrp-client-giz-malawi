@@ -142,7 +142,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
-                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
+                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(org.smartregister.opd.utils.Constants.EventType.OPD_REGISTRATION)) {
                     if (clientClassification == null) {
                         continue;
                     }
@@ -153,11 +153,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         try {
                             processEvent(event, client, clientClassification);
                         } catch (Exception e) {
-                            Log.e(TAG, e.getMessage(), e);
+                            Timber.e(e);
                         }
 
                     }
-                } else if (processorMap.containsKey(eventType)) {
+                }
+                else if (processorMap.containsKey(eventType)) {
                     MiniClientProcessorForJava miniClientProcessorForJava = processorMap.get(eventType);
                     if (miniClientProcessorForJava != null) {
                         List<Event> processorUnsyncEvents = unsyncEventsPerProcessor.get(miniClientProcessorForJava);

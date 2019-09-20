@@ -53,6 +53,13 @@
             "creates_case": [
               "ec_mother"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Opd Registration",
+            "creates_case": [
+              "ec_client"
+            ]
           }
 
         ]

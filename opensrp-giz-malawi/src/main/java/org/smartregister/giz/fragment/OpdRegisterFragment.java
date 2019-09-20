@@ -9,8 +9,11 @@ import android.widget.ImageView;
 
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AncRegisterActivity;
+import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.view.NavDrawerActivity;
+import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
+import org.smartregister.opd.utils.Utils;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-17
@@ -56,5 +59,10 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
         }
 
         return view;
+    }
+
+    @Override
+    protected void startRegistration() {
+        ((OpdRegisterActivity) getActivity()).startFormActivity(OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getFormName(),null,null);
     }
 }

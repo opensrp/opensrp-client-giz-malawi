@@ -52,7 +52,9 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
+import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
+import org.smartregister.opd.pojos.OpdMetadata;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
@@ -181,8 +183,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
-
-        OpdLibrary.init(context, getRepository(), new OpdConfiguration());
+        OpdConfiguration opdConfiguration = new OpdConfiguration();
+        OpdMetadata opdMetadata = new OpdMetadata("opd_registration","ec_client",
+                "","Opd Registration","Update Opd Registration","",
+                "opd_register","","", BaseOpdFormActivity.class,null,true);
+        opdConfiguration.setOpdMetadata(opdMetadata);
+        OpdLibrary.init(context, getRepository(), opdConfiguration);
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 

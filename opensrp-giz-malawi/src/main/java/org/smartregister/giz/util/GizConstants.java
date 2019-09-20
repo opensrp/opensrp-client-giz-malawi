@@ -140,6 +140,7 @@ public class GizConstants {
         public static final String LASTNAME = "lastName";
         public static final String ATTRIBUTES = "attributes";
         public static final int FIVE_YEAR = 5;
+        public static final String OPD_REGISTRATION = "Opd Registration" ;
         public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
     }
 
