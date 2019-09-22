@@ -75,6 +75,7 @@
         "label_info_text": "Write this number down on the child's health passport.",
         "scanButtonText": "Scan QR Code",
         "value": "0",
+        "read_only": true,
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid ID"
@@ -90,7 +91,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "Birth_Certificate",
         "type": "edit_text",
-        "hint": "Child's Birth Registration Number",
+        "hint": "Child's NRB birth registration number",
         "label_info_text": "If the child was registered in vital registration, enter the registration number here.",
         "edit_type": "name",
         "v_required": {
@@ -341,7 +342,7 @@
         "openmrs_entity_id": "nrc_number",
         "entity_id": "mother",
         "type": "edit_text",
-        "hint": "Mother/guardian Identification number",
+        "hint": "Mother/guardian NRB Identification number",
         "look_up": "true",
         "v_regex": {
           "value": "([A-Za-z0-9]{1,11})|\\s*",
@@ -368,7 +369,7 @@
         "openmrs_entity_id": "second_phone_number",
         "entity_id": "mother",
         "type": "edit_text",
-        "hint": "Second phone number",
+        "hint": "Alternate phone number",
         "v_regex": {
           "value": "([0][0-9]{9})|\\s*",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
@@ -383,6 +384,10 @@
         "label_info_text": "Whether the child's mother received 2+ doses of Td.",
         "hint": "Protected at birth (PAB)",
         "entity_id": "mother",
+        "v_required": {
+          "value": true,
+          "err": "Please choose an option"
+        },
         "values": [
           "Yes",
           "No",
