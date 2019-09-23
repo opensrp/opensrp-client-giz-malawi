@@ -9,6 +9,7 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizConstants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,5 +73,10 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
         }
 
         setmAdapter(new ChildRegistrationDataAdapter(mArrayList));
+    }
+
+    @Override
+    protected List<String> addUnFormattedNumberFields(String... key) {
+        return Arrays.asList("mother_guardian_number");
     }
 }
