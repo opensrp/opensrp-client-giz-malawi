@@ -369,7 +369,7 @@
         "openmrs_entity_id": "second_phone_number",
         "entity_id": "mother",
         "type": "edit_text",
-        "hint": "Alternate phone number",
+        "hint": "Alternative phone number",
         "v_regex": {
           "value": "([0][0-9]{9})|\\s*",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
