@@ -117,8 +117,8 @@
 
     <string name="ipv">IPV</string>
     <string name="bcg">BCG</string>
+
+    <!-- Override labels in profile and immunization section -->
     <string name="label_zeir">MER ID</string>
     <string name="system_id_colon">MER ID:</string>
-
-
 </resources>
