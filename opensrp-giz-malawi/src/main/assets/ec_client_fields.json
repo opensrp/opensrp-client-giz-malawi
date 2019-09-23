@@ -440,10 +440,10 @@
           }
         },
         {
-          "column_name": "anc_id",
+          "column_name": "mer_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.ANC_ID"
+            "field": "identifiers.ZEIR_ID"
           }
         },
         {
@@ -478,7 +478,7 @@
           "column_name": "client_reg_date",
           "type": "Event",
           "json_mapping": {
-            "field": "client_reg_date"
+            "field": "attributes.opd_reg_date"
           }
         },
         {
@@ -492,12 +492,19 @@
           "column_name": "bht_mid",
           "type": "Client",
           "json_mapping": {
-            "field": "bht_mid"
+            "field": "identifiers.bht_mid"
+          }
+        },
+        {
+          "column_name": "phone_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "attributes.phone_number"
           }
         },
         {
           "column_name": "reminders",
-          "type": "Client",
+          "type": "Event",
           "json_mapping": {
             "field": "attributes.reminders"
           }

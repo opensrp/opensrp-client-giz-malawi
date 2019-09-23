@@ -76,7 +76,7 @@
         "openmrs_entity_id": "ZEIR_ID",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "OpenSRP ID",
+        "hint": "MER ID",
         "value": "0",
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
@@ -308,7 +308,7 @@
         }
       },
       {
-        "key": "reminder",
+        "key": "reminders",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
