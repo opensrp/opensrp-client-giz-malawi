@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
-import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -206,7 +205,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
 
         if (form.has(JsonFormUtils.STEP1) && form.getJSONObject(JsonFormUtils.STEP1).has(GizConstants.KEY.TITLE) && form.getJSONObject(JsonFormUtils.STEP1).getString(GizConstants.KEY.TITLE)
                 .equals(Constants.EventType.BITRH_REGISTRATION)) {
-            form.getJSONObject(JsonFormUtils.STEP1).put(GizConstants.KEY.TITLE, GizConstants.FormTitle.UPDATE_CHILD_FORM);
+            form.getJSONObject(JsonFormUtils.STEP1).put(GizConstants.KEY.TITLE, GizConstants.FormTitleUtil.UPDATE_CHILD_FORM);
         }
     }
 
