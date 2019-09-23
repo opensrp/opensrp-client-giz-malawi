@@ -155,6 +155,10 @@ public class GizConstants {
         public static final String MALARIA = "Malaria";
     }
 
+    public static final class FormTitle{
+        public static final String UPDATE_CHILD_FORM = "Update Child Registration";
+    }
+
     public static final class RQ_CODE {
         public static final int STORAGE_PERMISIONS = 1;
     }
