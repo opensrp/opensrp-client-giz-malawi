@@ -443,7 +443,7 @@
           "column_name": "mer_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.ZEIR_ID"
+            "field": "identifiers.MER_ID"
           }
         },
         {

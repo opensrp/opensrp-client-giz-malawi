@@ -63,10 +63,10 @@
         "uploadButtonText": "Take a photo of the person"
       },
       {
-        "key": "ZEIR_ID",
+        "key": "MER_ID",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "ZEIR_ID",
+        "openmrs_entity_id": "MER_ID",
         "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "MER ID",
@@ -74,11 +74,11 @@
         "scanButtonText": "Scan QR Code",
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid OpenSRP ID"
+          "err": "Please enter a valid MER ID"
         },
         "v_required": {
           "value": "true",
-          "err": "Please enter the OpenSRP ID"
+          "err": "Please enter the MER ID"
         }
       },
       {
