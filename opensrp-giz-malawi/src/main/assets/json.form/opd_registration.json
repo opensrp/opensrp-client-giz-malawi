@@ -89,7 +89,8 @@
         "type": "edit_text",
         "hint": "National ID",
         "edit_type": "name",
-        "lookup": true,
+        "entity_id" :"client",
+        "look_up": true,
         "v_required": {
           "value": false,
           "err": "Please enter the patient's national id"
@@ -105,7 +106,8 @@
         "hint": "BHT ID",
         "value": "0",
         "scanButtonText": "Scan Barcode",
-        "lookup": true,
+        "entity_id" :"client",
+        "look_up": true,
         "v_numeric": {
           "value": "true",
           "err": "Please enter a valid BHT ID"
@@ -132,6 +134,8 @@
         "type": "edit_text",
         "hint": "First name",
         "edit_type": "name",
+        "look_up" : "true",
+        "entity_id" :"client",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
@@ -148,7 +152,9 @@
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
         "hint": "Last name",
+        "entity_id" :"client",
         "edit_type": "name",
+        "look_up" : "true",
         "v_required": {
           "value": true,
           "err": "Please enter the last name"
@@ -307,6 +313,7 @@
         "openmrs_entity_id": "phone_number",
         "type": "edit_text",
         "hint": "phone number",
+        "entity_id": "client",
         "v_regex": {
           "value": "([0][0-9]{9})|\\s*",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"

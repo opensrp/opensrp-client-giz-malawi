@@ -75,8 +75,4 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
         setmAdapter(new ChildRegistrationDataAdapter(mArrayList));
     }
 
-    @Override
-    protected List<String> addUnFormattedNumberFields(String... key) {
-        return Arrays.asList("mother_guardian_number");
-    }
 }
