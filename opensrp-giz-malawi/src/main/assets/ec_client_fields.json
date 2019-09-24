@@ -475,17 +475,10 @@
           }
         },
         {
-          "column_name": "client_reg_date",
-          "type": "Event",
-          "json_mapping": {
-            "field": "attributes.opd_reg_date"
-          }
-        },
-        {
           "column_name": "opd_reg_number",
           "type": "Client",
           "json_mapping": {
-            "field": "opd_reg_number"
+            "field": "attributes.annual_serial_number"
           }
         },
         {
@@ -497,14 +490,14 @@
         },
         {
           "column_name": "phone_number",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
             "field": "attributes.phone_number"
           }
         },
         {
           "column_name": "reminders",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
             "field": "attributes.reminders"
           }

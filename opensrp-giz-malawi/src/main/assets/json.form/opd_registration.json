@@ -55,13 +55,6 @@
     "title": "Opd Registration",
     "fields": [
       {
-        "key": "opd_reg_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "opd_reg_date",
-        "type": "hidden"
-      },
-      {
         "key": "photo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -125,8 +118,8 @@
       {
         "key": "opd_reg_number",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person",
-        "openmrs_entity_id": "annual_serial_name",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "annual_serial_number",
         "type": "edit_text",
         "hint": "Annual Serial Number",
         "edit_type": "name"
@@ -181,7 +174,13 @@
         "v_required": {
           "value": "true",
           "err": "Please enter the date of birth"
+        },
+        "relevance": {
+        "step1:dob_unknown": {
+          "type": "string",
+          "ex": "equalTo(., \"false\")"
         }
+      }
       },
       {
         "key": "dob_unknown",
@@ -209,6 +208,12 @@
         "v_numeric": {
           "value": "true",
           "err": "Enter a valid Age"
+        },
+        "relevance": {
+          "step1:dob_unknown": {
+            "type": "string",
+            "ex": "equalTo(., \"true\")"
+          }
         }
       },
       {
@@ -310,8 +315,8 @@
       {
         "key": "reminders",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "reminders",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "options": [
