@@ -53,7 +53,6 @@ import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.configuration.OpdConfiguration;
-import org.smartregister.opd.provider.OpdRegisterProvider;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;

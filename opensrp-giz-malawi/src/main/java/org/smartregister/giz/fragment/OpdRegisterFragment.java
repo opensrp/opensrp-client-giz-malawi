@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
-import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 
