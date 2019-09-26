@@ -89,7 +89,6 @@
         "type": "edit_text",
         "hint": "National ID",
         "edit_type": "name",
-        "entity_id" :"client",
         "look_up": true,
         "v_required": {
           "value": false,
@@ -106,7 +105,6 @@
         "hint": "BHT ID",
         "value": "0",
         "scanButtonText": "Scan Barcode",
-        "entity_id" :"client",
         "look_up": true,
         "v_numeric": {
           "value": "true",
@@ -135,7 +133,7 @@
         "hint": "First name",
         "edit_type": "name",
         "look_up" : "true",
-        "entity_id" :"client",
+        "entity_id" :"",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
@@ -152,7 +150,6 @@
         "openmrs_entity_id": "last_name",
         "type": "edit_text",
         "hint": "Last name",
-        "entity_id" :"client",
         "edit_type": "name",
         "look_up" : "true",
         "v_required": {
@@ -312,8 +309,7 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "phone_number",
         "type": "edit_text",
-        "hint": "phone number",
-        "entity_id": "client",
+        "hint": "Phone number",
         "v_regex": {
           "value": "([0][0-9]{9})|\\s*",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
