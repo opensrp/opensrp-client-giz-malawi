@@ -117,4 +117,8 @@
 
     <string name="ipv">IPV</string>
     <string name="bcg">BCG</string>
+
+    <string name="due_only">Due only</string>
+    <string name="anc_register">ANC Register</string>
+    <string name="title_child">Child</string>
 </resources>

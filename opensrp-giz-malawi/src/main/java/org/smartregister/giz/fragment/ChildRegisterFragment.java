@@ -1,8 +1,9 @@
 package org.smartregister.giz.fragment;
 
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.CompoundButton;
 
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.fragment.BaseChildRegisterFragment;
@@ -19,9 +20,9 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.util.HashMap;
 
-public class ChildRegisterFragment extends BaseChildRegisterFragment {
+public class ChildRegisterFragment extends BaseChildRegisterFragment implements CompoundButton.OnCheckedChangeListener {
     private View view;
-
+    private SwitchCompat filterSection;
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -37,9 +38,26 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
         //do nothing
     }
 
+
+    @Override
+    protected void toggleFilterSelection() {
+        if (filterSection != null) {
+            String tagString = "PRESSED";
+            if (filterSection.getTag() == null) {
+                filter("", "", filterSelectionCondition(false), false);
+                filterSection.setTag(tagString);
+            } else if (filterSection.getTag().toString().equals(tagString)) {
+                filter("", "", "", false);
+                filterSection.setTag(null);
+            }
+        }
+    }
+
     @Override
     public void setupViews(View view) {
         this.view = view;
+        filterSection = view.findViewById(R.id.switch_selection);
+        filterSection.setOnCheckedChangeListener(this);
         super.setupViews(view);
     }
 
@@ -108,14 +126,7 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
         toolbar.setContentInsetStartWithNavigation(0);
         toolbar.setNavigationIcon(R.drawable.ic_action_menu);
 
-        removeRedundantHomeButton(toolbar);
-
         NavigationMenu.getInstance(getActivity(), null, toolbar);
-    }
-
-    private void removeRedundantHomeButton(Toolbar toolbar) {
-        RelativeLayout backButton = toolbar.findViewById(R.id.back_btn_layout);
-        backButton.setVisibility(View.GONE);
     }
 
     @Override
@@ -129,4 +140,8 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment {
     }
 
 
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        toggleFilterSelection();
+    }
 }
