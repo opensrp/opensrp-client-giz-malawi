@@ -10,6 +10,8 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.child.activity.BaseChildDetailTabbedActivity;
 import org.smartregister.child.activity.BaseChildFormActivity;
@@ -19,10 +21,17 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.ChildRegistrationDataFragment;
 import org.smartregister.giz.util.GizJsonFormUtils;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.util.FormUtils;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.Utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import timber.log.Timber;
 
 import static org.smartregister.giz.util.GizUtils.setAppLocale;
 
@@ -159,7 +168,37 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, formData);
 
         startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+    }
 
+    @Override
+    protected String getReportDeceasedMetadata() {
+        try {
+            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("report_deceased");
+            if (form != null) {
+                //inject zeir id into the form
+                JSONObject stepOne = form.getJSONObject(JsonFormUtils.STEP1);
+                JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("Date_of_Death")) {
+                        SimpleDateFormat simpleDateFormat =
+                                new SimpleDateFormat(com.vijay.jsonwizard.utils.FormUtils.NATIIVE_FORM_DATE_FORMAT_PATTERN,
+                                        Locale.ENGLISH);
+                        String dobString = Utils.getValue(childDetails.getColumnmaps(), "dob", true);
+                        Date dob = Utils.dobStringToDate(dobString);
+                        if (dob != null) {
+                            jsonObject.put("min_date", simpleDateFormat.format(dob));
+                        }
+                        break;
+                    }
+                }
+            }
 
+            return form == null ? null : form.toString();
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+        return "";
     }
 }

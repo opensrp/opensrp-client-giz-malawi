@@ -110,12 +110,59 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/vDiv2"
-                        android:layout_marginLeft="15dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginRight="15dp"
                         android:layout_marginBottom="25dp"
                         android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:fontFamily="sans-serif"
+                            android:textSize="24sp"
+                            android:text="@string/service_location"/>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/black"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginEnd="30dp"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="5dp"
+                            >
+                            <org.smartregister.view.LocationPickerView
+                                android:id="@+id/clinic_selection"
+                                style="@style/CustomFontTextViewStyle.StatusBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="fill_parent"
+                                android:gravity="start"
+                                android:maxWidth="@dimen/loc_picker_text_max_width"
+                                android:minWidth="@dimen/loc_picker_text_min_width"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:typeface="normal"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="5dp"
+                                android:paddingEnd="5dp"
+                                android:paddingStart="5dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="10dp"
+                                android:layout_weight="0.2"
+                                android:layout_gravity="center"
+                                />
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:src="@drawable/ic_keyboard_arrow_down"/>
+                        </LinearLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="#000000" />
                         <RelativeLayout
                             android:id="@+id/rlIconLang"
                             android:layout_width="match_parent"
@@ -262,7 +309,7 @@
 
                 <TextView
                     android:id="@+id/tvSync"
-                    android:layout_width="80sp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
@@ -301,6 +348,7 @@
                     android:textSize="14sp" />
 
             </RelativeLayout>
+=
         </RelativeLayout>
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
