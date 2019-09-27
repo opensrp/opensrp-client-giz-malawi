@@ -63,7 +63,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
         try {
             form = model.getFormAsJson(formName, entityId, locationId);
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
         getView().startFormActivity(form);
     }
