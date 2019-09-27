@@ -28,6 +28,7 @@ import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
+import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.repository.GizMalawiRepository;
@@ -52,13 +53,11 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
-import org.smartregister.opd.activity.BaseOpdFormActivity;
-import org.smartregister.opd.activity.BaseOpdFormActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
-import org.smartregister.opd.provider.OpdRegisterProvider;
 import org.smartregister.opd.pojos.OpdMetadata;
+import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
-import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
@@ -78,7 +77,6 @@ import timber.log.Timber;
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
-    private EventClientRepository eventClientRepository;
     private String password;
     private boolean lastModified;
     private ECSyncHelper ecSyncHelper;
@@ -186,9 +184,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class).build();
-        OpdMetadata opdMetadata = new OpdMetadata("opd_registration","ec_client",
-                "","Opd Registration","Update Opd Registration","",
-                "opd_register","","", BaseOpdFormActivity.class,null,true);
+        OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
+                OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
+                OpdConstants.CONFIG,OpdFormActivity.class,null,true);
         opdConfiguration.setOpdMetadata(opdMetadata);
         OpdLibrary.init(context, getRepository(), opdConfiguration);
 
@@ -331,13 +329,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public RecurringServiceTypeRepository recurringServiceTypeRepository() {
         return ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
-    }
-
-    public EventClientRepository eventClientRepository() {
-        if (eventClientRepository == null) {
-            eventClientRepository = new EventClientRepository(getRepository());
-        }
-        return eventClientRepository;
     }
 
     public RecurringServiceRecordRepository recurringServiceRecordRepository() {

@@ -11,11 +11,11 @@ import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.interactor.BaseOpdRegisterActivityInteractor;
 import org.smartregister.opd.pojos.OpdEventClient;
-import org.smartregister.opd.pojos.UpdateRegisterParams;
+import org.smartregister.opd.pojos.RegisterParams;
 import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.AppExecutors;
-import org.smartregister.opd.utils.Constants;
-import org.smartregister.opd.utils.JsonFormUtils;
+import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.helper.ECSyncHelper;
@@ -67,15 +67,15 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
     }
 
     @Override
-    public void saveRegistration(final List<OpdEventClient> opdEventClientList, final String jsonString, final UpdateRegisterParams updateRegisterParams, BaseOpdRegisterActivityPresenter opdRegisterActivityPresenter) {
+    public void saveRegistration(final List<OpdEventClient> opdEventClientList, final String jsonString, final RegisterParams registerParams, BaseOpdRegisterActivityPresenter opdRegisterActivityPresenter) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                saveRegistration(opdEventClientList, jsonString, updateRegisterParams);
+                saveRegistration(opdEventClientList, jsonString, registerParams);
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-//                        callBack.onRegistrationSaved(updateRegisterParams.isEditMode());
+//                        callBack.onRegistrationSaved(registerParams.isEditMode());
                     }
                 });
             }
@@ -86,7 +86,7 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
 
 
     private void saveRegistration(List<OpdEventClient> opdEventClients, String jsonString,
-                                  UpdateRegisterParams params) {
+                                  RegisterParams params) {
         try {
             List<String> currentFormSubmissionIds = new ArrayList<>();
 
@@ -98,10 +98,10 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
                     Event baseEvent = opdEventClient.getEvent();
 
                     if (baseClient != null) {
-                        JSONObject clientJson = new JSONObject(JsonFormUtils.gson.toJson(baseClient));
+                        JSONObject clientJson = new JSONObject(OpdJsonFormUtils.gson.toJson(baseClient));
                         if (params.isEditMode()) {
                             try {
-                                JsonFormUtils.mergeAndSaveClient(baseClient);
+                                OpdJsonFormUtils.mergeAndSaveClient(baseClient);
                             } catch (Exception e) {
                                 Timber.e(e, "OpdRegisterInteractor --> mergeAndSaveClient");
                             }
@@ -130,25 +130,25 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
         if (baseClient != null || baseEvent != null) {
             String imageLocation = null;
             if (i == 0) {
-                imageLocation = JsonFormUtils.getFieldValue(jsonString, Constants.KEY.PHOTO);
+                imageLocation = OpdJsonFormUtils.getFieldValue(jsonString, OpdConstants.KEY.PHOTO);
             } else if (i == 1) {
                 imageLocation =
-                        JsonFormUtils.getFieldValue(jsonString, JsonFormUtils.STEP2, Constants.KEY.PHOTO);
+                        OpdJsonFormUtils.getFieldValue(jsonString, OpdJsonFormUtils.STEP2, OpdConstants.KEY.PHOTO);
             }
 
             if (StringUtils.isNotBlank(imageLocation)) {
-                JsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
+                OpdJsonFormUtils.saveImage(baseEvent.getProviderId(), baseClient.getBaseEntityId(), imageLocation);
             }
         }
     }
 
-    private void updateOpenSRPId(String jsonString, UpdateRegisterParams params, Client baseClient) {
+    private void updateOpenSRPId(String jsonString, RegisterParams params, Client baseClient) {
         if (params.isEditMode()) {
             // Unassign current OPENSRP ID
             if (baseClient != null) {
                 try {
-                    String newOpenSRPId = baseClient.getIdentifier(JsonFormUtils.MER_ID).replace("-", "");
-                    String currentOpenSRPId = JsonFormUtils.getString(jsonString, JsonFormUtils.CURRENT_MER_ID).replace("-", "");
+                    String newOpenSRPId = baseClient.getIdentifier(OpdJsonFormUtils.MER_ID).replace("-", "");
+                    String currentOpenSRPId = OpdJsonFormUtils.getString(jsonString, OpdJsonFormUtils.CURRENT_MER_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
                         getUniqueIdRepository().open(currentOpenSRPId);
@@ -160,7 +160,7 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
 
         } else {
             if (baseClient != null) {
-                String opensrpId = baseClient.getIdentifier(JsonFormUtils.MER_ID);
+                String opensrpId = baseClient.getIdentifier(OpdJsonFormUtils.MER_ID);
 
                 //mark OPENSRP ID as used
                 getUniqueIdRepository().close(opensrpId);
@@ -168,9 +168,9 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
         }
     }
 
-    private void addEvent(UpdateRegisterParams params, List<String> currentFormSubmissionIds, Event baseEvent) throws JSONException {
+    private void addEvent(RegisterParams params, List<String> currentFormSubmissionIds, Event baseEvent) throws JSONException {
         if (baseEvent != null) {
-            JSONObject eventJson = new JSONObject(JsonFormUtils.gson.toJson(baseEvent));
+            JSONObject eventJson = new JSONObject(OpdJsonFormUtils.gson.toJson(baseEvent));
             getSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson, params.getStatus());
             currentFormSubmissionIds
                     .add(eventJson.getString(EventClientRepository.event_column.formSubmissionId.toString()));

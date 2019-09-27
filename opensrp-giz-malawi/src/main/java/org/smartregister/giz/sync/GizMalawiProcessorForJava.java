@@ -43,6 +43,7 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
+import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
@@ -142,7 +143,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
-                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(org.smartregister.opd.utils.Constants.EventType.OPD_REGISTRATION)) {
+                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
                     if (clientClassification == null) {
                         continue;
                     }

@@ -3,7 +3,6 @@ package org.smartregister.giz.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.support.annotation.NonNull;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -12,7 +11,6 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.giz.R;
-import org.json.JSONObject;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
 import org.smartregister.giz.util.GizConstants;
@@ -22,9 +20,9 @@ import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdRegisterActivity;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 import org.smartregister.opd.model.OpdRegisterActivityModel;
-import org.smartregister.opd.pojos.UpdateRegisterParams;
-import org.smartregister.opd.utils.Constants;
-import org.smartregister.opd.utils.JsonFormUtils;
+import org.smartregister.opd.pojos.RegisterParams;
+import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.OpdUtils;
@@ -43,7 +41,6 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //NavigationMenu.getInstance(this, null, null);
     }
 
     @Override
@@ -95,25 +92,21 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
-        if (requestCode == JsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
+        if (requestCode == OpdJsonFormUtils.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
-                String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
+                String jsonString = data.getStringExtra(OpdConstants.JSON_FORM_EXTRA.JSON);
                 Timber.d("JSONResult : %s", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
-                if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(OpdUtils.metadata().getRegisterEventType())) {
-                    UpdateRegisterParams updateRegisterParam = new UpdateRegisterParams();
-                    updateRegisterParam.setEditMode(false);
-                    updateRegisterParam.setFormTag(JsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));
+                if (form.getString(OpdJsonFormUtils.ENCOUNTER_TYPE).equals(OpdUtils.metadata().getRegisterEventType())) {
+                    RegisterParams registerParam = new RegisterParams();
+                    registerParam.setEditMode(false);
+                    registerParam.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));
 
                     // showProgressDialog(R.string.saving_dialog_title);
-                    presenter().saveForm(jsonString, updateRegisterParam);
-                } else if (form.getString(JsonFormUtils.ENCOUNTER_TYPE).equals(OpdUtils.metadata().getOutOfCatchmentServiceEventType())) {
-
-                    // showProgressDialog(R.string.saving_dialog_title);
-//                    presenter().saveOutOfCatchmentService(jsonString,this);
-
+                    presenter().saveForm(jsonString, registerParam);
                 }
+
             } catch (Exception e) {
                 Timber.e(e);
             }
@@ -139,9 +132,9 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         Intent intent = new Intent(this, OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getOpdFormActivity());
         if (jsonForm.has(GizConstants.KEY.ENCOUNTER_TYPE) && jsonForm.optString(GizConstants.KEY.ENCOUNTER_TYPE).equals(
                 GizConstants.KEY.OPD_REGISTRATION)) {
-//            JsonFormUtils.addRegLocHierarchyQuestions(jsonForm, GizConstants.KEY.REGISTRATION_HOME_ADDRESS, LocationHierarchy.ENTIRE_TREE);
+//            OpdJsonFormUtils.addRegLocHierarchyQuestions(jsonForm, GizConstants.KEY.REGISTRATION_HOME_ADDRESS, LocationHierarchy.ENTIRE_TREE);
         }
-        intent.putExtra(Constants.INTENT_KEY.JSON, jsonForm.toString());
+        intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         Form form = new Form();
         form.setWizard(false);
@@ -149,7 +142,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         form.setNextLabel("");
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(intent, OpdJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
 

@@ -6,9 +6,9 @@ import org.json.JSONObject;
 import org.smartregister.giz.R;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojos.OpdEventClient;
-import org.smartregister.opd.pojos.UpdateRegisterParams;
+import org.smartregister.opd.pojos.RegisterParams;
 import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
-import org.smartregister.opd.utils.JsonFormUtils;
+import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 
 import java.lang.ref.WeakReference;
@@ -34,17 +34,17 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     }
 
     @Override
-    public void saveForm(String jsonString, UpdateRegisterParams updateRegisterParams) {
+    public void saveForm(String jsonString, RegisterParams registerParams) {
         try {
-            if (updateRegisterParams.getFormTag() == null) {
-                updateRegisterParams.setFormTag(JsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
+            if (registerParams.getFormTag() == null) {
+                registerParams.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
             }
-            List<OpdEventClient> opdEventClientList = model.processRegistration(jsonString, updateRegisterParams.getFormTag());
+            List<OpdEventClient> opdEventClientList = model.processRegistration(jsonString, registerParams.getFormTag());
             if (opdEventClientList == null || opdEventClientList.isEmpty()) {
                 return;
             }
-            updateRegisterParams.setEditMode(false);
-            interactor.saveRegistration(opdEventClientList, jsonString, updateRegisterParams, this);
+            registerParams.setEditMode(false);
+            interactor.saveRegistration(opdEventClientList, jsonString, registerParams, this);
 
         } catch (Exception e) {
             Timber.e(e);
@@ -111,9 +111,4 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     public void setModel(OpdRegisterActivityContract.Model model) {
         this.model = model;
     }
-
-    public void setInteractor(OpdRegisterActivityContract.Interactor interactor) {
-        this.interactor = interactor;
-    }
-
 }
