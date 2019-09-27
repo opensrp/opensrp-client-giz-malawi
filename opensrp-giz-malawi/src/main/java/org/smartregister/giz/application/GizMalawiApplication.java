@@ -183,12 +183,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
+
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class).build();
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
                 OpdConstants.CONFIG,OpdFormActivity.class,null,true);
         opdConfiguration.setOpdMetadata(opdMetadata);
-        OpdLibrary.init(context, getRepository(), opdConfiguration);
+        OpdLibrary.init(context, getRepository(), opdConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
