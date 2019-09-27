@@ -9,7 +9,7 @@ import org.smartregister.opd.pojos.OpdEventClient;
 import org.smartregister.opd.pojos.UpdateRegisterParams;
 import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.JsonFormUtils;
-import org.smartregister.opd.utils.Utils;
+import org.smartregister.opd.utils.OpdUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -37,7 +37,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     public void saveForm(String jsonString, UpdateRegisterParams updateRegisterParams) {
         try {
             if (updateRegisterParams.getFormTag() == null) {
-                updateRegisterParams.setFormTag(JsonFormUtils.formTag(Utils.getAllSharedPreferences()));
+                updateRegisterParams.setFormTag(JsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
             }
             List<OpdEventClient> opdEventClientList = model.processRegistration(jsonString, updateRegisterParams.getFormTag());
             if (opdEventClientList == null || opdEventClientList.isEmpty()) {
