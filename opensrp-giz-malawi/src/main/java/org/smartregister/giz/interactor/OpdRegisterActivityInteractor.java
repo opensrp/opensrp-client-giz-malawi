@@ -14,7 +14,6 @@ import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.interactor.BaseOpdRegisterActivityInteractor;
 import org.smartregister.opd.pojos.OpdEventClient;
 import org.smartregister.opd.pojos.RegisterParams;
-import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.AppExecutors;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
@@ -69,7 +68,8 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
     }
 
     @Override
-    public void saveRegistration(final List<OpdEventClient> opdEventClientList, final String jsonString, final RegisterParams registerParams, BaseOpdRegisterActivityPresenter opdRegisterActivityPresenter) {
+    public void saveRegistration(final List<OpdEventClient> opdEventClientList, final String jsonString,
+                                 final RegisterParams registerParams, final OpdRegisterActivityContract.InteractorCallBack callBack) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -77,7 +77,7 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-//                        callBack.onRegistrationSaved(registerParams.isEditMode());
+                        callBack.onRegistrationSaved(registerParams.isEditMode());
                     }
                 });
             }
