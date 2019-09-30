@@ -1,5 +1,7 @@
 package org.smartregister.giz.presenter;
 
+import android.support.annotation.NonNull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONException;
@@ -85,8 +87,8 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
     }
 
 
-    private void saveRegistration(List<OpdEventClient> opdEventClients, String jsonString,
-                                  RegisterParams params) {
+    private void saveRegistration(@NonNull List<OpdEventClient> opdEventClients,@NonNull String jsonString,
+                                  @NonNull RegisterParams params) {
         try {
             List<String> currentFormSubmissionIds = new ArrayList<>();
 

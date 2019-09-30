@@ -1,5 +1,7 @@
 package org.smartregister.giz.presenter;
 
+import android.support.annotation.NonNull;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
@@ -34,7 +36,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     }
 
     @Override
-    public void saveForm(String jsonString, RegisterParams registerParams) {
+    public void saveForm(@NonNull String jsonString,@NonNull RegisterParams registerParams) {
         try {
             if (registerParams.getFormTag() == null) {
                 registerParams.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
@@ -52,7 +54,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     }
 
     @Override
-    public void startForm(String formName, String entityId, String metaData, String locationId) {
+    public void startForm(@NonNull String formName,@NonNull String entityId,@NonNull String metaData,@NonNull String locationId) {
         if (StringUtils.isBlank(entityId)) {
             Triple<String, String, String> triple = Triple.of(formName, metaData, locationId);
             interactor.getNextUniqueId(triple, this);
@@ -74,7 +76,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     }
 
     @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
+    public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple,@NonNull String entityId) {
         try {
             startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
         } catch (Exception e) {
