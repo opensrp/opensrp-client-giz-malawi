@@ -1,5 +1,6 @@
 package org.smartregister.giz.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +12,11 @@ import android.widget.ImageView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.view.NavDrawerActivity;
+import org.smartregister.opd.activity.OpdProfileActivity;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
+import org.smartregister.opd.utils.OpdConstants;
+
+import java.util.HashMap;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-17
@@ -66,11 +71,16 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
     @Override
     protected void performPatientAction(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
-
     }
 
     @Override
-    protected void goToClientDetailActivity(CommonPersonObjectClient commonPersonObjectClient) {
+    protected void goToClientDetailActivity(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
+        Intent intent = new Intent(getActivity(), OpdProfileActivity.class);
+        intent.putExtra(OpdConstants.IntentKey.BASE_ENTITY_ID, commonPersonObjectClient.getCaseId());
+        intent.putExtra(OpdConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
+        intent.putExtra(OpdConstants.IntentKey.CLIENT_MAP, (HashMap<String, String>) commonPersonObjectClient.getColumnmaps());
+
+        startActivity(intent);
 
     }
 }

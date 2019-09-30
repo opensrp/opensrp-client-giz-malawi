@@ -172,11 +172,19 @@
 
         <!-- END OF ANC ACTIVITIES -->
 
+
+
+
         <!-- OPD ACTIVITIES -->
+        <activity
+            android:name="org.smartregister.giz.activity.OpdRegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChildTheme.NoActionBar" />
 
 
         <activity
-            android:name="org.smartregister.giz.activity.OpdRegisterActivity"
+            android:name="org.smartregister.opd.activity.OpdProfileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
