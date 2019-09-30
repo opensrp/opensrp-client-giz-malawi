@@ -440,10 +440,10 @@
           }
         },
         {
-          "column_name": "mer_id",
+          "column_name": "opensrp_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.MER_ID"
+            "field": "identifiers.OPENSRP_ID"
           }
         },
         {

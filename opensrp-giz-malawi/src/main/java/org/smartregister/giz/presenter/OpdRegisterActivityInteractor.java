@@ -147,8 +147,8 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
             // Unassign current OPENSRP ID
             if (baseClient != null) {
                 try {
-                    String newOpenSRPId = baseClient.getIdentifier(OpdJsonFormUtils.MER_ID).replace("-", "");
-                    String currentOpenSRPId = OpdJsonFormUtils.getString(jsonString, OpdJsonFormUtils.CURRENT_MER_ID).replace("-", "");
+                    String newOpenSRPId = baseClient.getIdentifier(OpdJsonFormUtils.OPENSRP_ID).replace("-", "");
+                    String currentOpenSRPId = OpdJsonFormUtils.getString(jsonString, OpdJsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
                         //OPENSRP ID was changed
                         getUniqueIdRepository().open(currentOpenSRPId);
@@ -160,7 +160,7 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
 
         } else {
             if (baseClient != null) {
-                String opensrpId = baseClient.getIdentifier(OpdJsonFormUtils.MER_ID);
+                String opensrpId = baseClient.getIdentifier(OpdJsonFormUtils.OPENSRP_ID);
 
                 //mark OPENSRP ID as used
                 getUniqueIdRepository().close(opensrpId);
