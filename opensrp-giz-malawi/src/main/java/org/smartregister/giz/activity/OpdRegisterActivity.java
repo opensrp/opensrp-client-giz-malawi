@@ -103,7 +103,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
                     registerParam.setEditMode(false);
                     registerParam.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));
 
-                    // showProgressDialog(R.string.saving_dialog_title);
+                    showProgressDialog(R.string.saving_dialog_title);
                     presenter().saveForm(jsonString, registerParam);
                 }
 

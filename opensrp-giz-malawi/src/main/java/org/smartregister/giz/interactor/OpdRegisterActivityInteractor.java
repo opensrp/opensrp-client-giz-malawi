@@ -1,4 +1,4 @@
-package org.smartregister.giz.presenter;
+package org.smartregister.giz.interactor;
 
 import android.support.annotation.NonNull;
 

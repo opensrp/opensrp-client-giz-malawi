@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.json.JSONObject;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
+import org.smartregister.giz.interactor.OpdRegisterActivityInteractor;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojos.OpdEventClient;
 import org.smartregister.opd.pojos.RegisterParams;
@@ -85,6 +87,12 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
         }
     }
 
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        getView().refreshList(FetchStatus.fetched);
+        getView().hideProgressDialog();
+    }
+
     private OpdRegisterActivityContract.View getView() {
         if (viewReference != null) {
             return viewReference.get();
@@ -113,4 +121,5 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     public void setModel(OpdRegisterActivityContract.Model model) {
         this.model = model;
     }
+
 }
