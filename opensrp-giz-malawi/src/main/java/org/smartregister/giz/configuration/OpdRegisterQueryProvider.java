@@ -51,7 +51,8 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "dob",
                 "home_address",
                 "'Child' AS register_type",
-                "relational_id AS relationalid"
+                "relational_id AS relationalid",
+                "zeir_id AS register_id"
         });
 
         QueryTable womanTableCol = new QueryTable();
@@ -67,7 +68,8 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "NULL AS mother_first_name",
                 "NULL AS mother_last_name",
                 "NULL AS mother_middle_name",
-                "relationalid"
+                "relationalid",
+                "register_id"
         });
 
         InnerJoinObject[] tablesWithInnerJoins = new InnerJoinObject[1];
