@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.giz.R;
@@ -39,11 +40,6 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     private NavigationMenu navigationMenu;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected BaseOpdRegisterActivityPresenter createPresenter(@NonNull OpdRegisterActivityContract.View view, @NonNull OpdRegisterActivityContract.Model model) {
         return new OpdRegisterActivityPresenter(view, model);
     }
@@ -61,8 +57,10 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     public void createDrawer() {
         navigationMenu = NavigationMenu.getInstance(this, null, null);
-        navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.ALL_CLIENTS);
-        navigationMenu.runRegisterCount();
+        if (navigationMenu != null) {
+            navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.ALL_CLIENTS);
+            navigationMenu.runRegisterCount();
+        }
     }
 
     @Override
@@ -85,9 +83,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void closeDrawer() {
-        if (navigationMenu != null) {
-            navigationMenu.closeDrawer();
-        }
+        NavigationMenu.closeDrawer();
     }
 
     @Override
@@ -107,7 +103,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
                     presenter().saveForm(jsonString, registerParam);
                 }
 
-            } catch (Exception e) {
+            } catch (JSONException e) {
                 Timber.e(e);
             }
 
@@ -116,15 +112,14 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        try {
+
             if (mBaseFragment instanceof BaseOpdRegisterFragment) {
                 String locationId = OpdUtils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
                 presenter().startForm(formName, entityId, metaData, locationId);
             }
-        } catch (Exception e) {
-            Timber.e(e);
+
             displayToast(getString(R.string.error_unable_to_start_form));
-        }
+
     }
 
     @Override

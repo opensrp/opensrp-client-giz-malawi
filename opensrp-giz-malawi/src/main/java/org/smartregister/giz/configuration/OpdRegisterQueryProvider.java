@@ -42,7 +42,8 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
 
         return new String[] {
                 sqb.countQueryFts("ec_child", null, null, filters),
-                sqb.countQueryFts("ec_mother", null, null, filters)
+                sqb.countQueryFts("ec_mother", null, null, filters),
+                sqb.countQueryFts("ec_client", null, null, filters)
         };
     }
 
@@ -112,6 +113,8 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         tableColsInnerJoin.innerJoinTable(innerJoinMotherTable);
         tablesWithInnerJoins[0] = tableColsInnerJoin;
 
-        return mainSelectWhereIdsIn(tablesWithInnerJoins, new QueryTable[]{womanTableCol, clientTableCol});
+        String query = mainSelectWhereIdsIn(tablesWithInnerJoins, new QueryTable[]{womanTableCol, clientTableCol});
+        query += " ORDER BY last_interacted_with DESC";
+        return query;
     }
 }

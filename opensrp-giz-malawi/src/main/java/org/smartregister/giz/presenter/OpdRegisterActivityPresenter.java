@@ -1,9 +1,11 @@
 package org.smartregister.giz.presenter;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
@@ -66,33 +68,36 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
         JSONObject form = null;
         try {
             form = model.getFormAsJson(formName, entityId, locationId);
-        } catch (Exception e) {
+        } catch (JSONException e) {
             Timber.e(e);
         }
-        getView().startFormActivity(form);
+
+        if (getView() != null) {
+            getView().startFormActivity(form);
+        }
     }
 
     @Override
     public void onNoUniqueId() {
-        getView().displayShortToast(R.string.no_unique_id);
-    }
-
-    @Override
-    public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple,@NonNull String entityId) {
-        try {
-            startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
-        } catch (Exception e) {
-            Timber.e(e);
-            getView().displayToast(R.string.error_unable_to_start_form);
+        if (getView() != null) {
+            getView().displayShortToast(R.string.no_unique_id);
         }
     }
 
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        getView().refreshList(FetchStatus.fetched);
-        getView().hideProgressDialog();
+    public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple,@NonNull String entityId) {
+        startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
     }
 
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        if (getView() != null) {
+            getView().refreshList(FetchStatus.fetched);
+            getView().hideProgressDialog();
+        }
+    }
+
+    @Nullable
     private OpdRegisterActivityContract.View getView() {
         if (viewReference != null) {
             return viewReference.get();
@@ -104,7 +109,10 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     @Override
     public void saveLanguage(String language) {
         model.saveLanguage(language);
-        getView().displayToast(language + " selected");
+
+        if (getView() != null) {
+            getView().displayToast(String.format(getView().getContext().getString(R.string.language_x_selected), language));
+        }
     }
 
 
