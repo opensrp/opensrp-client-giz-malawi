@@ -1,5 +1,7 @@
 package org.smartregister.giz.util;
 
+import android.support.annotation.NonNull;
+
 import org.smartregister.child.util.Constants;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -110,5 +112,9 @@ public class DBQueryHelper {
 
     public static String getSortQuery() {
         return GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+    }
+
+    public static String genericQueryWrapper(@NonNull String query, @NonNull String condition){
+        return "select * from ( " + query + " ) " + condition;
     }
 }

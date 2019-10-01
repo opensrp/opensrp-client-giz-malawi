@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.OpdRegisterActivity;
+import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
@@ -75,5 +76,10 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
     @Override
     protected void goToClientDetailActivity(CommonPersonObjectClient commonPersonObjectClient) {
 
+    }
+
+    @Override
+    protected String getDefaultSortQuery() {
+        return DBQueryHelper.genericQueryWrapper( super.getDefaultSortQuery(), "order by last_interacted_with DESC");
     }
 }
