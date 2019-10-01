@@ -99,7 +99,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[]{GizConstants.TABLE_NAME.CHILD, DBConstants.WOMAN_TABLE_NAME};
+        return new String[]{GizConstants.TABLE_NAME.CHILD, DBConstants.WOMAN_TABLE_NAME, OpdDbConstants.KEY.TABLE};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
@@ -107,6 +107,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             return new String[]{GizConstants.KEY.ZEIR_ID, GizConstants.KEY.FIRST_NAME, GizConstants.KEY.LAST_NAME};
         } else if (tableName.equalsIgnoreCase(DBConstants.WOMAN_TABLE_NAME)) {
             return new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, DBConstants.KEY.ANC_ID};
+        } else if (tableName.equals(OpdDbConstants.KEY.TABLE)) {
+            return new String[]{DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME, OpdDbConstants.KEY.OPENSRP_ID};
         }
 
         return null;
@@ -132,6 +134,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
             return names.toArray(new String[names.size()]);
         } else if (tableName.equals(DBConstants.WOMAN_TABLE_NAME)) {
+            return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
+                    DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
+        } else if (tableName.equals(OpdDbConstants.KEY.TABLE)){
             return new String[]{DBConstants.KEY.BASE_ENTITY_ID, DBConstants.KEY.FIRST_NAME, DBConstants.KEY.LAST_NAME,
                     DBConstants.KEY.LAST_INTERACTED_WITH, DBConstants.KEY.DATE_REMOVED};
         }

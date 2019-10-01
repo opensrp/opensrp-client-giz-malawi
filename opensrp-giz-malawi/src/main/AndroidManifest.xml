@@ -182,6 +182,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
 
+        <activity
+            android:name="org.smartregister.giz.activity.OpdFormActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChildTheme.NoActionBar" />
+
 
         <activity
             android:name="org.smartregister.opd.activity.OpdProfileActivity"
