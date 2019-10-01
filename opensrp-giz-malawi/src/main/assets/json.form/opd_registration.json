@@ -299,7 +299,7 @@
         "value": "Lombwa Outreach",
         "hint": "Address/Location",
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "Please enter the Home Address"
         }
       },

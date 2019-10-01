@@ -23,13 +23,13 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                     "(SELECT object_id, last_interacted_with FROM ec_child_search " +
                     "UNION ALL SELECT object_id, last_interacted_with FROM ec_mother_search " +
                     "UNION ALL SELECT object_id, last_interacted_with FROM ec_client_search) " +
-                    "ORDER BY last_interacted_with";
+                    "ORDER BY last_interacted_with DESC";
         } else {
             String sql = "SELECT object_id FROM " +
                     "(SELECT object_id, last_interacted_with FROM ec_child_search WHERE date_removed IS NULL AND phrase MATCH '%s*' " +
                     "UNION ALL SELECT object_id, last_interacted_with FROM ec_mother_search WHERE date_removed IS NULL AND phrase MATCH '%s*' " +
                     "UNION ALL SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*') " +
-                    "ORDER BY last_interacted_with";
+                    "ORDER BY last_interacted_with DESC";
             sql = sql.replace("%s", filters);
             return sql;
         }
@@ -59,7 +59,8 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "dob",
                 "home_address",
                 "'Child' AS register_type",
-                "relational_id AS relationalid"
+                "relational_id AS relationalid",
+                "last_interacted_with"
         });
 
         QueryTable womanTableCol = new QueryTable();
@@ -72,10 +73,11 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "dob",
                 "home_address",
                 "'ANC' AS register_type",
+                "relationalid",
+                "last_interacted_with",
                 "NULL AS mother_first_name",
                 "NULL AS mother_last_name",
                 "NULL AS mother_middle_name",
-                "relationalid"
         });
 
         QueryTable clientTableCol = new QueryTable();
@@ -88,10 +90,11 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "dob",
                 "'' AS home_address",
                 "'OPD' AS register_type",
+                "relationalid",
+                "last_interacted_with",
                 "NULL AS mother_first_name",
                 "NULL AS mother_last_name",
                 "NULL AS mother_middle_name",
-                "relationalid"
         });
 
         InnerJoinObject[] tablesWithInnerJoins = new InnerJoinObject[1];
@@ -111,4 +114,11 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
 
         return mainSelectWhereIdsIn(tablesWithInnerJoins, new QueryTable[]{womanTableCol, clientTableCol});
     }
+
+    @NonNull
+    @Override
+    public String genericQueryWrapper(String query, String condition) {
+        return "select * from (" + query + ") "+condition;
+    }
+
 }
