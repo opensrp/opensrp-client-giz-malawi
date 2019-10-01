@@ -114,11 +114,4 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
 
         return mainSelectWhereIdsIn(tablesWithInnerJoins, new QueryTable[]{womanTableCol, clientTableCol});
     }
-
-    @NonNull
-    @Override
-    public String genericQueryWrapper(String query, String condition) {
-        return "select * from (" + query + ") "+condition;
-    }
-
 }
