@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.OpdRegisterActivity;
-import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
@@ -65,7 +64,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
     @Override
     protected void startRegistration() {
-        ((OpdRegisterActivity) getActivity()).startFormActivity(OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getFormName(),null,null);
+        ((OpdRegisterActivity) getActivity()).startFormActivity(OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getOpdRegistrationFormName(), null, null);
     }
 
     @Override
@@ -74,12 +73,12 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
     }
 
     @Override
-    protected void goToClientDetailActivity(CommonPersonObjectClient commonPersonObjectClient) {
+    protected void goToClientDetailActivity(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
 
     }
 
     @Override
     protected String getDefaultSortQuery() {
-        return DBQueryHelper.genericQueryWrapper( super.getDefaultSortQuery(), "order by last_interacted_with DESC");
+        return "";
     }
 }
