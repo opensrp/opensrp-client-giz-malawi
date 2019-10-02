@@ -116,20 +116,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginStart="15dp"
                             android:fontFamily="sans-serif"
-                            android:textSize="24dp"
+                            android:textSize="24sp"
                             android:text="@string/service_location"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="50sp"
+                            android:layout_height="50dp"
                             android:background="@color/black"
                             android:layout_marginStart="10dp"
-                            android:layout_marginBottom="20sp"
-                            android:layout_marginEnd="30sp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginEnd="30dp"
                             android:orientation="horizontal"
-                            android:layout_marginTop="5sp">
+                            android:layout_marginTop="5dp">
                             <org.smartregister.view.LocationPickerView
                                 android:id="@+id/clinic_selection"
                                 style="@style/CustomFontTextViewStyle.StatusBar"
@@ -143,7 +143,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:typeface="normal"
-                                android:layout_marginStart="10sp"
+                                android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
                                 android:paddingEnd="5dp"
                                 android:paddingStart="5dp"
@@ -342,7 +342,7 @@
 
                 <TextView
                     android:id="@+id/tvSync"
-                    android:layout_width="80sp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"

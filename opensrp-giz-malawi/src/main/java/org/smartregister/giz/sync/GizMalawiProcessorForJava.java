@@ -45,6 +45,7 @@ import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.repository.DetailsRepository;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 
 import java.text.DateFormat;
@@ -112,6 +113,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     if (vaccineTable == null) {
                         continue;
+                    }
+
+                    if(!childExists(eventClient.getClient().getBaseEntityId())){
+                        List<String> createCase = new ArrayList<>();
+                        createCase.add("ec_child");
+                        processCaseModel(event, eventClient.getClient(), createCase);
                     }
 
                     processVaccine(eventClient, vaccineTable,
@@ -183,6 +190,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 miniClientProcessorForJava.unSync(processorUnsyncEvents);
             }
         }
+    }
+
+    private boolean childExists(String entityId) {
+        return GizMalawiApplication.getInstance().eventClientRepository().checkIfExists(EventClientRepository.Table.client, entityId);
     }
 
     private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {

@@ -1,7 +1,6 @@
 package org.smartregister.giz.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.NonNull;
 
@@ -112,14 +111,13 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-
-            if (mBaseFragment instanceof BaseOpdRegisterFragment) {
-                String locationId = OpdUtils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-                presenter().startForm(formName, entityId, metaData, locationId);
-            }
+        if (mBaseFragment instanceof BaseOpdRegisterFragment) {
+            String locationId = OpdUtils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+            presenter().startForm(formName, entityId, metaData, locationId);
+        } else {
 
             displayToast(getString(R.string.error_unable_to_start_form));
-
+        }
     }
 
     @Override
@@ -163,4 +161,4 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     protected Fragment[] getOtherFragments() {
         return new Fragment[0];
     }
-    }
+}
