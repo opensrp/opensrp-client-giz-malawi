@@ -103,5 +103,7 @@
     <string name="all_registers">All Registers</string>
     <string name="menu_child_clients">Child Clients</string>
     <string name="menu_anc_clients">ANC Clients</string>
+    <string name="due_only">Due only</string>
     <string name="anc_register">ANC Register</string>
+    <string name="title_child">Child</string>
 </resources>
