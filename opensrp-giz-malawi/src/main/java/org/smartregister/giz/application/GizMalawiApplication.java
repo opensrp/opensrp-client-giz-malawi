@@ -33,7 +33,7 @@ import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.sync.GizMalawiProcessorForJava;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.giz.util.SampleIConstants;
+import org.smartregister.giz.util.VaccineDuplicate;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
@@ -112,7 +112,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private static String[] getFtsSortFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
 
-            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD);
+            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD, true);
             List<String> names = new ArrayList<>();
             names.add(GizConstants.KEY.FIRST_NAME);
             names.add(GizConstants.KEY.DOB);
@@ -137,7 +137,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static Map<String, Pair<String, Boolean>> getAlertScheduleMap() {
-        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child", true);
         Map<String, Pair<String, Boolean>> map = new HashMap<>();
         for (VaccineRepo.Vaccine vaccine : vaccines) {
             map.put(vaccine.display(), Pair.create(GizConstants.TABLE_NAME.CHILD, false));
@@ -174,6 +174,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 growthMonitoringConfig);
         ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(), BuildConfig.VERSION_CODE,
                 BuildConfig.DATABASE_VERSION);
+        fixHardcodedVaccineConfiguration();
+
         ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
@@ -193,6 +195,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         //init Job Manager
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
     }
 
     private ChildMetadata getMetadata() {
@@ -346,6 +349,28 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
         }
         return ecSyncHelper;
+    }
+
+    private void fixHardcodedVaccineConfiguration() {
+        VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines();
+
+        HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
+        replacementVaccines.put("MR 2", new VaccineDuplicate("MR 2", VaccineRepo.Vaccine.mr1, -1, 548, 183, "child"));
+        replacementVaccines.put("BCG 2", new VaccineDuplicate("BCG 2", VaccineRepo.Vaccine.bcg, 1825, 0, 42, "child"));
+
+        for (VaccineRepo.Vaccine vaccine: vaccines) {
+            if (replacementVaccines.containsKey(vaccine.display())) {
+                VaccineDuplicate vaccineDuplicate = replacementVaccines.get(vaccine.display());
+
+                vaccine.setCategory(vaccineDuplicate.category());
+                vaccine.setExpiryDays(vaccineDuplicate.expiryDays());
+                vaccine.setMilestoneGapDays(vaccineDuplicate.milestoneGapDays());
+                vaccine.setPrerequisite(vaccineDuplicate.prerequisite());
+                vaccine.setPrerequisiteGapDays(vaccineDuplicate.prerequisiteGapDays());
+            }
+        }
+
+        ImmunizationLibrary.getInstance().setVaccines(vaccines);
     }
 }
 

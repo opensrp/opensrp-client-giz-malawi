@@ -102,8 +102,28 @@
     <string name="action_start_sync">Sync Started</string>
     <string name="all_registers">All Registers</string>
     <string name="menu_child_clients">Child Clients</string>
+
+    <string name="vit_a_1">Vit A 1</string>
+    <string name="vit_a_2">Vit A 2</string>
+    <string name="vit_a_3">Vit A 3</string>
+    <string name="vit_a_4">Vit A 4</string>
+    <string name="vit_a_5">Vit A 5</string>
+    <string name="bcg_2">BCG Repeated Dose</string>
+
+    <!-- Override BCG 2 dialog text to read BCG Repeated Dose -->
+    <string name="create_reminder_label">Create BCG Repeated Dose reminder?</string>
+    <string name="bcg_scar_not_present_label">Child does not have a BCG scar so BCG Repeated Dose is necessary.</string>
+    <string name="bcg_scar_present_label">BCG scar is present so no BCG Repeated Dose is necessary.</string>
+
+    <string name="ipv">IPV</string>
+    <string name="bcg">BCG</string>
+
     <string name="menu_anc_clients">ANC Clients</string>
     <string name="due_only">Due only</string>
     <string name="anc_register">ANC Register</string>
+
+    <!-- Override labels in profile and immunization section -->
+    <string name="label_zeir">MER ID</string>
+    <string name="system_id_colon">MER ID:</string>
     <string name="title_child">Child</string>
 </resources>
