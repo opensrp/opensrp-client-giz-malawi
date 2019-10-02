@@ -1,22 +1,27 @@
 package org.smartregister.giz.activity;
 
+import android.support.v4.app.Fragment;
+
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
+import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.fragment.AncRegisterFragment;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
+import org.smartregister.giz.view.RegisterViewWithDrawer;
+import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-09
  */
 
-public class AncRegisterActivity extends BaseHomeRegisterActivity {
+public class AncRegisterActivity extends BaseHomeRegisterActivity implements RegisterViewWithDrawer {
 
     private NavigationMenu navigationMenu;
 
     @Override
     protected void registerBottomNavigation() {
-        // Do nothing
+        // Do nothing because the bottom navigation was removed and overriden by someone
     }
 
     @Override
@@ -40,6 +45,22 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity {
     }
 
     @Override
+    protected Fragment[] getOtherFragments() {
+        int posCounter = 0;
+        if (this.isMeItemEnabled()) {
+            ++posCounter;
+            BaseRegisterActivity.ME_POSITION = 1;
+        }
+
+        Fragment[] fragments = new Fragment[posCounter];
+        if (this.isMeItemEnabled()) {
+            fragments[BaseRegisterActivity.ME_POSITION - 1] = new MeFragment();
+        }
+
+        return fragments;
+    }
+
+    @Override
     public BaseRegisterFragment getRegisterFragment() {
         return new AncRegisterFragment();
     }
@@ -51,7 +72,7 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity {
 
     @Override
     public boolean isMeItemEnabled() {
-        return false;
+        return true;
     }
 
     @Override
@@ -69,5 +90,10 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity {
         if (navigationMenu != null) {
             navigationMenu.closeDrawer();
         }
+    }
+
+    @Override
+    public void finishActivity() {
+        finish();
     }
 }
