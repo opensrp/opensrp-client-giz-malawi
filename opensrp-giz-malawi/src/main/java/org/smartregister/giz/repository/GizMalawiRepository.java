@@ -38,7 +38,6 @@ import timber.log.Timber;
 
 public class GizMalawiRepository extends Repository {
 
-
     private static final String TAG = GizMalawiApplication.class.getCanonicalName();
 
     protected SQLiteDatabase readableDatabase;
@@ -375,11 +374,4 @@ public class GizMalawiRepository extends Repository {
             Timber.e("upgradeToVersion7RemoveUnnecessaryTables( %s", Log.getStackTraceString(e));
         }
     }
-
-    private void addEcMotherFieldsForAnc(SQLiteDatabase db) {
-        db.execSQL("");
-
-    }
-
-
 }
