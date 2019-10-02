@@ -70,6 +70,7 @@ import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
+
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
     private EventClientRepository eventClientRepository;
