@@ -60,6 +60,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "home_address",
                 "'Child' AS register_type",
                 "relational_id AS relationalid",
+                "zeir_id AS register_id",
                 "last_interacted_with"
         });
 
@@ -74,6 +75,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "home_address",
                 "'ANC' AS register_type",
                 "relationalid",
+                "register_id",
                 "last_interacted_with",
                 "NULL AS mother_first_name",
                 "NULL AS mother_last_name",
@@ -91,6 +93,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "'' AS home_address",
                 "'OPD' AS register_type",
                 "relationalid",
+                "opensrp_id AS register_id",
                 "last_interacted_with",
                 "NULL AS mother_first_name",
                 "NULL AS mother_last_name",
