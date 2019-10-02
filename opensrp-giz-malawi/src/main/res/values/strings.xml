@@ -120,5 +120,9 @@
 
     <string name="due_only">Due only</string>
     <string name="anc_register">ANC Register</string>
+
+    <!-- Override labels in profile and immunization section -->
+    <string name="label_zeir">MER ID</string>
+    <string name="system_id_colon">MER ID:</string>
     <string name="title_child">Child</string>
 </resources>
