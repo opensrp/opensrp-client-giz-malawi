@@ -23,6 +23,8 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.opd.repository.CheckInRepository;
+import org.smartregister.opd.repository.VisitRepository;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Hia2ReportRepository;
@@ -72,15 +74,16 @@ public class GizMalawiRepository extends Repository {
         HeightRepository.createTable(database);
         VaccineRepository.createTable(database);
 
+        VisitRepository.createTable(database);
+        CheckInRepository.createTable(database);
+
         runLegacyUpgrades(database);
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(WeightRepository.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
+        Timber.w("Upgrading database from version %d to %d, which will destroy all old data", oldVersion, newVersion);
 
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
