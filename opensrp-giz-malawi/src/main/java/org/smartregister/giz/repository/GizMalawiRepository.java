@@ -8,6 +8,9 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
+import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
+import org.smartregister.anc.library.repository.PatientRepositoryHelper;
+import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
 import org.smartregister.child.util.Utils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.domain.db.Column;
@@ -56,6 +59,10 @@ public class GizMalawiRepository extends Repository {
                 .createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
         ConfigurableViewsRepository.createTable(database);
         UniqueIdRepository.createTable(database);
+
+        PartialContactRepositoryHelper.createTable(database);
+        PreviousContactRepositoryHelper.createTable(database);
+
         SettingsRepository.onUpgrade(database);
         WeightRepository.createTable(database);
         HeightRepository.createTable(database);
@@ -99,6 +106,8 @@ public class GizMalawiRepository extends Repository {
             }
             upgradeTo++;
         }
+
+        PatientRepositoryHelper.performMigrations(db);
     }
 
     @Override
@@ -359,6 +368,4 @@ public class GizMalawiRepository extends Repository {
             Timber.e("upgradeToVersion7RemoveUnnecessaryTables( %s", Log.getStackTraceString(e));
         }
     }
-
-
 }

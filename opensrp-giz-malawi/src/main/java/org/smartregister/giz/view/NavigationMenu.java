@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,7 @@ import org.smartregister.giz.presenter.NavigationPresenter;
 import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.LocationPickerView;
+import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
@@ -57,6 +60,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private ImageView ivSync;
     private ProgressBar syncProgressBar;
     private NavigationContract.Presenter mPresenter;
+    private RelativeLayout settingsLayout;
+
     private View parentView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
     private NavigationMenu() {
@@ -148,6 +153,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         recyclerView = rootView.findViewById(R.id.rvOptions);
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
         syncProgressBar = rootView.findViewById(R.id.pbSync);
+        settingsLayout = rootView.findViewById(R.id.rlSettings);
+
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
         LocationPickerView locationPickerView = rootView.findViewById(R.id.clinic_selection);
         locationPickerView.init();
@@ -174,8 +181,26 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerLanguageSwitcher(activity);
 
         registerDeviceToDeviceSync(activity);
+        registerSettings(activity);
+
         // update all actions
         mPresenter.refreshLastSync();
+    }
+
+    private void registerSettings(@NonNull final Activity activity) {
+        if (settingsLayout != null) {
+            settingsLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (activity instanceof BaseRegisterActivity) {
+                        ((BaseRegisterActivity) activity).switchToFragment(BaseRegisterActivity.ME_POSITION);
+                        closeDrawer();
+                    } else {
+                        Timber.e(new Exception("Cannot open Settings since this activity is not a child of BaseRegisterActivity"));
+                    }
+                }
+            });
+        }
     }
 
     private void registerNavigation(Activity parentActivity) {
@@ -315,5 +340,19 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         mPresenter.refreshLastSync();
         // refreshLastSync(new Date());
         mPresenter.refreshNavigationCount();
+    }
+
+    public void openDrawer() {
+        drawer.openDrawer(GravityCompat.START);
+    }
+
+    public DrawerLayout getDrawer() {
+        return drawer;
+    }
+
+    public static void closeDrawer() {
+        if (instance != null && instance.getDrawer() != null) {
+            instance.getDrawer().closeDrawer(Gravity.START);
+        }
     }
 }
