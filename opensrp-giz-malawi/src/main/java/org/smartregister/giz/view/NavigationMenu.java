@@ -48,6 +48,7 @@ import java.util.Locale;
 import timber.log.Timber;
 
 public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
+
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
     private String TAG = NavigationMenu.class.getCanonicalName();
