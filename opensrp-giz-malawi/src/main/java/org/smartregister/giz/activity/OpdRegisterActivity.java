@@ -10,6 +10,7 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
+import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
@@ -157,8 +158,16 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         //Do nothing
     }
 
+
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[0];
+        ME_POSITION = 1;
+
+        Fragment[] fragments = new Fragment[1];
+        fragments[ME_POSITION - 1] = new MeFragment();
+
+        return fragments;
     }
+
+
 }
