@@ -99,6 +99,11 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
                 // Fetch the next contact of the ANC user & then add it to the details
                 openAncProfilePage(commonPersonObjectClient, context);
             } else if (registerType.equalsIgnoreCase("child")) {
+                String registerId = commonPersonObjectClient.getColumnmaps().get("register_id");
+
+                commonPersonObjectClient.getColumnmaps().put("zeir_id", registerId);
+                commonPersonObjectClient.getDetails().put("zeir_id", registerId);
+
                 ChildImmunizationActivity.launchActivity(context, commonPersonObjectClient, new RegisterClickables());
             }
         }
