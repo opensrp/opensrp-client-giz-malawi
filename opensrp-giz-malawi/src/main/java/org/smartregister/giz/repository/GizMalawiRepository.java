@@ -1,6 +1,7 @@
 package org.smartregister.giz.repository;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
@@ -35,14 +36,11 @@ import timber.log.Timber;
 
 public class GizMalawiRepository extends Repository {
 
-
-    private static final String TAG = GizMalawiApplication.class.getCanonicalName();
-
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
 
-    public GizMalawiRepository(Context context, org.smartregister.Context openSRPContext) {
+    public GizMalawiRepository(@NonNull Context context, @NonNull org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
                 GizMalawiApplication
                         .createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
@@ -56,27 +54,22 @@ public class GizMalawiRepository extends Repository {
                 .createTable(database, EventClientRepository.Table.client, EventClientRepository.client_column.values());
         EventClientRepository
                 .createTable(database, EventClientRepository.Table.event, EventClientRepository.event_column.values());
-
         ConfigurableViewsRepository.createTable(database);
         UniqueIdRepository.createTable(database);
-
         SettingsRepository.onUpgrade(database);
-
         WeightRepository.createTable(database);
         HeightRepository.createTable(database);
         VaccineRepository.createTable(database);
 
         runLegacyUpgrades(database);
 
-        onUpgrade(database, 7, BuildConfig.DATABASE_VERSION);
+        onUpgrade(database, 8, BuildConfig.DATABASE_VERSION);
     }
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.w(WeightRepository.class.getName(),
-                "Upgrading database from version " + oldVersion + " to "
-                        + newVersion + ", which will destroy all old data");
+        Timber.w("%s Upgrading database from version %s to %s , which will destroy all old data", WeightRepository.class.getName(), oldVersion, newVersion);
         int upgradeTo = oldVersion + 1;
         while (upgradeTo <= newVersion) {
             switch (upgradeTo) {
@@ -150,7 +143,7 @@ public class GizMalawiRepository extends Repository {
             }
             return readableDatabase;
         } catch (Exception e) {
-            Log.e(TAG, "Database Error. " + e.getMessage());
+            Timber.e(e);
             return null;
         }
 
@@ -168,7 +161,7 @@ public class GizMalawiRepository extends Repository {
         super.close();
     }
 
-    private void runLegacyUpgrades(SQLiteDatabase database) {
+    private void runLegacyUpgrades(@NonNull SQLiteDatabase database) {
         upgradeToVersion2(database);
         upgradeToVersion3(database);
         upgradeToVersion4(database);
@@ -180,7 +173,6 @@ public class GizMalawiRepository extends Repository {
         upgradeToVersion7VaccineRecurringServiceRecordChange(database);
         upgradeToVersion7WeightHeightVaccineRecurringServiceChange(database);
         upgradeToVersion7RemoveUnnecessaryTables(database);
-        upgradeToVersion8AddServiceGroupColumn(database);
     }
 
     /**
@@ -188,12 +180,11 @@ public class GizMalawiRepository extends Repository {
      *
      * @param database
      */
-    private void upgradeToVersion8AddServiceGroupColumn(SQLiteDatabase database) {
-        try{
+    private void upgradeToVersion8AddServiceGroupColumn(@NonNull SQLiteDatabase database) {
+        try {
             database.execSQL(RecurringServiceTypeRepository.ADD_SERVICE_GROUP_COLUMN);
-        }
-        catch (Exception e){
-            Timber.e(e,"upgradeToVersion8AddServiceGroupColumn");
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion8AddServiceGroupColumn");
         }
     }
 
@@ -202,7 +193,7 @@ public class GizMalawiRepository extends Repository {
      *
      * @param database
      */
-    private void upgradeToVersion2(SQLiteDatabase database) {
+    private void upgradeToVersion2(@NonNull SQLiteDatabase database) {
         try {
             // Run insert query
             ArrayList<String> newlyAddedFields = new ArrayList<>();
@@ -217,7 +208,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion3(SQLiteDatabase db) {
+    private void upgradeToVersion3(@NonNull SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_EVENT_ID_COL);
             db.execSQL(VaccineRepository.EVENT_ID_INDEX);
@@ -236,7 +227,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion4(SQLiteDatabase db) {
+    private void upgradeToVersion4(@NonNull SQLiteDatabase db) {
         try {
             db.execSQL(AlertRepository.ALTER_ADD_OFFLINE_COLUMN);
             db.execSQL(AlertRepository.OFFLINE_INDEX);
@@ -245,7 +236,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion5(SQLiteDatabase db) {
+    private void upgradeToVersion5(@NonNull SQLiteDatabase db) {
         try {
             RecurringServiceTypeRepository.createTable(db);
             RecurringServiceRecordRepository.createTable(db);
@@ -258,7 +249,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion6(SQLiteDatabase db) {
+    private void upgradeToVersion6(@NonNull SQLiteDatabase db) {
         try {
             WeightZScoreRepository.createTable(db);
             db.execSQL(WeightRepository.ALTER_ADD_Z_SCORE_COLUMN);
@@ -270,7 +261,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion7OutOfArea(SQLiteDatabase db) {
+    private void upgradeToVersion7OutOfArea(@NonNull SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL_INDEX);
@@ -285,7 +276,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion7RecurringServiceUpdate(SQLiteDatabase db) {
+    private void upgradeToVersion7RecurringServiceUpdate(@NonNull SQLiteDatabase db) {
         try {
 
             // Recurring service json changed. update
@@ -298,7 +289,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion7EventWeightHeightVaccineRecurringChange(SQLiteDatabase db) {
+    private void upgradeToVersion7EventWeightHeightVaccineRecurringChange(@NonNull SQLiteDatabase db) {
         try {
             Column[] columns = {EventClientRepository.event_column.formSubmissionId};
             EventClientRepository.createIndex(db, EventClientRepository.Table.event, columns);
@@ -320,7 +311,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion7VaccineRecurringServiceRecordChange(SQLiteDatabase db) {
+    private void upgradeToVersion7VaccineRecurringServiceRecordChange(@NonNull SQLiteDatabase db) {
         try {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_TEAM_COL);
@@ -332,7 +323,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion7WeightHeightVaccineRecurringServiceChange(SQLiteDatabase db) {
+    private void upgradeToVersion7WeightHeightVaccineRecurringServiceChange(@NonNull SQLiteDatabase db) {
         try {
 
             db.execSQL(WeightRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
@@ -352,7 +343,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion7RemoveUnnecessaryTables(SQLiteDatabase db) {
+    private void upgradeToVersion7RemoveUnnecessaryTables(@NonNull SQLiteDatabase db) {
         try {
             db.execSQL("DROP TABLE IF EXISTS address");
             db.execSQL("DROP TABLE IF EXISTS obs");
