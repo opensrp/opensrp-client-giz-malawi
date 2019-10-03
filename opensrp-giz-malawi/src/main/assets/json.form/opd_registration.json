@@ -172,7 +172,6 @@
         "duration": {
           "label": "Age"
         },
-        "min_date": "today-5y",
         "max_date": "today",
         "v_required": {
           "value": "true",
