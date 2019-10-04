@@ -103,6 +103,8 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
                 commonPersonObjectClient.getColumnmaps().put("zeir_id", registerId);
                 commonPersonObjectClient.getDetails().put("zeir_id", registerId);
+                commonPersonObjectClient.getDetails().put("base_entity_id", commonPersonObjectClient.getCaseId());
+                commonPersonObjectClient.getColumnmaps().put("base_entity_id", commonPersonObjectClient.getCaseId());
 
                 ChildImmunizationActivity.launchActivity(context, commonPersonObjectClient, new RegisterClickables());
             }

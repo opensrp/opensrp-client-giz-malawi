@@ -3,6 +3,7 @@ package org.smartregister.giz.activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -142,9 +143,11 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void switchToBaseFragment() {
-        Intent intent = new Intent(this, BaseOpdRegisterActivity.class);
+        Intent intent = new Intent(this, OpdRegisterActivity.class);
         startActivity(intent);
         finish();
+
+        //mPager.setCurrentItem(0);
     }
 
     @Override
