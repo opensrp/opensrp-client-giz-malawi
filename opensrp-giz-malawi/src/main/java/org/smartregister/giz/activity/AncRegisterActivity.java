@@ -31,8 +31,11 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity implements Nav
 
     public void createDrawer() {
         navigationMenu = NavigationMenu.getInstance(this, null, null);
-        navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.ANC_CLIENTS);
-        navigationMenu.runRegisterCount();
+
+        if (navigationMenu != null) {
+            navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.ANC_CLIENTS);
+            navigationMenu.runRegisterCount();
+        }
     }
 
     @Override

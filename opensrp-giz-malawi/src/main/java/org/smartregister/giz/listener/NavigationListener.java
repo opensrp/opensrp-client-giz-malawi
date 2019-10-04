@@ -78,12 +78,6 @@ public class NavigationListener implements View.OnClickListener {
             activity.finish();
         }
 
-        if (activity instanceof NavDrawerActivity) {
-            ((NavDrawerActivity) activity).finishActivity();
-        } else {
-            activity.finish();
-        }
-
         activity.startActivity(new Intent(activity, clas));
     }
 

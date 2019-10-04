@@ -118,8 +118,8 @@
     <string name="ipv">IPV</string>
     <string name="bcg">BCG</string>
 
-    <string name="due_only">Due Only</string>
     <string name="menu_anc_clients">ANC Clients</string>
+    <string name="due_only">Due only</string>
     <string name="anc_register">ANC Register</string>
 
     <!-- Override labels in profile and immunization section -->
