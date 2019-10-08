@@ -50,7 +50,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
     @NonNull
     @Override
     public String mainSelectWhereIDsIn() {
-        QueryTable childTableCol = new QueryTable();
+        /*QueryTable childTableCol = new QueryTable();
         childTableCol.setTableName("ec_child");
         childTableCol.setColNames(new String[]{
                 "first_name",
@@ -117,7 +117,8 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         tablesWithInnerJoins[0] = tableColsInnerJoin;
 
         String query = mainSelectWhereIdsIn(tablesWithInnerJoins, new QueryTable[]{womanTableCol, clientTableCol});
-        query += " ORDER BY last_interacted_with DESC";
-        return query;
+        query += " ORDER BY last_interacted_with DESC";*/
+
+        return "Select ec_child.id as _id, ec_child.first_name, ec_child.last_name, ec_child.middle_name, ec_child.gender, ec_child.dob, ec_child.home_address, 'Child' AS register_type, ec_child.relational_id AS relationalid, ec_child.zeir_id AS register_id, ec_child.last_interacted_with, ec_mother.first_name AS mother_first_name, ec_mother.last_name AS mother_last_name, ec_mother.middle_name AS mother_middle_name FROM ec_child INNER JOIN ec_mother ON ec_child.relational_id = ec_mother.base_entity_id  WHERE  ec_child.id IN (%s) UNION ALL Select ec_mother.id as _id , first_name , last_name , middle_name , 'Female' AS gender , dob , home_address , 'ANC' AS register_type , relationalid , register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name FROM ec_mother  WHERE  _id IN (%s) UNION ALL Select ec_client.id as _id , first_name , last_name , '' AS middle_name , gender , dob , '' AS home_address , 'OPD' AS register_type , relationalid , opensrp_id AS register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name FROM ec_client  WHERE  _id IN (%s) ORDER BY last_interacted_with DESC";
     }
 }

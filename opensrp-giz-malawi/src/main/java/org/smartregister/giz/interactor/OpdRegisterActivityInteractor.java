@@ -128,6 +128,7 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
             Timber.e(e, "OpdRegisterInteractor --> saveRegistration");
         }
     }
+
     private void addImageLocation(String jsonString, int i, Client baseClient, Event baseEvent) {
         if (baseClient != null || baseEvent != null) {
             String imageLocation = null;

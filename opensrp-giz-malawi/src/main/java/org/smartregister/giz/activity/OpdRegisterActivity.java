@@ -9,7 +9,6 @@ import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.AllConstants;
 import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
@@ -18,8 +17,6 @@ import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdRegisterActivity;
-import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
-import org.smartregister.opd.model.OpdRegisterActivityModel;
 import org.smartregister.opd.pojos.RegisterParams;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
@@ -41,11 +38,6 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     @Override
     protected BaseOpdRegisterActivityPresenter createPresenter(@NonNull OpdRegisterActivityContract.View view, @NonNull OpdRegisterActivityContract.Model model) {
         return new OpdRegisterActivityPresenter(view, model);
-    }
-
-    @Override
-    protected void initializePresenter() {
-        presenter = new OpdRegisterActivityPresenter(this, new OpdRegisterActivityModel());
     }
 
     @Override
@@ -93,13 +85,17 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
                 Timber.d("JSONResult : %s", jsonString);
 
                 JSONObject form = new JSONObject(jsonString);
-                if (form.getString(OpdJsonFormUtils.ENCOUNTER_TYPE).equals(OpdUtils.metadata().getRegisterEventType())) {
+                String encounterType = form.getString(OpdJsonFormUtils.ENCOUNTER_TYPE);
+                if (encounterType.equals(OpdUtils.metadata().getRegisterEventType())) {
                     RegisterParams registerParam = new RegisterParams();
                     registerParam.setEditMode(false);
                     registerParam.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));
 
                     showProgressDialog(R.string.saving_dialog_title);
                     presenter().saveForm(jsonString, registerParam);
+                } else if (encounterType.equals(OpdConstants.EventType.CHECK_IN)) {
+                    showProgressDialog(R.string.saving_dialog_title);
+                    presenter().saveVisitOrDiagnosisForm(encounterType, jsonString, data);
                 }
 
             } catch (JSONException e) {
@@ -111,13 +107,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        if (mBaseFragment instanceof BaseOpdRegisterFragment) {
-            String locationId = OpdUtils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-            presenter().startForm(formName, entityId, metaData, locationId);
-        } else {
-
-            displayToast(getString(R.string.error_unable_to_start_form));
-        }
+        startFormActivity(formName, entityId, metaData, null);
     }
 
     @Override

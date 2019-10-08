@@ -3,10 +3,7 @@ package org.smartregister.giz.presenter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.interactor.OpdRegisterActivityInteractor;
@@ -40,7 +37,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     }
 
     @Override
-    public void saveForm(@NonNull String jsonString,@NonNull RegisterParams registerParams) {
+    public void saveForm(@NonNull String jsonString, @NonNull RegisterParams registerParams) {
         try {
             if (registerParams.getFormTag() == null) {
                 registerParams.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
@@ -58,26 +55,6 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     }
 
     @Override
-    public void startForm(@NonNull String formName,@NonNull String entityId,@NonNull String metaData,@NonNull String locationId) {
-        if (StringUtils.isBlank(entityId)) {
-            Triple<String, String, String> triple = Triple.of(formName, metaData, locationId);
-            interactor.getNextUniqueId(triple, this);
-            return;
-        }
-
-        JSONObject form = null;
-        try {
-            form = model.getFormAsJson(formName, entityId, locationId);
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
-
-        if (getView() != null) {
-            getView().startFormActivity(form);
-        }
-    }
-
-    @Override
     public void onNoUniqueId() {
         if (getView() != null) {
             getView().displayShortToast(R.string.no_unique_id);
@@ -86,7 +63,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
 
     @Override
     public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple,@NonNull String entityId) {
-        startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
+        startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(), null);
     }
 
     @Override

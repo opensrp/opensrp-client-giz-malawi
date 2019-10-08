@@ -25,6 +25,7 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.opd.repository.CheckInRepository;
+import org.smartregister.opd.repository.OpdDetailsRepository;
 import org.smartregister.opd.repository.VisitRepository;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
@@ -72,6 +73,7 @@ public class GizMalawiRepository extends Repository {
 
         VisitRepository.createTable(database);
         CheckInRepository.createTable(database);
+        OpdDetailsRepository.createTable(database);
 
         runLegacyUpgrades(database);
 
