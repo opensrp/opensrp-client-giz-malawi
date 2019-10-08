@@ -65,8 +65,8 @@
       {
         "key": "OPENSRP_ID",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_identifier",
-        "openmrs_entity_id": "OPENSRP_ID",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "zeir_id",
         "type": "barcode",
         "barcode_type": "qrcode",
         "hint": "MER ID",
