@@ -3,10 +3,7 @@ package org.smartregister.giz.presenter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.interactor.OpdRegisterActivityInteractor;
@@ -38,7 +35,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     }
 
     @Override
-    public void saveForm(@NonNull String jsonString,@NonNull RegisterParams registerParams) {
+    public void saveForm(@NonNull String jsonString, @NonNull RegisterParams registerParams) {
         try {
             if (registerParams.getFormTag() == null) {
                 registerParams.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.getAllSharedPreferences()));
