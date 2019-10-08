@@ -485,7 +485,7 @@
           "column_name": "bht_mid",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.bht_mid"
+            "field": "attributes.bht_mid"
           }
         },
         {
