@@ -45,12 +45,12 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         }
 
         if (mLoginPresenter.isServerSettingsSet()) {
-            Intent intent = new Intent(this, ChildRegisterActivity.class).putExtra("", 0);
-            intent.putExtra(GizConstants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+            Intent intent = new Intent(this, ChildRegisterActivity.class);
+            intent.putExtra(GizConstants.IntentKeyUtil.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         } else {
             Intent intent = new Intent(this, SiteCharacteristicsEnterActivity.class);
-            intent.putExtra(GizConstants.INTENT_KEY.IS_REMOTE_LOGIN, remote);
+            intent.putExtra(GizConstants.IntentKeyUtil.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         }
         finish();

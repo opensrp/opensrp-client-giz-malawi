@@ -252,7 +252,7 @@ public class GizConstants {
         public final static String OUT_OF_CATCHMENT = "out_of_catchment_service";
     }
 
-    public class INTENT_KEY {
+    public class IntentKeyUtil {
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
 }
