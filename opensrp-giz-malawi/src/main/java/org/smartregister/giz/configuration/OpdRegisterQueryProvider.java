@@ -6,8 +6,6 @@ import android.text.TextUtils;
 
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.opd.configuration.OpdRegisterQueryProviderContract;
-import org.smartregister.opd.pojos.InnerJoinObject;
-import org.smartregister.opd.pojos.QueryTable;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-23
@@ -50,75 +48,18 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
     @NonNull
     @Override
     public String mainSelectWhereIDsIn() {
-        /*QueryTable childTableCol = new QueryTable();
-        childTableCol.setTableName("ec_child");
-        childTableCol.setColNames(new String[]{
-                "first_name",
-                "last_name",
-                "middle_name",
-                "gender",
-                "dob",
-                "home_address",
-                "'Child' AS register_type",
-                "relational_id AS relationalid",
-                "zeir_id AS register_id",
-                "last_interacted_with"
-        });
-
-        QueryTable womanTableCol = new QueryTable();
-        womanTableCol.setTableName("ec_mother");
-        womanTableCol.setColNames(new String[]{
-                "first_name",
-                "last_name",
-                "middle_name",
-                "'Female' AS gender",
-                "dob",
-                "home_address",
-                "'ANC' AS register_type",
-                "relationalid",
-                "register_id",
-                "last_interacted_with",
-                "NULL AS mother_first_name",
-                "NULL AS mother_last_name",
-                "NULL AS mother_middle_name",
-        });
-
-        QueryTable clientTableCol = new QueryTable();
-        clientTableCol.setTableName("ec_client");
-        clientTableCol.setColNames(new String[]{
-                "first_name",
-                "last_name",
-                "'' AS middle_name",
-                "gender",
-                "dob",
-                "'' AS home_address",
-                "'OPD' AS register_type",
-                "relationalid",
-                "opensrp_id AS register_id",
-                "last_interacted_with",
-                "NULL AS mother_first_name",
-                "NULL AS mother_last_name",
-                "NULL AS mother_middle_name",
-        });
-
-        InnerJoinObject[] tablesWithInnerJoins = new InnerJoinObject[1];
-        InnerJoinObject tableColsInnerJoin = new InnerJoinObject();
-        tableColsInnerJoin.setFirstTable(childTableCol);
-
-        QueryTable innerJoinMotherTable = new QueryTable();
-        innerJoinMotherTable.setTableName("ec_mother");
-        innerJoinMotherTable.setColNames(new String[]{
-                "first_name AS mother_first_name",
-                "last_name AS mother_last_name",
-                "middle_name AS mother_middle_name"
-        });
-        tableColsInnerJoin.innerJoinOn("ec_child.relational_id = ec_mother.base_entity_id");
-        tableColsInnerJoin.innerJoinTable(innerJoinMotherTable);
-        tablesWithInnerJoins[0] = tableColsInnerJoin;
-
-        String query = mainSelectWhereIdsIn(tablesWithInnerJoins, new QueryTable[]{womanTableCol, clientTableCol});
-        query += " ORDER BY last_interacted_with DESC";*/
-
-        return "Select ec_child.id as _id, ec_child.first_name, ec_child.last_name, ec_child.middle_name, ec_child.gender, ec_child.dob, ec_child.home_address, 'Child' AS register_type, ec_child.relational_id AS relationalid, ec_child.zeir_id AS register_id, ec_child.last_interacted_with, ec_mother.first_name AS mother_first_name, ec_mother.last_name AS mother_last_name, ec_mother.middle_name AS mother_middle_name FROM ec_child INNER JOIN ec_mother ON ec_child.relational_id = ec_mother.base_entity_id  WHERE  ec_child.id IN (%s) UNION ALL Select ec_mother.id as _id , first_name , last_name , middle_name , 'Female' AS gender , dob , home_address , 'ANC' AS register_type , relationalid , register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name FROM ec_mother  WHERE  _id IN (%s) UNION ALL Select ec_client.id as _id , first_name , last_name , '' AS middle_name , gender , dob , '' AS home_address , 'OPD' AS register_type , relationalid , opensrp_id AS register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name FROM ec_client  WHERE  _id IN (%s) ORDER BY last_interacted_with DESC";
+        return "Select ec_child.id as _id, ec_child.first_name, ec_child.last_name, ec_child.middle_name, ec_child.gender, ec_child.dob, ec_child.home_address, 'Child' AS register_type, ec_child.relational_id AS relationalid, ec_child.zeir_id AS register_id, ec_child.last_interacted_with, ec_mother.first_name AS mother_first_name, ec_mother.last_name AS mother_last_name, ec_mother.middle_name AS mother_middle_name, opd_details.pending_diagnose_and_treat AS pending_diagnose_and_treat FROM ec_child \n" +
+                "    INNER JOIN ec_mother ON ec_child.relational_id = ec_mother.base_entity_id \n" +
+                "    LEFT JOIN opd_details ON ec_child.base_entity_id = opd_details.base_entity_id\n" +
+                "    WHERE  ec_child.id IN (%s) \n" +
+                "UNION ALL \n" +
+                "Select ec_mother.id as _id , first_name , last_name , middle_name , 'Female' AS gender , dob , home_address , 'ANC' AS register_type , relationalid , register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, opd_details.pending_diagnose_and_treat AS pending_diagnose_and_treat FROM ec_mother\n" +
+                "    LEFT JOIN opd_details ON ec_mother.base_entity_id = opd_details.base_entity_id\n" +
+                "    WHERE  ec_mother.id IN (%s) \n" +
+                "UNION ALL \n" +
+                "Select ec_client.id as _id , first_name , last_name , '' AS middle_name , gender , dob , '' AS home_address , 'OPD' AS register_type , relationalid , opensrp_id AS register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, opd_details.pending_diagnose_and_treat AS pending_diagnose_and_treat FROM ec_client \n" +
+                "    LEFT JOIN opd_details ON ec_client.base_entity_id = opd_details.base_entity_id\n" +
+                "WHERE  ec_client.id IN (%s)\n" +
+                "ORDER BY last_interacted_with DESC";
     }
 }
