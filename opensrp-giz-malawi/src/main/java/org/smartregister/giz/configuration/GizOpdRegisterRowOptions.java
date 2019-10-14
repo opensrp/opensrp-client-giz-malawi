@@ -35,6 +35,9 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
         if (parseBoolean(booleanString)) {
             opdRegisterViewHolder.dueButton.setText(R.string.diagnose_and_treat);
             opdRegisterViewHolder.dueButton.setBackgroundResource(R.drawable.diagnose_treat_bg);
+        } else {
+            opdRegisterViewHolder.dueButton.setText(R.string.check_in);
+            opdRegisterViewHolder.dueButton.setBackgroundResource(R.color.transparent);
         }
     }
 

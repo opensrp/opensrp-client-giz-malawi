@@ -130,4 +130,5 @@
     <string name="all_clients">All Clients</string>
     <string name="language_x_selected">%s selected</string>
     <string name="diagnose_and_treat"><![CDATA[DIAGNOSE & TREAT]]></string>
+    <string name="check_in">CHECK IN</string>
 </resources>
