@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,10 @@ import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.opd.utils.OpdDbConstants;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -76,11 +79,19 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
     @Override
     protected void performPatientAction(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
-        if (!commonPersonObjectClient.getColumnmaps().containsKey("diagnose_scheduled")) {
-            HashMap<String, String> injectedValues = new HashMap<String, String>();
-            injectedValues.put("patient_gender", commonPersonObjectClient.getColumnmaps().get("gender"));
+        Map<String, String> clientColumnMaps = commonPersonObjectClient.getColumnmaps();
 
-            ((OpdRegisterActivity) getActivity()).startFormActivity("opd_checkin", commonPersonObjectClient.getCaseId(), null, injectedValues);
+        if (clientColumnMaps.containsKey(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT)) {
+            HashMap<String, String> injectedValues = new HashMap<String, String>();
+            injectedValues.put("patient_gender", clientColumnMaps.get("gender"));
+
+            String diagnoseSchedule = clientColumnMaps.get(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT);
+
+            boolean isDiagnoseScheduled = !TextUtils.isEmpty(diagnoseSchedule) && diagnoseSchedule.equals("1");
+
+            if (!isDiagnoseScheduled) {
+                ((OpdRegisterActivity) getActivity()).startFormActivity("opd_checkin", commonPersonObjectClient.getCaseId(), null, injectedValues);
+            }
         }
     }
 
