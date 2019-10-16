@@ -86,11 +86,12 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
             injectedValues.put("patient_gender", clientColumnMaps.get("gender"));
 
             String diagnoseSchedule = clientColumnMaps.get(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT);
+            String entityTable = clientColumnMaps.get(OpdConstants.IntentKey.ENTITY_TABLE);
 
             boolean isDiagnoseScheduled = !TextUtils.isEmpty(diagnoseSchedule) && diagnoseSchedule.equals("1");
 
             if (!isDiagnoseScheduled) {
-                ((OpdRegisterActivity) getActivity()).startFormActivity("opd_checkin", commonPersonObjectClient.getCaseId(), null, injectedValues);
+                ((OpdRegisterActivity) getActivity()).startFormActivity("opd_checkin", commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
             }
         }
     }
