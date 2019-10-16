@@ -107,7 +107,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        startFormActivity(formName, entityId, metaData, null);
+        startFormActivity(formName, entityId, metaData, null, null);
     }
 
     @Override

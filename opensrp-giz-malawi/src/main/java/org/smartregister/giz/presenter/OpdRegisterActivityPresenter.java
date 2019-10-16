@@ -63,7 +63,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
 
     @Override
     public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple,@NonNull String entityId) {
-        startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(), null);
+        startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(), null, null);
     }
 
     @Override
