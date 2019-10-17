@@ -125,6 +125,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.DEATH)) {
                     processDeathEvent(eventClient);
+                    unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
