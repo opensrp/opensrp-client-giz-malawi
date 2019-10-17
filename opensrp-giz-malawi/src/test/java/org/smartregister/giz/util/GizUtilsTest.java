@@ -28,25 +28,25 @@ import org.smartregister.giz.application.GizMalawiApplication;
 public class GizUtilsTest {
 
     @Mock
-    GizMalawiApplication gizMalawiApplication;
+    private GizMalawiApplication gizMalawiApplication;
 
     @Mock
-    Context context;
+    private Context context;
 
     @Captor
-    ArgumentCaptor argumentCaptorUpdateChildTable;
+    private ArgumentCaptor argumentCaptorUpdateChildTable;
 
     @Captor
-    ArgumentCaptor argumentCaptorUpdateChildFtsTable;
+    private ArgumentCaptor argumentCaptorUpdateChildFtsTable;
 
     @Mock
-    CoreLibrary coreLibrary;
+    private CoreLibrary coreLibrary;
 
     @Mock
-    AllCommonsRepository allCommonsRepository;
+    private AllCommonsRepository allCommonsRepository;
 
     @Mock
-    ChildMetadata childMetadata;
+    private ChildMetadata childMetadata;
 
     @Test
     public void testUpdateChildDeath() {
