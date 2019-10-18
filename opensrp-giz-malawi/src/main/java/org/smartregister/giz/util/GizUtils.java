@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class GizUtils extends org.smartregister.child.util.Utils {
+public class GizUtils extends Utils {
 
     public static final ArrayList<String> ALLOWED_LEVELS;
     public static final String FACILITY = "Facility";
