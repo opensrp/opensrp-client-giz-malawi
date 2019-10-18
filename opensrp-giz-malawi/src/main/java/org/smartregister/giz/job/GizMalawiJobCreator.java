@@ -15,6 +15,7 @@ import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ExtendedSyncServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.job.ValidateSyncDataServiceJob;
 import org.smartregister.sync.intent.SyncIntentService;
 
@@ -41,6 +42,8 @@ public class GizMalawiJobCreator implements JobCreator {
                 return new HeightIntentServiceJob();
             case ZScoreRefreshIntentServiceJob.TAG:
                 return new ZScoreRefreshIntentServiceJob();
+            case SyncSettingsServiceJob.TAG:
+                return new SyncSettingsServiceJob();
             default:
                 Log.w(GizMalawiJobCreator.class.getCanonicalName(), tag + " is not declared in Job Creator");
                 return null;
