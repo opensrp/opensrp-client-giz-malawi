@@ -9,6 +9,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
+import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.sync.MiniClientProcessorForJava;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
@@ -25,7 +26,6 @@ import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz.processor.AncClientProcessorForJava;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.growthmonitoring.domain.Height;
@@ -69,7 +69,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     private GizMalawiProcessorForJava(Context context) {
         super(context);
 
-        AncClientProcessorForJava baseAncClientProcessorForJava = new AncClientProcessorForJava(context);
+        BaseAncClientProcessorForJava baseAncClientProcessorForJava = new BaseAncClientProcessorForJava(context);
         unsyncEventsPerProcessor.put(baseAncClientProcessorForJava, new ArrayList<Event>());
         HashSet<String> eventTypes = baseAncClientProcessorForJava.getEventTypes();
 
@@ -125,6 +125,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.DEATH)) {
                     processDeathEvent(eventClient);
+                    unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
