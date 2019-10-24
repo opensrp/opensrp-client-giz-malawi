@@ -141,6 +141,7 @@ public class GizConstants {
         public static final String ATTRIBUTES = "attributes";
         public static final int FIVE_YEAR = 5;
         public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
+        public static String SITE_CHARACTERISTICS = "site_characteristics";
     }
 
     public static final class DrawerMenu {
@@ -156,6 +157,10 @@ public class GizConstants {
         public static final String REPORTS = "Reports";
     }
 
+    public static final class FormTitleUtil {
+        public static final String UPDATE_CHILD_FORM = "Update Child Registration";
+    }
+
     public static final class RQ_CODE {
         public static final int STORAGE_PERMISIONS = 1;
     }
@@ -169,6 +174,7 @@ public class GizConstants {
     public static final class EventType {
         public static final String CHILD_REGISTRATION = "Birth Registration";
         public static final String UPDATE_CHILD_REGISTRATION = "Update Birth Registration";
+        public static final String OUT_OF_CATCHMENT = "Out of Catchment";
 
     }
 
@@ -245,5 +251,9 @@ public class GizConstants {
     public static final class JSONFORM {
         public final static String CHILD_ENROLLMENT = "child_enrollment";
         public final static String OUT_OF_CATCHMENT = "out_of_catchment_service";
+    }
+
+    public class IntentKeyUtil {
+        public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
 }

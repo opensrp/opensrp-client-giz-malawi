@@ -13,6 +13,8 @@ import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
+import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -38,7 +40,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     private void initialize() {
         tableMap.put(GizConstants.DrawerMenu.ALL_FAMILIES, GizConstants.TABLE_NAME.FAMILY);
         tableMap.put(GizConstants.DrawerMenu.CHILD_CLIENTS, GizConstants.TABLE_NAME.CHILD);
-        tableMap.put(GizConstants.DrawerMenu.ANC_CLIENTS, GizConstants.TABLE_NAME.ANC_MEMBER);
+        tableMap.put(GizConstants.DrawerMenu.ANC_CLIENTS, GizConstants.TABLE_NAME.MOTHER_TABLE_NAME);
         tableMap.put(GizConstants.DrawerMenu.ANC, GizConstants.TABLE_NAME.ANC_MEMBER);
     }
 
@@ -86,10 +88,12 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     public void sync(Activity activity) {
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
         ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
         WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
         HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
+        RecurringIndicatorGeneratingJob.scheduleJobImmediately(RecurringIndicatorGeneratingJob.TAG);
     }
 
     @Override

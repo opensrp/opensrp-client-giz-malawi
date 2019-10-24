@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
 import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.view.LocationPickerView;
+import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
@@ -60,10 +63,11 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private ImageView ivSync;
     private ProgressBar syncProgressBar;
     private NavigationContract.Presenter mPresenter;
+    private RelativeLayout settingsLayout;
+
     private View parentView;
     private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
-
     private NavigationMenu() {
 
     }
@@ -156,8 +160,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         recyclerView = rootView.findViewById(R.id.rvOptions);
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
         syncProgressBar = rootView.findViewById(R.id.pbSync);
-        reportView = activity.findViewById(R.id.report_view);
+        settingsLayout = rootView.findViewById(R.id.rlSettings);
+        reportView = rootView.findViewById(R.id.report_view);
+
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
+        LocationPickerView locationPickerView = rootView.findViewById(R.id.clinic_selection);
+        locationPickerView.init();
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
 
@@ -165,11 +173,11 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         tvLogo.setText(activity.getString(R.string.nav_logo));
 
         if (syncProgressBar != null) {
-            FadingCircle circle = new FadingCircle();
-            syncProgressBar.setIndeterminateDrawable(circle);
+
+            syncProgressBar.setIndeterminateDrawable(new FadingCircle());
 
             if (toolbar != null) {
-                toolbar.setNavigationIcon(circle);
+                toolbar.setNavigationIcon(new FadingCircle());
             }
         }
 
@@ -179,6 +187,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerLogout(activity);
         registerSync(activity);
         registerLanguageSwitcher(activity);
+
+        registerSettings(activity);
 
         // update all actions
         mPresenter.refreshLastSync();
@@ -201,6 +211,22 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
         Intent intent = new Intent(activityWeakReference.get(), HIA2ReportsActivity.class);
         activityWeakReference.get().startActivity(intent);
+    }
+
+    private void registerSettings(@NonNull final Activity activity) {
+        if (settingsLayout != null) {
+            settingsLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (activity instanceof BaseRegisterActivity) {
+                        ((BaseRegisterActivity) activity).switchToFragment(BaseRegisterActivity.ME_POSITION);
+                        closeDrawer();
+                    } else {
+                        Timber.e(new Exception("Cannot open Settings since this activity is not a child of BaseRegisterActivity"));
+                    }
+                }
+            });
+        }
     }
 
     private void registerNavigation(Activity parentActivity) {
@@ -334,5 +360,15 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public DrawerLayout getDrawer() {
         return drawer;
+    }
+
+    public void openDrawer() {
+        drawer.openDrawer(GravityCompat.START);
+    }
+
+    public static void closeDrawer() {
+        if (instance != null && instance.getDrawer() != null) {
+            instance.getDrawer().closeDrawer(Gravity.START);
+        }
     }
 }

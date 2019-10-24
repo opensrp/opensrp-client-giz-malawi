@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.Fragment;
-import android.view.MenuItem;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -14,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
+import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
 import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.model.BaseChildRegisterModel;
@@ -23,16 +23,16 @@ import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.event.LoginEvent;
-import org.smartregister.giz.fragment.AdvancedSearchFragment;
 import org.smartregister.giz.fragment.ChildRegisterFragment;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavigationMenu;
+import org.smartregister.giz.view.RegisterViewWithDrawer;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.lang.ref.WeakReference;
 
-public class ChildRegisterActivity extends BaseChildRegisterActivity {
+public class ChildRegisterActivity extends BaseChildRegisterActivity implements RegisterViewWithDrawer {
 
     @Override
     protected void attachBaseContext(android.content.Context base) {
@@ -46,30 +46,24 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
     }
 
     @Override
-    protected void registerBottomNavigation() {
-        super.registerBottomNavigation();
-
-        MenuItem clients = bottomNavigationView.getMenu().findItem(org.smartregister.child.R.id.action_clients);
-        if (clients != null) {
-            clients.setTitle(getString(org.smartregister.child.R.string.header_children));
-        }
-        bottomNavigationView.getMenu().removeItem(R.id.action_scan_qr);
-        bottomNavigationView.getMenu().removeItem(R.id.action_scan_card);
-    }
-
-    @Override
     protected Fragment[] getOtherFragments() {
-        ADVANCED_SEARCH_POSITION = 1;
+        ME_POSITION = 1;
 
         Fragment[] fragments = new Fragment[1];
-        fragments[ADVANCED_SEARCH_POSITION - 1] = new AdvancedSearchFragment();
+        fragments[ME_POSITION - 1] = new MeFragment();
 
         return fragments;
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void registerBottomNavigation() {
+        //do nothing
     }
 
     @Override
@@ -130,7 +124,6 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
                     showNfcDialog();
                 }
             });
-
         }
     }
 
@@ -160,5 +153,11 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity {
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+    }
+
+
+    @Override
+    public void finishActivity() {
+        finish();
     }
 }

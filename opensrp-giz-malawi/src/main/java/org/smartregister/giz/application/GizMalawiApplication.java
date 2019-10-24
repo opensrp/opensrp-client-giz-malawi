@@ -14,6 +14,9 @@ import com.evernote.android.job.JobManager;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.activity.ActivityConfiguration;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.activity.BaseChildFormActivity;
 import org.smartregister.child.domain.ChildMetadata;
@@ -21,6 +24,7 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.giz.BuildConfig;
+import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
@@ -32,6 +36,7 @@ import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.sync.GizMalawiProcessorForJava;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.giz.util.VaccineDuplicate;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
@@ -69,6 +74,7 @@ import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
+
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
     private EventClientRepository eventClientRepository;
@@ -97,20 +103,23 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[]{GizConstants.TABLE_NAME.CHILD};
+        return new String[]{GizConstants.TABLE_NAME.CHILD, DBConstantsUtils.WOMAN_TABLE_NAME};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
             return new String[]{GizConstants.KEY.ZEIR_ID, GizConstants.KEY.FIRST_NAME, GizConstants.KEY.LAST_NAME};
+        } else if (tableName.equalsIgnoreCase(DBConstantsUtils.WOMAN_TABLE_NAME)) {
+            return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID};
         }
+
         return null;
     }
 
     private static String[] getFtsSortFields(String tableName) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
 
-            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD);
+            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD, true);
             List<String> names = new ArrayList<>();
             names.add(GizConstants.KEY.FIRST_NAME);
             names.add(GizConstants.KEY.DOB);
@@ -126,12 +135,16 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             }
 
             return names.toArray(new String[names.size()]);
+        } else if (tableName.equals(DBConstantsUtils.WOMAN_TABLE_NAME)) {
+            return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
+                    DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, DBConstantsUtils.KeyUtils.DATE_REMOVED};
         }
+
         return null;
     }
 
     private static Map<String, Pair<String, Boolean>> getAlertScheduleMap() {
-        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child");
+        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child", true);
         Map<String, Pair<String, Boolean>> map = new HashMap<>();
         for (VaccineRepo.Vaccine vaccine : vaccines) {
             map.put(vaccine.display(), Pair.create(GizConstants.TABLE_NAME.CHILD, false));
@@ -168,11 +181,17 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 growthMonitoringConfig);
         ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(), BuildConfig.VERSION_CODE,
                 BuildConfig.DATABASE_VERSION);
+        fixHardcodedVaccineConfiguration();
+
         ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         // Init Reporting library
         ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
+
+        ActivityConfiguration activityConfiguration = new ActivityConfiguration();
+        activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
+        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
@@ -186,6 +205,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         //init Job Manager
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
     }
 
     private ChildMetadata getMetadata() {
@@ -193,7 +213,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 ChildImmunizationActivity.class, true);
         metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
                 GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
-                GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.CONFIGURATION.CHILD_REGISTER,
+                GizConstants.EventType.UPDATE_CHILD_REGISTRATION,GizConstants.EventType.OUT_OF_CATCHMENT, GizConstants.CONFIGURATION.CHILD_REGISTER,
                 GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
         return metadata;
     }
@@ -339,6 +359,28 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             ecSyncHelper = ECSyncHelper.getInstance(getApplicationContext());
         }
         return ecSyncHelper;
+    }
+
+    private void fixHardcodedVaccineConfiguration() {
+        VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines();
+
+        HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
+        replacementVaccines.put("MR 2", new VaccineDuplicate("MR 2", VaccineRepo.Vaccine.mr1, -1, 548, 183, "child"));
+        replacementVaccines.put("BCG 2", new VaccineDuplicate("BCG 2", VaccineRepo.Vaccine.bcg, 1825, 0, 42, "child"));
+
+        for (VaccineRepo.Vaccine vaccine: vaccines) {
+            if (replacementVaccines.containsKey(vaccine.display())) {
+                VaccineDuplicate vaccineDuplicate = replacementVaccines.get(vaccine.display());
+
+                vaccine.setCategory(vaccineDuplicate.category());
+                vaccine.setExpiryDays(vaccineDuplicate.expiryDays());
+                vaccine.setMilestoneGapDays(vaccineDuplicate.milestoneGapDays());
+                vaccine.setPrerequisite(vaccineDuplicate.prerequisite());
+                vaccine.setPrerequisiteGapDays(vaccineDuplicate.prerequisiteGapDays());
+            }
+        }
+
+        ImmunizationLibrary.getInstance().setVaccines(vaccines);
     }
 
     public DailyTalliesRepository dailyTalliesRepository() {

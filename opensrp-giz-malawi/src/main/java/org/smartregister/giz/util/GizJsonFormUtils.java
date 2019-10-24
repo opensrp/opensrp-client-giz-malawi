@@ -205,7 +205,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
 
         if (form.has(JsonFormUtils.STEP1) && form.getJSONObject(JsonFormUtils.STEP1).has(GizConstants.KEY.TITLE) && form.getJSONObject(JsonFormUtils.STEP1).getString(GizConstants.KEY.TITLE)
                 .equals(Constants.EventType.BITRH_REGISTRATION)) {
-            form.getJSONObject(JsonFormUtils.STEP1).put(GizConstants.KEY.TITLE, Constants.EventType.UPDATE_BITRH_REGISTRATION);
+            form.getJSONObject(JsonFormUtils.STEP1).put(GizConstants.KEY.TITLE, GizConstants.FormTitleUtil.UPDATE_CHILD_FORM);
         }
     }
 

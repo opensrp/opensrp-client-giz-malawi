@@ -465,7 +465,8 @@ indicators:
       - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Male"
 
   - key: "ME_Height_Over2_Gender"
-    description: "SELECT
+    description: "ME_Height_Over2_Gender_label"
+    indicatorQuery: "SELECT
                   CASE
                   WHEN heights.z_score > 3 OR heights.z_score < -3 THEN 'Severe'
                   WHEN heights.z_score > -2 AND heights.z_score < 2 THEN 'Normal'
