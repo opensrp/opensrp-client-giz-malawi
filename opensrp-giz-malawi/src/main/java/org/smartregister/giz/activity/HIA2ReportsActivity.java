@@ -1,10 +1,9 @@
 package org.smartregister.giz.activity;
 
-
-
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -16,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -88,13 +88,6 @@ public class HIA2ReportsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //ActionBarDrawerToggle toggle = getDrawerToggle();
-        //        toggle.setDrawerIndicatorEnabled(false);
-        // toggle.setHomeAsUpIndicator(null);
-
-        //LocationSwitcherToolbar toolbar = (LocationSwitcherToolbar) getToolbar();
-        //toolbar.setTitle(getString(R.string.side_nav_hia2));
-
         tabLayout = findViewById(R.id.tabs);
 
         // Create the adapter that will return a fragment for each of the three
@@ -107,19 +100,15 @@ public class HIA2ReportsActivity extends BaseActivity {
 
         tabLayout.setupWithViewPager(mViewPager);
 
-        //TextView initialsTV = (TextView) findViewById(R.id.name_inits);
-        //initialsTV.setText(getLoggedInUserInitials());
-	        /*initialsTV.setOnClickListener(new View.OnClickListener() {
-	            @Override
-	            public void onClick(View v) {
-	                openDrawer();
-	            }
-	        });*/
+        // set up nav drawer
+        LinearLayout registerView = findViewById(R.id.register_view);
+        LinearLayout reportView = findViewById(R.id.report_view);
+
+        reportView.setBackgroundColor(getResources().getColor(R.color.primary));
+        registerView.setBackgroundColor(Color.TRANSPARENT);
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();
-
-        //startService(new Intent(this, IndicatorGeneratorIntentService.class));
     }
 
     @Override

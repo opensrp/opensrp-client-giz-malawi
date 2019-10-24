@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +31,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
@@ -109,7 +110,7 @@ public class DailyTalliesFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Object tag = v.getTag(R.id.item_data);
-                if (tag != null && tag instanceof Date) {
+                if (tag instanceof Date) {
                     Date date = (Date) tag;
                     String dayString = DAY_FORMAT.format(date);
                     if (dailyTallies.containsKey(dayString)) {
@@ -187,7 +188,7 @@ public class DailyTalliesFragment extends Fragment {
 
             progressDialog.show();
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -197,17 +198,9 @@ public class DailyTalliesFragment extends Fragment {
                 progressDialog.dismiss();
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
-
-	    /*@Override
-	    public void onServiceFinish(String actionType) {
-	        if (Hia2ServiceBroadcastReceiver.TYPE_GENERATE_DAILY_INDICATORS.equals(actionType)) {
-	            Utils.startAsyncTask(new GetAllTalliesTask(), null);
-	        }
-	    }*/
-
 
     ////////////////////////////////////////////////////////////////
     // Inner classes
@@ -231,14 +224,6 @@ public class DailyTalliesFragment extends Fragment {
         protected HashMap<String, ArrayList<DailyTally>> doInBackground(Void... params) {
             Calendar startDate = Calendar.getInstance();
 
-            List<Hia2Indicator> indicators = GizMalawiApplication.getInstance()
-                    .hIA2IndicatorsRepository().fetchAll();
-            for (Hia2Indicator curIndicator : indicators) {
-                if (curIndicator != null) {
-                    indicatorsMap.put(curIndicator.getIndicatorCode(), curIndicator);
-                }
-            }
-
             startDate.set(Calendar.DAY_OF_MONTH, 1);
             startDate.set(Calendar.HOUR_OF_DAY, 0);
             startDate.set(Calendar.MINUTE, 0);
@@ -254,7 +239,6 @@ public class DailyTalliesFragment extends Fragment {
             super.onPostExecute(tallies);
             hideProgressDialog();
             DailyTalliesFragment.this.dailyTallies = tallies;
-            DailyTalliesFragment.this.hia2Indicators = indicatorsMap;
             updateExpandableList();
         }
     }
