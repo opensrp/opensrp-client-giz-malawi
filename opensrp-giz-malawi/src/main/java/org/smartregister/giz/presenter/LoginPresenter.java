@@ -11,8 +11,15 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.AllConstants;
+import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.child.util.Constants;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
+import org.smartregister.domain.Setting;
 import org.smartregister.giz.R;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.interactor.LoginInteractor;
@@ -91,6 +98,21 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
 
     @Override
     public boolean isServerSettingsSet() {
-        return false;
+        try {
+            Setting setting = AncLibrary.getInstance().getContext().allSettings().getSetting(GizConstants.KEY.SITE_CHARACTERISTICS);
+            JSONObject jsonObject = setting != null ? new JSONObject(setting.getValue()) : null;
+            JSONArray settingArray = jsonObject != null && jsonObject.has(AllConstants.SETTINGS) ?
+                    jsonObject.getJSONArray(AllConstants.SETTINGS) : null;
+
+            if (settingArray != null && settingArray.length() > 0) {
+                JSONObject settingObject = settingArray.getJSONObject(0);
+                return !settingObject.isNull(Constants.KEY.VALUE);
+
+            }
+            return false;
+        } catch (JSONException e) {
+            Timber.e(e);
+            return false;
+        }
     }
 }

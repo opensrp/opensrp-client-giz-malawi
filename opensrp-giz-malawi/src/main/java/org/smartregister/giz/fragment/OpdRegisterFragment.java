@@ -20,7 +20,7 @@ import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
-import org.smartregister.opd.activity.OpdProfileActivity;
+import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 import org.smartregister.opd.utils.OpdConstants;
 
@@ -90,7 +90,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
         if (registerType != null && context != null) {
             if (registerType.equalsIgnoreCase("opd")) {
 
-                Intent intent = new Intent(getActivity(), OpdProfileActivity.class);
+                Intent intent = new Intent(getActivity(), BaseOpdProfileActivity.class);
                 intent.putExtra(OpdConstants.IntentKey.BASE_ENTITY_ID, commonPersonObjectClient.getCaseId());
                 intent.putExtra(OpdConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
                 intent.putExtra(OpdConstants.IntentKey.CLIENT_MAP, (HashMap<String, String>) commonPersonObjectClient.getColumnmaps());

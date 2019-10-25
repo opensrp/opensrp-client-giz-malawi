@@ -18,6 +18,7 @@ import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.List;
 
 import timber.log.Timber;
@@ -58,35 +59,10 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     }
 
     @Override
-    public void startForm(@NonNull String formName,@NonNull String entityId,@NonNull String metaData,@NonNull String locationId) {
-        if (StringUtils.isBlank(entityId)) {
-            Triple<String, String, String> triple = Triple.of(formName, metaData, locationId);
-            interactor.getNextUniqueId(triple, this);
-            return;
-        }
-
-        JSONObject form = null;
-        try {
-            form = model.getFormAsJson(formName, entityId, locationId);
-        } catch (JSONException e) {
-            Timber.e(e);
-        }
-
-        if (getView() != null) {
-            getView().startFormActivity(form);
-        }
-    }
-
-    @Override
     public void onNoUniqueId() {
         if (getView() != null) {
             getView().displayShortToast(R.string.no_unique_id);
         }
-    }
-
-    @Override
-    public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple,@NonNull String entityId) {
-        startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight());
     }
 
     @Override
@@ -114,7 +90,6 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
             getView().displayToast(String.format(getView().getContext().getString(R.string.language_x_selected), language));
         }
     }
-
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
