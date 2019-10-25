@@ -10,14 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.util.Utils;
-import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
-import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
-import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
@@ -25,7 +20,6 @@ import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 import org.smartregister.opd.utils.OpdConstants;
 
 import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -86,48 +80,13 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
     @Override
     protected void goToClientDetailActivity(@NonNull final CommonPersonObjectClient commonPersonObjectClient) {
         final Context context = getActivity();
-        String registerType = commonPersonObjectClient.getColumnmaps().get("register_type");
-        if (registerType != null && context != null) {
-            if (registerType.equalsIgnoreCase("opd")) {
 
-                Intent intent = new Intent(getActivity(), BaseOpdProfileActivity.class);
-                intent.putExtra(OpdConstants.IntentKey.BASE_ENTITY_ID, commonPersonObjectClient.getCaseId());
-                intent.putExtra(OpdConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
-                intent.putExtra(OpdConstants.IntentKey.CLIENT_MAP, (HashMap<String, String>) commonPersonObjectClient.getColumnmaps());
-                startActivity(intent);
-            } else if (registerType.equalsIgnoreCase("anc")) {
-                // Fetch the next contact of the ANC user & then add it to the details
-                openAncProfilePage(commonPersonObjectClient, context);
-            } else if (registerType.equalsIgnoreCase("child")) {
-                ChildImmunizationActivity.launchActivity(context, commonPersonObjectClient, new RegisterClickables());
-            }
-        }
+        Intent intent = new Intent(getActivity(), BaseOpdProfileActivity.class);
+        intent.putExtra(OpdConstants.IntentKey.BASE_ENTITY_ID, commonPersonObjectClient.getCaseId());
+        intent.putExtra(OpdConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
+        intent.putExtra(OpdConstants.IntentKey.CLIENT_MAP, (HashMap<String, String>) commonPersonObjectClient.getColumnmaps());
+        startActivity(intent);
 
-    }
-
-    private void openAncProfilePage(@NonNull final CommonPersonObjectClient commonPersonObjectClient, @NonNull final Context context) {
-        final AppExecutors appExecutors = new AppExecutors();
-
-        appExecutors.diskIO()
-                .execute(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        final Map<String, String> ancUserDetails = AncLibrary.getInstance()
-                                .getDetailsRepository()
-                                .getAllDetailsForClient(commonPersonObjectClient.getCaseId());
-
-                        ancUserDetails.putAll(commonPersonObjectClient.getColumnmaps());
-
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                Utils.navigateToProfile(context, (HashMap<String, String>) ancUserDetails);
-                            }
-                        });
-
-                    }
-                });
     }
 
     @Override
