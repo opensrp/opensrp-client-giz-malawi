@@ -190,7 +190,7 @@
 
 
         <activity
-            android:name="org.smartregister.opd.activity.OpdProfileActivity"
+            android:name="org.smartregister.opd.activity.BaseOpdProfileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />

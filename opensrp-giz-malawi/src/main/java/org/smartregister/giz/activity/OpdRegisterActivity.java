@@ -122,8 +122,9 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         Form form = new Form();
-        form.setWizard(true);
+        form.setWizard(false);
         form.setHideSaveLabel(true);
+        form.setNextLabel("");
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, OpdJsonFormUtils.REQUEST_CODE_GET_JSON);
