@@ -1,0 +1,17 @@
+---
+name: step1_diagnostic_test_result_spinner
+description: diagnostic_test_result_spinner
+priority: 1
+condition: "step1_diagnostic_test == 'Pregnancy Test' || step1_diagnostic_test == 'Malaria test'
+|| step1_diagnostic_test == 'HIV test' || step1_diagnostic_test == 'Syphillis test'
+|| step1_diagnostic_test == 'Hep B test' || step1_diagnostic_test == 'Hep C test'
+ || step1_diagnostic_test == 'TB Screening' || step1_diagnostic_test == 'Midstream urine Gram-staining'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_specify
+description: diagnostic_test_result_specify
+priority: 1
+condition: "step1_diagnostic_test == 'Ultra sound'"
+actions:
+  - "isRelevant = true"

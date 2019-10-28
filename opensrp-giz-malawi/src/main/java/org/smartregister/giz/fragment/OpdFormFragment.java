@@ -7,8 +7,6 @@ import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 
 import org.smartregister.opd.adapter.ClientLookUpListAdapter;
 import org.smartregister.opd.fragment.BaseOpdFormFragment;
-import org.smartregister.opd.interactor.OpdFormInteractor;
-import org.smartregister.opd.presenter.OpdFormFragmentPresenter;
 
 
 public class OpdFormFragment extends BaseOpdFormFragment implements ClientLookUpListAdapter.ClickListener {
@@ -17,12 +15,6 @@ public class OpdFormFragment extends BaseOpdFormFragment implements ClientLookUp
     protected JsonFormFragmentViewState createViewState() {
         return new JsonFormFragmentViewState();
     }
-
-    @Override
-    protected OpdFormFragmentPresenter createPresenter() {
-        return new OpdFormFragmentPresenter(this, OpdFormInteractor.getOpdInteractorInstance());
-    }
-
 
     public static OpdFormFragment getFormFragment(String stepName) {
         OpdFormFragment jsonFormFragment = new OpdFormFragment();

@@ -33,7 +33,7 @@ import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.repository.GizMalawiRepository;
-import org.smartregister.giz.sync.GizMalawiProcessorForJava;
+import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.util.VaccineDuplicate;

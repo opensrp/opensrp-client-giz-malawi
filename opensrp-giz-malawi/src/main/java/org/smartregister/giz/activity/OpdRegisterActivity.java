@@ -90,12 +90,14 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
                     RegisterParams registerParam = new RegisterParams();
                     registerParam.setEditMode(false);
                     registerParam.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));
-
                     showProgressDialog(R.string.saving_dialog_title);
                     presenter().saveForm(jsonString, registerParam);
                 } else if (encounterType.equals(OpdConstants.EventType.CHECK_IN)) {
                     showProgressDialog(R.string.saving_dialog_title);
-                    presenter().saveVisitOrDiagnosisForm(encounterType, jsonString, data);
+                    presenter().saveVisitOrDiagnosisForm(encounterType, data);
+                } else if (encounterType.equals(OpdConstants.EventType.DIAGNOSIS_AND_TREAT)) {
+                    showProgressDialog(R.string.saving_dialog_title);
+                    presenter().saveVisitOrDiagnosisForm(encounterType, data);
                 }
 
             } catch (JSONException e) {
@@ -120,9 +122,8 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         Form form = new Form();
-        form.setWizard(false);
+        form.setWizard(true);
         form.setHideSaveLabel(true);
-        form.setNextLabel("");
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, OpdJsonFormUtils.REQUEST_CODE_GET_JSON);
@@ -140,7 +141,6 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     public OpdRegisterActivityContract.Presenter presenter() {
         return (OpdRegisterActivityContract.Presenter) presenter;
     }
-
 
     @Override
     public void startRegistration() {

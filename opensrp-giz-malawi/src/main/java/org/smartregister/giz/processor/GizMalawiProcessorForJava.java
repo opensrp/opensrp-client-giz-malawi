@@ -1,4 +1,4 @@
-package org.smartregister.giz.sync;
+package org.smartregister.giz.processor;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -486,7 +486,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
 
         Event event = bcgScarEventClient.getEvent();
-
         String baseEntityId = event.getBaseEntityId();
         DateTime eventDate = event.getEventDate();
         long date = 0;

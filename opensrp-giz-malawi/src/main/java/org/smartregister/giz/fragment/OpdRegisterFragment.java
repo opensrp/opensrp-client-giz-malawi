@@ -16,7 +16,6 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
-import org.smartregister.opd.activity.OpdProfileActivity;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
@@ -93,6 +92,9 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
             if (!isDiagnoseScheduled) {
                 ((OpdRegisterActivity) getActivity()).startFormActivity("opd_checkin", commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
             }
+            else{
+                ((OpdRegisterActivity) getActivity()).startFormActivity("opd_diagnose_and_treat", commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
+            }
         }
     }
 
@@ -100,7 +102,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
     protected void goToClientDetailActivity(@NonNull final CommonPersonObjectClient commonPersonObjectClient) {
         final Context context = getActivity();
         if (context != null) {
-            Intent intent = new Intent(getActivity(), OpdProfileActivity.class);
+            Intent intent = new Intent(getActivity(), OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getProfileActivity());
             intent.putExtra(OpdConstants.IntentKey.BASE_ENTITY_ID, commonPersonObjectClient.getCaseId());
             intent.putExtra(OpdConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
             intent.putExtra(OpdConstants.IntentKey.CLIENT_MAP, (HashMap<String, String>) commonPersonObjectClient.getColumnmaps());
