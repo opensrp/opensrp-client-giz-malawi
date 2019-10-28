@@ -3,7 +3,6 @@ package org.smartregister.giz.presenter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.interactor.OpdRegisterActivityInteractor;
@@ -15,7 +14,6 @@ import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
 import java.util.List;
 
 import timber.log.Timber;

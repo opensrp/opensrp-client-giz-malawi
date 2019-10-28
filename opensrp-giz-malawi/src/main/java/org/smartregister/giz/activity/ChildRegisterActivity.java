@@ -26,8 +26,8 @@ import org.smartregister.giz.event.LoginEvent;
 import org.smartregister.giz.fragment.ChildRegisterFragment;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.view.NavDrawerActivity;
+import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.lang.ref.WeakReference;
