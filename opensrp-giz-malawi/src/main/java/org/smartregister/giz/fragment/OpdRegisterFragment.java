@@ -89,10 +89,15 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
             boolean isDiagnoseScheduled = !TextUtils.isEmpty(diagnoseSchedule) && diagnoseSchedule.equals("1");
 
+            String strVisitEndDate = clientColumnMaps.get(OpdDbConstants.Column.OpdDetails.CURRENT_VISIT_END_DATE);
+
+            if (strVisitEndDate != null) {
+                return;
+            }
+
             if (!isDiagnoseScheduled) {
                 ((OpdRegisterActivity) getActivity()).startFormActivity("opd_checkin", commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
-            }
-            else{
+            } else {
                 ((OpdRegisterActivity) getActivity()).startFormActivity("opd_diagnose_and_treat", commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
             }
         }
