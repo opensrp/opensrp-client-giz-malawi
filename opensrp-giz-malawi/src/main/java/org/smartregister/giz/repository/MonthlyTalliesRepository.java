@@ -9,9 +9,9 @@ import net.sqlcipher.SQLException;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz_malawi.domain.DailyTally;
-import org.smartregister.giz_malawi.domain.Hia2Indicator;
-import org.smartregister.giz_malawi.domain.MonthlyTally;
+import org.smartregister.giz.domain.DailyTally;
+import org.smartregister.giz.domain.Hia2Indicator;
+import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 

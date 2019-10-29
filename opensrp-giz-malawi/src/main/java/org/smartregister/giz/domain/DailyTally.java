@@ -1,4 +1,4 @@
-package org.smartregister.giz_malawi.domain;
+package org.smartregister.giz.domain;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11

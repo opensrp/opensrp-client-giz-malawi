@@ -101,7 +101,7 @@ public class SentMonthlyFragment extends Fragment {
 	                            String title = String.format(getString(R.string.sent_reports_),
 	                                    monthString);
 	                            Intent intent = new Intent(getActivity(), ReportSummaryActivity.class);
-	                            intent.putExtra(ReportSummaryActivity.EXTRA_TALLIES, indicators);
+	                            intent.putExtra(ReportSummaryActivity.EXTRA_DAY, indicators);
 	                            intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
 	                            intent.putExtra(ReportSummaryActivity.EXTRA_SUB_TITLE, subTitle);
 	                            startActivity(intent);

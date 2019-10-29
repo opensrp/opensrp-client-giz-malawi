@@ -6,8 +6,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz_malawi.domain.DailyTally;
-import org.smartregister.giz_malawi.domain.Hia2Indicator;
+import org.smartregister.giz.domain.DailyTally;
+import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
@@ -99,7 +99,7 @@ public class DailyTalliesRepository extends BaseRepository {
         if (cursor != null && cursor.getCount() > 0) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 //Date curMonth = new Date(cursor.getLong(0));
-                Date curMonth = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH).parse((cursor.getString(0)));
+                Date curMonth = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse((cursor.getString(0)));
                 String month = dateFormat.format(curMonth);
                 if (!months.contains(month)) {
                     months.add(month);

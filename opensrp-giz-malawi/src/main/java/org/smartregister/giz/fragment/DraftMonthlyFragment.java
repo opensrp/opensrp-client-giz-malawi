@@ -22,7 +22,7 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
-import org.smartregister.giz_malawi.domain.MonthlyTally;
+import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;

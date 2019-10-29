@@ -1,4 +1,4 @@
-package org.smartregister.giz_malawi.domain;
+package org.smartregister.giz.domain;
 
 
 import org.codehaus.jackson.annotate.JsonProperty;

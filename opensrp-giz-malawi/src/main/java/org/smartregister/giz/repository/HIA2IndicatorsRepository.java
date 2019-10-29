@@ -5,7 +5,7 @@ import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.smartregister.giz_malawi.domain.Hia2Indicator;
+import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 

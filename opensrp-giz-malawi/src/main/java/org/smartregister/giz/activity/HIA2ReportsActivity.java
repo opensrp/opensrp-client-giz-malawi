@@ -36,8 +36,8 @@ import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.giz_malawi.domain.Hia2Indicator;
-import org.smartregister.giz_malawi.domain.MonthlyTally;
+import org.smartregister.giz.domain.Hia2Indicator;
+import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz_malawi.fragment.SendMonthlyDraftDialogFragment;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
@@ -101,11 +101,11 @@ public class HIA2ReportsActivity extends BaseActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         // set up nav drawer
-        LinearLayout registerView = findViewById(R.id.register_view);
+        /*LinearLayout registerView = findViewById(R.id.register_view);
         LinearLayout reportView = findViewById(R.id.report_view);
 
         reportView.setBackgroundColor(getResources().getColor(R.color.primary));
-        registerView.setBackgroundColor(Color.TRANSPARENT);
+        registerView.setBackgroundColor(Color.TRANSPARENT);*/
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();

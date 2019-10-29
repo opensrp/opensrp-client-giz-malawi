@@ -2,6 +2,7 @@ package org.smartregister.giz.activity;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -10,14 +11,17 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.child.activity.BaseActivity;
 import org.smartregister.child.toolbar.SimpleToolbar;
 import org.smartregister.giz.R;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.view.IndicatorCategoryView;
-import org.smartregister.giz_malawi.domain.Tally;
+import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 /**
@@ -26,10 +30,10 @@ import java.util.LinkedHashMap;
 
 public class ReportSummaryActivity extends BaseActivity {
 
-    public static final String EXTRA_TALLIES = "tallies";
+    public static final String EXTRA_DAY = "tally_day";
     public static final String EXTRA_SUB_TITLE = "sub_title";
     public static final String EXTRA_TITLE = "title";
-    private LinkedHashMap<String, ArrayList<Tally>> tallies;
+    private LinkedHashMap<String, ArrayList<IndicatorTally>> tallies;
     private String subTitle;
 
     @SuppressWarnings("unchecked")
@@ -52,22 +56,23 @@ public class ReportSummaryActivity extends BaseActivity {
 
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
-            Serializable talliesSerializable = extras.getSerializable(EXTRA_TALLIES);
-            if (talliesSerializable != null && talliesSerializable instanceof ArrayList) {
-                ArrayList<Tally> tallies = (ArrayList<Tally>) talliesSerializable;
-                setTallies(tallies, false);
+            Serializable tallyDaySerializable = extras.getSerializable(EXTRA_DAY);
+            if (tallyDaySerializable instanceof Date) {
+                fetchIndicatorTalliesForDay((Date) tallyDaySerializable);
             }
 
             Serializable submittedBySerializable = extras.getSerializable(EXTRA_SUB_TITLE);
-            if (submittedBySerializable != null && submittedBySerializable instanceof String) {
+            if (submittedBySerializable instanceof String) {
                 subTitle = (String) submittedBySerializable;
             }
 
             Serializable titleSerializable = extras.getSerializable(EXTRA_TITLE);
-            if (titleSerializable != null && titleSerializable instanceof String) {
+            if (titleSerializable instanceof String) {
                 toolbar.setTitle((String) titleSerializable);
             }
         }
+
+        // Fetch the IndicatorQuery
     }
 
     @Override
@@ -103,29 +108,24 @@ public class ReportSummaryActivity extends BaseActivity {
         return null;
     }
 
-    public void setTallies(ArrayList<Tally> tallies) {
+    public void setTallies(ArrayList<IndicatorTally> tallies) {
         setTallies(tallies, true);
     }
 
-    private void setTallies(ArrayList<Tally> tallies, boolean refreshViews) {
+    private void setTallies(@NonNull ArrayList<IndicatorTally> tallies, boolean refreshViews) {
         this.tallies = new LinkedHashMap<>();
-        Collections.sort(tallies, new Comparator<Tally>() {
+        this.tallies.put("main", new ArrayList<>());
+
+        Collections.sort(tallies, new Comparator<IndicatorTally>() {
             @Override
-            public int compare(Tally lhs, Tally rhs) {
-                long lhsId = lhs.getIndicator().getId();
-                long rhsId = rhs.getIndicator().getId();
-                return (int) (lhsId - rhsId);
+            public int compare(IndicatorTally lhs, IndicatorTally rhs) {
+                return lhs.getIndicatorCode().compareTo(rhs.getIndicatorCode());
             }
         });
 
-        for (Tally curTally : tallies) {
-            if (curTally != null && !TextUtils.isEmpty(curTally.getIndicator().getCategory())) {
-                if (!this.tallies.containsKey(curTally.getIndicator().getCategory())
-                        || this.tallies.get(curTally.getIndicator().getCategory()) == null) {
-                    this.tallies.put(curTally.getIndicator().getCategory(), new ArrayList<Tally>());
-                }
-
-                this.tallies.get(curTally.getIndicator().getCategory()).add(curTally);
+        for (IndicatorTally curTally : tallies) {
+            if (curTally != null && !TextUtils.isEmpty(curTally.getIndicatorCode())) {
+                this.tallies.get("main").add(curTally);
             }
         }
 
@@ -142,6 +142,7 @@ public class ReportSummaryActivity extends BaseActivity {
                 IndicatorCategoryView curCategoryView = new IndicatorCategoryView(this);
                 curCategoryView.setTallies(curCategoryName, tallies.get(curCategoryName));
                 indicatorCanvas.addView(curCategoryView);
+
                 if (!firstExpanded) {
                     firstExpanded = true;
                     curCategoryView.setExpanded(true);
@@ -163,5 +164,24 @@ public class ReportSummaryActivity extends BaseActivity {
     @Override
     public void onRegistrationSaved(boolean isEdit) {
 
+    }
+
+    public void fetchIndicatorTalliesForDay(@NonNull final Date date) {
+        AppExecutors appExecutors = new AppExecutors();
+        appExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<IndicatorTally> indicatorTallies = ReportingLibrary.getInstance()
+                        .dailyIndicatorCountRepository()
+                        .getIndicatorTalliesForDay(date);
+
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        setTallies(indicatorTallies, true);
+                    }
+                });
+            }
+        });
     }
 }

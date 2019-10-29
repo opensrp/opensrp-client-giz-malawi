@@ -15,7 +15,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.smartregister.giz.R;
-import org.smartregister.giz_malawi.domain.Tally;
+import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class IndicatorCategoryView extends LinearLayout {
     private CustomFontTextView categoryName;
     private ImageView expandedView;
     private TableLayout indicatorTable;
-    private ArrayList<Tally> tallies;
+    private ArrayList<IndicatorTally> tallies;
 
     public IndicatorCategoryView(Context context) {
         super(context);
@@ -70,7 +70,7 @@ public class IndicatorCategoryView extends LinearLayout {
         setExpanded(false);
     }
 
-    public void setTallies(String categoryName, ArrayList<Tally> tallies) {
+    public void setTallies(String categoryName, ArrayList<IndicatorTally> tallies) {
         this.tallies = tallies;
         this.categoryName.setText(categoryName);
         refreshIndicatorTable();
@@ -78,7 +78,7 @@ public class IndicatorCategoryView extends LinearLayout {
 
     private void refreshIndicatorTable() {
         if (tallies != null) {
-            for (Tally curTally : tallies) {
+            for (IndicatorTally curTally : tallies) {
                 TableRow dividerRow = new TableRow(context);
                 View divider = new View(context);
                 TableRow.LayoutParams params = (TableRow.LayoutParams) divider.getLayoutParams();
@@ -96,7 +96,8 @@ public class IndicatorCategoryView extends LinearLayout {
                 TextView idTextView = new TextView(context);
                 idTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                         getResources().getDimension(R.dimen.indicator_table_contents_text_size));
-                idTextView.setText(curTally.getIndicator().getIndicatorCode().toUpperCase());
+                //idTextView.setText(curTally.getIndicatorCode().toUpperCase());
+
                 idTextView.setMaxWidth(150);
                 idTextView.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
                 idTextView.setPadding(
@@ -116,8 +117,11 @@ public class IndicatorCategoryView extends LinearLayout {
                         getResources().getDimensionPixelSize(R.dimen.table_contents_text_v_margin),
                         getResources().getDimensionPixelSize(R.dimen.table_row_middle_margin),
                         getResources().getDimensionPixelSize(R.dimen.table_contents_text_v_margin));
-                int resourceId = this.getResources().getIdentifier(curTally.getIndicator().getDescription(), "string", getContext().getPackageName());
-                nameTextView.setText(getResources().getString(resourceId));
+                int resourceId = this.getResources().getIdentifier(curTally.getIndicatorCode().toLowerCase(), "string", getContext().getPackageName());
+
+                String name = resourceId != 0 ? getResources().getString(resourceId) : curTally.getIndicatorCode();
+                nameTextView.setText(name);
+
                 //nameTextView.setMaxWidth(context.getResources().getDimensionPixelSize(R.dimen.max_indicator_name_width));
                 nameTextView.setTextColor(getResources().getColor(R.color.client_list_grey));
                 curRow.addView(nameTextView);
@@ -132,7 +136,7 @@ public class IndicatorCategoryView extends LinearLayout {
                         getResources().getDimensionPixelSize(R.dimen.table_row_side_margin),
                         getResources().getDimensionPixelSize(R.dimen.table_contents_text_v_margin));
                 valueTextView.setTextColor(getResources().getColor(R.color.client_list_grey));
-                valueTextView.setText(curTally.getValue());
+                valueTextView.setText(String.valueOf(curTally.getCount()));
                 curRow.addView(valueTextView);
                 indicatorTable.addView(curRow);
             }

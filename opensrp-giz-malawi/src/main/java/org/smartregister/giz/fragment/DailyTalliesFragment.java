@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,9 +16,8 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.activity.ReportSummaryActivity;
 import org.smartregister.giz.adapter.ExpandedListAdapter;
-import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz_malawi.domain.DailyTally;
-import org.smartregister.giz_malawi.domain.Hia2Indicator;
+import org.smartregister.giz.domain.Hia2Indicator;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.util.Utils;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,11 +40,10 @@ import timber.log.Timber;
  */
 
 public class DailyTalliesFragment extends Fragment {
-    private static final String TAG = DailyTalliesFragment.class.getCanonicalName();
+
     private static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("dd MMMM yyyy");
     private ExpandableListView expandableListView;
-    private HashMap<String, ArrayList<DailyTally>> dailyTallies;
-    private HashMap<String, Hia2Indicator> hia2Indicators;
+    private ArrayList<Date> dailyTallies;
     private ProgressDialog progressDialog;
 
     public static DailyTalliesFragment newInstance() {
@@ -57,7 +57,7 @@ public class DailyTalliesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utils.startAsyncTask(new GetAllTalliesTask(), null);
+        //Utils.startAsyncTask(new GetAllTalliesTask(), null);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class DailyTalliesFragment extends Fragment {
         expandableListView.setBackgroundColor(getResources().getColor(R.color.white));
 
         GetAllTalliesTask getAllTalliesTask = new GetAllTalliesTask();
-        getAllTalliesTask.execute();
+        Utils.startAsyncTask(getAllTalliesTask, null);
 
         return fragmentView;
     }
@@ -98,8 +98,7 @@ public class DailyTalliesFragment extends Fragment {
     }
 
     @SuppressWarnings("unchecked")
-    private void updateExpandableList(final LinkedHashMap<String, List<ExpandedListAdapter.ItemData<String, Date>>> map) {
-
+    private void updateExpandableList(@NonNull final LinkedHashMap<String, List<ExpandedListAdapter.ItemData<String, Date>>> map) {
         if (expandableListView == null) {
             return;
         }
@@ -113,14 +112,12 @@ public class DailyTalliesFragment extends Fragment {
                 if (tag instanceof Date) {
                     Date date = (Date) tag;
                     String dayString = DAY_FORMAT.format(date);
-                    if (dailyTallies.containsKey(dayString)) {
-                        ArrayList<DailyTally> indicators = new ArrayList(dailyTallies.get(dayString));
-                        String title = String.format(getString(R.string.daily_tally_), dayString);
-                        Intent intent = new Intent(getActivity(), ReportSummaryActivity.class);
-                        intent.putExtra(ReportSummaryActivity.EXTRA_TALLIES, indicators);
-                        intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
-                        startActivity(intent);
-                    }
+
+                    String title = String.format(getString(R.string.daily_tally_), dayString);
+                    Intent intent = new Intent(getActivity(), ReportSummaryActivity.class);
+                    intent.putExtra(ReportSummaryActivity.EXTRA_DAY, date);
+                    intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
+                    startActivity(intent);
                 }
 
                 return true;
@@ -129,6 +126,7 @@ public class DailyTalliesFragment extends Fragment {
         expandableListAdapter.notifyDataSetChanged();
     }
 
+    @NonNull
     private LinkedHashMap<String, List<ExpandedListAdapter.ItemData<String, Date>>> formatListData() {
         Map<String, List<ExpandedListAdapter.ItemData<String, Date>>> map = new HashMap<>();
         Map<Long, String> sortMap = new TreeMap<>(new Comparator<Comparable>() {
@@ -137,37 +135,34 @@ public class DailyTalliesFragment extends Fragment {
                 return b.compareTo(a);
             }
         });
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy");
-        if (dailyTallies != null) {
-            for (ArrayList<DailyTally> curDay : dailyTallies.values()) {
-                if (curDay.size() > 0) {
-                    Date day = curDay.get(0).getDay();
-                    String monthString = monthFormat.format(day);
-                    if (!map.containsKey(monthString)) {
-                        map.put(monthString,
-                                new ArrayList<ExpandedListAdapter.ItemData<String, Date>>());
-                    }
 
-                    map.get(monthString).add(
-                            new ExpandedListAdapter.ItemData<>(DAY_FORMAT.format(day),
-                                    day)
-                    );
-                    sortMap.put(day.getTime(), monthString);
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
+
+        if (dailyTallies != null) {
+            for (Date day : dailyTallies) {
+                String monthString = monthFormat.format(day);
+                if (!map.containsKey(monthString)) {
+                    map.put(monthString, new ArrayList<ExpandedListAdapter.ItemData<String, Date>>());
                 }
+
+                map.get(monthString).add(new ExpandedListAdapter.ItemData<>(DAY_FORMAT.format(day), day));
+                sortMap.put(day.getTime(), monthString);
             }
         }
 
         LinkedHashMap<String, List<ExpandedListAdapter.ItemData<String, Date>>> sortedMap = new LinkedHashMap<>();
         for (Long curKey : sortMap.keySet()) {
             List<ExpandedListAdapter.ItemData<String, Date>> list = map.get(sortMap.get(curKey));
-            Collections.sort(list, new Comparator<ExpandedListAdapter.ItemData<String, Date>>() {
-                @Override
-                public int compare(ExpandedListAdapter.ItemData<String, Date> lhs,
-                                   ExpandedListAdapter.ItemData<String, Date> rhs) {
-                    return lhs.getTagData().compareTo(rhs.getTagData());
-                }
-            });
-            sortedMap.put(sortMap.get(curKey), list);
+            if (list != null) {
+                Collections.sort(list, new Comparator<ExpandedListAdapter.ItemData<String, Date>>() {
+                    @Override
+                    public int compare(ExpandedListAdapter.ItemData<String, Date> lhs,
+                                       ExpandedListAdapter.ItemData<String, Date> rhs) {
+                        return lhs.getTagData().compareTo(rhs.getTagData());
+                    }
+                });
+                sortedMap.put(sortMap.get(curKey), list);
+            }
         }
 
         return sortedMap;
@@ -206,7 +201,7 @@ public class DailyTalliesFragment extends Fragment {
     // Inner classes
     ////////////////////////////////////////////////////////////////
 
-    private class GetAllTalliesTask extends AsyncTask<Void, Void, HashMap<String, ArrayList<DailyTally>>> {
+    private class GetAllTalliesTask extends AsyncTask<Void, Void, ArrayList<Date>> {
 
         private final HashMap<String, Hia2Indicator> indicatorsMap;
 
@@ -221,7 +216,7 @@ public class DailyTalliesFragment extends Fragment {
         }
 
         @Override
-        protected HashMap<String, ArrayList<DailyTally>> doInBackground(Void... params) {
+        protected ArrayList<Date> doInBackground(Void... params) {
             Calendar startDate = Calendar.getInstance();
 
             startDate.set(Calendar.DAY_OF_MONTH, 1);
@@ -230,15 +225,15 @@ public class DailyTalliesFragment extends Fragment {
             startDate.set(Calendar.SECOND, 0);
             startDate.set(Calendar.MILLISECOND, 0);
             startDate.add(Calendar.MONTH, -1 * HIA2ReportsActivity.MONTH_SUGGESTION_LIMIT);
-            return GizMalawiApplication.getInstance().dailyTalliesRepository()
-                    .findAll(DAY_FORMAT, startDate.getTime(), Calendar.getInstance().getTime());
+            return ReportingLibrary.getInstance().dailyIndicatorCountRepository()
+                    .findDaysWithIndicatorCounts(DAY_FORMAT, startDate.getTime(), Calendar.getInstance().getTime());
         }
 
         @Override
-        protected void onPostExecute(HashMap<String, ArrayList<DailyTally>> tallies) {
-            super.onPostExecute(tallies);
+        protected void onPostExecute(ArrayList<Date> daysWithTallies) {
+            super.onPostExecute(daysWithTallies);
             hideProgressDialog();
-            DailyTalliesFragment.this.dailyTallies = tallies;
+            DailyTalliesFragment.this.dailyTallies = daysWithTallies;
             updateExpandableList();
         }
     }

@@ -3,10 +3,13 @@ package org.smartregister.giz.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 
+import com.amitshekhar.utils.DatabaseFileProvider;
+import com.amitshekhar.utils.DbPasswordProvider;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
@@ -205,6 +208,18 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         //init Job Manager
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
+        DatabaseFileProvider.setDbPasswordProvider(new DbPasswordProvider() {
+            @Override
+            public String getDbPassword(@NonNull String dbName) {
+
+                if ("drishti".equalsIgnoreCase(dbName)) {
+                    return getPassword();
+                } else {
+                    return "";
+                }
+            }
+        });
 
     }
 
