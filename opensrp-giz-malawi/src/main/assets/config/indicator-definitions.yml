@@ -1,14 +1,14 @@
 indicators:
   - key: "ME_Child_Total"
     description: "ME_Child_Total_label"
-    indicatorQuery: "select count(*) from ec_child child WHERE '%s' = strftime('%%Y-%%m-%%d', child.date)"
+    indicatorQuery: "select count(*) from ec_child child WHERE '%s' = strftime('%Y-%m-%d', child.date)"
 
   - key: "ME_PAB_Gender"
     description: "ME_PAB_Gender_label"
     indicatorQuery: "SELECT ec_child.gender, count(*) from ec_details
                      INNER JOIN ec_child
                      ON ec_details.base_entity_id = ec_child.base_entity_id
-                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                      AND ec_details.key = 'protected_at_birth'
                      AND ec_child.dob >= date('now','-2 years')
                      group by ec_child.gender"
@@ -26,14 +26,14 @@ indicators:
                      FROM ec_details
                      INNER JOIN ec_child
                      ON ec_details.base_entity_id = ec_child.base_entity_id
-                       WHERE ec_details.key = 'protected_at_birth' AND '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                       WHERE ec_details.key = 'protected_at_birth' AND '%s' = strftime('%Y-%m-%d', ec_child.date)
                        AND ec_child.dob >= date('now','-2 years')
                      group by age
                      UNION
                        Select 'Total', count(distinct ec_child.base_entity_id) from ec_details
                        JOIN ec_child
                                           ON ec_details.base_entity_id = ec_child.base_entity_id
-                       WHERE ec_details.key = 'protected_at_birth' AND '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                       WHERE ec_details.key = 'protected_at_birth' AND '%s' = strftime('%Y-%m-%d', ec_child.date)
                        AND ec_child.dob >= date('now','-2 years')
                      ORDER BY counter"
     isMultiResult: true
@@ -44,8 +44,8 @@ indicators:
     indicatorQuery: "SELECT vaccines.name, ec_child.gender, count(*) from vaccines
                       INNER JOIN ec_child
                       ON vaccines.base_entity_id = ec_child.base_entity_id
-                      WHERE vaccines.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND vaccines.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                       AND ec_child.dob >= date('now', '-2 years')
                       GROUP BY vaccines.name, ec_child.gender"
     isMultiResult: true
@@ -104,8 +104,8 @@ indicators:
                       FROM vaccines
                       INNER JOIN ec_child
                       ON vaccines.base_entity_id = ec_child.base_entity_id
-                      WHERE vaccines.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND vaccines.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                       AND ec_child.dob >= date('now', '-2 years')
                       GROUP BY vaccines.name, age"
     isMultiResult: true
@@ -151,8 +151,8 @@ indicators:
                      FROM vaccines
                      INNER JOIN ec_child
                      ON vaccines.base_entity_id = ec_child.base_entity_id
-                     WHERE vaccines.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                     AND vaccines.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                     WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                     AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                      AND ec_child.dob >= date('now', '-2 years')
                      GROUP BY vaccines.name"
     isMultiResult: true
@@ -177,10 +177,10 @@ indicators:
   - key: "ME_Child_HIV_Under2_Gender"
     description: "ME_Child_HIV_Under2_label"
     indicatorQuery: "SELECT 'HIV ' || d.value ,ec_child.gender,count(*) counter
-                     FROM ec_details
+                     FROM ec_details d
                      JOIN ec_child
                      ON d.base_entity_id=ec_child.base_entity_id
-                     WHERE '%s' = strftime('%%Y-%%m-%%d',datetime(ec_child.date/1000, 'unixepoch'))
+                     WHERE '%s' = strftime('%Y-%m-%d',datetime(ec_child.date/1000, 'unixepoch'))
                      AND round(julianday('now')-julianday(ec_child.dob)) < 730.0
                      group by d.value,ec_child.gender
                      HAVING d.key IN ('child_hiv_status',NULL);"
@@ -195,7 +195,7 @@ indicators:
                       FROM ec_details
                       JOIN ec_child
                       ON ec_details.base_entity_id = ec_child.base_entity_id
-                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                       AND ec_child.dob >= date('now', '-2 years')
                       AND ec_details.key = 'child_hiv_status'
                      group by ec_details.value, ec_child.gender "
@@ -219,7 +219,7 @@ indicators:
                       FROM ec_details
                       JOIN ec_child
                       ON ec_details.base_entity_id = ec_child.base_entity_id
-                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                       AND ec_child.dob < date('now', '-2 years')
                       AND ec_child.dob >= date('now', '-5 years')
                       AND ec_details.key = 'child_hiv_status'
@@ -241,7 +241,7 @@ indicators:
                       FROM ec_details
                       JOIN ec_child
                       ON ec_details.base_entity_id = ec_child.base_entity_id
-                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                       AND ec_child.dob >= date('now', '-2 years')
                       AND ec_details.key = 'child_treatment'
                       AND ec_details.value IS NOT NULL
@@ -259,7 +259,7 @@ indicators:
                       FROM ec_details
                       JOIN ec_child
                       ON ec_details.base_entity_id = ec_child.base_entity_id
-                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                       AND ec_child.dob < date('now', '-2 years')
                       AND ec_child.dob >= date('now', '-5 years')
                       AND ec_details.key = 'child_treatment'
@@ -281,7 +281,7 @@ indicators:
                      FROM ec_details
                      JOIN ec_child
                      ON ec_details.base_entity_id = ec_child.base_entity_id
-                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                      AND ec_child.dob < date('now', '-2 years')
                      AND ec_child.dob >= date('now', '-5 years')
                      AND ec_details.key = 'child_hiv_status'
@@ -302,7 +302,7 @@ indicators:
                      FROM ec_details
                      JOIN ec_child
                      ON ec_details.base_entity_id = ec_child.base_entity_id
-                     WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                     WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                      AND ec_child.dob >= date('now', '-2 years')
                      AND ec_details.key = 'child_hiv_status'
                      group by ec_details.value"
@@ -319,7 +319,7 @@ indicators:
                       FROM ec_details
                       JOIN ec_child
                       ON ec_details.base_entity_id = ec_child.base_entity_id
-                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                       AND ec_child.dob < date('now', '-2 years')
                       AND ec_child.dob >= date('now', '-5 years')
                       AND ec_details.key = 'child_treatment'
@@ -336,7 +336,7 @@ indicators:
                       FROM ec_details
                       JOIN ec_child
                       ON ec_details.base_entity_id = ec_child.base_entity_id
-                      WHERE '%s' = strftime('%%Y-%%m-%%d', ec_child.date)
+                      WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                       AND ec_child.dob >= date('now', '-2 years')
                       AND ec_details.key = 'child_treatment'
                       AND ec_details.value IS NOT NULL
@@ -358,8 +358,8 @@ indicators:
                       FROM weights
                      INNER JOIN ec_child
                      ON weights.base_entity_id = ec_child.base_entity_id
-                      WHERE weights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND weights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      WHERE weights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND weights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                       AND ec_child.dob < date('now', '-2 years')
                      AND ec_child.dob >= date('now', '-5 years')
                      AND weights.z_score <= 3
@@ -382,8 +382,8 @@ indicators:
                        FROM weights
                       INNER JOIN ec_child
                       ON weights.base_entity_id = ec_child.base_entity_id
-                       WHERE weights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                       AND weights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                       WHERE weights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                       AND weights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                        AND ec_child.dob < date('now', '-2 years')
                       AND ec_child.dob >= date('now', '-5 years')
                       AND weights.z_score <= 3
@@ -414,8 +414,8 @@ indicators:
                      FROM weights
                      INNER JOIN ec_child
                      ON weights.base_entity_id = ec_child.base_entity_id
-                     WHERE weights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                     AND weights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                     WHERE weights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                     AND weights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                      AND ec_child.dob >= date('now', '-2 years')
                      AND weights.z_score <= 3
                      AND weights.z_score >= -3
@@ -444,8 +444,8 @@ indicators:
                       FROM weights
                       INNER JOIN ec_child
                       ON weights.base_entity_id = ec_child.base_entity_id
-                      WHERE weights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND weights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      WHERE weights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND weights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                       AND ec_child.dob >= date('now', '-2 years')
                       AND weights.z_score <= 3
                       AND weights.z_score >= -3
@@ -476,8 +476,8 @@ indicators:
                    FROM heights
                   INNER JOIN ec_child
                   ON heights.base_entity_id = ec_child.base_entity_id
-                   WHERE heights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                   AND heights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                   WHERE heights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                   AND heights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                    AND ec_child.dob < date('now', '-2 years')
                   AND ec_child.dob >= date('now', '-5 years')
                   GROUP  BY haz_score, ec_child.gender"
@@ -504,8 +504,8 @@ indicators:
                       FROM heights
                       INNER JOIN ec_child
                       ON heights.base_entity_id = ec_child.base_entity_id
-                      WHERE heights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND heights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      WHERE heights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                      AND heights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                       AND ec_child.dob >= date('now', '-2 years')
                       GROUP  BY haz_score, age"
     expectedIndicators:
@@ -532,8 +532,8 @@ indicators:
                      FROM heights
                      INNER JOIN ec_child
                      ON heights.base_entity_id = ec_child.base_entity_id
-                     WHERE heights.date >= round((julianday(strftime('%%Y-%%m-%%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                     AND heights.date < round((julianday(strftime('%%Y-%%m-%%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                     WHERE heights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
+                     AND heights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
                      AND ec_child.dob >= date('now', '-2 years')
                      GROUP  BY haz_score, age, ec_child.gender"
     expectedIndicators:
@@ -544,4 +544,4 @@ indicators:
       - "ME_Height_Under2_Age_Gender_Severe_Over_1_Female"
       - "ME_Height_Under2_Age_Gender_Severe_Over_1_Male"
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Female"
-      - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"s
+      - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"
