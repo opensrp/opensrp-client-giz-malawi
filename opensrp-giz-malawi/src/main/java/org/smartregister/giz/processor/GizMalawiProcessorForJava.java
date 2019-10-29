@@ -27,6 +27,7 @@ import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizUtils;
 import org.smartregister.growthmonitoring.domain.Height;
 import org.smartregister.growthmonitoring.domain.Weight;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
@@ -88,6 +89,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
+
     public static GizMalawiProcessorForJava getInstance(Context context) {
         if (instance == null) {
             instance = new GizMalawiProcessorForJava(context);
@@ -134,6 +136,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(MoveToMyCatchmentUtils.MOVE_TO_CATCHMENT_EVENT)) {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.DEATH)) {
+                    processDeathEvent(eventClient);
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
@@ -153,12 +156,18 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
+    private void processDeathEvent(@NonNull EventClient eventClient) {
+        if (eventClient.getEvent().getEntityType().equals(GizConstants.EntityType.CHILD)) {
+            GizUtils.updateChildDeath(eventClient);
+        }
+    }
+
     private void processUnsyncEvents(@NonNull List<Event> unsyncEvents) {
         if (!unsyncEvents.isEmpty()) {
             unSync(unsyncEvents);
         }
 
-        for (MiniClientProcessorForJava miniClientProcessorForJava: unsyncEventsPerProcessor.keySet()) {
+        for (MiniClientProcessorForJava miniClientProcessorForJava : unsyncEventsPerProcessor.keySet()) {
             List<Event> processorUnsyncEvents = unsyncEventsPerProcessor.get(miniClientProcessorForJava);
             miniClientProcessorForJava.unSync(processorUnsyncEvents);
         }
@@ -209,7 +218,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             return;
         }
 
-        if(!childExists(eventClient.getClient().getBaseEntityId())){
+        if (!childExists(eventClient.getClient().getBaseEntityId())) {
             List<String> createCase = new ArrayList<>();
             createCase.add("ec_child");
             processCaseModel(event, eventClient.getClient(), createCase);

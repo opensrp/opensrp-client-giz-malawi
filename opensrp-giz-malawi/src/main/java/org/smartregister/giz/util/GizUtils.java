@@ -1,15 +1,22 @@
 package org.smartregister.giz.util;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 
 import org.greenrobot.eventbus.EventBus;
+import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.Utils;
+import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.domain.db.Client;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.event.BaseEvent;
 import org.smartregister.repository.AllSharedPreferences;
@@ -18,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class GizUtils extends org.smartregister.child.util.Utils {
+public class GizUtils extends Utils {
 
     public static final ArrayList<String> ALLOWED_LEVELS;
     public static final String FACILITY = "Facility";
@@ -117,5 +124,18 @@ public class GizUtils extends org.smartregister.child.util.Utils {
 
     private static String childAgeLimitFilter(String dateColumn, int age) {
         return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
+    }
+
+    public static void updateChildDeath(@NonNull EventClient eventClient) {
+        Client client = eventClient.getClient();
+        ContentValues values = new ContentValues();
+        values.put(Constants.KEY.DOD, Utils.convertDateFormat(client.getDeathdate()));
+        values.put(Constants.KEY.DATE_REMOVED, Utils.convertDateFormat(client.getDeathdate().toDate(), Utils.DB_DF));
+        String tableName = Utils.metadata().childRegister.tableName;
+        AllCommonsRepository allCommonsRepository = GizMalawiApplication.getInstance().context().allCommonsRepositoryobjects(tableName);
+        if (allCommonsRepository != null) {
+            allCommonsRepository.update(tableName, values, client.getBaseEntityId());
+            allCommonsRepository.updateSearch(client.getBaseEntityId());
+        }
     }
 }
