@@ -1,1 +1,2 @@
-include ':opensrp-giz-malawi'
+include ':opensrp-giz-malawi', ':opensrp-reporting'
+project(":opensrp-reporting").projectDir = new File("../opensrp-client-reporting/opensrp-reporting")
