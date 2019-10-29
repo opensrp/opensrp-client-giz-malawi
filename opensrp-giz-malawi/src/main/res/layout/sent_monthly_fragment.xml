@@ -67,13 +67,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/vaccination_today_bg"
+            android:background="@drawable/report_btn_bg"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
             android:text="@string/start_new_report"
             android:textAllCaps="false"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/white"
+            android:textColor="@drawable/report_btn_text"
             android:textSize="22sp"
             android:visibility="gone" />
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -20,15 +21,15 @@ import android.widget.TextView;
 
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
-import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.domain.MonthlyTally;
+import org.smartregister.giz.repository.MonthlyTalliesRepository;
+import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
+import org.smartregister.giz.task.FetchUneditedMonthlyTalliesTask;
 import org.smartregister.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -56,10 +57,10 @@ public class DraftMonthlyFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View fragmentview = inflater.inflate(R.layout.sent_monthly_fragment, container, false);
 
-        listView =  fragmentview.findViewById(R.id.list);
+        listView = fragmentview.findViewById(R.id.list);
         noDraftsView = fragmentview.findViewById(R.id.empty_view);
         startNewReportEnabled = fragmentview.findViewById(R.id.start_new_report_enabled);
         startNewReportDisabled = fragmentview.findViewById(R.id.start_new_report_disabled);
@@ -79,7 +80,7 @@ public class DraftMonthlyFragment extends Fragment {
         super.onPause();
     }
 
-    private void updateStartNewReportButton(final List<Date> dates) {
+    private void updateStartNewReportButton(@Nullable final List<Date> dates) {
         boolean hia2ReportsReady = dates != null && !dates.isEmpty();
 
         startNewReportEnabled.setVisibility(View.GONE);
@@ -112,48 +113,20 @@ public class DraftMonthlyFragment extends Fragment {
     }
 
     private void setupUneditedDraftsView() {
-        Utils.startAsyncTask(new AsyncTask<Void, Void, List<Date>>() {
+        Utils.startAsyncTask(new FetchUneditedMonthlyTalliesTask(new FetchUneditedMonthlyTalliesTask.TaskListener() {
             @Override
-            protected List<Date> doInBackground(Void... params) {
-                MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication
-                        .getInstance().monthlyTalliesRepository();
-                Calendar startDate = Calendar.getInstance();
-                startDate.set(Calendar.DAY_OF_MONTH, 1);
-                startDate.set(Calendar.HOUR_OF_DAY, 0);
-                startDate.set(Calendar.MINUTE, 0);
-                startDate.set(Calendar.SECOND, 0);
-                startDate.set(Calendar.MILLISECOND, 0);
-                startDate.add(Calendar.MONTH, -1 * HIA2ReportsActivity.MONTH_SUGGESTION_LIMIT);
-
-                Calendar endDate = Calendar.getInstance();
-                // should be 1, setting temporarily to 30
-                endDate.set(Calendar.DAY_OF_MONTH, 30);// Set date to first day of this month
-                endDate.set(Calendar.HOUR_OF_DAY, 23);
-                endDate.set(Calendar.MINUTE, 59);
-                endDate.set(Calendar.SECOND, 59);
-                endDate.set(Calendar.MILLISECOND, 999);
-                endDate.add(Calendar.DATE, -1);// Move the date to last day of last month
-
-                return monthlyTalliesRepository.findUneditedDraftMonths(startDate.getTime(),
-                        endDate.getTime());
-            }
-
-            @Override
-            protected void onPostExecute(List<Date> dates) {
+            public void onPostExecute(@NonNull List<Date> dates) {
                 updateStartNewReportButton(dates);
             }
-        }, null);
+        }), null);
     }
 
     private void setupEditedDraftsView() {
-        ((HIA2ReportsActivity) getActivity()).refreshDraftMonthlyTitle();
+        if (getActivity() != null) {
+            ((HIA2ReportsActivity) getActivity()).refreshDraftMonthlyTitle();
+        }
 
-        Utils.startAsyncTask(new HIA2ReportsActivity.FetchEditedMonthlyTalliesTask(new HIA2ReportsActivity.FetchEditedMonthlyTalliesTask.TaskListener() {
-            @Override
-            public void onPostExecute(List<MonthlyTally> monthlyTallies) {
-                updateDraftsReportListView(monthlyTallies);
-            }
-        }), null);
+        Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(this::updateDraftsReportListView), null);
     }
 
     private void updateDraftsReportListView(final List<MonthlyTally> monthlyTallies) {
@@ -173,70 +146,72 @@ public class DraftMonthlyFragment extends Fragment {
         }
     }
 
-    private void updateResults(final List<Date> list, final View.OnClickListener clickListener) {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.month_results, null);
+    private void updateResults(@NonNull final List<Date> list, @NonNull final View.OnClickListener clickListener) {
+        if (getActivity() != null) {
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View view = inflater.inflate(R.layout.month_results, null);
 
-        ListView listView = view.findViewById(R.id.list_view);
+            ListView listView = view.findViewById(R.id.list_view);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.PathDialog);
-        builder.setView(view);
-        builder.setCancelable(true);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.PathDialog);
+            builder.setView(view);
+            builder.setCancelable(true);
 
-        CustomFontTextView title = new CustomFontTextView(getActivity());
-        title.setText(getString(R.string.reports_available));
-        title.setGravity(Gravity.LEFT);
-        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
-        title.setFontVariant(FontVariant.BOLD);
-        title.setPadding(getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin), getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin), getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin), getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin));
+            CustomFontTextView title = new CustomFontTextView(getActivity());
+            title.setText(getString(R.string.reports_available));
+            title.setGravity(Gravity.START);
+            title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+            title.setFontVariant(FontVariant.BOLD);
+            title.setPadding(getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin), getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin), getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin), getResources().getDimensionPixelSize(R.dimen.activity_vertical_margin));
 
-        builder.setCustomTitle(title);
+            builder.setCustomTitle(title);
 
-        alertDialog = builder.create();
+            alertDialog = builder.create();
 
-        BaseAdapter baseAdapter = new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return list.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return list.get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view;
-                if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater)
-                            getActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-                    view = inflater.inflate(R.layout.month_item, null);
-                } else {
-                    view = convertView;
+            BaseAdapter baseAdapter = new BaseAdapter() {
+                @Override
+                public int getCount() {
+                    return list.size();
                 }
 
-                TextView tv = view.findViewById(R.id.tv);
-                Date date = list.get(position);
-                String text = MonthlyTalliesRepository.DF_YYYYMM.format(date);
-                tv.setText(text);
-                tv.setTag(date);
+                @Override
+                public Object getItem(int position) {
+                    return list.get(position);
+                }
 
-                view.setOnClickListener(clickListener);
-                view.setTag(list.get(position));
+                @Override
+                public long getItemId(int position) {
+                    return position;
+                }
 
-                return view;
-            }
-        };
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view;
+                    if (convertView == null) {
+                        LayoutInflater inflater = (LayoutInflater)
+                                getActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        listView.setAdapter(baseAdapter);
-        alertDialog.show();
+                        view = inflater.inflate(R.layout.month_item, null);
+                    } else {
+                        view = convertView;
+                    }
+
+                    TextView tv = view.findViewById(R.id.tv);
+                    Date date = list.get(position);
+                    String text = MonthlyTalliesRepository.DF_YYYYMM.format(date);
+                    tv.setText(text);
+                    tv.setTag(date);
+
+                    view.setOnClickListener(clickListener);
+                    view.setTag(list.get(position));
+
+                    return view;
+                }
+            };
+
+            listView.setAdapter(baseAdapter);
+            alertDialog.show();
+        }
 
     }
 
@@ -246,7 +221,7 @@ public class DraftMonthlyFragment extends Fragment {
             alertDialog.dismiss();
 
             Object tag = v.getTag();
-            if (tag != null && tag instanceof Date) {
+            if (tag instanceof Date) {
                 startMonthlyReportForm((Date) tag, true);
             }
 
@@ -256,7 +231,7 @@ public class DraftMonthlyFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Object tag = v.getTag();
-            if (tag != null && tag instanceof Date) {
+            if (tag instanceof Date) {
                 startMonthlyReportForm((Date) tag, false);
             }
 
@@ -281,7 +256,10 @@ public class DraftMonthlyFragment extends Fragment {
     }
 
     private void startMonthlyReportForm(Date date, boolean firstTimeEdit) {
-        ((HIA2ReportsActivity) getActivity()).startMonthlyReportForm("monthly_report", date, firstTimeEdit);
+        if (getActivity() != null) {
+            ((HIA2ReportsActivity) getActivity())
+                    .startMonthlyReportForm("monthly_report", date, firstTimeEdit);
+        }
     }
 
     private class DraftsAdapter extends BaseAdapter {

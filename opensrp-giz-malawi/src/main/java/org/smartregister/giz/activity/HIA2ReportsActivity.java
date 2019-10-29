@@ -3,9 +3,10 @@ package org.smartregister.giz.activity;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,9 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -29,15 +28,16 @@ import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.domain.Hia2Indicator;
+import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.fragment.DailyTalliesFragment;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
 import org.smartregister.giz.fragment.SentMonthlyFragment;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
+import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.giz.domain.Hia2Indicator;
-import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz_malawi.fragment.SendMonthlyDraftDialogFragment;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.Utils;
@@ -52,6 +52,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import timber.log.Timber;
+
 import static org.smartregister.util.JsonFormUtils.KEY;
 import static org.smartregister.util.JsonFormUtils.VALUE;
 
@@ -65,7 +67,6 @@ public class HIA2ReportsActivity extends BaseActivity {
     public static final int MONTH_SUGGESTION_LIMIT = 3;
     private static final String FORM_KEY_CONFIRM = "confirm";
     public static final DateFormat dfyymmdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-    //private static final List<String> readOnlyList = new ArrayList<>(Arrays.asList(HIA2Service.CHN1_011, HIA2Service.CHN1_021, HIA2Service.CHN1_025, HIA2Service.CHN2_015, HIA2Service.CHN2_030, HIA2Service.CHN2_041, HIA2Service.CHN2_051, HIA2Service.CHN2_061));
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -100,13 +101,6 @@ public class HIA2ReportsActivity extends BaseActivity {
 
         tabLayout.setupWithViewPager(mViewPager);
 
-        // set up nav drawer
-        /*LinearLayout registerView = findViewById(R.id.register_view);
-        LinearLayout reportView = findViewById(R.id.report_view);
-
-        reportView.setBackgroundColor(getResources().getColor(R.color.primary));
-        registerView.setBackgroundColor(Color.TRANSPARENT);*/
-
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();
     }
@@ -119,14 +113,8 @@ public class HIA2ReportsActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        /*final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        // TODO: This should go to the base class?
-        LinearLayout hia2 = (LinearLayout) drawer.findViewById(R.id.hia2_reports);
-        hia2.setBackgroundColor(getResources().getColor(R.color.primary));*/
-
         openDrawer();
     }
-
 
     public void openDrawer() {
         NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
@@ -146,31 +134,27 @@ public class HIA2ReportsActivity extends BaseActivity {
         return mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
     }
 
-    public void startMonthlyReportForm(String formName, Date date, boolean firstTimeEdit) {
-        try {
-            Fragment currentFragment = currentFragment();
-            if (currentFragment instanceof DraftMonthlyFragment) {
-                Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, date, formName, firstTimeEdit), null);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        }
+    public void startMonthlyReportForm(@NonNull String formName, @NonNull Date date, boolean firstTimeEdit) {
 
+        Fragment currentFragment = currentFragment();
+        if (currentFragment instanceof DraftMonthlyFragment) {
+            Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, date, formName, firstTimeEdit), null);
+        }
     }
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
+        // This method is useless -> Do nothing
     }
 
     @Override
     public void onNoUniqueId() {
-
+        // This method is useless -> Do nothing
     }
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
-
+        // This method is useless -> Do nothing
     }
 
     @Override
@@ -179,11 +163,6 @@ public class HIA2ReportsActivity extends BaseActivity {
             try {
                 showFragment = true;
                 String jsonString = data.getStringExtra("json");
-
-	                /*final int chunkSize = 4000;
-	                for (int i = 0; i < jsonString.length(); i += chunkSize) {
-	                    Log.d("JSONSTRING", jsonString.substring(i, Math.min(jsonString.length(), i + chunkSize)));
-	                }*/
 
                 boolean skipValidationSet = data.getBooleanExtra(JsonFormConstants.SKIP_VALIDATION, false);
                 JSONObject form = new JSONObject(jsonString);
@@ -221,9 +200,9 @@ public class HIA2ReportsActivity extends BaseActivity {
                     sendReport(month);
                 }
             } catch (JSONException e) {
-                Log.e(TAG + " " + "JSONException", e.getMessage());
+                Timber.e(e);
             } catch (ParseException e) {
-                Log.e(TAG + "ParseException", e.getMessage());
+                Timber.e(e);
             }
         }
     }
@@ -307,7 +286,7 @@ public class HIA2ReportsActivity extends BaseActivity {
         }), null);
     }
 
-    private static String retrieveValue(List<MonthlyTally> monthlyTallies, Hia2Indicator hia2Indicator) {
+    private static String retrieveValue(@Nullable List<MonthlyTally> monthlyTallies, @Nullable Hia2Indicator hia2Indicator) {
         String defaultValue = "0";
         if (hia2Indicator == null || monthlyTallies == null) {
             return defaultValue;
@@ -358,8 +337,8 @@ public class HIA2ReportsActivity extends BaseActivity {
         private final String formName;
         private final boolean firstTimeEdit;
 
-        public StartDraftMonthlyFormTask(HIA2ReportsActivity baseActivity,
-                                         Date date, String formName, boolean firstTimeEdit) {
+        public StartDraftMonthlyFormTask(@NonNull HIA2ReportsActivity baseActivity,
+                                         @NonNull Date date, @NonNull String formName, boolean firstTimeEdit) {
             this.baseActivity = baseActivity;
             this.date = date;
             this.formName = formName;
@@ -400,7 +379,7 @@ public class HIA2ReportsActivity extends BaseActivity {
                     }
 
                     int resourceId = baseActivity.getResources().getIdentifier(hia2Indicator.getDescription(), "string", baseActivity.getPackageName());
-                    String label = baseActivity.getResources().getString(resourceId);
+                    String label = resourceId != 0 ? baseActivity.getResources().getString(resourceId) : hia2Indicator.getDescription();
 
                     JSONObject vRequired = new JSONObject();
                     vRequired.put(JsonFormConstants.VALUE, "true");
@@ -449,18 +428,11 @@ public class HIA2ReportsActivity extends BaseActivity {
 
                 Intent intent = new Intent(baseActivity, GizJsonFormActivity.class);
                 intent.putExtra("json", form.toString());
-
-	                /*final int chunkSize = 4000;
-	                String s = form.toString();
-	                for (int i = 0; i < s.length(); i += chunkSize) {
-	                    Log.d("ORIGINALFORM", s.substring(i, Math.min(s.length(), i + chunkSize)));
-	                }*/
-
                 intent.putExtra(JsonFormConstants.SKIP_VALIDATION, false);
 
                 return intent;
             } catch (Exception e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
 
             return null;
@@ -470,46 +442,10 @@ public class HIA2ReportsActivity extends BaseActivity {
         protected void onPostExecute(Intent intent) {
             super.onPostExecute(intent);
             baseActivity.hideProgressDialog();
+
             if (intent != null) {
                 baseActivity.startActivityForResult(intent, REQUEST_CODE_GET_JSON);
             }
-        }
-    }
-
-    public static class FetchEditedMonthlyTalliesTask extends AsyncTask<Void, Void, List<MonthlyTally>> {
-        private final TaskListener taskListener;
-
-        public FetchEditedMonthlyTalliesTask(TaskListener taskListener) {
-            this.taskListener = taskListener;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected List<MonthlyTally> doInBackground(Void... params) {
-            MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication.getInstance().monthlyTalliesRepository();
-            Calendar endDate = Calendar.getInstance();
-            endDate.set(Calendar.DAY_OF_MONTH, 1); // Set date to first day of this month
-            endDate.set(Calendar.HOUR_OF_DAY, 23);
-            endDate.set(Calendar.MINUTE, 59);
-            endDate.set(Calendar.SECOND, 59);
-            endDate.set(Calendar.MILLISECOND, 999);
-            endDate.add(Calendar.DATE, -1); // Move the date to last day of last month
-
-            return monthlyTalliesRepository.findEditedDraftMonths(null, endDate.getTime());
-        }
-
-        @Override
-        protected void onPostExecute(List<MonthlyTally> monthlyTallies) {
-            super.onPostExecute(monthlyTallies);
-            taskListener.onPostExecute(monthlyTallies);
-        }
-
-        public interface TaskListener {
-            void onPostExecute(List<MonthlyTally> monthlyTallies);
         }
     }
 
