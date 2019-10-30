@@ -1,15 +1,17 @@
 package org.smartregister.giz.activity;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.giz.R;
+import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
 import org.smartregister.giz.util.GizConstants;
@@ -17,6 +19,7 @@ import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdRegisterActivity;
+import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 import org.smartregister.opd.pojos.RegisterParams;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
@@ -62,7 +65,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void finishActivity() {
-
+        finish();
     }
 
     @Override
@@ -109,8 +112,13 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void startFormActivity(String formName, String entityId, String metaData) {
-        startFormActivity(formName, entityId, metaData, null, null);
-    }
+        if (mBaseFragment instanceof BaseOpdRegisterFragment) {
+            String locationId = OpdUtils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
+            presenter().startForm(formName, entityId, metaData, locationId, null, null);
+        } else {
+
+            displayToast(getString(R.string.error_unable_to_start_form));
+        }    }
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
@@ -148,8 +156,16 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         //Do nothing
     }
 
+
     @Override
     protected Fragment[] getOtherFragments() {
-        return new Fragment[0];
+        ME_POSITION = 1;
+
+        Fragment[] fragments = new Fragment[1];
+        fragments[ME_POSITION - 1] = new MeFragment();
+
+        return fragments;
     }
+
+
 }

@@ -163,7 +163,7 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
 
         } else {
             if (baseClient != null) {
-                String opensrpId = baseClient.getIdentifier(OpdJsonFormUtils.OPENSRP_ID);
+                String opensrpId = baseClient.getIdentifier(OpdJsonFormUtils.ZEIR_ID);
 
                 //mark OPENSRP ID as used
                 getUniqueIdRepository().close(opensrpId);

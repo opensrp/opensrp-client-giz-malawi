@@ -11,8 +11,8 @@ import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.view.NavDrawerActivity;
+import org.smartregister.giz.view.NavigationMenu;
 
 public class NavigationListener implements View.OnClickListener {
 

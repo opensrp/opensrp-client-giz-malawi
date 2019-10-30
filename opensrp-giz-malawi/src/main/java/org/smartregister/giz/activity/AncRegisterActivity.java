@@ -6,8 +6,8 @@ import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.fragment.AncRegisterFragment;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.view.NavDrawerActivity;
+import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.view.activity.BaseRegisterActivity;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 

@@ -92,7 +92,6 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
         }
     }
 
-
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
         model.registerViewConfigurations(viewIdentifiers);
