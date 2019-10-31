@@ -98,7 +98,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
                     presenter().saveForm(jsonString, registerParam);
                 } else if (encounterType.equals(OpdConstants.EventType.CHECK_IN)) {
                     showProgressDialog(R.string.saving_dialog_title);
-                    presenter().saveVisitOrDiagnosisForm(encounterType, jsonString, data);
+                    presenter().saveVisitOrDiagnosisForm(encounterType, data);
                 }
 
             } catch (JSONException e) {

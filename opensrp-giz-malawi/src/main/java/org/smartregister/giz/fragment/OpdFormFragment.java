@@ -20,7 +20,7 @@ public class OpdFormFragment extends BaseOpdFormFragment implements ClientLookUp
 
     @Override
     protected OpdFormFragmentPresenter createPresenter() {
-        return new OpdFormFragmentPresenter(this, OpdFormInteractor.getOpdInteractorInstance());
+        return new OpdFormFragmentPresenter(this, OpdFormInteractor.getInstance());
     }
 
 
