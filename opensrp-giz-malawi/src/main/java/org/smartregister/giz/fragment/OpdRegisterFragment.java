@@ -101,9 +101,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
         final Context context = getActivity();
         if (context != null) {
             Intent intent = new Intent(getActivity(), BaseOpdProfileActivity.class);
-            intent.putExtra(OpdConstants.IntentKey.BASE_ENTITY_ID, commonPersonObjectClient.getCaseId());
             intent.putExtra(OpdConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
-            intent.putExtra(OpdConstants.IntentKey.CLIENT_MAP, (HashMap<String, String>) commonPersonObjectClient.getColumnmaps());
             startActivity(intent);
         }
     }
