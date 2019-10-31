@@ -145,7 +145,11 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
-        "hint": "The diagnosis"
+        "hint": "The diagnosis",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis"
+        }
       },
       {
         "key": "diagnosis_type",
@@ -154,6 +158,10 @@
         "openmrs_entity_id": "",
         "label": "Diagnosis Type",
         "type": "native_radio",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis type"
+        },
         "options": [
           {
             "key": "Confirmed",
