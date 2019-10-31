@@ -443,7 +443,7 @@
           "column_name": "opensrp_id",
           "type": "Client",
           "json_mapping": {
-            "field": "identifiers.OPENSRP_ID"
+            "field": "identifiers.zeir_id"
           }
         },
         {

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +98,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
             if (!isDiagnoseScheduled) {
                 ((OpdRegisterActivity) getActivity()).startFormActivity("opd_checkin", commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
             } else {
-                ((OpdRegisterActivity) getActivity()).startFormActivity("opd_diagnose_and_treat", commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
+                ((OpdRegisterActivity) getActivity()).startFormActivity(OpdConstants.Form.OPD_DIAGNOSIS_AND_TREAT, commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
             }
         }
     }
@@ -109,9 +108,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
         final Context context = getActivity();
         if (context != null) {
             Intent intent = new Intent(getActivity(), OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getProfileActivity());
-            intent.putExtra(OpdConstants.IntentKey.BASE_ENTITY_ID, commonPersonObjectClient.getCaseId());
             intent.putExtra(OpdConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
-            intent.putExtra(OpdConstants.IntentKey.CLIENT_MAP, (HashMap<String, String>) commonPersonObjectClient.getColumnmaps());
             startActivity(intent);
         }
 
@@ -121,6 +118,5 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
     protected String getDefaultSortQuery() {
         return "";
     }
-
 
 }
