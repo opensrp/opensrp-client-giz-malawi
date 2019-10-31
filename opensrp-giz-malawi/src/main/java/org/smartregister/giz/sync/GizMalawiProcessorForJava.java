@@ -44,6 +44,8 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
+import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
+import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -70,11 +72,20 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         super(context);
 
         BaseAncClientProcessorForJava baseAncClientProcessorForJava = new BaseAncClientProcessorForJava(context);
-        unsyncEventsPerProcessor.put(baseAncClientProcessorForJava, new ArrayList<Event>());
-        HashSet<String> eventTypes = baseAncClientProcessorForJava.getEventTypes();
+        OpdMiniClientProcessorForJava opdMiniClientProcessorForJava = new OpdMiniClientProcessorForJava(context);
 
-        for (String eventType : eventTypes) {
-            processorMap.put(eventType, baseAncClientProcessorForJava);
+        addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava);
+    }
+
+    private void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
+        for (MiniClientProcessorForJava miniClientProcessorForJava: miniClientProcessorsForJava) {
+            unsyncEventsPerProcessor.put(miniClientProcessorForJava, new ArrayList<Event>());
+
+            HashSet<String> eventTypes = miniClientProcessorForJava.getEventTypes();
+
+            for (String eventType : eventTypes) {
+                processorMap.put(eventType, miniClientProcessorForJava);
+            }
         }
     }
 
@@ -128,7 +139,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
-                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
+                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
+                    if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
+                        Timber.e(new Exception(), "Cannot find client corresponding to %s with base-entity-id %d", OpdConstants.EventType.OPD_REGISTRATION, event.getBaseEntityId());
+                        continue;
+                    }
+
                     if (clientClassification == null) {
                         continue;
                     }

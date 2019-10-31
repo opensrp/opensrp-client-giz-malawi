@@ -1,6 +1,7 @@
 package org.smartregister.giz.interactor;
 
 import android.database.Cursor;
+import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonRepository;
@@ -35,7 +36,21 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                 @Override
                 public void run() {
                     try {
-                        final Integer finalCount = getCount(tableName);
+                        final Integer finalCount;
+                        if (tableName.contains("|")) {
+                            String[] tableNames = tableName.split("\\|");
+                            int currentCount = 0;
+
+                            for (String tableName: tableNames) {
+                                if (!TextUtils.isEmpty(tableName)) {
+                                    currentCount += getCount(tableName);
+                                }
+                            }
+                            finalCount = currentCount;
+                        } else {
+                            finalCount = getCount(tableName);
+                        }
+
                         appExecutors.mainThread().execute(new Runnable() {
                             @Override
                             public void run() {

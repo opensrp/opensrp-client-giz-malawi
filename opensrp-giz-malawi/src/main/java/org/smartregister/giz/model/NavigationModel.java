@@ -33,7 +33,11 @@ public class NavigationModel implements NavigationContract.Model {
             NavigationOption ancNavigationOption = new NavigationOption(R.mipmap.sidemenu_children,
                     R.mipmap.sidemenu_children_active, R.string.menu_anc_clients, GizConstants.DrawerMenu.ANC_CLIENTS,
                     0);
-            navigationOptions.addAll(asList(childNavigationOption, ancNavigationOption));
+
+            NavigationOption allClientsOption = new NavigationOption(R.mipmap.sidemenu_children
+                    , R.mipmap.sidemenu_children_active, R.string.all_clients, GizConstants.DrawerMenu.ALL_CLIENTS, 0);
+
+            navigationOptions.addAll(asList(allClientsOption, childNavigationOption, ancNavigationOption));
         }
 
         return navigationOptions;

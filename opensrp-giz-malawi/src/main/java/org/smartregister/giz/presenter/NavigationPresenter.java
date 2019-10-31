@@ -41,6 +41,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(GizConstants.DrawerMenu.CHILD_CLIENTS, GizConstants.TABLE_NAME.CHILD);
         tableMap.put(GizConstants.DrawerMenu.ANC_CLIENTS, GizConstants.TABLE_NAME.MOTHER_TABLE_NAME);
         tableMap.put(GizConstants.DrawerMenu.ANC, GizConstants.TABLE_NAME.ANC_MEMBER);
+        tableMap.put(GizConstants.DrawerMenu.ALL_CLIENTS, String.format("%s|%s", GizConstants.TABLE_NAME.CHILD, GizConstants.TABLE_NAME.MOTHER_TABLE_NAME));
     }
 
     @Override
@@ -53,7 +54,8 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         int navigationItems = 0;
         while (navigationItems < mModel.getNavigationItems().size()) {
             final int finalNavigationItems = navigationItems;
-            mInteractor.getRegisterCount(tableMap.get(mModel.getNavigationItems().get(navigationItems).getMenuTitle()),
+            String menuTitle = mModel.getNavigationItems().get(navigationItems).getMenuTitle();
+            mInteractor.getRegisterCount(tableMap.get(menuTitle),
                     new NavigationContract.InteractorCallback<Integer>() {
                         @Override
                         public void onResult(Integer result) {
