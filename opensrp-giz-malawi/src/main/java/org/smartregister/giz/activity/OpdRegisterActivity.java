@@ -123,6 +123,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
+
         Intent intent = new Intent(this, OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getOpdFormActivity());
 
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());

@@ -12,7 +12,4 @@
     <color name="holo_blue">#81D4FA</color>
     <color name="grey">#979797</color>
     <color name="white_dark">#fafafa</color>
-
-    <color name="diagnose_treat_btn_clicked">#EDBA00</color>
-    <color name="diagnose_treat_btn_normal">@color/translucent_yellow</color>
 </resources>

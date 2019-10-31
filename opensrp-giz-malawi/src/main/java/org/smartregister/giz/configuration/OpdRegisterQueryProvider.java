@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.configuration.OpdRegisterQueryProviderContract;
 import org.smartregister.opd.utils.OpdDbConstants;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -53,9 +55,8 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
     @NonNull
     @Override
     public String mainSelectWhereIDsIn() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        String oneDayAgo = new SimpleDateFormat(OpdDbConstants.DATE_FORMAT, Locale.US).format(calendar.getTime());
+        Date latestValidCheckInDate = OpdLibrary.getInstance().getLatestValidCheckInDate();
+        String oneDayAgo = new SimpleDateFormat(OpdDbConstants.DATE_FORMAT, Locale.US).format(latestValidCheckInDate);
         String sqlQuery = "Select ec_child.id as _id, ec_child.first_name, ec_child.last_name, ec_child.middle_name, ec_child.gender, ec_child.dob, ec_child.home_address, 'Child' AS register_type, ec_child.relational_id AS relationalid, ec_child.zeir_id AS register_id, ec_child.last_interacted_with, ec_mother.first_name AS mother_first_name, ec_mother.last_name AS mother_last_name, ec_mother.middle_name AS mother_middle_name, opd_details.current_visit_start_date >= '$latest_start_visit_date' AS pending_diagnose_and_treat,  'ec_child' as entity_table, opd_details.current_visit_end_date FROM ec_child \n" +
                 "    INNER JOIN ec_mother ON ec_child.relational_id = ec_mother.base_entity_id \n" +
                 "    LEFT JOIN opd_details ON ec_child.base_entity_id = opd_details.base_entity_id\n" +
