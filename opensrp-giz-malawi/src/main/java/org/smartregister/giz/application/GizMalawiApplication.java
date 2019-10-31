@@ -55,6 +55,7 @@ import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
+import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
 import org.smartregister.opd.pojos.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
@@ -199,7 +200,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
-                OpdConstants.CONFIG, OpdFormActivity.class,null,true);
+                OpdConstants.CONFIG, OpdFormActivity.class, BaseOpdProfileActivity.class,true);
 
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
                 .setOpdMetadata(opdMetadata)

@@ -60,12 +60,13 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
+
         "uploadButtonText": "Take a photo of the person"
       },
       {
         "key": "OPENSRP_ID",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
+        "openmrs_entity": "person_identifier",
         "openmrs_entity_id": "zeir_id",
         "type": "barcode",
         "barcode_type": "qrcode",
