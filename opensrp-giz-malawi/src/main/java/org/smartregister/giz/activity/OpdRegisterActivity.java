@@ -10,8 +10,8 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.giz.R;
 import org.smartregister.anc.library.fragment.MeFragment;
+import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
 import org.smartregister.giz.util.GizConstants;
@@ -19,12 +19,12 @@ import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdRegisterActivity;
+import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 import org.smartregister.opd.pojos.RegisterParams;
+import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
-import org.smartregister.opd.contract.OpdRegisterActivityContract;
-import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
@@ -118,15 +118,13 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         } else {
 
             displayToast(getString(R.string.error_unable_to_start_form));
-        }    }
+        }
+    }
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(this, OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getOpdFormActivity());
-        if (jsonForm.has(GizConstants.KEY.ENCOUNTER_TYPE) && jsonForm.optString(GizConstants.KEY.ENCOUNTER_TYPE).equals(
-                GizConstants.KEY.OPD_REGISTRATION)) {
-//            OpdJsonFormUtils.addRegLocHierarchyQuestions(jsonForm, GizConstants.KEY.REGISTRATION_HOME_ADDRESS, LocationHierarchy.ENTIRE_TREE);
-        }
+
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         Form form = new Form();
@@ -166,6 +164,4 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
         return fragments;
     }
-
-
 }

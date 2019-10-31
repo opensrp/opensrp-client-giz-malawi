@@ -3,7 +3,6 @@ package org.smartregister.giz.presenter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.interactor.OpdRegisterActivityInteractor;
@@ -25,12 +24,8 @@ import timber.log.Timber;
 
 public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresenter implements OpdRegisterActivityContract.Presenter, OpdRegisterActivityContract.InteractorCallBack {
 
-    private WeakReference<OpdRegisterActivityContract.View> viewReference;
-    private OpdRegisterActivityContract.Interactor interactor;
-    private OpdRegisterActivityContract.Model model;
-
     public OpdRegisterActivityPresenter(OpdRegisterActivityContract.View view, OpdRegisterActivityContract.Model model) {
-        super(view,model);
+        super(view, model);
         viewReference = new WeakReference<>(view);
         interactor = new OpdRegisterActivityInteractor();
         this.model = model;
@@ -59,11 +54,6 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
         if (getView() != null) {
             getView().displayShortToast(R.string.no_unique_id);
         }
-    }
-
-    @Override
-    public void onUniqueIdFetched(@NonNull Triple<String, String, String> triple,@NonNull String entityId) {
-        startForm(triple.getLeft(), entityId, triple.getMiddle(), triple.getRight(), null, null);
     }
 
     @Override

@@ -55,7 +55,7 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
 
     private boolean parseBoolean(@Nullable String booleanString) {
         return (!TextUtils.isEmpty(booleanString) && (
-                (booleanString.length() == 1 && booleanString.equals("1"))
+                (booleanString.length() == 1 && "1".equals(booleanString))
                         || (booleanString.length() > 1 && Boolean.parseBoolean(booleanString))));
     }
 
