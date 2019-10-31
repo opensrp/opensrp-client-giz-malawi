@@ -93,10 +93,12 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
                     RegisterParams registerParam = new RegisterParams();
                     registerParam.setEditMode(false);
                     registerParam.setFormTag(OpdJsonFormUtils.formTag(OpdUtils.context().allSharedPreferences()));
-
                     showProgressDialog(R.string.saving_dialog_title);
                     presenter().saveForm(jsonString, registerParam);
                 } else if (encounterType.equals(OpdConstants.EventType.CHECK_IN)) {
+                    showProgressDialog(R.string.saving_dialog_title);
+                    presenter().saveVisitOrDiagnosisForm(encounterType, data);
+                } else if (encounterType.equals(OpdConstants.EventType.DIAGNOSIS_AND_TREAT)) {
                     showProgressDialog(R.string.saving_dialog_title);
                     presenter().saveVisitOrDiagnosisForm(encounterType, data);
                 }
@@ -122,6 +124,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     @Override
     public void startFormActivity(JSONObject jsonForm) {
         Intent intent = new Intent(this, OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getOpdFormActivity());
+
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());
 
         Form form = new Form();
@@ -146,7 +149,6 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         return (OpdRegisterActivityContract.Presenter) presenter;
     }
 
-
     @Override
     public void startRegistration() {
         //Do nothing
@@ -162,6 +164,4 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
         return fragments;
     }
-
-
 }

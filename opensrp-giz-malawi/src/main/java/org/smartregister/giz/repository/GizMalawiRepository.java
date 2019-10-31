@@ -26,6 +26,11 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.opd.repository.OpdCheckInRepository;
 import org.smartregister.opd.repository.OpdDetailsRepository;
+import org.smartregister.opd.repository.OpdDiagnosisAndTreatmentFormRepository;
+import org.smartregister.opd.repository.OpdDiagnosisRepository;
+import org.smartregister.opd.repository.OpdServiceDetailRepository;
+import org.smartregister.opd.repository.OpdTestConductedRepository;
+import org.smartregister.opd.repository.OpdTreatmentRepository;
 import org.smartregister.opd.repository.OpdVisitRepository;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
@@ -74,6 +79,11 @@ public class GizMalawiRepository extends Repository {
         OpdVisitRepository.createTable(database);
         OpdCheckInRepository.createTable(database);
         OpdDetailsRepository.createTable(database);
+        OpdDiagnosisAndTreatmentFormRepository.createTable(database);
+        OpdDiagnosisRepository.createTable(database);
+        OpdTreatmentRepository.createTable(database);
+        OpdTestConductedRepository.createTable(database);
+        OpdServiceDetailRepository.createTable(database);
 
         runLegacyUpgrades(database);
 

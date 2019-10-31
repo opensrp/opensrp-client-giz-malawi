@@ -24,9 +24,8 @@ import timber.log.Timber;
 
 public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresenter implements OpdRegisterActivityContract.Presenter, OpdRegisterActivityContract.InteractorCallBack {
 
-
     public OpdRegisterActivityPresenter(OpdRegisterActivityContract.View view, OpdRegisterActivityContract.Model model) {
-        super(view,model);
+        super(view, model);
         viewReference = new WeakReference<>(view);
         interactor = new OpdRegisterActivityInteractor();
         this.model = model;
