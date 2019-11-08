@@ -130,7 +130,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             return names.toArray(new String[names.size()]);
         } else if (tableName.equals(DBConstantsUtils.WOMAN_TABLE_NAME)) {
             return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
-                    DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, DBConstantsUtils.KeyUtils.DATE_REMOVED};
+                    DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, OpdDbConstants.KEY.REGISTER_ID ,DBConstantsUtils.KeyUtils.DATE_REMOVED};
+        } else if (tableName.equals(OpdDbConstants.KEY.TABLE)){
+            return new String[]{OpdDbConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME,
+                    OpdDbConstants.KEY.LAST_INTERACTED_WITH, OpdDbConstants.KEY.DATE_REMOVED};
         }
 
         return null;
@@ -321,15 +324,15 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return context;
     }
 
-    public RecurringServiceTypeRepository recurringServiceTypeRepository() {
-        return ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
-    }
-
     public EventClientRepository eventClientRepository() {
         if (eventClientRepository == null) {
             eventClientRepository = new EventClientRepository(getRepository());
         }
         return eventClientRepository;
+    }
+
+    public RecurringServiceTypeRepository recurringServiceTypeRepository() {
+        return ImmunizationLibrary.getInstance().recurringServiceTypeRepository();
     }
 
     public RecurringServiceRecordRepository recurringServiceRecordRepository() {

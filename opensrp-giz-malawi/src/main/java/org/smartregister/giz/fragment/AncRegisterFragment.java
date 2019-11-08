@@ -52,4 +52,9 @@ public class AncRegisterFragment extends HomeRegisterFragment {
 
         return view;
     }
+
+    @Override
+    protected String getMainCondition() {
+        return super.getMainCondition() + "and  register_id not like '%_mother'";
+    }
 }
