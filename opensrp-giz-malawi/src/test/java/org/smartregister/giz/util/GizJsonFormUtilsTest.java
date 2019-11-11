@@ -32,8 +32,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.smartregister.giz.util.GizConstants.KEY.RELATIONAL_ID;
-
 @PrepareForTest({FormUtils.class, CoreLibrary.class, ChildLibrary.class, ImageUtils.class, LocationHelper.class})
 @RunWith(PowerMockRunner.class)
 public class GizJsonFormUtilsTest {
@@ -95,7 +93,7 @@ public class GizJsonFormUtilsTest {
 
         Map<String, String> childDetails = new HashMap<>();
         childDetails.put(Constants.KEY.BASE_ENTITY_ID, "baseEntityId");
-        childDetails.put(RELATIONAL_ID, "relationalId");
+        childDetails.put(Constants.KEY.RELATIONAL_ID, "relationalId");
         childDetails.put(GizConstants.KEY.MALAWI_ID, "malawi");
         childDetails.put(Constants.JSON_FORM_KEY.UNIQUE_ID, "opensrpId");
         childDetails.put(Constants.JSON_FORM_KEY.DOB, "2010-06-30");
