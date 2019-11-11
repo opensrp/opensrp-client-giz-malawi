@@ -114,10 +114,7 @@ public class GizJsonFormUtilsTest {
 
         Assert.assertEquals("last", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.LAST_NAME));
 
-        Assert.assertEquals("9", JsonFormUtils.getFieldValue(stepOneFields, Constants.JSON_FORM_KEY.AGE));
-
         Assert.assertEquals("30-06-2010", JsonFormUtils.getFieldValue(stepOneFields, Constants.DATE_BIRTH));
-
 
         Assert.assertEquals("Middle", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MIDDLE_NAME));
 
