@@ -1,5 +1,6 @@
 package org.smartregister.giz.configuration;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.view.View;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.opd.configuration.OpdRegisterRowOptions;
 import org.smartregister.opd.holders.OpdRegisterViewHolder;
 import org.smartregister.opd.utils.OpdConstants;
@@ -42,7 +44,7 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
 
         String strVisitEndDate = columnMaps.get(OpdDbConstants.Column.OpdDetails.CURRENT_VISIT_END_DATE);
 
-        if(strVisitEndDate != null){
+        if (strVisitEndDate != null) {
             Date visitEndDate = null;
             try {
                 visitEndDate = new SimpleDateFormat(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, Locale.ENGLISH).parse(strVisitEndDate);
@@ -59,7 +61,10 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
                 // next day
                 date.add(Calendar.DAY_OF_MONTH, 1);
                 if (new Date().before(date.getTime())) {
-                    opdRegisterViewHolder.dueButton.setText(R.string.treated);
+                    String treatedTime = (new SimpleDateFormat(GizConstants.DateFormat.HH_MM_AMPM, Locale.ENGLISH)).format(visitEndDate);
+
+                    Context context = opdRegisterViewHolder.dueButton.getContext();
+                    opdRegisterViewHolder.dueButton.setText(String.format(context.getResources().getString(R.string.treated_at_time), treatedTime));
                     opdRegisterViewHolder.dueButton.setTextColor(Color.parseColor("#219e05"));
                     opdRegisterViewHolder.dueButton.setAllCaps(false);
                     opdRegisterViewHolder.dueButton.setBackgroundResource(R.color.transparent);
