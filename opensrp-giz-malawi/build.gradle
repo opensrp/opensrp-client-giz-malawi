@@ -6,7 +6,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
+        classpath 'com.android.tools.build:gradle:3.1.4'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
         classpath 'io.fabric.tools:gradle:1.30.0'
     }
@@ -253,24 +253,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation('com.squareup:fest-android:1.0.8') { exclude module: 'support-v4' }
-    testImplementation 'org.robolectric:robolectric:4.0.1'
-    testImplementation("org.robolectric:shadows-multidex:3.8") {
-        exclude group: 'com.google.guava', module: 'guava'
-    }
-    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+    testImplementation 'org.robolectric:robolectric:4.2'
+    testImplementation 'org.robolectric:shadows-multidex:4.2'
     // PowerMock
-    def powerMockVersion = '1.7.1'
+    def powerMockVersion = '2.0.0'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
-    testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
-    testImplementation 'org.skyscreamer:jsonassert:1.5.0'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'junit', module: 'junit'
-    }
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
