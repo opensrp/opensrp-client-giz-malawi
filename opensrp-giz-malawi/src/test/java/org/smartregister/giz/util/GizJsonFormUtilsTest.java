@@ -14,6 +14,7 @@ import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.reflect.Whitebox;
 import org.smartregister.CoreLibrary;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.activity.BaseChildFormActivity;
@@ -28,6 +29,7 @@ import org.smartregister.util.ImageUtils;
 import org.smartregister.view.LocationPickerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,6 +127,35 @@ public class GizJsonFormUtilsTest {
         Assert.assertEquals("Nrc Number", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MOTHER_NRC_NUMBER));
 
         Assert.assertEquals("0232453923", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER));
+    }
 
+    @Test
+    public void updateBirthFacilityHierarchy() throws Exception {
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+
+        PowerMockito.when(locationHelper.getOpenMrsLocationHierarchy("facility", true))
+                .thenReturn(Collections.singletonList("location"));
+        Map<String, String> childDetails = new HashMap<>();
+        childDetails.put(GizConstants.KEY.BIRTH_FACILITY_NAME, "facility");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JsonFormUtils.KEY, GizConstants.KEY.BIRTH_FACILITY_NAME);
+        Whitebox.invokeMethod(GizJsonFormUtils.class, "updateBirthFacilityHierarchy", childDetails, jsonObject);
+        Assert.assertEquals("[\"location\"]", jsonObject.getString(JsonFormUtils.VALUE));
+    }
+
+    @Test
+    public  void updateResidentialAreaHierarchy() throws Exception {
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+
+        PowerMockito.when(locationHelper.getOpenMrsLocationHierarchy("address", true))
+                .thenReturn(Collections.singletonList("location"));
+        Map<String, String> childDetails = new HashMap<>();
+        childDetails.put(GizConstants.KEY.ADDRESS_3, "address");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(JsonFormUtils.KEY, GizConstants.KEY.RESIDENTIAL_AREA);
+        Whitebox.invokeMethod(GizJsonFormUtils.class, "updateResidentialAreaHierarchy", childDetails, jsonObject);
+        Assert.assertEquals("[\"location\"]", jsonObject.getString(JsonFormUtils.VALUE));
     }
 }

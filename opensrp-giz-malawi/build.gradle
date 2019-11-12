@@ -6,7 +6,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
+        classpath "com.android.tools.build:gradle:$androidToolsBuildGradle"
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
         classpath 'io.fabric.tools:gradle:1.30.0'
     }
@@ -255,8 +255,8 @@ dependencies {
     testImplementation('com.squareup:fest-android:1.0.8') { exclude module: 'support-v4' }
 
     testImplementation 'org.mockito:mockito-inline:2.13.0'
-    testImplementation 'org.robolectric:robolectric:4.2'
-    testImplementation 'org.robolectric:shadows-multidex:4.2'
+    testImplementation 'org.robolectric:robolectric:3.8'
+    testImplementation 'org.robolectric:shadows-multidex:3.8'
     // PowerMock
     def powerMockVersion = '2.0.0'
     testImplementation "org.powermock:powermock-module-junit4:$powerMockVersion"
