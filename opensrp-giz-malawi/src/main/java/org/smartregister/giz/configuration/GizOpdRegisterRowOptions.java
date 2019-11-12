@@ -11,16 +11,25 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.opd.configuration.OpdRegisterRowOptions;
 import org.smartregister.opd.holders.OpdRegisterViewHolder;
+import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.view.contract.SmartRegisterClient;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
+
+import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-10-08
  */
 
 public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
+
     @Override
     public boolean isDefaultPopulatePatientColumn() {
         return false;
@@ -34,11 +43,31 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
         String strVisitEndDate = columnMaps.get(OpdDbConstants.Column.OpdDetails.CURRENT_VISIT_END_DATE);
 
         if(strVisitEndDate != null){
-            opdRegisterViewHolder.dueButton.setText(R.string.treated);
-            opdRegisterViewHolder.dueButton.setTextColor(Color.parseColor("#219e05"));
-            opdRegisterViewHolder.dueButton.setAllCaps(false);
-            opdRegisterViewHolder.dueButton.setBackgroundResource(R.color.transparent);
-            return;
+            Date visitEndDate = null;
+            try {
+                visitEndDate = new SimpleDateFormat(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, Locale.ENGLISH).parse(strVisitEndDate);
+
+                // Get the midnight of that day when the visit happened
+                Calendar date = Calendar.getInstance();
+                date.setTime(visitEndDate);
+                // reset hour, minutes, seconds and millis
+                date.set(Calendar.HOUR_OF_DAY, 0);
+                date.set(Calendar.MINUTE, 0);
+                date.set(Calendar.SECOND, 0);
+                date.set(Calendar.MILLISECOND, 0);
+
+                // next day
+                date.add(Calendar.DAY_OF_MONTH, 1);
+                if (new Date().before(date.getTime())) {
+                    opdRegisterViewHolder.dueButton.setText(R.string.treated);
+                    opdRegisterViewHolder.dueButton.setTextColor(Color.parseColor("#219e05"));
+                    opdRegisterViewHolder.dueButton.setAllCaps(false);
+                    opdRegisterViewHolder.dueButton.setBackgroundResource(R.color.transparent);
+                    return;
+                }
+            } catch (ParseException e) {
+                Timber.e(e);
+            }
         }
 
         String booleanString = columnMaps.get(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT);
