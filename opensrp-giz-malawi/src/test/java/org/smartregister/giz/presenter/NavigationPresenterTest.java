@@ -20,9 +20,6 @@ public class NavigationPresenterTest {
 
     private NavigationPresenter navigationPresenter;
 
-    @Captor
-    ArgumentCaptor<String> argumentCaptor;
-
     @Mock
     private NavigationContract.View view;
 
@@ -49,9 +46,5 @@ public class NavigationPresenterTest {
     @Test
     public void getNavigationView() {
         Assert.assertNotNull(navigationPresenter.getNavigationView());
-    }
-
-    @Test
-    public void getOptions() {
     }
 }
