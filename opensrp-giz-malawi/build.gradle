@@ -188,7 +188,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.7.28-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.7.42-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
