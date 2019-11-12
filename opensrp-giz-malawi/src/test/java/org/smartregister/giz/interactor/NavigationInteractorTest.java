@@ -34,7 +34,7 @@ public class NavigationInteractorTest {
     private NavigationInteractor navigationInteractor;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         navigationInteractor = new NavigationInteractor();
     }
@@ -49,7 +49,7 @@ public class NavigationInteractorTest {
         PowerMockito.when(cursor.getInt(0)).thenReturn(1);
         PowerMockito.when(commonRepository.rawCustomQueryForAdapter("select count(*) from ec_child  where date_removed is null AND  ((( julianday('now') - julianday(dob))/365.25) <5);")).thenReturn(cursor);
         PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
-        int result  = Whitebox.invokeMethod(navigationInteractor, "getCount", GizConstants.TABLE_NAME.CHILD);
+        int result = Whitebox.invokeMethod(navigationInteractor, "getCount", GizConstants.TABLE_NAME.CHILD);
         Assert.assertEquals(1, result);
     }
 

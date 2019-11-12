@@ -4,8 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -24,7 +22,7 @@ public class NavigationPresenterTest {
     private NavigationContract.View view;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         navigationPresenter = new NavigationPresenter(view);
     }
@@ -33,14 +31,13 @@ public class NavigationPresenterTest {
     public void initialize() throws Exception {
         HashMap<String, String> tableMap = new HashMap<>();
         Whitebox.setInternalState(navigationPresenter, "tableMap", tableMap);
-        Whitebox.invokeMethod(navigationPresenter,"initialize");
+        Whitebox.invokeMethod(navigationPresenter, "initialize");
         Assert.assertEquals(5, tableMap.size());
         Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.ALL_FAMILIES));
         Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.ALL_CLIENTS));
         Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.CHILD_CLIENTS));
         Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.ANC));
         Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.ANC_CLIENTS));
-
     }
 
     @Test

@@ -145,7 +145,7 @@ public class GizJsonFormUtilsTest {
     }
 
     @Test
-    public  void updateResidentialAreaHierarchy() throws Exception {
+    public void updateResidentialAreaHierarchy() throws Exception {
         PowerMockito.mockStatic(LocationHelper.class);
         PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
 
