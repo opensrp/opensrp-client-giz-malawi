@@ -428,6 +428,109 @@
           }
         }
       ]
+    },
+    {
+      "name": "ec_client",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "opensrp_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.zeir_id"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "firstName"
+          }
+        },
+        {
+          "column_name": "last_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "lastName"
+          }
+        },
+        {
+          "column_name": "dob",
+          "type": "Client",
+          "json_mapping": {
+            "field": "birthdate"
+          }
+        },
+        {
+          "column_name": "national_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.national_id"
+          }
+        },
+        {
+          "column_name": "opd_reg_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.annual_serial_number"
+          }
+        },
+        {
+          "column_name": "bht_mid",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.bht_mid"
+          }
+        },
+        {
+          "column_name": "phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.phone_number"
+          }
+        },
+        {
+          "column_name": "reminders",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.reminders"
+          }
+        },
+        {
+          "column_name": "gender",
+          "type": "Client",
+          "json_mapping": {
+            "field": "gender"
+          }
+        },
+        {
+          "column_name": "date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        },
+        {
+          "column_name": "date_removed",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.dateRemoved"
+          }
+        },
+        {
+          "column_name": "last_interacted_with",
+          "type": "Event",
+          "json_mapping": {
+            "field": "version"
+          }
+        }
+      ]
     }
   ]
 }

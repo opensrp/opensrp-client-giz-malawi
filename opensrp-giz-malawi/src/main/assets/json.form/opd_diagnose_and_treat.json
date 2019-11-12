@@ -1,0 +1,349 @@
+{
+  "count": "4",
+  "encounter_type": "OPD Diagnosis and Treatment",
+  "entity_id": "",
+  "relational_id": "",
+  "validate_on_submit": true,
+  "show_errors_on_submit": true,
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Test Conducted",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "diagnostic_test",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "The type of test conducted",
+        "type": "spinner",
+        "values": [
+          "Pregnancy Test",
+          "Ultra sound",
+          "Malaria test",
+          "HIV test",
+          "Syphillis test",
+          "Hep B test",
+          "Hep C test",
+          "Blood Type test",
+          "TB Screening",
+          "Blood Glucose test",
+          "Midstream urine Gram-staining",
+          "Other(specify)"
+        ]
+      },
+      {
+        "key": "diagnostic_test_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify any other reason why the test was not done",
+        "edit_type": "name",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the result of the test"
+        },
+        "relevance": {
+          "step1:diagnostic_test": {
+            "type": "string",
+            "ex": "equalTo(., \"Other(specify)\")"
+          }
+        }
+      },
+      {
+        "key": "diagnostic_test_result_spinner",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "The result of the test conducted",
+        "type": "spinner",
+        "values": [
+          "Positive",
+          "Negative",
+          "Inconsistent"
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/diagnose_and_treat_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "diagnostic_test_result_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "The result of the test conducted",
+        "type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/diagnose_and_treat_relevance.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step2": {
+    "title": "Diagnosis",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "diagnosis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "The diagnosis",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis"
+        }
+      },
+      {
+        "key": "diagnosis_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Diagnosis Type",
+        "type": "native_radio",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis type"
+        },
+        "options": [
+          {
+            "key": "Confirmed",
+            "text": "Confirmed"
+          },
+          {
+            "key": "Presumed",
+            "text": "Presumed"
+          }
+        ],
+        "relevance": {
+          "step2:diagnosis": {
+            "type": "string",
+            "ex": "notEqualTo(., \"\")"
+          }
+        }
+      },
+      {
+        "key": "disease_code_label",
+        "type": "label",
+        "text": "Disease code",
+        "text_color": "#000000",
+        "relevance": {
+          "step2:diagnosis": {
+            "type": "string",
+            "ex": "notEqualTo(., \"\")"
+          }
+        }
+      },
+      {
+        "key": "disease_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "multi_select_list",
+        "buttonText": "+ Add disease code",
+        "dialogTitle": "Add disease code",
+        "searchHint": "Type Disease Name",
+        "options": [
+          {
+            "key": "A"
+          },
+          {
+            "key": "Abortion",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "Abcess",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "Anaemia",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "B"
+          },
+          {
+            "key": "Bacterial Meningitis",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "Bronchitis",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "Brucellosis",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          }
+        ],
+        "relevance": {
+          "step2:diagnosis": {
+            "type": "string",
+            "ex": "notEqualTo(., \"\")"
+          }
+        }
+      }
+    ]
+  },
+  "step3": {
+    "title": "Treatment",
+    "next": "step4",
+    "display_back_button": "false",
+    "fields": [
+      {
+        "key": "medicine_label",
+        "type": "label",
+        "text": "Treatment/Medicines Provided",
+        "text_color": "#000000"
+      },
+      {
+        "key": "medicine",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "multi_select_drug_picker",
+        "buttonText": "+ Add treatment/medicine",
+        "dialogTitle": "Add treatment/medicine",
+        "searchHint": "Type treatment/medicine name",
+        "options": [
+          {
+            "key": "A"
+          },
+          {
+            "key": "Amoxyllin",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "Amoneb",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "Aonic",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "B"
+          },
+          {
+            "key": "Brufen 300g",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "Bronchitis killer 300mg",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          },
+          {
+            "key": "Brucen 500g",
+            "property": {
+              "presumed-id": "er",
+              "confirmed-id": "er"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "step4": {
+    "title": "Service Fee",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "service_fee",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Service Fee",
+        "type": "edit_text"
+      }
+    ]
+  }
+}

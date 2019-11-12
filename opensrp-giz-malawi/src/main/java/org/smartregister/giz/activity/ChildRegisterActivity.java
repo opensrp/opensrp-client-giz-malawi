@@ -26,13 +26,15 @@ import org.smartregister.giz.event.LoginEvent;
 import org.smartregister.giz.fragment.ChildRegisterFragment;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.giz.view.RegisterViewWithDrawer;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.lang.ref.WeakReference;
 
-public class ChildRegisterActivity extends BaseChildRegisterActivity implements RegisterViewWithDrawer {
+public class ChildRegisterActivity extends BaseChildRegisterActivity implements NavDrawerActivity {
+
+    private NavigationMenu navigationMenu;
 
     @Override
     protected void attachBaseContext(android.content.Context base) {
@@ -98,13 +100,27 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
     @Override
     protected void onResumption() {
         super.onResumption();
-        openDrawer();
+        createDrawer();
     }
 
-    public void openDrawer() {
-        NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
+    private void createDrawer() {
+        navigationMenu = NavigationMenu.getInstance(this, null, null);
         navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
         navigationMenu.runRegisterCount();
+    }
+
+    @Override
+    public void openDrawer() {
+        if (navigationMenu != null) {
+            navigationMenu.openDrawer();
+        }
+    }
+
+    @Override
+    public void closeDrawer() {
+        if (navigationMenu != null) {
+            navigationMenu.closeDrawer();
+        }
     }
 
     @Override

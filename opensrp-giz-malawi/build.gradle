@@ -31,8 +31,8 @@ android {
         applicationId "org.smartregister.giz"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 4
-        versionName "0.1.6"
+        versionCode 10
+        versionName "0.2.0"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -57,6 +57,11 @@ android {
     lintOptions {
         lintConfig file("lint.xml")
         abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
 
     buildTypes {
@@ -133,14 +138,9 @@ dependencies {
     implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
 
-    implementation('org.smartregister:opensrp-client-child:0.1.10-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-    }
-    implementation('org.smartregister:opensrp-client-immunization:1.4.25-SNAPSHOT') {
+//    implementation (project (":opensrp-opd"))
+
+    implementation('org.smartregister:opensrp-client-opd:0.0.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -148,7 +148,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:0.0.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.1.11-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -156,7 +156,23 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-native-form:1.6.45-SNAPSHOT@aar') {
+    implementation ('org.smartregister:opensrp-client-immunization:1.4.25-SNAPSHOT') {
+        transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
+    implementation('org.smartregister:opensrp-client-anc:0.0.6-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
+    implementation('org.smartregister:opensrp-client-native-form:1.6.59-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
