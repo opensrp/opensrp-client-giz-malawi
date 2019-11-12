@@ -11,6 +11,7 @@ import android.view.View;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.configuration.OpdRegisterRowOptions;
 import org.smartregister.opd.holders.OpdRegisterViewHolder;
 import org.smartregister.opd.utils.OpdConstants;
@@ -19,7 +20,6 @@ import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -45,22 +45,9 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
         String strVisitEndDate = columnMaps.get(OpdDbConstants.Column.OpdDetails.CURRENT_VISIT_END_DATE);
 
         if (strVisitEndDate != null) {
-            Date visitEndDate = null;
             try {
-                visitEndDate = new SimpleDateFormat(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, Locale.ENGLISH).parse(strVisitEndDate);
-
-                // Get the midnight of that day when the visit happened
-                Calendar date = Calendar.getInstance();
-                date.setTime(visitEndDate);
-                // reset hour, minutes, seconds and millis
-                date.set(Calendar.HOUR_OF_DAY, 0);
-                date.set(Calendar.MINUTE, 0);
-                date.set(Calendar.SECOND, 0);
-                date.set(Calendar.MILLISECOND, 0);
-
-                // next day
-                date.add(Calendar.DAY_OF_MONTH, 1);
-                if (new Date().before(date.getTime())) {
+                Date visitEndDate = new SimpleDateFormat(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, Locale.ENGLISH).parse(strVisitEndDate);
+                if (OpdLibrary.getInstance().isPatientInTreatedState(visitEndDate)) {
                     String treatedTime = (new SimpleDateFormat(GizConstants.DateFormat.HH_MM_AMPM, Locale.ENGLISH)).format(visitEndDate);
 
                     Context context = opdRegisterViewHolder.dueButton.getContext();
@@ -70,8 +57,8 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
                     opdRegisterViewHolder.dueButton.setBackgroundResource(R.color.transparent);
                     return;
                 }
-            } catch (ParseException e) {
-                Timber.e(e);
+            } catch (ParseException ex) {
+                Timber.e(ex);
             }
         }
 
@@ -82,7 +69,6 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
             opdRegisterViewHolder.dueButton.setBackgroundResource(R.drawable.diagnose_treat_bg);
         } else {
             opdRegisterViewHolder.dueButton.setText(R.string.check_in);
-            opdRegisterViewHolder.dueButton.setBackgroundResource(R.color.transparent);
         }
 
     }

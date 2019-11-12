@@ -98,7 +98,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
             String strVisitEndDate = clientColumnMaps.get(OpdDbConstants.Column.OpdDetails.CURRENT_VISIT_END_DATE);
 
-            if (strVisitEndDate != null) {
+            if (strVisitEndDate != null && OpdLibrary.getInstance().isPatientInTreatedState(strVisitEndDate)) {
                 return;
             }
 
