@@ -28,15 +28,10 @@ import java.util.List;
 import timber.log.Timber;
 
 public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityInteractor {
-    private AppExecutors appExecutors;
 
 
-    public OpdRegisterActivityInteractor() {
-        this(new AppExecutors());
-    }
-
-    OpdRegisterActivityInteractor(AppExecutors appExecutors) {
-        this.appExecutors = appExecutors;
+    public OpdRegisterActivityInteractor(@NonNull OpdRegisterActivityContract.Presenter presenter) {
+        super(presenter);
     }
 
     @Override
