@@ -69,6 +69,7 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
             opdRegisterViewHolder.dueButton.setBackgroundResource(R.drawable.diagnose_treat_bg);
         } else {
             opdRegisterViewHolder.dueButton.setText(R.string.check_in);
+            opdRegisterViewHolder.dueButton.setBackgroundResource(android.R.drawable.btn_default);
         }
 
     }
