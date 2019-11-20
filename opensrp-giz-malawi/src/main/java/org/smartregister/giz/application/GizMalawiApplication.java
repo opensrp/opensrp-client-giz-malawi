@@ -30,6 +30,7 @@ import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
+import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
@@ -205,6 +206,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
                 .setOpdMetadata(opdMetadata)
                 .setOpdRegisterRowOptions(GizOpdRegisterRowOptions.class)
+                .setOpdRegisterSwitcher(GizOpdRegisterSwitcher.class)
                 .build();
 
         OpdLibrary.init(context, getRepository(), opdConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
