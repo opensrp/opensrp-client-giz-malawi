@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
@@ -44,17 +45,18 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
 
         String strVisitEndDate = columnMaps.get(OpdDbConstants.Column.OpdDetails.CURRENT_VISIT_END_DATE);
 
+        Button dueButton = opdRegisterViewHolder.dueButton;
         if (strVisitEndDate != null) {
             try {
                 Date visitEndDate = new SimpleDateFormat(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, Locale.ENGLISH).parse(strVisitEndDate);
                 if (OpdLibrary.getInstance().isPatientInTreatedState(visitEndDate)) {
                     String treatedTime = (new SimpleDateFormat(GizConstants.DateFormat.HH_MM_AMPM, Locale.ENGLISH)).format(visitEndDate);
 
-                    Context context = opdRegisterViewHolder.dueButton.getContext();
-                    opdRegisterViewHolder.dueButton.setText(String.format(context.getResources().getString(R.string.treated_at_time), treatedTime));
-                    opdRegisterViewHolder.dueButton.setTextColor(Color.parseColor("#219e05"));
-                    opdRegisterViewHolder.dueButton.setAllCaps(false);
-                    opdRegisterViewHolder.dueButton.setBackgroundResource(R.color.transparent);
+                    Context context = dueButton.getContext();
+                    dueButton.setText(String.format(context.getResources().getString(R.string.treated_at_time), treatedTime));
+                    dueButton.setTextColor(Color.parseColor("#219e05"));
+                    dueButton.setAllCaps(false);
+                    dueButton.setBackgroundResource(R.color.transparent);
                     return;
                 }
             } catch (ParseException ex) {
@@ -65,11 +67,13 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
         String booleanString = columnMaps.get(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT);
 
         if (parseBoolean(booleanString)) {
-            opdRegisterViewHolder.dueButton.setText(R.string.diagnose_and_treat);
-            opdRegisterViewHolder.dueButton.setBackgroundResource(R.drawable.diagnose_treat_bg);
+            dueButton.setText(R.string.diagnose_and_treat);
+            dueButton.setBackgroundResource(R.drawable.diagnose_treat_bg);
+            dueButton.setTextColor(dueButton.getContext().getResources().getColor(R.color.check_in_txt_dark_grey));
         } else {
-            opdRegisterViewHolder.dueButton.setText(R.string.check_in);
-            opdRegisterViewHolder.dueButton.setBackgroundResource(android.R.drawable.btn_default);
+            dueButton.setText(R.string.check_in);
+            dueButton.setBackgroundResource(R.drawable.opd_register_check_in_bg);
+            dueButton.setTextColor(dueButton.getContext().getResources().getColor(R.color.check_in_txt_dark_grey));
         }
 
     }
