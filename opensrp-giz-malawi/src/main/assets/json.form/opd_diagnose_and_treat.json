@@ -250,6 +250,7 @@
         "type": "multi_select_list",
         "buttonText": "+ Add disease code",
         "dialogTitle": "Add disease code",
+        "repositoryClass": "org.smartregister.opd.widgets.OpdDiseaseCodeMultiSelectListRepository",
         "searchHint": "Type Disease Name",
         "relevance": {
           "step2:diagnosis": {
@@ -280,6 +281,7 @@
         "sort": true,
         "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
         "source": "csv",
+        "repositoryClass": "org.smartregister.opd.widgets.OpdMedicineMultiSelectListRepository",
         "type": "multi_select_drug_picker",
         "buttonText": "+ Add treatment/medicine",
         "dialogTitle": "Add treatment/medicine",
