@@ -146,7 +146,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
     @NonNull
     @Override
     public String getDueOnlyText() {
-        return getString(R.string.checked_in_only);
+        return getString(R.string.checked_in);
     }
 
 }

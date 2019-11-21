@@ -130,5 +130,5 @@
     <string name="all_clients">All Clients</string>
     <string name="language_x_selected">%s selected</string>
     <string name="treated_at_time">TREATED\n%s</string>
-    <string name="checked_in_only">CHECKED-IN ONLY</string>
+    <string name="checked_in">Checked-In</string>
 </resources>

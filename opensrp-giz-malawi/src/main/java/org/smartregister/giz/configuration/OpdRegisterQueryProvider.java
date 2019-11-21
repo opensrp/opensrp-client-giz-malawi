@@ -39,9 +39,10 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                         "UNION ALL " +
                         "SELECT ec_client_search.object_id, ec_client_search.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*') " +
                         "    LEFT JOIN opd_details ON ec_client_search.object_id = opd_details.base_entity_id\n" +
-                        "WHERE checked_in" +
+                        "WHERE checked_in " +
                         "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
+                sql = sql.replace("$latest_start_visit_date", oneDayAgo);
                 return sql;
 
             } else {
