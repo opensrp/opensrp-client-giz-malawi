@@ -2,7 +2,6 @@ package org.smartregister.giz.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,9 +15,9 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.activity.ReportSummaryActivity;
 import org.smartregister.giz.adapter.ExpandedListAdapter;
-import org.smartregister.giz.domain.Hia2Indicator;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.reporting.ReportingLibrary;
-import org.smartregister.util.Utils;
+import org.smartregister.reporting.dao.ReportIndicatorDaoImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +44,7 @@ public class DailyTalliesFragment extends Fragment {
     private ExpandableListView expandableListView;
     private ArrayList<Date> dailyTallies;
     private ProgressDialog progressDialog;
+    private AppExecutors appExecutors;
 
     public static DailyTalliesFragment newInstance() {
         DailyTalliesFragment fragment = new DailyTalliesFragment();
@@ -55,21 +55,24 @@ public class DailyTalliesFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //Utils.startAsyncTask(new GetAllTalliesTask(), null);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        //Hia2ServiceBroadcastReceiver.getInstance().addHia2ServiceListener(this);
-    }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        //Hia2ServiceBroadcastReceiver.getInstance().removeHia2ServiceListener(this);
+        appExecutors = new AppExecutors();
+        showProgressDialog();
+        appExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                final ArrayList<Date> datesWithTallies = fetchLast3MonthsDailyTallies();
+
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        displayDailyTallies(datesWithTallies);
+                    }
+                });
+            }
+        });
     }
 
     @Nullable
@@ -79,10 +82,29 @@ public class DailyTalliesFragment extends Fragment {
         expandableListView = fragmentView.findViewById(R.id.expandable_list_view);
         expandableListView.setBackgroundColor(getResources().getColor(R.color.white));
 
-        GetAllTalliesTask getAllTalliesTask = new GetAllTalliesTask();
-        Utils.startAsyncTask(getAllTalliesTask, null);
-
         return fragmentView;
+    }
+
+    @NonNull
+    private ArrayList<Date> fetchLast3MonthsDailyTallies() {
+        Calendar startDate = Calendar.getInstance();
+
+        startDate.set(Calendar.DAY_OF_MONTH, 1);
+        startDate.set(Calendar.HOUR_OF_DAY, 0);
+        startDate.set(Calendar.MINUTE, 0);
+        startDate.set(Calendar.SECOND, 0);
+        startDate.set(Calendar.MILLISECOND, 0);
+        startDate.add(Calendar.MONTH, -1 * HIA2ReportsActivity.MONTH_SUGGESTION_LIMIT);
+        return ReportingLibrary.getInstance().dailyIndicatorCountRepository()
+                .findDaysWithIndicatorCounts(new SimpleDateFormat(ReportIndicatorDaoImpl.DAILY_TALLY_DATE_FORMAT)
+                        , startDate.getTime()
+                        , Calendar.getInstance().getTime());
+    }
+
+    private void displayDailyTallies(@NonNull ArrayList<Date> daysWithTallies) {
+        hideProgressDialog();
+        dailyTallies = daysWithTallies;
+        updateExpandableList();
     }
 
     @Override
@@ -201,40 +223,4 @@ public class DailyTalliesFragment extends Fragment {
     // Inner classes
     ////////////////////////////////////////////////////////////////
 
-    private class GetAllTalliesTask extends AsyncTask<Void, Void, ArrayList<Date>> {
-
-        private final HashMap<String, Hia2Indicator> indicatorsMap;
-
-        public GetAllTalliesTask() {
-            indicatorsMap = new HashMap<>();
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            showProgressDialog();
-        }
-
-        @Override
-        protected ArrayList<Date> doInBackground(Void... params) {
-            Calendar startDate = Calendar.getInstance();
-
-            startDate.set(Calendar.DAY_OF_MONTH, 1);
-            startDate.set(Calendar.HOUR_OF_DAY, 0);
-            startDate.set(Calendar.MINUTE, 0);
-            startDate.set(Calendar.SECOND, 0);
-            startDate.set(Calendar.MILLISECOND, 0);
-            startDate.add(Calendar.MONTH, -1 * HIA2ReportsActivity.MONTH_SUGGESTION_LIMIT);
-            return ReportingLibrary.getInstance().dailyIndicatorCountRepository()
-                    .findDaysWithIndicatorCounts(DAY_FORMAT, startDate.getTime(), Calendar.getInstance().getTime());
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Date> daysWithTallies) {
-            super.onPostExecute(daysWithTallies);
-            hideProgressDialog();
-            DailyTalliesFragment.this.dailyTallies = daysWithTallies;
-            updateExpandableList();
-        }
-    }
 }

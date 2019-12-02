@@ -60,6 +60,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.Hia2ReportRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
@@ -80,10 +81,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
+
     private EventClientRepository eventClientRepository;
     private HIA2IndicatorsRepository hIA2IndicatorsRepository;
     private DailyTalliesRepository dailyTalliesRepository;
     private MonthlyTalliesRepository monthlyTalliesRepository;
+    private Hia2ReportRepository hia2ReportRepository;
+
     private String password;
     private boolean lastModified;
     private ECSyncHelper ecSyncHelper;
@@ -418,6 +422,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         }
 
         return monthlyTalliesRepository;
+    }
+
+    public Hia2ReportRepository hia2ReportRepository() {
+        if (hia2ReportRepository == null) {
+            hia2ReportRepository = new Hia2ReportRepository(getRepository());
+        }
+        return hia2ReportRepository;
     }
 }
 

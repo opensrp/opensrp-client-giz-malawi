@@ -2,6 +2,8 @@ package org.smartregister.giz.domain;
 
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.jetbrains.annotations.Nullable;
+import org.smartregister.reporting.domain.IndicatorTally;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +24,10 @@ public class MonthlyTally extends Tally implements Serializable {
 
     @JsonProperty
     private Date updatedAt;
+
+
+    private Hia2Indicator hia2Indicator;
+    private IndicatorTally indicatorTally;
 
 
     @JsonProperty
@@ -73,5 +79,22 @@ public class MonthlyTally extends Tally implements Serializable {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @Nullable
+    public Hia2Indicator getHia2Indicator() {
+        return hia2Indicator;
+    }
+
+    public void setHia2Indicator(Hia2Indicator hia2Indicator) {
+        this.hia2Indicator = hia2Indicator;
+    }
+
+    public IndicatorTally getIndicatorTally() {
+        return indicatorTally;
+    }
+
+    public void setIndicatorTally(IndicatorTally indicatorTally) {
+        this.indicatorTally = indicatorTally;
     }
 }

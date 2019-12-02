@@ -3,7 +3,6 @@ package org.smartregister.giz.repository;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.DailyTally;
@@ -14,12 +13,12 @@ import org.smartregister.repository.Repository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
+
+import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
@@ -74,10 +73,8 @@ public class DailyTalliesRepository extends BaseRepository {
                     selectionArgs, null, null, null, null, null);
 
             months = getUniqueMonths(dateFormat, cursor);
-        } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } catch (SQLException | ParseException e) {
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -110,61 +107,6 @@ public class DailyTalliesRepository extends BaseRepository {
         return months;
     }
 
-    public Map<Long, List<DailyTally>> findTalliesInMonth(Date month) {
-        Map<Long, List<DailyTally>> talliesFromMonth = new HashMap<>();
-        Cursor cursor = null;
-        try {
-            HashMap<String, Hia2Indicator> indicatorMap = GizMalawiApplication.getInstance()
-                    .hIA2IndicatorsRepository().findAll();
-
-            Calendar startDate = Calendar.getInstance();
-            startDate.setTime(month);
-            startDate.set(Calendar.DAY_OF_MONTH, 1);
-            startDate.set(Calendar.HOUR_OF_DAY, 0);
-            startDate.set(Calendar.MINUTE, 0);
-            startDate.set(Calendar.SECOND, 0);
-            startDate.set(Calendar.MILLISECOND, 0);
-
-            Calendar endDate = Calendar.getInstance();
-            endDate.setTime(month);
-            endDate.add(Calendar.MONTH, 1);
-            endDate.set(Calendar.DAY_OF_MONTH, 1);
-            endDate.set(Calendar.HOUR_OF_DAY, 23);
-            endDate.set(Calendar.MINUTE, 59);
-            endDate.set(Calendar.SECOND, 59);
-            endDate.set(Calendar.MILLISECOND, 999);
-            endDate.add(Calendar.DATE, -1);
-
-            cursor = getReadableDatabase().query(TABLE_NAME, TABLE_COLUMNS,
-                    getDayBetweenDatesSelection(startDate.getTime(), endDate.getTime()),
-                    null, null, null, null, null);
-            if (cursor != null && cursor.getCount() > 0) {
-                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    DailyTally curTally = extractDailyTally(indicatorMap, cursor);
-                    if (curTally != null) {
-                        if (!talliesFromMonth.containsKey(curTally.getIndicator().getId())) {
-                            talliesFromMonth.put(
-                                    curTally.getIndicator().getId(),
-                                    new ArrayList<DailyTally>());
-                        }
-
-                        talliesFromMonth.get(curTally.getIndicator().getId()).add(curTally);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-
-        return talliesFromMonth;
-    }
-
     private String getDayBetweenDatesSelection(Date startDate, Date endDate) {
         return COLUMN_DAY + " >= '" + DAY_FORMAT.format(startDate) +
                 "' AND " + COLUMN_DAY + " <= '" + DAY_FORMAT.format(endDate) + "'";
@@ -193,17 +135,13 @@ public class DailyTalliesRepository extends BaseRepository {
 
                             tallies.get(dayString).add(curTally);
                         } else {
-                            Log.w(TAG, "There appears to be a daily tally with a null date");
+                            Timber.w("There appears to be a daily tally with a null date");
                         }
                     }
                 }
             }
-        } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (NullPointerException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } catch (SQLException | ParseException | NullPointerException e) {
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -219,7 +157,7 @@ public class DailyTalliesRepository extends BaseRepository {
             Hia2Indicator indicator = indicatorMap.get(indicatorId);
             DailyTally curTally = new DailyTally();
             curTally.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
-            curTally.setIndicator(indicator);
+            curTally.setIndicator(indicator.getIndicatorCode());
             curTally.setValue(cursor.getString(cursor.getColumnIndex(COLUMN_INDICATOR_VALUE)));
             Date day = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH).parse((cursor.getString(cursor.getColumnIndex(COLUMN_DAY))));
             curTally.setDay(day);

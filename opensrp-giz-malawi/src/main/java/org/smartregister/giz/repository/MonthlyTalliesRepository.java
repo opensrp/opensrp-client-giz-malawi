@@ -2,16 +2,17 @@ package org.smartregister.giz.repository;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import net.sqlcipher.SQLException;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.jetbrains.annotations.Nullable;
 import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz.domain.DailyTally;
-import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.giz.domain.MonthlyTally;
+import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.Repository;
 
@@ -24,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
@@ -87,6 +90,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
         database.execSQL(INDEX_MONTH);
         database.execSQL(INDEX_EDITED);
         database.execSQL(INDEX_DATE_SENT);
+        database.execSQL(INDEX_UNIQUE);
     }
 
     /**
@@ -118,7 +122,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
                         new String[]{COLUMN_MONTH}, COLUMN_MONTH + " IN(" + monthsString + ")",
                         null, null, null, null);
 
-                Log.d("Monthly ", monthsString + " === Select " + COLUMN_MONTH + " from " + TABLE_NAME + " where " + COLUMN_MONTH + " IN(" + monthsString + ")");
+                Timber.d(monthsString + " === Select " + COLUMN_MONTH + " from " + TABLE_NAME + " where " + COLUMN_MONTH + " IN(" + monthsString + ")");
 
                 if (cursor != null && cursor.getCount() > 0) {
                     for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -139,10 +143,8 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
                 return unsentMonths;
             }
-        } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } catch (SQLException | ParseException e) {
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -158,7 +160,8 @@ public class MonthlyTalliesRepository extends BaseRepository {
      * @param month The month to get the draft tallies for
      * @return
      */
-    public List<MonthlyTally> findDrafts(String month) {
+    @NonNull
+    public List<MonthlyTally> findDrafts(@NonNull String month) {
         // Check if there exists any sent tally in the database for the month provided
         Cursor cursor = null;
         List<MonthlyTally> monthlyTallies = new ArrayList<>();
@@ -170,20 +173,18 @@ public class MonthlyTalliesRepository extends BaseRepository {
             monthlyTallies = readAllDataElements(cursor);
 
             if (monthlyTallies.size() == 0) { // No tallies generated yet
-                Log.w(TAG, "Using daily tallies instead of monthly");
-                Map<Long, List<DailyTally>> dailyTallies = GizMalawiApplication.getInstance()
-                        .dailyTalliesRepository().findTalliesInMonth(DF_YYYYMM.parse(month));
-                for (List<DailyTally> curList : dailyTallies.values()) {
+                Timber.w("Using daily tallies instead of monthly");
+
+                Map<String, List<IndicatorTally>> dailyTallies = ReportingLibrary.getInstance().dailyIndicatorCountRepository().findTalliesInMonth(DF_YYYYMM.parse(month));
+                for (List<IndicatorTally> curList : dailyTallies.values()) {
                     MonthlyTally curTally = addUpDailyTallies(curList);
                     if (curTally != null) {
                         monthlyTallies.add(curTally);
                     }
                 }
             }
-        } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } catch (SQLException | ParseException e) {
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -209,7 +210,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
                     null, null, null, null, null);
             monthlyTallies = readAllDataElements(cursor);
         } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -219,19 +220,23 @@ public class MonthlyTalliesRepository extends BaseRepository {
         return monthlyTallies;
     }
 
-    private MonthlyTally addUpDailyTallies(List<DailyTally> dailyTallies) {
+    @Nullable
+    private MonthlyTally addUpDailyTallies(@NonNull List<IndicatorTally> dailyTallies) {
         String userName = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM();
         MonthlyTally monthlyTally = null;
         double value = 0d;
-        for (int i = 0; i < dailyTallies.size(); i++) {
-            if (i == 0) {
-                monthlyTally = new MonthlyTally();
-                monthlyTally.setIndicator(dailyTallies.get(i).getIndicator());
-            }
+
+        if (dailyTallies.size() > 0) {
+            monthlyTally = new MonthlyTally();
+            monthlyTally.setIndicator(dailyTallies.get(0).getIndicatorCode());
+
+        }
+
+        for (IndicatorTally dailyIndicatorTally: dailyTallies) {
             try {
-                value = value + Double.valueOf(dailyTallies.get(i).getValue());
+                value += dailyIndicatorTally.getFloatCount();
             } catch (NumberFormatException e) {
-                Log.w(TAG, Log.getStackTraceString(e));
+                Timber.w(e);
             }
         }
 
@@ -248,28 +253,27 @@ public class MonthlyTalliesRepository extends BaseRepository {
         HashMap<String, ArrayList<MonthlyTally>> tallies = new HashMap<>();
         Cursor cursor = null;
         try {
-            HashMap<String, Hia2Indicator> indicatorMap = GizMalawiApplication.getInstance()
-                    .hIA2IndicatorsRepository().findAll();
             cursor = getReadableDatabase()
                     .query(TABLE_NAME, TABLE_COLUMNS,
                             COLUMN_DATE_SENT + " IS NOT NULL", null, null, null, null, null);
             if (cursor != null && cursor.getCount() > 0) {
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    MonthlyTally curTally = extractMonthlyTally(indicatorMap, cursor);
+                    MonthlyTally curTally = extractMonthlyTally(cursor);
                     if (curTally != null) {
-                        if (!tallies.containsKey(dateFormat.format(curTally.getMonth()))) {
-                            tallies.put(dateFormat.format(curTally.getMonth()),
-                                    new ArrayList<MonthlyTally>());
+                        String yearMonthString = dateFormat.format(curTally.getMonth());
+
+                        ArrayList<MonthlyTally> monthlyTallies = tallies.get(yearMonthString);
+                        if (monthlyTallies == null) {
+                            monthlyTallies = new ArrayList<MonthlyTally>();
+                            tallies.put(yearMonthString, monthlyTallies);
                         }
 
-                        tallies.get(dateFormat.format(curTally.getMonth())).add(curTally);
+                        monthlyTallies.add(curTally);
                     }
                 }
             }
-        } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } catch (SQLException | ParseException e) {
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -285,7 +289,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
             database.beginTransaction();
             if (tally != null) {
                 ContentValues cv = new ContentValues();
-                cv.put(COLUMN_INDICATOR_CODE, tally.getIndicator().getId());
+                cv.put(COLUMN_INDICATOR_CODE, tally.getIndicator());
                 cv.put(COLUMN_VALUE, tally.getValue());
                 cv.put(COLUMN_PROVIDER_ID, tally.getProviderId());
                 cv.put(COLUMN_MONTH, DF_YYYYMM.format(tally.getMonth()));
@@ -299,12 +303,12 @@ public class MonthlyTalliesRepository extends BaseRepository {
                 return true;
             }
         } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         } finally {
             try {
                 database.endTransaction();
             } catch (IllegalStateException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
         }
 
@@ -341,7 +345,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
                     cv.put(COLUMN_PROVIDER_ID, userName);
                     cv.put(COLUMN_CREATED_AT, Calendar.getInstance().getTimeInMillis());
 
-                    Log.d("SAVING MONTHLy..", key + " & " + value + " & " + userName + " & " + month);
+                    Timber.d(key + " & " + value + " & " + userName + " & " + month);
 
                     database.insertWithOnConflict(TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
                 }
@@ -350,12 +354,12 @@ public class MonthlyTalliesRepository extends BaseRepository {
                 return true;
             }
         } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         } finally {
             try {
                 database.endTransaction();
             } catch (IllegalStateException e) {
-                Log.e(TAG, Log.getStackTraceString(e));
+                Timber.e(e);
             }
         }
 
@@ -364,22 +368,18 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
     private List<MonthlyTally> readAllDataElements(Cursor cursor) {
         List<MonthlyTally> tallies = new ArrayList<>();
-        HashMap<String, Hia2Indicator> indicatorMap = GizMalawiApplication.getInstance()
-                .hIA2IndicatorsRepository().findAll();
 
         try {
             if (cursor != null && cursor.getCount() > 0) {
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    MonthlyTally curTally = extractMonthlyTally(indicatorMap, cursor);
+                    MonthlyTally curTally = extractMonthlyTally(cursor);
                     if (curTally != null) {
                         tallies.add(curTally);
                     }
                 }
             }
-        } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } catch (SQLException | ParseException e) {
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -389,31 +389,31 @@ public class MonthlyTalliesRepository extends BaseRepository {
         return tallies;
     }
 
-    private MonthlyTally extractMonthlyTally(HashMap<String, Hia2Indicator> indicatorMap, Cursor cursor) throws ParseException {
+    @Nullable
+    private MonthlyTally extractMonthlyTally(@NonNull Cursor cursor) throws ParseException {
         String indicatorId = cursor.getString(cursor.getColumnIndex(COLUMN_INDICATOR_CODE));
-        if (indicatorMap.containsKey(indicatorId)) {
-            MonthlyTally curTally = new MonthlyTally();
-            curTally.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
-            curTally.setProviderId(
-                    cursor.getString(cursor.getColumnIndex(COLUMN_PROVIDER_ID)));
-            curTally.setIndicator(indicatorMap.get(indicatorId));
-            curTally.setValue(cursor.getString(cursor.getColumnIndex(COLUMN_VALUE)));
-            curTally.setMonth(DF_YYYYMM.parse(cursor.getString(cursor.getColumnIndex(COLUMN_MONTH))));
-            curTally.setEdited(
-                    cursor.getInt(cursor.getColumnIndex(COLUMN_EDITED)) != 0
-            );
-            curTally.setDateSent(
-                    cursor.getString(cursor.getColumnIndex(COLUMN_DATE_SENT)) == null ?
-                            null : new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_DATE_SENT)))
-            );
-            curTally.setUpdatedAt(
-                    new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_UPDATED_AT)))
-            );
 
-            return curTally;
-        }
+        MonthlyTally curTally = new MonthlyTally();
+        curTally.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
+        curTally.setProviderId(
+                cursor.getString(cursor.getColumnIndex(COLUMN_PROVIDER_ID)));
 
-        return null;
+        curTally.setIndicator(indicatorId);
+
+        curTally.setValue(cursor.getString(cursor.getColumnIndex(COLUMN_VALUE)));
+        curTally.setMonth(DF_YYYYMM.parse(cursor.getString(cursor.getColumnIndex(COLUMN_MONTH))));
+        curTally.setEdited(
+                cursor.getInt(cursor.getColumnIndex(COLUMN_EDITED)) != 0
+        );
+        curTally.setDateSent(
+                cursor.getString(cursor.getColumnIndex(COLUMN_DATE_SENT)) == null ?
+                        null : new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_DATE_SENT)))
+        );
+        curTally.setUpdatedAt(
+                new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_UPDATED_AT)))
+        );
+
+        return curTally;
     }
 
     /**
@@ -452,10 +452,8 @@ public class MonthlyTalliesRepository extends BaseRepository {
                     tallies.add(tally);
                 }
             }
-        } catch (SQLException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
-        } catch (ParseException e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+        } catch (SQLException| ParseException e) {
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();

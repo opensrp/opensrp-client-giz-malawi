@@ -1,8 +1,6 @@
 package org.smartregister.giz.fragment;
 
 import android.app.Activity;
-import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +19,7 @@ import android.widget.TextView;
 
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
+import org.smartregister.giz.adapter.MonthlyDraftsAdapter;
 import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
@@ -29,7 +28,6 @@ import org.smartregister.util.Utils;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -40,10 +38,11 @@ import java.util.List;
  */
 
 public class DraftMonthlyFragment extends Fragment {
+
     private Button startNewReportEnabled;
     private Button startNewReportDisabled;
     private AlertDialog alertDialog;
-    private DraftsAdapter draftsAdapter;
+    private MonthlyDraftsAdapter draftsAdapter;
     private ListView listView;
     private View noDraftsView;
 
@@ -129,12 +128,12 @@ public class DraftMonthlyFragment extends Fragment {
         Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(this::updateDraftsReportListView), null);
     }
 
-    private void updateDraftsReportListView(final List<MonthlyTally> monthlyTallies) {
-        if (monthlyTallies != null && !monthlyTallies.isEmpty()) {
+    public void updateDraftsReportListView(@Nullable final List<MonthlyTally> monthlyTallies) {
+        if (getActivity() != null && monthlyTallies != null && !monthlyTallies.isEmpty()) {
             noDraftsView.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
             if (draftsAdapter == null) {
-                draftsAdapter = new DraftsAdapter(monthlyTallies);
+                draftsAdapter = new MonthlyDraftsAdapter(getActivity(), monthlyTallies, monthClickListener);
                 listView.setAdapter(draftsAdapter);
             } else {
                 draftsAdapter.setList(monthlyTallies);
@@ -252,7 +251,6 @@ public class DraftMonthlyFragment extends Fragment {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
 
         snackbar.show();
-
     }
 
     private void startMonthlyReportForm(Date date, boolean firstTimeEdit) {
@@ -262,68 +260,4 @@ public class DraftMonthlyFragment extends Fragment {
         }
     }
 
-    private class DraftsAdapter extends BaseAdapter {
-        private List<MonthlyTally> list;
-
-        private DraftsAdapter(List<MonthlyTally> list) {
-            setList(list);
-        }
-
-        public void setList(List<MonthlyTally> list) {
-            this.list = list;
-            if (this.list != null) {
-                Collections.sort(list, new Comparator<MonthlyTally>() {
-                    @Override
-                    public int compare(MonthlyTally lhs, MonthlyTally rhs) {
-                        return rhs.getMonth().compareTo(lhs.getMonth());
-                    }
-                });
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return list.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return list.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view;
-            SimpleDateFormat df = new SimpleDateFormat("MMM yyyy");
-            if (convertView == null) {
-                LayoutInflater inflater = (LayoutInflater)
-                        getActivity().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-                view = inflater.inflate(R.layout.month_draft_item, null);
-            } else {
-                view = convertView;
-            }
-
-            TextView tv = view.findViewById(R.id.tv);
-            TextView startedAt = view.findViewById(R.id.month_draft_started_at);
-            MonthlyTally date = list.get(position);
-            String text = df.format(date.getMonth());
-            String startedat = MonthlyTalliesRepository.DF_DDMMYY.format(date.getCreatedAt());
-            String started = getActivity().getString(R.string.started);
-            tv.setText(text);
-            tv.setTypeface(tv.getTypeface(), Typeface.BOLD);
-            tv.setTag(text);
-            startedAt.setText(started + " " + startedat);
-
-            view.setOnClickListener(monthDraftsClickListener);
-            view.setTag(date.getMonth());
-
-            return view;
-        }
-    }
 }

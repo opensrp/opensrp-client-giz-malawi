@@ -204,13 +204,16 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     private void startReportActivity(){
-
-        if (activityWeakReference.get() instanceof HIA2ReportsActivity) {
+        Activity activity = activityWeakReference.get();
+        if (activity instanceof HIA2ReportsActivity) {
             drawer.closeDrawer(GravityCompat.START);
             return;
         }
-        Intent intent = new Intent(activityWeakReference.get(), HIA2ReportsActivity.class);
-        activityWeakReference.get().startActivity(intent);
+
+        if (activity != null) {
+            Intent intent = new Intent(activity, HIA2ReportsActivity.class);
+            activity.startActivity(intent);
+        }
     }
 
     private void registerSettings(@NonNull final Activity activity) {

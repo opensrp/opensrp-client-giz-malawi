@@ -30,6 +30,7 @@ import java.util.LinkedHashMap;
 
 public class ReportSummaryActivity extends BaseActivity {
 
+    public static final String EXTRA_TALLIES = "tallies";
     public static final String EXTRA_DAY = "tally_day";
     public static final String EXTRA_SUB_TITLE = "sub_title";
     public static final String EXTRA_TITLE = "title";
@@ -71,8 +72,6 @@ public class ReportSummaryActivity extends BaseActivity {
                 toolbar.setTitle((String) titleSerializable);
             }
         }
-
-        // Fetch the IndicatorQuery
     }
 
     @Override

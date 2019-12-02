@@ -2,15 +2,14 @@ package org.smartregister.giz.activity;
 
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -26,25 +25,29 @@ import org.smartregister.child.activity.BaseActivity;
 import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.domain.FetchStatus;
+import org.smartregister.domain.Response;
 import org.smartregister.giz.R;
+import org.smartregister.giz.adapter.ReportsSectionsPagerAdapter;
 import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.giz.domain.MonthlyTally;
-import org.smartregister.giz.fragment.DailyTalliesFragment;
+import org.smartregister.giz.domain.ReportHia2Indicator;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
-import org.smartregister.giz.fragment.SentMonthlyFragment;
-import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
-import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.task.StartDraftMonthlyFormTask;
+import org.smartregister.giz.util.AppExecutors;
+import org.smartregister.giz.util.GizReportUtils;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz_malawi.fragment.SendMonthlyDraftDialogFragment;
-import org.smartregister.util.FormUtils;
+import org.smartregister.repository.Hia2ReportRepository;
+import org.smartregister.service.HTTPAgent;
 import org.smartregister.util.Utils;
 
 import java.text.DateFormat;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,11 +65,14 @@ import static org.smartregister.util.JsonFormUtils.VALUE;
  */
 
 public class HIA2ReportsActivity extends BaseActivity {
-    private static final String TAG = HIA2ReportsActivity.class.getCanonicalName();
-    private static final int REQUEST_CODE_GET_JSON = 3432;
+
+    public static final int REQUEST_CODE_GET_JSON = 3432;
     public static final int MONTH_SUGGESTION_LIMIT = 3;
-    private static final String FORM_KEY_CONFIRM = "confirm";
+    public static final String FORM_KEY_CONFIRM = "confirm";
     public static final DateFormat dfyymmdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    public static final DateFormat yyyMMdd_T_HHmmss_SSSZZZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ", Locale.ENGLISH);
+
+    public static final String REPORT_NAME = "HIA2";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -76,7 +82,7 @@ public class HIA2ReportsActivity extends BaseActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ReportsSectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -93,7 +99,7 @@ public class HIA2ReportsActivity extends BaseActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new ReportsSectionsPagerAdapter(this, getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -192,9 +198,6 @@ public class HIA2ReportsActivity extends BaseActivity {
                 } else {
                     saveClicked = true;
                 }
-	                /*for (String key : result.keySet()) {
-	                    Log.d("TO_SAVE", key + " -> " + result.get(key));
-	                }*/
                 GizMalawiApplication.getInstance().monthlyTalliesRepository().save(result, month);
                 if (saveClicked && !skipValidationSet) {
                     sendReport(month);
@@ -226,22 +229,42 @@ public class HIA2ReportsActivity extends BaseActivity {
             String monthString = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH).format(month);
             // Create and show the dialog.
             SendMonthlyDraftDialogFragment newFragment = SendMonthlyDraftDialogFragment
-                    .newInstance(monthString,
+                    .newInstance(
+                            monthString,
                             MonthlyTalliesRepository.DF_DDMMYY.format(Calendar.getInstance().getTime()),
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-	                                    /*Intent intent = new Intent(HIA2ReportsActivity.this,
-	                                            HIA2IntentService.class);
-	                                    intent.putExtra(HIA2IntentService.GENERATE_REPORT, true);
-	                                    intent.putExtra(HIA2IntentService.REPORT_MONTH,
-	                                            HIA2Service.dfyymm.format(month));
-	                                    startService(intent);*/
+                                    generateAndSendMonthlyReport(month);
                                 }
                             });
             ft.add(newFragment, "SendMonthlyDraftDialogFragment");
             ft.commitAllowingStateLoss();
         }
+    }
+
+    private void generateAndSendMonthlyReport(@NonNull Date month) {
+        showProgressDialog();
+
+        AppExecutors appExecutors = new AppExecutors();
+        appExecutors.networkIO()
+                .execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        generateAndSaveMonthlyReport(month);
+
+                        // push report to server
+                        pushUnsentReportsToServer();
+
+                        appExecutors.mainThread().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                hideProgressDialog();
+                            }
+                        });
+                    }
+                });
+
     }
 
     @Override
@@ -286,22 +309,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         }), null);
     }
 
-    private static String retrieveValue(@Nullable List<MonthlyTally> monthlyTallies, @Nullable Hia2Indicator hia2Indicator) {
-        String defaultValue = "0";
-        if (hia2Indicator == null || monthlyTallies == null) {
-            return defaultValue;
-        }
-
-        for (MonthlyTally monthlyTally : monthlyTallies) {
-            if (monthlyTally.getIndicator() != null && monthlyTally.getIndicator().getIndicatorCode()
-                    .equalsIgnoreCase(hia2Indicator.getIndicatorCode())) {
-                return monthlyTally.getValue();
-            }
-        }
-
-        return defaultValue;
-    }
-
 
     private void initializeProgressDialog() {
         progressDialog = new ProgressDialog(this);
@@ -326,177 +333,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         }
     }
 
-
-    ////////////////////////////////////////////////////////////////
-    // Inner classes
-    ////////////////////////////////////////////////////////////////
-
-    public static class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
-        private final HIA2ReportsActivity baseActivity;
-        private final Date date;
-        private final String formName;
-        private final boolean firstTimeEdit;
-
-        public StartDraftMonthlyFormTask(@NonNull HIA2ReportsActivity baseActivity,
-                                         @NonNull Date date, @NonNull String formName, boolean firstTimeEdit) {
-            this.baseActivity = baseActivity;
-            this.date = date;
-            this.formName = formName;
-            this.firstTimeEdit = firstTimeEdit;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            baseActivity.showProgressDialog();
-        }
-
-        @Override
-        protected Intent doInBackground(Void... params) {
-            try {
-                MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication.getInstance().monthlyTalliesRepository();
-                List<MonthlyTally> monthlyTallies = monthlyTalliesRepository.findDrafts(MonthlyTalliesRepository.DF_YYYYMM.format(date));
-
-                HIA2IndicatorsRepository hIA2IndicatorsRepository = GizMalawiApplication.getInstance().hIA2IndicatorsRepository();
-                List<Hia2Indicator> hia2Indicators = hIA2IndicatorsRepository.fetchAll();
-                if (hia2Indicators == null || hia2Indicators.isEmpty()) {
-                    return null;
-                }
-
-                JSONObject form = FormUtils.getInstance(baseActivity).getFormJson(formName);
-                JSONObject step1 = form.getJSONObject("step1");
-                String title = MonthlyTalliesRepository.DF_YYYYMM.format(date).concat(" Draft");
-                step1.put(GizConstants.KEY.TITLE, title);
-
-                JSONArray fieldsArray = step1.getJSONArray("fields");
-
-                // This map holds each category as key and all the fields for that category as the
-                // value (jsonarray)
-                for (Hia2Indicator hia2Indicator : hia2Indicators) {
-                    JSONObject jsonObject = new JSONObject();
-                    if (hia2Indicator.getDescription() == null) {
-                        hia2Indicator.setDescription("");
-                    }
-
-                    int resourceId = baseActivity.getResources().getIdentifier(hia2Indicator.getDescription(), "string", baseActivity.getPackageName());
-                    String label = resourceId != 0 ? baseActivity.getResources().getString(resourceId) : hia2Indicator.getDescription();
-
-                    JSONObject vRequired = new JSONObject();
-                    vRequired.put(JsonFormConstants.VALUE, "true");
-                    vRequired.put(JsonFormConstants.ERR, "Specify: " + hia2Indicator.getDescription());
-                    JSONObject vNumeric = new JSONObject();
-                    vNumeric.put(JsonFormConstants.VALUE, "true");
-                    vNumeric.put(JsonFormConstants.ERR, "Value should be numeric");
-
-                    jsonObject.put(JsonFormConstants.KEY, hia2Indicator.getIndicatorCode());
-                    jsonObject.put(JsonFormConstants.TYPE, "edit_text");
-                    //jsonObject.put(JsonFormConstants.READ_ONLY, readOnlyList.contains(hia2Indicator.getIndicatorCode()));
-                    jsonObject.put(JsonFormConstants.READ_ONLY, false);
-                    jsonObject.put(JsonFormConstants.HINT, label);
-                    jsonObject.put(JsonFormConstants.VALUE, retrieveValue(monthlyTallies, hia2Indicator));
-	                    /*if (DailyTalliesRepository.IGNORED_INDICATOR_CODES
-	                            .contains(hia2Indicator.getIndicatorCode()) && firstTimeEdit) {
-	                        jsonObject.put(JsonFormConstants.VALUE, "");
-	                    }*/
-                    jsonObject.put(JsonFormConstants.V_REQUIRED, vRequired);
-                    jsonObject.put(JsonFormConstants.V_NUMERIC, vNumeric);
-                    jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, "");
-                    jsonObject.put(JsonFormConstants.OPENMRS_ENTITY, "");
-                    jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-                    jsonObject.put(GizConstants.KEY.HIA_2_INDICATOR, hia2Indicator.getIndicatorCode());
-
-                    fieldsArray.put(jsonObject);
-                }
-
-                // Add the confirm button
-                JSONObject buttonObject = new JSONObject();
-                buttonObject.put(JsonFormConstants.KEY, FORM_KEY_CONFIRM);
-                buttonObject.put(JsonFormConstants.VALUE, "false");
-                buttonObject.put(JsonFormConstants.TYPE, "button");
-                buttonObject.put(JsonFormConstants.HINT, "Confirm");
-                buttonObject.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, "");
-                buttonObject.put(JsonFormConstants.OPENMRS_ENTITY, "");
-                buttonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-                JSONObject action = new JSONObject();
-                action.put(JsonFormConstants.BEHAVIOUR, "finish_form");
-                buttonObject.put(JsonFormConstants.ACTION, action);
-
-                fieldsArray.put(buttonObject);
-
-                form.put(JsonFormConstants.REPORT_MONTH, dfyymmdd.format(date));
-                form.put("identifier", "HIA2ReportForm");
-
-                Intent intent = new Intent(baseActivity, GizJsonFormActivity.class);
-                intent.putExtra("json", form.toString());
-                intent.putExtra(JsonFormConstants.SKIP_VALIDATION, false);
-
-                return intent;
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Intent intent) {
-            super.onPostExecute(intent);
-            baseActivity.hideProgressDialog();
-
-            if (intent != null) {
-                baseActivity.startActivityForResult(intent, REQUEST_CODE_GET_JSON);
-            }
-        }
-    }
-
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            switch (position) {
-                case 0:
-                    return DailyTalliesFragment.newInstance();
-                case 1:
-                    return DraftMonthlyFragment.newInstance();
-                case 2:
-                    return SentMonthlyFragment.newInstance();
-                default:
-                    break;
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.hia2_daily_tallies);
-                case 1:
-                    return getString(R.string.hia2_draft_monthly);
-                case 2:
-                    return getString(R.string.hia2_sent_monthly);
-                default:
-                    break;
-            }
-            return null;
-        }
-    }
-
     public void onClickReport(View view) {
         switch (view.getId()) {
             case R.id.btn_back_to_home:
@@ -509,6 +345,99 @@ public class HIA2ReportsActivity extends BaseActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void generateAndSaveMonthlyReport(@Nullable Date month) {
+        MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication.getInstance().monthlyTalliesRepository();
+        try {
+            if (month != null) {
+                List<MonthlyTally> tallies = monthlyTalliesRepository
+                        .find(MonthlyTalliesRepository.DF_YYYYMM.format(month));
+                if (tallies != null) {
+                    List<ReportHia2Indicator> reportHia2Indicators = new ArrayList<>();
+                    for (MonthlyTally curTally : tallies) {
+                        String createdAtString = yyyMMdd_T_HHmmss_SSSZZZ.format(curTally.getCreatedAt() != null ? curTally.getCreatedAt() : curTally.getUpdatedAt());
+                        String updatedAtString = yyyMMdd_T_HHmmss_SSSZZZ.format(curTally.getUpdatedAt());
+
+                        ReportHia2Indicator reportHia2Indicator = new ReportHia2Indicator(curTally.getIndicator()
+                                , curTally.getIndicator()
+                                , curTally.getIndicator()
+                                , curTally.getIndicator()
+                                , "Immunization"
+                                , curTally.getValue(), curTally.getProviderId(), createdAtString, updatedAtString);
+
+                        reportHia2Indicators.add(reportHia2Indicator);
+                    }
+
+                    GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, REPORT_NAME);
+
+                    for (MonthlyTally curTally : tallies) {
+                        curTally.setDateSent(Calendar.getInstance().getTime());
+                        monthlyTalliesRepository.save(curTally);
+                    }
+                } else {
+                    Timber.d("Tallies month is null");
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void pushUnsentReportsToServer() {
+        final String REPORTS_SYNC_PATH = "/rest/report/add";
+        final Context context = GizMalawiApplication.getInstance().context().applicationContext();
+        HTTPAgent httpAgent = GizMalawiApplication.getInstance().context().getHttpAgent();
+        Hia2ReportRepository hia2ReportRepository = GizMalawiApplication.getInstance().hia2ReportRepository();
+
+        try {
+            boolean keepSyncing = true;
+            int limit = 50;
+            while (keepSyncing) {
+                List<JSONObject> pendingReports = hia2ReportRepository.getUnSyncedReports(limit);
+
+                if (pendingReports.isEmpty()) {
+                    return;
+                }
+
+                String baseUrl = GizMalawiApplication.getInstance().context().configuration().dristhiBaseURL();
+                if (baseUrl.endsWith(context.getString(R.string.url_separator))) {
+                    baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf(context.getString(R.string.url_separator)));
+                }
+                // create request body
+                JSONObject request = new JSONObject();
+
+                request.put("reports", pendingReports);
+                String jsonPayload = request.toString();
+                Response<String> response = httpAgent.post(
+                        MessageFormat.format("{0}/{1}",
+                                baseUrl,
+                                REPORTS_SYNC_PATH),
+                        jsonPayload);
+
+                if (response.isFailure()) {
+                    Timber.e("Sending DHIS2 Report failed");
+                    return;
+                }
+
+                hia2ReportRepository.markReportsAsSynced(pendingReports);
+                Timber.i("Reports synced successfully.");
+
+                // update drafts view
+                refreshDraftMonthlyTitle();
+                org.smartregister.child.util.Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(new FetchEditedMonthlyTalliesTask.TaskListener() {
+                    @Override
+                    public void onPostExecute(List<MonthlyTally> monthlyTallies) {
+                        Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + mViewPager.getCurrentItem());
+                        if (fragment != null) {
+                            ((DraftMonthlyFragment) fragment).updateDraftsReportListView(monthlyTallies);
+                        }
+                    }
+                }), null);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }

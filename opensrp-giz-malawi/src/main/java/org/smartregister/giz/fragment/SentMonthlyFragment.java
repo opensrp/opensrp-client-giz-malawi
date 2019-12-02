@@ -1,18 +1,37 @@
 package org.smartregister.giz.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import org.smartregister.giz.R;
+import org.smartregister.giz.activity.ReportSummaryActivity;
+import org.smartregister.giz.adapter.ExpandedListAdapter;
+import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.domain.MonthlyTally;
+import org.smartregister.giz.util.AppExecutors;
+import org.smartregister.giz.util.GizUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
+
+import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
@@ -22,7 +41,7 @@ public class SentMonthlyFragment extends Fragment {
     private static final String TAG = SentMonthlyFragment.class.getCanonicalName();
     private static final SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy");
     private ExpandableListView expandableListView;
-    //private HashMap<String, ArrayList<MonthlyTally>> sentMonthlyTallies;
+    private HashMap<String, ArrayList<MonthlyTally>> sentMonthlyTallies;
     private ProgressDialog progressDialog;
 
     public static SentMonthlyFragment newInstance() {
@@ -41,14 +60,37 @@ public class SentMonthlyFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //Utils.startAsyncTask(new GetSentTalliesTask(), null);
-        //Hia2ServiceBroadcastReceiver.getInstance().addHia2ServiceListener(this);
+
+        showProgressDialog();
+        AppExecutors appExecutors = new AppExecutors();
+        appExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                HashMap<String, ArrayList<MonthlyTally>> monthlyTallies = retrieveSentMonthlyTallies();
+
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        SentMonthlyFragment.this.sentMonthlyTallies = monthlyTallies;
+                        updateExpandedList();
+                    }
+                });
+
+            }
+        });
+
+    }
+
+    private HashMap<String, ArrayList<MonthlyTally>> retrieveSentMonthlyTallies() {
+        Locale locale = GizUtils.getLocale(getContext());
+        SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy", locale);
+        return GizMalawiApplication.getInstance().monthlyTalliesRepository().findAllSent(MONTH_YEAR_FORMAT);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //Hia2ServiceBroadcastReceiver.getInstance().removeHia2ServiceListener(this);
     }
 
     @Nullable
@@ -68,102 +110,104 @@ public class SentMonthlyFragment extends Fragment {
         }
     }
 
-	    /*private void updateExpandedList() {
-	        updateExpandedList(formatListData());
-	    }*/
+    private void updateExpandedList() {
+        updateExpandedList(formatListData());
+    }
 
+    @SuppressWarnings("unchecked")
+    private void updateExpandedList(final LinkedHashMap<String, List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>> map) {
+        if (expandableListView == null) {
+            return;
+        }
 
-	    /*@SuppressWarnings("unchecked")
-	    private void updateExpandedList(final LinkedHashMap<String, List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>> map) {
+        final Locale locale = GizUtils.getLocale(getContext());
+        final SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy", locale);
+        ExpandedListAdapter<String, Pair<String, String>, Date> expandableListAdapter =
+                new ExpandedListAdapter(getActivity(), map, R.layout.sent_monthly_header, R.layout.sent_monthly_item);
+        expandableListView.setAdapter(expandableListAdapter);
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Object tag = v.getTag(R.id.item_data);
+                if (tag != null) {
+                    if (tag instanceof Date) {
+                        Date month = (Date) tag;
+                        if (sentMonthlyTallies.containsKey(MONTH_YEAR_FORMAT.format(month))
+                                && sentMonthlyTallies.get(MONTH_YEAR_FORMAT.format(month)).size() > 0) {
+                            ArrayList<MonthlyTally> indicators = sentMonthlyTallies
+                                    .get(MONTH_YEAR_FORMAT.format(month));
+                            String dateSubmitted = new SimpleDateFormat("dd/MM/yy", locale)
+                                    .format(indicators.get(0).getDateSent());
+                            String subTitle = String.format(getString(R.string.submitted_by_),
+                                    dateSubmitted, indicators.get(0).getProviderId());
+                            String monthString = MONTH_YEAR_FORMAT.format(month);
+                            String title = String.format(getString(R.string.sent_reports_),
+                                    monthString);
+                            Intent intent = new Intent(getActivity(), ReportSummaryActivity.class);
+                            intent.putExtra(ReportSummaryActivity.EXTRA_TALLIES, indicators);
+                            intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
+                            intent.putExtra(ReportSummaryActivity.EXTRA_SUB_TITLE, subTitle);
+                            startActivity(intent);
+                        }
+                    }
+                }
+                return true;
+            }
+        });
+        expandableListAdapter.notifyDataSetChanged();
+    }
 
-	        if (expandableListView == null) {
-	            return;
-	        }
+    private LinkedHashMap<String,
+            List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>> formatListData() {
+        Map<String, List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>> map = new HashMap<>();
 
-	        ExpandedListAdapter<String, Pair<String, String>, Date> expandableListAdapter = new ExpandedListAdapter(getActivity(), map, R.layout.sent_monthly_header, R.layout.sent_monthly_item);
-	        expandableListView.setAdapter(expandableListAdapter);
-	        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-	            @Override
-	            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-	                Object tag = v.getTag(R.id.item_data);
-	                if (tag != null) {
-	                    if (tag instanceof Date) {
-	                        Date month = (Date) tag;
-	                        if (sentMonthlyTallies.containsKey(MONTH_YEAR_FORMAT.format(month))
-	                                && sentMonthlyTallies.get(MONTH_YEAR_FORMAT.format(month)).size() > 0) {
-	                            ArrayList<MonthlyTally> indicators = sentMonthlyTallies
-	                                    .get(MONTH_YEAR_FORMAT.format(month));
-	                            String dateSubmitted = new SimpleDateFormat("dd/MM/yy").format(indicators.get(0).getDateSent());
-	                            String subTitle = String.format(getString(R.string.submitted_by_),
-	                                    dateSubmitted,
-	                                    indicators.get(0).getProviderId());
-	                            String monthString = MONTH_YEAR_FORMAT.format(month);
-	                            String title = String.format(getString(R.string.sent_reports_),
-	                                    monthString);
-	                            Intent intent = new Intent(getActivity(), ReportSummaryActivity.class);
-	                            intent.putExtra(ReportSummaryActivity.EXTRA_DAY, indicators);
-	                            intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
-	                            intent.putExtra(ReportSummaryActivity.EXTRA_SUB_TITLE, subTitle);
-	                            startActivity(intent);
-	                        }
-	                    }
-	                }
-	                return true;
-	            }
-	        });
-	        expandableListAdapter.notifyDataSetChanged();
-	    }
+        Locale locale = GizUtils.getLocale(getContext());
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", locale);
+        SimpleDateFormat dateSentFormat = new SimpleDateFormat("M/d/yy", locale);
+        SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy", locale);
+        Map<Long, String> sortMap = new TreeMap<>(new Comparator<Comparable>() {
+            @SuppressWarnings("unchecked")
+            public int compare(Comparable a, Comparable b) {
+                return b.compareTo(a);
+            }
+        });
 
-	    private LinkedHashMap<String,
-	            List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>> formatListData() {
-	        Map<String, List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>> map = new HashMap<>();
-	        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
-	        SimpleDateFormat dateSentFormat = new SimpleDateFormat("M/d/yy");
-	        Map<Long, String> sortMap = new TreeMap<>(new Comparator<Comparable>() {
-	            @SuppressWarnings("unchecked")
-	            public int compare(Comparable a, Comparable b) {
-	                return b.compareTo(a);
-	            }
-	        });
+        if (sentMonthlyTallies != null) {
+            for (List<MonthlyTally> curMonthTallies : sentMonthlyTallies.values()) {
+                if (curMonthTallies != null && curMonthTallies.size() > 0) {
+                    Date month = curMonthTallies.get(0).getMonth();
+                    String year = yearFormat.format(month);
+                    if (!map.containsKey(year)) {
+                        map.put(year, new ArrayList<ExpandedListAdapter.ItemData<Pair<String, String>,
+                                        Date>>());
+                    }
 
-	        if (sentMonthlyTallies != null) {
-	            for (List<MonthlyTally> curMonthTallies : sentMonthlyTallies.values()) {
-	                if (curMonthTallies != null && curMonthTallies.size() > 0) {
-	                    Date month = curMonthTallies.get(0).getMonth();
-	                    String year = yearFormat.format(month);
-	                    if (!map.containsKey(year)) {
-	                        map.put(year,
-	                                new ArrayList<ExpandedListAdapter.ItemData<Pair<String, String>,
-	                                        Date>>());
-	                    }
+                    String details = String.format(getString(R.string.sent_by),
+                            dateSentFormat.format(curMonthTallies.get(0).getDateSent()),
+                            curMonthTallies.get(0).getProviderId());
+                    map.get(year).add(new ExpandedListAdapter.ItemData<>(
+                                    Pair.create(MONTH_YEAR_FORMAT.format(month), details), month));
+                    sortMap.put(month.getTime(), year);
+                }
+            }
+        }
 
-	                    String details = String.format(getString(R.string.sent_by),
-	                            dateSentFormat.format(curMonthTallies.get(0).getDateSent()),
-	                            curMonthTallies.get(0).getProviderId());
-	                    map.get(year)
-	                            .add(new ExpandedListAdapter.ItemData<>(
-	                                    Pair.create(MONTH_YEAR_FORMAT.format(month), details), month));
-	                    sortMap.put(month.getTime(), year);
-	                }
-	            }
-	        }
+        LinkedHashMap<String, List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>> sortedMap = new LinkedHashMap<>();
+        for (Long curKey : sortMap.keySet()) {
+            List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>> list = map.get(sortMap.get(curKey));
+            Collections.sort(list, new Comparator<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>() {
+                @Override
+                public int compare(ExpandedListAdapter.ItemData<Pair<String, String>, Date> lhs,
+                                   ExpandedListAdapter.ItemData<Pair<String, String>, Date> rhs) {
+                    return rhs.getTagData().compareTo(lhs.getTagData());
+                }
+            });
+            sortedMap.put(sortMap.get(curKey), list);
+        }
 
-	        LinkedHashMap<String, List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>> sortedMap = new LinkedHashMap<>();
-	        for (Long curKey : sortMap.keySet()) {
-	            List<ExpandedListAdapter.ItemData<Pair<String, String>, Date>> list = map.get(sortMap.get(curKey));
-	            Collections.sort(list, new Comparator<ExpandedListAdapter.ItemData<Pair<String, String>, Date>>() {
-	                @Override
-	                public int compare(ExpandedListAdapter.ItemData<Pair<String, String>, Date> lhs,
-	                                   ExpandedListAdapter.ItemData<Pair<String, String>, Date> rhs) {
-	                    return rhs.getTagData().compareTo(lhs.getTagData());
-	                }
-	            });
-	            sortedMap.put(sortMap.get(curKey), list);
-	        }
+        return sortedMap;
 
-	        return sortedMap;
-
-	    }*/
+    }
 
     private void initializeProgressDialog() {
         progressDialog = new ProgressDialog(getActivity());
@@ -180,7 +224,7 @@ public class SentMonthlyFragment extends Fragment {
 
             progressDialog.show();
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
 
@@ -190,35 +234,7 @@ public class SentMonthlyFragment extends Fragment {
                 progressDialog.dismiss();
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         }
     }
-
-	    /*@Override
-	    public void onServiceFinish(String actionType) {
-	        if (Hia2ServiceBroadcastReceiver.TYPE_GENERATE_MONTHLY_REPORT.equals(actionType)) {
-	            Utils.startAsyncTask(new GetSentTalliesTask(), null);
-	        }
-	    }
-
-	    private class GetSentTalliesTask extends AsyncTask<Void, Void, HashMap<String, ArrayList<MonthlyTally>>> {
-	        @Override
-	        protected void onPreExecute() {
-	            super.onPreExecute();
-	            showProgressDialog();
-	        }
-
-	        @Override
-	        protected HashMap<String, ArrayList<MonthlyTally>> doInBackground(Void... params) {
-	            return VaccinatorApplication.getInstance().monthlyTalliesRepository().findAllSent(MONTH_YEAR_FORMAT);
-	        }
-
-	        @Override
-	        protected void onPostExecute(HashMap<String, ArrayList<MonthlyTally>> stringListHashMap) {
-	            super.onPostExecute(stringListHashMap);
-	            hideProgressDialog();
-	            SentMonthlyFragment.this.sentMonthlyTallies = stringListHashMap;
-	            updateExpandedList();
-	        }
-	    } */
 }
