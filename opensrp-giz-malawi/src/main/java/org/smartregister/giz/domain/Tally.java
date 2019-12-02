@@ -16,9 +16,6 @@ public class Tally implements Serializable {
     @JsonProperty
     private String value;
 
-    public Tally() {
-    }
-
     public long getId() {
         return id;
     }

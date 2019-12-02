@@ -38,8 +38,7 @@ import timber.log.Timber;
  */
 
 public class SentMonthlyFragment extends Fragment {
-    private static final String TAG = SentMonthlyFragment.class.getCanonicalName();
-    private static final SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy");
+
     private ExpandableListView expandableListView;
     private HashMap<String, ArrayList<MonthlyTally>> sentMonthlyTallies;
     private ProgressDialog progressDialog;
@@ -106,7 +105,7 @@ public class SentMonthlyFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            //updateExpandedList();
+            updateExpandedList();
         }
     }
 
@@ -129,26 +128,24 @@ public class SentMonthlyFragment extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Object tag = v.getTag(R.id.item_data);
-                if (tag != null) {
-                    if (tag instanceof Date) {
-                        Date month = (Date) tag;
-                        if (sentMonthlyTallies.containsKey(MONTH_YEAR_FORMAT.format(month))
-                                && sentMonthlyTallies.get(MONTH_YEAR_FORMAT.format(month)).size() > 0) {
-                            ArrayList<MonthlyTally> indicators = sentMonthlyTallies
-                                    .get(MONTH_YEAR_FORMAT.format(month));
-                            String dateSubmitted = new SimpleDateFormat("dd/MM/yy", locale)
-                                    .format(indicators.get(0).getDateSent());
-                            String subTitle = String.format(getString(R.string.submitted_by_),
-                                    dateSubmitted, indicators.get(0).getProviderId());
-                            String monthString = MONTH_YEAR_FORMAT.format(month);
-                            String title = String.format(getString(R.string.sent_reports_),
-                                    monthString);
-                            Intent intent = new Intent(getActivity(), ReportSummaryActivity.class);
-                            intent.putExtra(ReportSummaryActivity.EXTRA_TALLIES, indicators);
-                            intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
-                            intent.putExtra(ReportSummaryActivity.EXTRA_SUB_TITLE, subTitle);
-                            startActivity(intent);
-                        }
+                if (tag instanceof Date) {
+                    Date month = (Date) tag;
+                    if (sentMonthlyTallies.containsKey(MONTH_YEAR_FORMAT.format(month))
+                            && sentMonthlyTallies.get(MONTH_YEAR_FORMAT.format(month)).size() > 0) {
+                        ArrayList<MonthlyTally> indicators = sentMonthlyTallies
+                                .get(MONTH_YEAR_FORMAT.format(month));
+                        String dateSubmitted = new SimpleDateFormat("dd/MM/yy", locale)
+                                .format(indicators.get(0).getDateSent());
+                        String subTitle = String.format(getString(R.string.submitted_by_),
+                                dateSubmitted, indicators.get(0).getProviderId());
+                        String monthString = MONTH_YEAR_FORMAT.format(month);
+                        String title = String.format(getString(R.string.sent_reports_),
+                                monthString);
+                        Intent intent = new Intent(getActivity(), ReportSummaryActivity.class);
+                        intent.putExtra(ReportSummaryActivity.EXTRA_TALLIES, indicators);
+                        intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
+                        intent.putExtra(ReportSummaryActivity.EXTRA_SUB_TITLE, subTitle);
+                        startActivity(intent);
                     }
                 }
                 return true;
@@ -179,14 +176,14 @@ public class SentMonthlyFragment extends Fragment {
                     String year = yearFormat.format(month);
                     if (!map.containsKey(year)) {
                         map.put(year, new ArrayList<ExpandedListAdapter.ItemData<Pair<String, String>,
-                                        Date>>());
+                                Date>>());
                     }
 
                     String details = String.format(getString(R.string.sent_by),
                             dateSentFormat.format(curMonthTallies.get(0).getDateSent()),
                             curMonthTallies.get(0).getProviderId());
                     map.get(year).add(new ExpandedListAdapter.ItemData<>(
-                                    Pair.create(MONTH_YEAR_FORMAT.format(month), details), month));
+                            Pair.create(MONTH_YEAR_FORMAT.format(month), details), month));
                     sortMap.put(month.getTime(), year);
                 }
             }

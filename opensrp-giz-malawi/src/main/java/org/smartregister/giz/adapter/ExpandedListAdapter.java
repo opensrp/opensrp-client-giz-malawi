@@ -61,8 +61,8 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
     @SuppressWarnings("unchecked")
     @Override
     public View getChildView(int groupPosition, final int childPosition,
-                             boolean isLastChild, View convertView, ViewGroup parent) {
-
+                             boolean isLastChild, View providedConvertView, ViewGroup parent) {
+        View convertView = providedConvertView;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(childLayout, null);
@@ -144,8 +144,8 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
     @SuppressWarnings("unchecked")
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
-                             View convertView, ViewGroup parent) {
-
+                             View providedConvertView, ViewGroup parent) {
+        View convertView = providedConvertView;
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(headerLayout, null);

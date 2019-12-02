@@ -226,16 +226,6 @@ public class DraftMonthlyFragment extends Fragment {
 
         }
     };
-    private final View.OnClickListener monthDraftsClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Object tag = v.getTag();
-            if (tag instanceof Date) {
-                startMonthlyReportForm((Date) tag, false);
-            }
-
-        }
-    };
 
     private void show(final Snackbar snackbar) {
         if (snackbar == null) {

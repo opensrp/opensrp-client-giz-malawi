@@ -38,7 +38,7 @@ import org.smartregister.giz.task.StartDraftMonthlyFormTask;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizReportUtils;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.giz_malawi.fragment.SendMonthlyDraftDialogFragment;
+import org.smartregister.giz.fragment.SendMonthlyDraftDialogFragment;
 import org.smartregister.repository.Hia2ReportRepository;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.util.Utils;
@@ -90,7 +90,6 @@ public class HIA2ReportsActivity extends BaseActivity {
     private ViewPager mViewPager;
     private TabLayout tabLayout;
     private ProgressDialog progressDialog;
-    private boolean showFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,11 +139,10 @@ public class HIA2ReportsActivity extends BaseActivity {
         return mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
     }
 
-    public void startMonthlyReportForm(@NonNull String formName, @NonNull Date date, boolean firstTimeEdit) {
-
+    public void startMonthlyReportForm(@NonNull String formName, @NonNull Date date) {
         Fragment currentFragment = currentFragment();
         if (currentFragment instanceof DraftMonthlyFragment) {
-            Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, date, formName, firstTimeEdit), null);
+            Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, date, formName), null);
         }
     }
 
@@ -167,7 +165,6 @@ public class HIA2ReportsActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             try {
-                showFragment = true;
                 String jsonString = data.getStringExtra("json");
 
                 boolean skipValidationSet = data.getBooleanExtra(JsonFormConstants.SKIP_VALIDATION, false);
@@ -208,12 +205,6 @@ public class HIA2ReportsActivity extends BaseActivity {
                 Timber.e(e);
             }
         }
-    }
-
-    @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-        showFragment = false;
     }
 
     private void sendReport(final Date month) {

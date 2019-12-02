@@ -33,7 +33,7 @@ import timber.log.Timber;
  */
 
 public class MonthlyTalliesRepository extends BaseRepository {
-    private static final String TAG = MonthlyTalliesRepository.class.getCanonicalName();
+
     public static final SimpleDateFormat DF_YYYYMM = new SimpleDateFormat("yyyy-MM", Locale.ENGLISH);
     public static final SimpleDateFormat DF_DDMMYY = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
     private static final String TABLE_NAME = "monthly_tallies";

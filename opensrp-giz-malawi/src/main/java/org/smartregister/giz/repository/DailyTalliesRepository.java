@@ -25,7 +25,7 @@ import timber.log.Timber;
  */
 
 public class DailyTalliesRepository extends BaseRepository {
-    private static final String TAG = DailyTalliesRepository.class.getCanonicalName();
+
     private static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     private static final String TABLE_NAME = "indicator_daily_tally";
     private static final String COLUMN_ID = "_id";

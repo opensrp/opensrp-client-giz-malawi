@@ -31,14 +31,12 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
     private final HIA2ReportsActivity baseActivity;
     private final Date date;
     private final String formName;
-    private final boolean firstTimeEdit;
 
     public StartDraftMonthlyFormTask(@NonNull HIA2ReportsActivity baseActivity,
-                                     @NonNull Date date, @NonNull String formName, boolean firstTimeEdit) {
+                                     @NonNull Date date, @NonNull String formName) {
         this.baseActivity = baseActivity;
         this.date = date;
         this.formName = formName;
-        this.firstTimeEdit = firstTimeEdit;
     }
 
     @Override

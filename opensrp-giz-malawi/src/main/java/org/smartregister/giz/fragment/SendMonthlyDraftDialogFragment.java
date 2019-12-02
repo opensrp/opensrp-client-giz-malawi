@@ -1,4 +1,4 @@
-package org.smartregister.giz_malawi.fragment;
+package org.smartregister.giz.fragment;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -31,10 +31,6 @@ public class SendMonthlyDraftDialogFragment extends DialogFragment {
         f.setOnSendClickedListener(onSendClickedListener);
 
         return f;
-    }
-
-    public SendMonthlyDraftDialogFragment() {
-        super();
     }
 
     private void setDate(String date) {

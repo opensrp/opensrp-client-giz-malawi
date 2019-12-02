@@ -152,17 +152,17 @@ public class ReportSummaryActivity extends BaseActivity {
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-
+        // Nothing to do
     }
 
     @Override
     public void onNoUniqueId() {
-
+        // Nothing to do
     }
 
     @Override
     public void onRegistrationSaved(boolean isEdit) {
-
+        // Nothing to do
     }
 
     public void fetchIndicatorTalliesForDay(@NonNull final Date date) {
