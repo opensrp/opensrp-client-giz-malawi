@@ -73,11 +73,9 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
 
             String text = null;
             String details = null;
-            String other = null;
 
             if (childObject.getLabelData() instanceof String) {
                 text = (String) getChild(groupPosition, childPosition).getLabelData();
-
             } else if (childObject.getLabelData() instanceof Pair) {
                 Pair<String, String> pair = (Pair<String, String>) getChild(groupPosition, childPosition).getLabelData();
                 text = pair.first;
@@ -86,8 +84,6 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
                 Triple<String, String, String> triple = (Triple<String, String, String>) getChild(groupPosition, childPosition).getLabelData();
                 text = triple.getLeft();
                 details = triple.getMiddle();
-                other = triple.getRight();
-
             }
 
             View tvView = convertView.findViewById(R.id.tv);
@@ -107,17 +103,6 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
                     detailTextView.setTextColor(context.getResources().getColor(R.color.bluetext));
                 }
             }
-
-	            /*View otherView = convertView.findViewById(R.id.other);
-	            if (otherView != null && other != null) {
-	                TextView otherTextView = (TextView) otherView;
-	                otherTextView.setText(other);
-
-	                otherTextView.setTextColor(context.getResources().getColor(R.color.black));
-	                if (childObject.isFinalized()) {
-	                    otherTextView.setTextColor(context.getResources().getColor(R.color.bluetext));
-	                }
-	            }*/
         }
 
         View dividerBottom = convertView.findViewById(R.id.adapter_divider_bottom);
