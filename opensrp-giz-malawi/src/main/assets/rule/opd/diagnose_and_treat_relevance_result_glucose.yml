@@ -1,0 +1,6 @@
+name: step1_diagnostic_test_result_glucose
+description: diagnostic_test_result_glucose
+priority: 1
+condition: "step1_diagnostic_test.startsWith('Blood Glucose test')"
+actions:
+  - "isRelevant = true"

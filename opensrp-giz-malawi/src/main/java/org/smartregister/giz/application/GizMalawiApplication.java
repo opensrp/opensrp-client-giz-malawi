@@ -57,7 +57,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
-import org.smartregister.opd.pojos.OpdMetadata;
+import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;

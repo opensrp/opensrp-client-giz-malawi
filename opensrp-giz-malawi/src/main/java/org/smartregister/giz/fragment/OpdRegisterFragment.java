@@ -17,7 +17,7 @@ import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
-import org.smartregister.opd.pojos.OpdMetadata;
+import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 
