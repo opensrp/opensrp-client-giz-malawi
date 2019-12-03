@@ -10,6 +10,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.opd.configuration.OpdRegisterSwitcher;
+import org.smartregister.opd.utils.OpdConstants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +59,7 @@ public class GizOpdRegisterSwitcher implements OpdRegisterSwitcher {
 
     @Override
     public boolean showRegisterSwitcher(@NonNull CommonPersonObjectClient client) {
-        String registerType = client.getColumnmaps().get("register_type");
-        return !(registerType == null || registerType.equalsIgnoreCase("opd"));
+        String registerType = client.getColumnmaps().get(OpdConstants.ColumnMapKey.REGISTER_TYPE);
+        return !(registerType == null || registerType.equalsIgnoreCase(OpdConstants.RegisterType.OPD));
     }
 }

@@ -17,6 +17,7 @@ import org.smartregister.opd.configuration.OpdRegisterRowOptions;
 import org.smartregister.opd.holders.OpdRegisterViewHolder;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
+import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.text.ParseException;
@@ -48,9 +49,9 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
         Button dueButton = opdRegisterViewHolder.dueButton;
         if (strVisitEndDate != null) {
             try {
-                Date visitEndDate = new SimpleDateFormat(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, Locale.ENGLISH).parse(strVisitEndDate);
-                if (OpdLibrary.getInstance().isPatientInTreatedState(visitEndDate)) {
-                    String treatedTime = (new SimpleDateFormat(GizConstants.DateFormat.HH_MM_AMPM, Locale.ENGLISH)).format(visitEndDate);
+                Date visitEndDate = OpdUtils.convertStringToDate(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, strVisitEndDate);
+                if (OpdLibrary.getInstance().isPatientInTreatedState(strVisitEndDate)) {
+                    String treatedTime = OpdUtils.convertDate(visitEndDate, GizConstants.DateFormat.HH_MM_AMPM);
 
                     Context context = dueButton.getContext();
                     dueButton.setText(String.format(context.getResources().getString(R.string.treated_at_time), treatedTime));
