@@ -21,9 +21,7 @@ import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -48,20 +46,16 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
 
         Button dueButton = opdRegisterViewHolder.dueButton;
         if (strVisitEndDate != null) {
-            try {
-                Date visitEndDate = OpdUtils.convertStringToDate(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, strVisitEndDate);
-                if (OpdLibrary.getInstance().isPatientInTreatedState(strVisitEndDate)) {
-                    String treatedTime = OpdUtils.convertDate(visitEndDate, GizConstants.DateFormat.HH_MM_AMPM);
+            Date visitEndDate = OpdUtils.convertStringToDate(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, strVisitEndDate);
+            if (visitEndDate != null && OpdLibrary.getInstance().isPatientInTreatedState(visitEndDate)) {
+                String treatedTime = OpdUtils.convertDate(visitEndDate, GizConstants.DateFormat.HH_MM_AMPM);
 
-                    Context context = dueButton.getContext();
-                    dueButton.setText(String.format(context.getResources().getString(R.string.treated_at_time), treatedTime));
-                    dueButton.setTextColor(Color.parseColor("#219e05"));
-                    dueButton.setAllCaps(false);
-                    dueButton.setBackgroundResource(R.color.transparent);
-                    return;
-                }
-            } catch (ParseException ex) {
-                Timber.e(ex);
+                Context context = dueButton.getContext();
+                dueButton.setText(String.format(context.getResources().getString(R.string.treated_at_time), treatedTime));
+                dueButton.setTextColor(Color.parseColor("#219e05"));
+                dueButton.setAllCaps(false);
+                dueButton.setBackgroundResource(R.color.transparent);
+                return;
             }
         }
 
