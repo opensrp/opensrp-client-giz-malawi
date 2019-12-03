@@ -9,6 +9,7 @@ import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.util.AppExecutors;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.opd.configuration.OpdRegisterSwitcher;
 import org.smartregister.opd.utils.OpdConstants;
 
@@ -23,12 +24,12 @@ public class GizOpdRegisterSwitcher implements OpdRegisterSwitcher {
 
     @Override
     public void switchFromOpdRegister(@NonNull CommonPersonObjectClient client, @NonNull Context context) {
-        String registerType = client.getColumnmaps().get("register_type");
+        String registerType = client.getColumnmaps().get(OpdConstants.ColumnMapKey.REGISTER_TYPE);
         if (registerType != null) {
-            if (registerType.equalsIgnoreCase("anc")) {
-                // Fetch the next contact of the ANC user & then add it to the details
+            if (registerType.equalsIgnoreCase(GizConstants.RegisterType.ANC)) {
+                // Fetch the the ANC user details
                 openAncProfilePage(client, context);
-            } else if (registerType.equalsIgnoreCase("child")) {
+            } else if (registerType.equalsIgnoreCase(GizConstants.RegisterType.CHILD)) {
                 ChildImmunizationActivity.launchActivity(context, client, new RegisterClickables());
             }
         }

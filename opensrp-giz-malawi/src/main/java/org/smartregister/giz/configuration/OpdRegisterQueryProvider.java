@@ -25,7 +25,6 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         String oneDayAgo = OpdUtils.convertDate(latestValidCheckInDate, OpdDbConstants.DATE_FORMAT);
 
         if (!TextUtils.isEmpty(filters)) {
-
             if (!TextUtils.isEmpty(mainCondition)) {
                 String sql = "SELECT object_id FROM " +
                         "(SELECT ec_child_search.object_id, ec_child_search.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_child_search " +
