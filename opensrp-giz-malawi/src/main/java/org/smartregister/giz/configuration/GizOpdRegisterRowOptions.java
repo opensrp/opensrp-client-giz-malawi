@@ -20,11 +20,8 @@ import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.contract.SmartRegisterClient;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
-
-import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-10-08

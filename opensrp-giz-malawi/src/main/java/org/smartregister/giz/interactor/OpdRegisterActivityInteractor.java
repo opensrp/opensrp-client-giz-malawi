@@ -14,7 +14,6 @@ import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.interactor.BaseOpdRegisterActivityInteractor;
 import org.smartregister.opd.pojos.OpdEventClient;
 import org.smartregister.opd.pojos.RegisterParams;
-import org.smartregister.opd.utils.AppExecutors;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.repository.AllSharedPreferences;
@@ -30,8 +29,8 @@ import timber.log.Timber;
 public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityInteractor {
 
 
-    public OpdRegisterActivityInteractor(@NonNull OpdRegisterActivityContract.Presenter presenter) {
-        super(presenter);
+    public OpdRegisterActivityInteractor() {
+        super();
     }
 
     @Override
