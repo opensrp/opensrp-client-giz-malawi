@@ -141,11 +141,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
-
-                    if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
-                        Timber.i("This is an OPD Registration");
-                    }
-
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
                         Timber.e(new Exception(), "Cannot find client corresponding to %s with base-entity-id %s", OpdConstants.EventType.OPD_REGISTRATION, event.getBaseEntityId());
                         continue;

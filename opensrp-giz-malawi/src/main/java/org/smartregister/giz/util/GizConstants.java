@@ -261,4 +261,9 @@ public class GizConstants {
     public interface DateFormat {
         String HH_MM_AMPM = "h:mm a";
     }
+
+    public interface RegisterType {
+        String ANC = "anc";
+        String CHILD = "child";
+    }
 }

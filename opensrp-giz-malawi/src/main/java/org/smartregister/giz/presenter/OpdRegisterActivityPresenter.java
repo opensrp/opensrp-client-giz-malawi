@@ -13,7 +13,6 @@ import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import timber.log.Timber;
@@ -49,7 +48,7 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
     @NonNull
     @Override
     public OpdRegisterActivityContract.Interactor createInteractor() {
-        return new OpdRegisterActivityInteractor(this);
+        return new OpdRegisterActivityInteractor();
     }
 
     @Override
