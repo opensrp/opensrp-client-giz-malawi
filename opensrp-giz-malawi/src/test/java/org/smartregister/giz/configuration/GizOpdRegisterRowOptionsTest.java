@@ -3,9 +3,9 @@ package org.smartregister.giz.configuration;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.view.View;
 import android.widget.Button;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +18,6 @@ import org.smartregister.opd.holders.OpdRegisterViewHolder;
 import org.smartregister.opd.utils.OpdDbConstants;
 
 import java.util.HashMap;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-12-04
@@ -54,7 +52,7 @@ public class GizOpdRegisterRowOptionsTest {
 
         gizOpdRegisterRowOptions.populateClientRow(Mockito.mock(Cursor.class), client, client, opdRegisterViewHolder);
 
-        assertEquals(R.string.diagnose_and_treat, (int) intCaptor.getValue());
+        Assert.assertEquals(R.string.diagnose_and_treat, (int) intCaptor.getValue());
     }
 
 
@@ -78,6 +76,6 @@ public class GizOpdRegisterRowOptionsTest {
 
         gizOpdRegisterRowOptions.populateClientRow(Mockito.mock(Cursor.class), client, client, opdRegisterViewHolder);
 
-        assertEquals(R.string.check_in, (int) intCaptor.getValue());
+        Assert.assertEquals(R.string.check_in, (int) intCaptor.getValue());
     }
 }
