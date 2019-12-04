@@ -116,7 +116,6 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
             String locationId = OpdUtils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
             presenter().startForm(formName, entityId, metaData, locationId, null, null);
         } else {
-
             displayToast(getString(R.string.error_unable_to_start_form));
         }
     }

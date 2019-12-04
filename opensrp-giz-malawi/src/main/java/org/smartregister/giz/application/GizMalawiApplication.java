@@ -30,6 +30,7 @@ import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
+import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
@@ -143,7 +144,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         } else if (tableName.equals(DBConstantsUtils.WOMAN_TABLE_NAME)) {
             return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
                     DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, OpdDbConstants.KEY.REGISTER_ID, DBConstantsUtils.KeyUtils.DATE_REMOVED};
-        } else if (tableName.equals(OpdDbConstants.KEY.TABLE)) {
+        } else if (tableName.equals(OpdDbConstants.Table.EC_CLIENT)) {
             return new String[]{OpdDbConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME,
                     OpdDbConstants.KEY.LAST_INTERACTED_WITH, OpdDbConstants.KEY.DATE_REMOVED};
         }
@@ -205,6 +206,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
                 .setOpdMetadata(opdMetadata)
                 .setOpdRegisterRowOptions(GizOpdRegisterRowOptions.class)
+                .setOpdRegisterSwitcher(GizOpdRegisterSwitcher.class)
                 .build();
 
         OpdLibrary.init(context, getRepository(), opdConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);

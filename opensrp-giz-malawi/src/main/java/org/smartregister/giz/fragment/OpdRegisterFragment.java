@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,12 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         if (view != null) {
+            SwitchCompat switchSelection = view.findViewById(R.id.switch_selection);
+            if (switchSelection != null) {
+                switchSelection.setText(getDueOnlyText());
+                switchSelection.setOnClickListener(registerActionHandler);
+            }
+
             View topLeftLayout = view.findViewById(org.smartregister.opd.R.id.top_left_layout);
             topLeftLayout.setVisibility(View.VISIBLE);
 
@@ -98,7 +105,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
             String strVisitEndDate = clientColumnMaps.get(OpdDbConstants.Column.OpdDetails.CURRENT_VISIT_END_DATE);
 
-            if (strVisitEndDate != null) {
+            if (strVisitEndDate != null && OpdLibrary.getInstance().isPatientInTreatedState(strVisitEndDate)) {
                 return;
             }
 
@@ -114,17 +121,32 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
     protected void goToClientDetailActivity(@NonNull final CommonPersonObjectClient commonPersonObjectClient) {
         final Context context = getActivity();
         OpdMetadata opdMetadata = OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata();
+
         if (context != null && opdMetadata != null) {
             Intent intent = new Intent(getActivity(), opdMetadata.getProfileActivity());
             intent.putExtra(OpdConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
             startActivity(intent);
         }
-
     }
 
     @Override
     protected String getDefaultSortQuery() {
         return "";
+    }
+
+    @Override
+    protected void onViewClicked(View view) {
+        super.onViewClicked(view);
+
+        if (view.getId() == R.id.switch_selection) {
+            toggleFilterSelection(view);
+        }
+    }
+
+    @NonNull
+    @Override
+    public String getDueOnlyText() {
+        return getString(R.string.checked_in);
     }
 
 }
