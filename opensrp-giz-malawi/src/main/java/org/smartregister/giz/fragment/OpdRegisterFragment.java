@@ -95,8 +95,8 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
         OpdRegisterActivity opdRegisterActivity = (OpdRegisterActivity) getActivity();
         if (opdRegisterActivity != null && clientColumnMaps.containsKey(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT)) {
-            HashMap<String, String> injectedValues = new HashMap<String, String>();
-            injectedValues.put("patient_gender", clientColumnMaps.get("gender"));
+            HashMap<String, String> injectedValues = new HashMap<>();
+            injectedValues.put(OpdConstants.JsonFormField.PATIENT_GENDER, clientColumnMaps.get(OpdConstants.ClientMapKey.GENDER));
 
             String diagnoseSchedule = clientColumnMaps.get(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT);
             String entityTable = clientColumnMaps.get(OpdConstants.IntentKey.ENTITY_TABLE);
