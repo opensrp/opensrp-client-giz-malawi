@@ -130,7 +130,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance_result_spinner.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
                 }
               }
             }
@@ -154,7 +154,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance_result_blood_type.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
                 }
               }
             }
@@ -173,7 +173,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance_result_glucose.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
                 }
               }
             }
@@ -188,7 +188,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance_result_specify.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
                 }
               }
             }

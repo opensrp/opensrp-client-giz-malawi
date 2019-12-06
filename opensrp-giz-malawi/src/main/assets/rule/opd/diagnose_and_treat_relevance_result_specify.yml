@@ -1,6 +1,0 @@
-name: step1_diagnostic_test_result_specify
-description: diagnostic_test_result_specify
-priority: 1
-condition: "step1_diagnostic_test == 'Ultra sound'"
-actions:
-  - "isRelevant = true"
