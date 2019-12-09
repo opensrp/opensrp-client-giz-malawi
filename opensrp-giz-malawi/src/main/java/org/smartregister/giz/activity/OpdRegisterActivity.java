@@ -116,13 +116,13 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
             String locationId = OpdUtils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
             presenter().startForm(formName, entityId, metaData, locationId, null, null);
         } else {
-
             displayToast(getString(R.string.error_unable_to_start_form));
         }
     }
 
     @Override
     public void startFormActivity(JSONObject jsonForm) {
+
         Intent intent = new Intent(this, OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata().getOpdFormActivity());
 
         intent.putExtra(OpdConstants.JSON_FORM_EXTRA.JSON, jsonForm.toString());

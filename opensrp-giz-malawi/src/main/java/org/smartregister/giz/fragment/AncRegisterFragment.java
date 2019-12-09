@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import org.smartregister.anc.library.fragment.HomeRegisterFragment;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AncRegisterActivity;
+import org.smartregister.opd.utils.OpdConstants;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-10
@@ -51,5 +52,10 @@ public class AncRegisterFragment extends HomeRegisterFragment {
         }
 
         return view;
+    }
+
+    @Override
+    protected String getMainCondition() {
+        return super.getMainCondition() + "and  "+ OpdConstants.ColumnMapKey.REGISTER_ID +" not like '%_mother'";
     }
 }

@@ -13,7 +13,6 @@ import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import timber.log.Timber;
@@ -24,11 +23,8 @@ import timber.log.Timber;
 
 public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresenter implements OpdRegisterActivityContract.Presenter, OpdRegisterActivityContract.InteractorCallBack {
 
-    public OpdRegisterActivityPresenter(OpdRegisterActivityContract.View view, OpdRegisterActivityContract.Model model) {
+    public OpdRegisterActivityPresenter(@NonNull OpdRegisterActivityContract.View view, @NonNull OpdRegisterActivityContract.Model model) {
         super(view, model);
-        viewReference = new WeakReference<>(view);
-        interactor = new OpdRegisterActivityInteractor();
-        this.model = model;
     }
 
     @Override
@@ -47,6 +43,12 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @NonNull
+    @Override
+    public OpdRegisterActivityContract.Interactor createInteractor() {
+        return new OpdRegisterActivityInteractor();
     }
 
     @Override
@@ -81,19 +83,4 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
             getView().displayToast(String.format(getView().getContext().getString(R.string.language_x_selected), language));
         }
     }
-
-    @Override
-    public void registerViewConfigurations(List<String> viewIdentifiers) {
-        model.registerViewConfigurations(viewIdentifiers);
-    }
-
-    @Override
-    public void unregisterViewConfiguration(List<String> viewIdentifiers) {
-        model.unregisterViewConfiguration(viewIdentifiers);
-    }
-
-    public void setModel(OpdRegisterActivityContract.Model model) {
-        this.model = model;
-    }
-
 }

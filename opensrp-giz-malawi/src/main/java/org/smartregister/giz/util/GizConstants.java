@@ -257,4 +257,13 @@ public class GizConstants {
     public class IntentKeyUtil {
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
+
+    public interface DateFormat {
+        String HH_MM_AMPM = "h:mm a";
+    }
+
+    public interface RegisterType {
+        String ANC = "anc";
+        String CHILD = "child";
+    }
 }
