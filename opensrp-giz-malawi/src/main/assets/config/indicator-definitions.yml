@@ -44,8 +44,8 @@ indicators:
     indicatorQuery: "SELECT vaccines.name, ec_child.gender, count(*) from vaccines
                       INNER JOIN ec_child
                       ON vaccines.base_entity_id = ec_child.base_entity_id
-                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND ec_child.dob >= date('now', '-2 years')
                       GROUP BY vaccines.name, ec_child.gender"
     isMultiResult: true
@@ -104,8 +104,8 @@ indicators:
                       FROM vaccines
                       INNER JOIN ec_child
                       ON vaccines.base_entity_id = ec_child.base_entity_id
-                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND ec_child.dob >= date('now', '-2 years')
                       GROUP BY vaccines.name, age"
     isMultiResult: true
@@ -151,8 +151,8 @@ indicators:
                      FROM vaccines
                      INNER JOIN ec_child
                      ON vaccines.base_entity_id = ec_child.base_entity_id
-                     WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                     AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
+                     WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                     AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                      AND ec_child.dob >= date('now', '-2 years')
                      GROUP BY vaccines.name"
     isMultiResult: true

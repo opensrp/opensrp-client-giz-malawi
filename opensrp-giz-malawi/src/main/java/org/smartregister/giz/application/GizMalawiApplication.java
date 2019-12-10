@@ -37,6 +37,7 @@ import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
+import org.smartregister.giz.processor.TrippleResultProcessor;
 import org.smartregister.giz.repository.DailyTalliesRepository;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
@@ -209,7 +210,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         // Init Reporting library
         ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-
+        ReportingLibrary.getInstance().addMultiResultProcessor(new TrippleResultProcessor());
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
