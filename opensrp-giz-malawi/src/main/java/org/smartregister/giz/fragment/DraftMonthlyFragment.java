@@ -217,13 +217,15 @@ public class DraftMonthlyFragment extends Fragment {
     private final View.OnClickListener monthClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            alertDialog.dismiss();
+            // An NPE Happens here since it take time to open
+            if (alertDialog != null) {
+                alertDialog.dismiss();
+            }
 
             Object tag = v.getTag();
             if (tag instanceof Date) {
                 startMonthlyReportForm((Date) tag, true);
             }
-
         }
     };
 

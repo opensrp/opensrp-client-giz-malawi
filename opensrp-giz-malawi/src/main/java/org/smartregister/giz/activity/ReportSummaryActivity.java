@@ -113,7 +113,7 @@ public class ReportSummaryActivity extends BaseActivity {
 
     private void setTallies(@NonNull ArrayList<IndicatorTally> tallies, boolean refreshViews) {
         this.tallies = new LinkedHashMap<>();
-        this.tallies.put("main", new ArrayList<>());
+        this.tallies.put("", new ArrayList<>());
 
         Collections.sort(tallies, new Comparator<IndicatorTally>() {
             @Override
@@ -124,7 +124,7 @@ public class ReportSummaryActivity extends BaseActivity {
 
         for (IndicatorTally curTally : tallies) {
             if (curTally != null && !TextUtils.isEmpty(curTally.getIndicatorCode())) {
-                this.tallies.get("main").add(curTally);
+                this.tallies.get("").add(curTally);
             }
         }
 
@@ -139,13 +139,8 @@ public class ReportSummaryActivity extends BaseActivity {
             boolean firstExpanded = false;
             for (String curCategoryName : tallies.keySet()) {
                 IndicatorCategoryView curCategoryView = new IndicatorCategoryView(this);
-                curCategoryView.setTallies(curCategoryName, tallies.get(curCategoryName));
+                curCategoryView.setTallies(tallies.get(curCategoryName));
                 indicatorCanvas.addView(curCategoryView);
-
-                if (!firstExpanded) {
-                    firstExpanded = true;
-                    curCategoryView.setExpanded(true);
-                }
             }
         }
     }

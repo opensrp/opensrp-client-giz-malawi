@@ -51,4 +51,12 @@ public class GizReportUtils {
             Timber.e(e);
         }
     }
+
+    @NonNull
+    public static String getStringIdentifier(@NonNull String identifierCode) {
+        return identifierCode
+                .toLowerCase()
+                .replace(" ", "_")
+                .replace("/", "");
+    }
 }

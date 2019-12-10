@@ -15,6 +15,7 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizReportUtils;
 import org.smartregister.util.FormUtils;
 
 import java.util.Collections;
@@ -82,12 +83,12 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
             for (MonthlyTally monthlyTally : monthlyTallies) {
                 JSONObject jsonObject = new JSONObject();
 
-                int resourceId = baseActivity.getResources().getIdentifier(monthlyTally.getIndicator().toLowerCase(), "string", baseActivity.getPackageName());
+                int resourceId = baseActivity.getResources().getIdentifier(GizReportUtils.getStringIdentifier(monthlyTally.getIndicator()), "string", baseActivity.getPackageName());
                 String label = resourceId != 0 ? baseActivity.getResources().getString(resourceId) : monthlyTally.getIndicator();
 
                 JSONObject vRequired = new JSONObject();
                 vRequired.put(JsonFormConstants.VALUE, "true");
-                vRequired.put(JsonFormConstants.ERR, "Specify: " + monthlyTally.getIndicator());
+                vRequired.put(JsonFormConstants.ERR, "Specify: " + label);
                 JSONObject vNumeric = new JSONObject();
                 vNumeric.put(JsonFormConstants.VALUE, "true");
                 vNumeric.put(JsonFormConstants.ERR, "Value should be numeric");

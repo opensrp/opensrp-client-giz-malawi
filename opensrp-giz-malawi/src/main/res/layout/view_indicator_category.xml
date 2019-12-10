@@ -4,38 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/category_name_canvas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp">
-
-        <org.smartregister.view.customcontrols.CustomFontTextView
-            android:id="@+id/category_name"
-            style="@style/CustomFontTextViewStyle.ClientList.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/table_row_side_margin"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/expanded_view"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/table_row_side_margin"
-            android:background="@null"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_icon_expand" />
-    </RelativeLayout>
-
     <TableLayout
         android:id="@+id/indicator_table"
         android:layout_width="match_parent"
@@ -54,23 +22,10 @@
                 android:layout_marginRight="0dp"
                 android:gravity="left|center_vertical"
                 android:maxWidth="80dp"
-                android:paddingLeft="@dimen/table_row_side_margin"
-                android:paddingRight="@dimen/table_row_middle_margin"
-                android:text="ID"
-                android:textColor="@color/client_list_grey"
-                android:textSize="@dimen/indicator_table_contents_text_size" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/table_contents_text_height"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
-                android:gravity="left|center_vertical"
-                android:maxWidth="80dp"
                 android:minWidth="80dp"
                 android:paddingLeft="0dp"
                 android:paddingRight="@dimen/table_row_middle_margin"
-                android:text="Indicator"
+                android:text="@string/indicator"
                 android:textColor="@color/client_list_grey"
                 android:textSize="@dimen/indicator_table_contents_text_size" />
 
@@ -83,7 +38,7 @@
                 android:minWidth="80dp"
                 android:paddingLeft="@dimen/table_row_middle_margin"
                 android:paddingRight="@dimen/table_row_side_margin"
-                android:text="Value"
+                android:text="@string/value"
                 android:textColor="@color/client_list_grey"
                 android:textSize="@dimen/indicator_table_contents_text_size" />
         </TableRow>
