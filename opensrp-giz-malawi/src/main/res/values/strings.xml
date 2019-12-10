@@ -119,7 +119,7 @@
     <string name="bcg">BCG</string>
 
     <string name="menu_anc_clients">ANC Clients</string>
-    <string name="due_only">Due only</string>
+    <string name="due_only">Due Only</string>
     <string name="anc_register">ANC Register</string>
 
     <!-- Override labels in profile and immunization section -->
@@ -302,4 +302,8 @@
     <string name="ECV_F_plus12m_label">Females Older Than 12 Months who Completed All Vaccines Total</string>
     <string name="ECV_plus12m_label">Older Than 12 Months who Completed All Vaccines Total</string>
 
+    <string name="all_clients">All Clients</string>
+    <string name="language_x_selected">%s selected</string>
+    <string name="treated_at_time">TREATED\n%s</string>
+    <string name="checked_in">Checked-In</string>
 </resources>

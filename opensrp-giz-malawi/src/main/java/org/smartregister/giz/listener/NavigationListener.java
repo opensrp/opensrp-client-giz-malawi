@@ -7,10 +7,11 @@ import android.view.View;
 
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.giz.activity.ChildRegisterActivity;
+import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.giz.view.RegisterViewWithDrawer;
 
 public class NavigationListener implements View.OnClickListener {
 
@@ -32,6 +33,10 @@ public class NavigationListener implements View.OnClickListener {
                     navigateToActivity(ChildRegisterActivity.class);
                     break;
 
+                case GizConstants.DrawerMenu.ALL_CLIENTS:
+                    navigateToActivity(OpdRegisterActivity.class);
+                    break;
+
                 case GizConstants.DrawerMenu.ANC_CLIENTS:
                     navigateToActivity(AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
                     break;
@@ -46,8 +51,8 @@ public class NavigationListener implements View.OnClickListener {
     private void navigateToActivity(@NonNull Class<?> clas) {
         NavigationMenu.closeDrawer();
 
-        if (activity instanceof RegisterViewWithDrawer) {
-            ((RegisterViewWithDrawer) activity).finishActivity();
+        if (activity instanceof NavDrawerActivity) {
+            ((NavDrawerActivity) activity).finishActivity();
         } else {
             activity.finish();
         }

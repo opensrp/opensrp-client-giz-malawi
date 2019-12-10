@@ -6,17 +6,11 @@ buildscript {
         google()
         jcenter()
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
 }
+
 
 allprojects {
     repositories {
-        maven { url 'https://maven.google.com' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         mavenLocal()
         mavenCentral()
@@ -37,7 +31,7 @@ subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '28.0.3'
+    ext.androidToolsBuildGradle = '3.1.2'
     ext.androidBuildToolsVersion = '28.0.3'
     ext.androidMinSdkVersion = 18
     ext.androidCompileSdkVersion = 28
@@ -45,6 +39,9 @@ subprojects {
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
+
+    ext.jacocoVersion = "0.7.9"
+    ext.coverallsVersion = "2.8.1"
 
     // Improve build server performance by allowing disabling of pre-dexing
     // (see http://tools.android.com/tech-docs/new-build-system/tips#TOC-Improving-Build-Server-performance.)
@@ -57,6 +54,12 @@ subprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+apply plugin: 'java'
+apply plugin: 'build-dashboard'
+
+buildDashboard {
+    reports.html.setDestination(file("build/"))
 }
+
+test.reports.html.enabled = false
+test.reports.junitXml.enabled = false

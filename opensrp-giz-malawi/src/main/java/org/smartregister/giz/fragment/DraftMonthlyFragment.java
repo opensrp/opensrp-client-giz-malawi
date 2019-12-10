@@ -246,7 +246,7 @@ public class DraftMonthlyFragment extends Fragment {
     private void startMonthlyReportForm(Date date, boolean firstTimeEdit) {
         if (getActivity() != null) {
             ((HIA2ReportsActivity) getActivity())
-                    .startMonthlyReportForm("monthly_report", date, firstTimeEdit);
+                    .startMonthlyReportForm("monthly_report", date);
         }
     }
 

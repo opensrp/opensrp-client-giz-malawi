@@ -23,6 +23,10 @@ android:
     # The SDK version used to compile your projects
     - android-22
     - android-28
+    # Additional components
+    - extra-google-m2repository
+    - extra-android-m2repository
+
 
 before_script:
   # TEMPORARY:Build dependencies
