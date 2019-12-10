@@ -180,10 +180,10 @@ indicators:
                      FROM ec_details d
                      JOIN ec_child
                      ON d.base_entity_id=ec_child.base_entity_id
-                     WHERE '%s' = strftime('%Y-%m-%d',datetime(ec_child.date/1000, 'unixepoch'))
+                     WHERE '%s' = strftime('%Y-%m-%d', ec_child.date)
                      AND round(julianday('now')-julianday(ec_child.dob)) < 730.0
                      group by d.value,ec_child.gender
-                     HAVING d.key IN ('child_hiv_status',NULL);"
+                     HAVING d.key IN ('child_hiv_status', NULL);"
     isMultiResult: true
 
   - key: "ME_Child_HIV_Status_Under2_Gender"
