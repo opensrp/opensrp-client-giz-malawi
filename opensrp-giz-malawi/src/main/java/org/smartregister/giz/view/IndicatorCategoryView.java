@@ -85,7 +85,6 @@ public class IndicatorCategoryView extends LinearLayout {
                 nameTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                         getResources().getDimension(R.dimen.indicator_table_contents_text_size));
                 nameTextView.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
-                nameTextView.setMaxWidth(430);
                 nameTextView.setPadding(
                         getResources().getDimensionPixelOffset(R.dimen.table_row_side_margin),
                         getResources().getDimensionPixelSize(R.dimen.table_contents_text_v_margin),
@@ -100,7 +99,7 @@ public class IndicatorCategoryView extends LinearLayout {
                 TextView valueTextView = new TextView(context);
                 valueTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                         getResources().getDimension(R.dimen.indicator_table_contents_text_size));
-                valueTextView.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+                valueTextView.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
                 valueTextView.setPadding(
                         getResources().getDimensionPixelSize(R.dimen.table_row_middle_margin),
                         getResources().getDimensionPixelSize(R.dimen.table_contents_text_v_margin),
