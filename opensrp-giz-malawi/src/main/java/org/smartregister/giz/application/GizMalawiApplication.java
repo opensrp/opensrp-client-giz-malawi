@@ -3,6 +3,7 @@ package org.smartregister.giz.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.util.Pair;
@@ -88,6 +89,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ECSyncHelper ecSyncHelper;
 
     private EventClientRepository eventClientRepository;
+    private static List<VaccineGroup> vaccineGroups;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -125,7 +127,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private static String[] getFtsSortFields(String tableName, android.content.Context context) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
 
-            List<VaccineGroup> vaccines = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+            List<VaccineGroup> vaccines = getVaccineGroups(context);
             List<String> names = new ArrayList<>();
             names.add(GizConstants.KEY.FIRST_NAME);
             names.add(GizConstants.KEY.DOB);
@@ -199,7 +201,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static Map<String, Pair<String, Boolean>> getAlertScheduleMap(android.content.Context context) {
-        List<VaccineGroup> vaccines = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+        List<VaccineGroup> vaccines = getVaccineGroups(context);
 
         Map<String, Pair<String, Boolean>> map = new HashMap<>();
 
@@ -297,7 +299,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
             List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
             VaccineSchedule.init(childVaccines, specialVaccines, GizConstants.KEY.CHILD);
-          //  VaccineSchedule.vaccineSchedules.get(GizConstants.KEY.CHILD).remove("BCG 2");
+            //  VaccineSchedule.vaccineSchedules.get(GizConstants.KEY.CHILD).remove("BCG 2");
         } catch (Exception e) {
             Timber.e(e, "GizMalawiApplication --> initOfflineSchedules");
         }
@@ -428,7 +430,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return ecSyncHelper;
     }
 
-    private void fixHardcodedVaccineConfiguration() {
+    @VisibleForTesting
+    protected void fixHardcodedVaccineConfiguration() {
         VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines();
 
         HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
@@ -448,6 +451,20 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         }
 
         ImmunizationLibrary.getInstance().setVaccines(vaccines);
+    }
+
+    public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
+        if (vaccineGroups == null) {
+
+            vaccineGroups = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+        }
+
+        return vaccineGroups;
+    }
+
+    @VisibleForTesting
+    public void setVaccineGroups(List<VaccineGroup> vaccines) {
+        this.vaccineGroups = vaccines;
     }
 }
 
