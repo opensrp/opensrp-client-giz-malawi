@@ -54,7 +54,7 @@ public class GizMalawiRepository extends Repository {
     public GizMalawiRepository(@NonNull Context context, @NonNull org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
                 GizMalawiApplication
-                        .createCommonFtsObject(), openSRPContext.sharedRepositoriesArray());
+                        .createCommonFtsObject(context), openSRPContext.sharedRepositoriesArray());
         this.context = context;
     }
 
