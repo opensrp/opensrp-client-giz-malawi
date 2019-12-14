@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.child.util.Constants;
 import org.smartregister.configurableviews.model.LoginConfiguration;
 import org.smartregister.configurableviews.model.ViewConfiguration;
@@ -99,7 +98,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
     @Override
     public boolean isServerSettingsSet() {
         try {
-            Setting setting = AncLibrary.getInstance().getContext().allSettings().getSetting(GizConstants.KEY.SITE_CHARACTERISTICS);
+            Setting setting = GizMalawiApplication.getInstance().getContext().allSettings().getSetting(GizConstants.KEY.SITE_CHARACTERISTICS);
             JSONObject jsonObject = setting != null ? new JSONObject(setting.getValue()) : null;
             JSONArray settingArray = jsonObject != null && jsonObject.has(AllConstants.SETTINGS) ?
                     jsonObject.getJSONArray(AllConstants.SETTINGS) : null;
