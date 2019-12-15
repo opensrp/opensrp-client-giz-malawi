@@ -81,7 +81,7 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
     }
 
 
-    private void saveRegistration(@NonNull List<OpdEventClient> opdEventClients,@NonNull String jsonString,
+    private void saveRegistration(@NonNull List<OpdEventClient> opdEventClients, @NonNull String jsonString,
                                   @NonNull RegisterParams params) {
         try {
             List<String> currentFormSubmissionIds = new ArrayList<>();
@@ -141,26 +141,26 @@ public class OpdRegisterActivityInteractor extends BaseOpdRegisterActivityIntera
 
     private void updateOpenSRPId(String jsonString, RegisterParams params, Client baseClient) {
         if (params.isEditMode()) {
-            // Unassign current OPENSRP ID
             if (baseClient != null) {
                 try {
-                    String newOpenSRPId = baseClient.getIdentifier(OpdJsonFormUtils.OPENSRP_ID).replace("-", "");
-                    String currentOpenSRPId = OpdJsonFormUtils.getString(jsonString, OpdJsonFormUtils.CURRENT_OPENSRP_ID).replace("-", "");
+                    String newOpenSRPId = baseClient.getIdentifier(OpdJsonFormUtils.ZEIR_ID).replace("-", "");
+                    String currentOpenSRPId = OpdJsonFormUtils.getString(jsonString, OpdJsonFormUtils.CURRENT_ZEIR_ID).replace("-", "");
                     if (!newOpenSRPId.equals(currentOpenSRPId)) {
-                        //OPENSRP ID was changed
                         getUniqueIdRepository().open(currentOpenSRPId);
+                        Timber.i("Opensrp Id changed");
                     }
-                } catch (Exception e) {//might crash if M_ZEIR
-                    Timber.d(e, "RegisterInteractor --> unassign opensrp id");
+                } catch (Exception e) {
+                    Timber.e(e, "RegisterInteractor --> unassign opensrp id");
                 }
             }
 
         } else {
             if (baseClient != null) {
                 String opensrpId = baseClient.getIdentifier(OpdJsonFormUtils.ZEIR_ID);
-
-                //mark OPENSRP ID as used
-                getUniqueIdRepository().close(opensrpId);
+                if (StringUtils.isNotBlank(opensrpId)) {
+                    getUniqueIdRepository().close(opensrpId);
+                    Timber.i("Opensrp Id Closed %s", opensrpId);
+                }
             }
         }
     }
