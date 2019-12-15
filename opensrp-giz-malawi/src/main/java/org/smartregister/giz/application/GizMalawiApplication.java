@@ -3,6 +3,7 @@ package org.smartregister.giz.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.util.Pair;
@@ -88,20 +89,21 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ECSyncHelper ecSyncHelper;
 
     private EventClientRepository eventClientRepository;
+    private static List<VaccineGroup> vaccineGroups;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
     }
 
-    public static CommonFtsObject createCommonFtsObject() {
+    public static CommonFtsObject createCommonFtsObject(android.content.Context context) {
         if (commonFtsObject == null) {
             commonFtsObject = new CommonFtsObject(getFtsTables());
             for (String ftsTable : commonFtsObject.getTables()) {
                 commonFtsObject.updateSearchFields(ftsTable, getFtsSearchFields(ftsTable));
-                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable));
+                commonFtsObject.updateSortFields(ftsTable, getFtsSortFields(ftsTable, context));
             }
         }
-        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap());
+        commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap(context));
 
         return commonFtsObject;
     }
@@ -122,10 +124,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return null;
     }
 
-    private static String[] getFtsSortFields(String tableName) {
+    private static String[] getFtsSortFields(String tableName, android.content.Context context) {
         if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
 
-            ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines(GizConstants.VACCINE.CHILD, true);
+            List<VaccineGroup> vaccines = getVaccineGroups(context);
             List<String> names = new ArrayList<>();
             names.add(GizConstants.KEY.FIRST_NAME);
             names.add(GizConstants.KEY.DOB);
@@ -136,8 +138,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             names.add(GizConstants.KEY.DOD);
             names.add(GizConstants.KEY.DATE_REMOVED);
 
-            for (VaccineRepo.Vaccine vaccine : vaccines) {
-                names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.display()));
+            for (VaccineGroup vaccineGroup : vaccines) {
+                populateAlertColumnNames(vaccineGroup.vaccines, names);
             }
 
             return names.toArray(new String[names.size()]);
@@ -152,11 +154,58 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return null;
     }
 
-    private static Map<String, Pair<String, Boolean>> getAlertScheduleMap() {
-        ArrayList<VaccineRepo.Vaccine> vaccines = VaccineRepo.getVaccines("child", true);
+    private static void populateAlertColumnNames(List<Vaccine> vaccines, List<String> names) {
+
+        for (Vaccine vaccine : vaccines)
+            if (vaccine.getVaccineSeparator() != null && vaccine.getName().contains(vaccine.getVaccineSeparator().trim())) {
+                String[] individualVaccines = vaccine.getName().split(vaccine.getVaccineSeparator().trim());
+
+                List<Vaccine> vaccineList = new ArrayList<>();
+                for (String individualVaccine : individualVaccines) {
+                    Vaccine vaccineClone = new Vaccine();
+                    vaccineClone.setName(individualVaccine.trim());
+                    vaccineList.add(vaccineClone);
+
+                }
+                populateAlertColumnNames(vaccineList, names);
+
+
+            } else {
+
+                names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.getName()));
+            }
+    }
+
+
+    private static void populateAlertScheduleMap(List<Vaccine> vaccines, Map<String, Pair<String, Boolean>> map) {
+
+        for (Vaccine vaccine : vaccines)
+            if (vaccine.getVaccineSeparator() != null && vaccine.getName().contains(vaccine.getVaccineSeparator().trim())) {
+                String[] individualVaccines = vaccine.getName().split(vaccine.getVaccineSeparator().trim());
+
+                List<Vaccine> vaccineList = new ArrayList<>();
+                for (String individualVaccine : individualVaccines) {
+                    Vaccine vaccineClone = new Vaccine();
+                    vaccineClone.setName(individualVaccine.trim());
+                    vaccineList.add(vaccineClone);
+
+                }
+                populateAlertScheduleMap(vaccineList, map);
+
+
+            } else {
+
+                map.put(vaccine.name, Pair.create(GizConstants.TABLE_NAME.CHILD, false));
+            }
+    }
+
+    private static Map<String, Pair<String, Boolean>> getAlertScheduleMap(android.content.Context context) {
+        List<VaccineGroup> vaccines = getVaccineGroups(context);
+
         Map<String, Pair<String, Boolean>> map = new HashMap<>();
-        for (VaccineRepo.Vaccine vaccine : vaccines) {
-            map.put(vaccine.display(), Pair.create(GizConstants.TABLE_NAME.CHILD, false));
+
+        for (VaccineGroup vaccineGroup : vaccines) {
+            populateAlertScheduleMap(vaccineGroup.vaccines, map);
         }
         return map;
     }
@@ -180,7 +229,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         res.updateConfiguration(conf, dm);
 
         context.updateApplicationContext(getApplicationContext());
-        context.updateCommonFtsObject(createCommonFtsObject());
+        context.updateCommonFtsObject(createCommonFtsObject(context.applicationContext()));
 
         //Initialize Modules
         CoreLibrary.init(context, new GizMalawiSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
@@ -188,7 +237,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION,
                 growthMonitoringConfig);
-        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(), BuildConfig.VERSION_CODE,
+        ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()), BuildConfig.VERSION_CODE,
                 BuildConfig.DATABASE_VERSION);
         fixHardcodedVaccineConfiguration();
 
@@ -249,6 +298,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             List<VaccineGroup> childVaccines = VaccinatorUtils.getSupportedVaccines(this);
             List<Vaccine> specialVaccines = VaccinatorUtils.getSpecialVaccines(this);
             VaccineSchedule.init(childVaccines, specialVaccines, GizConstants.KEY.CHILD);
+            //  VaccineSchedule.vaccineSchedules.get(GizConstants.KEY.CHILD).remove("BCG 2");
         } catch (Exception e) {
             Timber.e(e, "GizMalawiApplication --> initOfflineSchedules");
         }
@@ -379,7 +429,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return ecSyncHelper;
     }
 
-    private void fixHardcodedVaccineConfiguration() {
+    @VisibleForTesting
+    protected void fixHardcodedVaccineConfiguration() {
         VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines();
 
         HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
@@ -399,6 +450,20 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         }
 
         ImmunizationLibrary.getInstance().setVaccines(vaccines);
+    }
+
+    public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
+        if (vaccineGroups == null) {
+
+            vaccineGroups = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+        }
+
+        return vaccineGroups;
+    }
+
+    @VisibleForTesting
+    public void setVaccineGroups(List<VaccineGroup> vaccines) {
+        this.vaccineGroups = vaccines;
     }
 }
 

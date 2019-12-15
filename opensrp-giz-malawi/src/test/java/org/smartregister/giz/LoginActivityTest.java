@@ -8,25 +8,21 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.child.util.Utils;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
 
 
-@PrepareForTest ({Utils.class})
 public class LoginActivityTest extends BaseActivityUnitTest {
 
     private static final String STRING_SETTINGS = "Settings";
@@ -48,7 +44,6 @@ public class LoginActivityTest extends BaseActivityUnitTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        // PowerMockito.mockStatic(Utils.class);
         controller = Robolectric.buildActivity(LoginActivity.class).create().start();
         loginActivity = controller.get();
     }
