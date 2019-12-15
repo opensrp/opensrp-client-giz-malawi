@@ -154,7 +154,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return null;
     }
 
-
     private static void populateAlertColumnNames(List<Vaccine> vaccines, List<String> names) {
 
         for (Vaccine vaccine : vaccines)
