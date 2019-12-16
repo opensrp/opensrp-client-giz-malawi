@@ -241,7 +241,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         return GizMalawiApplication.getInstance().eventClientRepository().checkIfExists(EventClientRepository.Table.client, entityId);
     }
 
-    private Boolean processVaccine(EventClient vaccine, Table vaccineTable, boolean outOfCatchment) throws Exception {
+    private Boolean processVaccine(@Nullable EventClient vaccine, @Nullable Table vaccineTable, boolean outOfCatchment) throws Exception {
         try {
             if (vaccine == null || vaccine.getEvent() == null) {
                 return false;
@@ -614,7 +614,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
         Timber.d("Starting updateFTSsearch table: %s", tableName);
 
-        AllCommonsRepository allCommonsRepository = org.smartregister.CoreLibrary.getInstance().context().
+        AllCommonsRepository allCommonsRepository = GizMalawiApplication.getInstance().context().
                 allCommonsRepositoryobjects(tableName);
 
         if (allCommonsRepository != null) {
