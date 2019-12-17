@@ -2,6 +2,9 @@ package org.smartregister.giz.util;
 
 public class GizConstants {
 
+    public static final String MOTHER_TDV_DOSES = "mother_tdv_doses";
+    public static final String PROTECTED_AT_BIRTH = "protected_at_birth";
+
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
         public static final String DB_MOTHER_DOB = "mother_dob";
