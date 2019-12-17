@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
+import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationContract;
@@ -64,11 +67,13 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private RelativeLayout settingsLayout;
 
     private View parentView;
+    private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
     private NavigationMenu() {
 
     }
 
+    @Nullable
     public static NavigationMenu getInstance(Activity activity, View parentView, Toolbar myToolbar) {
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(instance);
         activityWeakReference = new WeakReference<>(activity);
@@ -92,6 +97,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             parentView = myParentView;
             mPresenter = new NavigationPresenter(this);
             prepareViews(activity);
+            registerDrawer(activity);
+            goToReport();
         } catch (Exception e) {
             Timber.e(e, "NavigationMenu --> init");
         }
@@ -155,6 +162,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
         syncProgressBar = rootView.findViewById(R.id.pbSync);
         settingsLayout = rootView.findViewById(R.id.rlSettings);
+        reportView = rootView.findViewById(R.id.report_view);
 
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
         LocationPickerView locationPickerView = rootView.findViewById(R.id.clinic_selection);
@@ -181,11 +189,32 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerSync(activity);
         registerLanguageSwitcher(activity);
 
-        registerDeviceToDeviceSync(activity);
         registerSettings(activity);
 
         // update all actions
         mPresenter.refreshLastSync();
+    }
+
+    private void goToReport() {
+        reportView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startReportActivity();
+            }
+        });
+    }
+
+    private void startReportActivity(){
+        Activity activity = activityWeakReference.get();
+        if (activity instanceof HIA2ReportsActivity) {
+            drawer.closeDrawer(GravityCompat.START);
+            return;
+        }
+
+        if (activity != null) {
+            Intent intent = new Intent(activity, HIA2ReportsActivity.class);
+            activity.startActivity(intent);
+        }
     }
 
     private void registerSettings(@NonNull final Activity activity) {
@@ -254,16 +283,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         final TextView tvLang = rootView.findViewById(R.id.tvLang);
         Locale current = context.getResources().getConfiguration().locale;
         tvLang.setText(StringUtils.capitalize(current.getDisplayLanguage()));
-    }
-
-    private void registerDeviceToDeviceSync(@NonNull final Activity activity) {
-        rootView.findViewById(R.id.rlIconDevice)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startP2PActivity(activity);
-                    }
-                });
     }
 
     protected void refreshSyncProgressSpinner() {
@@ -343,12 +362,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         mPresenter.refreshNavigationCount();
     }
 
-    public void openDrawer() {
-        drawer.openDrawer(GravityCompat.START);
-    }
-
     public DrawerLayout getDrawer() {
         return drawer;
+    }
+
+    public void openDrawer() {
+        drawer.openDrawer(GravityCompat.START);
     }
 
     public static void closeDrawer() {

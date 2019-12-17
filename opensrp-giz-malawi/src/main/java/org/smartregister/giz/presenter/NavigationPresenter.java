@@ -14,6 +14,7 @@ import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
+import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -94,6 +95,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
         HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
+        RecurringIndicatorGeneratingJob.scheduleJobImmediately(RecurringIndicatorGeneratingJob.TAG);
     }
 
     @Override

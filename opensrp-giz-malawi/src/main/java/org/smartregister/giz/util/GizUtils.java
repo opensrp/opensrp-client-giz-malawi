@@ -138,4 +138,13 @@ public class GizUtils extends Utils {
             allCommonsRepository.updateSearch(client.getBaseEntityId());
         }
     }
+
+    @NonNull
+    public static Locale getLocale(Context context){
+        if (context == null) {
+            return Locale.getDefault();
+        } else {
+            return context.getResources().getConfiguration().locale;
+        }
+    }
 }

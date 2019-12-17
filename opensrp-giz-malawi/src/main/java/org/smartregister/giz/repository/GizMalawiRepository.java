@@ -24,6 +24,10 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
+import org.smartregister.reporting.repository.IndicatorQueryRepository;
+import org.smartregister.reporting.repository.IndicatorRepository;
 import org.smartregister.opd.repository.OpdCheckInRepository;
 import org.smartregister.opd.repository.OpdDetailsRepository;
 import org.smartregister.opd.repository.OpdDiagnosisAndTreatmentFormRepository;
@@ -50,6 +54,9 @@ public class GizMalawiRepository extends Repository {
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
     private Context context;
+    private String indicatorsConfigFile = "config/indicator-definitions.yml";
+    private String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
+    private String appVersionCodePref = "APP_VERSION_CODE";
 
     public GizMalawiRepository(@NonNull Context context, @NonNull org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
@@ -85,9 +92,30 @@ public class GizMalawiRepository extends Repository {
         OpdTestConductedRepository.createTable(database);
         OpdServiceDetailRepository.createTable(database);
 
+        //reporting
+        IndicatorRepository.createTable(database);
+        IndicatorQueryRepository.createTable(database);
+        DailyIndicatorCountRepository.createTable(database);
+        MonthlyTalliesRepository.createTable(database);
+
+        EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, Hia2ReportRepository.report_column.values());
+
         runLegacyUpgrades(database);
 
         onUpgrade(database, 8, BuildConfig.DATABASE_VERSION);
+
+        // initialize from yml file
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        // Check if indicator data initialised
+        boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
+                .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
+        boolean isUpdated = checkIfAppUpdated();
+        if (!indicatorDataInitialised || isUpdated) {
+            Log.d("REPO 2!", "initialising");
+            reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        }
     }
 
 
@@ -386,4 +414,16 @@ public class GizMalawiRepository extends Repository {
             Timber.e("upgradeToVersion7RemoveUnnecessaryTables( %s", Log.getStackTraceString(e));
         }
     }
+
+    private boolean checkIfAppUpdated() {
+        String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
+        if (savedAppVersion.isEmpty()) {
+            return true;
+        } else {
+            int savedVersion = Integer.parseInt(savedAppVersion);
+            return (BuildConfig.VERSION_CODE > savedVersion);
+        }
+    }
+
+
 }
