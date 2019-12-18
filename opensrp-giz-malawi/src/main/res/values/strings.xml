@@ -131,4 +131,6 @@
     <string name="language_x_selected">%s selected</string>
     <string name="treated_at_time">TREATED\n%s</string>
     <string name="checked_in">Checked-In</string>
+
+    <string name="str_page_info">Page {0} of {1}</string>
 </resources>

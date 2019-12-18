@@ -2,21 +2,26 @@ package org.smartregister.giz.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import org.smartregister.anc.library.fragment.HomeRegisterFragment;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AncRegisterActivity;
+import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.opd.utils.OpdConstants;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-10
  */
 
-public class AncRegisterFragment extends HomeRegisterFragment {
+public class AncRegisterFragment extends HomeRegisterFragment implements CompoundButton.OnCheckedChangeListener {
+
+    private SwitchCompat filterSection;
 
     @Nullable
     @Override
@@ -49,13 +54,36 @@ public class AncRegisterFragment extends HomeRegisterFragment {
 
             // Disable go-back on clicking the ANC Register title
             view.findViewById(R.id.title_layout).setOnClickListener(null);
+
+            filterSection = view.findViewById(R.id.switch_selection);
+            filterSection.setOnCheckedChangeListener(this);
         }
 
         return view;
     }
 
+
+
     @Override
     protected String getMainCondition() {
         return super.getMainCondition() + "and  "+ OpdConstants.ColumnMapKey.REGISTER_ID +" not like '%_mother'";
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        toggleFilterSelection();
+    }
+
+    private void toggleFilterSelection() {
+        if (filterSection != null) {
+            String tagString = "PRESSED";
+            if (filterSection.getTag() == null) {
+                filter("", "", DBQueryHelper.ancDueOverdueFilter(true), false);
+                filterSection.setTag(tagString);
+            } else if (filterSection.getTag().toString().equals(tagString)) {
+                filter("", "", "", false);
+                filterSection.setTag(null);
+            }
+        }
     }
 }
