@@ -39,6 +39,20 @@
           }
         },
         {
+          "column_name": "national_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.national_id"
+          }
+        },
+        {
+          "column_name": "bht_mid",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.bht_mid"
+          }
+        },
+        {
           "column_name": "first_name",
           "type": "Client",
           "json_mapping": {
