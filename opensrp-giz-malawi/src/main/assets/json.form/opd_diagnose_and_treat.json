@@ -61,7 +61,7 @@
         "key": "tests_repeating_group",
         "type": "repeating_group",
         "reference_edit_text_hint": "# of tests",
-        "repeating_group_label": "test",
+        "repeating_group_label": "",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -147,6 +147,7 @@
               "B(Positive)",
               "AB(Positive)",
               "O(Positive)",
+              "O(Negative)",
               "A(Negative)",
               "B(Negative)",
               "AB(Negative)"
