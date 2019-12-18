@@ -56,6 +56,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
         <activity
+            android:name="org.smartregister.giz.activity.ChildFormActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChildTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
             android:name="org.smartregister.child.activity.BaseChildFormActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

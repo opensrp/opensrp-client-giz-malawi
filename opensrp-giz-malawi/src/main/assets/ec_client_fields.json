@@ -440,6 +440,13 @@
           "json_mapping": {
             "field": "attributes.lost_to_follow_up"
           }
+        },
+        {
+          "column_name": "child_reg_no",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.child_reg"
+          }
         }
       ]
     },

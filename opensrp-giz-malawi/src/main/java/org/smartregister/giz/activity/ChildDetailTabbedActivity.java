@@ -14,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.child.activity.BaseChildDetailTabbedActivity;
-import org.smartregister.child.activity.BaseChildFormActivity;
 import org.smartregister.child.fragment.StatusEditDialogFragment;
 import org.smartregister.child.task.LoadAsyncTask;
 import org.smartregister.giz.R;
@@ -157,13 +156,12 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
     @Override
     public void startFormActivity(String formData) {
-        Intent intent = new Intent(getApplicationContext(), BaseChildFormActivity.class);
-
         Form formParam = new Form();
         formParam.setWizard(false);
         formParam.setHideSaveLabel(true);
         formParam.setNextLabel("");
 
+        Intent intent = new Intent(getApplicationContext(), org.smartregister.child.util.Utils.metadata().childFormActivity);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, formParam);
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, formData);
 
