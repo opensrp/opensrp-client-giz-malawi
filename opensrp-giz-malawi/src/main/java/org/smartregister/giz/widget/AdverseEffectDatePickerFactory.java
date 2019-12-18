@@ -46,7 +46,7 @@ public class AdverseEffectDatePickerFactory extends DatePickerFactory implements
     @Override
     public void updateDatePicker(String date) {
         try {
-            jsonObject.put(JsonFormConstants.MAX_DATE, date);
+            jsonObject.put(JsonFormConstants.MIN_DATE, date);
             attachLayout(JsonFormConstants.STEP1, formFragment.getContext(), formFragment, jsonObject, edtText, txtDuration);
         } catch (JSONException e) {
             Timber.e(e);
