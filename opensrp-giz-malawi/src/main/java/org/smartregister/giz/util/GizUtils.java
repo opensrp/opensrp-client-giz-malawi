@@ -194,16 +194,15 @@ public class GizUtils extends Utils {
             treeViewDialog.setCanceledOnTouchOutside(true);
             treeViewDialog.setOnDismissListener(dialog -> {
                 ArrayList<String> treeViewDialogName = treeViewDialog.getName();
-                String newLocation = treeViewDialogName.get(treeViewDialogName.size() - 1);
-                GizMalawiApplication.getInstance().context().allSharedPreferences().saveCurrentLocality(newLocation);
-                onLocationChangeListener.updateTextView(newLocation);
-                if (navigationMenu != null) {
-                    navigationMenu.updateTextView(newLocation);
+                if (!treeViewDialogName.isEmpty()) {
+                    String newLocation = treeViewDialogName.get(treeViewDialogName.size() - 1);
+                    GizMalawiApplication.getInstance().context().allSharedPreferences().saveCurrentLocality(newLocation);
+                    onLocationChangeListener.updateTextView(newLocation);
+                    if (navigationMenu != null) {
+                        navigationMenu.updateTextView(newLocation);
+                    }
                 }
-                Timber.e(treeViewDialog.getName().toString());
-                Timber.e(treeViewDialog.getValue().toString());
 
-//                    presenter.onOperationalAreaSelectorClicked(treeViewDialog.getName());
             });
             treeViewDialog.show();
         } catch (JSONException e) {
