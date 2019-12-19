@@ -1,4 +1,5 @@
 package org.smartregister.giz.listener;
 
-public class OnLocationChangeListener {
+public interface OnLocationChangeListener {
+    void updateTextView(String location);
 }

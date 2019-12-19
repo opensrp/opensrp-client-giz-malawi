@@ -1,5 +1,6 @@
 package org.smartregister.giz.util;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,19 +12,35 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 
+import com.google.common.reflect.TypeToken;
+import com.vijay.jsonwizard.customviews.TreeViewDialog;
+
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.form.FormLocation;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.event.BaseEvent;
+import org.smartregister.giz.listener.OnLocationChangeListener;
+import org.smartregister.giz.view.NavigationMenu;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.util.AssetHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
+
+import static org.smartregister.opd.utils.DefaultOpdLocationUtils.getHealthFacilityLevels;
+import static org.smartregister.opd.utils.DefaultOpdLocationUtils.getLocationLevels;
 
 public class GizUtils extends Utils {
 
@@ -138,4 +155,49 @@ public class GizUtils extends Utils {
             allCommonsRepository.updateSearch(client.getBaseEntityId());
         }
     }
+
+    public static void showLocations(Activity context, OnLocationChangeListener onLocationChangeListener, NavigationMenu navigationMenu) {
+        try {
+            ArrayList<String> allLevels = getLocationLevels();
+            ArrayList<String> healthFacilities = getHealthFacilityLevels();
+
+            ArrayList<String> defaultLocation = (ArrayList<String>) LocationHelper.getInstance().generateDefaultLocationHierarchy(allLevels);
+//            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
+            List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
+//            List<FormLocation> upToFacilitiesWithOther = LocationHelper.getInstance().generateLocationHierarchyTree(true, healthFacilities);
+//            List<FormLocation> entireTree = LocationHelper.getInstance().generateLocationHierarchyTree(true, allLevels);
+//
+//            String defaultLocationString = AssetHandler.javaToJsonString(defaultLocation, new TypeToken<List<String>>() {
+//            }.getType());
+//
+//            String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility, new TypeToken<List<String>>() {
+//            }.getType());
+
+            String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
+            }.getType());
+
+
+            TreeViewDialog treeViewDialog = new TreeViewDialog(context,
+                    new JSONArray(upToFacilitiesString), defaultLocation, defaultLocation);
+            treeViewDialog.setCancelable(true);
+            treeViewDialog.setCanceledOnTouchOutside(true);
+            treeViewDialog.setOnDismissListener(dialog -> {
+                ArrayList<String> treeViewDialogName = treeViewDialog.getName();
+                String newLocation = treeViewDialogName.get(treeViewDialogName.size() - 1);
+                GizMalawiApplication.getInstance().context().allSharedPreferences().saveCurrentLocality(newLocation);
+                onLocationChangeListener.updateTextView(newLocation);
+                if (navigationMenu != null) {
+                    navigationMenu.updateTextView(newLocation);
+                }
+                Timber.e(treeViewDialog.getName().toString());
+                Timber.e(treeViewDialog.getValue().toString());
+
+//                    presenter.onOperationalAreaSelectorClicked(treeViewDialog.getName());
+            });
+            treeViewDialog.show();
+        } catch (JSONException e) {
+            Timber.e(e);
+        }
+    }
+
 }
