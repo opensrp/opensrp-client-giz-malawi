@@ -20,18 +20,21 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
 
     private LocationPickerView facilitySelection;
 
+    public static GizMeFragment newInstance() {
+        return new GizMeFragment();
+    }
+
     @Override
     protected void setUpViews(View view) {
         this.fragment = this;
         super.setUpViews(view);
         this.view = view;
-
     }
 
     @Override
     protected void setClickListeners() {
         super.setClickListeners();
-        if(view != null) {
+        if (view != null) {
             View locationLayout = view.findViewById(R.id.me_location_section);
             facilitySelection = view.findViewById(R.id.facility_selection);
             facilitySelection.setClickable(false);
@@ -39,8 +42,8 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
                 @Override
                 public void onClick(View v) {
                     Activity activity = fragment.getActivity();
-                    if(activity instanceof AncRegisterActivity) {
-                        GizUtils.showLocations(getActivity(), fragment, ((AncRegisterActivity)fragment.getActivity()).getNavigationMenu());
+                    if (activity instanceof AncRegisterActivity) {
+                        GizUtils.showLocations(getActivity(), fragment, ((AncRegisterActivity) fragment.getActivity()).getNavigationMenu());
                     } else if (activity instanceof OpdRegisterActivity) {
                         GizUtils.showLocations(getActivity(), fragment, ((OpdRegisterActivity) fragment.getActivity()).getNavigationMenu());
                     } else if (activity instanceof ChildRegisterActivity) {
@@ -53,7 +56,7 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
 
     @Override
     public void updateTextView(String location) {
-        if(facilitySelection != null){
+        if (facilitySelection != null) {
             facilitySelection.setText(location);
         }
     }

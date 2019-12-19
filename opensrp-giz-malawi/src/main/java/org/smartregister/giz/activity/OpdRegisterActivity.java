@@ -38,6 +38,8 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     private NavigationMenu navigationMenu;
 
+    private GizMeFragment gizMeFragment;
+
     @Override
     protected BaseOpdRegisterActivityPresenter createPresenter(@NonNull OpdRegisterActivityContract.View view, @NonNull OpdRegisterActivityContract.Model model) {
         return new OpdRegisterActivityPresenter(view, model);
@@ -158,13 +160,17 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         //Do nothing
     }
 
+    public GizMeFragment gizMeFragment() {
+        return gizMeFragment;
+    }
 
     @Override
     protected Fragment[] getOtherFragments() {
         ME_POSITION = 1;
 
         Fragment[] fragments = new Fragment[1];
-        fragments[ME_POSITION - 1] = new GizMeFragment();
+        gizMeFragment = GizMeFragment.newInstance();
+        fragments[ME_POSITION - 1] = gizMeFragment;
 
         return fragments;
     }
