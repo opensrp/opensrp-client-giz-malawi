@@ -204,6 +204,7 @@
                             android:text="@string/service_location"/>
 
                         <LinearLayout
+                            android:id="@+id/location_layout"
                             android:layout_width="match_parent"
                             android:layout_height="50sp"
                             android:background="@color/black"
@@ -212,9 +213,8 @@
                             android:layout_marginEnd="30sp"
                             android:orientation="horizontal"
                             android:layout_marginTop="5dp">
-
-                            <org.smartregister.view.LocationPickerView
-                                android:id="@+id/clinic_selection"
+                            <TextView
+                                android:id="@+id/txt_location_selected"
                                 style="@style/CustomFontTextViewStyle.StatusBar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="fill_parent"

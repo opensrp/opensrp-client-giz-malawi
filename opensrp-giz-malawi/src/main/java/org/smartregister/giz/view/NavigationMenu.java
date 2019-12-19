@@ -33,11 +33,12 @@ import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationContract;
+import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
+import org.smartregister.giz.util.GizUtils;
 import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
-import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 import java.lang.ref.WeakReference;
@@ -50,7 +51,7 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener {
+public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener, OnLocationChangeListener {
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
@@ -65,10 +66,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private ProgressBar syncProgressBar;
     private NavigationContract.Presenter mPresenter;
     private RelativeLayout settingsLayout;
+    private TextView txtLocationSelected;
 
     private View parentView;
     private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
+
     private NavigationMenu() {
 
     }
@@ -165,8 +168,19 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         reportView = rootView.findViewById(R.id.report_view);
 
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
-        LocationPickerView locationPickerView = rootView.findViewById(R.id.clinic_selection);
-        locationPickerView.init();
+        LinearLayout locationLayout = rootView.findViewById(R.id.location_layout);
+
+
+        locationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GizUtils.showLocations(activity, instance, null);
+            }
+        });
+
+        txtLocationSelected = rootView.findViewById(R.id.txt_location_selected);
+        txtLocationSelected.setText(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
+
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
 
@@ -373,6 +387,13 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     public static void closeDrawer() {
         if (instance != null && instance.getDrawer() != null) {
             instance.getDrawer().closeDrawer(Gravity.START);
+        }
+    }
+
+    @Override
+    public void updateTextView(String location) {
+        if(txtLocationSelected != null){
+            txtLocationSelected.setText(location);
         }
     }
 }

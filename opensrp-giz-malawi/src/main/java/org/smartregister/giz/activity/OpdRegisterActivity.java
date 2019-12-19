@@ -10,8 +10,8 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.R;
+import org.smartregister.giz.fragment.GizMeFragment;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
 import org.smartregister.giz.util.GizConstants;
@@ -41,6 +41,10 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     @Override
     protected BaseOpdRegisterActivityPresenter createPresenter(@NonNull OpdRegisterActivityContract.View view, @NonNull OpdRegisterActivityContract.Model model) {
         return new OpdRegisterActivityPresenter(view, model);
+    }
+
+    public NavigationMenu getNavigationMenu() {
+        return navigationMenu;
     }
 
     @Override
@@ -160,7 +164,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         ME_POSITION = 1;
 
         Fragment[] fragments = new Fragment[1];
-        fragments[ME_POSITION - 1] = new MeFragment();
+        fragments[ME_POSITION - 1] = new GizMeFragment();
 
         return fragments;
     }

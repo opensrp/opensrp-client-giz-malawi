@@ -66,7 +66,7 @@ public class AncRegisterFragment extends HomeRegisterFragment implements Compoun
 
     @Override
     protected String getMainCondition() {
-        return super.getMainCondition() + "and  "+ OpdConstants.ColumnMapKey.REGISTER_ID +" not like '%_mother'";
+        return super.getMainCondition() + "and  "+ OpdConstants.ColumnMapKey.REGISTER_ID +" not like '%_mother' and next_contact IS NOT NULL";
     }
 
     @Override
