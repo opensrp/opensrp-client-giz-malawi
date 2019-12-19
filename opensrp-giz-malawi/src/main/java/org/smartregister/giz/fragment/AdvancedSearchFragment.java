@@ -106,35 +106,35 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
     @Override
     public void populateSearchableFields(View view) {
-        firstName = view.findViewById(org.smartregister.child.R.id.first_name);
-        advancedFormSearchableFields.put(GizConstants.KEY.FIRST_NAME, firstName);
-
-        lastName = view.findViewById(org.smartregister.child.R.id.last_name);
-        advancedFormSearchableFields.put(GizConstants.KEY.LAST_NAME, lastName);
-
-        openSrpId = view.findViewById(org.smartregister.child.R.id.opensrp_id);
-        advancedFormSearchableFields.put(GizConstants.KEY.ZEIR_ID, openSrpId);
-
-        motherGuardianFirstName = view.findViewById(org.smartregister.child.R.id.mother_guardian_first_name);
-        advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_FIRST_NAME, motherGuardianFirstName);
-
-        motherGuardianLastName = view.findViewById(org.smartregister.child.R.id.mother_guardian_last_name);
-        advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_LAST_NAME, motherGuardianLastName);
-
-        motherGuardianNid = view.findViewById(org.smartregister.child.R.id.mother_guardian_nrc);
-        advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid);
-
-        motherGuardianPhoneNumber = view.findViewById(org.smartregister.child.R.id.mother_guardian_phone_number);
-        advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_GUARDIAN_NUMBER, motherGuardianPhoneNumber);
-
-
-        firstName.addTextChangedListener(advancedSearchTextwatcher);
-        lastName.addTextChangedListener(advancedSearchTextwatcher);
-        openSrpId.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianFirstName.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianLastName.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianNid.addTextChangedListener(advancedSearchTextwatcher);
-        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchTextwatcher);
+//        firstName = view.findViewById(R.id.first_name);
+//        advancedFormSearchableFields.put(GizConstants.KEY.FIRST_NAME, firstName);
+//
+//        lastName = view.findViewById(R.id.last_name);
+//        advancedFormSearchableFields.put(GizConstants.KEY.LAST_NAME, lastName);
+//
+//        openSrpId = view.findViewById(R.id.opensrp_id);
+//        advancedFormSearchableFields.put(GizConstants.KEY.ZEIR_ID, openSrpId);
+//
+//        motherGuardianFirstName = view.findViewById(R.id.mother_guardian_first_name);
+//        advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_FIRST_NAME, motherGuardianFirstName);
+//
+//        motherGuardianLastName = view.findViewById(R.id.mother_guardian_last_name);
+//        advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_LAST_NAME, motherGuardianLastName);
+//
+//        motherGuardianNid = view.findViewById(R.id.mother_guardian_nrc);
+//        advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid);
+//
+//        motherGuardianPhoneNumber = view.findViewById(R.id.mother_guardian_phone_number);
+//        advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_GUARDIAN_NUMBER, motherGuardianPhoneNumber);
+//
+//
+//        firstName.addTextChangedListener(advancedSearchTextwatcher);
+//        lastName.addTextChangedListener(advancedSearchTextwatcher);
+//        openSrpId.addTextChangedListener(advancedSearchTextwatcher);
+//        motherGuardianFirstName.addTextChangedListener(advancedSearchTextwatcher);
+//        motherGuardianLastName.addTextChangedListener(advancedSearchTextwatcher);
+//        motherGuardianNid.addTextChangedListener(advancedSearchTextwatcher);
+//        motherGuardianPhoneNumber.addTextChangedListener(advancedSearchTextwatcher);
     }
 
     @Override

@@ -285,14 +285,18 @@ public class HIA2ReportsActivity extends BaseActivity {
                 tabLayout.post(new Runnable() {
                     @Override
                     public void run() {
-                        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-                            TabLayout.Tab tab = tabLayout.getTabAt(i);
-                            if (tab != null && tab.getText() != null && tab.getText().toString()
-                                    .contains(getString(R.string.hia2_draft_monthly))) {
-                                tab.setText(String.format(
-                                        getString(R.string.hia2_draft_monthly_with_count),
-                                        monthlyTallies == null ? 0 : monthlyTallies.size()));
+                        try {
+                            for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+                                TabLayout.Tab tab = tabLayout.getTabAt(i);
+                                if (tab != null && tab.getText() != null && tab.getText().toString()
+                                        .contains(getString(R.string.hia2_draft_monthly))) {
+                                    tab.setText(String.format(
+                                            getString(R.string.hia2_draft_monthly_with_count),
+                                            monthlyTallies == null ? 0 : monthlyTallies.size()));
+                                }
                             }
+                        }catch (Exception e){
+                            Timber.e(e);
                         }
                     }
                 });
