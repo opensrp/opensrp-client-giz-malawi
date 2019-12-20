@@ -64,20 +64,10 @@ public class DailyTalliesFragment extends Fragment {
             @Override
             public void run() {
                 final ArrayList<Date> datesWithTallies = fetchLast3MonthsDailyTallies();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ProgressDialog progressDialog = new ProgressDialog(getContext());
-                        progressDialog.setMessage("Loading");
-                        progressDialog.show();
-                    }
-                });
-
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
                         displayDailyTallies(datesWithTallies);
-//                        progressDialog.dismiss();
                     }
                 });
             }
