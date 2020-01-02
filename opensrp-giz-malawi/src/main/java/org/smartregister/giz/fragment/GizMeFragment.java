@@ -8,6 +8,7 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.view.LocationPickerView;
@@ -19,10 +20,6 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
     private GizMeFragment fragment;
 
     private LocationPickerView facilitySelection;
-
-    public static GizMeFragment newInstance() {
-        return new GizMeFragment();
-    }
 
     @Override
     protected void setUpViews(View view) {
@@ -59,5 +56,11 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
         if (facilitySelection != null) {
             facilitySelection.setText(location);
         }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser)
+            updateTextView(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
     }
 }

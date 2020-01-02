@@ -40,12 +40,6 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         return navigationMenu;
     }
 
-    private GizMeFragment gizMeFragment;
-
-    public GizMeFragment gizMeFragment() {
-        return gizMeFragment;
-    }
-
     @Override
     protected void attachBaseContext(android.content.Context base) {
         // get language from prefs
@@ -62,8 +56,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         ME_POSITION = 1;
 
         Fragment[] fragments = new Fragment[1];
-        gizMeFragment = GizMeFragment.newInstance();
-        fragments[ME_POSITION - 1] = gizMeFragment;
+        fragments[ME_POSITION - 1] = new GizMeFragment();
 
         return fragments;
     }
