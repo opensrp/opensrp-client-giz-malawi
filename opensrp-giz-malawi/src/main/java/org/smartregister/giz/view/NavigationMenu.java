@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -345,7 +346,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-        Log.v(TAG, "onSyncInProgress");
+        Timber.v("onSyncInProgress");
     }
 
     @Override
@@ -373,8 +374,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     @Override
-    public void updateTextView(String location) {
-        if (txtLocationSelected != null) {
+    public void updateUi(@Nullable String location) {
+        if (txtLocationSelected != null && StringUtils.isNotBlank(location)) {
             txtLocationSelected.setText(location);
         }
     }

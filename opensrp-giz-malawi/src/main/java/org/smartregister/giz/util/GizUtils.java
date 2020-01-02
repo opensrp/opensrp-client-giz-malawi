@@ -16,6 +16,7 @@ import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.customviews.TreeViewDialog;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.child.util.Constants;
@@ -182,7 +183,7 @@ public class GizUtils extends Utils {
     //
     // *** leave it for now
 
-    public static void showLocations(Activity context, OnLocationChangeListener onLocationChangeListener, NavigationMenu navigationMenu) {
+    public static void showLocations(@Nullable Activity context, @NonNull OnLocationChangeListener onLocationChangeListener, @Nullable NavigationMenu navigationMenu) {
         try {
             ArrayList<String> allLevels = getLocationLevels();
             ArrayList<String> healthFacilities = getHealthFacilityLevels();
@@ -202,9 +203,9 @@ public class GizUtils extends Utils {
                 if (!treeViewDialogName.isEmpty()) {
                     String newLocation = treeViewDialogName.get(treeViewDialogName.size() - 1);
                     GizMalawiApplication.getInstance().context().allSharedPreferences().saveCurrentLocality(newLocation);
-                    onLocationChangeListener.updateTextView(newLocation);
+                    onLocationChangeListener.updateUi(newLocation);
                     if (navigationMenu != null) {
-                        navigationMenu.updateTextView(newLocation);
+                        navigationMenu.updateUi(newLocation);
                     }
                 }
 

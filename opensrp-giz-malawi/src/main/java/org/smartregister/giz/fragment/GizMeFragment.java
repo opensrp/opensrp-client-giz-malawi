@@ -52,7 +52,7 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
     }
 
     @Override
-    public void updateTextView(String location) {
+    public void updateUi(String location) {
         if (facilitySelection != null) {
             facilitySelection.setText(location);
         }
@@ -61,6 +61,6 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser)
-            updateTextView(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
+            updateUi(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
     }
 }
