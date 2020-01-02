@@ -23,8 +23,6 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity implements Nav
 
     private NavigationMenu navigationMenu;
 
-    private GizMeFragment gizMeFragment;
-
     @Override
     protected void registerBottomNavigation() {
         // Do nothing because the bottom navigation was removed and overriden by someone
@@ -60,15 +58,10 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity implements Nav
 
         Fragment[] fragments = new Fragment[posCounter];
         if (this.isMeItemEnabled()) {
-            gizMeFragment = GizMeFragment.newInstance();
-            fragments[BaseRegisterActivity.ME_POSITION - 1] = gizMeFragment;
+            fragments[BaseRegisterActivity.ME_POSITION - 1] = new GizMeFragment();
         }
 
         return fragments;
-    }
-
-    public GizMeFragment gizMeFragment(){
-        return gizMeFragment;
     }
 
     @Override

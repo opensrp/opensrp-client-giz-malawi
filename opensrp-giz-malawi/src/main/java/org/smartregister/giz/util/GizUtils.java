@@ -156,23 +156,39 @@ public class GizUtils extends Utils {
         }
     }
 
+    // *** preview location hierarchy
+    //
+    //    @NonNull
+    //    public static ArrayList<String> getLocationLevels() {
+    //        ArrayList<String> allLevels = new ArrayList<>();
+    //        allLevels.add("Country");
+    //        allLevels.add("Province");
+    //        allLevels.add("District");
+    //        allLevels.add("Facility");
+    //        allLevels.add("Village");
+    //        return allLevels;
+    //    }
+    //
+    //    @NonNull
+    //    public static ArrayList<String> getHealthFacilityLevels() {
+    //        ArrayList<String> healthFacilities = new ArrayList<>();
+    //        healthFacilities.add("Country");
+    //        healthFacilities.add("Province");
+    //        healthFacilities.add("District");
+    //        healthFacilities.add("Health Facility");
+    //        healthFacilities.add("Village");
+    //        return healthFacilities;
+    //    }
+    //
+    // *** leave it for now
+
     public static void showLocations(Activity context, OnLocationChangeListener onLocationChangeListener, NavigationMenu navigationMenu) {
         try {
             ArrayList<String> allLevels = getLocationLevels();
             ArrayList<String> healthFacilities = getHealthFacilityLevels();
 
             ArrayList<String> defaultLocation = (ArrayList<String>) LocationHelper.getInstance().generateDefaultLocationHierarchy(allLevels);
-//            List<String> defaultFacility = LocationHelper.getInstance().generateDefaultLocationHierarchy(healthFacilities);
             List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
-//            List<FormLocation> upToFacilitiesWithOther = LocationHelper.getInstance().generateLocationHierarchyTree(true, healthFacilities);
-//            List<FormLocation> entireTree = LocationHelper.getInstance().generateLocationHierarchyTree(true, allLevels);
-//
-//            String defaultLocationString = AssetHandler.javaToJsonString(defaultLocation, new TypeToken<List<String>>() {
-//            }.getType());
-//
-//            String defaultFacilityString = AssetHandler.javaToJsonString(defaultFacility, new TypeToken<List<String>>() {
-//            }.getType());
-
             String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
             }.getType());
 

@@ -28,9 +28,6 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
-import org.smartregister.giz.activity.AncRegisterActivity;
-import org.smartregister.giz.activity.ChildRegisterActivity;
-import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationContract;
@@ -379,19 +376,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     public void updateTextView(String location) {
         if (txtLocationSelected != null) {
             txtLocationSelected.setText(location);
-
-            Activity activity = activityWeakReference.get();
-            try {
-                if (activity instanceof AncRegisterActivity) {
-                    ((AncRegisterActivity) activity).gizMeFragment().updateTextView(location);
-                } else if (activity instanceof OpdRegisterActivity) {
-                    ((OpdRegisterActivity) activity).gizMeFragment().updateTextView(location);
-                } else if (activity instanceof ChildRegisterActivity) {
-                    ((ChildRegisterActivity) activity).gizMeFragment().updateTextView(location);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
         }
     }
 }
