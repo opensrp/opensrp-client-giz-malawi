@@ -13,23 +13,23 @@ import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.giz.fragment.ChildFormFragment;
+import org.smartregister.giz.fragment.GizChildFormFragment;
 
 import java.util.List;
 
 import timber.log.Timber;
 
 
-public class AdverseEffectDatePickerFactory extends DatePickerFactory implements ChildFormFragment.OnReactionVaccineSelected {
+public class AdverseEffectDatePickerFactory extends DatePickerFactory implements GizChildFormFragment.OnReactionVaccineSelected {
 
-    private ChildFormFragment formFragment;
+    private GizChildFormFragment formFragment;
     private TextView txtDuration;
     private MaterialEditText edtText;
     private JSONObject jsonObject;
 
     @Override
     protected List<View> attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, boolean popup, CommonListener listener) {
-        this.formFragment = (ChildFormFragment) formFragment;
+        this.formFragment = (GizChildFormFragment) formFragment;
         this.formFragment.setOnReactionVaccineSelected(this);
         return super.attachJson(stepName, context, formFragment, jsonObject, popup, listener);
     }
