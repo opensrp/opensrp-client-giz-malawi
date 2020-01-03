@@ -25,6 +25,7 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.form.FormLocation;
+import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.event.BaseEvent;
 import org.smartregister.giz.listener.OnLocationChangeListener;
@@ -39,9 +40,6 @@ import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
-
-import static org.smartregister.opd.utils.DefaultOpdLocationUtils.getHealthFacilityLevels;
-import static org.smartregister.opd.utils.DefaultOpdLocationUtils.getLocationLevels;
 
 public class GizUtils extends Utils {
 
@@ -157,43 +155,24 @@ public class GizUtils extends Utils {
         }
     }
 
-    // *** preview location hierarchy
-    //
-    //    @NonNull
-    //    public static ArrayList<String> getLocationLevels() {
-    //        ArrayList<String> allLevels = new ArrayList<>();
-    //        allLevels.add("Country");
-    //        allLevels.add("Province");
-    //        allLevels.add("District");
-    //        allLevels.add("Facility");
-    //        allLevels.add("Village");
-    //        return allLevels;
-    //    }
-    //
-    //    @NonNull
-    //    public static ArrayList<String> getHealthFacilityLevels() {
-    //        ArrayList<String> healthFacilities = new ArrayList<>();
-    //        healthFacilities.add("Country");
-    //        healthFacilities.add("Province");
-    //        healthFacilities.add("District");
-    //        healthFacilities.add("Health Facility");
-    //        healthFacilities.add("Village");
-    //        return healthFacilities;
-    //    }
-    //
-    // *** leave it for now
+    @NonNull
+    private static ArrayList<String> getLocationLevels() {
+        return BuildConfig.LOCATION_LEVELS;
+    }
+
+    @NonNull
+    private static ArrayList<String> getHealthFacilityLevels() {
+        return BuildConfig.HEALTH_FACILITY_LEVELS;
+    }
 
     public static void showLocations(@Nullable Activity context, @NonNull OnLocationChangeListener onLocationChangeListener, @Nullable NavigationMenu navigationMenu) {
         try {
             ArrayList<String> allLevels = getLocationLevels();
             ArrayList<String> healthFacilities = getHealthFacilityLevels();
-
             ArrayList<String> defaultLocation = (ArrayList<String>) LocationHelper.getInstance().generateDefaultLocationHierarchy(allLevels);
             List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
             String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
             }.getType());
-
-
             TreeViewDialog treeViewDialog = new TreeViewDialog(context,
                     new JSONArray(upToFacilitiesString), defaultLocation, defaultLocation);
             treeViewDialog.setCancelable(true);
