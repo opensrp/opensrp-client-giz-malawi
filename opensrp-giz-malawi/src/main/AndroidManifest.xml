@@ -83,6 +83,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+
         <activity
             android:name=".activity.GizJsonFormActivity"
             android:screenOrientation="portrait"

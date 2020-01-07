@@ -12,7 +12,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +34,6 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationContract;
 import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
-import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.LocationPickerView;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -54,7 +52,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
-    private String TAG = NavigationMenu.class.getCanonicalName();
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationAdapter navigationAdapter;
@@ -98,9 +95,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             mPresenter = new NavigationPresenter(this);
             prepareViews(activity);
             registerDrawer(activity);
-            goToReport();
         } catch (Exception e) {
-            Timber.e(e, "NavigationMenu --> init");
+            Timber.e(e);
         }
     }
 
@@ -190,30 +186,30 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerLanguageSwitcher(activity);
 
         registerSettings(activity);
+        registerReporting(activity);
 
         // update all actions
         mPresenter.refreshLastSync();
     }
 
-    private void goToReport() {
+    private void registerReporting(@Nullable Activity parentActivity) {
         reportView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startReportActivity();
+                startReportActivity(parentActivity);
             }
         });
     }
 
-    private void startReportActivity(){
-        Activity activity = activityWeakReference.get();
-        if (activity instanceof HIA2ReportsActivity) {
+    private void startReportActivity(@Nullable Activity parentActivity) {
+        if (parentActivity instanceof HIA2ReportsActivity) {
             drawer.closeDrawer(GravityCompat.START);
             return;
         }
 
-        if (activity != null) {
-            Intent intent = new Intent(activity, HIA2ReportsActivity.class);
-            activity.startActivity(intent);
+        if (parentActivity != null) {
+            Intent intent = new Intent(parentActivity, HIA2ReportsActivity.class);
+            parentActivity.startActivity(intent);
         }
     }
 
@@ -295,10 +291,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         }
     }
 
-    public void startP2PActivity(@NonNull Activity activity) {
-        activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
-    }
-
     @Override
     public void refreshLastSync(Date lastSync) {
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa, MMM d", Locale.getDefault());
@@ -349,7 +341,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-        Log.v(TAG, "onSyncInProgress");
+        Timber.v("onSyncInProgress");
     }
 
     @Override

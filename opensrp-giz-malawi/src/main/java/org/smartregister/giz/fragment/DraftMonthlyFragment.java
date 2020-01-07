@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -37,7 +36,7 @@ import java.util.List;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
-public class DraftMonthlyFragment extends Fragment {
+public class DraftMonthlyFragment extends ReportFragment {
 
     private Button startNewReportEnabled;
     private Button startNewReportDisabled;
@@ -68,15 +67,9 @@ public class DraftMonthlyFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void refreshData() {
         setupEditedDraftsView();
         setupUneditedDraftsView();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     private void updateStartNewReportButton(@Nullable final List<Date> dates) {

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,7 @@ import timber.log.Timber;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
-public class SentMonthlyFragment extends Fragment {
+public class SentMonthlyFragment extends ReportFragment {
 
     private ExpandableListView expandableListView;
     private HashMap<String, ArrayList<MonthlyTally>> sentMonthlyTallies;
@@ -51,15 +50,14 @@ public class SentMonthlyFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private HashMap<String, ArrayList<MonthlyTally>> retrieveSentMonthlyTallies() {
+        Locale locale = GizUtils.getLocale(getContext());
+        SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy", locale);
+        return GizMalawiApplication.getInstance().monthlyTalliesRepository().findAllSent(MONTH_YEAR_FORMAT);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
+    public void refreshData() {
         showProgressDialog();
         AppExecutors appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(new Runnable() {
@@ -78,18 +76,6 @@ public class SentMonthlyFragment extends Fragment {
 
             }
         });
-
-    }
-
-    private HashMap<String, ArrayList<MonthlyTally>> retrieveSentMonthlyTallies() {
-        Locale locale = GizUtils.getLocale(getContext());
-        SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy", locale);
-        return GizMalawiApplication.getInstance().monthlyTalliesRepository().findAllSent(MONTH_YEAR_FORMAT);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     @Nullable

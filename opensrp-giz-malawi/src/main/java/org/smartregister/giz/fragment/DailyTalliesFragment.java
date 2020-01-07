@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,7 @@ import timber.log.Timber;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
-public class DailyTalliesFragment extends Fragment {
+public class DailyTalliesFragment extends ReportFragment {
 
     private static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("dd MMMM yyyy");
     private ExpandableListView expandableListView;
@@ -52,27 +51,6 @@ public class DailyTalliesFragment extends Fragment {
 
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        appExecutors = new AppExecutors();
-        showProgressDialog();
-        appExecutors.diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                final ArrayList<Date> datesWithTallies = fetchLast3MonthsDailyTallies();
-
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        displayDailyTallies(datesWithTallies);
-                    }
-                });
-            }
-        });
     }
 
     @Nullable
@@ -102,7 +80,6 @@ public class DailyTalliesFragment extends Fragment {
     }
 
     private void displayDailyTallies(@NonNull ArrayList<Date> daysWithTallies) {
-        hideProgressDialog();
         dailyTallies = daysWithTallies;
         updateExpandableList();
     }
@@ -219,8 +196,27 @@ public class DailyTalliesFragment extends Fragment {
         }
     }
 
-    ////////////////////////////////////////////////////////////////
-    // Inner classes
-    ////////////////////////////////////////////////////////////////
+    @Override
+    public void refreshData() {
+        if (appExecutors == null) {
+            appExecutors = new AppExecutors();
+        }
+
+        showProgressDialog();
+        appExecutors.diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                final ArrayList<Date> datesWithTallies = fetchLast3MonthsDailyTallies();
+
+                appExecutors.mainThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        displayDailyTallies(datesWithTallies);
+                    }
+                });
+            }
+        });
+    }
 
 }

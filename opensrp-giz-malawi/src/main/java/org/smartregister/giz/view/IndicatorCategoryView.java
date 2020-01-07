@@ -8,7 +8,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizReportUtils;
 import org.smartregister.reporting.domain.IndicatorTally;
-import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
 

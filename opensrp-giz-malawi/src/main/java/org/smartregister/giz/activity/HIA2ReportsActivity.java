@@ -18,6 +18,9 @@ import android.view.View;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,13 +35,17 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.ReportHia2Indicator;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
+import org.smartregister.giz.fragment.SendMonthlyDraftDialogFragment;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
 import org.smartregister.giz.task.StartDraftMonthlyFormTask;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizReportUtils;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.giz.fragment.SendMonthlyDraftDialogFragment;
+import org.smartregister.reporting.domain.TallyStatus;
+import org.smartregister.reporting.event.IndicatorTallyEvent;
+import org.smartregister.reporting.util.ViewUtils;
+import org.smartregister.reporting.view.ReportingProcessingSnackbar;
 import org.smartregister.repository.Hia2ReportRepository;
 import org.smartregister.service.HTTPAgent;
 import org.smartregister.util.Utils;
@@ -91,6 +98,9 @@ public class HIA2ReportsActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ProgressDialog progressDialog;
 
+    private ReportingProcessingSnackbar reportingProcessingSnackbar;
+    private ArrayList<FragmentRefreshListener> fragmentRefreshListeners = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,11 +129,36 @@ public class HIA2ReportsActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
         openDrawer();
+
+        EventBus.getDefault().register(this);
+    }
+
+    // UI updates must run on MainThread
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onStickyIndicatorTallyEvent(IndicatorTallyEvent event) {
+        if (event.getStatus().equals(TallyStatus.INPROGRESS)) {
+            Timber.e("Received reporting inprogress event");
+            reportingProcessingSnackbar = ViewUtils.showReportingProcessingInProgressSnackbar(this, reportingProcessingSnackbar, 0);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(IndicatorTallyEvent indicatorTallyEvent) {
+        if (indicatorTallyEvent.getStatus().equals(TallyStatus.COMPLETE)) {
+            Timber.e("Received reporting complete event");
+            ViewUtils.removeReportingProcessingInProgressSnackbar(reportingProcessingSnackbar);
+
+            for (FragmentRefreshListener fragmentRefreshListener : getFragmentRefreshListeners()) {
+                fragmentRefreshListener.onRefresh();
+            }
+        }
     }
 
     public void openDrawer() {
         NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
-        navigationMenu.runRegisterCount();
+        if (navigationMenu != null) {
+            navigationMenu.runRegisterCount();
+        }
     }
 
     @Override
@@ -430,5 +465,32 @@ public class HIA2ReportsActivity extends BaseActivity {
         } catch (Exception e) {
             Timber.e(e);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        ViewUtils.removeReportingProcessingInProgressSnackbar(reportingProcessingSnackbar);
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    public ArrayList<FragmentRefreshListener> getFragmentRefreshListeners() {
+        return fragmentRefreshListeners;
+    }
+
+    public void addFragmentRefreshListener(@NonNull FragmentRefreshListener fragmentRefreshListener) {
+        if (!getFragmentRefreshListeners().contains(fragmentRefreshListener)) {
+            getFragmentRefreshListeners().add(fragmentRefreshListener);
+        }
+    }
+
+    public boolean removeFragmentRefreshListener(@NonNull FragmentRefreshListener fragmentRefreshListener) {
+        return getFragmentRefreshListeners().remove(fragmentRefreshListener);
+    }
+
+    public interface FragmentRefreshListener {
+
+        void onRefresh();
+
     }
 }
