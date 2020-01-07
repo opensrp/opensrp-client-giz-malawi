@@ -18,7 +18,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 import org.smartregister.child.util.Utils;
-import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -48,16 +47,10 @@ public class GizMalawiProcessorForJavaTest {
     private org.smartregister.Context openSrpContext;
 
     @Mock
-    private AllCommonsRepository allCommonsRepository;
-
-    @Mock
     private HeightRepository heightRepository;
 
     @Mock
     private ContentValues contentValues;
-
-    @Mock
-    private ArgumentCaptor vaccineScheduleArgumentCaptor;
 
     @Captor
     private ArgumentCaptor<Height> processHeightArgumentCaptor;
@@ -83,30 +76,6 @@ public class GizMalawiProcessorForJavaTest {
     public void setUp() {
         processorForJava = Mockito.spy(GizMalawiProcessorForJava.getInstance(Mockito.mock(Context.class)));
     }
-
-//    @Test
-//    public void updateFTSsearch() {
-//        DateTime dateTime = (new DateTime());
-//        PowerMockito.mockStatic(GizMalawiApplication.class);
-//        PowerMockito.mockStatic(Utils.class);
-//        PowerMockito.mockStatic(VaccineSchedule.class);
-//        PowerMockito.mockStatic(ServiceSchedule.class);
-//
-//        PowerMockito.when(Utils.dobStringToDateTime(null)).thenReturn(dateTime);
-//        PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
-//        PowerMockito.when(gizMalawiApplication.context()).thenReturn(openSrpContext);
-//        PowerMockito.when(openSrpContext.allCommonsRepositoryobjects("ec_child")).thenReturn(allCommonsRepository);
-////        PowerMockito.when(contentValues.getAsString(Constants.KEY.DOB)).thenReturn("2018-07-07");
-////        Mockito.verify(VaccineSchedule.class, Mockito.times(1))
-////        PowerMockito.mockStatic(VaccineSchedule.class);
-//
-//        verifyStatic(VaccineSchedule.class);
-//        GizMalawiProcessorForJava processorForJava = GizMalawiProcessorForJava.getInstance(Mockito.mock(Context.class));
-//        processorForJava.updateFTSsearch("ec_child", "asa", contentValues);
-//
-//        VaccineSchedule.updateOfflineAlerts(String.valueOf(vaccineScheduleArgumentCaptor.capture()), (DateTime) vaccineScheduleArgumentCaptor.capture(), (String) vaccineScheduleArgumentCaptor.capture());
-//        Assert.assertNull(vaccineScheduleArgumentCaptor.getAllValues());
-//    }
 
     @Test
     public void processHeightWithEventClientNull() throws Exception {
