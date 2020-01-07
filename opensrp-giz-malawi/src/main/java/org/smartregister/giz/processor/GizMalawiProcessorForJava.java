@@ -3,6 +3,7 @@ package org.smartregister.giz.processor;
 import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -349,7 +350,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private Boolean processHeight(EventClient height, Table heightTable, boolean outOfCatchment) throws Exception {
+    private Boolean processHeight(@Nullable EventClient height, @Nullable Table heightTable, boolean outOfCatchment) {
 
         try {
 
@@ -372,7 +373,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 HeightRepository heightRepository = GizMalawiApplication.getInstance().heightRepository();
                 Height heightObject = new Height();
-                heightObject.setBaseEntityId(contentValues.getAsString(WeightRepository.BASE_ENTITY_ID));
+                heightObject.setBaseEntityId(contentValues.getAsString(HeightRepository.BASE_ENTITY_ID));
                 if (contentValues.containsKey(HeightRepository.CM)) {
                     heightObject.setCm(parseFloat(contentValues.getAsString(HeightRepository.CM)));
                 }
@@ -532,7 +533,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         return false;
     }
 
-    private ContentValues processCaseModel(EventClient eventClient, Table table) {
+    @VisibleForTesting
+    ContentValues processCaseModel(EventClient eventClient, Table table) {
         try {
             List<Column> columns = table.columns;
             ContentValues contentValues = new ContentValues();
