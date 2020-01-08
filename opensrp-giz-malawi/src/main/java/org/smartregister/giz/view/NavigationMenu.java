@@ -173,7 +173,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         });
 
         txtLocationSelected = rootView.findViewById(R.id.txt_location_selected);
-        txtLocationSelected.setText(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
+
+        String location = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality();
+
+        if(StringUtils.isNotBlank(location)) {
+            txtLocationSelected.setText(location);
+        }
 
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);

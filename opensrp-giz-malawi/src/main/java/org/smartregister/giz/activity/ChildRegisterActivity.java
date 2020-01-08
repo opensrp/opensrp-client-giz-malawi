@@ -21,6 +21,7 @@ import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.giz.R;
+import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.event.LoginEvent;
 import org.smartregister.giz.fragment.ChildRegisterFragment;
 import org.smartregister.giz.fragment.GizMeFragment;
@@ -32,10 +33,11 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.lang.ref.WeakReference;
 
-public class ChildRegisterActivity extends BaseChildRegisterActivity implements NavDrawerActivity {
+public class ChildRegisterActivity extends BaseChildRegisterActivity implements NavDrawerActivity, NavigationMenuContract {
 
     private NavigationMenu navigationMenu;
 
+    @Override
     public NavigationMenu getNavigationMenu() {
         return navigationMenu;
     }

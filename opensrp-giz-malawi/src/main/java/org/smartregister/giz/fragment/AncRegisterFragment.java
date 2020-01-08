@@ -56,6 +56,6 @@ public class AncRegisterFragment extends HomeRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return super.getMainCondition() + "and  "+ OpdConstants.ColumnMapKey.REGISTER_ID +" not like '%_mother' and next_contact IS NOT NULL";
+        return super.getMainCondition() + "and next_contact IS NOT NULL";
     }
 }

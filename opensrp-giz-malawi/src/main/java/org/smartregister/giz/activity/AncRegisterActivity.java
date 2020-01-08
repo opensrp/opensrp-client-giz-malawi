@@ -3,6 +3,7 @@ package org.smartregister.giz.activity;
 import android.support.v4.app.Fragment;
 
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
+import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.fragment.AncRegisterFragment;
 import org.smartregister.giz.fragment.GizMeFragment;
 import org.smartregister.giz.util.GizConstants;
@@ -15,11 +16,8 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-09
  */
 
-public class AncRegisterActivity extends BaseHomeRegisterActivity implements NavDrawerActivity {
+public class AncRegisterActivity extends BaseHomeRegisterActivity implements NavDrawerActivity, NavigationMenuContract {
 
-    public NavigationMenu getNavigationMenu() {
-        return navigationMenu;
-    }
 
     private NavigationMenu navigationMenu;
 
@@ -100,5 +98,10 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity implements Nav
     @Override
     public void finishActivity() {
         finish();
+    }
+
+    @Override
+    public NavigationMenu getNavigationMenu() {
+        return navigationMenu;
     }
 }
