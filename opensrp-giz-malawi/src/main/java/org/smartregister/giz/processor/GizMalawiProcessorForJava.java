@@ -79,7 +79,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
-        for (MiniClientProcessorForJava miniClientProcessorForJava: miniClientProcessorsForJava) {
+        for (MiniClientProcessorForJava miniClientProcessorForJava : miniClientProcessorsForJava) {
             unsyncEventsPerProcessor.put(miniClientProcessorForJava, new ArrayList<Event>());
 
             HashSet<String> eventTypes = miniClientProcessorForJava.getEventTypes();
@@ -534,7 +534,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @VisibleForTesting
-    ContentValues processCaseModel(EventClient eventClient, Table table) {
+    ContentValues processCaseModel(@NonNull EventClient eventClient, @NonNull Table table) {
         try {
             List<Column> columns = table.columns;
             ContentValues contentValues = new ContentValues();

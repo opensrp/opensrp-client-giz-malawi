@@ -56,6 +56,6 @@ public class AncRegisterFragment extends HomeRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return super.getMainCondition() + "and next_contact IS NOT NULL";
+        return super.getMainCondition() + " and next_contact IS NOT NULL";
     }
 }

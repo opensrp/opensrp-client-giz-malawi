@@ -12,7 +12,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -162,7 +161,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         settingsLayout = rootView.findViewById(R.id.rlSettings);
 
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
-        LinearLayout locationLayout = rootView.findViewById(R.id.location_layout);
+        LinearLayout locationLayout = rootView.findViewById(R.id.giz_location_layout);
 
 
         locationLayout.setOnClickListener(new View.OnClickListener() {
@@ -172,13 +171,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             }
         });
 
-        txtLocationSelected = rootView.findViewById(R.id.txt_location_selected);
+        txtLocationSelected = rootView.findViewById(R.id.giz_txt_location_selected);
 
-        String location = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality();
-
-        if(StringUtils.isNotBlank(location)) {
-            txtLocationSelected.setText(location);
-        }
+        updateUi(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
 
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);

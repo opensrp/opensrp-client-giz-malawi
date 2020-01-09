@@ -36,6 +36,7 @@ import org.smartregister.util.AssetHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -157,12 +158,12 @@ public class GizUtils extends Utils {
 
     @NonNull
     private static ArrayList<String> getLocationLevels() {
-        return BuildConfig.LOCATION_LEVELS;
+        return new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS));
     }
 
     @NonNull
     private static ArrayList<String> getHealthFacilityLevels() {
-        return BuildConfig.HEALTH_FACILITY_LEVELS;
+        return new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS));
     }
 
     public static void showLocations(@Nullable Activity context, @NonNull OnLocationChangeListener onLocationChangeListener, @Nullable NavigationMenu navigationMenu) {

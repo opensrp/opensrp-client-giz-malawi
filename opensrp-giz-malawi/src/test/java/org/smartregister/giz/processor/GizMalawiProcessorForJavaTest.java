@@ -78,21 +78,21 @@ public class GizMalawiProcessorForJavaTest {
     }
 
     @Test
-    public void processHeightWithEventClientNull() throws Exception {
+    public void processHeightWithEventClientNullShouldReturnFalse() throws Exception {
         Object[] params = {null, null, true};
         Boolean result = Whitebox.invokeMethod(processorForJava, "processHeight", params);
         Assert.assertFalse(result);
     }
 
     @Test
-    public void processHeightWithTableNull() throws Exception {
+    public void processHeightWithTableNullShouldReturnFalse() throws Exception {
         Object[] params = {new EventClient(new Event(), new Client("23")), null, true};
         Boolean result = Whitebox.invokeMethod(processorForJava, "processHeight", params);
         Assert.assertFalse(result);
     }
 
     @Test
-    public void processHeightWithValidEventClientAndTable() throws Exception {
+    public void processHeightWithValidEventClientAndTableShouldReturnTrue() throws Exception {
         PowerMockito.mockStatic(GizMalawiApplication.class);
         PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
         PowerMockito.when(gizMalawiApplication.heightRepository()).thenReturn(heightRepository);
@@ -129,21 +129,21 @@ public class GizMalawiProcessorForJavaTest {
     }
 
     @Test
-    public void processServiceWithEventClientNull() throws Exception {
+    public void processServiceWithEventClientNullShouldReturnFalse() throws Exception {
         Object[] params = {null, null};
         Boolean result = Whitebox.invokeMethod(processorForJava, "processService", params);
         Assert.assertFalse(result);
     }
 
     @Test
-    public void processServiceWithTableNull() throws Exception {
+    public void processServiceWithTableNullShouldReturnFalse() throws Exception {
         Object[] params = {new EventClient(new Event(), new Client("23")), null};
         Boolean result = Whitebox.invokeMethod(processorForJava, "processService", params);
         Assert.assertFalse(result);
     }
 
     @Test
-    public void processServiceWithNameNotHavingITN() throws Exception {
+    public void processServiceWithNameNotHavingITNShouldReturnTrue() throws Exception {
         PowerMockito.mockStatic(GizMalawiApplication.class);
         PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
         PowerMockito.when(gizMalawiApplication.recurringServiceTypeRepository()).thenReturn(recurringServiceTypeRepository);
@@ -196,7 +196,7 @@ public class GizMalawiProcessorForJavaTest {
     }
 
     @Test
-    public void processBCScarEventWithValidEventClient() throws Exception {
+    public void processBCScarEventWithValidEventClientShouldPassCorrectArgsToDetailsRepo() throws Exception {
         PowerMockito.mockStatic(GizMalawiApplication.class);
         PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
         Mockito.when(gizMalawiApplication.context()).thenReturn(openSrpContext);
