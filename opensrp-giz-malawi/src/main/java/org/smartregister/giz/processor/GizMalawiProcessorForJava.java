@@ -3,6 +3,7 @@ package org.smartregister.giz.processor;
 import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -78,7 +79,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
-        for (MiniClientProcessorForJava miniClientProcessorForJava: miniClientProcessorsForJava) {
+        for (MiniClientProcessorForJava miniClientProcessorForJava : miniClientProcessorsForJava) {
             unsyncEventsPerProcessor.put(miniClientProcessorForJava, new ArrayList<Event>());
 
             HashSet<String> eventTypes = miniClientProcessorForJava.getEventTypes();
@@ -532,7 +533,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         return false;
     }
 
-    private ContentValues processCaseModel(EventClient eventClient, Table table) {
+    @VisibleForTesting
+    ContentValues processCaseModel(EventClient eventClient, Table table) {
         try {
             List<Column> columns = table.columns;
             ContentValues contentValues = new ContentValues();
