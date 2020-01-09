@@ -373,7 +373,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 HeightRepository heightRepository = GizMalawiApplication.getInstance().heightRepository();
                 Height heightObject = new Height();
-                heightObject.setBaseEntityId(contentValues.getAsString(HeightRepository.BASE_ENTITY_ID));
+                heightObject.setBaseEntityId(contentValues.getAsString(WeightRepository.BASE_ENTITY_ID));
                 if (contentValues.containsKey(HeightRepository.CM)) {
                     heightObject.setCm(parseFloat(contentValues.getAsString(HeightRepository.CM)));
                 }
@@ -408,7 +408,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private Boolean processService(EventClient service, Table serviceTable) throws Exception {
+    private Boolean processService(EventClient service, Table serviceTable) {
         try {
             if (service == null || service.getEvent() == null) {
                 return false;

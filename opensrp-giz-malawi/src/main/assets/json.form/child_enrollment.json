@@ -104,6 +104,22 @@
         }
       },
       {
+        "key": "child_reg",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Child's Registration Number",
+        "v_required": {
+          "value": false,
+          "err": "Please enter the Child Registration Number"
+        },
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid registration number"
+        }
+      },
+      {
         "key": "last_name",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person",
@@ -212,11 +228,7 @@
         "type": "tree",
         "tree": [],
         "value": "Lombwa Outreach",
-        "hint": "Address/Location",
-        "v_required": {
-          "value": false,
-          "err": "Please enter the Child's Home Address"
-        }
+        "hint": "Village"
       },
       {
         "key": "village",
@@ -225,8 +237,12 @@
         "openmrs_entity_id": "address1",
         "openmrs_data_type": "text",
         "type": "edit_text",
-        "label_info_text": "Indicate the village where the child comes from.",
-        "hint": "Child's Village"
+        "label_info_text": "Indicate the area or location where the child comes from e.g in an urban setting Area X",
+        "hint": "Address/Location",
+        "v_required": {
+          "value": false,
+          "err": "Please enter the Child's Address/Location"
+        }
       },
       {
         "key": "traditional_authority",
@@ -376,6 +392,25 @@
         }
       },
       {
+        "key": "mother_tdv_doses",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "label_info_text": "Whether the child's mother received 2 or more doses of Td, which transfers protection against Td to the child when they're born.",
+        "hint": "How many does of TDV did the mother receive?",
+        "v_required": {
+          "value": true,
+          "err": "Please choose an option"
+        },
+        "values": [
+          ">=3 doses of TDV in past 5 years",
+          "1-4 doses of TDV in the past",
+          "TDV not received",
+          "Unknown"
+        ]
+      },
+      {
         "key": "protected_at_birth",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -397,13 +432,6 @@
           "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Don't Know": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "child_register_registration_relevance_rules.yml"
-            }
-          }
         }
       },
       {
