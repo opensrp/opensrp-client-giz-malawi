@@ -139,7 +139,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
 
     @Override
     public void switchToBaseFragment() {
-        Intent intent = new Intent(this, BaseOpdRegisterActivity.class);
+        Intent intent = new Intent(this, OpdRegisterActivity.class);
         startActivity(intent);
         finish();
     }
