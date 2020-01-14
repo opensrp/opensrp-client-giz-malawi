@@ -205,8 +205,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    //implementation('org.smartregister:opensrp-client-reporting:0.0.6-LOCAL-SNAPSHOT@aar') {
-    implementation (project (":opensrp-reporting")) {
+    implementation('org.smartregister:opensrp-client-reporting:0.0.17-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'design'
