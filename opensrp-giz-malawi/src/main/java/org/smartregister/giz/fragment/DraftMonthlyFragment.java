@@ -217,7 +217,7 @@ public class DraftMonthlyFragment extends ReportFragment {
 
             Object tag = v.getTag();
             if (tag instanceof Date) {
-                startMonthlyReportForm((Date) tag, true);
+                startMonthlyReportForm((Date) tag);
             }
         }
     };
@@ -238,7 +238,7 @@ public class DraftMonthlyFragment extends ReportFragment {
         snackbar.show();
     }
 
-    private void startMonthlyReportForm(Date date, boolean firstTimeEdit) {
+    private void startMonthlyReportForm(@NonNull Date date) {
         if (getActivity() != null) {
             ((HIA2ReportsActivity) getActivity())
                     .startMonthlyReportForm("monthly_report", date);

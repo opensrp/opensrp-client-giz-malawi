@@ -10,6 +10,7 @@ import java.util.List;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-12-02
  */
 public class Report {
+
     @JsonProperty
     private String baseEntityId;
 
@@ -39,23 +40,6 @@ public class Report {
 
     @JsonProperty
     private List<ReportHia2Indicator> hia2Indicators;
-
-    public Report() {
-    }
-
-    public Report(String baseEntityId, String locationId, DateTime reportDate, String reportType, String formSubmissionId,
-                  String providerId, String status, long version, int duration, List<ReportHia2Indicator> hia2Indicators) {
-        this.baseEntityId = baseEntityId;
-        this.locationId = locationId;
-        this.reportDate = reportDate;
-        this.reportType = reportType;
-        this.formSubmissionId = formSubmissionId;
-        this.providerId = providerId;
-        this.status = status;
-        this.version = version;
-        this.duration = duration;
-        this.hia2Indicators = hia2Indicators;
-    }
 
     public String getLocationId() {
         return locationId;

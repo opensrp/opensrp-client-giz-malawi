@@ -129,7 +129,7 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
 
             fieldsArray.put(buttonObject);
 
-            form.put(JsonFormConstants.REPORT_MONTH, HIA2ReportsActivity.dfyymmdd.format(date));
+            form.put(JsonFormConstants.REPORT_MONTH, HIA2ReportsActivity.yyyyMMdd.format(date));
             form.put("identifier", "HIA2ReportForm");
 
             Intent intent = new Intent(baseActivity, GizJsonFormActivity.class);

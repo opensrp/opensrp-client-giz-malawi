@@ -1,7 +1,6 @@
 package org.smartregister.giz.domain;
 
 import org.codehaus.jackson.annotate.JsonProperty;
-
 import java.io.Serializable;
 
 /**
@@ -9,6 +8,7 @@ import java.io.Serializable;
  */
 
 public class ReportHia2Indicator implements Serializable {
+
     @JsonProperty
     private String indicatorCode;
 
@@ -25,7 +25,7 @@ public class ReportHia2Indicator implements Serializable {
     public ReportHia2Indicator() {
     }
 
-    public ReportHia2Indicator(String indicatorCode, String label, String dhisId, String description, String category, String value, String providerId, String createdAt, String updatedAt) {
+    public ReportHia2Indicator(String indicatorCode, String description, String category, String value) {
         this.indicatorCode = indicatorCode;
         this.description = description;
         this.category = category;

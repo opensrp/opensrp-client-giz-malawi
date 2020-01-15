@@ -20,9 +20,8 @@ import java.util.Map;
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
-
-
 public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
+
     private final Context context;
     private LinkedHashMap<K, List<ItemData<L, T>>> map = new LinkedHashMap<>();
     private List<K> headers = new ArrayList<>();
@@ -70,7 +69,6 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
 
         ItemData<L, T> childObject = getChild(groupPosition, childPosition);
         if (childObject != null) {
-
             String text = null;
             String details = null;
 
@@ -86,25 +84,17 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
                 details = triple.getMiddle();
             }
 
-            View tvView = convertView.findViewById(R.id.tv);
-            if (tvView != null && text != null) {
-                TextView tv = (TextView) tvView;
-                tv.setText(text);
-                convertView.setTag(text);
-            }
-
-            View detailView = convertView.findViewById(R.id.details);
-            if (detailView != null && details != null) {
-                TextView detailTextView = (TextView) detailView;
-                detailTextView.setText(details);
-
-                detailTextView.setTextColor(context.getResources().getColor(R.color.black));
-                if (childObject.isFinalized()) {
-                    detailTextView.setTextColor(context.getResources().getColor(R.color.bluetext));
-                }
-            }
+            populateTitleView(convertView, text);
+            populateDetailView(convertView, childObject, details);
         }
 
+        setBottomDivider(groupPosition, childPosition, convertView);
+        convertView.setTag(R.id.item_data, childObject.getTagData());
+
+        return convertView;
+    }
+
+    private void setBottomDivider(int groupPosition, int childPosition, View convertView) {
         View dividerBottom = convertView.findViewById(R.id.adapter_divider_bottom);
         if (dividerBottom != null) {
             boolean lastChild = (getChildrenCount(groupPosition) - 1) == childPosition;
@@ -114,15 +104,34 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
                 dividerBottom.setVisibility(View.GONE);
             }
         }
+    }
 
-        convertView.setTag(R.id.item_data, childObject.getTagData());
+    private void populateTitleView(View convertView, String text) {
+        View tvView = convertView.findViewById(R.id.tv);
+        if (tvView != null && text != null) {
+            TextView tv = (TextView) tvView;
+            tv.setText(text);
+            convertView.setTag(text);
+        }
+    }
 
-        return convertView;
+    private void populateDetailView(View convertView, ItemData<L, T> childObject, String details) {
+        View detailView = convertView.findViewById(R.id.details);
+        if (detailView != null && details != null) {
+            TextView detailTextView = (TextView) detailView;
+            detailTextView.setText(details);
+
+            detailTextView.setTextColor(context.getResources().getColor(R.color.black));
+            if (childObject.isFinalized()) {
+                detailTextView.setTextColor(context.getResources().getColor(R.color.bluetext));
+            }
+        }
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.map.get(this.headers.get(groupPosition))
+        return this.map
+                .get(this.headers.get(groupPosition))
                 .size();
     }
 

@@ -76,8 +76,7 @@ public class HIA2ReportsActivity extends BaseActivity {
     public static final int REQUEST_CODE_GET_JSON = 3432;
     public static final int MONTH_SUGGESTION_LIMIT = 3;
     public static final String FORM_KEY_CONFIRM = "confirm";
-    public static final DateFormat dfyymmdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-    public static final DateFormat yyyMMdd_T_HHmmss_SSSZZZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ", Locale.ENGLISH);
+    public static final DateFormat yyyyMMdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     public static final String REPORT_NAME = "HIA2";
 
@@ -205,7 +204,7 @@ public class HIA2ReportsActivity extends BaseActivity {
                 boolean skipValidationSet = data.getBooleanExtra(JsonFormConstants.SKIP_VALIDATION, false);
                 JSONObject form = new JSONObject(jsonString);
                 String monthString = form.getString("report_month");
-                Date month = dfyymmdd.parse(monthString);
+                Date month = yyyyMMdd.parse(monthString);
 
                 JSONObject monthlyDraftForm = new JSONObject(jsonString);
 
@@ -383,15 +382,10 @@ public class HIA2ReportsActivity extends BaseActivity {
                 if (tallies != null) {
                     List<ReportHia2Indicator> reportHia2Indicators = new ArrayList<>();
                     for (MonthlyTally curTally : tallies) {
-                        String createdAtString = yyyMMdd_T_HHmmss_SSSZZZ.format(curTally.getCreatedAt() != null ? curTally.getCreatedAt() : curTally.getUpdatedAt());
-                        String updatedAtString = yyyMMdd_T_HHmmss_SSSZZZ.format(curTally.getUpdatedAt());
-
                         ReportHia2Indicator reportHia2Indicator = new ReportHia2Indicator(curTally.getIndicator()
                                 , curTally.getIndicator()
-                                , curTally.getIndicator()
-                                , curTally.getIndicator()
                                 , "Immunization"
-                                , curTally.getValue(), curTally.getProviderId(), createdAtString, updatedAtString);
+                                , curTally.getValue());
 
                         reportHia2Indicators.add(reportHia2Indicator);
                     }
