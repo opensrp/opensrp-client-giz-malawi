@@ -290,18 +290,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         //init Job Manager
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-/*
-        DatabaseFileProvider.setDbPasswordProvider(new DbPasswordProvider() {
-            @Override
-            public String getDbPassword(@NonNull String dbName) {
-
-                if ("drishti".equalsIgnoreCase(dbName)) {
-                    return getPassword();
-                } else {
-                    return "";
-                }
-            }
-        });*/
 
     }
 
