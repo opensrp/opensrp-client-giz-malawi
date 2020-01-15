@@ -99,6 +99,10 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "    LEFT JOIN opd_details ON ec_child.base_entity_id = opd_details.base_entity_id\n" +
                 "    WHERE  ec_child.id IN (%s) \n" +
                 "UNION ALL \n" +
+                "Select ec_mother.id as _id , first_name , last_name , middle_name , 'Female' AS gender , dob , home_address , 'OPD' AS register_type , relationalid , register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_mother' as entity_table, opd_details.current_visit_end_date FROM ec_mother\n" +
+                "    LEFT JOIN opd_details ON ec_mother.base_entity_id = opd_details.base_entity_id\n" +
+                "    WHERE  ec_mother.id IN (%s) and next_contact is null\n" +
+                "UNION ALL \n" +
                 "Select ec_mother.id as _id , first_name , last_name , middle_name , 'Female' AS gender , dob , home_address , 'ANC' AS register_type , relationalid , register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_mother' as entity_table, opd_details.current_visit_end_date FROM ec_mother\n" +
                 "    LEFT JOIN opd_details ON ec_mother.base_entity_id = opd_details.base_entity_id\n" +
                 "    WHERE  ec_mother.id IN (%s) \n" +
