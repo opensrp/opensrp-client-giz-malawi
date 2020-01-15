@@ -19,13 +19,13 @@ import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.ActivityConfiguration;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.ChildLibrary;
-import org.smartregister.child.activity.BaseChildFormActivity;
 import org.smartregister.child.domain.ChildMetadata;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.activity.AncRegisterActivity;
+import org.smartregister.giz.activity.ChildFormActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
@@ -306,7 +306,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private ChildMetadata getMetadata() {
-        ChildMetadata metadata = new ChildMetadata(BaseChildFormActivity.class, ChildProfileActivity.class,
+        ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
                 ChildImmunizationActivity.class, true);
         metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
                 GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,

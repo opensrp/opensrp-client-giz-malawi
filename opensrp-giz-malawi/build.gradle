@@ -147,22 +147,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.2.0-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-    }
-
-    implementation('org.smartregister:opensrp-client-anc:0.0.7-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-    }
-
     implementation ('org.smartregister:opensrp-client-native-form:1.6.64-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -174,6 +158,8 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
+
+    implementation('org.smartregister:opensrp-client-child:0.2.1-SNAPSHOT@aar') {
 
     implementation('org.smartregister:opensrp-client-core:1.8.8-SNAPSHOT@aar') {
         transitive = true
@@ -270,6 +256,7 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
+
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
     testImplementation 'org.skyscreamer:jsonassert:1.5.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
