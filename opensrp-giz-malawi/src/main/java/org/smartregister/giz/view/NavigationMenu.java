@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.github.ybq.android.spinkit.style.FadingCircle;
 
 import org.apache.commons.lang3.StringUtils;
+import org.mozilla.javascript.EcmaError;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
@@ -37,6 +38,7 @@ import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -179,7 +181,18 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         });
 
         txtLocationSelected = rootView.findViewById(R.id.txt_location_selected);
-        txtLocationSelected.setText(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
+        String location  = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality();
+        if(StringUtils.isNotBlank(location)) {
+            updateTextView(location);
+        } else {
+            try {
+                updateTextView(LocationHelper.getInstance().getOpenMrsLocationName(GizMalawiApplication.getInstance()
+                        .context().allSharedPreferences()
+                        .fetchDefaultLocalityId(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM())));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
 
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
@@ -392,7 +405,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     @Override
     public void updateTextView(String location) {
-        if (txtLocationSelected != null) {
+        if (txtLocationSelected != null && StringUtils.isNotBlank(location)) {
             txtLocationSelected.setText(location);
         }
     }

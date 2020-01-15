@@ -62,13 +62,10 @@
         "type": "repeating_group",
         "reference_edit_text_hint": "# of tests",
         "repeating_group_label": "",
+        "showGroupLabel": false,
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the # of tests"
-        },
         "value": [
           {
             "key": "diagnostic_test",
@@ -96,6 +93,7 @@
               "Other(specify)"
             ]
           },
+
           {
             "key": "diagnostic_test_other",
             "openmrs_entity_parent": "",
@@ -193,6 +191,14 @@
                 }
               }
             }
+          },
+          {
+            "key": "spacer",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "spacer",
+            "type": "spacer",
+            "spacer_height": "40sp"
           }
         ]
       }
