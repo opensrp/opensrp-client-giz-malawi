@@ -101,11 +101,11 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 "UNION ALL \n" +
                 "Select ec_mother.id as _id , first_name , last_name , middle_name , 'Female' AS gender , dob , home_address , 'OPD' AS register_type , relationalid , register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_mother' as entity_table, opd_details.current_visit_end_date FROM ec_mother\n" +
                 "    LEFT JOIN opd_details ON ec_mother.base_entity_id = opd_details.base_entity_id\n" +
-                "    WHERE  ec_mother.id IN (%s) and next_contact is null\n" +
+                "    WHERE  ec_mother.id IN (%s) and ec_mother.next_contact is null\n" +
                 "UNION ALL \n" +
                 "Select ec_mother.id as _id , first_name , last_name , middle_name , 'Female' AS gender , dob , home_address , 'ANC' AS register_type , relationalid , register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_mother' as entity_table, opd_details.current_visit_end_date FROM ec_mother\n" +
                 "    LEFT JOIN opd_details ON ec_mother.base_entity_id = opd_details.base_entity_id\n" +
-                "    WHERE  ec_mother.id IN (%s) \n" +
+                "    WHERE  ec_mother.id IN (%s) and ec_mother.next_contact is not null\n" +
                 "UNION ALL \n" +
                 "Select ec_client.id as _id , first_name , last_name , '' AS middle_name , gender , dob , '' AS home_address , 'OPD' AS register_type , relationalid , opensrp_id AS register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_client' as entity_table, opd_details.current_visit_end_date FROM ec_client \n" +
                 "    LEFT JOIN opd_details ON ec_client.base_entity_id = opd_details.base_entity_id\n" +
