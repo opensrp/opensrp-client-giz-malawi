@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.fragment.AncRegisterFragment;
+import org.smartregister.giz.presenter.GizAncRegisterPresenter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
@@ -95,5 +96,10 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity implements Nav
     @Override
     public void finishActivity() {
         finish();
+    }
+
+    @Override
+    protected void initializePresenter() {
+        presenter = new GizAncRegisterPresenter(this);
     }
 }
