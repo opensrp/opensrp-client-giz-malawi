@@ -1,11 +1,13 @@
 package org.smartregister.giz.presenter;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.interactor.OpdRegisterActivityInteractor;
+import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.pojo.OpdEventClient;
 import org.smartregister.opd.pojo.RegisterParams;
@@ -63,6 +65,10 @@ public class OpdRegisterActivityPresenter extends BaseOpdRegisterActivityPresent
         if (getView() != null) {
             getView().refreshList(FetchStatus.fetched);
             getView().hideProgressDialog();
+            NavigationMenu navigationMenu = NavigationMenu.getInstance((Activity) viewReference.get(), null, null);
+            if (navigationMenu != null) {
+                navigationMenu.runRegisterCount();
+            }
         }
     }
 

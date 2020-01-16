@@ -8,21 +8,22 @@ import com.vijay.jsonwizard.customviews.MaterialSpinner;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 
+import org.apache.commons.lang3.StringUtils;
+import org.smartregister.child.presenter.ChildFormFragmentPresenter;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.ChildFormActivity;
-import org.smartregister.giz.fragment.ChildFormFragment;
+import org.smartregister.giz.fragment.GizChildFormFragment;
 import org.smartregister.giz.util.GizConstants;
 
 import timber.log.Timber;
 
-public class ChildFormFragmentPresenter extends org.smartregister.child.presenter.ChildFormFragmentPresenter {
+public class GizChildFormFragmentPresenter extends ChildFormFragmentPresenter {
 
-    private ChildFormFragment formFragment;
+    private GizChildFormFragment formFragment;
 
-    public ChildFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
+    public GizChildFormFragmentPresenter(JsonFormFragment formFragment, JsonFormInteractor jsonFormInteractor) {
         super(formFragment, jsonFormInteractor);
-        this.formFragment = (ChildFormFragment) formFragment;
-
+        this.formFragment = (GizChildFormFragment) formFragment;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class ChildFormFragmentPresenter extends org.smartregister.child.presente
             MaterialSpinner spinnerProtectedAtBirth = (MaterialSpinner) ((ChildFormActivity) formFragment.getActivity()).getFormDataView(JsonFormConstants.STEP1 + ":" + GizConstants.PROTECTED_AT_BIRTH);
             if (spinnerMotherTdvDoses.getSelectedItemPosition() == 1) {
                 spinnerProtectedAtBirth.setSelection(1, true);
-            } else if(spinnerMotherTdvDoses.getSelectedItemPosition() != 0) {
+            } else if (spinnerMotherTdvDoses.getSelectedItemPosition() != 0) {
                 spinnerProtectedAtBirth.setSelection(2, true);
             } else {
                 spinnerProtectedAtBirth.setSelection(0, true);
@@ -45,18 +46,19 @@ public class ChildFormFragmentPresenter extends org.smartregister.child.presente
             if (key.equals(GizConstants.REACTION_VACCINE)) {
                 MaterialSpinner spinnerReactionVaccine = (MaterialSpinner) ((ChildFormActivity) formFragment.getActivity()).getFormDataView(JsonFormConstants.STEP1 + ":" + GizConstants.REACTION_VACCINE);
                 int selectedItemPos = spinnerReactionVaccine.getSelectedItemPosition();
-                if(selectedItemPos > 0) {
+                GizChildFormFragment.OnReactionVaccineSelected onReactionVaccineSelected = formFragment.getOnReactionVaccineSelected();
+                if (selectedItemPos > 0) {
                     selectedItemPos = selectedItemPos - 1;
                     String reactionVaccine = (String) spinnerReactionVaccine.getAdapter().getItem(selectedItemPos);
-                    if (reactionVaccine.length() > 10) {
+                    if (StringUtils.isNotBlank(reactionVaccine) && (reactionVaccine.length() > 10)) {
                         String reactionVaccineDate = reactionVaccine.substring(reactionVaccine.length() - 11, reactionVaccine.length() - 1);
-                        formFragment.getOnReactionVaccineSelected().updateDatePicker(reactionVaccineDate);
+                        if (onReactionVaccineSelected != null) {
+                            onReactionVaccineSelected.updateDatePicker(reactionVaccineDate);
+                        }
                     }
                 }
-
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e);
         }
     }

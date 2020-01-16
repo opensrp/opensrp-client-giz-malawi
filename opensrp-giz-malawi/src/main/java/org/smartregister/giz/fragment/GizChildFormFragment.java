@@ -4,10 +4,22 @@ import android.os.Bundle;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.smartregister.child.fragment.ChildFormFragment;
 import org.smartregister.child.presenter.ChildFormFragmentPresenter;
 import org.smartregister.giz.interactor.ChildFormInteractor;
+import org.smartregister.giz.presenter.GizChildFormFragmentPresenter;
 
-public class ChildFormFragment extends org.smartregister.child.fragment.ChildFormFragment {
+public class GizChildFormFragment extends ChildFormFragment {
+
+    private OnReactionVaccineSelected OnReactionVaccineSelected;
+
+    public static GizChildFormFragment getFormFragment(String stepName) {
+        GizChildFormFragment jsonFormFragment = new GizChildFormFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(JsonFormConstants.JSON_FORM_KEY.STEPNAME, stepName);
+        jsonFormFragment.setArguments(bundle);
+        return jsonFormFragment;
+    }
 
     public OnReactionVaccineSelected getOnReactionVaccineSelected() {
         return OnReactionVaccineSelected;
@@ -17,19 +29,9 @@ public class ChildFormFragment extends org.smartregister.child.fragment.ChildFor
         this.OnReactionVaccineSelected = onReactionVaccineSelected;
     }
 
-    OnReactionVaccineSelected OnReactionVaccineSelected;
-
     @Override
     protected ChildFormFragmentPresenter createPresenter() {
-        return new org.smartregister.giz.presenter.ChildFormFragmentPresenter(this, ChildFormInteractor.getChildInteractorInstance());
-    }
-
-    public static ChildFormFragment getFormFragment(String stepName) {
-        ChildFormFragment jsonFormFragment = new ChildFormFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(JsonFormConstants.JSON_FORM_KEY.STEPNAME, stepName);
-        jsonFormFragment.setArguments(bundle);
-        return jsonFormFragment;
+        return new GizChildFormFragmentPresenter(this, ChildFormInteractor.getChildInteractorInstance());
     }
 
     public interface OnReactionVaccineSelected {

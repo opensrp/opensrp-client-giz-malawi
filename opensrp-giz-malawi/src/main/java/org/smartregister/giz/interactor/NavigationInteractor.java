@@ -41,7 +41,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                             String[] tableNames = tableName.split("\\|");
                             int currentCount = 0;
 
-                            for (String tableName: tableNames) {
+                            for (String tableName : tableNames) {
                                 if (!TextUtils.isEmpty(tableName)) {
                                     currentCount += getCount(tableName);
                                 }
@@ -80,6 +80,9 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                     GizUtils.childAgeLimitFilter());
         } else if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.MOTHER_TABLE_NAME)) {
             mainCondition = "WHERE next_contact IS NOT NULL";
+
+        } else if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.ALL_CLIENTS)) {
+            mainCondition = String.format(" where %s is null", GizConstants.KEY.DATE_REMOVED);
         }
 
         if (StringUtils.isNoneEmpty(mainCondition)) {
@@ -92,6 +95,17 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                 if (cursor.moveToFirst()) {
                     count = cursor.getInt(0);
                 }
+
+                if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.ALL_CLIENTS)) {
+                    query = MessageFormat.format("select count(*) from ec_mother {0} {1}", mainCondition, " and next_contact is null");
+                    query = smartRegisterQueryBuilder.Endquery(query);
+                    Timber.i("2%s", query);
+                    cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
+                    if (cursor.moveToFirst()) {
+                        count = count + cursor.getInt(0);
+                    }
+                }
+
             } catch (Exception e) {
                 Timber.e(e, "NavigationInteractor --> getCount");
             } finally {
