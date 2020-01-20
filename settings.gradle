@@ -1,2 +1,1 @@
-include ':opensrp-giz-malawi',':opensrp-opd'
- project(":opensrp-opd").projectDir = new File("../opensrp-client-opd/opensrp-opd")
+include ':opensrp-giz-malawi'
