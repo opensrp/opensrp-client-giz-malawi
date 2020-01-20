@@ -27,14 +27,6 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
-
-before_script:
-  # TEMPORARY:Build dependencies
-  #TODO: Should be removed once the PR is merged
-  - cd ..
-  - git clone --depth=50 --branch=child-reporting-requirements https://github.com/OpenSRP/opensrp-client-reporting
-  - cd opensrp-client-giz-malawi
-
 script:
   - echo "Travis branch is $TRAVIS_BRANCH"
   - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"

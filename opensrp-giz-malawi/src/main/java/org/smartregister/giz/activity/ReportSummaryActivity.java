@@ -136,7 +136,6 @@ public class ReportSummaryActivity extends BaseActivity {
         indicatorCanvas.removeAllViews();
 
         if (tallies != null) {
-            boolean firstExpanded = false;
             for (String curCategoryName : tallies.keySet()) {
                 IndicatorCategoryView curCategoryView = new IndicatorCategoryView(this);
                 curCategoryView.setTallies(tallies.get(curCategoryName));

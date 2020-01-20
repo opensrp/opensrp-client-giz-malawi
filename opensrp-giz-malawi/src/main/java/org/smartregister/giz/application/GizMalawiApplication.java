@@ -257,7 +257,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 BuildConfig.DATABASE_VERSION);
         fixHardcodedVaccineConfiguration();
 
-        ConfigurableViewsLibrary.init(context, getRepository());
+        ConfigurableViewsLibrary.init(context);
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         // Init Reporting library
         ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -265,7 +265,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
-        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration);
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
@@ -291,18 +291,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         //init Job Manager
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-/*
-        DatabaseFileProvider.setDbPasswordProvider(new DbPasswordProvider() {
-            @Override
-            public String getDbPassword(@NonNull String dbName) {
-
-                if ("drishti".equalsIgnoreCase(dbName)) {
-                    return getPassword();
-                } else {
-                    return "";
-                }
-            }
-        });*/
 
     }
 
@@ -432,7 +420,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public EventClientRepository eventClientRepository() {
         if (eventClientRepository == null) {
-            eventClientRepository = new EventClientRepository(getRepository());
+            eventClientRepository = new EventClientRepository();
         }
         return eventClientRepository;
     }
@@ -485,21 +473,21 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public DailyTalliesRepository dailyTalliesRepository() {
         if (dailyTalliesRepository == null) {
-            dailyTalliesRepository = new DailyTalliesRepository(getRepository());
+            dailyTalliesRepository = new DailyTalliesRepository();
         }
         return dailyTalliesRepository;
     }
 
     public HIA2IndicatorsRepository hIA2IndicatorsRepository() {
         if (hIA2IndicatorsRepository == null) {
-            hIA2IndicatorsRepository = new HIA2IndicatorsRepository(getRepository());
+            hIA2IndicatorsRepository = new HIA2IndicatorsRepository();
         }
         return hIA2IndicatorsRepository;
     }
 
     public MonthlyTalliesRepository monthlyTalliesRepository() {
         if (monthlyTalliesRepository == null) {
-            monthlyTalliesRepository = new MonthlyTalliesRepository(getRepository());
+            monthlyTalliesRepository = new MonthlyTalliesRepository();
         }
 
         return monthlyTalliesRepository;
@@ -507,7 +495,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public Hia2ReportRepository hia2ReportRepository() {
         if (hia2ReportRepository == null) {
-            hia2ReportRepository = new Hia2ReportRepository(getRepository());
+            hia2ReportRepository = new Hia2ReportRepository();
         }
         return hia2ReportRepository;
     }

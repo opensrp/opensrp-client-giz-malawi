@@ -78,9 +78,6 @@ public class MonthlyTalliesRepository extends BaseRepository {
     public static final String INDEX_UNIQUE = "CREATE UNIQUE INDEX " + TABLE_NAME + "_" + COLUMN_INDICATOR_CODE + "_" + COLUMN_MONTH + "_index" +
             " ON " + TABLE_NAME + "(" + COLUMN_INDICATOR_CODE + "," + COLUMN_MONTH + ");";
 
-    public MonthlyTalliesRepository(Repository repository) {
-        super(repository);
-    }
 
     protected static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_QUERY);
