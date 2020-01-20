@@ -13,7 +13,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
-import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
 import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.model.BaseChildRegisterModel;
@@ -22,8 +21,10 @@ import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.giz.R;
+import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.event.LoginEvent;
 import org.smartregister.giz.fragment.ChildRegisterFragment;
+import org.smartregister.giz.fragment.GizMeFragment;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavDrawerActivity;
@@ -32,9 +33,14 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.lang.ref.WeakReference;
 
-public class ChildRegisterActivity extends BaseChildRegisterActivity implements NavDrawerActivity {
+public class ChildRegisterActivity extends BaseChildRegisterActivity implements NavDrawerActivity, NavigationMenuContract {
 
     private NavigationMenu navigationMenu;
+
+    @Override
+    public NavigationMenu getNavigationMenu() {
+        return navigationMenu;
+    }
 
     @Override
     protected void attachBaseContext(android.content.Context base) {
@@ -52,7 +58,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         ME_POSITION = 1;
 
         Fragment[] fragments = new Fragment[1];
-        fragments[ME_POSITION - 1] = new MeFragment();
+        fragments[ME_POSITION - 1] = new GizMeFragment();
 
         return fragments;
     }
