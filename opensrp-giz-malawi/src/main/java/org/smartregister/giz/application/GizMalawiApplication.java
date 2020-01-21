@@ -242,7 +242,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 BuildConfig.DATABASE_VERSION);
         fixHardcodedVaccineConfiguration();
 
-        ConfigurableViewsLibrary.init(context);
+        ConfigurableViewsLibrary.init(context, getRepository());
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
