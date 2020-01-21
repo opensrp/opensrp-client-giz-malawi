@@ -398,7 +398,7 @@
         "openmrs_entity_id": "",
         "type": "spinner",
         "label_info_text": "Whether the child's mother received 2 or more doses of Td, which transfers protection against Td to the child when they're born.",
-        "hint": "How many does of TDV did the mother receive?",
+        "hint": "How many doses of TDV did the mother receive?",
         "v_required": {
           "value": true,
           "err": "Please choose an option"

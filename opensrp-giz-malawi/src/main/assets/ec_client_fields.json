@@ -179,6 +179,13 @@
           }
         },
         {
+          "column_name": "mother_tdv_doses",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.mother_tdv_doses"
+          }
+        },
+        {
           "column_name": "mother_hiv_status",
           "type": "Event",
           "json_mapping": {
