@@ -167,27 +167,27 @@ public class GizUtils extends Utils {
 
     // *** preview location hierarchy
     //
-    //    @NonNull
-    //    public static ArrayList<String> getLocationLevels() {
-    //        ArrayList<String> allLevels = new ArrayList<>();
-    //        allLevels.add("Country");
-    //        allLevels.add("Province");
-    //        allLevels.add("District");
-    //        allLevels.add("Facility");
-    //        allLevels.add("Village");
-    //        return allLevels;
-    //    }
-    //
-    //    @NonNull
-    //    public static ArrayList<String> getHealthFacilityLevels() {
-    //        ArrayList<String> healthFacilities = new ArrayList<>();
-    //        healthFacilities.add("Country");
-    //        healthFacilities.add("Province");
-    //        healthFacilities.add("District");
-    //        healthFacilities.add("Health Facility");
-    //        healthFacilities.add("Village");
-    //        return healthFacilities;
-    //    }
+    @NonNull
+    public static ArrayList<String> getLocationLevels() {
+        ArrayList<String> allLevels = new ArrayList<>();
+        allLevels.add("Country");
+        allLevels.add("Province");
+        allLevels.add("District");
+        allLevels.add("Facility");
+        allLevels.add("Village");
+        return allLevels;
+    }
+
+    @NonNull
+    public static ArrayList<String> getHealthFacilityLevels() {
+        ArrayList<String> healthFacilities = new ArrayList<>();
+        healthFacilities.add("Country");
+        healthFacilities.add("Province");
+        healthFacilities.add("District");
+        healthFacilities.add("Health Facility");
+        healthFacilities.add("Village");
+        return healthFacilities;
+    }
     //
     // *** leave it for now
 
