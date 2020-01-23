@@ -262,6 +262,13 @@
           "json_mapping": {
             "field": "attributes.visit_start_date"
           }
+        },
+        {
+          "column_name": "previous_contact_status",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.previous_contact_status"
+          }
         }
       ]
     },
