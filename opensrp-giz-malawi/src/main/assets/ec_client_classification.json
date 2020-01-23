@@ -60,8 +60,14 @@
             "creates_case": [
               "ec_client"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Update Opd Registration",
+            "creates_case": [
+              "ec_client"
+            ]
           }
-
         ]
       }
     }
