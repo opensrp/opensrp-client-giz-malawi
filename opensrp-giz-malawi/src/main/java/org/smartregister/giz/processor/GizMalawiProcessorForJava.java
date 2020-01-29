@@ -230,7 +230,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
         if (!childExists(eventClient.getClient().getBaseEntityId())) {
             List<String> createCase = new ArrayList<>();
-            createCase.add("ec_child");
+            createCase.add(Utils.metadata().childRegister.tableName);
             processCaseModel(event, eventClient.getClient(), createCase);
         }
 
@@ -623,7 +623,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
-        if (contentValues != null && StringUtils.containsIgnoreCase(tableName, "child")) {
+        if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName)) {
             String dobString = contentValues.getAsString(Constants.KEY.DOB);
             DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
             if (birthDateTime != null) {

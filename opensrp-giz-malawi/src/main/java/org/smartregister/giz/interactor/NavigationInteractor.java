@@ -76,6 +76,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         Cursor cursor = null;
         String mainCondition = "";
         if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.CHILD)) {
+            tableName = GizConstants.TABLE_NAME.ALL_CLIENTS;
             mainCondition = String.format(" where %s is null AND %s", GizConstants.KEY.DATE_REMOVED,
                     GizUtils.childAgeLimitFilter());
         } else if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.MOTHER_TABLE_NAME)) {

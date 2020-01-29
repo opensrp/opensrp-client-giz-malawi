@@ -195,7 +195,7 @@ public class GizConstants {
     }
 
     public static class TABLE_NAME {
-        public static final String CHILD = "ec_child";
+        public static final String CHILD = "ec_client";
         public static final String MOTHER_TABLE_NAME = "ec_mother";
         public static final String FAMILY = "ec_family";
         public static final String FAMILY_MEMBER = "ec_family_member";
@@ -204,6 +204,7 @@ public class GizConstants {
         public static final String ANC_MEMBER_LOG = "ec_anc_log";
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
+        public static final String ALL_CLIENTS = "ec_client";
     }
 
     public static final class VACCINE {
