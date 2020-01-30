@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:3.1.2"
+        classpath "com.android.tools.build:gradle:3.5.1"
     }
 }
 
@@ -20,7 +20,7 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url "http://acra.googlecode.com/svn/repository/releases" }
-        maven { url "http://repo.maven.apache.org/maven2" }
+        maven { url "https://repo.maven.apache.org/maven2" }
         maven { url "http://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
         google()
@@ -34,7 +34,7 @@ subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle = '3.1.2'
+    ext.androidToolsBuildGradle = '3.5.1'
     ext.androidBuildToolsVersion = '28.0.3'
     ext.androidMinSdkVersion = 18
     ext.androidCompileSdkVersion = 28

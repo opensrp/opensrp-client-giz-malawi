@@ -14,7 +14,6 @@ import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -77,10 +76,6 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
     public static final String INDEX_UNIQUE = "CREATE UNIQUE INDEX " + TABLE_NAME + "_" + COLUMN_INDICATOR_CODE + "_" + COLUMN_MONTH + "_index" +
             " ON " + TABLE_NAME + "(" + COLUMN_INDICATOR_CODE + "," + COLUMN_MONTH + ");";
-
-    public MonthlyTalliesRepository(Repository repository) {
-        super(repository);
-    }
 
     protected static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_QUERY);

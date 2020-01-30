@@ -10,8 +10,9 @@ import com.vijay.jsonwizard.domain.Form;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.R;
+import org.smartregister.giz.contract.NavigationMenuContract;
+import org.smartregister.giz.fragment.GizMeFragment;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
 import org.smartregister.giz.util.GizConstants;
@@ -21,7 +22,7 @@ import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdRegisterActivity;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
-import org.smartregister.opd.pojos.RegisterParams;
+import org.smartregister.opd.pojo.RegisterParams;
 import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
@@ -34,13 +35,18 @@ import timber.log.Timber;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-17
  */
 
-public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavDrawerActivity {
+public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavDrawerActivity, NavigationMenuContract {
 
     private NavigationMenu navigationMenu;
 
     @Override
     protected BaseOpdRegisterActivityPresenter createPresenter(@NonNull OpdRegisterActivityContract.View view, @NonNull OpdRegisterActivityContract.Model model) {
         return new OpdRegisterActivityPresenter(view, model);
+    }
+
+    @Override
+    public NavigationMenu getNavigationMenu() {
+        return navigationMenu;
     }
 
     @Override
@@ -154,13 +160,12 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         //Do nothing
     }
 
-
     @Override
     protected Fragment[] getOtherFragments() {
         ME_POSITION = 1;
 
         Fragment[] fragments = new Fragment[1];
-        fragments[ME_POSITION - 1] = new MeFragment();
+        fragments[ME_POSITION - 1] = new GizMeFragment();
 
         return fragments;
     }

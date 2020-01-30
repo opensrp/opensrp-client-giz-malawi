@@ -63,7 +63,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
-import org.smartregister.opd.pojos.OpdMetadata;
+import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
@@ -160,7 +160,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             return names.toArray(new String[names.size()]);
         } else if (tableName.equals(DBConstantsUtils.WOMAN_TABLE_NAME)) {
             return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
-                    DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, OpdDbConstants.KEY.REGISTER_ID, DBConstantsUtils.KeyUtils.DATE_REMOVED};
+                    DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, OpdDbConstants.KEY.REGISTER_ID, DBConstantsUtils.KeyUtils.DATE_REMOVED, DBConstantsUtils.KeyUtils.NEXT_CONTACT};
         } else if (tableName.equals(OpdDbConstants.Table.EC_CLIENT)) {
             return new String[]{OpdDbConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME,
                     OpdDbConstants.KEY.LAST_INTERACTED_WITH, OpdDbConstants.KEY.DATE_REMOVED};
@@ -256,7 +256,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 BuildConfig.DATABASE_VERSION);
         fixHardcodedVaccineConfiguration();
 
-        ConfigurableViewsLibrary.init(context, getRepository());
+        ConfigurableViewsLibrary.init(context);
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
         // Init Reporting library
         ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
@@ -264,7 +264,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
-        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration);
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
@@ -419,7 +419,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public EventClientRepository eventClientRepository() {
         if (eventClientRepository == null) {
-            eventClientRepository = new EventClientRepository(getRepository());
+            eventClientRepository = new EventClientRepository();
         }
         return eventClientRepository;
     }
@@ -472,21 +472,21 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public DailyTalliesRepository dailyTalliesRepository() {
         if (dailyTalliesRepository == null) {
-            dailyTalliesRepository = new DailyTalliesRepository(getRepository());
+            dailyTalliesRepository = new DailyTalliesRepository();
         }
         return dailyTalliesRepository;
     }
 
     public HIA2IndicatorsRepository hIA2IndicatorsRepository() {
         if (hIA2IndicatorsRepository == null) {
-            hIA2IndicatorsRepository = new HIA2IndicatorsRepository(getRepository());
+            hIA2IndicatorsRepository = new HIA2IndicatorsRepository();
         }
         return hIA2IndicatorsRepository;
     }
 
     public MonthlyTalliesRepository monthlyTalliesRepository() {
         if (monthlyTalliesRepository == null) {
-            monthlyTalliesRepository = new MonthlyTalliesRepository(getRepository());
+            monthlyTalliesRepository = new MonthlyTalliesRepository();
         }
 
         return monthlyTalliesRepository;
@@ -494,7 +494,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public Hia2ReportRepository hia2ReportRepository() {
         if (hia2ReportRepository == null) {
-            hia2ReportRepository = new Hia2ReportRepository(getRepository());
+            hia2ReportRepository = new Hia2ReportRepository();
         }
         return hia2ReportRepository;
     }

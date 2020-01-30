@@ -36,10 +36,6 @@ public class DailyTalliesRepository extends BaseRepository {
             COLUMN_ID, COLUMN_INDICATOR_CODE, COLUMN_INDICATOR_VALUE, COLUMN_DAY
     };
 
-    public DailyTalliesRepository(Repository repository) {
-        super(repository);
-    }
-
     /**
      * Returns a list of dates for distinct months with daily tallies
      *

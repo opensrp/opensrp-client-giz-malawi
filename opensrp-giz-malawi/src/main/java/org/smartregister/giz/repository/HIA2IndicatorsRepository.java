@@ -26,10 +26,6 @@ public class HIA2IndicatorsRepository extends BaseRepository {
 
     private static final String[] HIA2_TABLE_COLUMNS = {ID_COLUMN, INDICATOR_CODE, DESCRIPTION};
 
-    public HIA2IndicatorsRepository(Repository repository) {
-        super(repository);
-    }
-
     public HashMap<String, Hia2Indicator> findAll() {
         HashMap<String, Hia2Indicator> response = new HashMap<>();
         Cursor cursor = null;

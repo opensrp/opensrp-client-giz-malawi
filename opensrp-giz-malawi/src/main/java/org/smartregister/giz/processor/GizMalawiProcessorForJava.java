@@ -66,8 +66,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private static GizMalawiProcessorForJava instance;
 
-    private HashMap<String, MiniClientProcessorForJava> processorMap = new HashMap<>();
-    private HashMap<MiniClientProcessorForJava, List<Event>> unsyncEventsPerProcessor = new HashMap<>();
+    private HashMap<String, MiniClientProcessorForJava> processorMap2 = new HashMap<>();
+    private HashMap<MiniClientProcessorForJava, List<Event>> unsyncEventsPerProcessor2 = new HashMap<>();
 
     private GizMalawiProcessorForJava(Context context) {
         super(context);
@@ -80,12 +80,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
         for (MiniClientProcessorForJava miniClientProcessorForJava : miniClientProcessorsForJava) {
-            unsyncEventsPerProcessor.put(miniClientProcessorForJava, new ArrayList<Event>());
+            unsyncEventsPerProcessor2.put(miniClientProcessorForJava, new ArrayList<Event>());
 
             HashSet<String> eventTypes = miniClientProcessorForJava.getEventTypes();
 
             for (String eventType : eventTypes) {
-                processorMap.put(eventType, miniClientProcessorForJava);
+                processorMap2.put(eventType, miniClientProcessorForJava);
             }
         }
     }
@@ -152,7 +152,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     }
 
                     processBirthAndWomanRegistrationEvent(clientClassification, eventClient, event);
-                } else if (processorMap.containsKey(eventType)) {
+                } else if (processorMap2.containsKey(eventType)) {
                     try {
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
                     } catch (Exception ex) {
@@ -177,8 +177,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             unSync(unsyncEvents);
         }
 
-        for (MiniClientProcessorForJava miniClientProcessorForJava : unsyncEventsPerProcessor.keySet()) {
-            List<Event> processorUnsyncEvents = unsyncEventsPerProcessor.get(miniClientProcessorForJava);
+        for (MiniClientProcessorForJava miniClientProcessorForJava : unsyncEventsPerProcessor2.keySet()) {
+            List<Event> processorUnsyncEvents = unsyncEventsPerProcessor2.get(miniClientProcessorForJava);
             miniClientProcessorForJava.unSync(processorUnsyncEvents);
         }
     }
@@ -196,12 +196,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void processEventUsingMiniprocessor(ClientClassification clientClassification, EventClient eventClient, String eventType) throws Exception {
-        MiniClientProcessorForJava miniClientProcessorForJava = processorMap.get(eventType);
+        MiniClientProcessorForJava miniClientProcessorForJava = processorMap2.get(eventType);
         if (miniClientProcessorForJava != null) {
-            List<Event> processorUnsyncEvents = unsyncEventsPerProcessor.get(miniClientProcessorForJava);
+            List<Event> processorUnsyncEvents = unsyncEventsPerProcessor2.get(miniClientProcessorForJava);
             if (processorUnsyncEvents == null) {
                 processorUnsyncEvents = new ArrayList<Event>();
-                unsyncEventsPerProcessor.put(miniClientProcessorForJava, processorUnsyncEvents);
+                unsyncEventsPerProcessor2.put(miniClientProcessorForJava, processorUnsyncEvents);
             }
 
             miniClientProcessorForJava.processEventClient(eventClient, processorUnsyncEvents, clientClassification);
@@ -350,7 +350,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private Boolean processHeight(EventClient height, Table heightTable, boolean outOfCatchment) throws Exception {
+    private Boolean processHeight(@Nullable EventClient height, @Nullable Table heightTable, boolean outOfCatchment) {
 
         try {
 
@@ -408,7 +408,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private Boolean processService(EventClient service, Table serviceTable) throws Exception {
+    private Boolean processService(EventClient service, Table serviceTable) {
         try {
             if (service == null || service.getEvent() == null) {
                 return false;
@@ -534,7 +534,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @VisibleForTesting
-    ContentValues processCaseModel(EventClient eventClient, Table table) {
+    ContentValues processCaseModel(@NonNull EventClient eventClient, @NonNull Table table) {
         try {
             List<Column> columns = table.columns;
             ContentValues contentValues = new ContentValues();
