@@ -237,12 +237,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 BuildConfig.DATABASE_VERSION);
         fixHardcodedVaccineConfiguration();
 
-        ConfigurableViewsLibrary.init(context, getRepository());
+        ConfigurableViewsLibrary.init(context);
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
-        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration);
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
@@ -397,7 +397,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public EventClientRepository eventClientRepository() {
         if (eventClientRepository == null) {
-            eventClientRepository = new EventClientRepository(getRepository());
+            eventClientRepository = new EventClientRepository();
         }
         return eventClientRepository;
     }
