@@ -1,6 +1,7 @@
 package org.smartregister.giz.domain;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.io.Serializable;
 
 /**

@@ -11,12 +11,10 @@ import org.smartregister.giz.fragment.GizMalawiJsonFormFragment;
 
 public class GizJsonFormActivity extends JsonWizardFormActivity {
 
-    private GizMalawiJsonFormFragment wellnessJsonFormFragment;
-
-
     @Override
     public void initializeFormFragment() {
-        wellnessJsonFormFragment = GizMalawiJsonFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
+        GizMalawiJsonFormFragment wellnessJsonFormFragment = GizMalawiJsonFormFragment
+                .getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
         getSupportFragmentManager().beginTransaction()
                 .add(com.vijay.jsonwizard.R.id.container, wellnessJsonFormFragment).commit();
     }
