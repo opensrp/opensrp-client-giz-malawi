@@ -45,7 +45,7 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
 
     @Override
     public SyncFilter getEncryptionParam() {
-        return SyncFilter.LOCATION;
+        return SyncFilter.TEAM;
     }
 
     @Override
