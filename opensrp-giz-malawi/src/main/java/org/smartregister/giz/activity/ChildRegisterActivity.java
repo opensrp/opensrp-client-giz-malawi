@@ -25,6 +25,7 @@ import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.event.LoginEvent;
 import org.smartregister.giz.fragment.ChildRegisterFragment;
 import org.smartregister.giz.fragment.GizMeFragment;
+import org.smartregister.giz.presenter.GizChildRegisterPresenter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavDrawerActivity;
@@ -92,7 +93,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
 
     @Override
     protected void initializePresenter() {
-        presenter = new BaseChildRegisterPresenter(this, new BaseChildRegisterModel());
+        presenter = new GizChildRegisterPresenter(this, new BaseChildRegisterModel());
     }
 
     @Override
