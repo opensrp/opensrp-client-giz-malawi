@@ -97,7 +97,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                 }
 
                 if (tableName.equalsIgnoreCase(GizConstants.TABLE_NAME.ALL_CLIENTS)) {
-                    query = MessageFormat.format("select count(*) from ec_mother {0}", mainCondition + " and next_contact is null");
+                    query = MessageFormat.format("select count(*) from ec_mother {0} {1}", mainCondition, " and next_contact is null");
                     query = smartRegisterQueryBuilder.Endquery(query);
                     Timber.i("2%s", query);
                     cursor = commonRepository(tableName).rawCustomQueryForAdapter(query);
