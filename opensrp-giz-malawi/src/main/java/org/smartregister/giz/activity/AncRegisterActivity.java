@@ -106,6 +106,7 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity implements Nav
         presenter = new GizAncRegisterPresenter(this);
     }
 
+
     @Override
     public NavigationMenu getNavigationMenu() {
         return navigationMenu;

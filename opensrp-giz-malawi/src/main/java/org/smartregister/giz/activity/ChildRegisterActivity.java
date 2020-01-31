@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
 import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.model.BaseChildRegisterModel;
-import org.smartregister.child.presenter.BaseChildRegisterPresenter;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
