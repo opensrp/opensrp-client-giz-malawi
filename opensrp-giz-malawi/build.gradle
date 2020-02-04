@@ -83,6 +83,8 @@ android {
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             buildConfigField "int", "GROWTH_MONITORING_SYNC_TIME", '15'
+            buildConfigField "String[]", "LOCATION_LEVELS", '{"Country", "Province", "District", "Facility", "Village"}'
+            buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "Province", "District", "Health Facility", "Village"}'
         }
 
         debug {
@@ -100,6 +102,9 @@ android {
             buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
             buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
             buildConfigField "int", "GROWTH_MONITORING_SYNC_TIME", '15'
+            buildConfigField "String[]", "LOCATION_LEVELS", '{"Country", "Province", "Department", "Health Facility", "Zone", "Residential Area", "Facility"}'
+            buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "Province", "Department", "Health Facility", "Facility"}'
+
             testCoverageEnabled true
         }
     }
@@ -188,14 +193,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.2.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.2.5-SNAPSHOT@aar') {
+
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
-
 
     implementation('org.smartregister:opensrp-client-anc:0.0.9-SNAPSHOT@aar') {
         transitive = true
