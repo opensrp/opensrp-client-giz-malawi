@@ -66,7 +66,7 @@ public class AncRegisterFragment extends HomeRegisterFragment implements Compoun
 
     @Override
     protected String getMainCondition() {
-        return super.getMainCondition() + "and  "+ OpdConstants.ColumnMapKey.REGISTER_ID +" not like '%_mother' and next_contact IS NOT NULL";
+        return super.getMainCondition() + "and next_contact IS NOT NULL";
     }
 
     @Override
@@ -81,7 +81,7 @@ public class AncRegisterFragment extends HomeRegisterFragment implements Compoun
                 filter("", "", DBQueryHelper.ancDueOverdueFilter(true), false);
                 filterSection.setTag(tagString);
             } else if (filterSection.getTag().toString().equals(tagString)) {
-                filter("", "", "", false);
+                filter("", "", getMainCondition(), false);
                 filterSection.setTag(null);
             }
         }
