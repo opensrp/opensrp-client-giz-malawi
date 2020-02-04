@@ -61,6 +61,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
             registerType = "'"+GizConstants.RegisterType.OPD+"'," + "'"+GizConstants.RegisterType.ANC+"'," + "'"+GizConstants.RegisterType.CHILD+"'";
         } else {
             registerType = "'"+registerType+"'";
+
         }
 
         String mainCondition = String.format(" where %s is null AND register_type IN (%s) ", GizConstants.TABLE_NAME.ALL_CLIENTS+"."+GizConstants.KEY.DATE_REMOVED, registerType);

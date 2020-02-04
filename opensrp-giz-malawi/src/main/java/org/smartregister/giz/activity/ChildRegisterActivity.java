@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
 import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.model.BaseChildRegisterModel;
-import org.smartregister.child.presenter.BaseChildRegisterPresenter;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
@@ -25,6 +24,7 @@ import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.event.LoginEvent;
 import org.smartregister.giz.fragment.ChildRegisterFragment;
 import org.smartregister.giz.fragment.GizMeFragment;
+import org.smartregister.giz.presenter.GizChildRegisterPresenter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavDrawerActivity;
@@ -92,7 +92,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
 
     @Override
     protected void initializePresenter() {
-        presenter = new BaseChildRegisterPresenter(this, new BaseChildRegisterModel());
+        presenter = new GizChildRegisterPresenter(this, new BaseChildRegisterModel());
     }
 
     @Override

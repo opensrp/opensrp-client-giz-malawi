@@ -626,10 +626,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
-        if (GizConstants.TABLE_NAME.MOTHER_TABLE_NAME.equals(tableName)) {
-            return;
-        }
-
         Timber.d("Starting updateFTSsearch table: %s", tableName);
 
         AllCommonsRepository allCommonsRepository = GizMalawiApplication.getInstance().context().
