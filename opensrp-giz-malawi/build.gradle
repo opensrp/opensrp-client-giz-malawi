@@ -163,14 +163,14 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.2.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.2.5.51-SNAPSHOT@aar') {
 
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:0.0.9-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-anc:0.1.0.705-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'

@@ -205,58 +205,20 @@ public class GizConstants {
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
         public static final String ALL_CLIENTS = "ec_client";
+        public static final String REGISTER_TYPE = "register_type";
     }
 
-    public static final class VACCINE {
-        public static final String CHILD = "child";
+    public interface Columns {
+        interface RegisterType {
+            String BASE_ENTITY_ID = "base_entity_id";
+            String REGISTER_TYPE = "register_type";
+            String DATE_REMOVED = "date_removed";
+            String DATE_CREATED = "date_created";
+        }
     }
-
 
     public static final class EntityType {
         public static final String CHILD = "child";
-    }
-
-    public static final class EC_CHILD_TABLE {
-        public static final String BASE_ENTITY_ID = "base_entity_id";
-        public static final String DOB = "dob";
-        public static final String DOD = "dod";
-        public static final String REG_DATE = "client_reg_date";
-        public static final String INACTIVE = "inactive";
-        public static final String LOST_TO_FOLLOW_UP = "lost_to_follow_up";
-
-
-    }
-
-    public static final class GENDER {
-        public static final String MALE = "Male";
-        public static final String FEMALE = "Female";
-        public static final String TRANSGENDER = "Transgender";
-    }
-
-    public static final class GENDER_KEY {
-        public static final String MALE = "1";
-        public static final String FEMALE = "2";
-        public static final String TRANSGENDER = "3";
-    }
-
-    public static final class ANSWER {
-        public static final String YES = "Yes";
-        public static final String NO = "No";
-    }
-
-    public static final class ANSWER_KEY {
-        public static final String YES = "1";
-        public static final String NO = "2";
-    }
-
-
-    public static final class CONCEPT {
-        public final static String VACCINE_DATE = "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    }
-
-    public static final class JSONFORM {
-        public final static String CHILD_ENROLLMENT = "child_enrollment";
-        public final static String OUT_OF_CATCHMENT = "out_of_catchment_service";
     }
 
     public class IntentKeyUtil {
@@ -270,5 +232,6 @@ public class GizConstants {
     public interface RegisterType {
         String ANC = "anc";
         String CHILD = "child";
+        String OPD = "opd";
     }
 }

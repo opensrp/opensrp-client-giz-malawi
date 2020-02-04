@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.sync.MiniClientProcessorForJava;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.MoveToMyCatchmentUtils;
@@ -142,10 +143,22 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
+
+
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
+                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                         Timber.e(new Exception(), "Cannot find client corresponding to %s with base-entity-id %s", OpdConstants.EventType.OPD_REGISTRATION, event.getBaseEntityId());
                         continue;
                     }
+
+                    if(eventType.equals(Constants.EventType.BITRH_REGISTRATION) && eventClient.getClient() != null){
+                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.CHILD, event.getBaseEntityId());
+                    }
+
+                    if(eventType.equals(Constants.EventType.NEW_WOMAN_REGISTRATION) && eventClient.getClient() != null){
+                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
+                    }
+
 
                     if (clientClassification == null) {
                         continue;
@@ -154,6 +167,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     processBirthAndWomanRegistrationEvent(clientClassification, eventClient, event);
                 } else if (processorMap.containsKey(eventType)) {
                     try {
+                        if(eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null){
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
+                        }
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
                     } catch (Exception ex) {
                         Timber.e(ex);

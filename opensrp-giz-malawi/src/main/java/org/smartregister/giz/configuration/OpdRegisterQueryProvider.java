@@ -27,10 +27,6 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         if (!TextUtils.isEmpty(filters)) {
             if (!TextUtils.isEmpty(mainCondition)) {
                 String sql =
-                        "SELECT ec_mother_search.object_id, ec_mother_search.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_mother_search " +
-                        "    LEFT JOIN opd_details ON ec_mother_search.object_id = opd_details.base_entity_id\n" +
-                        "WHERE date_removed IS NULL AND phrase MATCH '%s*' AND checked_in" +
-                        "UNION ALL " +
                         "SELECT ec_client_search.object_id, ec_client_search.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*') " +
                         "    LEFT JOIN opd_details ON ec_client_search.object_id = opd_details.base_entity_id\n" +
                         "WHERE checked_in " +
@@ -41,18 +37,13 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
 
             } else {
                 String sql = "SELECT object_id FROM " +
-                        "(SELECT object_id, last_interacted_with FROM ec_mother_search WHERE date_removed IS NULL AND phrase MATCH '%s*' " +
-                        "UNION ALL SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*') " +
+                        "(SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*') " +
                         "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 return sql;
             }
         } else if (!TextUtils.isEmpty(mainCondition)) {
             String sqlQuery =
-                    "Select ec_mother.id as object_id, ec_mother.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_mother\n" +
-                    "    LEFT JOIN opd_details ON ec_mother.base_entity_id = opd_details.base_entity_id\n" +
-                    "    WHERE checked_in \n" +
-                    "UNION ALL \n" +
                     "Select ec_client.id as object_id, ec_client.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_client \n" +
                     "    LEFT JOIN opd_details ON ec_client.base_entity_id = opd_details.base_entity_id\n" +
                     "    WHERE  checked_in \n" +
@@ -61,8 +52,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
             return sqlQuery.replace("$latest_start_visit_date", oneDayAgo);
         } else {
             return "SELECT object_id FROM " +
-                    "(SELECT object_id, last_interacted_with FROM ec_mother_search " +
-                    "UNION ALL SELECT object_id, last_interacted_with FROM ec_client_search) " +
+                    "(SELECT object_id, last_interacted_with FROM ec_client_search) " +
                     "ORDER BY last_interacted_with DESC";
         }
     }
@@ -73,7 +63,6 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 
         return new String[] {
-                sqb.countQueryFts("ec_mother", null, mainCondition, filters),
                 sqb.countQueryFts("ec_client", null, mainCondition, filters)
         };
     }
@@ -83,19 +72,13 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
     public String mainSelectWhereIDsIn() {
         Date latestValidCheckInDate = OpdLibrary.getInstance().getLatestValidCheckInDate();
         String oneDayAgo = OpdUtils.convertDate(latestValidCheckInDate, OpdDbConstants.DATE_FORMAT);
-        String sqlQuery = "Select ec_client.id as _id, ec_client.first_name, ec_client.last_name, ec_client.middle_name, ec_client.gender, ec_client.dob, ec_client.home_address, 'Child' AS register_type, ec_client.relational_id AS relationalid, ec_client.zeir_id AS register_id, ec_client.last_interacted_with, ec_mother.first_name AS mother_first_name, ec_mother.last_name AS mother_last_name, ec_mother.middle_name AS mother_middle_name, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_client' as entity_table, opd_details.current_visit_end_date FROM ec_client \n" +
-                "    INNER JOIN ec_mother ON ec_client.relational_id = ec_mother.base_entity_id \n" +
-                "    LEFT JOIN opd_details ON ec_client.base_entity_id = opd_details.base_entity_id\n" +
-                "    WHERE  ec_client.id IN (%s) and ec_client.relational_id is not null \n" +
-                "UNION ALL \n" +
-                "Select ec_mother.id as _id , first_name , last_name , middle_name , 'Female' AS gender , dob , home_address , 'ANC' AS register_type , relationalid , register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_mother' as entity_table, opd_details.current_visit_end_date FROM ec_mother\n" +
-                "    LEFT JOIN opd_details ON ec_mother.base_entity_id = opd_details.base_entity_id\n" +
-                "    WHERE  ec_mother.id IN (%s) \n" +
-                "UNION ALL \n" +
-                "Select ec_client.id as _id , first_name , last_name , '' AS middle_name , gender , dob , '' AS home_address , 'OPD' AS register_type , relationalid , opensrp_id AS register_id , last_interacted_with , NULL AS mother_first_name , NULL AS mother_last_name , NULL AS mother_middle_name, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_client' as entity_table, opd_details.current_visit_end_date FROM ec_client \n" +
-                "    LEFT JOIN opd_details ON ec_client.base_entity_id = opd_details.base_entity_id\n" +
-                "WHERE  ec_client.id IN (%s)  and ec_client.relational_id is null\n" +
-                "ORDER BY last_interacted_with DESC";
+        String sqlQuery =
+                "Select  d.id as _id , d.first_name , d.last_name , '' AS middle_name , d.gender , d.dob , '' AS home_address , c.first_name as mother_first_name, c.last_name as mother_last_name, \n" +
+                        "null as middle_name, d.relationalid ,d.opensrp_id AS register_id, upper(rt.register_type) as register_type,\n" +
+                        " d.last_interacted_with FROM ec_client d LEFT JOIN opd_details ON d.base_entity_id = opd_details.base_entity_id left join ec_child_details ecd on ecd.base_entity_id=d.id \n" +
+                        " inner join register_type rt on rt.base_entity_id = d.id  left join ec_client c on ecd.relational_id=c.id " +
+                "WHERE  d.id IN (%s) " +
+                "ORDER BY d.last_interacted_with DESC";
 
         return sqlQuery.replace("$latest_start_visit_date", oneDayAgo);
     }

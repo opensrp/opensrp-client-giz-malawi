@@ -37,6 +37,7 @@ import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.repository.GizMalawiRepository;
+import org.smartregister.giz.repository.RegisterTypeRepository;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.util.VaccineDuplicate;
@@ -91,6 +92,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ECSyncHelper ecSyncHelper;
 
     private EventClientRepository eventClientRepository;
+    private RegisterTypeRepository registerTypeRepository;
     private static List<VaccineGroup> vaccineGroups;
 
     public static JsonSpecHelper getJsonSpecHelper() {
@@ -111,7 +113,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[]{DBConstantsUtils.WOMAN_TABLE_NAME, OpdDbConstants.KEY.TABLE};
+        return new String[]{OpdDbConstants.KEY.TABLE, "ec_mother_details"};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
@@ -119,6 +121,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID};
         } else if (tableName.equals(OpdDbConstants.KEY.TABLE)) {
             return new String[]{OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME, OpdDbConstants.KEY.OPENSRP_ID};
+        } else if (tableName.equals("ec_mother_details")) {
+            return new String[]{"next_contact"};
         }
 
         return null;
@@ -136,17 +140,16 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             names.add(GizConstants.KEY.LOST_TO_FOLLOW_UP);
             names.add(GizConstants.KEY.DOD);
             names.add(GizConstants.KEY.DATE_REMOVED);
-            names.addAll(Arrays.asList(OpdDbConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.LAST_NAME, Constants.KEY.RELATIONAL_ID));
+            names.addAll(Arrays.asList(OpdDbConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.LAST_NAME, Constants.KEY.RELATIONAL_ID, OpdDbConstants.KEY.REGISTER_ID, DBConstantsUtils.KeyUtils.NEXT_CONTACT));
 
             for (VaccineGroup vaccineGroup : vaccines) {
                 populateAlertColumnNames(vaccineGroup.vaccines, names);
             }
             return names.toArray(new String[names.size()]);
-        } else if (tableName.equals(DBConstantsUtils.WOMAN_TABLE_NAME)) {
-            return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
-                    DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, OpdDbConstants.KEY.REGISTER_ID, DBConstantsUtils.KeyUtils.DATE_REMOVED, DBConstantsUtils.KeyUtils.NEXT_CONTACT};
-        }
+        } else if (tableName.equals("ec_mother_details")) {
+            return new String[]{DBConstantsUtils.KeyUtils.NEXT_CONTACT};
 
+        }
         return null;
     }
 
@@ -460,6 +463,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     @VisibleForTesting
     public void setVaccineGroups(List<VaccineGroup> vaccines) {
         this.vaccineGroups = vaccines;
+    }
+
+    public RegisterTypeRepository registerTypeRepository() {
+        if (registerTypeRepository == null) {
+            this.registerTypeRepository = new RegisterTypeRepository();
+        }
+        return this.registerTypeRepository;
     }
 }
 
