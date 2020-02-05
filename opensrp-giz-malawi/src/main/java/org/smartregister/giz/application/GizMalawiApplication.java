@@ -280,7 +280,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
                 ChildImmunizationActivity.class, true);
         metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.ALL_CLIENTS,
-                GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
+                GizConstants.TABLE_NAME.ALL_CLIENTS, GizConstants.EventType.CHILD_REGISTRATION,
                 GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.EventType.OUT_OF_CATCHMENT, GizConstants.CONFIGURATION.CHILD_REGISTER,
                 GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
         return metadata;
