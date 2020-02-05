@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class RegisterTypeRepository extends BaseRepository implements RegisterTypeDao {
+public class ClientRegisterTypeRepository extends BaseRepository implements ClientRegisterTypeDao {
 
     private static final String CREATE_TABLE_SQL = "CREATE TABLE " + GizConstants.TABLE_NAME.REGISTER_TYPE + "("
             + GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " VARCHAR NOT NULL,"
@@ -31,7 +31,7 @@ public class RegisterTypeRepository extends BaseRepository implements RegisterTy
     }
 
     @Override
-    public List<RegisterType> findAll(String baseEntityId) {
+    public List<ClientRegisterType> findAll(String baseEntityId) {
         return null;
     }
 

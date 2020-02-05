@@ -13,8 +13,8 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
         countQueryBuilder.SelectInitiateMainTableCounts(tableName);
         countQueryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable()
                 + " on " + AncLibrary.getInstance().getRegisterRepository().getDemographicTable() + ".base_entity_id = " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + ".base_entity_id " +
-                "inner join register_type on ec_client.id=register_type.base_entity_id");
-        mainCondition = " register_type.register_type = 'anc'";
+                "inner join client_register_type on ec_client.id=client_register_type.base_entity_id");
+        mainCondition = " client_register_type.register_type = 'anc'";
         return countQueryBuilder.mainCondition(mainCondition);
     }
 
@@ -33,8 +33,8 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
         queryBuilder.SelectInitiateMainTable(tableName, columns);
         queryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable()
                 + " on "+AncLibrary.getInstance().getRegisterRepository().getDemographicTable()+".base_entity_id = " + AncLibrary.getInstance().getRegisterRepository().getDetailsTable() + ".base_entity_id " +
-                "inner join register_type on ec_client.id=register_type.base_entity_id");
-        mainCondition += mainCondition + " and  register_type.register_type = 'anc'";
+                "inner join client_register_type on ec_client.id=client_register_type.base_entity_id");
+        mainCondition += mainCondition + " and  client_register_type.register_type = 'anc'";
         return queryBuilder.mainCondition(mainCondition);
     }
 }

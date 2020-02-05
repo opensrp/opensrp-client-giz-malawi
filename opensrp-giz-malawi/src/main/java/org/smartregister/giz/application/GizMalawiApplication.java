@@ -37,8 +37,9 @@ import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.repository.GizMalawiRepository;
-import org.smartregister.giz.repository.RegisterTypeRepository;
+import org.smartregister.giz.repository.ClientRegisterTypeRepository;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.util.VaccineDuplicate;
 import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
@@ -92,7 +93,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ECSyncHelper ecSyncHelper;
 
     private EventClientRepository eventClientRepository;
-    private RegisterTypeRepository registerTypeRepository;
+    private ClientRegisterTypeRepository registerTypeRepository;
     private static List<VaccineGroup> vaccineGroups;
 
     public static JsonSpecHelper getJsonSpecHelper() {
@@ -253,6 +254,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
                 .setOpdMetadata(opdMetadata)
+                .setOpdRegisterProviderMetadata(GizOpdRegisterProviderMetadata.class)
                 .setOpdRegisterRowOptions(GizOpdRegisterRowOptions.class)
                 .setOpdRegisterSwitcher(GizOpdRegisterSwitcher.class)
                 .build();
@@ -465,9 +467,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         this.vaccineGroups = vaccines;
     }
 
-    public RegisterTypeRepository registerTypeRepository() {
+    public ClientRegisterTypeRepository registerTypeRepository() {
         if (registerTypeRepository == null) {
-            this.registerTypeRepository = new RegisterTypeRepository();
+            this.registerTypeRepository = new ClientRegisterTypeRepository();
         }
         return this.registerTypeRepository;
     }

@@ -75,8 +75,8 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         String sqlQuery =
                 "Select  d.id as _id , d.first_name , d.last_name , '' AS middle_name , d.gender , d.dob , '' AS home_address , c.first_name as mother_first_name, c.last_name as mother_last_name, \n" +
                         "null as middle_name, d.relationalid ,d.opensrp_id AS register_id, upper(rt.register_type) as register_type,\n" +
-                        " d.last_interacted_with FROM ec_client d LEFT JOIN opd_details ON d.base_entity_id = opd_details.base_entity_id left join ec_child_details ecd on ecd.base_entity_id=d.id \n" +
-                        " inner join register_type rt on rt.base_entity_id = d.id  left join ec_client c on ecd.relational_id=c.id " +
+                        " d.last_interacted_with, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_client' as entity_table, opd_details.current_visit_end_date  FROM ec_client d LEFT JOIN opd_details ON d.base_entity_id = opd_details.base_entity_id left join ec_child_details ecd on ecd.base_entity_id=d.id \n" +
+                        " inner join client_register_type rt on rt.base_entity_id = d.id  left join ec_client c on ecd.relational_id=c.id " +
                         "WHERE  d.id IN (%s) " +
                         "ORDER BY d.last_interacted_with DESC";
 

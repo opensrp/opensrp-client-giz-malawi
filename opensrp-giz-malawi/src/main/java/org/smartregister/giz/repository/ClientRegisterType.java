@@ -2,7 +2,7 @@ package org.smartregister.giz.repository;
 
 import java.util.Date;
 
-class RegisterType {
+class ClientRegisterType {
     private String baseEntityId;
     private String registerType;
     private Date dateCreated;

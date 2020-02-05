@@ -205,7 +205,7 @@ public class GizConstants {
         public static final String MALARIA_CONFIRMATION = "ec_malaria_confirmation";
         public static final String ANC_PREGNANCY_OUTCOME = "ec_pregnancy_outcome";
         public static final String ALL_CLIENTS = "ec_client";
-        public static final String REGISTER_TYPE = "register_type";
+        public static final String REGISTER_TYPE = "client_register_type";
     }
 
     public interface Columns {

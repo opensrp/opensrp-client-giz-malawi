@@ -68,7 +68,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
         try {
             SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
-            String query = MessageFormat.format("select count(*) from {0} inner join register_type on ec_client.id=register_type.base_entity_id {1}", GizConstants.TABLE_NAME.ALL_CLIENTS, mainCondition);
+            String query = MessageFormat.format("select count(*) from {0} inner join client_register_type on ec_client.id=client_register_type.base_entity_id {1}", GizConstants.TABLE_NAME.ALL_CLIENTS, mainCondition);
             query = smartRegisterQueryBuilder.Endquery(query);
             Timber.i("2%s", query);
             cursor = commonRepository(GizConstants.TABLE_NAME.ALL_CLIENTS).rawCustomQueryForAdapter(query);
