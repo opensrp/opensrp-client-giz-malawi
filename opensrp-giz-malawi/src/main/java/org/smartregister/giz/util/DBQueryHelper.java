@@ -23,7 +23,7 @@ public class DBQueryHelper {
         final String AND = " AND ";
         final String OR = " OR ";
         final String IS_NULL_OR = " IS NULL OR ";
-        final String TRUE = "'tru/**/e'";
+        final String TRUE = "'true'";
 
         String mainCondition = " ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) " +
                 AND + " (" + Constants.CHILD_STATUS.INACTIVE + IS_NULL_OR + Constants.CHILD_STATUS.INACTIVE + " != " + TRUE + " ) " +
