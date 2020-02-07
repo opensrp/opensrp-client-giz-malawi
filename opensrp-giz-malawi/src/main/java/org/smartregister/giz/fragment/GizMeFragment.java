@@ -56,4 +56,9 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
         if (isVisibleToUser)
             updateUi(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
     }
+
+    @Override
+    protected void updateLocationText() {
+        //Do nothing
+    }
 }
