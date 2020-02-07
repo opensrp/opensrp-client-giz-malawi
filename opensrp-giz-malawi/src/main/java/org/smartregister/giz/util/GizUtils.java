@@ -15,6 +15,7 @@ import android.util.DisplayMetrics;
 import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.customviews.TreeViewDialog;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -164,6 +165,16 @@ public class GizUtils extends Utils {
     @NonNull
     private static ArrayList<String> getHealthFacilityLevels() {
         return new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS));
+    }
+
+    @NonNull
+    public static String getInitialCurrentLocality() {
+        String selectedLocation = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality();
+        if (StringUtils.isBlank(selectedLocation)) {
+            selectedLocation = LocationHelper.getInstance().getDefaultLocation();
+            GizMalawiApplication.getInstance().context().allSharedPreferences().saveCurrentLocality(selectedLocation);
+        }
+        return selectedLocation;
     }
 
     public static void showLocations(@Nullable Activity context, @NonNull OnLocationChangeListener onLocationChangeListener, @Nullable NavigationMenu navigationMenu) {

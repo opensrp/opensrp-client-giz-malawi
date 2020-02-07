@@ -35,6 +35,7 @@ import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.p2p.activity.P2pModeSelectActivity;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -173,7 +174,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         txtLocationSelected = rootView.findViewById(R.id.giz_txt_location_selected);
 
-        updateUi(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
+        updateUi(LocationHelper.getInstance().getOpenMrsReadableName(GizUtils.getInitialCurrentLocality()));
 
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
