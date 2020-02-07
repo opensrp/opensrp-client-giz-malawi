@@ -534,6 +534,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @VisibleForTesting
+    @Nullable
     ContentValues processCaseModel(EventClient eventClient, Table table) {
         try {
             List<Column> columns = table.columns;

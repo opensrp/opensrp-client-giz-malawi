@@ -113,10 +113,6 @@
         "v_required": {
           "value": false,
           "err": "Please enter the Child Registration Number"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Enter a valid registration number"
         }
       },
       {
