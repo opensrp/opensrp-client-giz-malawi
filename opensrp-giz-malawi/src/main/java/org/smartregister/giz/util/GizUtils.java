@@ -168,7 +168,7 @@ public class GizUtils extends Utils {
     }
 
     @NonNull
-    public static String getInitialCurrentLocality() {
+    public static String getCurrentLocality() {
         String selectedLocation = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality();
         if (StringUtils.isBlank(selectedLocation)) {
             selectedLocation = LocationHelper.getInstance().getDefaultLocation();

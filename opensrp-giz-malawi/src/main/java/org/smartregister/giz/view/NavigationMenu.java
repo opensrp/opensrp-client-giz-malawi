@@ -174,7 +174,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         txtLocationSelected = rootView.findViewById(R.id.giz_txt_location_selected);
 
-        updateUi(LocationHelper.getInstance().getOpenMrsReadableName(GizUtils.getInitialCurrentLocality()));
+        updateUi(LocationHelper.getInstance().getOpenMrsReadableName(GizUtils.getCurrentLocality()));
 
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
