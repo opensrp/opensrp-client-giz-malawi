@@ -32,7 +32,7 @@ public class DBQueryHelper {
         List<VaccineRepo.Vaccine> vaccines = ImmunizationLibrary.getInstance().getVaccineCacheMap().get(Constants.CHILD_TYPE).vaccineRepo;
 
         vaccines.remove(VaccineRepo.Vaccine.bcg2);
-        vaccines.remove(VaccineRepo.Vaccine.ipv);
+        /*vaccines.remove(VaccineRepo.Vaccine.ipv);
         vaccines.remove(VaccineRepo.Vaccine.opv0);
         vaccines.remove(VaccineRepo.Vaccine.opv4);
         vaccines.remove(VaccineRepo.Vaccine.measles1);
@@ -42,11 +42,10 @@ public class DBQueryHelper {
         vaccines.remove(VaccineRepo.Vaccine.mv1);
         vaccines.remove(VaccineRepo.Vaccine.mv2);
         vaccines.remove(VaccineRepo.Vaccine.mv3);
-        vaccines.remove(VaccineRepo.Vaccine.mv4);
+        vaccines.remove(VaccineRepo.Vaccine.mv4);*/
 
         final String URGENT = "'" + AlertStatus.urgent.value() + "'";
         final String NORMAL = "'" + AlertStatus.normal.value() + "'";
-        final String COMPLETE = "'" + AlertStatus.complete.value() + "'";
 
 
         for (int i = 0; i < vaccines.size(); i++) {
@@ -57,7 +56,7 @@ public class DBQueryHelper {
                 mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = " + URGENT + OR;
             }
         }
-
+/*
         mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv0.display()) + " = " + URGENT +
                 AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv4.display()) + " != " + COMPLETE + " ) ";
         mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv4.display()) + " = " + URGENT +
@@ -73,7 +72,7 @@ public class DBQueryHelper {
                 .addHyphen(VaccineRepo.Vaccine.measles2.display()) + " = " + URGENT +
                 AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr2.display()) + " != " + COMPLETE + " ) ";
         mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr2.display()) + " = " + URGENT +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.measles2.display()) + " != " + COMPLETE + " ) ";
+                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.measles2.display()) + " != " + COMPLETE + " ) ";*/
 
         if (urgentOnly) {
             return mainCondition + " ) ";
@@ -89,6 +88,7 @@ public class DBQueryHelper {
             }
         }
 
+        /*
         mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv0.display()) + " = " + NORMAL +
                 AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv4.display()) + " != " + COMPLETE + " ) ";
         mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv4.display()) + " = " + NORMAL +
@@ -105,6 +105,7 @@ public class DBQueryHelper {
                 AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr2.display()) + " != " + COMPLETE + " ) ";
         mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr2.display()) + " = " + NORMAL +
                 AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.measles2.display()) + " != " + COMPLETE + " ) ";
+        */
 
         return mainCondition + " ) ";
     }
