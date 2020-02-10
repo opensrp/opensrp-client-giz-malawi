@@ -8,6 +8,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.fragment.BaseAdvancedSearchFragment;
 import org.smartregister.child.presenter.BaseChildAdvancedSearchPresenter;
+import org.smartregister.giz.R;
 import org.smartregister.giz.presenter.AdvancedSearchPresenter;
 import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.util.GizConstants;
@@ -42,6 +43,11 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
     @Override
     protected String getMainCondition() {
         return DBQueryHelper.getHomeRegisterCondition();
+    }
+
+    @Override
+    protected String getDetailsCondition() {
+        return filterSelectionCondition(false);
     }
 
     @Override
@@ -106,25 +112,25 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
     @Override
     public void populateSearchableFields(View view) {
-        firstName = view.findViewById(org.smartregister.child.R.id.first_name);
+        firstName = view.findViewById(R.id.first_name);
         advancedFormSearchableFields.put(GizConstants.KEY.FIRST_NAME, firstName);
 
-        lastName = view.findViewById(org.smartregister.child.R.id.last_name);
+        lastName = view.findViewById(R.id.last_name);
         advancedFormSearchableFields.put(GizConstants.KEY.LAST_NAME, lastName);
 
-        openSrpId = view.findViewById(org.smartregister.child.R.id.opensrp_id);
+        openSrpId = view.findViewById(R.id.opensrp_id);
         advancedFormSearchableFields.put(GizConstants.KEY.ZEIR_ID, openSrpId);
 
-        motherGuardianFirstName = view.findViewById(org.smartregister.child.R.id.mother_guardian_first_name);
+        motherGuardianFirstName = view.findViewById(R.id.mother_guardian_first_name);
         advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_FIRST_NAME, motherGuardianFirstName);
 
-        motherGuardianLastName = view.findViewById(org.smartregister.child.R.id.mother_guardian_last_name);
+        motherGuardianLastName = view.findViewById(R.id.mother_guardian_last_name);
         advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_LAST_NAME, motherGuardianLastName);
 
-        motherGuardianNid = view.findViewById(org.smartregister.child.R.id.mother_guardian_nrc);
+        motherGuardianNid = view.findViewById(R.id.mother_guardian_nrc);
         advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_NRC_NUMBER, motherGuardianNid);
 
-        motherGuardianPhoneNumber = view.findViewById(org.smartregister.child.R.id.mother_guardian_phone_number);
+        motherGuardianPhoneNumber = view.findViewById(R.id.mother_guardian_phone_number);
         advancedFormSearchableFields.put(GizConstants.KEY.MOTHER_GUARDIAN_NUMBER, motherGuardianPhoneNumber);
 
 

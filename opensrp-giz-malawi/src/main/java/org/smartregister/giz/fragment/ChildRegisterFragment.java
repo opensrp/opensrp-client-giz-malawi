@@ -23,6 +23,7 @@ import java.util.HashMap;
 public class ChildRegisterFragment extends BaseChildRegisterFragment implements CompoundButton.OnCheckedChangeListener {
     private View view;
     private SwitchCompat filterSection;
+
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -39,16 +40,17 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     }
 
 
-    @Override
     protected void toggleFilterSelection() {
         if (filterSection != null) {
             String tagString = "PRESSED";
             if (filterSection.getTag() == null) {
-                filter("", "", filterSelectionCondition(false), false);
+                filter("", "", getMainCondition(), false, getDetailsCondition());
                 filterSection.setTag(tagString);
+                filterSection.setBackgroundResource(R.drawable.transparent_clicked_background);
             } else if (filterSection.getTag().toString().equals(tagString)) {
-                filter("", "", "", false);
+                filter("", "", getMainCondition(), false, "");
                 filterSection.setTag(null);
+                filterSection.setBackgroundResource(R.drawable.transparent_gray_background);
             }
         }
     }
@@ -67,6 +69,11 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     }
 
     @Override
+    protected String getDetailsCondition() {
+        return filterSelectionCondition(false);
+    }
+
+    @Override
     protected String getDefaultSortQuery() {
         return presenter().getDefaultSortQuery();
     }
@@ -75,11 +82,11 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     protected void onViewClicked(View view) {
         super.onViewClicked(view);
         RegisterClickables registerClickables = new RegisterClickables();
-        if (view.getTag(org.smartregister.child.R.id.record_action) != null) {
+        if (view.getTag(R.id.record_action) != null) {
             registerClickables.setRecordWeight(
-                    Constants.RECORD_ACTION.GROWTH.equals(view.getTag(org.smartregister.child.R.id.record_action)));
+                    Constants.RECORD_ACTION.GROWTH.equals(view.getTag(R.id.record_action)));
             registerClickables.setRecordAll(
-                    Constants.RECORD_ACTION.VACCINATION.equals(view.getTag(org.smartregister.child.R.id.record_action)));
+                    Constants.RECORD_ACTION.VACCINATION.equals(view.getTag(R.id.record_action)));
         }
 
         CommonPersonObjectClient client = null;

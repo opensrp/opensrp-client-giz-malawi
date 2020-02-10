@@ -20,7 +20,7 @@ import org.smartregister.anc.library.activity.ActivityConfiguration;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.domain.ChildMetadata;
-import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -36,8 +36,10 @@ import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
-import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.ClientRegisterTypeRepository;
+import org.smartregister.giz.repository.GizAncRegisterRepository;
+import org.smartregister.giz.repository.GizChildRegisterRepository;
+import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
 import org.smartregister.giz.util.GizUtils;
@@ -75,7 +77,6 @@ import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -114,16 +115,18 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[]{OpdDbConstants.KEY.TABLE, "ec_mother_details"};
+        return new String[]{OpdDbConstants.KEY.TABLE, "ec_mother_details", DBConstants.RegisterTable.CHILD_DETAILS};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
-        if (tableName.equalsIgnoreCase(DBConstantsUtils.WOMAN_TABLE_NAME)) {
+        if (tableName.equalsIgnoreCase(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)) {
             return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID};
         } else if (tableName.equals(OpdDbConstants.KEY.TABLE)) {
-            return new String[]{OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME, OpdDbConstants.KEY.OPENSRP_ID};
+            return new String[]{OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME, OpdDbConstants.KEY.OPENSRP_ID, DBConstants.KEY.ZEIR_ID};
         } else if (tableName.equals("ec_mother_details")) {
             return new String[]{"next_contact"};
+        } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
+            return new String[]{DBConstants.KEY.LOST_TO_FOLLOW_UP, DBConstants.KEY.INACTIVE};
         }
 
         return null;
@@ -131,24 +134,29 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private static String[] getFtsSortFields(String tableName, android.content.Context context) {
         if (tableName.equals(GizConstants.TABLE_NAME.ALL_CLIENTS)) {
-            List<VaccineGroup> vaccines = getVaccineGroups(context);
             List<String> names = new ArrayList<>();
             names.add(GizConstants.KEY.FIRST_NAME);
+            names.add(OpdDbConstants.KEY.LAST_NAME);
             names.add(GizConstants.KEY.DOB);
             names.add(GizConstants.KEY.ZEIR_ID);
             names.add(GizConstants.KEY.LAST_INTERACTED_WITH);
-            names.add(GizConstants.KEY.INACTIVE);
-            names.add(GizConstants.KEY.LOST_TO_FOLLOW_UP);
             names.add(GizConstants.KEY.DOD);
             names.add(GizConstants.KEY.DATE_REMOVED);
-            names.addAll(Arrays.asList(OpdDbConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.LAST_NAME, Constants.KEY.RELATIONAL_ID, OpdDbConstants.KEY.REGISTER_ID, DBConstantsUtils.KeyUtils.NEXT_CONTACT));
-
-            for (VaccineGroup vaccineGroup : vaccines) {
-                populateAlertColumnNames(vaccineGroup.vaccines, names);
-            }
             return names.toArray(new String[names.size()]);
         } else if (tableName.equals("ec_mother_details")) {
             return new String[]{DBConstantsUtils.KeyUtils.NEXT_CONTACT};
+        } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
+            List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+            List<String> names = new ArrayList<>();
+            names.add(DBConstants.KEY.INACTIVE);
+            names.add("relational_id");
+            names.add(DBConstants.KEY.LOST_TO_FOLLOW_UP);
+
+            for (VaccineGroup vaccineGroup : vaccineList) {
+                populateAlertColumnNames(vaccineGroup.vaccines, names);
+            }
+
+            return names.toArray(new String[names.size()]);
 
         }
         return null;
@@ -195,7 +203,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
             } else {
 
-                map.put(vaccine.name, Pair.create(GizConstants.TABLE_NAME.ALL_CLIENTS, false));
+                map.put(vaccine.name, Pair.create("ec_child_details", false));
             }
     }
 
@@ -246,7 +254,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
-        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration);
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterRepository());
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
@@ -278,7 +286,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private ChildMetadata getMetadata() {
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
-                ChildImmunizationActivity.class, true);
+                ChildImmunizationActivity.class, true, new GizChildRegisterRepository());
         metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.ALL_CLIENTS,
                 GizConstants.TABLE_NAME.ALL_CLIENTS, GizConstants.EventType.CHILD_REGISTRATION,
                 GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.EventType.OUT_OF_CATCHMENT, GizConstants.CONFIGURATION.CHILD_REGISTER,
