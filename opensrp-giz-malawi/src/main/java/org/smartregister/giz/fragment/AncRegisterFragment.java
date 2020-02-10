@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.fragment.HomeRegisterFragment;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.giz.R;
@@ -64,20 +65,8 @@ public class AncRegisterFragment extends HomeRegisterFragment {
         presenter = new GizAncRegisterFragmentPresenter(this, viewConfigurationIdentifier);
     }
 
-//    @Override
-//    public void countExecute() {
-//        String query = "Select count(*) FROM client_register_type where client_register_type.register_type = 'anc' ";
-//        int count = commonRepository().countSearchIds(query);
-//        clientAdapter.setTotalcount(count);
-//    }
-
     @Override
     protected String getMainCondition() {
-        return " ec_client." + DBConstantsUtils.KeyUtils.DATE_REMOVED + " IS NULL ";
-    }
-
-    @Override
-    protected String getDetailsCondition() {
-        return "";
+        return AncLibrary.getInstance().getRegisterRepository().getDemographicTable() + "_search" + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED + " IS NULL ";
     }
 }

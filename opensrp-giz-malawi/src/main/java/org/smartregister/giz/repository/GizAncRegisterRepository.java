@@ -4,22 +4,36 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.anc.library.repository.RegisterRepository;
 
 public class GizAncRegisterRepository extends RegisterRepository {
+
     @Override
-    public String getObjectIdsQuery(String mainCondition, String filters, String detailsCondition) {
+    public String getObjectIdsQuery(String mainCondition, String filters) {
         if (!filters.isEmpty()) {
-            filters = " AND (ec_client.first_name like '%$s%' or ec_client.last_name like '%$s%')".replace("$s", filters);
+            filters = String.format(" and ec_client_search.phrase MATCH '*%s*'", filters);
         }
+
         if (!StringUtils.isBlank(mainCondition)) {
-            mainCondition = " AND " + mainCondition;
+            mainCondition = " and " + mainCondition;
         }
 
-        if (!StringUtils.isBlank(detailsCondition)) {
-            detailsCondition = " where " + detailsCondition;
-        } else {
-            detailsCondition = "";
+        return "select ec_client_search.object_id from ec_client_search " +
+                "join ec_mother_details on ec_client_search.object_id =  ec_mother_details.id " +
+                "join client_register_type on ec_client_search.object_id=client_register_type.base_entity_id " +
+                "where register_type='anc' " + mainCondition + filters;
+    }
+
+    public String getCountExecuteQuery(String mainCondition, String filters) {
+        if (!filters.isEmpty()) {
+            filters = String.format(" and ec_client_search.phrase MATCH '*%s*'", filters);
         }
 
-        return "select ec_client.id from ec_client left join client_register_type on ec_client.id=client_register_type.base_entity_id where register_type='anc' and ec_client.id IN (select id from ec_mother_details " + detailsCondition + " )  " + mainCondition + filters;
+        if (!StringUtils.isBlank(mainCondition)) {
+            mainCondition = " and " + mainCondition;
+        }
+
+        return "select count(ec_client_search.object_id) from ec_client_search " +
+                "join ec_mother_details on ec_client_search.object_id =  ec_mother_details.id " +
+                "join client_register_type on ec_client_search.object_id=client_register_type.base_entity_id " +
+                "where register_type='anc' " + mainCondition + filters;
     }
 
 }

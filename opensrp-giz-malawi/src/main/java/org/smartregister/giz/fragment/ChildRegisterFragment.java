@@ -44,11 +44,11 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
         if (filterSection != null) {
             String tagString = "PRESSED";
             if (filterSection.getTag() == null) {
-                filter("", "", getMainCondition(), false, getDetailsCondition());
+                filter("", "", filterSelectionCondition(false), false);
                 filterSection.setTag(tagString);
                 filterSection.setBackgroundResource(R.drawable.transparent_clicked_background);
             } else if (filterSection.getTag().toString().equals(tagString)) {
-                filter("", "", getMainCondition(), false, "");
+                filter("", "", "", false);
                 filterSection.setTag(null);
                 filterSection.setBackgroundResource(R.drawable.transparent_gray_background);
             }
