@@ -1,6 +1,7 @@
 package org.smartregister.giz.util;
 
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.Utils;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -62,6 +63,6 @@ public class DBQueryHelper {
     }
 
     public static String getSortQuery() {
-        return GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return Utils.metadata().getRegisterRepository().getDemographicTable() + "." + GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 }
