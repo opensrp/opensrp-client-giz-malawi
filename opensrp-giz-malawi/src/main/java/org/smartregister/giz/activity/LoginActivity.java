@@ -45,7 +45,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         }
 
         if (mLoginPresenter.isServerSettingsSet()) {
-            Intent intent = new Intent(this, OpdRegisterActivity.class);
+            Intent intent = new Intent(this, ChildRegisterActivity.class);
             intent.putExtra(GizConstants.IntentKeyUtil.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         } else {

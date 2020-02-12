@@ -185,7 +185,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                         .context().allSharedPreferences()
                         .fetchDefaultLocalityId(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM())));
             } catch (Exception e){
-                e.printStackTrace();
+                Timber.e(e);
             }
         }
 

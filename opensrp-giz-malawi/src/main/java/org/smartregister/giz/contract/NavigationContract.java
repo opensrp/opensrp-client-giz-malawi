@@ -38,6 +38,7 @@ public interface NavigationContract {
     }
 
     interface Model {
+
         List<NavigationOption> getNavigationItems();
 
         String getCurrentUser();
