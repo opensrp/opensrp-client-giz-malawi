@@ -31,6 +31,7 @@ import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
+import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
@@ -254,6 +255,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
+        activityConfiguration.setLandingPageActivityClass(OpdRegisterActivity.class);
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterRepository());
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
