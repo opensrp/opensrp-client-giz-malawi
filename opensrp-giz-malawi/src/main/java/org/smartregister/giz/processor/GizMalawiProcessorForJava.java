@@ -4,12 +4,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.sync.MiniClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -22,6 +25,7 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
@@ -32,6 +36,7 @@ import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.growthmonitoring.domain.Height;
 import org.smartregister.growthmonitoring.domain.Weight;
+import org.smartregister.growthmonitoring.domain.WeightWrapper;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
 import org.smartregister.growthmonitoring.service.intent.HeightIntentService;
@@ -48,6 +53,7 @@ import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -208,11 +214,80 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         if (client != null) {
             try {
                 processEvent(event, client, clientClassification);
+                processBirthWeight(event, client);
             } catch (Exception e) {
                 Timber.e(e);
             }
         }
     }
+
+    private void processBirthWeight(Event event, Client client) {
+        // Birth Registration events from the device are processed correctly, events are not processed well
+        if (event.getServerVersion() != 0 && !event.getEventType().equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
+            try {
+
+                String weight = getEventWeight(event);
+
+                if (!TextUtils.isEmpty(weight)) {
+
+                    Weight dbWeight = GizMalawiApplication.getInstance().weightRepository().findUniqueByDate(GizMalawiApplication.getInstance().weightRepository().getWritableDatabase(), event.getBaseEntityId(), client.getBirthdate().toDate());
+
+                    WeightWrapper weightWrapper = new WeightWrapper();
+                    weightWrapper.setGender(client.getGender());
+                    weightWrapper.setWeight(!TextUtils.isEmpty(weight) ? parseFloat(weight) : null);
+                    LocalDate localDate = new LocalDate(client.getBirthdate());
+                    weightWrapper.setUpdatedWeightDate(localDate.toDateTime(LocalTime.MIDNIGHT), (new LocalDate()).isEqual(localDate));//This is the weight of birth so reference date should be the DOB
+                    weightWrapper.setId(client.getBaseEntityId());
+                    weightWrapper.setDob(getChildBirthDate(client.getBirthdate().toString()));
+                    if (dbWeight != null && dbWeight.getId() != null && dbWeight.getId() > 0) {
+                        weightWrapper.setDbKey(dbWeight.getId());
+                    }
+
+                    Utils.recordWeight(GizMalawiApplication.getInstance().weightRepository(), weightWrapper, BaseRepository.TYPE_Synced);
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+    }
+
+    private String getChildBirthDate(String childBirthDate) {
+        return childBirthDate.contains("T") ? childBirthDate.substring(0, childBirthDate.indexOf(84)) : childBirthDate;
+
+    }
+
+
+    private String getEventWeight(Event event) {
+
+        Obs obs = findObs("", true, event, "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return obs != null ? obs.getValue().toString() : null;
+    }
+
+    //Duplicates and enhances method in Event.findObs
+    public Obs findObs(String parentId, boolean nonEmpty, Event event, String... fieldIds) {
+        Obs res = null;
+        for (String f : fieldIds) {
+            for (Obs o : event.getObs()) {
+                // if parent is specified and not matches leave and move forward
+                if (StringUtils.isNotBlank(parentId) && !o.getParentCode().equalsIgnoreCase(parentId)) {
+                    continue;
+                }
+
+                if (f.equalsIgnoreCase(o.getFieldCode()) || f.equalsIgnoreCase(o.getFormSubmissionField())) {
+                    // obs is found and first  one.. should throw exception if multiple obs found with same names/ids
+                    if (nonEmpty && o.getValues().isEmpty()) {
+                        continue;
+                    }
+                    if (res == null) {
+                        res = o;
+                    } else
+                        throw new RuntimeException("Multiple obs found with name or ids specified ");
+                }
+            }
+        }
+        return res;
+    }
+
 
     private void processEventUsingMiniprocessor(ClientClassification clientClassification, EventClient eventClient, String eventType) throws Exception {
         MiniClientProcessorForJava miniClientProcessorForJava = processorMap.get(eventType);
@@ -553,6 +628,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @VisibleForTesting
+    @Nullable
     ContentValues processCaseModel(@NonNull EventClient eventClient, @NonNull Table table) {
         try {
             List<Column> columns = table.columns;

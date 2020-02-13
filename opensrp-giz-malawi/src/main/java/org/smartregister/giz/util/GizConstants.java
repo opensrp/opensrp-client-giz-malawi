@@ -160,6 +160,7 @@ public class GizConstants {
         public static final String PNC = "PNC";
         public static final String FAMILY_PLANNING = "Family Planning";
         public static final String MALARIA = "Malaria";
+        public static final String REPORTS = "Reports";
     }
 
     public static final class FormTitleUtil {

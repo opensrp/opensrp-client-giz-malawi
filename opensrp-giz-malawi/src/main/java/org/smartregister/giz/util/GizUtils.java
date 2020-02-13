@@ -20,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.child.util.Constants;
-import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.EventClient;
@@ -32,6 +31,7 @@ import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.child.util.Utils;
 import org.smartregister.util.AssetHandler;
 
 import java.text.SimpleDateFormat;
@@ -157,6 +157,15 @@ public class GizUtils extends Utils {
     }
 
     @NonNull
+    public static Locale getLocale(Context context){
+        if (context == null) {
+            return Locale.getDefault();
+        } else {
+            return context.getResources().getConfiguration().locale;
+        }
+    }
+
+    @NonNull
     private static ArrayList<String> getLocationLevels() {
         return new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS));
     }
@@ -195,5 +204,4 @@ public class GizUtils extends Utils {
             Timber.e(e);
         }
     }
-
 }

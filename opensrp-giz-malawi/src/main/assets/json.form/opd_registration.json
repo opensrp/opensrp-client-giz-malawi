@@ -52,7 +52,7 @@
     }
   },
   "step1": {
-    "title": "Opd Registration",
+    "title": "OPD Registration",
     "fields": [
       {
         "key": "photo",

@@ -113,10 +113,6 @@
         "v_required": {
           "value": false,
           "err": "Please enter the Child Registration Number"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Enter a valid registration number"
         }
       },
       {
@@ -394,11 +390,11 @@
       {
         "key": "mother_tdv_doses",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "mother_tdv_doses",
         "type": "spinner",
         "label_info_text": "Whether the child's mother received 2 or more doses of Td, which transfers protection against Td to the child when they're born.",
-        "hint": "How many does of TDV did the mother receive?",
+        "hint": "How many doses of TDV did the mother receive?",
         "v_required": {
           "value": true,
           "err": "Please choose an option"
