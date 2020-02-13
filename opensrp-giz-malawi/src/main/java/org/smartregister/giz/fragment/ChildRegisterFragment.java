@@ -69,11 +69,6 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     }
 
     @Override
-    protected String getDetailsCondition() {
-        return filterSelectionCondition(false);
-    }
-
-    @Override
     protected String getDefaultSortQuery() {
         return presenter().getDefaultSortQuery();
     }

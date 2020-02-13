@@ -1,9 +1,9 @@
 package org.smartregister.giz.repository;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.anc.library.repository.RegisterRepository;
+import org.smartregister.anc.library.repository.RegisterQueryProvider;
 
-public class GizAncRegisterRepository extends RegisterRepository {
+public class GizAncRegisterQueryProvider extends RegisterQueryProvider {
 
     @Override
     public String getObjectIdsQuery(String mainCondition, String filters) {

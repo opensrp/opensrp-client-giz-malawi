@@ -46,11 +46,6 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
     }
 
     @Override
-    protected String getDetailsCondition() {
-        return filterSelectionCondition(false);
-    }
-
-    @Override
     protected Map<String, String> getSearchMap(boolean searchFlag) {
         Map<String, String> searchParams = new HashMap<>();
 

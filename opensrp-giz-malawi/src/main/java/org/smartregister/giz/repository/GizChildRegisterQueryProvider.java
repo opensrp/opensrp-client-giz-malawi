@@ -1,9 +1,9 @@
 package org.smartregister.giz.repository;
 
-import org.smartregister.child.repository.RegisterRepository;
+import org.smartregister.child.provider.RegisterQueryProvider;
 import org.smartregister.child.util.Constants;
 
-public class GizChildRegisterRepository extends RegisterRepository {
+public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
 
     @Override
     public String[] getMainColumns() {

@@ -63,6 +63,6 @@ public class DBQueryHelper {
     }
 
     public static String getSortQuery() {
-        return Utils.metadata().getRegisterRepository().getDemographicTable() + "." + GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return Utils.metadata().getRegisterQueryProvider().getDemographicTable() + "." + GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 }

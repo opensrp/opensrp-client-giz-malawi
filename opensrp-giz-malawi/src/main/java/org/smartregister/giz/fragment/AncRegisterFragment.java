@@ -67,6 +67,6 @@ public class AncRegisterFragment extends HomeRegisterFragment {
 
     @Override
     protected String getMainCondition() {
-        return AncLibrary.getInstance().getRegisterRepository().getDemographicTable() + "_search" + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED + " IS NULL ";
+        return AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable() + "_search" + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED + " IS NULL ";
     }
 }
