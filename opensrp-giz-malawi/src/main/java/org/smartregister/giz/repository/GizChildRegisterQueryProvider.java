@@ -6,6 +6,16 @@ import org.smartregister.child.util.Constants;
 public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
 
     @Override
+    public String getCountExecuteQuery(String mainCondition, String filters) {
+        return super.getCountExecuteQuery(mainCondition, filters);
+    }
+
+    @Override
+    public String mainRegisterQuery() {
+        return super.mainRegisterQuery();
+    }
+
+    @Override
     public String[] getMainColumns() {
         return new String[]{
                 getDemographicTable() + "." + Constants.KEY.ID + " as _id",

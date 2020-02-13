@@ -177,13 +177,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         txtLocationSelected = rootView.findViewById(R.id.giz_txt_location_selected);
 
-        updateUi(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
         String location  = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality();
         if(StringUtils.isNotBlank(location)) {
-            updateTextView(location);
+            updateUi(location);
         } else {
             try {
-                updateTextView(LocationHelper.getInstance().getOpenMrsLocationName(GizMalawiApplication.getInstance()
+                updateUi(LocationHelper.getInstance().getOpenMrsLocationName(GizMalawiApplication.getInstance()
                         .context().allSharedPreferences()
                         .fetchDefaultLocalityId(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM())));
             } catch (Exception e){

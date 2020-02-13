@@ -72,6 +72,7 @@ import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Hia2ReportRepository;
 import org.smartregister.repository.Repository;
@@ -162,10 +163,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
             List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
             List<String> names = new ArrayList<>();
-            names.add(DBConstants.KEY.INACTIVE);
-            names.add("relational_id");
-            names.add(DBConstants.KEY.LOST_TO_FOLLOW_UP);
-
             for (VaccineGroup vaccineGroup : vaccineList) {
                 populateAlertColumnNames(vaccineGroup.vaccines, names);
             }
