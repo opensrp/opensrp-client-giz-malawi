@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.giz.R;
+import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.fragment.GizMeFragment;
 import org.smartregister.giz.fragment.OpdRegisterFragment;
 import org.smartregister.giz.presenter.OpdRegisterActivityPresenter;
@@ -34,7 +35,7 @@ import timber.log.Timber;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-17
  */
 
-public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavDrawerActivity {
+public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavDrawerActivity, NavigationMenuContract {
 
     private NavigationMenu navigationMenu;
 
@@ -43,6 +44,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         return new OpdRegisterActivityPresenter(view, model);
     }
 
+    @Override
     public NavigationMenu getNavigationMenu() {
         return navigationMenu;
     }

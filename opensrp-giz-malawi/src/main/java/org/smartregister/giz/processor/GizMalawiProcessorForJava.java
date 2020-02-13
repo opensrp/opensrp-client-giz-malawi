@@ -425,7 +425,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private Boolean processHeight(EventClient height, Table heightTable, boolean outOfCatchment) throws Exception {
+    private Boolean processHeight(@Nullable EventClient height, @Nullable Table heightTable, boolean outOfCatchment) {
 
         try {
 
@@ -483,7 +483,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private Boolean processService(EventClient service, Table serviceTable) throws Exception {
+    private Boolean processService(EventClient service, Table serviceTable) {
         try {
             if (service == null || service.getEvent() == null) {
                 return false;
@@ -609,7 +609,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @VisibleForTesting
-    @Nullable
     ContentValues processCaseModel(EventClient eventClient, Table table) {
         try {
             List<Column> columns = table.columns;

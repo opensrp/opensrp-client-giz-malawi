@@ -15,7 +15,9 @@ import android.util.DisplayMetrics;
 import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.customviews.TreeViewDialog;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.child.util.Constants;
@@ -23,6 +25,7 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.form.FormLocation;
+import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.event.BaseEvent;
 import org.smartregister.giz.listener.OnLocationChangeListener;
@@ -34,13 +37,11 @@ import org.smartregister.util.AssetHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import timber.log.Timber;
-
-import static org.smartregister.opd.utils.DefaultOpdLocationUtils.getHealthFacilityLevels;
-import static org.smartregister.opd.utils.DefaultOpdLocationUtils.getLocationLevels;
 
 public class GizUtils extends Utils {
 
@@ -165,44 +166,34 @@ public class GizUtils extends Utils {
         }
     }
 
-    // *** preview location hierarchy
-    //
     @NonNull
-    public static ArrayList<String> getLocationLevels() {
-        ArrayList<String> allLevels = new ArrayList<>();
-        allLevels.add("Country");
-        allLevels.add("Province");
-        allLevels.add("District");
-        allLevels.add("Facility");
-        allLevels.add("Village");
-        return allLevels;
+    private static ArrayList<String> getLocationLevels() {
+        return new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS));
     }
 
     @NonNull
-    public static ArrayList<String> getHealthFacilityLevels() {
-        ArrayList<String> healthFacilities = new ArrayList<>();
-        healthFacilities.add("Country");
-        healthFacilities.add("Province");
-        healthFacilities.add("District");
-        healthFacilities.add("Health Facility");
-        healthFacilities.add("Village");
-        return healthFacilities;
+    private static ArrayList<String> getHealthFacilityLevels() {
+        return new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS));
     }
-    //
-    // *** leave it for now
 
+    @NonNull
+    public static String getCurrentLocality() {
+        String selectedLocation = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality();
+        if (StringUtils.isBlank(selectedLocation)) {
+            selectedLocation = LocationHelper.getInstance().getDefaultLocation();
+            GizMalawiApplication.getInstance().context().allSharedPreferences().saveCurrentLocality(selectedLocation);
+        }
+        return selectedLocation;
+    }
 
-    public static void showLocations(Activity context, OnLocationChangeListener onLocationChangeListener, NavigationMenu navigationMenu) {
+    public static void showLocations(@Nullable Activity context, @NonNull OnLocationChangeListener onLocationChangeListener, @Nullable NavigationMenu navigationMenu) {
         try {
             ArrayList<String> allLevels = getLocationLevels();
             ArrayList<String> healthFacilities = getHealthFacilityLevels();
-
             ArrayList<String> defaultLocation = (ArrayList<String>) LocationHelper.getInstance().generateDefaultLocationHierarchy(allLevels);
             List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
             String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
             }.getType());
-
-
             TreeViewDialog treeViewDialog = new TreeViewDialog(context,
                     new JSONArray(upToFacilitiesString), defaultLocation, defaultLocation);
             treeViewDialog.setCancelable(true);
@@ -212,9 +203,9 @@ public class GizUtils extends Utils {
                 if (!treeViewDialogName.isEmpty()) {
                     String newLocation = treeViewDialogName.get(treeViewDialogName.size() - 1);
                     GizMalawiApplication.getInstance().context().allSharedPreferences().saveCurrentLocality(newLocation);
-                    onLocationChangeListener.updateTextView(newLocation);
+                    onLocationChangeListener.updateUi(newLocation);
                     if (navigationMenu != null) {
-                        navigationMenu.updateTextView(newLocation);
+                        navigationMenu.updateUi(newLocation);
                     }
                 }
 

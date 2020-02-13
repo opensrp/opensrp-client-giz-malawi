@@ -37,6 +37,8 @@ import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.p2p.activity.P2pModeSelectActivity;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
@@ -165,7 +167,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         reportView = rootView.findViewById(R.id.report_view);
 
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
-        LinearLayout locationLayout = rootView.findViewById(R.id.location_layout);
+        LinearLayout locationLayout = rootView.findViewById(R.id.giz_location_layout);
 
 
         locationLayout.setOnClickListener(new View.OnClickListener() {
@@ -175,19 +177,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             }
         });
 
-        txtLocationSelected = rootView.findViewById(R.id.txt_location_selected);
-        String location  = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality();
-        if(StringUtils.isNotBlank(location)) {
-            updateTextView(location);
-        } else {
-            try {
-                updateTextView(LocationHelper.getInstance().getOpenMrsLocationName(GizMalawiApplication.getInstance()
-                        .context().allSharedPreferences()
-                        .fetchDefaultLocalityId(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM())));
-            } catch (Exception e){
-                Timber.e(e);
-            }
-        }
+        txtLocationSelected = rootView.findViewById(R.id.giz_txt_location_selected);
+
+        updateUi(LocationHelper.getInstance().getOpenMrsReadableName(GizUtils.getCurrentLocality()));
 
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
@@ -395,7 +387,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     @Override
-    public void updateTextView(String location) {
+    public void updateUi(@Nullable String location) {
         if (txtLocationSelected != null && StringUtils.isNotBlank(location)) {
             txtLocationSelected.setText(location);
         }
