@@ -47,6 +47,11 @@ public class GizMalawiJobCreator implements JobCreator {
                 return new SyncSettingsServiceJob();
             case RecurringIndicatorGeneratingJob.TAG:
                 return new RecurringIndicatorGeneratingJob();
+            case GizVaccineUpdateJob.TAG:
+                return new GizVaccineUpdateJob();
+            case GizVaccineUpdateJob.SCHEDULE_ADHOC_TAG:
+                return new GizVaccineUpdateJob();
+
             default:
                 Log.w(GizMalawiJobCreator.class.getCanonicalName(), tag + " is not declared in Job Creator");
                 return null;

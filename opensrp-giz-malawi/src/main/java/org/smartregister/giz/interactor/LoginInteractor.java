@@ -1,6 +1,7 @@
 package org.smartregister.giz.interactor;
 
 import org.smartregister.giz.BuildConfig;
+import org.smartregister.giz.job.GizVaccineUpdateJob;
 import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
@@ -59,6 +60,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         RecurringIndicatorGeneratingJob.scheduleJob(RecurringIndicatorGeneratingJob.TAG,
                 TimeUnit.MINUTES.toMillis(org.smartregister.reporting.BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES), TimeUnit.MINUTES.toMillis(1));
 
+        // Schedule vaccine schedules update after midnight
+        GizVaccineUpdateJob.scheduleEverydayAt(GizVaccineUpdateJob.TAG, 1, 7);
     }
 
     @Override
