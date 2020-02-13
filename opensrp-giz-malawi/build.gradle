@@ -32,7 +32,7 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 12
-        versionName "0.2.7-r3"
+        versionName "0.2.7-r4"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -157,7 +157,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.2.6-GIZ-0.2.7-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.2.6r3-GIZ-0.2.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -189,7 +189,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.8.18-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.8.18-GIZ-0.2.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
