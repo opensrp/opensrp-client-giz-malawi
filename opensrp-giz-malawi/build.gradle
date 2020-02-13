@@ -185,7 +185,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.2.6.61-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.2.6.62-PREVIEW-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-growth-monitoring'

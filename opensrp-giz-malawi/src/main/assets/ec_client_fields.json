@@ -200,6 +200,7 @@
             "field": "baseEntityId"
           }
         },
+
         {
           "column_name": "nrc_number",
           "type": "Client",
@@ -300,6 +301,29 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.visit_start_date"
+          }
+        },
+        {
+          "column_name": "protected_at_birth",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "164826AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "mother_tdv_doses",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.mother_tdv_doses"
+          }
+        },
+        {
+          "column_name": "mother_hiv_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1396AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         }
       ]
