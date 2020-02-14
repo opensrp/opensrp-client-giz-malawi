@@ -34,6 +34,7 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.growthmonitoring.domain.Height;
+import org.smartregister.growthmonitoring.domain.HeightWrapper;
 import org.smartregister.growthmonitoring.domain.Weight;
 import org.smartregister.growthmonitoring.domain.WeightWrapper;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
@@ -196,13 +197,14 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             try {
                 processEvent(event, client, clientClassification);
                 processBirthWeight(event, client);
+                processBirthHeight(event, client);
             } catch (Exception e) {
                 Timber.e(e);
             }
         }
     }
 
-    private void processBirthWeight(Event event, Client client) {
+    private void processBirthWeight(@NonNull Event event, @NonNull Client client) {
         // Birth Registration events from the device are processed correctly, events are not processed well
         if (event.getServerVersion() != 0 && !event.getEventType().equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
             try {
@@ -232,15 +234,53 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private String getChildBirthDate(String childBirthDate) {
-        return childBirthDate.contains("T") ? childBirthDate.substring(0, childBirthDate.indexOf(84)) : childBirthDate;
+    private void processBirthHeight(@NonNull Event event, @NonNull Client client) {
+        // Birth Registration events from the device are processed correctly, events are not processed well
+        if (event.getServerVersion() != 0 && !event.getEventType().equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
+            try {
 
+                String height = getEventHeight(event);
+
+                if (!TextUtils.isEmpty(height)) {
+                    Height heightToCheck = new Height();
+                    heightToCheck.setEventId(event.getEventId());
+                    heightToCheck.setFormSubmissionId(event.getFormSubmissionId());
+
+                    // Find unique by form_submission_id or event_id
+                    Height dbHeight = GizMalawiApplication.getInstance()
+                            .heightRepository()
+                            .findUnique(GizMalawiApplication.getInstance().weightRepository().getWritableDatabase(), heightToCheck);
+
+                    HeightWrapper heightWrapper = new HeightWrapper();
+                    heightWrapper.setGender(client.getGender());
+                    heightWrapper.setHeight(!TextUtils.isEmpty(height) ? parseFloat(height) : null);
+                    LocalDate localDate = new LocalDate(client.getBirthdate());
+                    heightWrapper.setUpdatedHeightDate(localDate.toDateTime(LocalTime.MIDNIGHT), (new LocalDate()).isEqual(localDate));//This is the height of birth so reference date should be the DOB
+                    heightWrapper.setId(client.getBaseEntityId());
+                    heightWrapper.setDob(getChildBirthDate(client.getBirthdate().toString()));
+                    if (dbHeight != null && dbHeight.getId() != null && dbHeight.getId() > 0) {
+                        heightWrapper.setDbKey(dbHeight.getId());
+                    }
+
+                    Utils.recordHeight(GizMalawiApplication.getInstance().heightRepository(), heightWrapper, BaseRepository.TYPE_Synced);
+                }
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
     }
 
+    private String getChildBirthDate(String childBirthDate) {
+        return childBirthDate.contains("T") ? childBirthDate.substring(0, childBirthDate.indexOf(84)) : childBirthDate;
+    }
 
-    private String getEventWeight(Event event) {
+    private String getEventWeight(@NonNull Event event) {
+        Obs obs = findObs("", true, event, "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        return obs != null ? obs.getValue().toString() : null;
+    }
 
-        Obs obs = findObs("", true, event, "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    private String getEventHeight(@NonNull Event event) {
+        Obs obs = findObs("", true, event, "159429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return obs != null ? obs.getValue().toString() : null;
     }
 
