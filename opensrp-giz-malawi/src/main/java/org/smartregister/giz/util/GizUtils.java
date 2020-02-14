@@ -30,6 +30,7 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.event.BaseEvent;
 import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.view.NavigationMenu;
+import org.smartregister.giz.widget.GizTreeViewDialog;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.child.util.Utils;
@@ -194,8 +195,9 @@ public class GizUtils extends Utils {
             List<FormLocation> upToFacilities = LocationHelper.getInstance().generateLocationHierarchyTree(false, healthFacilities);
             String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
             }.getType());
-            TreeViewDialog treeViewDialog = new TreeViewDialog(context,
+            GizTreeViewDialog treeViewDialog = new GizTreeViewDialog(context,
                     new JSONArray(upToFacilitiesString), defaultLocation, defaultLocation);
+
             treeViewDialog.setCancelable(true);
             treeViewDialog.setCanceledOnTouchOutside(true);
             treeViewDialog.setOnDismissListener(dialog -> {
