@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.fragment.HomeRegisterFragment;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.giz.presenter.GizAncRegisterFragmentPresenter;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-10
@@ -58,15 +61,22 @@ public class AncRegisterFragment extends HomeRegisterFragment implements Compoun
             filterSection = view.findViewById(R.id.switch_selection);
             filterSection.setOnCheckedChangeListener(this);
         }
-
         return view;
     }
 
+    @Override
+    protected void initializePresenter() {
+        if (getActivity() == null) {
+            return;
+        }
 
+        String viewConfigurationIdentifier = ((AncRegisterActivity) getActivity()).getViewIdentifiers().get(0);
+        presenter = new GizAncRegisterFragmentPresenter(this, viewConfigurationIdentifier);
+    }
 
     @Override
     protected String getMainCondition() {
-        return super.getMainCondition() + " and next_contact IS NOT NULL";
+        return AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable() + "_search" + "." + DBConstantsUtils.KeyUtils.DATE_REMOVED + " IS NULL ";
     }
 
     @Override

@@ -93,6 +93,7 @@ public class GizMalawiRepository extends Repository {
         OpdTreatmentRepository.createTable(database);
         OpdTestConductedRepository.createTable(database);
         OpdServiceDetailRepository.createTable(database);
+        ClientRegisterTypeRepository.createTable(database);
 
         //reporting
         IndicatorRepository.createTable(database);

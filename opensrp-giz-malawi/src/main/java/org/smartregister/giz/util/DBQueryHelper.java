@@ -1,6 +1,7 @@
 package org.smartregister.giz.util;
 
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.Utils;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -32,21 +33,9 @@ public class DBQueryHelper {
         List<VaccineRepo.Vaccine> vaccines = ImmunizationLibrary.getInstance().getVaccineCacheMap().get(Constants.CHILD_TYPE).vaccineRepo;
 
         vaccines.remove(VaccineRepo.Vaccine.bcg2);
-        /*vaccines.remove(VaccineRepo.Vaccine.ipv);
-        vaccines.remove(VaccineRepo.Vaccine.opv0);
-        vaccines.remove(VaccineRepo.Vaccine.opv4);
-        vaccines.remove(VaccineRepo.Vaccine.measles1);
-        vaccines.remove(VaccineRepo.Vaccine.mr1);
-        vaccines.remove(VaccineRepo.Vaccine.measles2);
-        vaccines.remove(VaccineRepo.Vaccine.mr2);
-        vaccines.remove(VaccineRepo.Vaccine.mv1);
-        vaccines.remove(VaccineRepo.Vaccine.mv2);
-        vaccines.remove(VaccineRepo.Vaccine.mv3);
-        vaccines.remove(VaccineRepo.Vaccine.mv4);*/
 
         final String URGENT = "'" + AlertStatus.urgent.value() + "'";
         final String NORMAL = "'" + AlertStatus.normal.value() + "'";
-
 
         for (int i = 0; i < vaccines.size(); i++) {
             VaccineRepo.Vaccine vaccine = vaccines.get(i);
@@ -56,23 +45,6 @@ public class DBQueryHelper {
                 mainCondition += " " + VaccinateActionUtils.addHyphen(vaccine.display()) + " = " + URGENT + OR;
             }
         }
-/*
-        mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv0.display()) + " = " + URGENT +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv4.display()) + " != " + COMPLETE + " ) ";
-        mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv4.display()) + " = " + URGENT +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv0.display()) + " != " + COMPLETE + " ) ";
-
-        mainCondition += OR + " ( " + VaccinateActionUtils
-                .addHyphen(VaccineRepo.Vaccine.measles1.display()) + " = " + URGENT +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr1.display()) + " != " + COMPLETE + " ) ";
-        mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr1.display()) + " = " + URGENT +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.measles1.display()) + " != " + COMPLETE + " ) ";
-
-        mainCondition += OR + " ( " + VaccinateActionUtils
-                .addHyphen(VaccineRepo.Vaccine.measles2.display()) + " = " + URGENT +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr2.display()) + " != " + COMPLETE + " ) ";
-        mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr2.display()) + " = " + URGENT +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.measles2.display()) + " != " + COMPLETE + " ) ";*/
 
         if (urgentOnly) {
             return mainCondition + " ) ";
@@ -88,30 +60,11 @@ public class DBQueryHelper {
             }
         }
 
-        /*
-        mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv0.display()) + " = " + NORMAL +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv4.display()) + " != " + COMPLETE + " ) ";
-        mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv4.display()) + " = " + NORMAL +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.opv0.display()) + " != " + COMPLETE + " ) ";
-
-        mainCondition += OR + " ( " + VaccinateActionUtils
-                .addHyphen(VaccineRepo.Vaccine.measles1.display()) + " = " + NORMAL +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr1.display()) + " != " + COMPLETE + " ) ";
-        mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr1.display()) + " = " + NORMAL +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.measles1.display()) + " != " + COMPLETE + " ) ";
-
-        mainCondition += OR + " ( " + VaccinateActionUtils
-                .addHyphen(VaccineRepo.Vaccine.measles2.display()) + " = " + NORMAL +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr2.display()) + " != " + COMPLETE + " ) ";
-        mainCondition += OR + " ( " + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.mr2.display()) + " = " + NORMAL +
-                AND + VaccinateActionUtils.addHyphen(VaccineRepo.Vaccine.measles2.display()) + " != " + COMPLETE + " ) ";
-        */
-
         return mainCondition + " ) ";
     }
 
     public static String getSortQuery() {
-        return GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return Utils.metadata().getRegisterQueryProvider().getDemographicTable() + "." + GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 
     public static String ancDueOverdueFilter(boolean overdue) {

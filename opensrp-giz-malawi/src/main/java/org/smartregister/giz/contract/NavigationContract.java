@@ -46,7 +46,7 @@ public interface NavigationContract {
 
     interface Interactor {
 
-        void getRegisterCount(String tableName, InteractorCallback<Integer> callback);
+        void getRegisterCount(String registerType, InteractorCallback<Integer> callback);
 
         Date sync();
 

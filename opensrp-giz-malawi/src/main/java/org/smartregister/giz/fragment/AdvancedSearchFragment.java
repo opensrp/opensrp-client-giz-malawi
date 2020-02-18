@@ -8,6 +8,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.fragment.BaseAdvancedSearchFragment;
 import org.smartregister.child.presenter.BaseChildAdvancedSearchPresenter;
+import org.smartregister.giz.R;
 import org.smartregister.giz.presenter.AdvancedSearchPresenter;
 import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.util.GizConstants;
@@ -106,6 +107,7 @@ public class AdvancedSearchFragment extends BaseAdvancedSearchFragment {
 
     @Override
     public void populateSearchableFields(View view) {
+        //TODO: Come back and re-enable here
 //        firstName = view.findViewById(R.id.first_name);
 //        advancedFormSearchableFields.put(GizConstants.KEY.FIRST_NAME, firstName);
 //
