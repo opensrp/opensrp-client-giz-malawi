@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 
 import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.vijay.jsonwizard.customviews.TreeViewDialog;
 
 import org.apache.commons.lang3.StringUtils;
@@ -145,9 +146,16 @@ public class GizUtils extends Utils {
         return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
     }
 
-    public static void updateChildDeath(@NonNull EventClient eventClient) {
+    public static boolean updateChildDeath(@NonNull EventClient eventClient) {
         Client client = eventClient.getClient();
         ContentValues values = new ContentValues();
+
+        if (client.getDeathdate() == null) {
+            Timber.e(new Exception(), "Death event for %s cannot be processed because deathdate is NULL : %s"
+                    , client.getFirstName() + " " + client.getLastName(), new Gson().toJson(eventClient));
+            return false;
+        }
+
         values.put(Constants.KEY.DOD, Utils.convertDateFormat(client.getDeathdate()));
         values.put(Constants.KEY.DATE_REMOVED, Utils.convertDateFormat(client.getDeathdate().toDate(), Utils.DB_DF));
         String tableName = Utils.metadata().childRegister.tableName;
@@ -156,6 +164,8 @@ public class GizUtils extends Utils {
             allCommonsRepository.update(tableName, values, client.getBaseEntityId());
             allCommonsRepository.updateSearch(client.getBaseEntityId());
         }
+
+        return true;
     }
 
     @NonNull

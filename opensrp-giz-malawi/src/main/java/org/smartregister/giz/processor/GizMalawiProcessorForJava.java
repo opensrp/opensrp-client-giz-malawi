@@ -144,8 +144,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(MoveToMyCatchmentUtils.MOVE_TO_CATCHMENT_EVENT)) {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.DEATH)) {
-                    processDeathEvent(eventClient);
-                    unsyncEvents.add(event);
+                    if (processDeathEvent(eventClient)) {
+                        unsyncEvents.add(event);
+                    }
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
@@ -173,10 +174,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private void processDeathEvent(@NonNull EventClient eventClient) {
+    private boolean processDeathEvent(@NonNull EventClient eventClient) {
         if (eventClient.getEvent().getEntityType().equals(GizConstants.EntityType.CHILD)) {
-            GizUtils.updateChildDeath(eventClient);
+            return GizUtils.updateChildDeath(eventClient);
         }
+
+        return false;
     }
 
     private void processUnsyncEvents(@NonNull List<Event> unsyncEvents) {
