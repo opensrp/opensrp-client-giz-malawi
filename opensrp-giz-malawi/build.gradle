@@ -31,8 +31,8 @@ android {
         applicationId "org.smartregister.giz"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 13
-        versionName "0.2.7-r7"
+        versionCode 14
+        versionName "0.2.7-r8"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -205,7 +205,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    api('org.smartregister:opensrp-client-immunization:1.4.41-GIZ-0.2.7r7-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-immunization:1.4.42-GIZ-0.2.7r7-SNAPSHOT@aar') {
     //api (project(':opensrp-immunization')) {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
