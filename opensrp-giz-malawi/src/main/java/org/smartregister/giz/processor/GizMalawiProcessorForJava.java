@@ -271,7 +271,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     // Find unique by form_submission_id or event_id
                     Height dbHeight = GizMalawiApplication.getInstance()
                             .heightRepository()
-                            .findUnique(GizMalawiApplication.getInstance().weightRepository().getWritableDatabase(), heightToCheck);
+                            .findUnique(GizMalawiApplication.getInstance().heightRepository().getWritableDatabase(), heightToCheck);
 
                     HeightWrapper heightWrapper = new HeightWrapper();
                     heightWrapper.setGender(client.getGender());
