@@ -14,7 +14,6 @@ import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

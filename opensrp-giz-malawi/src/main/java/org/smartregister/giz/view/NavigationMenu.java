@@ -37,8 +37,6 @@ import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.location.helper.LocationHelper;
-import org.smartregister.p2p.activity.P2pModeSelectActivity;
-import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 

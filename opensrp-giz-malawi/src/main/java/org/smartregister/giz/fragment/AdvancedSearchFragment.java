@@ -8,7 +8,6 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.fragment.BaseAdvancedSearchFragment;
 import org.smartregister.child.presenter.BaseChildAdvancedSearchPresenter;
-import org.smartregister.giz.R;
 import org.smartregister.giz.presenter.AdvancedSearchPresenter;
 import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.util.GizConstants;

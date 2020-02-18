@@ -14,7 +14,6 @@ import android.util.DisplayMetrics;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.vijay.jsonwizard.customviews.TreeViewDialog;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -22,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.EventClient;
@@ -34,7 +34,6 @@ import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.widget.GizTreeViewDialog;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
-import org.smartregister.child.util.Utils;
 import org.smartregister.util.AssetHandler;
 
 import java.text.SimpleDateFormat;

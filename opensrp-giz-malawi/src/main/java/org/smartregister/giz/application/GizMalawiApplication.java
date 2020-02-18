@@ -37,11 +37,11 @@ import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
+import org.smartregister.giz.processor.TrippleResultProcessor;
 import org.smartregister.giz.repository.ClientRegisterTypeRepository;
+import org.smartregister.giz.repository.DailyTalliesRepository;
 import org.smartregister.giz.repository.GizAncRegisterQueryProvider;
 import org.smartregister.giz.repository.GizChildRegisterQueryProvider;
-import org.smartregister.giz.processor.TrippleResultProcessor;
-import org.smartregister.giz.repository.DailyTalliesRepository;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
@@ -49,7 +49,6 @@ import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.util.VaccineDuplicate;
-import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
@@ -110,7 +109,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private boolean lastModified;
     private ECSyncHelper ecSyncHelper;
 
-    private EventClientRepository eventClientRepository;
     private ClientRegisterTypeRepository registerTypeRepository;
     private static List<VaccineGroup> vaccineGroups;
 

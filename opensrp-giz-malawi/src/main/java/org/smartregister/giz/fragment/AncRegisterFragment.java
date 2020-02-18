@@ -14,9 +14,8 @@ import org.smartregister.anc.library.fragment.HomeRegisterFragment;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AncRegisterActivity;
-import org.smartregister.giz.util.DBQueryHelper;
-import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.giz.presenter.GizAncRegisterFragmentPresenter;
+import org.smartregister.giz.util.DBQueryHelper;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-10

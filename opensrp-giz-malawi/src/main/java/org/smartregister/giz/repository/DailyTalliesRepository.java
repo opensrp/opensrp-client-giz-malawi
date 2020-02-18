@@ -8,7 +8,6 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.DailyTally;
 import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.repository.BaseRepository;
-import org.smartregister.repository.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
