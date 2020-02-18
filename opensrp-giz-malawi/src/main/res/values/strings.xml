@@ -495,6 +495,7 @@
     <!-- END OF INDICATOR LABELS -->
     <string name="str_page_info">Page {0} of {1}</string>
     <string name="vaccine_schedule_update_wait_message">This might take some time... Kindly wait</string>
+    <string name="dismiss_lookup">Confirm</string>
 
 
 </resources>
