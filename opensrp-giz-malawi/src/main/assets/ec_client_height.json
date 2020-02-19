@@ -1,5 +1,5 @@
 {
-  "name": "weights",
+  "name": "heights",
   "columns": [
     {
       "column_name": "base_entity_id",
@@ -11,7 +11,7 @@
       "column_name": "cm",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "concept": "5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
       }
     },
     {
@@ -36,7 +36,7 @@
       "column_name": "z_score",
       "json_mapping": {
         "field": "obs.fieldCode",
-        "concept": "162584AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        "concept": "159429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
       }
     },
     {
