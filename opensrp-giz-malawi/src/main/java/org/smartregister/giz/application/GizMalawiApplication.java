@@ -135,7 +135,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equalsIgnoreCase(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)) {
-            return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID};
+            return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID, GizConstants.KEY.ZEIR_ID};
         } else if (tableName.equals(OpdDbConstants.KEY.TABLE)) {
             return new String[]{OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME, OpdDbConstants.KEY.OPENSRP_ID, DBConstants.KEY.ZEIR_ID};
         } else if (tableName.equals("ec_mother_details")) {
