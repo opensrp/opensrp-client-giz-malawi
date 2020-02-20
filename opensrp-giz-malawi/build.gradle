@@ -227,7 +227,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
-    implementation('org.smartregister:opensrp-client-growth-monitoring:1.1.17-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-growth-monitoring:1.1.18r1-GIZ-0.2.7r11-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'

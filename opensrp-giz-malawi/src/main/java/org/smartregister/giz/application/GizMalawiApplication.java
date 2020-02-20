@@ -258,6 +258,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         CoreLibrary.init(context, new GizMalawiSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
 
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        GrowthMonitoringLibrary.getInstance().setGrowthMonitoringSyncTime(0);
         ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()), BuildConfig.VERSION_CODE,
                 BuildConfig.DATABASE_VERSION);
         fixHardcodedVaccineConfiguration();
