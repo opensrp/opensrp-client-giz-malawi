@@ -27,8 +27,8 @@ public class DBQueryHelper {
         final String TRUE = "'true'";
 
         String mainCondition = " ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) " +
-                AND + " (" + Constants.CHILD_STATUS.INACTIVE + IS_NULL_OR + Constants.CHILD_STATUS.INACTIVE + " != " + TRUE + " ) " +
-                AND + " (" + Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP + IS_NULL_OR + Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP + " != " + TRUE + " ) " +
+                AND + " ( " + Utils.metadata().getRegisterQueryProvider().getChildDetailsTable() + "." + Constants.CHILD_STATUS.INACTIVE + IS_NULL_OR + Utils.metadata().getRegisterQueryProvider().getChildDetailsTable() + "." + Constants.CHILD_STATUS.INACTIVE + " != " + TRUE + " ) " +
+                AND + " ( " + Utils.metadata().getRegisterQueryProvider().getChildDetailsTable() + "." + Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP + IS_NULL_OR + Utils.metadata().getRegisterQueryProvider().getChildDetailsTable() + "." + Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP + " != " + TRUE + " ) " +
                 AND + " ( ";
         List<VaccineRepo.Vaccine> vaccines = ImmunizationLibrary.getInstance().getVaccineCacheMap().get(Constants.CHILD_TYPE).vaccineRepo;
 

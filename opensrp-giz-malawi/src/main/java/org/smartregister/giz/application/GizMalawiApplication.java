@@ -218,6 +218,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
             } else {
 
+                // TODO: This needs to be fixed because it is a configuration & not a hardcoded string
                 map.put(vaccine.name, Pair.create("ec_child_details", false));
             }
     }

@@ -13,6 +13,6 @@ public class GizVaccineUpdateJob extends VaccineSchedulesUpdateJob {
     @NonNull
     @Override
     protected String getClientTableName() {
-        return "ec_child";
+        return "ec_client";
     }
 }
