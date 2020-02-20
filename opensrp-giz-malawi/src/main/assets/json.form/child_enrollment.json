@@ -223,7 +223,11 @@
         "openmrs_data_type": "text",
         "type": "tree",
         "tree": [],
-        "hint": "Village"
+        "hint": "Village",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the village"
+        }
       },
       {
         "key": "village",
