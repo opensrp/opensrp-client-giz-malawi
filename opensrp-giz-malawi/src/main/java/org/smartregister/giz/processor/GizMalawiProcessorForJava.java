@@ -218,74 +218,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         if (client != null) {
             try {
                 processEvent(event, client, clientClassification);
-                processBirthWeight(event, client);
-                processBirthHeight(event, client);
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        }
-    }
-
-    private void processBirthWeight(@NonNull Event event, @NonNull Client client) {
-        // Birth Registration events from the device are processed correctly, events are not processed well
-        if (event.getServerVersion() != 0 && !event.getEventType().equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
-            try {
-
-                String weight = getEventWeight(event);
-
-                if (!TextUtils.isEmpty(weight)) {
-
-                    Weight dbWeight = GizMalawiApplication.getInstance().weightRepository().findUniqueByDate(GizMalawiApplication.getInstance().weightRepository().getWritableDatabase(), event.getBaseEntityId(), client.getBirthdate().toDate());
-
-                    WeightWrapper weightWrapper = new WeightWrapper();
-                    weightWrapper.setGender(client.getGender());
-                    weightWrapper.setWeight(!TextUtils.isEmpty(weight) ? parseFloat(weight) : null);
-                    LocalDate localDate = new LocalDate(client.getBirthdate());
-                    weightWrapper.setUpdatedWeightDate(localDate.toDateTime(LocalTime.MIDNIGHT), (new LocalDate()).isEqual(localDate));//This is the weight of birth so reference date should be the DOB
-                    weightWrapper.setId(client.getBaseEntityId());
-                    weightWrapper.setDob(getChildBirthDate(client.getBirthdate().toString()));
-                    if (dbWeight != null && dbWeight.getId() != null && dbWeight.getId() > 0) {
-                        weightWrapper.setDbKey(dbWeight.getId());
-                    }
-
-                    Utils.recordWeight(GizMalawiApplication.getInstance().weightRepository(), weightWrapper, BaseRepository.TYPE_Synced);
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        }
-    }
-
-    private void processBirthHeight(@NonNull Event event, @NonNull Client client) {
-        // Birth Registration events from the device are processed correctly, events are not processed well
-        if (event.getServerVersion() != 0 && !event.getEventType().equals(Constants.EventType.NEW_WOMAN_REGISTRATION)) {
-            try {
-
-                String height = getEventHeight(event);
-
-                if (!TextUtils.isEmpty(height)) {
-                    Height heightToCheck = new Height();
-                    heightToCheck.setEventId(event.getEventId());
-                    heightToCheck.setFormSubmissionId(event.getFormSubmissionId());
-
-                    // Find unique by form_submission_id or event_id
-                    Height dbHeight = GizMalawiApplication.getInstance()
-                            .heightRepository()
-                            .findUnique(GizMalawiApplication.getInstance().heightRepository().getWritableDatabase(), heightToCheck);
-
-                    HeightWrapper heightWrapper = new HeightWrapper();
-                    heightWrapper.setGender(client.getGender());
-                    heightWrapper.setHeight(!TextUtils.isEmpty(height) ? parseFloat(height) : null);
-                    LocalDate localDate = new LocalDate(client.getBirthdate());
-                    heightWrapper.setUpdatedHeightDate(localDate.toDateTime(LocalTime.MIDNIGHT), (new LocalDate()).isEqual(localDate));//This is the height of birth so reference date should be the DOB
-                    heightWrapper.setId(client.getBaseEntityId());
-                    heightWrapper.setDob(getChildBirthDate(client.getBirthdate().toString()));
-                    if (dbHeight != null && dbHeight.getId() != null && dbHeight.getId() > 0) {
-                        heightWrapper.setDbKey(dbHeight.getId());
-                    }
-
-                    Utils.recordHeight(GizMalawiApplication.getInstance().heightRepository(), heightWrapper, BaseRepository.TYPE_Synced);
-                }
             } catch (Exception e) {
                 Timber.e(e);
             }
@@ -762,6 +694,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
         if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName)) {
             String dobString = contentValues.getAsString(Constants.KEY.DOB);
+            // TODO: Fix this to use the ec_child_details table & fetch the birthDateTime from the ec_client table
             DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
             if (birthDateTime != null) {
                 VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, "child");
