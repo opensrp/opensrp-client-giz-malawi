@@ -4,15 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.sync.MiniClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
@@ -35,9 +32,7 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.growthmonitoring.domain.Height;
-import org.smartregister.growthmonitoring.domain.HeightWrapper;
 import org.smartregister.growthmonitoring.domain.Weight;
-import org.smartregister.growthmonitoring.domain.WeightWrapper;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
 import org.smartregister.growthmonitoring.service.intent.HeightIntentService;
@@ -54,7 +49,6 @@ import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
-import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
@@ -76,6 +70,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private HashMap<String, MiniClientProcessorForJava> processorMap = new HashMap<>();
     private HashMap<MiniClientProcessorForJava, List<Event>> unsyncEventsPerProcessor = new HashMap<>();
+
+    private HashMap<String, DateTime> clientsForAlertUpdates = new HashMap<>();
 
     private GizMalawiProcessorForJava(Context context) {
         super(context);
@@ -190,7 +186,23 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
             // Unsync events that are should not be in this device
             processUnsyncEvents(unsyncEvents);
+
+            // Process alerts for clients
+            updateClientAlerts(clientsForAlertUpdates);
         }
+    }
+
+    private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
+
+        for (String baseEntityId: clientsForAlertUpdates.keySet()) {
+            DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
+            if (birthDateTime != null) {
+                VaccineSchedule.updateOfflineAlerts(baseEntityId, birthDateTime, "child");
+                ServiceSchedule.updateOfflineAlerts(baseEntityId, birthDateTime);
+            }
+        }
+
+        clientsForAlertUpdates.clear();
     }
 
     private boolean processDeathEvent(@NonNull EventClient eventClient) {
@@ -218,6 +230,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         if (client != null) {
             try {
                 processEvent(event, client, clientClassification);
+
+                scheduleUpdatingClientAlerts(client.getBaseEntityId(), client.getBirthdate());
             } catch (Exception e) {
                 Timber.e(e);
             }
@@ -297,14 +311,17 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             return;
         }
 
-        if (!childExists(eventClient.getClient().getBaseEntityId())) {
+        Client client = eventClient.getClient();
+        if (!childExists(client.getBaseEntityId())) {
             List<String> createCase = new ArrayList<>();
             createCase.add(Utils.metadata().childRegister.tableName);
-            processCaseModel(event, eventClient.getClient(), createCase);
+            processCaseModel(event, client, createCase);
         }
 
         processVaccine(eventClient, vaccineTable,
                 eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+
+        scheduleUpdatingClientAlerts(client.getBaseEntityId(), client.getBirthdate());
     }
 
     private boolean childExists(String entityId) {
@@ -692,6 +709,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
+        // Todo: Disable this in favour of the vaccine post-processing at the end :shrug: Might not be the best for real-time updates to the register
         if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName)) {
             String dobString = contentValues.getAsString(Constants.KEY.DOB);
             // TODO: Fix this to use the ec_child_details table & fetch the birthDateTime from the ec_client table
@@ -708,5 +726,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     @Override
     public String[] getOpenmrsGenIds() {
         return new String[]{"zeir_id"};
+    }
+
+    private void scheduleUpdatingClientAlerts(@NonNull String baseEntityId, @NonNull DateTime dateTime) {
+        if (!clientsForAlertUpdates.containsKey(baseEntityId)) {
+            clientsForAlertUpdates.put(baseEntityId, dateTime);
+        }
     }
 }
