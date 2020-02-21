@@ -70,7 +70,7 @@
         ],
         "openmrs_choice_ids": {
           "BCG": "149310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "HepB": "159666AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "HepB": "162269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "OPV": "129578AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Penta": "162265AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "PCV": "162266AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -240,14 +240,14 @@
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163340AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "No",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163340AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -266,14 +266,14 @@
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163340AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "No",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163340AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       }
