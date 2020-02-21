@@ -13,6 +13,7 @@ import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
 import org.smartregister.immunization.job.RecurringServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ExtendedSyncServiceJob;
+import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
@@ -51,6 +52,9 @@ public class GizMalawiJobCreator implements JobCreator {
                 return new GizVaccineUpdateJob();
             case GizVaccineUpdateJob.SCHEDULE_ADHOC_TAG:
                 return new GizVaccineUpdateJob();
+
+            case ImageUploadServiceJob.TAG:
+                return new ImageUploadServiceJob();
 
             default:
                 Log.w(GizMalawiJobCreator.class.getCanonicalName(), tag + " is not declared in Job Creator");

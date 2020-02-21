@@ -90,8 +90,7 @@ android {
             buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "Province", "District", "Health Facility", "Village"}'
         }
 
-
-        beta {
+        preview {
             versionNameSuffix "-beta"
             minifyEnabled false
             zipAlignEnabled true
