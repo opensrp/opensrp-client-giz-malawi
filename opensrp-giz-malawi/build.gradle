@@ -31,8 +31,8 @@ android {
         applicationId "org.smartregister.giz"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 22
-        versionName "0.2.8"
+        versionCode 23
+        versionName "0.2.8r1"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -214,7 +214,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.2.9r4-GIZ-0.2.7r8-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.2.9r5-GIZ-0.2.8r1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -260,7 +260,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    api('org.smartregister:opensrp-client-immunization:1.4.42-GIZ-0.2.7r7-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-immunization:1.4.42r3-GIZ-0.2.8r1-SNAPSHOT@aar') {
     //api (project(':opensrp-immunization')) {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
@@ -282,7 +282,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
-    implementation('org.smartregister:opensrp-client-growth-monitoring:1.1.18r1-GIZ-0.2.7r11-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-growth-monitoring:1.1.18r2-GIZ-0.2.8r1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
