@@ -348,7 +348,11 @@
         },
         "default": "01-01-1960",
         "min_date": "01-01-1960",
-        "max_date": "today-10y"
+        "max_date": "today-10y",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the mother/guardian's birth date"
+        }
       },
       {
         "key": "nrc_number",
