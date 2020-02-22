@@ -88,6 +88,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
@@ -260,9 +261,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         CoreLibrary.init(context, new GizMalawiSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
 
         GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
-        GrowthMonitoringLibrary.getInstance().setGrowthMonitoringSyncTime(0);
+        GrowthMonitoringLibrary.getInstance().setGrowthMonitoringSyncTime(3, TimeUnit.MINUTES);
         ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()), BuildConfig.VERSION_CODE,
                 BuildConfig.DATABASE_VERSION);
+        ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
         fixHardcodedVaccineConfiguration();
 
         ConfigurableViewsLibrary.init(context);
