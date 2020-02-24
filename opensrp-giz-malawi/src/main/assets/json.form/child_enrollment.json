@@ -260,7 +260,7 @@
         "openmrs_data_type": "text",
         "type": "edit_text",
         "label_info_text": "The weight as measured when the child is born",
-        "hint": "Birth weight (kg)",
+        "hint": "Birth weight/First weight (kg)",
         "v_min": {
           "value": "0.1",
           "err": "Weight must be greater than 0"
@@ -400,16 +400,16 @@
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "mother_tdv_doses",
         "type": "spinner",
-        "label_info_text": "Whether the child's mother received 2 or more doses of Td, which transfers protection against Td to the child when they're born.",
-        "hint": "How many doses of TDV did the mother receive?",
+        "label_info_text": "Whether the child's mother received 2 or more doses of TdV, which transfers protection against Td to the child when they're born.",
+        "hint": "How many doses of TdV did the mother receive?",
         "v_required": {
           "value": true,
           "err": "Please choose an option"
         },
         "values": [
-          ">=3 doses of TDV in past 5 years",
-          "1-4 doses of TDV in the past",
-          "TDV not received",
+          ">=3 doses of TdV in past 5 years",
+          "1-4 doses of TdV in the past",
+          "TdV not received",
           "Unknown"
         ]
       },
