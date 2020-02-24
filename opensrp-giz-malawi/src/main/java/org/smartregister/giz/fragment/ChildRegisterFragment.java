@@ -67,7 +67,7 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
                     }
                 }
             } else if (filterSection.getTag().toString().equals(tagString)) {
-                filter("", "", "", false);
+                filter("", "", " ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) ", false);
                 filterSection.setTag(null);
                 filterSection.setBackgroundResource(R.drawable.transparent_gray_background);
             }
