@@ -5,12 +5,14 @@ import android.view.View;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
+import org.smartregister.AllConstants;
 import org.smartregister.anc.library.fragment.MeFragment;
 import org.smartregister.giz.R;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.LocationPickerView;
 
 public class GizMeFragment extends MeFragment implements OnLocationChangeListener {
@@ -53,6 +55,19 @@ public class GizMeFragment extends MeFragment implements OnLocationChangeListene
 
     @Override
     protected void updateLocationText() {
+        String userLocationId = GizMalawiApplication.getInstance().context()
+                .allSharedPreferences()
+                .getPreference(AllConstants.CURRENT_LOCATION_ID);
+        if (StringUtils.isBlank(userLocationId)) {
+            AllSharedPreferences allSharedPreferences = GizMalawiApplication.getInstance().context().allSharedPreferences();
+            String providerId = allSharedPreferences.fetchRegisteredANM();
+            if (StringUtils.isNotBlank(providerId)) {
+                String locationId = allSharedPreferences.fetchDefaultLocalityId(providerId);
+                GizMalawiApplication.getInstance().context()
+                        .allSharedPreferences()
+                        .savePreference(AllConstants.CURRENT_LOCATION_ID, locationId);
+            }
+        }
     }
 
     @Override
