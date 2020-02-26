@@ -110,6 +110,11 @@
     <string name="vit_a_5">Vit A 5</string>
     <string name="bcg_2">BCG Repeated Dose</string>
 
+    <string name="mv_1">Malaria Vaccine 1</string>
+    <string name="mv_2">Malaria Vaccine 2</string>
+    <string name="mv_3">Malaria Vaccine 3</string>
+    <string name="mv_4">Malaria Vaccine 4</string>
+
     <!-- Override BCG 2 dialog text to read BCG Repeated Dose -->
     <string name="create_reminder_label">Create BCG Repeated Dose reminder?</string>
     <string name="bcg_scar_not_present_label">Child does not have a BCG scar so BCG Repeated Dose is necessary.</string>
