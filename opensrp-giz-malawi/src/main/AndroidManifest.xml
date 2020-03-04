@@ -175,6 +175,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activity.GizAncMainContactActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChildTheme.NoActionBar"/>
 
         <!-- END OF ANC ACTIVITIES -->
 
@@ -200,6 +204,8 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
+
+
 
         <!-- END OF OPD ACTIVITIES -->
 

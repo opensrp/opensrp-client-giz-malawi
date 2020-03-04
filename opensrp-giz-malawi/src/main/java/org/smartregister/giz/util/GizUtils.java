@@ -15,10 +15,12 @@ import android.util.DisplayMetrics;
 import com.google.common.reflect.TypeToken;
 import com.vijay.jsonwizard.customviews.TreeViewDialog;
 
+import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -37,8 +39,10 @@ import org.smartregister.util.AssetHandler;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import timber.log.Timber;
 
@@ -196,4 +200,29 @@ public class GizUtils extends Utils {
         }
     }
 
+
+    public static JSONObject getFormConfig(@NonNull String formName, String configLocation, Context context) throws JSONException {
+        String fileContent = AssetHandler.readFileFromAssetsFolder(configLocation, context);
+        if (StringUtils.isNotBlank(fileContent)) {
+            JSONArray jsonArray = new JSONArray(fileContent);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.optJSONObject(i);
+                if (formName.equals(jsonObject.optString("form_name"))) {
+                    return jsonObject;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Set<String> convertStringJsonArrayToSet(@Nullable JSONArray jsonArray) {
+        if (jsonArray != null) {
+            Set<String> strings = new HashSet<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                strings.add(jsonArray.optString(i));
+            }
+            return strings;
+        }
+        return null;
+    }
 }

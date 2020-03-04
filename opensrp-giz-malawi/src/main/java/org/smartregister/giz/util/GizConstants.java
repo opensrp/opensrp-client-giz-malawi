@@ -5,6 +5,7 @@ public class GizConstants {
     public static final String MOTHER_TDV_DOSES = "mother_tdv_doses";
     public static final String PROTECTED_AT_BIRTH = "protected_at_birth";
     public static final String REACTION_VACCINE = "Reaction_Vaccine";
+    public static final String FORM_CONFIG_LOCATION = "json.form/json.form.config.json";
 
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
@@ -147,6 +148,8 @@ public class GizConstants {
         public static final String OPD_REGISTRATION = "Opd Registration" ;
         public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
         public static String SITE_CHARACTERISTICS = "site_characteristics";
+        public static String HIDDEN_FIELDS = "hidden_fields";
+        public static String DISABLED_FIELDS = "disabled_fields";
     }
 
     public static final class DrawerMenu {

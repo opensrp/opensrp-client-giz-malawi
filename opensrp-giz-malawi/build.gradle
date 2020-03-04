@@ -143,7 +143,7 @@ dependencies {
     implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
 
-    implementation('org.smartregister:opensrp-client-opd:0.0.11.003-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-opd:0.0.13.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -151,7 +151,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-native-form:1.7.17-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.7.24.25-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -165,6 +165,7 @@ dependencies {
 
     implementation('org.smartregister:opensrp-client-child:0.2.6.57-PREVIEW-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-growth-monitoring'
         exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
@@ -178,11 +179,11 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:0.1.0.712-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-anc:2.0.0.1-SNAPSHOT@aar') {
         transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'

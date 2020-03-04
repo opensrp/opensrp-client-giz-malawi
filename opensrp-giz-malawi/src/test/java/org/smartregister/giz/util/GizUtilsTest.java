@@ -3,6 +3,9 @@ package org.smartregister.giz.util;
 import android.content.ContentValues;
 
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +25,9 @@ import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.util.AssetHandler;
 
-@PrepareForTest({Utils.class, GizMalawiApplication.class, CoreLibrary.class})
+@PrepareForTest({Utils.class, GizMalawiApplication.class, CoreLibrary.class, AssetHandler.class})
 @RunWith(PowerMockRunner.class)
 public class GizUtilsTest {
 
@@ -48,6 +52,9 @@ public class GizUtilsTest {
     @Mock
     private ChildMetadata childMetadata;
 
+    @Mock
+    private android.content.Context androidContext;
+
     @Test
     public void testUpdateChildDeath() {
         PowerMockito.mockStatic(GizMalawiApplication.class);
@@ -71,5 +78,35 @@ public class GizUtilsTest {
         Assert.assertNull(argumentCaptorUpdateChildTable.getAllValues().get(1).toString());
         Assert.assertEquals(client.getBaseEntityId(), argumentCaptorUpdateChildTable.getAllValues().get(2));
         Assert.assertEquals(client.getBaseEntityId(), argumentCaptorUpdateChildFtsTable.getValue());
+    }
+
+    @Test
+    public void testGetFormConfigShouldReturnNullIfConfigIsNotFound() throws JSONException {
+        PowerMockito.mockStatic(AssetHandler.class);
+        PowerMockito.when(AssetHandler.readFileFromAssetsFolder(GizConstants.FORM_CONFIG_LOCATION, androidContext)).thenReturn(null);
+        JSONObject result = GizUtils.getFormConfig("anc_test", GizConstants.FORM_CONFIG_LOCATION, androidContext);
+        Assert.assertNull(result);
+    }
+
+    @Test
+    public void testGetFormConfigShouldReturnConfigJsonObjectIfConfigIsFound() throws JSONException {
+        PowerMockito.mockStatic(AssetHandler.class);
+        PowerMockito.when(AssetHandler.readFileFromAssetsFolder(GizConstants.FORM_CONFIG_LOCATION, androidContext)).thenReturn("[{\"form_name\":\"anc_test\",\"hidden_fields\":[\"accordion_ultrasound\"],\"disabled_fields\":[]}]");
+        JSONObject result = GizUtils.getFormConfig("anc_test", GizConstants.FORM_CONFIG_LOCATION, androidContext);
+        Assert.assertNull(result);
+    }
+
+    @Test
+    public void testConvertStringJsonArrayToSetShouldReturnNullIfNull() {
+        Assert.assertNull(GizUtils.convertStringJsonArrayToSet(null));
+    }
+
+    @Test
+    public void testConvertStringJsonArrayToSetShouldReturnSetIfArrayIsNotNull() {
+        try {
+            Assert.assertTrue(GizUtils.convertStringJsonArrayToSet(new JSONArray("[\"accordion_ultrasound\"]")).contains("accordion_ultrasound"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

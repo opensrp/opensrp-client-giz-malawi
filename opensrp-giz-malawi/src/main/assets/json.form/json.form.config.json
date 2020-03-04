@@ -1,0 +1,8 @@
+[
+  {
+    "form_name": "anc_test",
+    "hidden_fields": ["accordion_ultrasound"],
+    "disabled_fields": []
+  }
+]
+

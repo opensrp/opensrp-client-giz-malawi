@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
-import org.smartregister.anc.library.sync.MiniClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
@@ -51,6 +50,7 @@ import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
+import org.smartregister.sync.MiniClientProcessorForJava;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -79,7 +79,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava);
     }
 
-    private void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
+    public void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
         for (MiniClientProcessorForJava miniClientProcessorForJava : miniClientProcessorsForJava) {
             unsyncEventsPerProcessor.put(miniClientProcessorForJava, new ArrayList<Event>());
 
