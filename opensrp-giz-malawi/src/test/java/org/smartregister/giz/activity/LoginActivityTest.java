@@ -23,8 +23,6 @@ import org.smartregister.giz.BaseActivityUnitTest;
 import org.smartregister.giz.R;
 import org.smartregister.view.contract.BaseLoginContract;
 
-import static org.junit.Assert.*;
-
 public class LoginActivityTest extends BaseActivityUnitTest {
 
     private static final String STRING_SETTINGS = "Settings";
