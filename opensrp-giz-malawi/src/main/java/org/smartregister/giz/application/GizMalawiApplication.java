@@ -101,7 +101,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private static JsonSpecHelper jsonSpecHelper;
 
     private EventClientRepository eventClientRepository;
-    private HIA2IndicatorsRepository hIA2IndicatorsRepository;
+    private HIA2IndicatorsRepository hia2IndicatorsRepository;
     private DailyTalliesRepository dailyTalliesRepository;
     private MonthlyTalliesRepository monthlyTalliesRepository;
     private Hia2ReportRepository hia2ReportRepository;
@@ -490,10 +490,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     public HIA2IndicatorsRepository hIA2IndicatorsRepository() {
-        if (hIA2IndicatorsRepository == null) {
-            hIA2IndicatorsRepository = new HIA2IndicatorsRepository();
+        if (hia2IndicatorsRepository == null) {
+            hia2IndicatorsRepository = new HIA2IndicatorsRepository();
         }
-        return hIA2IndicatorsRepository;
+        return hia2IndicatorsRepository;
     }
 
     public MonthlyTalliesRepository monthlyTalliesRepository() {
