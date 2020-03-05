@@ -22,7 +22,6 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
@@ -237,46 +236,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             }
         }
     }
-
-    private String getChildBirthDate(String childBirthDate) {
-        return childBirthDate.contains("T") ? childBirthDate.substring(0, childBirthDate.indexOf(84)) : childBirthDate;
-    }
-
-    private String getEventWeight(@NonNull Event event) {
-        Obs obs = findObs("", true, event, "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return obs != null ? obs.getValue().toString() : null;
-    }
-
-    private String getEventHeight(@NonNull Event event) {
-        Obs obs = findObs("", true, event, "159429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        return obs != null ? obs.getValue().toString() : null;
-    }
-
-    //Duplicates and enhances method in Event.findObs
-    public Obs findObs(String parentId, boolean nonEmpty, Event event, String... fieldIds) {
-        Obs res = null;
-        for (String f : fieldIds) {
-            for (Obs o : event.getObs()) {
-                // if parent is specified and not matches leave and move forward
-                if (StringUtils.isNotBlank(parentId) && !o.getParentCode().equalsIgnoreCase(parentId)) {
-                    continue;
-                }
-
-                if (f.equalsIgnoreCase(o.getFieldCode()) || f.equalsIgnoreCase(o.getFormSubmissionField())) {
-                    // obs is found and first  one.. should throw exception if multiple obs found with same names/ids
-                    if (nonEmpty && o.getValues().isEmpty()) {
-                        continue;
-                    }
-                    if (res == null) {
-                        res = o;
-                    } else
-                        throw new RuntimeException("Multiple obs found with name or ids specified ");
-                }
-            }
-        }
-        return res;
-    }
-
 
     private void processEventUsingMiniprocessor(ClientClassification clientClassification, EventClient eventClient, String eventType) throws Exception {
         MiniClientProcessorForJava miniClientProcessorForJava = processorMap.get(eventType);

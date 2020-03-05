@@ -55,7 +55,8 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         }
     }
 
-    private int getCount(String registerType) {
+    private int getCount(String tempRegisterType) {
+        String registerType = tempRegisterType;
         int count = 0;
         Cursor cursor = null;
         if (GizConstants.RegisterType.OPD.equals(registerType)){

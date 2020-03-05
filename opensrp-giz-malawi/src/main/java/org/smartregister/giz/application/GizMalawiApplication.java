@@ -32,7 +32,6 @@ import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
-import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
@@ -160,7 +159,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             names.add(GizConstants.KEY.DOD);
             names.add(GizConstants.KEY.DATE_REMOVED);
             return names.toArray(new String[names.size()]);
-        } else if (tableName.equals("ec_mother_details")) {
+        } else if ("ec_mother_details".equals(tableName)) {
             return new String[]{DBConstantsUtils.KeyUtils.NEXT_CONTACT};
         } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
             List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
