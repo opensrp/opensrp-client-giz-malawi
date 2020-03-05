@@ -6,8 +6,9 @@ import org.smartregister.anc.library.repository.RegisterQueryProvider;
 public class GizAncRegisterQueryProvider extends RegisterQueryProvider {
 
     @Override
-    public String getObjectIdsQuery(String tempMainCondition, String filters) {
+    public String getObjectIdsQuery(String tempMainCondition, String tempFilters) {
         String mainCondition = tempMainCondition;
+        String filters = tempFilters;
         if (!filters.isEmpty()) {
             filters = String.format(" and ec_client_search.phrase MATCH '*%s*'", filters);
         }
@@ -22,7 +23,8 @@ public class GizAncRegisterQueryProvider extends RegisterQueryProvider {
                 "where register_type='anc' " + mainCondition + filters;
     }
 
-    public String getCountExecuteQuery(String tempMainCondition, String filters) {
+    public String getCountExecuteQuery(String tempMainCondition, String tempFilters) {
+        String filters = tempFilters;
         String mainCondition = tempMainCondition;
         if (!filters.isEmpty()) {
             filters = String.format(" and ec_client_search.phrase MATCH '*%s*'", filters);

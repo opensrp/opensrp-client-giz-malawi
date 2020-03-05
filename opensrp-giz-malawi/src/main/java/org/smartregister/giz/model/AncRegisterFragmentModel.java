@@ -18,7 +18,8 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
     }
 
     @Override
-    public String mainSelect(String tableName, String mainCondition) {
+    public String mainSelect(String tableName, String tempMainCondition) {
+        String mainCondition = tempMainCondition;
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
         String[] columns = new String[]{tableName + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID, tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,

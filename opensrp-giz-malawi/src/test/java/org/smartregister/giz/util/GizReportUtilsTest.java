@@ -15,7 +15,7 @@ import org.smartregister.repository.Hia2ReportRepository;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 05-03-2020.

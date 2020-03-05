@@ -1,16 +1,10 @@
 package org.smartregister.giz.interactor;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
 import org.smartregister.giz.BaseRobolectricTest;
-import org.smartregister.giz.TestGizMalawiApplication;
-import org.smartregister.giz.shadow.ShadowAssetHandler;
 import org.smartregister.giz.shadow.ShadowBaseJob;
 import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
@@ -26,7 +20,7 @@ import org.smartregister.view.contract.BaseLoginContract;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 05-03-2020.
@@ -38,10 +32,6 @@ public class LoginInteractorTest extends BaseRobolectricTest {
     @Before
     public void setUp() throws Exception {
         loginInteractor = new LoginInteractor(Mockito.mock(BaseLoginContract.Presenter.class));
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
