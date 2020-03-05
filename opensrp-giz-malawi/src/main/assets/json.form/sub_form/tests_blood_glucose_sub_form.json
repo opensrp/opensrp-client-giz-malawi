@@ -5,7 +5,7 @@
       "openmrs_entity_parent": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163725AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "label": "Blood glucose test",
+      "label": "75g Oral Glucose Tolerance Test (OGTT)",
       "label_text_style": "bold",
       "text_color": "#000000",
       "type": "extended_radio_button",
@@ -45,6 +45,13 @@
       ],
       "v_required": {
         "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -77,7 +84,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "163724AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "date_picker",
-      "hint": "Blood glucose test date",
+      "hint": "OGTT test date",
       "expanded": "false",
       "max_date": "today",
       "relevance": {
@@ -340,7 +347,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Gestational Diabetes Mellitus (GDM) diagnosis!",
-      "toaster_info_text": "The woman has Gestational Diabetes Mellitus (GDM) if her fasting plasma glucose is 92–125 mg/dL. \n\nOR\n\n- 75g OGTT - fasting glucose 92–125 mg/dL\n- 75g OGTT - 1 hr 180–199 mg/dL\n- 75g OGTT - 2 hrs 153–199 mg/dL",
+      "toaster_info_text": "The woman has Gestational Diabetes Mellitus (GDM) if:\n\n- 75g OGTT - fasting glucose 92–125 mg/dL\n- 75g OGTT - 1 hr 180–199 mg/dL\n- 75g OGTT - 2 hrs 153–199 mg/dL",
       "toaster_info_title": "Gestational Diabetes Mellitus (GDM) diagnosis!",
       "toaster_type": "problem",
       "relevance": {
@@ -358,7 +365,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
-      "toaster_info_text": "The woman has Diabetes Mellitus (DM) in pregnancy if her fasting plasma glucose is 126 mg/dL or higher.\n\nOR\n\n- 75g OGTT - fasting glucose 126 mg/dL or higher\n- 75g OGTT - 1 hr 200 mg/dL or higher\n- 75g OGTT - 2 hrs 200 mg/dL or higher\n- Random plasma glucose 200 mg/dL or higher",
+      "toaster_info_text": "The woman has Diabetes Mellitus (DM) in pregnancy if:\n\n- 75g OGTT - fasting glucose 126 mg/dL or higher\n- 75g OGTT - 1 hr 200 mg/dL or higher\n- 75g OGTT - 2 hrs 200 mg/dL or higher",
       "toaster_info_title": "Diabetes Mellitus (DM) in pregnancy diagnosis!",
       "toaster_type": "problem",
       "relevance": {

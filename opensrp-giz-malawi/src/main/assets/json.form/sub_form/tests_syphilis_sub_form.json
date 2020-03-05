@@ -241,7 +241,7 @@
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
-      "label": "Rapid syphilis test (RST)",
+      "label": "Rapid diagnostic test (RDT) result",
       "label_text_style": "bold",
       "options": [
         {
@@ -363,7 +363,7 @@
       "openmrs_entity_id": "",
       "type": "toaster_notes",
       "text": "Syphilis test positive",
-      "toaster_info_text": "Provide counselling and treatment according to protocol.",
+      "toaster_info_text": "Syphilis treatment - 3 doses of 2.4 mg benzathine, 1 week apart.",
       "toaster_info_title": "Syphilis test positive",
       "toaster_type": "problem",
       "relevance": {

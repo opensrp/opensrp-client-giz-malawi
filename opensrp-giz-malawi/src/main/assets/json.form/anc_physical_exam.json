@@ -239,6 +239,69 @@
         }
       },
       {
+        "key": "muac",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "MUAC",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "red",
+            "text": "Red",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "yellow",
+            "text": "Yellow",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "green",
+            "text": "Green",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "haemoptysis",
+            "text": "Haemoptysis",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "weight_loss",
+            "text": "Weight loss",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "fever_or_night_sweats",
+            "text": "Fever or night sweats",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ]
+      },
+      {
         "key": "first_weight",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -1967,7 +2030,234 @@
     ]
   },
   "step4": {
-    "title": "Fetal Assessment",
+    "title": "Abdominal Examination - Inspection",
+    "fields": [
+      {
+        "key": "abdomen_size",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the woman experienced any of the following symptoms?",
+        "label_info_text": "The woman should be screened for the following TB symptoms at every contact.",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "normal",
+            "text": "Normal",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "big_for_gestational_age",
+            "text": "Big for gestational age",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "small_for_gestational_age",
+            "text": "Small for gestational age",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          }
+        ]
+      },
+      {
+        "key": "abdomen_shape",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the woman experienced any of the following symptoms?",
+        "label_info_text": "The woman should be screened for the following TB symptoms at every contact.",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "globular",
+            "text": "Globular",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "broad",
+            "text": "Broad",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "oval",
+            "text": "Oval",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "saucer_shaped",
+            "text": "Saucer-shaped",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          }
+        ]
+      },
+      {
+        "key": "scars",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Any Scars?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          }
+        ]
+      },
+      {
+        "key": "bruises",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Any bruises?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          }
+        ]
+      },
+      {
+        "key": "sores",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Any sores?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          }
+        ]
+      },
+      {
+        "key": "excess_striae_gravidarum",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Is there excessive striae gravidarum?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          }
+        ]
+      },
+      {
+        "key": "fetal_movement_seen",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Fetal movements seen?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          }
+        ]
+      }
+    ]
+  },
+  "step5": {
+    "title": "Abdominal Examination - Palpation",
     "fields": [
       {
         "key": "sfh_label",
@@ -2002,6 +2292,24 @@
         "v_required": {
           "value": "false",
           "err": "Please enter the SFH"
+        }
+      },
+      {
+        "key": "toaster30",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "The SFH and GA do not match, refer for further investigation.",
+        "toaster_info_text": "",
+        "text_color": "#E20000",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
@@ -2052,119 +2360,139 @@
         }
       },
       {
-        "key": "fetal_heartbeat",
+        "key": "fetal_presentation",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "160090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Fetal heartbeat present?",
+        "label": "Fetal presentation",
         "label_text_style": "bold",
-        "text_color": "#000000",
+        "label_info_text": "If multiple fetuses, indicate the fetal position of the first fetus to be delivered.",
         "options": [
           {
-            "key": "yes",
-            "text": "Yes",
-            "value": false,
+            "key": "unknown",
+            "text": "Unknown",
+            "value": "false",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           },
           {
-            "key": "no",
-            "text": "No",
-            "value": false,
+            "key": "cephalic",
+            "text": "Cephalic",
+            "value": "false",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "breech",
+            "text": "Breech",
+            "value": "false",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "transverse",
+            "text": "Transverse",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "112259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "value": "false",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify if fetal heartbeat is present."
+          "err": "Fetal representation field is required"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
         }
       },
       {
-        "key": "fetal_heart_rate_label",
-        "type": "label",
+        "key": "fetal_position",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Fetal position?",
         "label_text_style": "bold",
-        "text": "Fetal heart rate (bpm)",
         "text_color": "#000000",
-        "v_required": {
-          "value": "true",
-          "err": "Please specify if fetal heartbeat is present."
-        },
-        "relevance": {
-          "step4:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
+        "options": [
+          {
+            "key": "anterior",
+            "text": "Anterior",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "posterior",
+            "text": "Posterior",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
           }
-        }
+        ]
       },
       {
-        "key": "fetal_heart_rate",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "v_min": {
-          "value": "80",
-          "err": "Fetal heartbeat must be equal or greater than 80"
-        },
-        "v_max": {
-          "value": "200",
-          "err": "Fetal heartbeat must be less than or equal to 200"
-        },
-        "v_numeric_integer": {
-          "value": "true",
-          "err": "Enter a valid sfh"
-        },
-        "relevance": {
-          "step4:fetal_heartbeat": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please specify if fetal heartbeat is present."
-        }
-      },
-      {
-        "key": "toaster27",
+        "key": "fetal_lie",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "No fetal heartbeat observed. Refer to hospital.",
-        "toaster_info_text": "Procedure:\n- Inform the woman that you cannot find the heartbeat and need to refer her to check if there's a problem.\n- Refer to hospital.",
-        "text_color": "#E20000",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
+        "type": "native_radio",
+        "label": "Fetal lie",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "oblique",
+            "text": "Oblique",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "transverse",
+            "text": "Transverse",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "longitudinal",
+            "text": "Longitudinal",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "unstable",
+            "text": "Unstable",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
           }
-        }
-      },
-      {
-        "key": "toaster28",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Fetal heart rate out of normal range (110-160). Please have the woman lay on her left side for 15 minutes and check again.",
-        "text_color": "#D56900",
-        "toaster_type": "warning",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
+        ]
       },
       {
         "key": "spacer",
@@ -2173,43 +2501,6 @@
         "openmrs_entity_id": "spacer",
         "type": "spacer",
         "spacer_height": "10sp"
-      },
-      {
-        "key": "fetal_heart_rate_repeat_label",
-        "type": "label",
-        "label_text_style": "bold",
-        "text": "Second fetal heart rate (bpm)",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "fetal_heart_rate_repeat",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "normal_edit_text",
-        "edit_text_style": "bordered",
-        "edit_type": "number",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter result for the second fetal heart rate"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
       },
       {
         "key": "toaster29",
@@ -2361,60 +2652,189 @@
         }
       },
       {
-        "key": "fetal_presentation",
+        "key": "presenting_part",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Fetal presentation",
+        "label": "Any engagement of the presenting part?",
         "label_text_style": "bold",
-        "label_info_text": "If multiple fetuses, indicate the fetal position of the first fetus to be delivered.",
+        "text_color": "#000000",
         "options": [
           {
-            "key": "unknown",
-            "text": "Unknown",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "cephalic",
-            "text": "Cephalic",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step6": {
+    "title": "Abdominal Examination - Auscultation",
+    "fields": [
+      {
+        "key": "fetal_heartbeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Fetal heartbeat present?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "pelvic",
-            "text": "Pelvic",
-            "value": "false",
+            "key": "no",
+            "text": "No",
+            "value": false,
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "146922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "transverse",
-            "text": "Transverse",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "112259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "other",
-            "text": "Other",
-            "value": "false",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "165377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
           "value": "true",
-          "err": "Fetal representation field is required"
+          "err": "Please specify if fetal heartbeat is present."
+        }
+      },
+      {
+        "key": "fetal_heart_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Fetal heart rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": "true",
+          "err": "Please specify if fetal heartbeat is present."
         },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
+      },
+      {
+        "key": "fetal_heart_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_min": {
+          "value": "80",
+          "err": "Fetal heartbeat must be equal or greater than 80"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Fetal heartbeat must be less than or equal to 200"
+        },
+        "v_numeric_integer": {
+          "value": "true",
+          "err": "Enter a valid sfh"
+        },
+        "relevance": {
+          "step4:fetal_heartbeat": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please specify if fetal heartbeat is present."
+        }
+      },
+      {
+        "key": "fetal_heart_rate_repeat_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Second fetal heart rate (bpm)",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "fetal_heart_rate_repeat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter result for the second fetal heart rate"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster27",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "No fetal heartbeat observed. Refer to hospital.",
+        "toaster_info_text": "Procedure:\n- Inform the woman that you cannot find the heartbeat and need to refer her to check if there's a problem.\n- Refer to hospital.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster28",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Fetal heart rate out of normal range (110-160). Please have the woman lay on her left side for 15 minutes and check again.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

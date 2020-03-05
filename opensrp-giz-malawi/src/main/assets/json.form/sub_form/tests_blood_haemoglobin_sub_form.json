@@ -45,6 +45,13 @@
       ],
       "v_required": {
         "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {
@@ -181,8 +188,8 @@
           "openmrs_entity_id": "1019AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "hb_test_haemoglobinometer",
-          "text": "Hb test (haemoglobinometer)",
+          "key": "hemocue_haemoglobinometer",
+          "text": "Hemocue (haemoglobinometer)",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

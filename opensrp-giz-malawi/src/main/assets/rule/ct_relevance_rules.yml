@@ -359,7 +359,7 @@ actions:
 name: step7_birth_plan_toaster
 description: birth_plan_toaster
 priority: 1
-condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || (global_gravida != '' && global_gravida == 1) || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('convulsions'))) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation'"
+condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('convulsions'))) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation'"
 actions:
   - "isRelevant = true"
 ---
@@ -436,21 +436,42 @@ actions:
 name: step10_iptp_sp1
 description: iptsp
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
+condition: "((global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---
 name: step10_iptp_sp2
 description: iptp_sp2
 priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done')"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
 name: step10_iptp_sp3
 description: iptp_sp3
 priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done')"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+actions:
+  - "isRelevant = true"
+---
+name: step10_iptp_sp4
+description: iptp_sp4
+priority: 1
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == -1) && (global_previous_iptp_sp4 == '' || global_previous_iptp_sp4 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+actions:
+  - "isRelevant = true"
+---
+name: step10_iptp_sp5
+description: iptp_sp5
+priority: 1
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == -1) && (global_previous_iptp_sp5 == '' || global_previous_iptp_sp5 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+actions:
+  - "isRelevant = true"
+---
+name: step10_iptp_sp6
+description: iptp_sp6
+priority: 1
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == -1) && (global_previous_iptp_sp6 == '' || global_previous_iptp_sp6 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
@@ -464,7 +485,21 @@ actions:
 name: step10_iptp_sp_notdone
 description: iptp_sp_notdone
 priority: 1
-condition: "(step8_iptp_sp1 == 'not_done' ||  step8_iptp_sp2 == 'not_done' || step8_iptp_sp3 == 'not_done')"
+condition: "(step10_iptp_sp1 == 'not_done' ||  step10_iptp_sp2 == 'not_done' || step10_iptp_sp3 == 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step11_anti_d1_date
+description: anti_d1_date
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs == 28) && global_rh_factor == 'negative'"
+actions:
+  - "isRelevant = true"
+---
+name: step11_anti_d2_date
+description: anti_d2_date
+priority: 1
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == -1)"
 actions:
   - "isRelevant = true"
 ---
@@ -604,7 +639,7 @@ actions:
 name: step9_calcium_supp
 description: calcium_supp
 priority: 1
-condition: "global_pop_low_calcium == true "
+condition: "(global_pop_low_calcium == true && (global_gravida != '' && global_gravida >= 5)) && ((global_gravida != '' && global_gravida == 1) && global_preeclampsia == 1)"
 actions:
   - "isRelevant = true"
 ---

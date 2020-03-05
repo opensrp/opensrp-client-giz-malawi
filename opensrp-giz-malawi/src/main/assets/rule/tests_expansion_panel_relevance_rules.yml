@@ -2,21 +2,21 @@
 name: step1_accordion_hiv
 description: HIV test
 priority: 1
-condition: "(global_pop_hiv_prevalence == true && (global_health_conditions.isEmpty() || !global_health_conditions.contains('hiv'))) && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_hiv_test_status == '' || global_previous_hiv_test_status == 'ordered' || global_previous_hiv_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)))"
+condition: "(global_contact_no == 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 34))"
 actions:
   - "isRelevant = true"
 ---
 name: step2_accordion_hiv
 description: HIV test
 priority: 1
-condition: "global_contact_no > 1 && global_previous_hiv_test_result != '' && (global_previous_hiv_test_result == 'negative' || global_previous_hiv_test_result == 'inconclusive') && (global_gest_age_openmrs != '' && global_gest_age_openmrs != 29) "
+condition: "global_contact_no > 1 && global_previous_hiv_test_result != '' && (global_previous_hiv_test_result == 'negative' || global_previous_hiv_test_result == 'inconclusive') && (global_gest_age_openmrs != '' && global_gest_age_openmrs != 29)"
 actions:
   - "isRelevant = true"
 ---
 name: step1_accordion_hepatitis_b
 description: Hepatitis B test
 priority: 1
-condition: "(global_hepb_immun_status != '' && global_hepb_immun_status != '3_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepb_test_status == '' || global_previous_hepb_test_status == 'ordered' || global_previous_hepb_test_status == 'not_done')))"
+condition: "(global_contact_no == 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 34))"
 actions:
   - "isRelevant = true"
 ---
@@ -44,7 +44,7 @@ actions:
 name: step1_accordion_syphilis
 description: syph_test_status
 priority: 1
-condition: "(global_previous_syphilis_positive == 0 || global_previous_syphilis_positive == '') && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs == 29)) || ((global_previous_syph_test_status == '' || global_previous_syph_test_status == 'ordered' || global_previous_syph_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs > 29)))"
+condition: "(global_previous_syphilis_positive == 0 || global_previous_syphilis_positive == '') && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs => 34)) || ((global_previous_syph_test_status == '' || global_previous_syph_test_status == 'ordered' || global_previous_syph_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 34)))"
 actions:
   - "isRelevant = true"
 ---
@@ -58,7 +58,7 @@ actions:
 name: step1_accordion_urine
 description: urine accordion
 priority: 1
-condition: "global_contact_no == 1  || ((global_contact_no > 1 || (global_gest_age_openmrs != '' && (global_gest_age_openmrs > 26  || global_gest_age_openmrs > 34))  )  && (global_previous_urine_test_status == '' || global_previous_urine_test_status == 'ordered' || global_previous_urine_test_status == 'not_done')) || (global_gest_age_openmrs != '' && (global_gest_age_openmrs == 26  || global_gest_age_openmrs == 34)) || (!global_other_sym_lbpp.isEmpty() && global_other_sym_lbpp.contains('dysuria'))"
+condition: "(global_previous_urine_test_status == '' || global_previous_urine_test_status == 'ordered' || global_previous_urine_test_status == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
@@ -86,7 +86,7 @@ actions:
 name: step1_accordion_ultrasound
 description: ultrasound accordion
 priority: 1
-condition: "((global_contact_no == 1 ) || (global_contact_no > 1 && (global_previous_ultrasound == '' || global_previous_ultrasound == 'not_done' || global_previous_ultrasound == 'ordered'))) && global_gest_age_openmrs != '' && global_gest_age_openmrs < 24"
+condition: "((global_contact_no == 1 ) || (global_contact_no > 1 && (global_previous_ultrasound == '' || global_previous_ultrasound == 'not_done' || global_previous_ultrasound == 'ordered')))"
 actions:
   - "isRelevant = true"
 ---

@@ -66,7 +66,7 @@ actions:
 name: step3_phys_symptoms_persist
 description: Physical symptoms persist
 priority: 1
-condition: "(!global_previous_phys_symptoms.isEmpty() && !global_previous_phys_symptoms.contains('none'))"
+condition: "(!global_previous_phys_symptoms.isEmpty() && ( global_previous_phys_symptoms.contains('Nausea and vomiting') || global_previous_phys_symptoms.contains('Heartburn') || global_previous_phys_symptoms.contains('Constipation') || global_previous_phys_symptoms.contains('Low back pain') || global_previous_phys_symptoms.contains('Low back pain') || global_previous_phys_symptoms.contains('Varicose veins') || global_previous_phys_symptoms.contains('Oedema') )"
 actions:
   - "isRelevant = true"
 ---

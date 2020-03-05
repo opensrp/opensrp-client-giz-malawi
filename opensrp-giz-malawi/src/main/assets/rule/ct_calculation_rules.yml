@@ -209,6 +209,27 @@ condition: "step10_iptp_sp3 != '' && step10_iptp_sp3 == 'done'"
 actions:
   - "calculation = 3"
 ---
+name: step10_iptp_sp4_dose_number
+description: iptp_sp4_dose_number
+priority: 1
+condition: "step10_iptp_sp4 != '' && step10_iptp_sp4 == 'done'"
+actions:
+ - "calculation = 4"
+---
+name: step10_iptp_sp5_dose_number
+description: iptp_sp5_dose_number
+priority: 1
+condition: "step10_iptp_sp5 != '' && step10_iptp_sp5 == 'done'"
+actions:
+ - "calculation = 5"
+---
+name: step10_iptp_sp6_dose_number
+description: iptp_sp6_dose_number
+priority: 1
+condition: "step10_iptp_sp6 != '' && step10_iptp_sp6 == 'done'"
+actions:
+ - "calculation = 6"
+---
 name: step11_tt1_date_done_date_today_hidden
 description: tt1_date_done_today
 priority: 1
@@ -299,3 +320,18 @@ priority: 1
 condition: "step11_flu_date != '' && step11_flu_date == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
+---
+name: step10_anti_d1_dose_number
+description: anti_d1_dose_number
+priority: 1
+condition: "step10_anti_d1_date != '' && (step10_anti_d1_date == 'done_today' || step10_anti_d1_date == 'done_earlier')"
+actions:
+ - "calculation = 1"
+---
+name: step10_anti_d2_dose_number
+description: anti_d2_dose_number
+priority: 1
+condition: "step10_anti_d2_date != '' && (step10_anti_d2_date == 'done_today' || step10_anti_d2_date == 'done_earlier')"
+actions:
+ - "calculation = 2"
+---

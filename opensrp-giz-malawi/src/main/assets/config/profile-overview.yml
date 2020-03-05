@@ -225,7 +225,7 @@ group: immunisation_status
 fields:
 - template: "TT immunisation status: {tt_immun_status}"
   relevance: "tt_immun_status != ''"
-  isRedFont: "tt_immun_status == 'TTCV not received' || tt_immun_status == 'Unknown'"
+  isRedFont: "tt_immun_status == 'TDV not received' || tt_immun_status == 'Unknown'"
 
 - template: "TT dose #1: {tt1_date}"
   relevance: "tt1_date == 'Done today' || tt1_date == 'Done earlier'"
@@ -238,7 +238,7 @@ fields:
 
 - template: "Hep B immunisation status: {hepb_immun_status}"
   relevance: "hepb_immun_status != ''"
-  isRedFont: "hepb_immun_status == 'TTCV not received' || hepb_immun_status == 'Unknown' ||  hepb_immun_status == 'Incomplete'"
+  isRedFont: "hepb_immun_status == 'TDV not received' || hepb_immun_status == 'Unknown' ||  hepb_immun_status == 'Incomplete'"
 
 - template: "Hep B dose #1: {hepb1_date}"
   relevance: "hepb1_date == 'Done today' || hepb1_date == 'Done earlier'"

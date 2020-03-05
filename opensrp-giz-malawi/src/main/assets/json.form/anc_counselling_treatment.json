@@ -638,7 +638,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Tobacco cessation counseling",
-        "label_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
+        "label_info_text": "Health-care providers should routinely offer advice and psychosocial interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.\n\nAll health-care facilities should be smoke-free to protect the health of all staff, patients and visitors, including pregnant women.",
         "label_info_title": "Tobacco cessation counseling",
         "label_text_style": "bold",
         "options": [
@@ -729,7 +729,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Second-hand smoke counseling",
-        "label_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
+        "label_info_text": "Health-care providers should provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.  \n\nHealth-care providers should, wherever possible, engage directly with partners and other household members to inform them of all the risks of SHS exposure to pregnant women from all forms of tobacco, and to promote reduction of exposure and offer smoking cessation support.",
         "label_info_title": "Second-hand smoke counseling",
         "label_text_style": "bold",
         "options": [
@@ -907,7 +907,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Alcohol / substance use counseling",
-        "label_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
+        "label_info_text": "Pregnant women should be advised of the potential health risks to themselves and to their babies posed by alcohol and drug use.\n\nHealth-care providers should be prepared to intervene or refer all pregnant women who are identified as using alcohol and/or drugs (past and present).\n\nFor women identified as being dependent on alcohol or drugs, further recommendations include the following:\n- Health-care providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.\n- Health-care providers should offer a brief intervention (counselling, refer for rehab) to all pregnant women using alcohol or drugs. A brief intervention is a structured therapy of short duration (typically 5–30 minutes) offered with the aim of assisting an individual to cease or reduce use of alcohol or substances.",
         "label_info_title": "Alcohol / substance use counseling",
         "label_text_style": "bold",
         "options": [
@@ -1004,7 +1004,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Non-pharma measures to relieve nausea and vomiting counseling",
-        "label_info_text": "Ginger, chamomile, vitamin B6 and/or acupuncture are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
+        "label_info_text": "Ginger, chamomile, and/or vitamin B6 are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
         "label_info_title": "Non-pharma measures to relieve nausea and vomiting counseling",
         "label_text_style": "bold",
         "options": [
@@ -1188,7 +1188,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
-        "label_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.",
+        "label_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.\n\nLifestyle advice to prevent and relieve symptoms of heartburn includes avoidance of large, fatty meals and alcohol, cessation of smoking, and raising the head of the bed to sleep.\n\nAntacids may impair absorption of other drugs and therefore should not be taken within two hours of iron and folic acid supplements.",
         "label_info_title": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
         "label_text_style": "bold",
         "options": [
@@ -1707,8 +1707,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
-        "label_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
+        "label": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain.",
+        "label_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. \n\nPregnant women with low back and /or pelvic pain should be informed that symptoms usually improve in the months after birth.",
         "label_info_title": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
         "label_text_style": "bold",
         "options": [
@@ -1810,7 +1810,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Non-pharmacological options for varicose veins and oedema counseling",
-        "label_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
+        "label_info_text": "Counsel pregnant women on non-pharmacological options, such as compression stockings, leg elevation and water immersion for the management of varicose veins and oedema.\n\nWomen should be informed that symptoms associated with varicose veins may worsen as pregnancy progresses but that most women will experience some improvement within a few months of giving birth.\n\nRest, leg elevation and water immersion are low-cost interventions that are unlikely to be harmful.",
         "label_info_title": "Non-pharmacological options for varicose veins and oedema counseling",
         "label_text_style": "bold",
         "options": [
@@ -1950,7 +1950,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Healthy eating and keeping physically active counseling",
-        "label_info_text": "Healthy eating and keeping physically active during pregnancy is recommended for pregnant women to stay healthy and to prevent excessive weight gain during pregnancy.\n\n[Nutritional and Exercise Folder]",
+        "label_info_text": "A healthy diet contains all 6 food groups which include legumes, carbohydrates, proteins, oils, vegetables and fruits.\nA healthy lifestyle includes aerobic physical activity and strength-conditioning exercise aimed at maintaining a good level of fitness throughout pregnancy.",
         "label_info_title": "Healthy eating and keeping physically active counseling",
         "label_text_style": "bold",
         "options": [
@@ -2053,7 +2053,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Increase daily energy and protein intake counseling",
-        "label_info_text": "Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates. \n\n[Protein and Energy Sources Folder]",
+        "label_info_text": "All pregnant women should receive nutritional counseling throughout pregnancy\nAll pregnant women should have one additional meal every day for proper physical and mental growth of the fetus and to maintain her strength and wellbeing\nAll health educators should provide guidance on nutrition based on culturally acceptable and locally available food.",
         "label_info_title": "Increase daily energy and protein intake counseling",
         "label_text_style": "bold",
         "options": [
@@ -2395,6 +2395,84 @@
         }
       },
       {
+        "key": "syphilis_benzathine1",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Syphilis treatment - 2.4 mg benzathine 1st dose",
+        "label_info_title": "Syphilis treatment - 2.4 mg benzathine 1st dose",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "syphilis_benzathine2",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Syphilis treatment - 2.4 mg benzathine 2nd dose",
+        "label_info_title": "Syphilis treatment - 2.4 mg benzathine 2nd dose",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "syphilis_benzathine3",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Syphilis treatment - 2.4 mg benzathine 3rd dose",
+        "label_info_title": "Syphilis treatment - 2.4 mg benzathine 3rd dose",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
         "key": "syphilis_low_prev_counsel",
         "openmrs_entity_parent": "165331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -2471,10 +2549,10 @@
         }
       },
       {
+        "key": "penicillin",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "penicillin",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
@@ -2634,9 +2712,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Prescribe daily dose of 120 mg iron and 2.8 mg folic acid for anaemia ",
-        "label_info_text": "If a woman is diagnosed with anaemia during pregnancy, her daily elemental iron should be increased to 120 mg until her haemoglobin (Hb) concentration rises to normal (Hb 110 g/L or higher). Thereafter, she can resume the standard daily antenatal iron dose to prevent re-occurrence of anaemia.\n\nThe equivalent of 120 mg of elemental iron equals 600 mg of ferrous sulfate heptahydrate, 360 mg of ferrous fumarate, or 1000 mg of ferrous gluconate.\n\n[Iron sources folder]",
-        "label_info_title": "Prescribe daily dose of 120 mg iron and 2.8 mg folic acid for anaemia",
+        "label": "Prescribe daily dose of 200 mg iron and 2.8 mg folic acid for anaemia",
+        "label_info_text": "If a woman is diagnosed with anaemia during pregnancy, her daily elemental iron should be increased to 200 mg until her haemoglobin (Hb) concentration rises to normal (Hb 110 g/L or higher). Thereafter, she can resume the standard daily antenatal iron dose to prevent re-occurrence of anaemia.",
+        "label_info_title": "Prescribe daily dose of 200 mg iron and 2.8 mg folic acid for anaemia",
         "label_text_style": "bold",
         "options": [
           {
@@ -3005,7 +3083,7 @@
         "openmrs_entity_id": "165310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "HIV risk counseling",
-        "label_info_text": "Provide comprehensive HIV prevention options:\n\n- STI screening and treatment (syndromic and syphilis)\n\n- Condom promotion\n\n- Risk reduction counselling\n\n- PrEP with emphasis on adherence\n\n- Emphasize importance of follow-up ANC contact visits",
+        "label_info_text": "Provide comprehensive HIV prevention options:\n\n- STI screening and treatment (syndromic and syphilis)\n\n- Condom promotion\n\n- Risk reduction counselling\n\n- Emphasize importance of follow-up ANC contact visits",
         "label_info_title": "HIV risk counseling",
         "label_text_style": "bold",
         "options": [
@@ -4067,7 +4145,7 @@
         "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
-        "label_info_text": "Advice:\n\n- Divide the total dose into three doses, preferably taken at meal-time\n\n- Iron and calcium should preferably be administered several hours apart rather than concomitantly\n\n[Calcium sources folder]",
+        "label_info_text": "High risk pregnant women such as prim-gravidas, grand-multiparas and those with pre-eclampsia should be provided with daily calcium supplementation (1.5–2.0 g oral elemental calcium) to reduce the risk of pre-eclampsia\nDietary counselling of pregnant women should promote adequate calcium intake through locally available, calcium-rich foods.\nThe high-risk pregnant women should be given calcium 1.5-2.0 g daily  with the total dose divided in three doses preferably taken at meal times  after 20 weeks of gestation\nNegative interactions between iron and calcium supplements may occur therefore the two should preferably be administered several hours apart rather than concomitantly.",
         "label_info_title": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
         "label_text_style": "bold",
         "options": [
@@ -4398,9 +4476,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "IPTp-SP dose 1",
-        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (IPTp-SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
-        "label_info_title": "IPTp-SP dose 1",
+        "label": "SP dose 1",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "SP dose 1",
         "label_text_style": "bold",
         "options": [
           {
@@ -4470,9 +4548,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "IPTp-SP dose 2",
-        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (IPTp-SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
-        "label_info_title": "IPTp-SP dose 2",
+        "label": "SP dose 2",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "SP dose 2",
         "label_text_style": "bold",
         "options": [
           {
@@ -4542,9 +4620,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "IPTp-SP dose 3",
-        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (IPTp-SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
-        "label_info_title": "IPTp-SP dose 3",
+        "label": "SP dose 3",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "SP dose 3",
         "label_text_style": "bold",
         "options": [
           {
@@ -4609,14 +4687,230 @@
         }
       },
       {
+        "key": "iptp_sp4",
+        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "SP dose 4",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "SP dose 4",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "iptp_sp4_dose_number",
+        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "iptp_sp4_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date SP dose 4 was given.",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step10:iptp_sp4": {
+            "type": "string",
+            "ex": "equalTo(., \"done\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Enter date that SP dose 4 was given."
+        }
+      },
+      {
+        "key": "iptp_sp5",
+        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "SP dose 5",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "SP dose 5",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "iptp_sp5_dose_number",
+        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "iptp_sp5_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date SP dose 5 was given.",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step10:iptp_sp5": {
+            "type": "string",
+            "ex": "equalTo(., \"done\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Enter date that SP dose 5 was given."
+        }
+      },
+      {
+        "key": "iptp_sp6",
+        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "SP dose 6",
+        "label_info_text": "Intermittent preventive treatment in pregnancy of malaria with sulfadoxine-pyrimethamine (SP) is recommended in malaria endemic areas. Doses should be given at least one month apart, starting in the 2nd trimester, with the objective of ensuring that at least three doses are received.",
+        "label_info_title": "SP dose 6",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "iptp_sp6_dose_number",
+        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "iptp_sp6_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date SP dose 6 was given.",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step10:iptp_sp6": {
+            "type": "string",
+            "ex": "equalTo(., \"done\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Enter date that SP dose 6 was given."
+        }
+      },
+      {
         "key": "iptp_sp_toaster",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Do not give IPTp-SP, because woman is taking co-trimoxazole.",
-        "toaster_info_text": "Women who are taking co-trimoxazole SHOULD NOT receive IPTp-SP. Taking both co-trimoxazole and IPTp-SP together can enhance side effects, especially hematological side effects such as anaemia.",
-        "toaster_info_title": "Do not give IPTp-SP, because woman is taking co-trimoxazole.",
+        "text": "Do not give SP, because woman is taking co-trimoxazole or she is allergic to sulfur.",
+        "toaster_info_text": "Women who are taking co-trimoxazole or who are allergic to sulfur SHOULD NOT receive SP. Taking both co-trimoxazole and SP together can enhance side effects, especially hematological side effects such as anaemia.",
+        "toaster_info_title": "Do not give SP, because woman is taking co-trimoxazole or she is allergic to sulfur.",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -4742,6 +5036,40 @@
         }
       },
       {
+        "key": "itn_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Insecticide Treated Net (ITN) given",
+        "label_info_text": "",
+        "label_info_title": "Insecticide Treated Net (ITN) given",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "malaria_counsel_notdone",
         "openmrs_entity_parent": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -4801,8 +5129,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "TT dose #1",
-        "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\n1-4 doses of TTCV in the past:\n\n- 1 dose scheme: Woman should receive one dose of TTCV during each subsequent pregnancy to a total of five doses (five doses protects throughout the childbearing years).\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
+        "label": "TDV dose #1",
+        "label_info_text": "Tetanus Diphtheria vaccination is recommended for all pregnant women who are not fully immunised against TDV to prevent neonatal mortality from tetanus.\n\n1-4 doses of TDV in the past:\n- 1 dose scheme: Woman should receive one dose of TDV during each subsequent pregnancy to a total of five doses (five doses protects throughout the childbearing years).\n\nTDV not received or unknown:\n- 3 doses scheme:\n  - 2 doses, 1 month apart\n  - 2nd dose at least 2 weeks before delivery\n  - 3rd dose 5 months after 2nd dose",
         "label_text_style": "bold",
         "options": [
           {
@@ -4829,7 +5157,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "TT dose #1 is required"
+          "err": "TDV dose #1 is required"
         },
         "relevance": {
           "rules-engine": {
@@ -4875,7 +5203,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date TT dose #1 was given.",
+        "hint": "TDV dose #1",
         "expanded": "false",
         "max_date": "today",
         "relevance": {
@@ -4887,7 +5215,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Date for TT dose #1 is required"
+          "err": "Date for TDV dose #1 is required"
         }
       },
       {
@@ -4896,9 +5224,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "TT dose #2",
-        "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
-        "label_info_title": "TT dose #2",
+        "label": "TDV dose #2",
+        "label_info_text": "Tetanus Diphtheria vaccination is recommended for all pregnant women who are not fully immunised against TDV to prevent neonatal mortality from tetanus.\n\nTDV not received or unknown:\n- 3 doses scheme:\n  - 2 doses, 1 month apart\n  - 2nd dose at least 2 weeks before delivery\n  - 3rd dose 5 months after 2nd dose",
+        "label_info_title": "TDV dose #2",
         "label_text_style": "bold",
         "options": [
           {
@@ -4925,7 +5253,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "TT dose #2 is required"
+          "err": "TDV dose #2 is required"
         },
         "relevance": {
           "rules-engine": {
@@ -4971,7 +5299,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
-        "hint": "Date TT dose #2 was given.",
+        "hint": "TdV dose #2",
         "expanded": "false",
         "max_date": "today",
         "relevance": {
@@ -4983,7 +5311,7 @@
         },
         "v_required": {
           "value": true,
-          "err": "Date for TT dose #2 is required"
+          "err": "Date for TDV dose #2 is required"
         }
       },
       {
@@ -4992,9 +5320,9 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "TT dose #3",
-        "label_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.\n\nTTCV not received or unknown:\n\n- 3 doses scheme:\n\n- 2 doses, 1 month apart\n\n- 2nd dose at least 2 weeks before delivery\n\n- 3rd dose 5 months after 2nd dose",
-        "label_info_title": "TT dose #3",
+        "label": "TdV dose #3",
+        "label_info_text": "Tetanus Diphtheria vaccination is recommended for all pregnant women who are not fully immunised against TDV to prevent neonatal mortality from tetanus.\n\nTDV not received or unknown:\n- 3 doses scheme:\n  - 2 doses, 1 month apart\n  - 2nd dose at least 2 weeks before delivery\n  - 3rd dose 5 months after 2nd dose",
+        "label_info_title": "TDV dose #3",
         "label_text_style": "bold",
         "options": [
           {
@@ -5021,7 +5349,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "TT dose #3 is required"
+          "err": "TDV dose #3 is required"
         },
         "relevance": {
           "rules-engine": {
@@ -5168,6 +5496,154 @@
               "rules-file": "ct_relevance_rules.yml"
             }
           }
+        }
+      },
+      {
+        "key": "anti_d1_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Anti-D immunoglobulin prophylaxis 1st dose",
+        "label_info_title": "Anti-D immunoglobulin prophylaxis 1st dose",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anti_d1_dose_number",
+        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anti_d1_date_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date that gets recorded for anti-D dose 1.",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step11:anti_d1_date": {
+            "type": "string",
+            "ex": "equalTo(., \"done\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Enter date that gets recorded for anti-D dose 1."
+        }
+      },
+      {
+        "key": "anti_d2_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Anti-D immunoglobulin prophylaxis 2nd dose",
+        "label_info_title": "Anti-D immunoglobulin prophylaxis 2nd dose",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done_today",
+            "text": "Done today",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "not_done",
+            "text": "Not done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anti_d2_dose_number",
+        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "anti_d2_date_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date that gets recorded for anti-D dose 2.",
+        "expanded": "false",
+        "max_date": "today",
+        "relevance": {
+          "step11:anti_d1_date": {
+            "type": "string",
+            "ex": "equalTo(., \"done\")"
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Enter date that gets recorded for anti-D dose 2."
         }
       },
       {

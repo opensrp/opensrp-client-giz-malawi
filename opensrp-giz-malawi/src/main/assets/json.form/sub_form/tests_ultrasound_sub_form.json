@@ -338,8 +338,8 @@
           "openmrs_entity_id": "160091AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "pelvic",
-          "text": "Pelvic",
+          "key": "breech",
+          "text": "Breech",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "146922AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -423,13 +423,6 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "praevia",
-          "text": "Praevia",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
           "key": "low",
           "text": "Low",
           "openmrs_entity_parent": "",
@@ -472,6 +465,49 @@
           "openmrs_entity_id": "165298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ],
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "ultrasound_sub_form_relevance_rules.yml"
+          }
+        }
+      }
+    },
+    {
+      "key": "congenital_anomalies",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Congenital anomalies",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "detected",
+          "text": "Detected",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "not_detected",
+          "text": "Not detected",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ]
+    },
+    {
+      "key": "congenital_anomalies_detected_toaster",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "toaster_notes",
+      "text": "If a congenital anomaly is detected, refer for further investigations.",
+      "toaster_info_text": "If a congenital anomaly is detected, refer for further investigations.",
+      "toaster_info_title": "Congenital anomalies detected",
+      "toaster_type": "positive",
       "relevance": {
         "rules-engine": {
           "ex-rules": {

@@ -1867,6 +1867,13 @@
           },
           {
             "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "sulfur",
+            "text": "Sulfur"
+          },
+          {
+            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "other",
@@ -2287,27 +2294,27 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "TT immunisation status",
+        "label": "TDV immunisation status",
         "label_text_style": "bold",
         "multi_relevance": true,
         "options": [
           {
             "key": "3_doses",
-            "text": "3 doses of TTCV in past 5 years",
+            "text": "3 doses of TDV in past 5 years",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "1-4_doses",
-            "text": "1-4 doses of TTCV in the past",
+            "text": "1-4 doses of TDV in the past",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "ttcv_not_received",
-            "text": "TTCV not received",
+            "text": "TDV not received",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2331,10 +2338,10 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "TT immunisation recommended",
+        "text": "TDV immunisation recommended",
         "text_color": "#000000",
-        "toaster_info_text": "Tetanus toxoid vaccination is recommended for all pregnant women who are not fully immunised against TT to prevent neonatal mortality from tetanus.",
-        "toaster_info_title": "TT immunisation recommended",
+        "toaster_info_text": "Tetanus Diphtheria vaccination is recommended for all pregnant women who are not fully immunised to prevent neonatal mortality from tetanus.",
+        "toaster_info_title": "TDV immunisation recommended",
         "toaster_type": "info",
         "relevance": {
           "step5:tt_immun_status": {
@@ -2957,7 +2964,7 @@
         "type": "toaster_notes",
         "text": "Tobacco cessation counseling",
         "text_color": "#000000",
-        "toaster_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
+        "toaster_info_text": "Health-care providers should routinely offer advice and psychosocial interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.\n\nAll health-care facilities should be smoke-free to protect the health of all staff, patients and visitors, including pregnant women.",
         "toaster_info_title": "Tobacco cessation counseling",
         "toaster_type": "problem",
         "relevance": {
@@ -3010,7 +3017,7 @@
         "type": "toaster_notes",
         "text": "Second-hand smoke counseling",
         "text_color": "#000000",
-        "toaster_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
+        "toaster_info_text": "Health-care providers should provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.\n\nHealth-care providers should, wherever possible, engage directly with partners and other household members to inform them of all the risks of SHS exposure to pregnant women from all forms of tobacco, and to promote reduction of exposure and offer smoking cessation support.",
         "toaster_info_title": "Second-hand smoke counseling",
         "toaster_type": "warning",
         "relevance": {
@@ -3189,7 +3196,7 @@
         "type": "toaster_notes",
         "text": "Alcohol / substance use counseling",
         "text_color": "#000000",
-        "toaster_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
+        "toaster_info_text": "Pregnant women should be advised of the potential health risks to themselves and to their babies posed by alcohol and drug use.\n\nHealth-care providers should be prepared to intervene or refer all pregnant women who are identified as using alcohol and/or drugs (past and present).\n\nFor women identified as being dependent on alcohol or drugs, further recommendations include the following:\n- Health-care providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.\n- Health-care providers should offer a brief intervention (counselling, refer for rehab) to all pregnant women using alcohol or drugs. A brief intervention is a structured therapy of short duration (typically 5–30 minutes) offered with the aim of assisting an individual to cease or reduce use of alcohol or substances.",
         "toaster_info_title": "Alcohol / substance use counseling",
         "toaster_type": "problem",
         "relevance": {

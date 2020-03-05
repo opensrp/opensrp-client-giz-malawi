@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "display_scroll_bars": true,
   "skip_blank_steps": true,
-  "count": "4",
+  "count": "5",
   "encounter_type": "Symptoms and Follow-up",
   "entity_id": "",
   "relational_id": "",
@@ -747,7 +747,7 @@
         "openmrs_entity_id": "1455",
         "type": "toaster_notes",
         "text": "Tobacco cessation counseling",
-        "toaster_info_text": "Healthcare providers should routinely offer advice and psycho-social interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.",
+        "toaster_info_text": "Health-care providers should routinely offer advice and psychosocial interventions for tobacco cessation to all pregnant women who are either current tobacco users or recent tobacco quitters.\n\nAll health-care facilities should be smoke-free to protect the health of all staff, patients and visitors, including pregnant women.",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -769,7 +769,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Second-hand smoke counseling",
-        "toaster_info_text": "Provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.",
+        "toaster_info_text": "Health-care providers should provide pregnant women, their partners and other household members with advice and information about the risks of second-hand smoke (SHS) exposure from all forms of smoked tobacco, as well as strategies to reduce SHS in the home.  \n\nHealth-care providers should, wherever possible, engage directly with partners and other household members to inform them of all the risks of SHS exposure to pregnant women from all forms of tobacco, and to promote reduction of exposure and offer smoking cessation support.",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
@@ -813,7 +813,7 @@
         "openmrs_entity_id": "1288",
         "type": "toaster_notes",
         "text": "Alcohol / substance use counseling",
-        "toaster_info_text": "Healthcare providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.",
+        "toaster_info_text": "Pregnant women should be advised of the potential health risks to themselves and to their babies posed by alcohol and drug use.\n\nHealth-care providers should be prepared to intervene or refer all pregnant women who are identified as using alcohol and/or drugs (past and present).\n\nFor women identified as being dependent on alcohol or drugs, further recommendations include the following:\n- Health-care providers should at the earliest opportunity advise pregnant women dependent on alcohol or drugs to cease their alcohol or drug use and offer, or refer them to, detoxification services under medical supervision, where necessary and applicable.\n- Health-care providers should offer a brief intervention (counselling, refer for rehab) to all pregnant women using alcohol or drugs. A brief intervention is a structured therapy of short duration (typically 5–30 minutes) offered with the aim of assisting an individual to cease or reduce use of alcohol or substances.",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {
@@ -873,14 +873,6 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "leg_cramps",
-            "text": "Leg cramps",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
@@ -1143,8 +1135,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
-        "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
+        "text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain",
+        "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. \n\nPregnant women with low back and /or pelvic pain should be informed that symptoms usually improve in the months after birth.",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1206,7 +1198,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Non-pharmacological options for varicose veins and oedema counseling",
-        "toaster_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
+        "toaster_info_text": "Counsel pregnant women on non-pharmacological options, such as compression stockings, leg elevation and water immersion for the management of varicose veins and oedema.\n\nWomen should be informed that symptoms associated with varicose veins may worsen as pregnancy progresses but that most women will experience some improvement within a few months of giving birth.\n\nRest, leg elevation and water immersion are low-cost interventions that are unlikely to be harmful.",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1395,14 +1387,6 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "leg_cramps",
-            "text": "Leg cramps",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
             "key": "constipation",
             "text": "Constipation",
             "value": false,
@@ -1568,7 +1552,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Non-pharma measures to relieve nausea and vomiting counseling",
-        "toaster_info_text": "Ginger, chamomile, vitamin B6 and/or acupuncture are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
+        "toaster_info_text": "Ginger, chamomile, and/or vitamin B6 are recommended for the relief of nausea in early pregnancy, based on a woman’s preferences and available options. Women should be informed that symptoms of nausea and vomiting usually resolve in the second half of pregnancy.",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1590,7 +1574,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Diet and lifestyle changes to prevent and relieve heartburn counseling",
-        "toaster_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.",
+        "toaster_info_text": "Advice on diet and lifestyle is recommended to prevent and relieve heartburn in pregnancy. Antacid preparations can be offered to women with troublesome symptoms that are not relieved by lifestyle modification.\n\nLifestyle advice to prevent and relieve symptoms of heartburn includes avoidance of large, fatty meals and alcohol, cessation of smoking, and raising the head of the bed to sleep.\n\nAntacids may impair absorption of other drugs and therefore should not be taken within two hours of iron and folic acid supplements.",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1655,8 +1639,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Regular exercise, physiotherapy, support belts and acupuncture to relieve low back and pelvic pain counseling",
-        "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. There are a number of different treatment options that can be used, such as physiotherapy, support belts and acupuncture, based on a woman’s preferences and available options.",
+        "text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain.",
+        "toaster_info_text": "Regular exercise throughout pregnancy is recommended to prevent low back and pelvic pain. \n\nPregnant women with low back and /or pelvic pain should be informed that symptoms usually improve in the months after birth.",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1718,7 +1702,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Non-pharmacological options for varicose veins and oedema counseling",
-        "toaster_info_text": "Non-pharmacological options, such as compression stockings, leg elevation and water immersion, can be used for the management of varicose veins and oedema in pregnancy, based on a woman’s preferences and available options.",
+        "toaster_info_text": "Counsel pregnant women on non-pharmacological options, such as compression stockings, leg elevation and water immersion for the management of varicose veins and oedema.\n\nWomen should be informed that symptoms associated with varicose veins may worsen as pregnancy progresses but that most women will experience some improvement within a few months of giving birth.\n\nRest, leg elevation and water immersion are low-cost interventions that are unlikely to be harmful.",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1934,6 +1918,104 @@
         "v_required": {
           "value": "true",
           "err": "Field has the woman felt the baby move is required"
+        }
+      }
+    ]
+  },
+  "step5": {
+    "title": "TB SCREENING",
+    "fields": [
+      {
+        "key": "tb_screening",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Has the woman experienced any of the following symptoms?",
+        "label_info_text": "The woman should be screened for the following TB symptoms at every contact.",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":""
+          },
+          {
+            "key": "cough_lasting_loner_than_2_weeks",
+            "text": "Cough lasting longer than 2 weeks",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "cough_of_any_duration",
+            "text": "Cough of any duration",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "haemoptysis",
+            "text": "Haemoptysis",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "weight_loss",
+            "text": "Weight loss",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "fever_or_night_sweats",
+            "text": "Fever or night sweats",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please specify the medication(s) that the woman is still taking"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster23",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "TB screening is positive. Collect a sputum sample.",
+        "toaster_info_text": "TB screening is positive. Collect a sputum sample.",
+        "toaster_info_title": "TB Screening",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step5:tb_screening": {
+            "type": "string",
+            "ex": "equalTo(., \"none\")"
+          }
         }
       }
     ]

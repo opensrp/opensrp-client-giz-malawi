@@ -244,14 +244,6 @@
             "openmrs_entity_id": "139059AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "leg_cramps",
-            "text": "Leg cramps",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "135969AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
             "key": "leg_pain",
             "text": "Leg pain",
             "value": false,
