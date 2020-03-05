@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.reporting.domain.CompositeIndicatorTally;
 import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.reporting.exception.MultiResultProcessorException;
@@ -25,9 +26,7 @@ import java.util.List;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-12-10
  */
 
-public class TrippleResultProcessor implements MultiResultProcessor {
-
-    public static final String GROUPING_SEPARATOR = "_";
+public class TripleResultProcessor implements MultiResultProcessor {
 
     @Override
     public boolean canProcess(int cols, @NonNull String[] colNames) {
@@ -50,7 +49,7 @@ public class TrippleResultProcessor implements MultiResultProcessor {
 
             if (compositeTally.length == 3) {
 
-                indicatorTally.setIndicatorCode(compositeIndicatorTally.getIndicatorCode() + GROUPING_SEPARATOR + compositeTally[0] + GROUPING_SEPARATOR + compositeTally[1]);
+                indicatorTally.setIndicatorCode(compositeIndicatorTally.getIndicatorCode() + GizConstants.MultiResultProcessor.GROUPING_SEPARATOR + compositeTally[0] + GizConstants.MultiResultProcessor.GROUPING_SEPARATOR + compositeTally[1]);
 
                 Object indicatorValue = compositeTally[2];
                 if (indicatorValue instanceof Integer) {

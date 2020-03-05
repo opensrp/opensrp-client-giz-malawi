@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+import org.smartregister.giz.BaseRobolectricTest;
 import org.smartregister.giz.TestGizMalawiApplication;
 import org.smartregister.giz.shadow.ShadowAssetHandler;
 import org.smartregister.giz.shadow.ShadowBaseJob;
@@ -30,9 +31,7 @@ import static org.junit.Assert.*;
 /**
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 05-03-2020.
  */
-@RunWith(RobolectricTestRunner.class)
-@Config(sdk = {27}, shadows = {ShadowBaseJob.class, ShadowAssetHandler.class}, application = TestGizMalawiApplication.class)
-public class LoginInteractorTest {
+public class LoginInteractorTest extends BaseRobolectricTest {
 
     private LoginInteractor loginInteractor;
 

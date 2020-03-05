@@ -235,4 +235,8 @@ public class GizConstants {
         String CHILD = "child";
         String OPD = "opd";
     }
+
+    public interface MultiResultProcessor {
+        String GROUPING_SEPARATOR = "_";
+    }
 }
