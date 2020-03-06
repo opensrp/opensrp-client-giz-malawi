@@ -196,6 +196,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
      * @param month The month to get the draft tallies for
      * @return
      */
+    @Nullable
     public List<MonthlyTally> find(String month) {
         // Check if there exists any sent tally in the database for the month provided
         Cursor cursor = null;
@@ -245,7 +246,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
         return monthlyTally;
     }
 
-    public HashMap<String, ArrayList<MonthlyTally>> findAllSent(SimpleDateFormat dateFormat) {
+    public HashMap<String, ArrayList<MonthlyTally>> findAllSent(@NonNull SimpleDateFormat dateFormat) {
         HashMap<String, ArrayList<MonthlyTally>> tallies = new HashMap<>();
         Cursor cursor = null;
         try {
@@ -255,17 +256,15 @@ public class MonthlyTalliesRepository extends BaseRepository {
             if (cursor != null && cursor.getCount() > 0) {
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     MonthlyTally curTally = extractMonthlyTally(cursor);
-                    if (curTally != null) {
-                        String yearMonthString = dateFormat.format(curTally.getMonth());
+                    String yearMonthString = dateFormat.format(curTally.getMonth());
 
-                        ArrayList<MonthlyTally> monthlyTallies = tallies.get(yearMonthString);
-                        if (monthlyTallies == null) {
-                            monthlyTallies = new ArrayList<MonthlyTally>();
-                            tallies.put(yearMonthString, monthlyTallies);
-                        }
-
-                        monthlyTallies.add(curTally);
+                    ArrayList<MonthlyTally> monthlyTallies = tallies.get(yearMonthString);
+                    if (monthlyTallies == null) {
+                        monthlyTallies = new ArrayList<MonthlyTally>();
+                        tallies.put(yearMonthString, monthlyTallies);
                     }
+
+                    monthlyTallies.add(curTally);
                 }
             }
         } catch (SQLException | ParseException e) {
@@ -279,7 +278,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
         return tallies;
     }
 
-    public boolean save(MonthlyTally tally) {
+    public boolean save(@Nullable MonthlyTally tally) {
         SQLiteDatabase database = getWritableDatabase();
         try {
             database.beginTransaction();
@@ -319,7 +318,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
      * @param month
      * @return
      */
-    public boolean save(Map<String, String> draftFormValues, Date month) {
+    public boolean save(@Nullable Map<String, String> draftFormValues, @Nullable Date month) {
         SQLiteDatabase database = getWritableDatabase();
         try {
             database.beginTransaction();
@@ -345,6 +344,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
                     database.insertWithOnConflict(TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
                 }
+
                 database.setTransactionSuccessful();
 
                 return true;
@@ -362,6 +362,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
         return false;
     }
 
+    @NonNull
     private List<MonthlyTally> readAllDataElements(Cursor cursor) {
         List<MonthlyTally> tallies = new ArrayList<>();
 
@@ -369,9 +370,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
             if (cursor != null && cursor.getCount() > 0) {
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     MonthlyTally curTally = extractMonthlyTally(cursor);
-                    if (curTally != null) {
-                        tallies.add(curTally);
-                    }
+                    tallies.add(curTally);
                 }
             }
         } catch (SQLException | ParseException e) {
@@ -385,7 +384,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
         return tallies;
     }
 
-    @Nullable
+    @NonNull
     private MonthlyTally extractMonthlyTally(@NonNull Cursor cursor) throws ParseException {
         String indicatorId = cursor.getString(cursor.getColumnIndex(COLUMN_INDICATOR_CODE));
 
@@ -441,7 +440,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
                         continue;
                     }
 
-                    Long dateStarted = cursor.getLong(cursor.getColumnIndex(COLUMN_CREATED_AT));
+                    long dateStarted = cursor.getLong(cursor.getColumnIndex(COLUMN_CREATED_AT));
                     MonthlyTally tally = new MonthlyTally();
                     tally.setMonth(month);
                     tally.setCreatedAt(new Date(dateStarted));
