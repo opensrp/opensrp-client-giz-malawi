@@ -97,8 +97,8 @@ condition: "step3_oximetry > 0 && step3_oximetry < 92"
 actions:
   - "isRelevant = true"
 ---
-name: step4_toaster28
-description: Fetal heart beat rate
+name: step6_toaster28
+description: toaster28
 priority: 1
 condition: "(step6_fetal_heart_rate > 0 && (step6_fetal_heart_rate < 110 || step6_fetal_heart_rate > 160))"
 actions:
@@ -128,7 +128,7 @@ actions:
 name: step6_toaster27
 description: No fetal heartbeat observed. Refer to hospital.
 priority: 1
-condition: "(step6_fetal_heartbeat == 'no' && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20))"
+condition: "step6_fetal_heartbeat == 'no' && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
   - "isRelevant = true"
 ---
@@ -265,10 +265,16 @@ condition: "global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 20 && (
 actions:
   - "isRelevant = true"
 ---
-name: step5_toaster30
-description: Toaster 30
+name: step5_toaster31
+description: Toaster 31
 priority: 1
-condition: "global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 20 && (global_sfh_gest_age != global_gest_age_openmrs))"
+condition: "step5_sfh != global_gest_age_openmrs"
 actions:
   - "isRelevant = true"
 ---
+name: step4_fetal_movement_seen
+description: fetal_movement_seen
+priority: 1
+condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20"
+actions:
+  - "isRelevant = true"

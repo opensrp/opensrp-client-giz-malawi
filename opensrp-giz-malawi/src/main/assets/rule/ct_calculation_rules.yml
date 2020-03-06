@@ -334,4 +334,3 @@ priority: 1
 condition: "step10_anti_d2_date != '' && (step10_anti_d2_date == 'done_today' || step10_anti_d2_date == 'done_earlier')"
 actions:
  - "calculation = 2"
----

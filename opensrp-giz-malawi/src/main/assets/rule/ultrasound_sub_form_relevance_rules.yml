@@ -65,7 +65,7 @@ actions:
 name: step1_congenital_anomalies_detected_toaster
 description: Congenital anomalies
 priority: 1
-condition: "(congenital_anomalies == 'detected')"
+condition: "(step1_congenital_anomalies == 'detected')"
 actions:
   - "isRelevant = true"
 ---

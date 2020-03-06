@@ -1,5 +1,12 @@
 [
   {
+    "form_name": "anc_quick_check",
+    "hidden_fields": [],
+    "disabled_fields": [
+      "leg_cramps"
+    ]
+  },
+  {
     "form_name": "anc_test",
     "hidden_fields": [],
     "disabled_fields": [
@@ -32,6 +39,7 @@
     "disabled_fields": [
       "aspirin_comply",
       "vita_comply",
+      "leg_cramps",
       "pencillin_comply",
       "toaster7",
       "toaster16"

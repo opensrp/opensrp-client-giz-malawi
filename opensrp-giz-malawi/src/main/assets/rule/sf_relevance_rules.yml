@@ -66,7 +66,7 @@ actions:
 name: step3_phys_symptoms_persist
 description: Physical symptoms persist
 priority: 1
-condition: "(!global_previous_phys_symptoms.isEmpty() && ( global_previous_phys_symptoms.contains('Nausea and vomiting') || global_previous_phys_symptoms.contains('Heartburn') || global_previous_phys_symptoms.contains('Constipation') || global_previous_phys_symptoms.contains('Low back pain') || global_previous_phys_symptoms.contains('Low back pain') || global_previous_phys_symptoms.contains('Varicose veins') || global_previous_phys_symptoms.contains('Oedema') )"
+condition: "!global_previous_phys_symptoms.isEmpty() && ( global_previous_phys_symptoms.contains('Nausea and vomiting') || global_previous_phys_symptoms.contains('Heartburn') || global_previous_phys_symptoms.contains('Constipation') || global_previous_phys_symptoms.contains('Low back pain') || global_previous_phys_symptoms.contains('Low back pain') || global_previous_phys_symptoms.contains('Varicose veins') || global_previous_phys_symptoms.contains('Oedema') )"
 actions:
   - "isRelevant = true"
 ---
@@ -123,5 +123,12 @@ name: step4_mat_percept_fetal_move
 description: Felt baby move
 priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
+actions:
+  - "isRelevant = true"
+---
+name: step5_toaster23
+description: toaster23
+priority: 1
+condition: "(step5_tb_screening != '' && step5_tb_screening != 'none')"
 actions:
   - "isRelevant = true"

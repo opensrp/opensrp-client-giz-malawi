@@ -359,7 +359,7 @@ actions:
 name: step7_birth_plan_toaster
 description: birth_plan_toaster
 priority: 1
-condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && (global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('convulsions'))) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation'"
+condition: "(!global_other_symptoms.isEmpty() && global_other_symptoms.contains('vaginal_bleeding')) || (global_parity != '' && global_parity > 5) || (global_hiv_positive != '' && global_hiv_positive == 1) || (!global_prev_preg_comps.isEmpty() && global_prev_preg_comps.contains('3rd_degree_tear') || global_prev_preg_comps.contains('heavy_bleeding') || global_prev_preg_comps.contains('vacuum_delivery') || global_prev_preg_comps.contains('convulsions')) || global_fetal_presentation != '' && (global_fetal_presentation == 'transverse' || global_fetal_presentation == 'other') || (global_age != '' && global_age <= 17) || (global_c_sections != '' && global_c_sections > 0) || (global_no_of_fetuses != '' && global_no_of_fetuses > 1) || 'step7_family_planning_type' == 'iud' || 'step7_family_planning_type' == 'tubal_ligation'"
 actions:
   - "isRelevant = true"
 ---
@@ -436,7 +436,7 @@ actions:
 name: step10_iptp_sp1
 description: iptsp
 priority: 1
-condition: "((global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---

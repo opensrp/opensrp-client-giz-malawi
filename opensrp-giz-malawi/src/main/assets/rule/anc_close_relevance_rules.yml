@@ -27,6 +27,13 @@ condition: "step1_anc_close_reason == 'Live birth' || step1_anc_close_reason == 
 actions:
 - "isRelevant = true"
 ---
+name: step1_delivery_mode_other
+description: delivery_mode_other
+priority: 1
+condition: "step1_delivery_mode == 'Other(Specify)'"
+actions:
+  - "isRelevant = true"
+---
 name: step1_birthweight
 description: birthweight
 priority: 1

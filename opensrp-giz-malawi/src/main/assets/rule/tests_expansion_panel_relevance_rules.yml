@@ -44,7 +44,7 @@ actions:
 name: step1_accordion_syphilis
 description: syph_test_status
 priority: 1
-condition: "(global_previous_syphilis_positive == 0 || global_previous_syphilis_positive == '') && (global_contact_no == 1 || (global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs => 34)) || ((global_previous_syph_test_status == '' || global_previous_syph_test_status == 'ordered' || global_previous_syph_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 34)))"
+condition: "(global_previous_syphilis_positive == 0 || global_previous_syphilis_positive == '') && global_contact_no == 1 || (global_contact_no  > 1 && global_gest_age_openmrs != '' && global_gest_age_openmrs => 34 || ((global_previous_syph_test_status == '' || global_previous_syph_test_status == 'ordered' || global_previous_syph_test_status == 'not_done') && global_contact_no  > 1 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 34)))"
 actions:
   - "isRelevant = true"
 ---

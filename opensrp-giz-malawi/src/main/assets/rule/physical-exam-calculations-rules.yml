@@ -70,7 +70,7 @@ actions:
   - "calculation = ['weight_gain' : step1_weight_gain,'tot_weight_gain' : step1_tot_weight_gain]"
 ---
 name: step2_hypertension
-description: Hypertension Diognosis
+description: Hypertension Diagnosis
 priority: 1
 condition: "step2_urine_protein == 'none' ||  step2_urine_protein == '+'"
 actions:

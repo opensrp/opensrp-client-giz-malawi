@@ -1348,6 +1348,7 @@
   },
   "step4": {
     "title": "Physiological Symptoms",
+    "next": "step5",
     "fields": [
       {
         "key": "phys_symptoms",
@@ -1923,7 +1924,7 @@
     ]
   },
   "step5": {
-    "title": "TB SCREENING",
+    "title": "TB Screening",
     "fields": [
       {
         "key": "tb_screening",
@@ -1987,18 +1988,7 @@
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           }
-        ],
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the medication(s) that the woman is still taking"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "sf_relevance_rules.yml"
-            }
-          }
-        }
+        ]
       },
       {
         "key": "toaster23",
@@ -2012,9 +2002,10 @@
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
-          "step5:tb_screening": {
-            "type": "string",
-            "ex": "equalTo(., \"none\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       }

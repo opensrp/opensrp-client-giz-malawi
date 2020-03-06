@@ -221,6 +221,13 @@
             "openmrs_entity_id": "1058AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "married_not_living_together",
+            "text": "Married & Not Living Together",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
             "key": "single",
             "text": "Never married and never lived together (single)",
             "openmrs_entity_parent": "",
@@ -273,18 +280,18 @@
             "openmrs_entity_id": "165219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "informal_employment_sex_worker",
-            "text": "Informal employment (sex worker)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160579AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "informal_employment_other",
-            "text": "Informal employment (other)",
+            "key": "informal_employment",
+            "text": "Informal employment",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "business",
+            "text": "Business",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "other",
@@ -326,6 +333,15 @@
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please specify your occupation"
         }
+      },
+      {
+        "key": "religion",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Religion",
+        "edit_type": "name"
       },
       {
         "openmrs_entity_parent": "",

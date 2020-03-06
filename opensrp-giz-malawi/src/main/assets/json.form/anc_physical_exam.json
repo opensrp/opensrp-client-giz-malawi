@@ -1,7 +1,7 @@
 {
   "validate_on_submit": true,
   "display_scroll_bars": true,
-  "count": "4",
+  "count": "6",
   "encounter_type": "Physical Exam",
   "entity_id": "",
   "relational_id": "",
@@ -2031,6 +2031,7 @@
   },
   "step4": {
     "title": "Abdominal Examination - Inspection",
+    "next": "step5",
     "fields": [
       {
         "key": "abdomen_size",
@@ -2038,8 +2039,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has the woman experienced any of the following symptoms?",
-        "label_info_text": "The woman should be screened for the following TB symptoms at every contact.",
+        "label": "Size of the abdomen",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
@@ -2075,8 +2075,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Has the woman experienced any of the following symptoms?",
-        "label_info_text": "The woman should be screened for the following TB symptoms at every contact.",
+        "label": "Shape of the abdomen",
         "label_text_style": "bold",
         "text_color": "#000000",
         "options": [
@@ -2252,12 +2251,20 @@
             "openmrs_entity_parent": "",
             "openmrs_entity":""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       }
     ]
   },
   "step5": {
     "title": "Abdominal Examination - Palpation",
+    "next": "step6",
     "fields": [
       {
         "key": "sfh_label",
@@ -2295,7 +2302,7 @@
         }
       },
       {
-        "key": "toaster30",
+        "key": "toaster31",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -2528,6 +2535,24 @@
         "spacer_height": "10sp"
       },
       {
+        "key": "no_of_fetuses_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "options": [
+          {
+            "key": "no_of_fetuses_unknown",
+            "text": "No. of fetuses unknown",
+            "value": "true",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+
+      {
         "key": "no_of_fetuses_label",
         "type": "label",
         "label_text_style": "bold",
@@ -2537,7 +2562,7 @@
           "value": false
         },
         "relevance": {
-          "step4:no_of_fetuses_unknown": {
+          "step5:no_of_fetuses_unknown": {
             "ex-checkbox": [
               {
                 "not": [
@@ -2564,7 +2589,7 @@
           "value": false
         },
         "relevance": {
-          "step4:no_of_fetuses_unknown": {
+          "step5:no_of_fetuses_unknown": {
             "ex-checkbox": [
               {
                 "not": [
@@ -2583,7 +2608,7 @@
         "type": "spacer",
         "spacer_height": "10sp",
         "relevance": {
-          "step4:no_of_fetuses_unknown": {
+          "step5:no_of_fetuses_unknown": {
             "ex-checkbox": [
               {
                 "not": [
@@ -2601,23 +2626,6 @@
         "openmrs_entity_id": "spacer",
         "type": "spacer",
         "spacer_height": "10sp"
-      },
-      {
-        "key": "no_of_fetuses_unknown",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "options": [
-          {
-            "key": "no_of_fetuses_unknown",
-            "text": "No. of fetuses unknown",
-            "value": "false",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ]
       },
       {
         "key": "preeclampsia_risk",
@@ -2734,7 +2742,7 @@
           "err": "Please specify if fetal heartbeat is present."
         },
         "relevance": {
-          "step4:fetal_heartbeat": {
+          "step6:fetal_heartbeat": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -2761,7 +2769,7 @@
           "err": "Enter a valid sfh"
         },
         "relevance": {
-          "step4:fetal_heartbeat": {
+          "step6:fetal_heartbeat": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
