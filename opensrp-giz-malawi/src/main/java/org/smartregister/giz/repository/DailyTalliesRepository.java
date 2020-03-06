@@ -4,16 +4,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.text.TextUtils;
 
-import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz.domain.DailyTally;
-import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.repository.BaseRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -100,65 +96,5 @@ public class DailyTalliesRepository extends BaseRepository {
         }
 
         return months;
-    }
-
-    private String getDayBetweenDatesSelection(Date startDate, Date endDate) {
-        return COLUMN_DAY + " >= '" + DAY_FORMAT.format(startDate) +
-                "' AND " + COLUMN_DAY + " <= '" + DAY_FORMAT.format(endDate) + "'";
-    }
-
-    public HashMap<String, ArrayList<DailyTally>> findAll(SimpleDateFormat dateFormat, Date minDate, Date maxDate) {
-        HashMap<String, ArrayList<DailyTally>> tallies = new HashMap<>();
-        Cursor cursor = null;
-        try {
-            HashMap<String, Hia2Indicator> indicatorMap = GizMalawiApplication.getInstance()
-                    .hIA2IndicatorsRepository().findAll();
-            cursor = getReadableDatabase()
-                    .query(TABLE_NAME, TABLE_COLUMNS,
-                            getDayBetweenDatesSelection(minDate, maxDate),
-                            null, null, null, COLUMN_DAY + " DESC", null);
-            if (cursor != null && cursor.getCount() > 0) {
-                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    DailyTally curTally = extractDailyTally(indicatorMap, cursor);
-                    if (curTally != null) {
-                        final String dayString = dateFormat.format(curTally.getDay());
-                        if (!TextUtils.isEmpty(dayString)) {
-                            if (!tallies.containsKey(dayString) ||
-                                    tallies.get(dayString) == null) {
-                                tallies.put(dayString, new ArrayList<DailyTally>());
-                            }
-
-                            tallies.get(dayString).add(curTally);
-                        } else {
-                            Timber.w("There appears to be a daily tally with a null date");
-                        }
-                    }
-                }
-            }
-        } catch (SQLException | ParseException | NullPointerException e) {
-            Timber.e(e);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-
-        return tallies;
-    }
-
-    private DailyTally extractDailyTally(HashMap<String, Hia2Indicator> indicatorMap, Cursor cursor) throws ParseException {
-        String indicatorId = cursor.getString(cursor.getColumnIndex(COLUMN_INDICATOR_CODE));
-        if (indicatorMap.containsKey(indicatorId)) {
-            Hia2Indicator indicator = indicatorMap.get(indicatorId);
-            DailyTally curTally = new DailyTally();
-            curTally.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
-            curTally.setIndicator(indicator.getIndicatorCode());
-            curTally.setValue(cursor.getString(cursor.getColumnIndex(COLUMN_INDICATOR_VALUE)));
-            Date day = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH).parse((cursor.getString(cursor.getColumnIndex(COLUMN_DAY))));
-            curTally.setDay(day);
-            return curTally;
-        }
-
-        return null;
     }
 }
