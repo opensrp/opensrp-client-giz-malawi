@@ -14,7 +14,7 @@ import org.smartregister.giz.shadow.ShadowSQLiteDatabase;
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 05-03-2020.
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk = {27}, shadows = {ShadowBaseJob.class, ShadowAssetHandler.class, ShadowSQLiteDatabase.class}, application = TestGizMalawiApplication.class)
+@Config(sdk = {27}, shadows = {ShadowBaseJob.class, ShadowAssetHandler.class}, application = TestGizMalawiApplication.class)
 public abstract class BaseRobolectricTest {
 
     @Rule
