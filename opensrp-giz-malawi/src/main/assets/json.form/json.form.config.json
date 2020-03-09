@@ -18,7 +18,8 @@
       "rpr_syphilis_test",
       "glucose_test_type",
       "fasting_plasma_gluc",
-      "random_plasma"
+      "random_plasma",
+      "rapid_syphilis_test"
     ]
   },
   {

@@ -239,6 +239,14 @@
         }
       },
       {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10sp"
+      },
+      {
         "key": "muac",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -270,30 +278,6 @@
           {
             "key": "green",
             "text": "Green",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "haemoptysis",
-            "text": "Haemoptysis",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "weight_loss",
-            "text": "Weight loss",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "fever_or_night_sweats",
-            "text": "Fever or night sweats",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "",

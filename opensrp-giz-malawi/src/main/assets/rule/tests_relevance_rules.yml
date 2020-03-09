@@ -429,16 +429,30 @@ actions:
 name: step1_rapid_syphilis_test
 description: Rapid syphilis test (RST)
 priority: 1
-condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'Rapid diagnostic test (RDT)')"
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'rapid_syphilis_test')"
 actions:
 - "isRelevant = true"
+---
+name: step1_vdrl
+description: vdrl
+priority: 1
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'vdrl')"
+actions:
+  - "isRelevant = true"
 ---
 name: step2_rapid_syphilis_test
 description: Rapid syphilis test (RST)
 priority: 1
-condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'rapid_syphilis')"
+condition: "((step2_syph_test_status == 'done_today' || step2_syph_test_status == 'done_earlier') && step2_syph_test_type == 'rapid_syphilis_test')"
 actions:
 - "isRelevant = true"
+---
+name: step1_rpr_syphilis_test
+description: Rapid plasma reagin (RPR) test
+priority: 1
+condition: "((step1_syph_test_status == 'done_today' || step1_syph_test_status == 'done_earlier') && step1_syph_test_type == 'rapid_plasma')"
+actions:
+  - "isRelevant = true"
 ---
 name: step1_rpr_syphilis_test
 description: Rapid plasma reagin (RPR) test
@@ -856,7 +870,7 @@ actions:
 name: step1_hb_test_status
 description: hb test status
 priority: 1
-condition: "global_contact_no == 1  && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
+condition: "global_contact_no == 1  || (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
 actions:
   - "isRelevant = true"
 ---

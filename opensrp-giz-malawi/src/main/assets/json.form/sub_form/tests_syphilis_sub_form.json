@@ -203,25 +203,18 @@
       "label_text_style": "bold",
       "options": [
         {
-          "key": "rapid_syphilis",
-          "text": "Rapid syphilis test",
+          "key": "rapid_syphilis_test",
+          "text": "Rapid diagnostic test (RDT)",
           "openmrs_entity_parent": "",
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "rapid_plasma",
-          "text": "Rapid plasma reagin test",
+          "key": "vdrl",
+          "text": "VDRL",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "1619AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "off_site_lab",
-          "text": "Off-site lab test",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165389AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
         }
       ],
       "relevance": {
@@ -233,6 +226,41 @@
       },
       "v_required": {
         "value": true
+      }
+    },
+    {
+      "key": "vdrl",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "VDRL",
+      "label_text_style": "bold",
+      "options": [
+        {
+          "key": "positive",
+          "text": "Positive",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "negative",
+          "text": "Negative",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "v_required": {
+        "value": true
+      },
+      "relevance": {
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "tests_relevance_rules.yml"
+          }
+        }
       }
     },
     {

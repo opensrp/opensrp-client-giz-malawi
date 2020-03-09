@@ -111,6 +111,13 @@ condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20)"
 actions:
   - "isRelevant = true"
 ---
+name: step5_fetal_position
+description: Fetal position
+priority: 1
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
+actions:
+  - "isRelevant = true"
+---
 name: step6_fetal_heart_rate_repeat_label
 description: Fetal heart beat rate
 priority: 1
