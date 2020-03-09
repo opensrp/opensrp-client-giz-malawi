@@ -18,7 +18,6 @@ import org.smartregister.giz.shadow.ShadowSQLiteDatabase;
 /**
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 06-03-2020.
  */
-
 @Config(shadows = {ShadowSQLiteDatabase.class})
 public class GizMalawiRepositoryTest extends BaseRobolectricTest {
 
@@ -29,7 +28,6 @@ public class GizMalawiRepositoryTest extends BaseRobolectricTest {
 
     @Mock
     private SQLiteDatabase sqLiteDatabase;
-
 
     @Before
     public void setUp() throws Exception {

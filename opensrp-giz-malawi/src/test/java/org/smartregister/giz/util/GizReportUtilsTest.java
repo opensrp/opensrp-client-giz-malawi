@@ -2,7 +2,6 @@ package org.smartregister.giz.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -46,6 +45,6 @@ public class GizReportUtilsTest extends BaseRobolectricTest {
 
     @Test
     public void getStringIdentifierShouldReturnCleanString() {
-        Assert.assertEquals("giz_report_for_vaccinationimmunization", GizReportUtils.getStringIdentifier("GIZ REPORT FOR VACCINATION/IMMUNIZATION"));
+        assertEquals("giz_report_for_vaccinationimmunization", GizReportUtils.getStringIdentifier("GIZ REPORT FOR VACCINATION/IMMUNIZATION"));
     }
 }

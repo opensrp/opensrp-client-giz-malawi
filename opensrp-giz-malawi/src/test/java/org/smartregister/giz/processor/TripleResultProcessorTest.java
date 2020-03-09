@@ -33,7 +33,7 @@ public class TripleResultProcessorTest {
 
     @Test
     public void canProcessShouldReturnFalse() {
-        Assert.assertFalse(tripleResultProcessor.canProcess(2, new String[]{"gender", "count"}));
+        assertFalse(tripleResultProcessor.canProcess(2, new String[]{"gender", "count"}));
     }
 
     @Test

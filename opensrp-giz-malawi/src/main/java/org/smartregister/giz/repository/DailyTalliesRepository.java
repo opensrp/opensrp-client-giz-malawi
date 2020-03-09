@@ -23,13 +23,7 @@ public class DailyTalliesRepository extends BaseRepository {
 
     private static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     private static final String TABLE_NAME = "indicator_daily_tally";
-    private static final String COLUMN_ID = "_id";
-    private static final String COLUMN_INDICATOR_CODE = "indicator_code";
-    private static final String COLUMN_INDICATOR_VALUE = "indicator_value";
     private static final String COLUMN_DAY = "day";
-    private static final String[] TABLE_COLUMNS = {
-            COLUMN_ID, COLUMN_INDICATOR_CODE, COLUMN_INDICATOR_VALUE, COLUMN_DAY
-    };
 
     /**
      * Returns a list of dates for distinct months with daily tallies
@@ -86,7 +80,6 @@ public class DailyTalliesRepository extends BaseRepository {
         List<String> months = new ArrayList<>();
         if (cursor != null && cursor.getCount() > 0) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                //Date curMonth = new Date(cursor.getLong(0));
                 Date curMonth = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse((cursor.getString(0)));
                 String month = dateFormat.format(curMonth);
                 if (!months.contains(month)) {

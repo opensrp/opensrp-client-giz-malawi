@@ -15,6 +15,6 @@ public class ShadowSQLiteDatabase {
 
     @Implementation
     public static synchronized void loadLibs (Context context) {
-
+        // Do nothing here to avoid the crash due to lacking native libs
     }
 }
