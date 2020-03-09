@@ -2439,7 +2439,14 @@
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "fetal_lie",
