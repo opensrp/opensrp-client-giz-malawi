@@ -656,3 +656,24 @@ priority: 1
 condition: "step11_flu_date != '' && step11_flu_date == 'done_earlier'"
 actions:
   - "isRelevant = true"
+---
+name: step5_syphilis_benzathine1
+description: syphilis_benzathine1
+priority: 1
+condition: "global_contact_no == 1"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_benzathine2
+description: syphilis_benzathine2
+priority: 1
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine2,'1w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine2,'1w') == -1) && (step5_syphilis_benzathine2 == '' || step5_syphilis_benzathine2== 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_benzathine3
+description: syphilis_benzathine3
+priority: 1
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine3,'1w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine3,'1w') == -1) && (step5_syphilis_benzathine3 == '' || step5_syphilis_benzathine3== 'not_done')"
+actions:
+  - "isRelevant = true"
