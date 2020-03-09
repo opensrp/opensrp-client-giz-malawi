@@ -8,7 +8,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.smartregister.giz.shadow.ShadowAssetHandler;
 import org.smartregister.giz.shadow.ShadowBaseJob;
-import org.smartregister.giz.shadow.ShadowSQLiteDatabase;
 
 /**
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 05-03-2020.

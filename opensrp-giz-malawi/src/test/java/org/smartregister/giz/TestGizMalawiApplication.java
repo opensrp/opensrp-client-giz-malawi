@@ -79,4 +79,5 @@ public class TestGizMalawiApplication extends GizMalawiApplication {
     public String getPassword() {
         return "somepassword";
     }
+
 }
