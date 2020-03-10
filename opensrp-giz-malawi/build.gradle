@@ -182,7 +182,7 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:2.0.0.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-anc:2.0.1.2-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'

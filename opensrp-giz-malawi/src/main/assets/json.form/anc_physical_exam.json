@@ -2501,23 +2501,6 @@
         "spacer_height": "10sp"
       },
       {
-        "key": "toaster29",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Abnormal fetal heart rate. Refer to hospital.",
-        "text_color": "#E20000",
-        "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "spacer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -2535,7 +2518,7 @@
           {
             "key": "no_of_fetuses_unknown",
             "text": "No. of fetuses unknown",
-            "value": "true",
+            "value": "false",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165294AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2815,6 +2798,23 @@
         "type": "toaster_notes",
         "text": "No fetal heartbeat observed. Refer to hospital.",
         "toaster_info_text": "Procedure:\n- Inform the woman that you cannot find the heartbeat and need to refer her to check if there's a problem.\n- Refer to hospital.",
+        "text_color": "#E20000",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster29",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Abnormal fetal heart rate. Refer to hospital.",
         "text_color": "#E20000",
         "toaster_type": "problem",
         "relevance": {

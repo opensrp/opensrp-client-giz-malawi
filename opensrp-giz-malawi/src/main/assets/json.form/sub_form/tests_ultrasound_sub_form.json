@@ -303,7 +303,7 @@
       "text": "Pre-eclampsia risk counseling",
       "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling. ",
       "toaster_info_title": "Pre-eclampsia risk counseling",
-      "toaster_type": "positive",
+      "toaster_type": "warning",
       "relevance": {
         "rules-engine": {
           "ex-rules": {
@@ -507,7 +507,7 @@
       "text": "If a congenital anomaly is detected, refer for further investigations.",
       "toaster_info_text": "If a congenital anomaly is detected, refer for further investigations.",
       "toaster_info_title": "Congenital anomalies detected",
-      "toaster_type": "positive",
+      "toaster_type": "warning",
       "relevance": {
         "rules-engine": {
           "ex-rules": {

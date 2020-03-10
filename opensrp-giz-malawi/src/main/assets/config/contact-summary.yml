@@ -73,6 +73,9 @@ fields:
 - template: "Occupation: {occupation_value}"
   relevance: "occupation_value != ''"
 
+- template: "Religion: {religion}"
+  relevance: "religion != ''"
+
 ---
 group: current_pregnancy
 fields:
@@ -142,19 +145,19 @@ fields:
 group: immunisation_status
 fields:
 
-- template: "TT immunisation status: {tt_immun_status}"
+- template: "TDV immunisation status: {tt_immun_status}"
   relevance: "tt_immun_status_value != ''"
 
-- template: "TT dose #1: {tt1_date_done}"
+- template: "TDV dose #1: {tt1_date_done}"
   relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"
 
-- template: "TT dose #2: {tt2_date_done}"
+- template: "TDV dose #2: {tt2_date_done}"
   relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
-- template: "TT dose #3: {tt3_date_done}"
+- template: "TDV dose #3: {tt3_date_done}"
   relevance: "tt3_date == 'done_today' || tt3_date == 'done_earlier'"
 
-- template: "TT dose not given: {tt_dose_notdone_value}"
+- template: "TDV dose not given: {tt_dose_notdone_value}"
   relevance: "tt1_date == 'not_done' || tt2_date == 'not_done' || tt3_date == 'not_done'"
 
 - template: "Hep B immunisation status: {hepb_immun_status}"
@@ -511,6 +514,31 @@ fields:
 
 - template: "Second fetal heart rate: {fetal_heart_rate_repeat} bpm"
   relevance: "fetal_heart_rate_repeat != ''"
+
+- template: "Bruises: {bruises}"
+  relevance: "bruises != ''"
+
+- template: "Scars: {scars}"
+  relevance: "scars != ''"
+
+- template: "Sores: {sores}"
+  relevance: "sores != ''"
+
+- template: "Excessive striae gravidarum: {excess_striae_gravidarum}"
+  relevance: "excess_striae_gravidarum !=''"
+
+- template: "Shape of the abdomen: {abdomen_shape}"
+  relevance: "abdomen_shape != ''"
+
+- template: "Size of the abdomen: {abdomen_size}"
+  relevance: "abdomen_size != ''"
+
+- template: "Fetal position: {fetal_position}"
+  relevance: "fetal_position != ''"
+
+- template: "Fetal lie: {fetal_lie}"
+  relevance: "fetal_lie != ''"
+
 ---
 group: ultrasound_test
 fields:

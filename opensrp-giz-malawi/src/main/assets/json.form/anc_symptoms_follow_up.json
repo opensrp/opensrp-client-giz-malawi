@@ -1931,7 +1931,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "native_radio",
+        "type": "check_box",
         "label": "Has the woman experienced any of the following symptoms?",
         "label_info_text": "The woman should be screened for the following TB symptoms at every contact.",
         "label_text_style": "bold",

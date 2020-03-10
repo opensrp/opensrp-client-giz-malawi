@@ -94,7 +94,8 @@
     "alcohol_substance_enquiry",
     "alcohol_substance_use",
     "other_substance_use",
-    "partner_hiv_status"
+    "partner_hiv_status",
+    "religion"
   ],
   "default_values": [
     "educ_level",
@@ -141,7 +142,8 @@
     "ultrasound_gest_age_selection",
     "sfh_gest_age_selection",
     "lmp_ultrasound_gest_age_selection",
-    "sfh_ultrasound_gest_age_selection"
+    "sfh_ultrasound_gest_age_selection",
+    "religion"
   ],
   "step1": {
     "title": "Demographic Info",

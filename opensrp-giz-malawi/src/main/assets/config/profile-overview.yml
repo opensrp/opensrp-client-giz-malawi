@@ -103,6 +103,9 @@ fields:
 - template: "Total weight gain in pregnancy so far: {tot_weight_gain} kg"
   relevance: "tot_weight_gain != ''"
 
+- template: "MUAC: {muac}"
+  relevance: "muac != ''"
+
 ---
 sub_group: medications
 fields:
@@ -211,30 +214,41 @@ fields:
 ---
 group: malaria_prophylaxis
 fields:
-- template: "IPTp-SP dose 1: {date}"
+- template: "SP dose 1: {date}"
   relevance: "iptp_sp1 == 'Done'"
 
-- template: "IPTp-SP dose 2: {date}"
+- template: "SP dose 2: {date}"
   relevance: "iptp_sp2 == 'Done'"
 
-- template: "IPTp-SP dose 3: {date}"
+- template: "SP dose 3: {date}"
   relevance: "iptp_sp3 == 'Done'"
 
+- template: "SP dose 4: {date}"
+  relevance: "iptp_sp4 == 'Done'"
+
+- template: "SP dose 5: {date}"
+  relevance: "iptp_sp5 == 'Done'"
+
+- template: "SP dose 6: {date}"
+  relevance: "iptp_sp6 == 'Done'"
 ---
 group: immunisation_status
 fields:
-- template: "TT immunisation status: {tt_immun_status}"
+- template: "TDV immunisation status: {tt_immun_status}"
   relevance: "tt_immun_status != ''"
   isRedFont: "tt_immun_status == 'TDV not received' || tt_immun_status == 'Unknown'"
 
-- template: "TT dose #1: {tt1_date}"
+- template: "TDV dose #1: {tt1_date}"
   relevance: "tt1_date == 'Done today' || tt1_date == 'Done earlier'"
 
-- template: "TT dose #1: {tt2_date}"
+- template: "TDV dose #2: {tt2_date}"
   relevance: "tt2_date == 'Done today' || tt2_date == 'Done earlier'"
 
-- template: "TT dose #1: {tt3_date}"
+- template: "TDV dose #3: {tt3_date}"
   relevance: "tt3_date == 'Done today' || tt3_date == 'Done earlier'"
+
+- template: "TDV dose not given: {tt_dose_notdone_value}"
+  relevance: "tt1_date == 'not_done' || tt2_date == 'not_done' || tt3_date == 'not_done'"
 
 - template: "Hep B immunisation status: {hepb_immun_status}"
   relevance: "hepb_immun_status != ''"
@@ -255,3 +269,12 @@ fields:
 
 - template: "Flu dose: {flu_date}"
   relevance: "flu_date == 'Done today' || flu_date == 'Done earlier'"
+
+- template: "Flu dose: {flu_date}"
+  relevance: "flu_date == 'Done today' || flu_date == 'Done earlier'"
+
+- template: "Anti-D immunoglobulin prophylaxis 1st dose: {anti_d1_date_done}"
+  relevance: "anti_d1_date == 'Done today' || anti_d1_date == 'Done earlier'"
+
+- template: "Anti-D immunoglobulin prophylaxis 2nd dose: {anti_d2_date_done}"
+  relevance: "anti_d2_date == 'Done today' || anti_d2_date == 'Done earlier'"
