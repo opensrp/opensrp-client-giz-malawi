@@ -147,6 +147,12 @@ public class GizConstants {
         public static final String OPD_REGISTRATION = "Opd Registration" ;
         public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
         public static String SITE_CHARACTERISTICS = "site_characteristics";
+
+        public static final String FIELDS = "fields";
+        public static final String KEY = "key";
+        public static final String IS_VACCINE_GROUP = "is_vaccine_group";
+        public static final String OPTIONS = "options";
+
     }
 
     public static final class DrawerMenu {

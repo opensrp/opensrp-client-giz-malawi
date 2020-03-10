@@ -37,7 +37,7 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.event.Listener;
 import org.smartregister.giz.R;
-import org.smartregister.giz.activity.GizJsonFormActivity;
+import org.smartregister.giz.activity.GizJsonFormReportsActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.util.Utils;
@@ -402,11 +402,11 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
             JSONObject object = getStep("step1");
             try {
                 if (object.getString("title").contains("Stock Issued") || object.getString("title").contains("Stock Received") || object.getString("title").contains("Stock Loss/Adjustment")) {
-                    balanceCheck = ((GizJsonFormActivity) getActivity()).checkIfBalanceNegative();
+                    balanceCheck = ((GizJsonFormReportsActivity) getActivity()).checkIfBalanceNegative();
                 }
 
                 if (object.getString("title").contains("Record out of catchment area service")) {
-                    fillFormCheck = ((GizJsonFormActivity) getActivity()).checkIfAtLeastOneServiceGiven();
+                    fillFormCheck = ((GizJsonFormReportsActivity) getActivity()).checkIfAtLeastOneServiceGiven();
                 }
             } catch (Exception e) {
                 Log.e(getClass().getName(), e.toString(), e);

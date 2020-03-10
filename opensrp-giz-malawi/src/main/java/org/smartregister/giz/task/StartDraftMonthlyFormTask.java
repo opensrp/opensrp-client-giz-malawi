@@ -9,7 +9,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.giz.activity.GizJsonFormActivity;
+import org.smartregister.giz.activity.GizJsonFormReportsActivity;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.MonthlyTally;
@@ -132,7 +132,7 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
             form.put(JsonFormConstants.REPORT_MONTH, HIA2ReportsActivity.yyyyMMdd.format(date));
             form.put("identifier", "HIA2ReportForm");
 
-            Intent intent = new Intent(baseActivity, GizJsonFormActivity.class);
+            Intent intent = new Intent(baseActivity, GizJsonFormReportsActivity.class);
             intent.putExtra("json", form.toString());
             intent.putExtra(JsonFormConstants.SKIP_VALIDATION, false);
 

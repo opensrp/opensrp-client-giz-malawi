@@ -501,6 +501,8 @@
     <string name="str_page_info">Page {0} of {1}</string>
     <string name="vaccine_schedule_update_wait_message">This might take some time... Kindly wait</string>
     <string name="dismiss_lookup">Confirm</string>
+    <string name="balance">Balance</string>
+    <string name="new_balance">New balance</string>
 
 
 </resources>
