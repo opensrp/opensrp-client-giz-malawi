@@ -161,12 +161,12 @@ public class GizUtils extends Utils {
     }
 
     @NonNull
-    private static ArrayList<String> getLocationLevels() {
+    public static ArrayList<String> getLocationLevels() {
         return new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS));
     }
 
     @NonNull
-    private static ArrayList<String> getHealthFacilityLevels() {
+    public static ArrayList<String> getHealthFacilityLevels() {
         return new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS));
     }
 

@@ -293,6 +293,16 @@
         }
       },
       {
+        "key": "village",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address1",
+        "openmrs_data_type": "text",
+        "type": "tree",
+        "tree": [],
+        "hint": "Village"
+      },
+      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

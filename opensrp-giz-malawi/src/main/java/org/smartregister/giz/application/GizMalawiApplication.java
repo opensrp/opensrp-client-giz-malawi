@@ -17,6 +17,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.ActivityConfiguration;
+import org.smartregister.anc.library.util.AncMetadata;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.domain.ChildMetadata;
@@ -256,8 +257,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         activityConfiguration.setLandingPageActivityClass(OpdRegisterActivity.class);
         activityConfiguration.setMainContactActivityClass(GizAncMainContactActivity.class);
-
-        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider());
+        AncMetadata ancMetadata = new AncMetadata();
+        ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
+        ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider(), ancMetadata);
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
