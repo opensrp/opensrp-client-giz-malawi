@@ -95,7 +95,10 @@
     "alcohol_substance_use",
     "other_substance_use",
     "partner_hiv_status",
-    "religion"
+    "religion",
+    "last_live_birth_preterm",
+    "shs_exposure",
+    "condom_use"
   ],
   "default_values": [
     "educ_level",
@@ -143,7 +146,10 @@
     "sfh_gest_age_selection",
     "lmp_ultrasound_gest_age_selection",
     "sfh_ultrasound_gest_age_selection",
-    "religion"
+    "religion",
+    "last_live_birth_preterm",
+    "shs_exposure",
+    "condom_use"
   ],
   "step1": {
     "title": "Demographic Info",

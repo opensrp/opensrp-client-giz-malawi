@@ -129,6 +129,6 @@ actions:
 name: step5_toaster23
 description: toaster23
 priority: 1
-condition: "(step5_tb_screening != '' && step5_tb_screening != 'none')"
+condition: "!step5_tb_screening.isEmpty() && !step5_tb_screening.contains('none')"
 actions:
   - "isRelevant = true"

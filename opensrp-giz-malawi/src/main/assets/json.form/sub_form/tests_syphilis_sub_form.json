@@ -150,10 +150,10 @@
       }
     },
     {
+      "key": "syphilis_test_date_today_hidden",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
       "openmrs_entity_id": "",
-      "key": "syphilis_test_date_today_hidden",
       "type": "hidden",
       "label_text_style": "bold",
       "text_color": "#000000",

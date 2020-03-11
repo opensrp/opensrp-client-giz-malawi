@@ -213,3 +213,4 @@ fields:
   - "hepb_positive"
   - "lmp_known"
   - "ultrasound_done"
+  - "urine_glucose"
