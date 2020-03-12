@@ -2,8 +2,10 @@ package org.smartregister.giz.repository;
 
 import android.database.Cursor;
 import android.database.SQLException;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import org.smartregister.reporting.util.Constants;
 import org.smartregister.repository.BaseRepository;
 
 import java.text.ParseException;
@@ -25,6 +27,7 @@ public class DailyTalliesRepository extends BaseRepository {
     private static final String TABLE_NAME = "indicator_daily_tally";
     private static final String COLUMN_DAY = "day";
 
+
     /**
      * Returns a list of dates for distinct months with daily tallies
      *
@@ -36,6 +39,20 @@ public class DailyTalliesRepository extends BaseRepository {
      * @return A list of months that have daily tallies
      */
     public List<String> findAllDistinctMonths(SimpleDateFormat dateFormat, Date startDate, Date endDate) {
+        return findAllDistinctMonths(dateFormat, startDate, endDate, null);
+    }
+
+    /**
+     * Returns a list of dates for distinct months with daily tallies
+     *
+     * @param dateFormat The format to use to format the months' dates
+     * @param startDate  The first date to consider. Set argument to null if you
+     *                   don't want this enforced
+     * @param endDate    The last date to consider. Set argument to null if you
+     *                   don't want this enforced
+     * @return A list of months that have daily tallies
+     */
+    public List<String> findAllDistinctMonths(SimpleDateFormat dateFormat, Date startDate, Date endDate, @Nullable String grouping) {
         Cursor cursor = null;
         List<String> months = new ArrayList<>();
 
@@ -52,6 +69,8 @@ public class DailyTalliesRepository extends BaseRepository {
 
                 selectionArgs = selectionArgs + COLUMN_DAY + " <= '" + DAY_FORMAT.format(endDate) +"'";
             }
+
+            selectionArgs += " AND " + Constants.DailyIndicatorCountRepository.INDICATOR_GROUPING + (grouping == null ? " IS NULL" : " = '" + grouping + "'");
 
             cursor = getReadableDatabase().query(true, TABLE_NAME,
                     new String[]{COLUMN_DAY},
