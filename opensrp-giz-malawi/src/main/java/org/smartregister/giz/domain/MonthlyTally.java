@@ -25,6 +25,9 @@ public class MonthlyTally extends Tally implements Serializable {
     @JsonProperty
     private Date updatedAt;
 
+    @JsonProperty
+    private String grouping;
+
 
     private Hia2Indicator hia2Indicator;
     private IndicatorTally indicatorTally;
@@ -96,5 +99,13 @@ public class MonthlyTally extends Tally implements Serializable {
 
     public void setIndicatorTally(IndicatorTally indicatorTally) {
         this.indicatorTally = indicatorTally;
+    }
+
+    public String getGrouping() {
+        return grouping;
+    }
+
+    public void setGrouping(String grouping) {
+        this.grouping = grouping;
     }
 }

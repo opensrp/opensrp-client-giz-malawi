@@ -40,6 +40,7 @@ import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
 import org.smartregister.giz.task.StartDraftMonthlyFormTask;
 import org.smartregister.giz.util.AppExecutors;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizReportUtils;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.reporting.domain.TallyStatus;
@@ -99,6 +100,8 @@ public class HIA2ReportsActivity extends BaseActivity {
 
     private ReportingProcessingSnackbar reportingProcessingSnackbar;
     private ArrayList<FragmentRefreshListener> fragmentRefreshListeners = new ArrayList<>();
+    @Nullable
+    private String reportGrouping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +117,11 @@ public class HIA2ReportsActivity extends BaseActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout.setupWithViewPager(mViewPager);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            reportGrouping = intent.getStringExtra(GizConstants.IntentKey.REPORT_GROUPING);
+        }
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();
@@ -173,10 +181,10 @@ public class HIA2ReportsActivity extends BaseActivity {
         return mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
     }
 
-    public void startMonthlyReportForm(@NonNull String formName, @NonNull Date date) {
+    public void startMonthlyReportForm(@NonNull String formName, @Nullable String reportGrouping, @NonNull Date date) {
         Fragment currentFragment = currentFragment();
         if (currentFragment instanceof DraftMonthlyFragment) {
-            Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, date, formName), null);
+            Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, reportGrouping, date, formName), null);
         }
     }
 
@@ -313,7 +321,7 @@ public class HIA2ReportsActivity extends BaseActivity {
     }
 
     public void refreshDraftMonthlyTitle() {
-        Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(new FetchEditedMonthlyTalliesTask.TaskListener() {
+        Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(reportGrouping, new FetchEditedMonthlyTalliesTask.TaskListener() {
             @Override
             public void onPostExecute(final List<MonthlyTally> monthlyTallies) {
                 tabLayout.post(new Runnable() {
@@ -382,7 +390,7 @@ public class HIA2ReportsActivity extends BaseActivity {
         try {
             if (month != null) {
                 List<MonthlyTally> tallies = monthlyTalliesRepository
-                        .find(MonthlyTalliesRepository.DF_YYYYMM.format(month));
+                        .find(MonthlyTalliesRepository.DF_YYYYMM.format(month), reportGrouping);
                 if (tallies != null) {
                     List<ReportHia2Indicator> reportHia2Indicators = new ArrayList<>();
                     for (MonthlyTally curTally : tallies) {
@@ -450,7 +458,7 @@ public class HIA2ReportsActivity extends BaseActivity {
 
                 // update drafts view
                 refreshDraftMonthlyTitle();
-                org.smartregister.child.util.Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(new FetchEditedMonthlyTalliesTask.TaskListener() {
+                org.smartregister.child.util.Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(reportGrouping, new FetchEditedMonthlyTalliesTask.TaskListener() {
                     @Override
                     public void onPostExecute(List<MonthlyTally> monthlyTallies) {
                         Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + mViewPager.getCurrentItem());
@@ -490,5 +498,10 @@ public class HIA2ReportsActivity extends BaseActivity {
 
         void onRefresh();
 
+    }
+
+    @Nullable
+    public String getReportGrouping() {
+        return reportGrouping;
     }
 }

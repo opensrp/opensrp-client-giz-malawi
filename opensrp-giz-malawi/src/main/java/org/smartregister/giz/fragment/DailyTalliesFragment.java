@@ -12,6 +12,7 @@ import android.widget.ExpandableListView;
 
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
+import org.smartregister.giz.activity.ReportRegisterActivity;
 import org.smartregister.giz.activity.ReportSummaryActivity;
 import org.smartregister.giz.adapter.ExpandedListAdapter;
 import org.smartregister.giz.util.AppExecutors;
@@ -45,8 +46,9 @@ public class DailyTalliesFragment extends ReportFragment {
     private ProgressDialog progressDialog;
     private AppExecutors appExecutors;
 
-    public static DailyTalliesFragment newInstance() {
+    public static DailyTalliesFragment newInstance(@Nullable String reportGrouping) {
         DailyTalliesFragment fragment = new DailyTalliesFragment();
+        fragment.reportGrouping = reportGrouping;
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -76,7 +78,7 @@ public class DailyTalliesFragment extends ReportFragment {
         return ReportingLibrary.getInstance().dailyIndicatorCountRepository()
                 .findDaysWithIndicatorCounts(new SimpleDateFormat(ReportIndicatorDaoImpl.DAILY_TALLY_DATE_FORMAT)
                         , startDate.getTime()
-                        , Calendar.getInstance().getTime());
+                        , Calendar.getInstance().getTime(), reportGrouping);
     }
 
     private void displayDailyTallies(@NonNull ArrayList<Date> daysWithTallies) {
@@ -116,6 +118,7 @@ public class DailyTalliesFragment extends ReportFragment {
                     Intent intent = new Intent(getActivity(), ReportSummaryActivity.class);
                     intent.putExtra(ReportSummaryActivity.EXTRA_DAY, date);
                     intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
+                    intent.putExtra(ReportSummaryActivity.EXTRA_REPORT_GROUPING, reportGrouping);
                     startActivity(intent);
                 }
 

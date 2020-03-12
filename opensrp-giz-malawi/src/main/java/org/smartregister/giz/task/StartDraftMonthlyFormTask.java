@@ -3,6 +3,7 @@ package org.smartregister.giz.task;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -32,10 +33,12 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
     private final HIA2ReportsActivity baseActivity;
     private final Date date;
     private final String formName;
+    private String reportGrouping;
 
     public StartDraftMonthlyFormTask(@NonNull HIA2ReportsActivity baseActivity,
-                                     @NonNull Date date, @NonNull String formName) {
+                                     @Nullable String reportGrouping, @NonNull Date date, @NonNull String formName) {
         this.baseActivity = baseActivity;
+        this.reportGrouping = reportGrouping;
         this.date = date;
         this.formName = formName;
     }
@@ -50,7 +53,7 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
     protected Intent doInBackground(Void... params) {
         try {
             MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication.getInstance().monthlyTalliesRepository();
-            List<MonthlyTally> monthlyTallies = monthlyTalliesRepository.findDrafts(MonthlyTalliesRepository.DF_YYYYMM.format(date));
+            List<MonthlyTally> monthlyTallies = monthlyTalliesRepository.findDrafts(MonthlyTalliesRepository.DF_YYYYMM.format(date), reportGrouping);
 
             if (monthlyTallies.size() < 1) {
                 return null;
@@ -93,7 +96,12 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
                 vNumeric.put(JsonFormConstants.VALUE, "true");
                 vNumeric.put(JsonFormConstants.ERR, "Value should be numeric");
 
-                jsonObject.put(JsonFormConstants.KEY, monthlyTally.getIndicator());
+                String key = monthlyTally.getIndicator();
+                if (monthlyTally.getGrouping() != null) {
+                    key += ">" + monthlyTally.getGrouping();
+                }
+
+                jsonObject.put(JsonFormConstants.KEY, key);
                 jsonObject.put(JsonFormConstants.TYPE, "edit_text");
                 //jsonObject.put(JsonFormConstants.READ_ONLY, readOnlyList.contains(monthlyTally.getIndicatorCode()));
                 jsonObject.put(JsonFormConstants.READ_ONLY, false);

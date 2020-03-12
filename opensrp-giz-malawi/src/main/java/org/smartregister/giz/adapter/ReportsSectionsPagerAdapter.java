@@ -29,11 +29,11 @@ public class ReportsSectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position) {
             case 0:
-                return DailyTalliesFragment.newInstance();
+                return DailyTalliesFragment.newInstance(hia2ReportsActivity.getReportGrouping());
             case 1:
-                return DraftMonthlyFragment.newInstance();
+                return DraftMonthlyFragment.newInstance(hia2ReportsActivity.getReportGrouping());
             case 2:
-                return SentMonthlyFragment.newInstance();
+                return SentMonthlyFragment.newInstance(hia2ReportsActivity.getReportGrouping());
             default:
                 break;
         }

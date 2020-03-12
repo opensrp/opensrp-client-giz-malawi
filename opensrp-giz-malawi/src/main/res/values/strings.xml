@@ -132,7 +132,9 @@
     <string name="system_id_colon">MER ID:</string>
     <string name="title_child">Child</string>
     <string name="settings">Settings</string>
+
     <style name="report">Report</style>
+
     <string name="loading">Loading</string>
     <string name="please_wait_message">Please wait</string>
     <string name="report">Reports</string>

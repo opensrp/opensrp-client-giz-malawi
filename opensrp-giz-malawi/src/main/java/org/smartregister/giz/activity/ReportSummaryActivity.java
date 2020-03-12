@@ -3,6 +3,7 @@ package org.smartregister.giz.activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -34,8 +35,11 @@ public class ReportSummaryActivity extends BaseActivity {
     public static final String EXTRA_DAY = "tally_day";
     public static final String EXTRA_SUB_TITLE = "sub_title";
     public static final String EXTRA_TITLE = "title";
+    public static final String EXTRA_REPORT_GROUPING = "report-grouping";
     private LinkedHashMap<String, ArrayList<IndicatorTally>> tallies;
+
     private String subTitle;
+    private String reportGrouping;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -58,8 +62,10 @@ public class ReportSummaryActivity extends BaseActivity {
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
             Serializable tallyDaySerializable = extras.getSerializable(EXTRA_DAY);
+            reportGrouping = extras.getString(EXTRA_REPORT_GROUPING);
+
             if (tallyDaySerializable instanceof Date) {
-                fetchIndicatorTalliesForDay((Date) tallyDaySerializable);
+                fetchIndicatorTalliesForDay((Date) tallyDaySerializable, reportGrouping);
             }
 
             Serializable submittedBySerializable = extras.getSerializable(EXTRA_SUB_TITLE);
@@ -159,14 +165,14 @@ public class ReportSummaryActivity extends BaseActivity {
         // Nothing to do
     }
 
-    public void fetchIndicatorTalliesForDay(@NonNull final Date date) {
+    public void fetchIndicatorTalliesForDay(@NonNull final Date date, @Nullable String reportGrouping) {
         AppExecutors appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 ArrayList<IndicatorTally> indicatorTallies = ReportingLibrary.getInstance()
                         .dailyIndicatorCountRepository()
-                        .getIndicatorTalliesForDay(date);
+                        .getIndicatorTalliesForDay(date, reportGrouping);
 
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override

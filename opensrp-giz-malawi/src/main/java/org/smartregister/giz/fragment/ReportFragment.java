@@ -11,6 +11,8 @@ import org.smartregister.giz.activity.HIA2ReportsActivity;
 
 public abstract class ReportFragment extends Fragment implements HIA2ReportsActivity.FragmentRefreshListener {
 
+    public String reportGrouping;
+
     @Override
     public void onResume() {
         super.onResume();
