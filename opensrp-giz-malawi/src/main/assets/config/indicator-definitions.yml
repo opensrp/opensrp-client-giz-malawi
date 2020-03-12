@@ -2,6 +2,7 @@ indicators:
   - key: "ME_Child_Total"
     description: "ME_Child_Total_label"
     indicatorQuery: "select count(*) from ec_client child WHERE '%s' = strftime('%Y-%m-%d', child.date)"
+    grouping: "child"
 
   - key: "ME_PAB_Gender"
     description: "ME_PAB_Gender_label"
@@ -14,6 +15,7 @@ indicators:
                      group by ec_client.gender"
     isMultiResult: true
     expectedIndicators: ["ME_PAB_Gender_Female", "ME_PAB_Gender_Male"]
+    grouping: "child"
 
   - key: "ME_PAB_Age"
     description: "ME_PAB_Age_label"
@@ -38,6 +40,7 @@ indicators:
                      ORDER BY counter"
     isMultiResult: true
     expectedIndicators: ["ME_PAB_Age_Over_1", "ME_PAB_Age_Under_1", "ME_PAB_Age_Total"]
+    grouping: "child"
 
   - key: "ME_Vaccines_Gender"
     description: "ME_Vaccines_Gender_label"
@@ -92,6 +95,7 @@ indicators:
       - "ME_Vaccines_Gender_measles_2_/_mr_2_Female"
       - "ME_Vaccines_Gender_ipv_Male"
       - "ME_Vaccines_Gender_ipv_Female"
+    grouping: "child"
 
   - key: "ME_Vaccines_Age"
     description: "ME_Vaccines_Age_label"
@@ -144,6 +148,7 @@ indicators:
       - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1"
       - "ME_Vaccines_Age_ipv_Over_1"
       - "ME_Vaccines_Age_ipv_Under_1"
+    grouping: "child"
 
   - key: "ME_Vaccines_Under2"
     description: "ME_Vaccines_Under2_label"
@@ -173,6 +178,7 @@ indicators:
       - "ME_Vaccines_Under2_mv_2"
       - "ME_Vaccines_Under2_mv_3"
       - "ME_Vaccines_Under2_measles_1_/_mr_1"
+    grouping: "child"
 
   - key: "ME_Child_HIV_Under2_Gender"
     description: "ME_Child_HIV_Under2_label"
@@ -185,6 +191,7 @@ indicators:
                      group by d.value,ec_client.gender
                      HAVING d.key IN ('child_hiv_status', NULL);"
     isMultiResult: true
+    grouping: "child"
 
   - key: "ME_Child_HIV_Status_Under2_Gender"
     description: "ME_Child_HIV_Status_Under2_Gender_label"
@@ -209,6 +216,7 @@ indicators:
       - "ME_Child_HIV_Status_Under2_Gender_HIV Positive_Male"
       - "ME_Child_HIV_Status_Under2_Gender_HIV Unknown_Female"
       - "ME_Child_HIV_Status_Under2_Gender_HIV Unknown_Male"
+    grouping: "child"
 
   - key: "ME_Child_HIV_Status_Over2_Gender"
     description: "ME_Child_HIV_Status_Over2_Gender_label"
@@ -234,6 +242,7 @@ indicators:
       - "ME_Child_HIV_Status_Over2_Gender_HIV Positive_Male"
       - "ME_Child_HIV_Status_Over2_Gender_HIV Unknown_Female"
       - "ME_Child_HIV_Status_Over2_Gender_HIV Unknown_Male"
+    grouping: "child"
 
   - key: "ME_Child_HIV_Treatment_Under2_Gender"
     description: "Me_Child_HIV_Treatment_Under2_Gender_label"
@@ -252,6 +261,7 @@ indicators:
       - "ME_Child_HIV_Treatment_Under2_Gender_ART_Male"
       - "ME_Child_HIV_Treatment_Under2_Gender_CPT_Female"
       - "ME_Child_HIV_Treatment_Under2_Gender_CPT_Male"
+    grouping: "child"
 
   - key: "ME_Child_HIV_Treatment_Over2_Gender"
     description: "ME_Child_HIV_Treatment_Over2_Gender_label"
@@ -271,6 +281,7 @@ indicators:
       - "ME_Child_HIV_Treatment_Over2_Gender_ART_Male"
       - "ME_Child_HIV_Treatment_Over2_Gender_CPT_Female"
       - "ME_Child_HIV_Treatment_Over2_Gender_CPT_Male"
+    grouping: "child"
 
   - key: "ME_Child_HIV_Status_Over2"
     description: "ME_Child_HIV_Status_Over2_label"
@@ -292,6 +303,7 @@ indicators:
       - "ME_Child_HIV_Status_Over2_HIV Positive"
       - "ME_Child_HIV_Status_Over2_HIV Exposed"
       - "ME_Child_HIV_Status_Over2_HIV Negative"
+    grouping: "child"
 
   - key: "ME_Child_HIV_Status_Under2"
     description: "ME_Child_HIV_Status_Under2_label"
@@ -312,6 +324,7 @@ indicators:
       - "ME_Child_HIV_Status_Under2_HIV Positive"
       - "ME_Child_HIV_Status_Under2_HIV Exposed"
       - "ME_Child_HIV_Status_Under2_HIV Negative"
+    grouping: "child"
 
   - key: "ME_Child_HIV_Treatment_Over2"
     description: "ME_Child_HIV_Treatment_Over2_label"
@@ -329,6 +342,7 @@ indicators:
     expectedIndicators:
       - "ME_Child_HIV_Treatment_Over2_ART"
       - "ME_Child_HIV_Treatment_Over2_CPT"
+    grouping: "child"
 
   - key: "ME_Child_HIV_Treatment_Under2"
     description: "ME_Child_HIV_Treatment_Under2_label"
@@ -345,6 +359,7 @@ indicators:
     expectedIndicators:
       - "ME_Child_HIV_Treatment_Under2_ART"
       - "ME_Child_HIV_Treatment_Under2_CPT"
+    grouping: "child"
 
   - key: "ME_Weight_Over2"
     description: "ME_Weight_Over2_label"
@@ -369,6 +384,7 @@ indicators:
       - "ME_Weight_Over2_Normal"
       - "ME_Weight_Over2_Overweight"
       - "ME_Weight_Over2_Underweight"
+    grouping: "child"
 
   - key: "ME_Weight_Over2_Gender"
     description: "ME_Weight_Over2_Gender_label"
@@ -396,6 +412,7 @@ indicators:
       - "ME_Weight_Over2_Gender_Overweight_Male"
       - "ME_Weight_Over2_Gender_Underweight_Female"
       - "ME_Weight_Over2_Gender_Underweight_Male"
+    grouping: "child"
 
   - key: "ME_Weight_Under2_Age"
     description: "ME_Weight_Under2_Age_label"
@@ -426,6 +443,7 @@ indicators:
       - "ME_Weight_Under2_Age_Overweight_Under_1"
       - "ME_Weight_Under2_Age_Overweight_Over_1"
       - "ME_Weight_Under2_Age_Underweight_Under_1"
+    grouping: "child"
 
   - key: "ME_Weight_Under2_Age_Gender"
     description: "ME_Weight_Under2_Age_Gender_label"
@@ -463,6 +481,7 @@ indicators:
       - "ME_Weight_Under2_Age_Gender_Underweight_Over_1_Male"
       - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Female"
       - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Male"
+    grouping: "child"
 
   - key: "ME_Height_Over2_Gender"
     description: "ME_Height_Over2_Gender_label"
@@ -486,6 +505,7 @@ indicators:
       - "ME_Height_Over2_Gender_Normal_Male"
       - "ME_Height_Over2_Gender_Stunted_Female"
       - "ME_Height_Over2_Gender_Stunted_Male"
+    grouping: "child"
 
   - key: "ME_Height_Under2_Age"
     description: "ME_Height_Under2_Age_label"
@@ -514,6 +534,7 @@ indicators:
       - "ME_Height_Under2_Age_Severe_Under_1"
       - "ME_Height_Under2_Age_Severe_Over_1"
       - "ME_Height_Under2_Age_Stunted_Under_1"
+    grouping: "child"
 
   - key: "ME_Height_Under2_Age_Gender"
     description: "ME_Height_Under2_Age_Gender_label"
@@ -545,3 +566,4 @@ indicators:
       - "ME_Height_Under2_Age_Gender_Severe_Over_1_Male"
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Female"
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"
+    grouping: "child"
