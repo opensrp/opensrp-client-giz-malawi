@@ -2,11 +2,11 @@
   {
     "type": "Vit A",
     "service_logic": "",
-    "units": "IU",
+    "units": "",
     "openmrs_service_name": {
       "parent_entity": "",
       "entity": "concept",
-      "entity_id": "161534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      "entity_id": "86339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
     },
     "openmrs_date": {
       "parent_entity": "",
@@ -17,7 +17,7 @@
       {
         "id": "10",
         "name": "Vit A 1",
-        "dose": "100,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "dob",
@@ -33,7 +33,7 @@
       {
         "id": "11",
         "name": "Vit A 2",
-        "dose": "200,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -50,7 +50,7 @@
       {
         "id": "12",
         "name": "Vit A 3",
-        "dose": "200,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -67,7 +67,7 @@
       {
         "id": "13",
         "name": "Vit A 4",
-        "dose": "200,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -84,7 +84,7 @@
       {
         "id": "14",
         "name": "Vit A 5",
-        "dose": "200,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -101,7 +101,7 @@
       {
         "id": "15",
         "name": "Vit A 6",
-        "dose": "200,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -118,7 +118,7 @@
       {
         "id": "16",
         "name": "Vit A 7",
-        "dose": "200,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -135,7 +135,7 @@
       {
         "id": "17",
         "name": "Vit A 8",
-        "dose": "200,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -152,7 +152,7 @@
       {
         "id": "18",
         "name": "Vit A 9",
-        "dose": "200,000",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -171,7 +171,7 @@
   {
     "type": "Deworming",
     "service_logic": "",
-    "units": "mg",
+    "units": "",
     "openmrs_service_name": {
       "parent_entity": "",
       "entity": "concept",
@@ -186,7 +186,7 @@
       {
         "id": "1",
         "name": "Deworming 1",
-        "dose": "200",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "dob",
@@ -202,7 +202,7 @@
       {
         "id": "2",
         "name": "Deworming 2",
-        "dose": "200",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -219,7 +219,7 @@
       {
         "id": "3",
         "name": "Deworming 3",
-        "dose": "400",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -236,7 +236,7 @@
       {
         "id": "4",
         "name": "Deworming 4",
-        "dose": "400",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -253,7 +253,7 @@
       {
         "id": "5",
         "name": "Deworming 5",
-        "dose": "400",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -270,7 +270,7 @@
       {
         "id": "6",
         "name": "Deworming 6",
-        "dose": "400",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",
@@ -287,7 +287,7 @@
       {
         "id": "7",
         "name": "Deworming 7",
-        "dose": "400",
+        "dose": "",
         "schedule": {
           "due": {
             "reference": "prerequisite",

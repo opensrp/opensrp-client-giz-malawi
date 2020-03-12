@@ -1,4 +1,4 @@
-package org.smartregister.giz;
+package org.smartregister.giz.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -19,9 +19,9 @@ import org.powermock.reflect.Whitebox;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
-import org.smartregister.giz.activity.LoginActivity;
+import org.smartregister.giz.BaseActivityUnitTest;
+import org.smartregister.giz.R;
 import org.smartregister.view.contract.BaseLoginContract;
-
 
 public class LoginActivityTest extends BaseActivityUnitTest {
 

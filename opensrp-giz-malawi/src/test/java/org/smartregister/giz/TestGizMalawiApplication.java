@@ -74,4 +74,10 @@ public class TestGizMalawiApplication extends GizMalawiApplication {
     protected void fixHardcodedVaccineConfiguration() {
         //Override
     }
+
+    @Override
+    public String getPassword() {
+        return "somepassword";
+    }
+
 }

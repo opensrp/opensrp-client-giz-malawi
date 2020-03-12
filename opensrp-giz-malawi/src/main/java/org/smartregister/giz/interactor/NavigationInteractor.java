@@ -2,6 +2,7 @@ package org.smartregister.giz.interactor;
 
 import android.database.Cursor;
 
+import org.smartregister.child.util.Constants;
 import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.giz.application.GizMalawiApplication;
@@ -54,10 +55,11 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         }
     }
 
-    private int getCount(String registerType) {
+    private int getCount(String tempRegisterType) {
+        String registerType = tempRegisterType;
         int count = 0;
         Cursor cursor = null;
-        if(GizConstants.RegisterType.OPD.equals(registerType)){
+        if (GizConstants.RegisterType.OPD.equals(registerType)){
             registerType = "'"+GizConstants.RegisterType.OPD+"'," + "'"+GizConstants.RegisterType.ANC+"'," + "'"+GizConstants.RegisterType.CHILD+"'";
         } else {
             registerType = "'"+registerType+"'";
@@ -65,6 +67,10 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         }
 
         String mainCondition = String.format(" where %s is null AND register_type IN (%s) ", GizConstants.TABLE_NAME.ALL_CLIENTS+"."+GizConstants.KEY.DATE_REMOVED, registerType);
+
+        if (registerType.contains(GizConstants.RegisterType.CHILD)) {
+            mainCondition += " AND ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) ";
+        }
 
         try {
             SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();

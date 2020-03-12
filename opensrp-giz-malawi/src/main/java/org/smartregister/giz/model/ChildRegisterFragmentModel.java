@@ -3,7 +3,6 @@ package org.smartregister.giz.model;
 import org.smartregister.child.cursor.AdvancedMatrixCursor;
 import org.smartregister.child.model.BaseChildRegisterFragmentModel;
 import org.smartregister.domain.Response;
-import org.smartregister.giz.util.GizConstants;
 
 /**
  * Created by ndegwamartin on 2019-05-27.

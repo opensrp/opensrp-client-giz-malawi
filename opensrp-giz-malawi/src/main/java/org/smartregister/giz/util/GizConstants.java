@@ -148,6 +148,12 @@ public class GizConstants {
         public static final String OPD_REGISTRATION = "Opd Registration" ;
         public static String FINGERPRINT_MESSAGE = "FINGERPRINT_MESSAGE";
         public static String SITE_CHARACTERISTICS = "site_characteristics";
+
+        public static final String FIELDS = "fields";
+        public static final String KEY = "key";
+        public static final String IS_VACCINE_GROUP = "is_vaccine_group";
+        public static final String OPTIONS = "options";
+
         public static String HIDDEN_FIELDS = "hidden_fields";
         public static String DISABLED_FIELDS = "disabled_fields";
     }
@@ -163,6 +169,7 @@ public class GizConstants {
         public static final String PNC = "PNC";
         public static final String FAMILY_PLANNING = "Family Planning";
         public static final String MALARIA = "Malaria";
+        public static final String REPORTS = "Reports";
     }
 
     public static final class FormTitleUtil {
@@ -236,5 +243,9 @@ public class GizConstants {
         String ANC = "anc";
         String CHILD = "child";
         String OPD = "opd";
+    }
+
+    public interface MultiResultProcessor {
+        String GROUPING_SEPARATOR = "_";
     }
 }

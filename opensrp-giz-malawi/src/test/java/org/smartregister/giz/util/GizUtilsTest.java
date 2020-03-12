@@ -3,9 +3,6 @@ package org.smartregister.giz.util;
 import android.content.ContentValues;
 
 import org.joda.time.DateTime;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,9 +22,10 @@ import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.util.AssetHandler;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
 
-@PrepareForTest({Utils.class, GizMalawiApplication.class, CoreLibrary.class, AssetHandler.class})
+@PrepareForTest({Utils.class, GizMalawiApplication.class, CoreLibrary.class, LocationHelper.class})
 @RunWith(PowerMockRunner.class)
 public class GizUtilsTest {
 
@@ -39,6 +37,9 @@ public class GizUtilsTest {
 
     @Captor
     private ArgumentCaptor argumentCaptorUpdateChildTable;
+
+    @Captor
+    private ArgumentCaptor argumentCaptorSaveCurrentLocality;
 
     @Captor
     private ArgumentCaptor argumentCaptorUpdateChildFtsTable;
@@ -53,7 +54,10 @@ public class GizUtilsTest {
     private ChildMetadata childMetadata;
 
     @Mock
-    private android.content.Context androidContext;
+    private AllSharedPreferences allSharedPreferences;
+
+    @Mock
+    private LocationHelper locationHelper;
 
     @Test
     public void testUpdateChildDeath() {
@@ -81,32 +85,27 @@ public class GizUtilsTest {
     }
 
     @Test
-    public void testGetFormConfigShouldReturnNullIfConfigIsNotFound() throws JSONException {
-        PowerMockito.mockStatic(AssetHandler.class);
-        PowerMockito.when(AssetHandler.readFileFromAssetsFolder(GizConstants.FORM_CONFIG_LOCATION, androidContext)).thenReturn(null);
-        JSONObject result = GizUtils.getFormConfig("anc_test", GizConstants.FORM_CONFIG_LOCATION, androidContext);
-        Assert.assertNull(result);
+    public void testGetCurrentLocalityShouldReturnCorrectValueIfPresent() {
+        PowerMockito.mockStatic(GizMalawiApplication.class);
+        PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
+        PowerMockito.when(gizMalawiApplication.context()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
+        PowerMockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("child location 1");
+        Assert.assertEquals("child location 1", GizUtils.getCurrentLocality());
     }
 
     @Test
-    public void testGetFormConfigShouldReturnConfigJsonObjectIfConfigIsFound() throws JSONException {
-        PowerMockito.mockStatic(AssetHandler.class);
-        PowerMockito.when(AssetHandler.readFileFromAssetsFolder(GizConstants.FORM_CONFIG_LOCATION, androidContext)).thenReturn("[{\"form_name\":\"anc_test\",\"hidden_fields\":[\"accordion_ultrasound\"],\"disabled_fields\":[]}]");
-        JSONObject result = GizUtils.getFormConfig("anc_test", GizConstants.FORM_CONFIG_LOCATION, androidContext);
-        Assert.assertNull(result);
-    }
-
-    @Test
-    public void testConvertStringJsonArrayToSetShouldReturnNullIfNull() {
-        Assert.assertNull(GizUtils.convertStringJsonArrayToSet(null));
-    }
-
-    @Test
-    public void testConvertStringJsonArrayToSetShouldReturnSetIfArrayIsNotNull() {
-        try {
-            Assert.assertTrue(GizUtils.convertStringJsonArrayToSet(new JSONArray("[\"accordion_ultrasound\"]")).contains("accordion_ultrasound"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void testGetCurrentLocalityShouldReturnCorrectValueIfAbsent() {
+        PowerMockito.mockStatic(GizMalawiApplication.class);
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        PowerMockito.when(locationHelper.getDefaultLocation()).thenReturn("Default Location");
+        PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
+        PowerMockito.when(gizMalawiApplication.context()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
+        PowerMockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn(null);
+        Assert.assertEquals("Default Location", GizUtils.getCurrentLocality());
+        Mockito.verify(allSharedPreferences).saveCurrentLocality(String.valueOf(argumentCaptorSaveCurrentLocality.capture()));
+        Assert.assertEquals("Default Location", argumentCaptorSaveCurrentLocality.getValue());
     }
 }

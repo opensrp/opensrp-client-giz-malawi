@@ -6,15 +6,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.smartregister.child.util.JsonFormUtils;
-import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.giz.util.GizConstants;
 
 import java.util.Date;
 
 @RunWith(MockitoJUnitRunner.class)
-@PrepareForTest(DateUtil.class)
 public class CheckChildDetailsModelTest {
 
     @Test

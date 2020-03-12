@@ -26,8 +26,9 @@ public class DBQueryHelper {
         final String IS_NULL_OR = " IS NULL OR ";
         final String TRUE = "'true'";
 
-        String mainCondition = " (" + Constants.CHILD_STATUS.INACTIVE + IS_NULL_OR + Constants.CHILD_STATUS.INACTIVE + " != " + TRUE + " ) " +
-                AND + " (" + Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP + IS_NULL_OR + Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP + " != " + TRUE + " ) " +
+        String mainCondition = " ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) " +
+                AND + " ( " + Utils.metadata().getRegisterQueryProvider().getChildDetailsTable() + "." + Constants.CHILD_STATUS.INACTIVE + IS_NULL_OR + Utils.metadata().getRegisterQueryProvider().getChildDetailsTable() + "." + Constants.CHILD_STATUS.INACTIVE + " != " + TRUE + " ) " +
+                AND + " ( " + Utils.metadata().getRegisterQueryProvider().getChildDetailsTable() + "." + Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP + IS_NULL_OR + Utils.metadata().getRegisterQueryProvider().getChildDetailsTable() + "." + Constants.CHILD_STATUS.LOST_TO_FOLLOW_UP + " != " + TRUE + " ) " +
                 AND + " ( ";
         List<VaccineRepo.Vaccine> vaccines = ImmunizationLibrary.getInstance().getVaccineCacheMap().get(Constants.CHILD_TYPE).vaccineRepo;
 
@@ -65,4 +66,14 @@ public class DBQueryHelper {
     public static String getSortQuery() {
         return Utils.metadata().getRegisterQueryProvider().getDemographicTable() + "." + GizConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
+
+    public static String ancDueOverdueFilter(boolean overdue) {
+        if (overdue) {
+            return "(contact_status IS NULL OR contact_status != 'active') \n" +
+                    "AND DATE('now') > DATE(next_contact_date, '+6 day') AND (edd IS NOT NULL AND DATE(edd) > DATE('now')) ";
+        } else {
+            return "(contact_status IS NULL OR contact_status != 'active') AND DATE('now') > DATE(next_contact_date, '-1 day') AND DATE('now') < DATE(next_contact_date, '+7 day') AND (edd IS NOT NULL AND DATE(edd) > DATE('now'))";
+        }
+    }
+
 }

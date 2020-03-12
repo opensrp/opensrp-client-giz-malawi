@@ -7,14 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import org.apache.commons.lang3.tuple.Triple;
+import org.smartregister.AllConstants;
 import org.smartregister.child.activity.BaseChildImmunizationActivity;
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.location.helper.LocationHelper;
 
 public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     @Override
@@ -64,7 +65,7 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
         Intent intent = new Intent(fromContext, ChildDetailTabbedActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.INTENT_KEY.LOCATION_ID,
-                LocationHelper.getInstance().getOpenMrsLocationId(getCurrentLocation()));
+                Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID));
         bundle.putSerializable(Constants.INTENT_KEY.EXTRA_CHILD_DETAILS, childDetails);
         bundle.putSerializable(Constants.INTENT_KEY.EXTRA_REGISTER_CLICKABLES, registerClickables);
         intent.putExtras(bundle);

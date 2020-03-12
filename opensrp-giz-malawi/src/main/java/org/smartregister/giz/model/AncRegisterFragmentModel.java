@@ -14,12 +14,12 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
         countQueryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable()
                 + " on " + AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable() + ".base_entity_id = " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + ".base_entity_id " +
                 "inner join client_register_type on ec_client.id=client_register_type.base_entity_id");
-        mainCondition = " client_register_type.register_type = 'anc'";
-        return countQueryBuilder.mainCondition(mainCondition);
+        return countQueryBuilder.mainCondition(" client_register_type.register_type = 'anc'");
     }
 
     @Override
-    public String mainSelect(String tableName, String mainCondition) {
+    public String mainSelect(String tableName, String tempMainCondition) {
+        String mainCondition = tempMainCondition;
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
         String[] columns = new String[]{tableName + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID, tableName + "." + DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH,
                 tableName + "." + DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, tableName + "." + DBConstantsUtils.KeyUtils.FIRST_NAME,
@@ -34,7 +34,7 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
         queryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable()
                 + " on "+AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable()+".base_entity_id = " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + ".base_entity_id " +
                 "inner join client_register_type on ec_client.id=client_register_type.base_entity_id");
-        mainCondition += mainCondition + " and  client_register_type.register_type = 'anc'";
+        mainCondition += " and  client_register_type.register_type = 'anc'";
         return queryBuilder.mainCondition(mainCondition);
     }
 }

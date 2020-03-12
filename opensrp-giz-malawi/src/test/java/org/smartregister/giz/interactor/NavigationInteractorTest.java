@@ -43,11 +43,11 @@ public class NavigationInteractorTest {
     public void getCountForChildRegisterCountIfResultIsOne() throws Exception {
         PowerMockito.mockStatic(GizMalawiApplication.class);
         PowerMockito.when(gizMalawiApplication.getContext()).thenReturn(context);
-        PowerMockito.when(context.commonrepository(GizConstants.TABLE_NAME.CHILD)).thenReturn(commonRepository);
+        PowerMockito.when(context.commonrepository(GizConstants.TABLE_NAME.ALL_CLIENTS)).thenReturn(commonRepository);
         Cursor cursor = Mockito.mock(Cursor.class);
         PowerMockito.when(cursor.moveToFirst()).thenReturn(true);
         PowerMockito.when(cursor.getInt(0)).thenReturn(1);
-        PowerMockito.when(commonRepository.rawCustomQueryForAdapter("select count(*) from ec_child  where date_removed is null AND  ((( julianday('now') - julianday(dob))/365.25) <5);")).thenReturn(cursor);
+        PowerMockito.when(commonRepository.rawCustomQueryForAdapter("select count(*) from ec_client inner join client_register_type on ec_client.id=client_register_type.base_entity_id  where ec_client.date_removed is null AND register_type IN ('ec_client') ;")).thenReturn(cursor);
         PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
         int result = Whitebox.invokeMethod(navigationInteractor, "getCount", GizConstants.TABLE_NAME.CHILD);
         Assert.assertEquals(1, result);

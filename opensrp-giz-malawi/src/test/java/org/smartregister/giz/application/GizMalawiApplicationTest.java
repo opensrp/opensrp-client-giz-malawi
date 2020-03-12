@@ -7,6 +7,7 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.giz.BaseUnitTest;
+import org.smartregister.giz.TestGizMalawiApplication;
 
 /**
  * Created by ndegwamartin on 2019-12-13.
@@ -20,7 +21,7 @@ public class GizMalawiApplicationTest extends BaseUnitTest {
     @Test
     public void testCreateCommonFtsObjectFunctionsCorrectly() {
 
-        GizMalawiApplication gizMalawiApplication = new GizMalawiApplication();
+        GizMalawiApplication gizMalawiApplication = new TestGizMalawiApplication();
         Assert.assertNotNull(gizMalawiApplication);
 
         CommonFtsObject commonFtsObject = gizMalawiApplication.createCommonFtsObject(RuntimeEnvironment.application);
@@ -41,7 +42,5 @@ public class GizMalawiApplicationTest extends BaseUnitTest {
 
         scheduleName = commonFtsObject.getAlertScheduleName("SomeNonExistentVaccine");
         Assert.assertNull(scheduleName);
-
-
     }
 }

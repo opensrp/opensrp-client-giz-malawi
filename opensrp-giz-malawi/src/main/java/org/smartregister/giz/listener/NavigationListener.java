@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Toast;
 
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.giz.activity.ChildRegisterActivity;
@@ -42,26 +41,6 @@ public class NavigationListener implements View.OnClickListener {
                     navigateToActivity(AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
                     break;
 
-                case GizConstants.DrawerMenu.LD:
-                    Toast.makeText(activity.getApplicationContext(), GizConstants.DrawerMenu.LD, Toast.LENGTH_SHORT)
-                            .show();
-                    break;
-
-                case GizConstants.DrawerMenu.PNC:
-                    Toast.makeText(activity.getApplicationContext(), GizConstants.DrawerMenu.PNC, Toast.LENGTH_SHORT)
-                            .show();
-                    break;
-
-                case GizConstants.DrawerMenu.FAMILY_PLANNING:
-                    Toast.makeText(activity.getApplicationContext(), GizConstants.DrawerMenu.FAMILY_PLANNING,
-                            Toast.LENGTH_SHORT).show();
-                    break;
-
-                case GizConstants.DrawerMenu.MALARIA:
-                    Toast.makeText(activity.getApplicationContext(), GizConstants.DrawerMenu.MALARIA, Toast.LENGTH_SHORT)
-                            .show();
-                    break;
-
                 default:
                     break;
             }
@@ -80,12 +59,4 @@ public class NavigationListener implements View.OnClickListener {
 
         activity.startActivity(new Intent(activity, clas));
     }
-
-    /*private void startRegisterActivity(Class registerClass) {
-        Intent intent = new Intent(activity, registerClass);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        activity.startActivity(intent);
-        activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-        activity.finish();
-    }*/
 }

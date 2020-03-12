@@ -18,7 +18,7 @@ apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'io.fabric'
 
 jacoco {
-    toolVersion = "0.8.0"
+    toolVersion = jacocoVersion
 }
 
 
@@ -31,8 +31,8 @@ android {
         applicationId "org.smartregister.giz"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 12
-        versionName "0.2.2"
+        versionCode 26
+        versionName "0.2.11"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -65,14 +65,72 @@ android {
     }
 
     buildTypes {
+
         release {
             minifyEnabled false
             zipAlignEnabled true
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://jembi-preview.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://his-mw.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '1'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
+            buildConfigField "int", "VACCINE_SYNC_TIME", '0'
+            buildConfigField "int", "DATABASE_VERSION", '9'
+            buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
+            buildConfigField "boolean", "TIME_CHECK", "true"
+            buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
+            buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
+            buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
+            buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
+            buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
+            buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
+            buildConfigField "int", "GROWTH_MONITORING_SYNC_TIME", '15'
+            buildConfigField "String[]", "LOCATION_LEVELS", '{"Country", "Province", "District", "Facility", "Village"}'
+            buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "Province", "District", "Health Facility", "Village"}'
+        }
+
+        releaseDebug {
+            minifyEnabled false
+            zipAlignEnabled true
+
+            versionNameSuffix "-internal-release"
+            debuggable true
+            signingConfig signingConfigs.debug
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
+            resValue "string", 'opensrp_url', '"https://his-mw.smartregister.org/opensrp/"'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
+            buildConfigField "int", "VACCINE_SYNC_TIME", '0'
+            buildConfigField "int", "DATABASE_VERSION", '9'
+            buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
+            buildConfigField "boolean", "TIME_CHECK", "true"
+            buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
+            buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '30'
+            buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '180'
+            buildConfigField "int", "PULL_UNIQUE_IDS_MINUTES", '180'
+            buildConfigField "int", "VIEW_SYNC_CONFIGURATIONS_MINUTES", '15'
+            buildConfigField "int", "CLIENT_SETTINGS_SYNC_MINUTES", '15'
+            buildConfigField "int", "GROWTH_MONITORING_SYNC_TIME", '15'
+            buildConfigField "String[]", "LOCATION_LEVELS", '{"Country", "Province", "District", "Facility", "Village"}'
+            buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "Province", "District", "Health Facility", "Village"}'
+        }
+
+        preview {
+            versionNameSuffix "-beta"
+            minifyEnabled false
+            zipAlignEnabled true
+            debuggable true
+            signingConfig signingConfigs.debug
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
+            resValue "string", 'opensrp_url', '"https://jembi-preview.smartregister.org/opensrp/"'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
+            buildConfigField "int", "VACCINE_SYNC_TIME", '0'
             buildConfigField "int", "DATABASE_VERSION", '9'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
@@ -88,13 +146,17 @@ android {
         }
 
         debug {
+
+            versionNameSuffix "-debug"
+
             resValue "string", 'opensrp_url', '"https://opensrp-jembi-eregister.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
+            buildConfigField "int", "VACCINE_SYNC_TIME", '0'
             buildConfigField "int", "DATABASE_VERSION", '9'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
-            buildConfigField "boolean", "TIME_CHECK", "false"
+            buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
             buildConfigField "int", "VACCINE_SYNC_PROCESSING_MINUTES", '15'
             buildConfigField "int", "IMAGE_UPLOAD_MINUTES", '15'
@@ -124,6 +186,7 @@ android {
 
     }
 
+
     testOptions {
         unitTests {
             returnDefaultValues = true
@@ -143,16 +206,37 @@ dependencies {
     implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
 
-    implementation('org.smartregister:opensrp-client-opd:0.0.13.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-opd:0.0.13-GIZ-0.2.7r7-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-anc'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
+    implementation('org.smartregister:opensrp-client-child:0.2.9r5-GIZ-0.2.8r1-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'id.zelory', module:'compressor'
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
+    implementation('org.smartregister:opensrp-client-anc:0.1.0.712-GIZ-0.2.7-r7-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'id.zelory', module:'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-native-form:1.7.24.27-SNAPSHOT@aar') {
+    implementation ('org.smartregister:opensrp-client-native-form:1.7.20-GIZ-0.2.7-r1-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'id.zelory', module:'compressor'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
@@ -163,34 +247,34 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.2.6.57-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.8.26-SNAPSHOT@aar') {
         transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-growth-monitoring'
-        exclude group: 'org.smartregister', module: 'opensrp-client-immunization'
+        exclude group: 'id.zelory', module:'compressor'
+        exclude group: 'com.github.bmelnychuk', module: 'atv'
+        exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'cardview-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
     }
 
-    api('org.smartregister:opensrp-client-immunization:1.4.41-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-immunization:1.4.42r4-GIZ-0.2.8r1-SNAPSHOT@aar') {
+    //api (project(':opensrp-immunization')) {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:2.0.1.8-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-    }
 
     implementation('org.smartregister:opensrp-client-configurable-views:1.1.4-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'id.zelory', module:'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -199,13 +283,33 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
     }
 
-    implementation('org.smartregister:opensrp-client-growth-monitoring:1.1.17-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-growth-monitoring:1.1.18r2-GIZ-0.2.8r1-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'id.zelory', module:'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'com.android.support', module: 'design'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
+
+    implementation('org.smartregister:opensrp-client-reporting:0.0.17-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'id.zelory', module:'compressor'
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.github.lecho', module: 'hellocharts-library'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
+    implementation('org.smartregister:opensrp-client-stock:1.1.0-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'id.zelory', module:'compressor'
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
     annotationProcessor 'com.jakewharton:butterknife:7.0.0'
     implementation 'net.zetetic:android-database-sqlcipher:4.1.3@aar'
     implementation 'commons-validator:commons-validator:1.6'
@@ -255,6 +359,10 @@ dependencies {
     testImplementation "org.powermock:powermock-module-junit4-rule:$powerMockVersion"
     testImplementation "org.powermock:powermock-api-mockito2:$powerMockVersion"
     testImplementation "org.powermock:powermock-classloading-xstream:$powerMockVersion"
+
+    testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'
+    testImplementation 'org.skyscreamer:jsonassert:1.5.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 }
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
@@ -268,7 +376,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
     getReports().getHtml().setDestination(file("${buildDir}/reports/jacoco/jacocoRootReport/html"))
 
     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$ViewBinder*.*']
-    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes/", excludes: fileFilter)
     def mainSrc = "$project.projectDir/src/main/java"
 
     sourceDirectories = files([mainSrc])

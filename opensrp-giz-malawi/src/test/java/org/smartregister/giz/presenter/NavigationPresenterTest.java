@@ -32,8 +32,7 @@ public class NavigationPresenterTest {
         HashMap<String, String> tableMap = new HashMap<>();
         Whitebox.setInternalState(navigationPresenter, "tableMap", tableMap);
         Whitebox.invokeMethod(navigationPresenter, "initialize");
-        Assert.assertEquals(5, tableMap.size());
-        Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.ALL_FAMILIES));
+        Assert.assertEquals(4, tableMap.size());
         Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.ALL_CLIENTS));
         Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.CHILD_CLIENTS));
         Assert.assertTrue(tableMap.containsKey(GizConstants.DrawerMenu.ANC));
