@@ -84,6 +84,7 @@
     "hiv_diagnosis_date",
     "tt_immun_status",
     "hepb_immun_status",
+
     "flu_immun_status",
     "medications",
     "medications_other",

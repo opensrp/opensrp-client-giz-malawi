@@ -475,10 +475,10 @@ condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_ip
 actions:
   - "isRelevant = true"
 ---
-name: step10iptp_sp_toaster
+name: step10_iptp_sp_toaster
 description: iptp_sp_toaster
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && global_pop_malaria == true && !global_medications.isEmpty() && global_medications.contains('cotrimoxazole')"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && ((global_pop_malaria == 1 && !global_medications.isEmpty() && global_medications.contains('cotrimoxazole')) || global_allergies.contains('sulphur'))"
 actions:
   - "isRelevant = true"
 ---

@@ -981,22 +981,22 @@ fields:
 - template: "Single dose albendazole 400 mg or mebendazole 500 mg not prescribed: {deworm_notdone_value}"
   relevance: "deworm == 'not_done'"
 
-- template: "IPTp-SP dose 1 given"
+- template: "SP dose 1 given"
   relevance: "iptp_sp1 == 'done'"
 
-- template: "IPTp-SP dose 1 not given: {iptp_sp_notdone_value}"
+- template: "SP dose 1 not given: {iptp_sp_notdone_value}"
   relevance: "iptp_sp1 == 'not_done'"
 
-- template: "IPTp-SP dose 2 given"
+- template: "SP dose 2 given"
   relevance: "iptp_sp2 == 'done'"
 
-- template: "IPTp-SP dose 2 not given: {iptp_sp_notdone_value}"
+- template: "SP dose 2 not given: {iptp_sp_notdone_value}"
   relevance: "iptp_sp2 == 'not_done'"
 
-- template: "IPTp-SP dose 3 given"
+- template: "SP dose 3 given"
   relevance: "iptp_sp3 == 'done'"
 
-- template: "IPTp-SP dose 3 not given: {iptp_sp_notdone_value}"
+- template: "SP dose 3 not given: {iptp_sp_notdone_value}"
   relevance: "iptp_sp3 == 'not_done'"
 
 - template: "Malaria prevention counseling done"

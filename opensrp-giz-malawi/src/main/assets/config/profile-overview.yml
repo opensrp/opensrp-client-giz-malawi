@@ -187,7 +187,7 @@ fields:
   relevance: "!pelvic_exam_abnormal.contains('none')"
 
 - template: "No fetal heartbeat observed"
-  relevance: "fetal_heartbeat == 'No'"
+  relevance: "fetal_heartbeat == 'no'"
   isRedFont: "true"
 
 - template: "Abnormal fetal heart rate: {fetal_heart_rate_repeat} bpm"
@@ -214,67 +214,64 @@ fields:
 ---
 group: malaria_prophylaxis
 fields:
-- template: "SP dose 1: {date}"
-  relevance: "iptp_sp1 == 'Done'"
+- template: "SP dose 1: {iptp_sp1_date}"
+  relevance: "iptp_sp1 == 'done'"
 
-- template: "SP dose 2: {date}"
-  relevance: "iptp_sp2 == 'Done'"
+- template: "SP dose 2: {iptp_sp2_date}"
+  relevance: "iptp_sp2 == 'done'"
 
-- template: "SP dose 3: {date}"
-  relevance: "iptp_sp3 == 'Done'"
+- template: "SP dose 3: {iptp_sp3_date}"
+  relevance: "iptp_sp3 == 'done'"
 
-- template: "SP dose 4: {date}"
-  relevance: "iptp_sp4 == 'Done'"
+- template: "SP dose 4: {iptp_sp4_date}"
+  relevance: "iptp_sp4 == 'done'"
 
-- template: "SP dose 5: {date}"
-  relevance: "iptp_sp5 == 'Done'"
+- template: "SP dose 5: {iptp_sp5_date}"
+  relevance: "iptp_sp5 == 'done'"
 
-- template: "SP dose 6: {date}"
-  relevance: "iptp_sp6 == 'Done'"
+- template: "SP dose 6: {iptp_sp6_date}"
+  relevance: "iptp_sp6 == 'done'"
 ---
 group: immunisation_status
 fields:
 - template: "TDV immunisation status: {tt_immun_status}"
   relevance: "tt_immun_status != ''"
-  isRedFont: "tt_immun_status == 'TDV not received' || tt_immun_status == 'Unknown'"
+  isRedFont: "tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"
 
 - template: "TDV dose #1: {tt1_date}"
-  relevance: "tt1_date == 'Done today' || tt1_date == 'Done earlier'"
+  relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"
 
 - template: "TDV dose #2: {tt2_date}"
-  relevance: "tt2_date == 'Done today' || tt2_date == 'Done earlier'"
+  relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
 
 - template: "TDV dose #3: {tt3_date}"
-  relevance: "tt3_date == 'Done today' || tt3_date == 'Done earlier'"
+  relevance: "tt3_date == 'done_today' || tt3_date == 'done_earlier'"
 
 - template: "TDV dose not given: {tt_dose_notdone_value}"
   relevance: "tt1_date == 'not_done' || tt2_date == 'not_done' || tt3_date == 'not_done'"
 
 - template: "Hep B immunisation status: {hepb_immun_status}"
   relevance: "hepb_immun_status != ''"
-  isRedFont: "hepb_immun_status == 'TDV not received' || hepb_immun_status == 'Unknown' ||  hepb_immun_status == 'Incomplete'"
+  isRedFont: "hepb_immun_status == 'not_received' || hepb_immun_status == 'unknown' ||  hepb_immun_status == 'incomplete'"
 
 - template: "Hep B dose #1: {hepb1_date}"
-  relevance: "hepb1_date == 'Done today' || hepb1_date == 'Done earlier'"
+  relevance: "hepb1_date == 'done_today' || hepb1_date == 'done_earlier'"
 
 - template: "Hep B dose #2: {hepb2_date}"
-  relevance: "hepb2_date == 'Done today' || hepb2_date == 'Done earlier'"
+  relevance: "hepb2_date == 'done_today' || hepb2_date == 'done_earlier'"
 
 - template: "Hep B dose #3: {hepb3_date}"
-  relevance: "hepb3_date == 'Done today' || hepb3_date == 'Done earlier'"
+  relevance: "hepb3_date == 'done_today' || hepb3_date == 'done_earlier'"
 
 - template: "Flu immunisation status: {flu_immun_status}"
   relevance: "flu_immun_status != ''"
-  isRedFont: "flu_immun_status == 'Seasonal flu dose missing' || flu_immun_status == 'Unknown'"
+  isRedFont: "flu_immun_status == 'seasonal_flu_dose_missing' || flu_immun_status == 'unknown'"
 
 - template: "Flu dose: {flu_date}"
-  relevance: "flu_date == 'Done today' || flu_date == 'Done earlier'"
-
-- template: "Flu dose: {flu_date}"
-  relevance: "flu_date == 'Done today' || flu_date == 'Done earlier'"
+  relevance: "flu_date == 'done_today' || flu_date == 'done_earlier'"
 
 - template: "Anti-D immunoglobulin prophylaxis 1st dose: {anti_d1_date_done}"
-  relevance: "anti_d1_date == 'Done today' || anti_d1_date == 'Done earlier'"
+  relevance: "anti_d1_date == 'done_today' || anti_d1_date == 'done_earlier'"
 
 - template: "Anti-D immunoglobulin prophylaxis 2nd dose: {anti_d2_date_done}"
-  relevance: "anti_d2_date == 'Done today' || anti_d2_date == 'Done earlier'"
+  relevance: "anti_d2_date == 'done_today' || anti_d2_date == 'done_earlier'"

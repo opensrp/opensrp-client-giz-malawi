@@ -18,6 +18,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.ActivityConfiguration;
 import org.smartregister.anc.library.util.AncMetadata;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.domain.ChildMetadata;
@@ -80,6 +81,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -260,6 +262,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         AncMetadata ancMetadata = new AncMetadata();
         ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
         ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
+        ancMetadata.setFieldsWithLocationHierarchy(Arrays.asList("village"));
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider(), ancMetadata);
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,

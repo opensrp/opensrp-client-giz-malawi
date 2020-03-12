@@ -53,7 +53,7 @@
       "syphilis_low_prev_counsel",
       "syphilis_high_prev_counsel",
       "pe_risk_aspirin_calcium",
-      ",pe_risk_aspirin_calcium_notdone",
+      "pe_risk_aspirin_calcium_notdone",
       "pe_risk_aspirin_calcium_notdone_other",
       "rh_negative_counsel",
       "hepb_negative_note,hepb1_date",

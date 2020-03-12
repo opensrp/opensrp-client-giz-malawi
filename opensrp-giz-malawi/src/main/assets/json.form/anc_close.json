@@ -165,11 +165,13 @@
         "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "spinner",
-        "hint": "Delivery mode",
+        "hint": "Mode of delivery",
         "values": [
-          "Normal",
-          "Forceps or Vacuum",
-          "C-section",
+          "Vaginal Birth",
+          "Spontan Vertex(SVD)",
+          "Vacuum Extraction (VE)",
+          "Breach (BR)",
+          "Caesarian Section (CS)",
           "Other(Specify)"
         ],
         "openmrs_choice_ids": {
@@ -445,7 +447,7 @@
           },
           {
             "key": "Other",
-            "text": "Other",
+            "text": "Other(Specify)",
             "value": false,
             "openmrs_choice_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
