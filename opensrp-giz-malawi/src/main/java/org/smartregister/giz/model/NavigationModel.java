@@ -16,6 +16,9 @@ public class NavigationModel implements NavigationContract.Model {
     private static NavigationModel instance;
     private static List<NavigationOption> navigationOptions = new ArrayList<>();
 
+    private boolean isOpdEnabled = false;
+    private boolean isAncEnabled = false;
+
     public static NavigationModel getInstance() {
         if (instance == null)
             instance = new NavigationModel();
@@ -30,10 +33,6 @@ public class NavigationModel implements NavigationContract.Model {
                     R.mipmap.sidemenu_children_active, R.string.menu_child_clients, GizConstants.DrawerMenu.CHILD_CLIENTS,
                     0);
 
-            /*
-            -- THIS CODE WILL BE UNCOMMENTED WHEN THE MODULES ARE ENABLED IN PRODUCTION --
-            */
-
             NavigationOption ancNavigationOption = new NavigationOption(R.mipmap.sidemenu_children,
                     R.mipmap.sidemenu_children_active, R.string.menu_anc_clients, GizConstants.DrawerMenu.ANC_CLIENTS,
                     0);
@@ -44,7 +43,7 @@ public class NavigationModel implements NavigationContract.Model {
             navigationOptions.addAll(asList(allClientsOption, childNavigationOption, ancNavigationOption));
 
 
-            navigationOptions.addAll(asList(childNavigationOption));
+            //navigationOptions.addAll(asList(childNavigationOption));
         }
 
         return navigationOptions;

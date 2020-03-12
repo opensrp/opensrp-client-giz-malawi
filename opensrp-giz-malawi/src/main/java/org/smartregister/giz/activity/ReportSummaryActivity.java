@@ -12,6 +12,8 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.child.activity.BaseActivity;
 import org.smartregister.child.toolbar.SimpleToolbar;
 import org.smartregister.giz.R;
+import org.smartregister.giz.domain.MonthlyTally;
+import org.smartregister.giz.domain.Tally;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.view.IndicatorCategoryView;
 import org.smartregister.reporting.ReportingLibrary;
@@ -36,7 +38,7 @@ public class ReportSummaryActivity extends BaseActivity {
     public static final String EXTRA_SUB_TITLE = "sub_title";
     public static final String EXTRA_TITLE = "title";
     public static final String EXTRA_REPORT_GROUPING = "report-grouping";
-    private LinkedHashMap<String, ArrayList<IndicatorTally>> tallies;
+    private LinkedHashMap<String, ArrayList<Tally>> tallies;
 
     private String subTitle;
     private String reportGrouping;
@@ -61,11 +63,12 @@ public class ReportSummaryActivity extends BaseActivity {
 
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
-            Serializable tallyDaySerializable = extras.getSerializable(EXTRA_DAY);
+            Serializable talliesSerializable = extras.getSerializable(EXTRA_TALLIES);
             reportGrouping = extras.getString(EXTRA_REPORT_GROUPING);
 
-            if (tallyDaySerializable instanceof Date) {
-                fetchIndicatorTalliesForDay((Date) tallyDaySerializable, reportGrouping);
+            if (talliesSerializable != null && talliesSerializable instanceof  ArrayList) {
+                ArrayList<MonthlyTally> tallies = (ArrayList<MonthlyTally>) talliesSerializable;
+                setTallies(tallies, false);
             }
 
             Serializable submittedBySerializable = extras.getSerializable(EXTRA_SUB_TITLE);
@@ -113,24 +116,24 @@ public class ReportSummaryActivity extends BaseActivity {
         return null;
     }
 
-    public void setTallies(ArrayList<IndicatorTally> tallies) {
+    public void setTallies(ArrayList<MonthlyTally> tallies) {
         setTallies(tallies, true);
     }
 
-    private void setTallies(@NonNull ArrayList<IndicatorTally> tallies, boolean refreshViews) {
+    private void setTallies(@NonNull ArrayList<MonthlyTally> tallies, boolean refreshViews) {
         this.tallies = new LinkedHashMap<>();
         this.tallies.put("", new ArrayList<>());
 
-        Collections.sort(tallies, new Comparator<IndicatorTally>() {
+        Collections.sort(tallies, new Comparator<MonthlyTally>() {
             @Override
-            public int compare(IndicatorTally lhs, IndicatorTally rhs) {
-                return lhs.getIndicatorCode().compareTo(rhs.getIndicatorCode());
+            public int compare(MonthlyTally lhs, MonthlyTally rhs) {
+                return lhs.getIndicator().compareTo(rhs.getIndicator());
             }
         });
 
-        for (IndicatorTally curTally : tallies) {
-            if (curTally != null && !TextUtils.isEmpty(curTally.getIndicatorCode())) {
-                this.tallies.get("").add(curTally);
+        for (MonthlyTally curTally : tallies) {
+            if (curTally != null && !TextUtils.isEmpty(curTally.getIndicator())) {
+                this.tallies.get("").add(curTally.getIndicatorTally());
             }
         }
 
@@ -164,7 +167,7 @@ public class ReportSummaryActivity extends BaseActivity {
     public void onRegistrationSaved(boolean isEdit) {
         // Nothing to do
     }
-
+/*
     public void fetchIndicatorTalliesForDay(@NonNull final Date date, @Nullable String reportGrouping) {
         AppExecutors appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(new Runnable() {
@@ -182,5 +185,5 @@ public class ReportSummaryActivity extends BaseActivity {
                 });
             }
         });
-    }
+    }*/
 }

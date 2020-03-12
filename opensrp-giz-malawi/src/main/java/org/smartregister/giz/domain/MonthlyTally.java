@@ -30,7 +30,7 @@ public class MonthlyTally extends Tally implements Serializable {
 
 
     private Hia2Indicator hia2Indicator;
-    private IndicatorTally indicatorTally;
+    private Tally indicatorTally;
 
 
     @JsonProperty
@@ -93,11 +93,11 @@ public class MonthlyTally extends Tally implements Serializable {
         this.hia2Indicator = hia2Indicator;
     }
 
-    public IndicatorTally getIndicatorTally() {
+    public Tally getIndicatorTally() {
         return indicatorTally;
     }
 
-    public void setIndicatorTally(IndicatorTally indicatorTally) {
+    public void setIndicatorTally(Tally indicatorTally) {
         this.indicatorTally = indicatorTally;
     }
 

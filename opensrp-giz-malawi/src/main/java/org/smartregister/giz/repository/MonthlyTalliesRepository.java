@@ -11,6 +11,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.MonthlyTally;
+import org.smartregister.giz.domain.Tally;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.repository.BaseRepository;
@@ -309,7 +310,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
                     ArrayList<MonthlyTally> monthlyTallies = tallies.get(yearMonthString);
                     if (monthlyTallies == null) {
-                        monthlyTallies = new ArrayList<MonthlyTally>();
+                        monthlyTallies = new ArrayList<>();
                         tallies.put(yearMonthString, monthlyTallies);
                     }
 
@@ -472,6 +473,13 @@ public class MonthlyTalliesRepository extends BaseRepository {
         curTally.setUpdatedAt(
                 new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_UPDATED_AT)))
         );
+
+        Tally indicatorTally = new Tally();
+        indicatorTally.setId(curTally.getId());
+        indicatorTally.setValue(curTally.getValue());
+        indicatorTally.setIndicator(curTally.getIndicator());
+
+        curTally.setIndicatorTally(indicatorTally);
 
         return curTally;
     }
