@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -47,6 +46,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import timber.log.Timber;
 
 import static org.smartregister.util.Utils.getValue;
 
@@ -189,8 +190,8 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
 
     private void tapToView(final HashMap<CommonPersonObject, List<CommonPersonObject>> map) {
         snackbar = Snackbar
-                .make(getMainView(), map.size() + " mother/guardian match(es).", Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction("Tap to view", new View.OnClickListener() {
+                .make(getMainView(), map.size() + getString(R.string.mother_guardian_matches), Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction(R.string.tap_to_view, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateResults(map);
@@ -301,7 +302,7 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
                                 try {
                                     text = DatePickerFactory.DATE_FORMAT.format(motherDob);
                                 } catch (Exception e) {
-                                    Log.e(getClass().getName(), e.toString(), e);
+                                    Timber.e(e);
                                 }
                             }
                         }
@@ -355,26 +356,6 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
         }
     };
 
-    public void getLabelViewFromTag(String labeltext, String todisplay) {
-        updateRelevantTextView(getMainView(), todisplay, labeltext);
-    }
-
-    private void updateRelevantTextView(LinearLayout mMainView, String textstring, String currentKey) {
-        if (mMainView != null) {
-            int childCount = mMainView.getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                View view = mMainView.getChildAt(i);
-                if (view instanceof TextView) {
-                    TextView textView = (TextView) view;
-                    String key = (String) textView.getTag(com.vijay.jsonwizard.R.id.key);
-                    if (key.equals(currentKey)) {
-                        textView.setText(textstring);
-                    }
-                }
-            }
-        }
-    }
-
     public String getRelevantTextViewString(String currentKey) {
         String toreturn = "";
         if (getMainView() != null) {
@@ -395,34 +376,27 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean balanceCheck = true;
         boolean fillFormCheck = true;
 
         if (item.getItemId() == com.vijay.jsonwizard.R.id.action_save) {
             JSONObject object = getStep("step1");
             try {
-                if (object.getString("title").contains("Stock Issued") || object.getString("title").contains("Stock Received") || object.getString("title").contains("Stock Loss/Adjustment")) {
-                    balanceCheck = ((GizJsonFormReportsActivity) getActivity()).checkIfBalanceNegative();
-                }
-
-                if (object.getString("title").contains("Record out of catchment area service")) {
+                if (object.getString(GizConstants.KEY.TITLE).contains("Record out of catchment area service")) {
                     fillFormCheck = ((GizJsonFormReportsActivity) getActivity()).checkIfAtLeastOneServiceGiven();
                 }
             } catch (Exception e) {
-                Log.e(getClass().getName(), e.toString(), e);
+                Timber.e(e);
             }
         }
-        if (balanceCheck && fillFormCheck) {
+
+        if (fillFormCheck) {
             return super.onOptionsItemSelected(item);
         } else {
-            String balanceCheckErrorMsg = "Please make sure the balance is not less than zero.";
-            String fillFormCheckErrorMsg = "Please register at least one service before saving";
-            String errorMessage = "";
-            errorMessage = (!balanceCheck) ? balanceCheckErrorMsg : fillFormCheckErrorMsg;
+            String errorMessage = getString(R.string.fill_form_error_msg);
 
             final Snackbar snackbar = Snackbar
                     .make(getMainView(), errorMessage, Snackbar.LENGTH_LONG);
-            snackbar.setAction("Close", new View.OnClickListener() {
+            snackbar.setAction(R.string.close, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     snackbar.dismiss();

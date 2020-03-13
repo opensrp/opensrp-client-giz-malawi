@@ -22,7 +22,6 @@ import timber.log.Timber;
 
 public class GizReportUtils {
 
-
     public static void createReportAndSaveReport(@NonNull List<ReportHia2Indicator> hia2Indicators, @NonNull Date month, @NonNull String reportType) {
         try {
             String providerId = GizMalawiApplication.getInstance().context().allSharedPreferences().fetchRegisteredANM();

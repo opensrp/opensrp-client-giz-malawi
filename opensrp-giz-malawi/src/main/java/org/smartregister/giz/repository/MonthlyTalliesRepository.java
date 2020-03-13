@@ -12,6 +12,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.Tally;
+import org.smartregister.giz.util.DbConstants;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.repository.BaseRepository;
@@ -36,50 +37,41 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
     public static final SimpleDateFormat DF_YYYYMM = new SimpleDateFormat("yyyy-MM", Locale.ENGLISH);
     public static final SimpleDateFormat DF_DDMMYY = new SimpleDateFormat("dd/MM/yy", Locale.ENGLISH);
-    private static final String TABLE_NAME = "monthly_tallies";
-    private static final String COLUMN_ID = "_id";
-    private static final String COLUMN_PROVIDER_ID = "provider_id";
-    private static final String COLUMN_INDICATOR_CODE = "indicator_code";
-    private static final String COLUMN_VALUE = "value";
-    private static final String COLUMN_MONTH = "month";
-    private static final String COLUMN_EDITED = "edited";
-    private static final String COLUMN_DATE_SENT = "date_sent";
-    private static final String COLUMN_INDICATOR_GROUPING = "indicator_grouping";
-    private static final String COLUMN_UPDATED_AT = "updated_at";
-    private static final String COLUMN_CREATED_AT = "created_at";
+
     private static final String[] TABLE_COLUMNS = {
-            COLUMN_ID, COLUMN_INDICATOR_CODE, COLUMN_PROVIDER_ID,
-            COLUMN_VALUE, COLUMN_MONTH, COLUMN_EDITED, COLUMN_DATE_SENT, COLUMN_INDICATOR_GROUPING, COLUMN_CREATED_AT, COLUMN_UPDATED_AT
+            DbConstants.Table.MonthlyTalliesRepository.ID, DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE, DbConstants.Table.MonthlyTalliesRepository.PROVIDER_ID,
+            DbConstants.Table.MonthlyTalliesRepository.VALUE, DbConstants.Table.MonthlyTalliesRepository.MONTH, DbConstants.Table.MonthlyTalliesRepository.EDITED,
+            DbConstants.Table.MonthlyTalliesRepository.DATE_SENT, DbConstants.Table.MonthlyTalliesRepository.INDICATOR_GROUPING,
+            DbConstants.Table.MonthlyTalliesRepository.CREATED_AT, DbConstants.Table.MonthlyTalliesRepository.UPDATED_AT
     };
 
-    private static final String CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + "(" +
-            COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-            COLUMN_INDICATOR_CODE + " VARCHAR NOT NULL," +
-            COLUMN_PROVIDER_ID + " VARCHAR NOT NULL," +
-            COLUMN_VALUE + " VARCHAR NOT NULL," +
-            COLUMN_MONTH + " VARCHAR NOT NULL," +
-            COLUMN_EDITED + " INTEGER NOT NULL DEFAULT 0," +
-            COLUMN_INDICATOR_GROUPING + " TEXT," +
-            COLUMN_DATE_SENT + " DATETIME NULL," +
-            COLUMN_CREATED_AT + " DATETIME NULL," +
-            COLUMN_UPDATED_AT + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)";
+    private static final String CREATE_TABLE_QUERY = "CREATE TABLE " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "(" +
+            DbConstants.Table.MonthlyTalliesRepository.ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+            DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE + " VARCHAR NOT NULL," +
+            DbConstants.Table.MonthlyTalliesRepository.PROVIDER_ID + " VARCHAR NOT NULL," +
+            DbConstants.Table.MonthlyTalliesRepository.VALUE + " VARCHAR NOT NULL," +
+            DbConstants.Table.MonthlyTalliesRepository.MONTH + " VARCHAR NOT NULL," +
+            DbConstants.Table.MonthlyTalliesRepository.EDITED + " INTEGER NOT NULL DEFAULT 0," +
+            DbConstants.Table.MonthlyTalliesRepository.INDICATOR_GROUPING + " TEXT," +
+            DbConstants.Table.MonthlyTalliesRepository.DATE_SENT + " DATETIME NULL," +
+            DbConstants.Table.MonthlyTalliesRepository.CREATED_AT + " DATETIME NULL," +
+            DbConstants.Table.MonthlyTalliesRepository.UPDATED_AT + " TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)";
 
-    private static final String INDEX_PROVIDER_ID = "CREATE INDEX " + TABLE_NAME + "_" + COLUMN_PROVIDER_ID + "_index" +
-            " ON " + TABLE_NAME + "(" + COLUMN_PROVIDER_ID + " COLLATE NOCASE);";
-    private static final String INDEX_INDICATOR_ID = "CREATE INDEX " + TABLE_NAME + "_" + COLUMN_INDICATOR_CODE + "_index" +
-            " ON " + TABLE_NAME + "(" + COLUMN_INDICATOR_CODE + " COLLATE NOCASE);";
-    private static final String INDEX_UPDATED_AT = "CREATE INDEX " + TABLE_NAME + "_" + COLUMN_UPDATED_AT + "_index" +
-            " ON " + TABLE_NAME + "(" + COLUMN_UPDATED_AT + ");";
-    private static final String INDEX_MONTH = "CREATE INDEX " + TABLE_NAME + "_" + COLUMN_MONTH + "_index" +
-            " ON " + TABLE_NAME + "(" + COLUMN_MONTH + ");";
-    private static final String INDEX_EDITED = "CREATE INDEX " + TABLE_NAME + "_" + COLUMN_EDITED + "_index" +
-            " ON " + TABLE_NAME + "(" + COLUMN_EDITED + ");";
-    private static final String INDEX_DATE_SENT = "CREATE INDEX " + TABLE_NAME + "_" + COLUMN_DATE_SENT + "_index" +
-            " ON " + TABLE_NAME + "(" + COLUMN_DATE_SENT + ");";
+    private static final String INDEX_PROVIDER_ID = "CREATE INDEX " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "_" + DbConstants.Table.MonthlyTalliesRepository.PROVIDER_ID + "_index" +
+            " ON " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "(" + DbConstants.Table.MonthlyTalliesRepository.PROVIDER_ID + " COLLATE NOCASE);";
+    private static final String INDEX_INDICATOR_ID = "CREATE INDEX " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "_" + DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE + "_index" +
+            " ON " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "(" + DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE + " COLLATE NOCASE);";
+    private static final String INDEX_UPDATED_AT = "CREATE INDEX " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "_" + DbConstants.Table.MonthlyTalliesRepository.UPDATED_AT + "_index" +
+            " ON " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "(" + DbConstants.Table.MonthlyTalliesRepository.UPDATED_AT + ");";
+    private static final String INDEX_MONTH = "CREATE INDEX " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "_" + DbConstants.Table.MonthlyTalliesRepository.MONTH + "_index" +
+            " ON " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "(" + DbConstants.Table.MonthlyTalliesRepository.MONTH + ");";
+    private static final String INDEX_EDITED = "CREATE INDEX " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "_" + DbConstants.Table.MonthlyTalliesRepository.EDITED + "_index" +
+            " ON " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "(" + DbConstants.Table.MonthlyTalliesRepository.EDITED + ");";
+    private static final String INDEX_DATE_SENT = "CREATE INDEX " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "_" + DbConstants.Table.MonthlyTalliesRepository.DATE_SENT + "_index" +
+            " ON " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "(" + DbConstants.Table.MonthlyTalliesRepository.DATE_SENT + ");";
 
-    public static final String INDEX_UNIQUE = "CREATE UNIQUE INDEX " + TABLE_NAME + "_" + COLUMN_INDICATOR_CODE + "_" + COLUMN_MONTH + "_index" +
-            " ON " + TABLE_NAME + "(" + COLUMN_INDICATOR_CODE + "," + COLUMN_MONTH + ");";
-
+    public static final String INDEX_UNIQUE = "CREATE UNIQUE INDEX " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "_" + DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE + "_" + DbConstants.Table.MonthlyTalliesRepository.MONTH + "_index" +
+            " ON " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + "(" + DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE + "," + DbConstants.Table.MonthlyTalliesRepository.MONTH + ");";
 
     protected static void createTable(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_QUERY);
@@ -91,7 +83,6 @@ public class MonthlyTalliesRepository extends BaseRepository {
         database.execSQL(INDEX_DATE_SENT);
         database.execSQL(INDEX_UNIQUE);
     }
-
 
     /**
      * Returns a list of all months that have corresponding daily tallies by unsent monthly tallies
@@ -130,18 +121,18 @@ public class MonthlyTalliesRepository extends BaseRepository {
                     monthsString = monthsString + "'" + curMonthString + "'";
                 }
 
-                String selection = COLUMN_MONTH + " IN(" + monthsString + ") AND " + getGroupingSelectionCondition(grouping);
+                String selection = DbConstants.Table.MonthlyTalliesRepository.MONTH + " IN(" + monthsString + ") AND " + getGroupingSelectionCondition(grouping);
 
                 cursor = getReadableDatabase().query(
-                        TABLE_NAME,
-                        new String[]{COLUMN_MONTH}, selection,
+                        DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME,
+                        new String[]{DbConstants.Table.MonthlyTalliesRepository.MONTH}, selection,
                         null, null, null, null);
 
-                Timber.d(monthsString + " === Select " + COLUMN_MONTH + " from " + TABLE_NAME + " where " + COLUMN_MONTH + " IN(" + monthsString + ")");
+                Timber.d(monthsString + " === Select " + DbConstants.Table.MonthlyTalliesRepository.MONTH + " from " + DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME + " where " + DbConstants.Table.MonthlyTalliesRepository.MONTH + " IN(" + monthsString + ")");
 
                 if (cursor != null && cursor.getCount() > 0) {
                     for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                        String curMonth = cursor.getString(cursor.getColumnIndex(COLUMN_MONTH));
+                        String curMonth = cursor.getString(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.MONTH));
                         allTallyMonths.remove(curMonth);
                     }
                 }
@@ -192,9 +183,9 @@ public class MonthlyTalliesRepository extends BaseRepository {
         Cursor cursor = null;
         List<MonthlyTally> monthlyTallies = new ArrayList<>();
         try {
-            String selection = COLUMN_MONTH + " = '" + month +
-                    "' AND " + COLUMN_DATE_SENT + " IS NULL AND " + getGroupingSelectionCondition(grouping);
-            cursor = getReadableDatabase().query(TABLE_NAME, TABLE_COLUMNS,
+            String selection = DbConstants.Table.MonthlyTalliesRepository.MONTH + " = '" + month +
+                    "' AND " + DbConstants.Table.MonthlyTalliesRepository.DATE_SENT + " IS NULL AND " + getGroupingSelectionCondition(grouping);
+            cursor = getReadableDatabase().query(DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME, TABLE_COLUMNS,
                     selection,
                     null, null, null, null, null);
             monthlyTallies = readAllDataElements(cursor);
@@ -245,8 +236,8 @@ public class MonthlyTalliesRepository extends BaseRepository {
         Cursor cursor = null;
         List<MonthlyTally> monthlyTallies = new ArrayList<>();
         try {
-            cursor = getReadableDatabase().query(TABLE_NAME, TABLE_COLUMNS,
-                    COLUMN_MONTH + " = '" + month + "' AND " + getGroupingSelectionCondition(grouping),
+            cursor = getReadableDatabase().query(DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME, TABLE_COLUMNS,
+                    DbConstants.Table.MonthlyTalliesRepository.MONTH + " = '" + month + "' AND " + getGroupingSelectionCondition(grouping),
                     null, null, null, null, null);
             monthlyTallies = readAllDataElements(cursor);
         } catch (SQLException e) {
@@ -301,8 +292,8 @@ public class MonthlyTalliesRepository extends BaseRepository {
         Cursor cursor = null;
         try {
             cursor = getReadableDatabase()
-                    .query(TABLE_NAME, TABLE_COLUMNS,
-                            COLUMN_DATE_SENT + " IS NOT NULL AND " + getGroupingSelectionCondition(grouping), null, null, null, null, null);
+                    .query(DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME, TABLE_COLUMNS,
+                            DbConstants.Table.MonthlyTalliesRepository.DATE_SENT + " IS NOT NULL AND " + getGroupingSelectionCondition(grouping), null, null, null, null, null);
             if (cursor != null && cursor.getCount() > 0) {
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     MonthlyTally curTally = extractMonthlyTally(cursor);
@@ -334,16 +325,16 @@ public class MonthlyTalliesRepository extends BaseRepository {
             database.beginTransaction();
             if (tally != null) {
                 ContentValues cv = new ContentValues();
-                cv.put(COLUMN_INDICATOR_CODE, tally.getIndicator());
-                cv.put(COLUMN_VALUE, tally.getValue());
-                cv.put(COLUMN_PROVIDER_ID, tally.getProviderId());
-                cv.put(COLUMN_MONTH, DF_YYYYMM.format(tally.getMonth()));
-                cv.put(COLUMN_DATE_SENT,
+                cv.put(DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE, tally.getIndicator());
+                cv.put(DbConstants.Table.MonthlyTalliesRepository.VALUE, tally.getValue());
+                cv.put(DbConstants.Table.MonthlyTalliesRepository.PROVIDER_ID, tally.getProviderId());
+                cv.put(DbConstants.Table.MonthlyTalliesRepository.MONTH, DF_YYYYMM.format(tally.getMonth()));
+                cv.put(DbConstants.Table.MonthlyTalliesRepository.DATE_SENT,
                         tally.getDateSent() == null ? null : tally.getDateSent().getTime());
-                cv.put(COLUMN_EDITED, tally.isEdited() ? 1 : 0);
-                cv.put(COLUMN_INDICATOR_GROUPING, tally.getGrouping());
-                cv.put(COLUMN_CREATED_AT, Calendar.getInstance().getTimeInMillis());
-                database.insertWithOnConflict(TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+                cv.put(DbConstants.Table.MonthlyTalliesRepository.EDITED, tally.isEdited() ? 1 : 0);
+                cv.put(DbConstants.Table.MonthlyTalliesRepository.INDICATOR_GROUPING, tally.getGrouping());
+                cv.put(DbConstants.Table.MonthlyTalliesRepository.CREATED_AT, Calendar.getInstance().getTimeInMillis());
+                database.insertWithOnConflict(DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
                 database.setTransactionSuccessful();
 
                 return true;
@@ -392,22 +383,22 @@ public class MonthlyTalliesRepository extends BaseRepository {
                         indicatorCode = key;
                     }
 
-                    cv.put(COLUMN_INDICATOR_CODE, indicatorCode);
-                    cv.put(COLUMN_INDICATOR_GROUPING, grouping);
+                    cv.put(DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE, indicatorCode);
+                    cv.put(DbConstants.Table.MonthlyTalliesRepository.INDICATOR_GROUPING, grouping);
 
                     if(!(value == null || value.isEmpty()))
-                        cv.put(COLUMN_VALUE, Integer.valueOf(value));
+                        cv.put(DbConstants.Table.MonthlyTalliesRepository.VALUE, Integer.valueOf(value));
                     else
-                        cv.put(COLUMN_VALUE, "");
+                        cv.put(DbConstants.Table.MonthlyTalliesRepository.VALUE, "");
 
-                    cv.put(COLUMN_MONTH, DF_YYYYMM.format(month));
-                    cv.put(COLUMN_EDITED, 1);
-                    cv.put(COLUMN_PROVIDER_ID, userName);
-                    cv.put(COLUMN_CREATED_AT, Calendar.getInstance().getTimeInMillis());
+                    cv.put(DbConstants.Table.MonthlyTalliesRepository.MONTH, DF_YYYYMM.format(month));
+                    cv.put(DbConstants.Table.MonthlyTalliesRepository.EDITED, 1);
+                    cv.put(DbConstants.Table.MonthlyTalliesRepository.PROVIDER_ID, userName);
+                    cv.put(DbConstants.Table.MonthlyTalliesRepository.CREATED_AT, Calendar.getInstance().getTimeInMillis());
 
                     Timber.d(key + " & " + value + " & " + userName + " & " + month);
 
-                    database.insertWithOnConflict(TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
+                    database.insertWithOnConflict(DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME, null, cv, SQLiteDatabase.CONFLICT_REPLACE);
                 }
 
                 database.setTransactionSuccessful();
@@ -451,27 +442,27 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
     @NonNull
     private MonthlyTally extractMonthlyTally(@NonNull Cursor cursor) throws ParseException {
-        String indicatorId = cursor.getString(cursor.getColumnIndex(COLUMN_INDICATOR_CODE));
+        String indicatorId = cursor.getString(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.INDICATOR_CODE));
 
         MonthlyTally curTally = new MonthlyTally();
-        curTally.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
+        curTally.setId(cursor.getLong(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.ID)));
         curTally.setProviderId(
-                cursor.getString(cursor.getColumnIndex(COLUMN_PROVIDER_ID)));
+                cursor.getString(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.PROVIDER_ID)));
 
         curTally.setIndicator(indicatorId);
-        curTally.setValue(cursor.getString(cursor.getColumnIndex(COLUMN_VALUE)));
+        curTally.setValue(cursor.getString(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.VALUE)));
 
-        curTally.setMonth(DF_YYYYMM.parse(cursor.getString(cursor.getColumnIndex(COLUMN_MONTH))));
+        curTally.setMonth(DF_YYYYMM.parse(cursor.getString(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.MONTH))));
         curTally.setEdited(
-                cursor.getInt(cursor.getColumnIndex(COLUMN_EDITED)) != 0
+                cursor.getInt(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.EDITED)) != 0
         );
         curTally.setDateSent(
-                cursor.getString(cursor.getColumnIndex(COLUMN_DATE_SENT)) == null ?
-                        null : new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_DATE_SENT)))
+                cursor.getString(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.DATE_SENT)) == null ?
+                        null : new Date(cursor.getLong(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.DATE_SENT)))
         );
-        curTally.setGrouping(cursor.getString(cursor.getColumnIndex(COLUMN_INDICATOR_GROUPING)));
+        curTally.setGrouping(cursor.getString(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.INDICATOR_GROUPING)));
         curTally.setUpdatedAt(
-                new Date(cursor.getLong(cursor.getColumnIndex(COLUMN_UPDATED_AT)))
+                new Date(cursor.getLong(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.UPDATED_AT)))
         );
 
         Tally indicatorTally = new Tally();
@@ -513,13 +504,13 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
         try {
             cursor = getReadableDatabase().query(
-                    TABLE_NAME, new String[]{COLUMN_MONTH, COLUMN_CREATED_AT},
-                    COLUMN_DATE_SENT + " IS NULL AND " + COLUMN_EDITED + " = 1 AND " + getGroupingSelectionCondition(grouping),
-                    null, COLUMN_MONTH, null, null);
+                    DbConstants.Table.MonthlyTalliesRepository.TABLE_NAME, new String[]{DbConstants.Table.MonthlyTalliesRepository.MONTH, DbConstants.Table.MonthlyTalliesRepository.CREATED_AT},
+                    DbConstants.Table.MonthlyTalliesRepository.DATE_SENT + " IS NULL AND " + DbConstants.Table.MonthlyTalliesRepository.EDITED + " = 1 AND " + getGroupingSelectionCondition(grouping),
+                    null, DbConstants.Table.MonthlyTalliesRepository.MONTH, null, null);
 
             if (cursor != null && cursor.getCount() > 0) {
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    String curMonth = cursor.getString(cursor.getColumnIndex(COLUMN_MONTH));
+                    String curMonth = cursor.getString(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.MONTH));
                     Date month = DF_YYYYMM.parse(curMonth);
 
                     if ((startDate != null && month.getTime() < startDate.getTime())
@@ -527,7 +518,7 @@ public class MonthlyTalliesRepository extends BaseRepository {
                         continue;
                     }
 
-                    long dateStarted = cursor.getLong(cursor.getColumnIndex(COLUMN_CREATED_AT));
+                    long dateStarted = cursor.getLong(cursor.getColumnIndex(DbConstants.Table.MonthlyTalliesRepository.CREATED_AT));
                     MonthlyTally tally = new MonthlyTally();
                     tally.setMonth(month);
                     tally.setCreatedAt(new Date(dateStarted));
@@ -547,6 +538,6 @@ public class MonthlyTalliesRepository extends BaseRepository {
 
     @NonNull
     public String getGroupingSelectionCondition(@Nullable String grouping) {
-        return  " " + COLUMN_INDICATOR_GROUPING + " " + (grouping == null ? "IS NULL" : "= '" + grouping + "'");
+        return  " " + DbConstants.Table.MonthlyTalliesRepository.INDICATOR_GROUPING + " " + (grouping == null ? "IS NULL" : "= '" + grouping + "'");
     }
 }

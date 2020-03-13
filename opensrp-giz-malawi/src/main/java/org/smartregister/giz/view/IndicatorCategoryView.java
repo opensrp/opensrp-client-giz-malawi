@@ -16,7 +16,6 @@ import android.widget.TextView;
 import org.smartregister.giz.R;
 import org.smartregister.giz.domain.Tally;
 import org.smartregister.giz.util.GizReportUtils;
-import org.smartregister.reporting.domain.IndicatorTally;
 
 import java.util.ArrayList;
 

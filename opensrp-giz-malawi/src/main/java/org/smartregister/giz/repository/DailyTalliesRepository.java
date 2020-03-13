@@ -24,8 +24,8 @@ import timber.log.Timber;
 public class DailyTalliesRepository extends BaseRepository {
 
     private static final SimpleDateFormat DAY_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-    private static final String TABLE_NAME = "indicator_daily_tally";
-    private static final String COLUMN_DAY = "day";
+    private static final String TABLE_NAME = Constants.DailyIndicatorCountRepository.INDICATOR_DAILY_TALLY_TABLE;
+    private static final String COLUMN_DAY = Constants.DailyIndicatorCountRepository.DAY;
 
 
     /**
@@ -99,7 +99,7 @@ public class DailyTalliesRepository extends BaseRepository {
         List<String> months = new ArrayList<>();
         if (cursor != null && cursor.getCount() > 0) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Date curMonth = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse((cursor.getString(0)));
+                Date curMonth = DAY_FORMAT.parse((cursor.getString(0)));
                 String month = dateFormat.format(curMonth);
                 if (!months.contains(month)) {
                     months.add(month);

@@ -30,6 +30,7 @@ import timber.log.Timber;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-12-02
  */
 public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
+
     private final HIA2ReportsActivity baseActivity;
     private final Date date;
     private final String formName;
@@ -103,11 +104,13 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
 
                 jsonObject.put(JsonFormConstants.KEY, key);
                 jsonObject.put(JsonFormConstants.TYPE, "edit_text");
-                //jsonObject.put(JsonFormConstants.READ_ONLY, readOnlyList.contains(monthlyTally.getIndicatorCode()));
                 jsonObject.put(JsonFormConstants.READ_ONLY, false);
                 jsonObject.put(JsonFormConstants.HINT, label);
                 jsonObject.put(JsonFormConstants.VALUE, monthlyTally.getValue());
 
+                //jsonObject.put(JsonFormConstants.READ_ONLY, readOnlyList.contains(monthlyTally.getIndicatorCode()));
+
+                // This will be used for the target indicators
                     /*if (DailyTalliesRepository.IGNORED_INDICATOR_CODES
                             .contains(monthlyTally.getIndicatorCode()) && firstTimeEdit) {
                         jsonObject.put(JsonFormConstants.VALUE, "");

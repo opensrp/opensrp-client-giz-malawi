@@ -2,7 +2,6 @@ package org.smartregister.giz.repository;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -17,6 +16,7 @@ import org.smartregister.configurableviews.repository.ConfigurableViewsRepositor
 import org.smartregister.domain.db.Column;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
@@ -54,10 +54,11 @@ public class GizMalawiRepository extends Repository {
 
     protected SQLiteDatabase readableDatabase;
     protected SQLiteDatabase writableDatabase;
+
     private Context context;
-    private String indicatorsConfigFile = "config/indicator-definitions.yml";
-    private String indicatorDataInitialisedPref = "INDICATOR_DATA_INITIALISED";
-    private String appVersionCodePref = "APP_VERSION_CODE";
+    private String indicatorsConfigFile = GizConstants.File.INDICATOR_CONFIG_FILE;
+    private String indicatorDataInitialisedPref = GizConstants.Pref.INDICATOR_DATA_INITIALISED;
+    private String appVersionCodePref = GizConstants.Pref.APP_VERSION_CODE;
 
     public GizMalawiRepository(@NonNull Context context, @NonNull org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
@@ -114,7 +115,7 @@ public class GizMalawiRepository extends Repository {
                 .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
         boolean isUpdated = checkIfAppUpdated();
         if (!indicatorDataInitialised || isUpdated) {
-            Log.d("REPO 2!", "initialising");
+            Timber.d("Initialising indicator repositories!!");
             reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
@@ -262,7 +263,7 @@ public class GizMalawiRepository extends Repository {
             DatabaseMigrationUtils.addFieldsToFTSTable(database, commonFtsObject, Utils.metadata().childRegister.tableName,
                     newlyAddedFields);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion2 %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion2");
         }
     }
 
@@ -281,7 +282,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(HeightRepository.UPDATE_TABLE_ADD_FORMSUBMISSION_ID_COL);
             db.execSQL(HeightRepository.FORMSUBMISSION_INDEX);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion3 %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion3");
         }
     }
 
@@ -290,7 +291,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(AlertRepository.ALTER_ADD_OFFLINE_COLUMN);
             db.execSQL(AlertRepository.OFFLINE_INDEX);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion4 %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion4");
         }
     }
 
@@ -303,7 +304,7 @@ public class GizMalawiRepository extends Repository {
                     .recurringServiceTypeRepository();
             IMDatabaseUtils.populateRecurringServices(context, db, recurringServiceTypeRepository);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion5 %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion5");
         }
     }
 
@@ -315,7 +316,7 @@ public class GizMalawiRepository extends Repository {
             HeightZScoreRepository.createTable(db);
             db.execSQL(HeightRepository.ALTER_ADD_Z_SCORE_COLUMN);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion6 %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion6");
         }
     }
 
@@ -330,7 +331,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
 
         } catch (Exception e) {
-            Timber.e("upgradeToVersion7 %s", Log.getStackTraceString(e));
+            Timber.e(e,"upgradeToVersion7");
         }
     }
 
@@ -343,7 +344,7 @@ public class GizMalawiRepository extends Repository {
             IMDatabaseUtils.populateRecurringServices(context, db, recurringServiceTypeRepository);
 
         } catch (Exception e) {
-            Timber.e("upgradeToVersion7RecurringServiceUpdate %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion7RecurringServiceUpdate");
         }
     }
 
@@ -365,7 +366,7 @@ public class GizMalawiRepository extends Repository {
             RecurringServiceRecordRepository.migrateCreatedAt(db);
 
         } catch (Exception e) {
-            Timber.e("upgradeToVersion7EventWeightHeightVaccineRecurringChange %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion7EventWeightHeightVaccineRecurringChange");
         }
     }
 
@@ -377,7 +378,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion7VaccineRecurringServiceRecordChange %s", Log.getStackTraceString(e));
+            Timber.e(e,"upgradeToVersion7VaccineRecurringServiceRecordChange");
         }
     }
 
@@ -397,7 +398,7 @@ public class GizMalawiRepository extends Repository {
 
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
         } catch (Exception e) {
-            Timber.e("upgradeToVersion7WeightHeightVaccineRecurringServiceChange %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion7WeightHeightVaccineRecurringServiceChange");
         }
     }
 
@@ -414,7 +415,7 @@ public class GizMalawiRepository extends Repository {
 
 
         } catch (Exception e) {
-            Timber.e("upgradeToVersion7RemoveUnnecessaryTables( %s", Log.getStackTraceString(e));
+            Timber.e(e, "upgradeToVersion7RemoveUnnecessaryTables");
         }
     }
 

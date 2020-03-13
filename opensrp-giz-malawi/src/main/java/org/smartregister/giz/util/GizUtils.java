@@ -94,14 +94,8 @@ public class GizUtils extends Utils {
         Locale.setDefault(locale);
         Resources resources = activity.getResources();
         Configuration configuration = resources.getConfiguration();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            configuration.setLocale(locale);
-            GizMalawiApplication.getInstance().getApplicationContext().createConfigurationContext(configuration);
-        } else {
-            configuration.locale = locale;
-            resources.updateConfiguration(configuration, displayMetrics);
-        }
+        configuration.setLocale(locale);
+        GizMalawiApplication.getInstance().getApplicationContext().createConfigurationContext(configuration);
     }
 
     public static String getLanguage(Context ctx) {
@@ -116,13 +110,8 @@ public class GizUtils extends Utils {
 
         Resources res = newContext.getResources();
         Configuration config = new Configuration(res.getConfiguration());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            config.setLocale(locale);
-            newContext = newContext.createConfigurationContext(config);
-        } else {
-            config.locale = locale;
-            res.updateConfiguration(config, res.getDisplayMetrics());
-        }
+        config.setLocale(locale);
+        newContext = newContext.createConfigurationContext(config);
         return newContext;
     }
 

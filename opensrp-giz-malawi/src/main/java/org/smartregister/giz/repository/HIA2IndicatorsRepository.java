@@ -1,42 +1,39 @@
 package org.smartregister.giz.repository;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.giz.domain.Hia2Indicator;
+import org.smartregister.giz.util.DbConstants;
 import org.smartregister.repository.BaseRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import timber.log.Timber;
+
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
 public class HIA2IndicatorsRepository extends BaseRepository {
-    private static final String TAG = HIA2IndicatorsRepository.class.getCanonicalName();
-    private static final String HIA2_INDICATORS_TABLE_NAME = "indicators";
-    private static final String ID_COLUMN = "_id";
-    private static final String INDICATOR_CODE = "indicator_code";
-    private static final String DESCRIPTION = "description";
 
-    private static final String[] HIA2_TABLE_COLUMNS = {ID_COLUMN, INDICATOR_CODE, DESCRIPTION};
+    private static final String[] HIA2_TABLE_COLUMNS = {DbConstants.Table.Hia2IndicatorsRepository.ID, DbConstants.Table.Hia2IndicatorsRepository.INDICATOR_CODE, DbConstants.Table.Hia2IndicatorsRepository.DESCRIPTION};
 
     public HashMap<String, Hia2Indicator> findAll() {
         HashMap<String, Hia2Indicator> response = new HashMap<>();
         Cursor cursor = null;
 
         try {
-            cursor = getReadableDatabase().query(HIA2_INDICATORS_TABLE_NAME, HIA2_TABLE_COLUMNS, null, null, null, null, null, null);
+            cursor = getReadableDatabase().query(DbConstants.Table.Hia2IndicatorsRepository.TABLE_NAME, HIA2_TABLE_COLUMNS, null, null, null, null, null, null);
             List<Hia2Indicator> hia2Indicators = readAllDataElements(cursor);
             for (Hia2Indicator curIndicator : hia2Indicators) {
                 response.put(curIndicator.getIndicatorCode(), curIndicator);
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -51,13 +48,13 @@ public class HIA2IndicatorsRepository extends BaseRepository {
         Hia2Indicator hia2Indicator = null;
 
         try {
-            cursor = getReadableDatabase().query(HIA2_INDICATORS_TABLE_NAME, HIA2_TABLE_COLUMNS, INDICATOR_CODE + " = ? COLLATE NOCASE ", new String[]{indicatorCode}, null, null, null, null);
+            cursor = getReadableDatabase().query(DbConstants.Table.Hia2IndicatorsRepository.TABLE_NAME, HIA2_TABLE_COLUMNS, DbConstants.Table.Hia2IndicatorsRepository.INDICATOR_CODE + " = ? COLLATE NOCASE ", new String[]{indicatorCode}, null, null, null, null);
             List<Hia2Indicator> hia2Indicators = readAllDataElements(cursor);
             if (hia2Indicators.size() == 1) {
                 hia2Indicator = hia2Indicators.get(0);
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -72,13 +69,13 @@ public class HIA2IndicatorsRepository extends BaseRepository {
         Hia2Indicator hia2Indicator = null;
 
         try {
-            cursor = getReadableDatabase().query(HIA2_INDICATORS_TABLE_NAME, HIA2_TABLE_COLUMNS, ID_COLUMN + " = ?", new String[]{String.valueOf(id)}, null, null, null, null);
+            cursor = getReadableDatabase().query(DbConstants.Table.Hia2IndicatorsRepository.TABLE_NAME, HIA2_TABLE_COLUMNS, DbConstants.Table.Hia2IndicatorsRepository.ID + " = ?", new String[]{String.valueOf(id)}, null, null, null, null);
             List<Hia2Indicator> hia2Indicators = readAllDataElements(cursor);
             if (hia2Indicators.size() == 1) {
                 hia2Indicator = hia2Indicators.get(0);
             }
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -94,16 +91,16 @@ public class HIA2IndicatorsRepository extends BaseRepository {
             if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
                 while (!cursor.isAfterLast()) {
                     Hia2Indicator hia2Indicator = new Hia2Indicator();
-                    hia2Indicator.setId(cursor.getLong(cursor.getColumnIndex(ID_COLUMN)));
-                    hia2Indicator.setDescription(cursor.getString(cursor.getColumnIndex(DESCRIPTION)));
-                    hia2Indicator.setIndicatorCode(cursor.getString(cursor.getColumnIndex(INDICATOR_CODE)));
+                    hia2Indicator.setId(cursor.getLong(cursor.getColumnIndex(DbConstants.Table.Hia2IndicatorsRepository.ID)));
+                    hia2Indicator.setDescription(cursor.getString(cursor.getColumnIndex(DbConstants.Table.Hia2IndicatorsRepository.DESCRIPTION)));
+                    hia2Indicator.setIndicatorCode(cursor.getString(cursor.getColumnIndex(DbConstants.Table.Hia2IndicatorsRepository.INDICATOR_CODE)));
                     hia2Indicators.add(hia2Indicator);
 
                     cursor.moveToNext();
                 }
             }
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
+            Timber.e(e);
         } finally {
             if(cursor != null) {
                 cursor.close();
@@ -121,7 +118,7 @@ public class HIA2IndicatorsRepository extends BaseRepository {
      */
     public List<Hia2Indicator> fetchAll() {
         SQLiteDatabase database = getReadableDatabase();
-        Cursor cursor = database.query(HIA2_INDICATORS_TABLE_NAME, HIA2_TABLE_COLUMNS, null, null, null, null, ID_COLUMN + " asc ");
+        Cursor cursor = database.query(DbConstants.Table.Hia2IndicatorsRepository.TABLE_NAME, HIA2_TABLE_COLUMNS, null, null, null, null, DbConstants.Table.Hia2IndicatorsRepository.ID + " asc ");
         return readAllDataElements(cursor);
     }
 }

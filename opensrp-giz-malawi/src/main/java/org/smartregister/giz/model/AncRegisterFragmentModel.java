@@ -12,8 +12,9 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
         countQueryBuilder.SelectInitiateMainTableCounts(tableName);
         countQueryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable()
-                + " on " + AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable() + ".base_entity_id = " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + ".base_entity_id " +
-                "inner join client_register_type on ec_client.id=client_register_type.base_entity_id");
+                + " on " + AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable() + ".base_entity_id = "
+                + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + ".base_entity_id "
+                + "inner join client_register_type on ec_client.id=client_register_type.base_entity_id");
         return countQueryBuilder.mainCondition(" client_register_type.register_type = 'anc'");
     }
 
@@ -32,8 +33,8 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
                 AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
         queryBuilder.SelectInitiateMainTable(tableName, columns);
         queryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable()
-                + " on "+AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable()+".base_entity_id = " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + ".base_entity_id " +
-                "inner join client_register_type on ec_client.id=client_register_type.base_entity_id");
+                + " on "+AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable()+".base_entity_id = " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + ".base_entity_id" +
+                " inner join client_register_type on ec_client.id=client_register_type.base_entity_id");
         mainCondition += " and  client_register_type.register_type = 'anc'";
         return queryBuilder.mainCondition(mainCondition);
     }
