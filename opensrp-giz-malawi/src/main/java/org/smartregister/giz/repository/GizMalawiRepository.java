@@ -101,6 +101,7 @@ public class GizMalawiRepository extends Repository {
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
         MonthlyTalliesRepository.createTable(database);
+        HIA2IndicatorsRepository.createTable(database);
 
         EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, Hia2ReportRepository.report_column.values());
 
@@ -151,6 +152,11 @@ public class GizMalawiRepository extends Repository {
                 case 8:
                     upgradeToVersion8AddServiceGroupColumn(db);
                     break;
+
+                case 11:
+                    createHia2IndicatorsRepository(db);
+                    break;
+
                 default:
                     break;
             }
@@ -160,6 +166,10 @@ public class GizMalawiRepository extends Repository {
         PatientRepositoryHelper.performMigrations(db);
         DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
+    }
+
+    private void createHia2IndicatorsRepository(SQLiteDatabase db) {
+        HIA2IndicatorsRepository.createTable(db);
     }
 
     @Override
