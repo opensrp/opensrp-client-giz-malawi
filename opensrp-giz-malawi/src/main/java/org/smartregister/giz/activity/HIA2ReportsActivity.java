@@ -41,7 +41,6 @@ import org.smartregister.giz.task.StartDraftMonthlyFormTask;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizReportUtils;
-import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.reporting.domain.TallyStatus;
 import org.smartregister.reporting.event.IndicatorTallyEvent;
 import org.smartregister.reporting.util.ViewUtils;
@@ -154,8 +153,6 @@ public class HIA2ReportsActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        openDrawer();
-
         EventBus.getDefault().register(this);
     }
 
@@ -177,13 +174,6 @@ public class HIA2ReportsActivity extends AppCompatActivity {
             for (FragmentRefreshListener fragmentRefreshListener : getFragmentRefreshListeners()) {
                 fragmentRefreshListener.onRefresh();
             }
-        }
-    }
-
-    public void openDrawer() {
-        NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
-        if (navigationMenu != null) {
-            navigationMenu.runRegisterCount();
         }
     }
 
@@ -368,6 +358,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                     for (MonthlyTally curTally : tallies) {
                         ReportHia2Indicator reportHia2Indicator = new ReportHia2Indicator(curTally.getIndicator()
                                 , curTally.getIndicator()
+                                // TODO: Fix this categorization for ANC, Child, OPD
                                 , "Immunization"
                                 , curTally.getValue());
 

@@ -3,6 +3,7 @@ package org.smartregister.giz.activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import org.smartregister.child.toolbar.SimpleToolbar;
 import org.smartregister.giz.R;
 import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.Tally;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.view.IndicatorCategoryView;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
@@ -20,7 +22,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.domain.IndicatorTally;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
@@ -36,6 +41,7 @@ public class ReportSummaryActivity extends BaseActivity {
     private LinkedHashMap<String, ArrayList<Tally>> tallies;
 
     private String subTitle;
+    private String reportGrouping;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -58,10 +64,16 @@ public class ReportSummaryActivity extends BaseActivity {
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
             Serializable talliesSerializable = extras.getSerializable(EXTRA_TALLIES);
+            Serializable tallyDaySerializable = extras.getSerializable(EXTRA_DAY);
+            reportGrouping = extras.getString(EXTRA_REPORT_GROUPING);
 
             if (talliesSerializable != null && talliesSerializable instanceof  ArrayList) {
                 ArrayList<MonthlyTally> tallies = (ArrayList<MonthlyTally>) talliesSerializable;
                 setTallies(tallies, false);
+            }
+
+            if (tallyDaySerializable instanceof Date) {
+                fetchIndicatorTalliesForDay((Date) tallyDaySerializable, reportGrouping);
             }
 
             Serializable submittedBySerializable = extras.getSerializable(EXTRA_SUB_TITLE);
@@ -133,6 +145,36 @@ public class ReportSummaryActivity extends BaseActivity {
         if (refreshViews) refreshIndicatorViews();
     }
 
+    private void setDailyTallies(@NonNull ArrayList<IndicatorTally> tallies, boolean refreshViews) {
+        this.tallies = new LinkedHashMap<>();
+        this.tallies.put("", new ArrayList<>());
+
+        Collections.sort(tallies, new Comparator<IndicatorTally>() {
+            @Override
+            public int compare(IndicatorTally lhs, IndicatorTally rhs) {
+                return lhs.getIndicatorCode().compareTo(rhs.getIndicatorCode());
+            }
+        });
+
+        for (IndicatorTally curTally : tallies) {
+            if (curTally != null && !TextUtils.isEmpty(curTally.getIndicatorCode())) {
+                Tally tally = new Tally();
+                tally.setIndicator(curTally.getIndicatorCode());
+                tally.setValue(String.valueOf(curTally.getFloatCount()));
+
+                if (curTally.getId() == null) {
+                    tally.setId(0);
+                } else {
+                    tally.setId(curTally.getId());
+                }
+
+                this.tallies.get("").add(tally);
+            }
+        }
+
+        if (refreshViews) refreshIndicatorViews();
+    }
+
     private void refreshIndicatorViews() {
         LinearLayout indicatorCanvas = findViewById(R.id.indicator_canvas);
         indicatorCanvas.removeAllViews();
@@ -160,7 +202,7 @@ public class ReportSummaryActivity extends BaseActivity {
     public void onRegistrationSaved(boolean isEdit) {
         // Nothing to do
     }
-/*
+
     public void fetchIndicatorTalliesForDay(@NonNull final Date date, @Nullable String reportGrouping) {
         AppExecutors appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(new Runnable() {
@@ -173,10 +215,10 @@ public class ReportSummaryActivity extends BaseActivity {
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        setTallies(indicatorTallies, true);
+                        setDailyTallies(indicatorTallies, true);
                     }
                 });
             }
         });
-    }*/
+    }
 }
