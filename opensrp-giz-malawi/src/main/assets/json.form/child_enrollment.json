@@ -113,10 +113,6 @@
         "v_required": {
           "value": false,
           "err": "Please enter the Child Registration Number"
-        },
-        "v_numeric": {
-          "value": "true",
-          "err": "Enter a valid registration number"
         }
       },
       {
@@ -227,8 +223,11 @@
         "openmrs_data_type": "text",
         "type": "tree",
         "tree": [],
-        "value": "Lombwa Outreach",
-        "hint": "Village"
+        "hint": "Village",
+        "v_required": {
+          "value": true,
+          "err": "Please enter the village"
+        }
       },
       {
         "key": "village",
@@ -257,11 +256,11 @@
         "key": "Birth_Weight",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "label_info_text": "The weight as measured when the child is born",
-        "hint": "Birth weight (kg)",
+        "hint": "Birth weight/First weight (kg)",
         "v_min": {
           "value": "0.1",
           "err": "Weight must be greater than 0"
@@ -279,7 +278,7 @@
         "key": "Birth_Height",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "159429AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Birth Height (cm)",
@@ -349,7 +348,11 @@
         },
         "default": "01-01-1960",
         "min_date": "01-01-1960",
-        "max_date": "today-10y"
+        "max_date": "today-10y",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the mother/guardian's birth date"
+        }
       },
       {
         "key": "nrc_number",
@@ -394,19 +397,19 @@
       {
         "key": "mother_tdv_doses",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "mother_tdv_doses",
         "type": "spinner",
-        "label_info_text": "Whether the child's mother received 2 or more doses of Td, which transfers protection against Td to the child when they're born.",
-        "hint": "How many does of TDV did the mother receive?",
+        "label_info_text": "Whether the child's mother received 2 or more doses of TdV, which transfers protection against Td to the child when they're born.",
+        "hint": "How many doses of TdV did the mother receive?",
         "v_required": {
           "value": true,
           "err": "Please choose an option"
         },
         "values": [
-          ">=3 doses of TDV in past 5 years",
-          "1-4 doses of TDV in the past",
-          "TDV not received",
+          ">=3 doses of TdV in past 5 years",
+          "1-4 doses of TdV in the past",
+          "TdV not received",
           "Unknown"
         ]
       },

@@ -18,7 +18,7 @@ import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
-import org.smartregister.opd.pojos.OpdMetadata;
+import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 
@@ -44,7 +44,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
                 switchSelection.setOnClickListener(registerActionHandler);
             }
 
-            View topLeftLayout = view.findViewById(org.smartregister.opd.R.id.top_left_layout);
+            View topLeftLayout = view.findViewById(R.id.top_left_layout);
             topLeftLayout.setVisibility(View.VISIBLE);
 
             ImageView addPatientBtn = view.findViewById(R.id.add_child_image_view);

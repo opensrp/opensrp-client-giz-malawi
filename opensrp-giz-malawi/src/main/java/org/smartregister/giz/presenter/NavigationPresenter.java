@@ -14,6 +14,7 @@ import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
+import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -37,11 +38,10 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     }
 
     private void initialize() {
-        tableMap.put(GizConstants.DrawerMenu.ALL_FAMILIES, GizConstants.TABLE_NAME.FAMILY);
-        tableMap.put(GizConstants.DrawerMenu.CHILD_CLIENTS, GizConstants.TABLE_NAME.CHILD);
-        tableMap.put(GizConstants.DrawerMenu.ANC_CLIENTS, GizConstants.TABLE_NAME.MOTHER_TABLE_NAME);
-        tableMap.put(GizConstants.DrawerMenu.ANC, GizConstants.TABLE_NAME.ANC_MEMBER);
-        tableMap.put(GizConstants.DrawerMenu.ALL_CLIENTS, String.format("%s|%s|%s", GizConstants.TABLE_NAME.CHILD, GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.TABLE_NAME.ALL_CLIENTS));
+        tableMap.put(GizConstants.DrawerMenu.CHILD_CLIENTS, GizConstants.RegisterType.CHILD);
+        tableMap.put(GizConstants.DrawerMenu.ANC_CLIENTS, GizConstants.RegisterType.ANC);
+        tableMap.put(GizConstants.DrawerMenu.ANC, GizConstants.RegisterType.ANC);
+        tableMap.put(GizConstants.DrawerMenu.ALL_CLIENTS, GizConstants.RegisterType.OPD);
     }
 
     @Override
@@ -94,6 +94,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
         HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
+        RecurringIndicatorGeneratingJob.scheduleJobImmediately(RecurringIndicatorGeneratingJob.TAG);
     }
 
     @Override

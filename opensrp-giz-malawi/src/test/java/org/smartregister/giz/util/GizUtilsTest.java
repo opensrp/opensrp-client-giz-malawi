@@ -22,8 +22,10 @@ import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
 
-@PrepareForTest({Utils.class, GizMalawiApplication.class, CoreLibrary.class})
+@PrepareForTest({Utils.class, GizMalawiApplication.class, CoreLibrary.class, LocationHelper.class})
 @RunWith(PowerMockRunner.class)
 public class GizUtilsTest {
 
@@ -37,6 +39,9 @@ public class GizUtilsTest {
     private ArgumentCaptor argumentCaptorUpdateChildTable;
 
     @Captor
+    private ArgumentCaptor argumentCaptorSaveCurrentLocality;
+
+    @Captor
     private ArgumentCaptor argumentCaptorUpdateChildFtsTable;
 
     @Mock
@@ -47,6 +52,12 @@ public class GizUtilsTest {
 
     @Mock
     private ChildMetadata childMetadata;
+
+    @Mock
+    private AllSharedPreferences allSharedPreferences;
+
+    @Mock
+    private LocationHelper locationHelper;
 
     @Test
     public void testUpdateChildDeath() {
@@ -71,5 +82,30 @@ public class GizUtilsTest {
         Assert.assertNull(argumentCaptorUpdateChildTable.getAllValues().get(1).toString());
         Assert.assertEquals(client.getBaseEntityId(), argumentCaptorUpdateChildTable.getAllValues().get(2));
         Assert.assertEquals(client.getBaseEntityId(), argumentCaptorUpdateChildFtsTable.getValue());
+    }
+
+    @Test
+    public void testGetCurrentLocalityShouldReturnCorrectValueIfPresent() {
+        PowerMockito.mockStatic(GizMalawiApplication.class);
+        PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
+        PowerMockito.when(gizMalawiApplication.context()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
+        PowerMockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn("child location 1");
+        Assert.assertEquals("child location 1", GizUtils.getCurrentLocality());
+    }
+
+    @Test
+    public void testGetCurrentLocalityShouldReturnCorrectValueIfAbsent() {
+        PowerMockito.mockStatic(GizMalawiApplication.class);
+        PowerMockito.mockStatic(LocationHelper.class);
+        PowerMockito.when(LocationHelper.getInstance()).thenReturn(locationHelper);
+        PowerMockito.when(locationHelper.getDefaultLocation()).thenReturn("Default Location");
+        PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
+        PowerMockito.when(gizMalawiApplication.context()).thenReturn(context);
+        PowerMockito.when(context.allSharedPreferences()).thenReturn(allSharedPreferences);
+        PowerMockito.when(allSharedPreferences.fetchCurrentLocality()).thenReturn(null);
+        Assert.assertEquals("Default Location", GizUtils.getCurrentLocality());
+        Mockito.verify(allSharedPreferences).saveCurrentLocality(String.valueOf(argumentCaptorSaveCurrentLocality.capture()));
+        Assert.assertEquals("Default Location", argumentCaptorSaveCurrentLocality.getValue());
     }
 }

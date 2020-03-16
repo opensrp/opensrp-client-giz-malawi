@@ -58,127 +58,149 @@
     "next": "step2",
     "fields": [
       {
-        "key": "diagnostic_test",
+        "key": "tests_repeating_group",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "# of tests",
+        "repeating_group_label": "",
+        "showGroupLabel": false,
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "hint": "The type of test conducted",
-        "type": "spinner",
-        "values": [
-          "Pregnancy Test",
-          "Ultra sound",
-          "Malaria test",
-          "HIV test",
-          "Syphilis test",
-          "Hep B test",
-          "Hep C test",
-          "Blood Type test",
-          "TB Screening",
-          "Blood Glucose test",
-          "Blood Glucose test (75g OGTT - fasting glucose (1 hr))",
-          "Blood Glucose test (Initial 75g OGTT - fasting glucose)",
-          "Blood Glucose test (Fasting plasma glucose test)",
-          "Blood Glucose test ( random plasma glucose test))",
-          "Midstream urine Gram-staining",
-          "Other(specify)"
+        "value": [
+          {
+            "key": "diagnostic_test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "The type of test conducted",
+            "type": "spinner",
+            "values": [
+              "Pregnancy Test",
+              "Ultra sound",
+              "Malaria test",
+              "HIV test",
+              "Syphilis test",
+              "Hep B test",
+              "Hep C test",
+              "Blood Type test",
+              "TB Screening",
+              "Blood Glucose test",
+              "Blood Glucose test (75g OGTT - fasting glucose (1 hr))",
+              "Blood Glucose test (Initial 75g OGTT - fasting glucose)",
+              "Blood Glucose test (Fasting plasma glucose test)",
+              "Blood Glucose test ( random plasma glucose test))",
+              "Midstream urine Gram-staining",
+              "Other(specify)"
+            ]
+          },
+
+          {
+            "key": "diagnostic_test_other",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "type": "edit_text",
+            "hint": "Specify any other reason why the test was not done",
+            "edit_type": "name",
+            "v_required": {
+              "value": true,
+              "err": "Please specify the result of the test"
+            },
+            "relevance": {
+              "step1:diagnostic_test": {
+                "type": "string",
+                "ex": "equalTo(., \"Other(specify)\")"
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_spinner",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "The result of the test conducted",
+            "type": "spinner",
+            "values": [
+              "Positive",
+              "Negative",
+              "Inconsistent"
+            ],
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_spinner_blood_type",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "The result of the test conducted",
+            "type": "spinner",
+            "values": [
+              "A(Positive)",
+              "B(Positive)",
+              "AB(Positive)",
+              "O(Positive)",
+              "O(Negative)",
+              "A(Negative)",
+              "B(Negative)",
+              "AB(Negative)"
+            ],
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_glucose",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "The result of the test conducted",
+            "type": "edit_text",
+            "v_regex": {
+              "value": "([3-8][0-9]|9[0-9]|[1-4][0-9]{2}|500)",
+              "err": "Number must be between 30 and 500"
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_specify",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "The result of the test conducted",
+            "type": "edit_text",
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "spacer",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "spacer",
+            "type": "spacer",
+            "spacer_height": "40sp"
+          }
         ]
-      },
-      {
-        "key": "diagnostic_test_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Specify any other reason why the test was not done",
-        "edit_type": "name",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the result of the test"
-        },
-        "relevance": {
-          "step1:diagnostic_test": {
-            "type": "string",
-            "ex": "equalTo(., \"Other(specify)\")"
-          }
-        }
-      },
-      {
-        "key": "diagnostic_test_result_spinner",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hint": "The result of the test conducted",
-        "type": "spinner",
-        "values": [
-          "Positive",
-          "Negative",
-          "Inconsistent"
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "diagnostic_test_result_spinner_blood_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hint": "The result of the test conducted",
-        "type": "spinner",
-        "values": [
-          "A(Positive)",
-          "B(Positive)",
-          "AB(Positive)",
-          "O(Positive)",
-          "A(Negative)",
-          "B(Negative)",
-          "AB(Negative)"
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "diagnostic_test_result_glucose",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hint": "The result of the test conducted",
-        "type": "edit_text",
-        "v_regex": {
-          "value": "([3-8][0-9]|9[0-9]|[1-4][0-9]{2}|500)",
-          "err": "Number must be between 30 and 500"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_relevance.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "diagnostic_test_result_specify",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hint": "The result of the test conducted",
-        "type": "edit_text",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_relevance.yml"
-            }
-          }
-        }
       }
     ]
   },
@@ -250,6 +272,7 @@
         "type": "multi_select_list",
         "buttonText": "+ Add disease code",
         "dialogTitle": "Add disease code",
+        "repositoryClass": "org.smartregister.opd.widgets.OpdDiseaseCodeMultiSelectListRepository",
         "searchHint": "Type Disease Name",
         "relevance": {
           "step2:diagnosis": {
@@ -280,6 +303,7 @@
         "sort": true,
         "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
         "source": "csv",
+        "repositoryClass": "org.smartregister.opd.widgets.OpdMedicineMultiSelectListRepository",
         "type": "multi_select_drug_picker",
         "buttonText": "+ Add treatment/medicine",
         "dialogTitle": "Add treatment/medicine",

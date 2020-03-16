@@ -20,6 +20,7 @@ import org.smartregister.anc.library.activity.ActivityConfiguration;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.domain.ChildMetadata;
+import org.smartregister.child.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
@@ -28,6 +29,7 @@ import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildFormActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
+import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
@@ -35,11 +37,18 @@ import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
+import org.smartregister.giz.processor.TripleResultProcessor;
+import org.smartregister.giz.repository.ClientRegisterTypeRepository;
+import org.smartregister.giz.repository.DailyTalliesRepository;
+import org.smartregister.giz.repository.GizAncRegisterQueryProvider;
+import org.smartregister.giz.repository.GizChildRegisterQueryProvider;
 import org.smartregister.giz.repository.GizMalawiRepository;
+import org.smartregister.giz.repository.HIA2IndicatorsRepository;
+import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.util.VaccineDuplicate;
-import org.smartregister.growthmonitoring.GrowthMonitoringConfig;
 import org.smartregister.growthmonitoring.GrowthMonitoringLibrary;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
@@ -59,11 +68,13 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
-import org.smartregister.opd.pojos.OpdMetadata;
+import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
+import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.repository.Hia2ReportRepository;
 import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
@@ -76,19 +87,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
+
+/*import com.amitshekhar.utils.DatabaseFileProvider;
+import com.amitshekhar.utils.DbPasswordProvider;*/
 
 public class GizMalawiApplication extends DrishtiApplication implements TimeChangedBroadcastReceiver.OnTimeChangedListener {
 
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
+
+    private EventClientRepository eventClientRepository;
+    private HIA2IndicatorsRepository hia2IndicatorsRepository;
+    private DailyTalliesRepository dailyTalliesRepository;
+    private MonthlyTalliesRepository monthlyTalliesRepository;
+    private Hia2ReportRepository hia2ReportRepository;
+
     private String password;
     private boolean lastModified;
     private ECSyncHelper ecSyncHelper;
 
-    private EventClientRepository eventClientRepository;
+    private ClientRegisterTypeRepository registerTypeRepository;
     private static List<VaccineGroup> vaccineGroups;
 
     public static JsonSpecHelper getJsonSpecHelper() {
@@ -109,48 +131,50 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[]{GizConstants.TABLE_NAME.CHILD, DBConstantsUtils.WOMAN_TABLE_NAME, OpdDbConstants.KEY.TABLE};
+        return new String[]{OpdDbConstants.KEY.TABLE, "ec_mother_details", DBConstants.RegisterTable.CHILD_DETAILS};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
-        if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-            return new String[]{GizConstants.KEY.ZEIR_ID, GizConstants.KEY.FIRST_NAME, GizConstants.KEY.LAST_NAME};
-        } else if (tableName.equalsIgnoreCase(DBConstantsUtils.WOMAN_TABLE_NAME)) {
-            return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID};
+        if (tableName.equalsIgnoreCase(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)) {
+            return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID, GizConstants.KEY.ZEIR_ID};
         } else if (tableName.equals(OpdDbConstants.KEY.TABLE)) {
-            return new String[]{OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME, OpdDbConstants.KEY.OPENSRP_ID};
+            return new String[]{OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME, OpdDbConstants.KEY.OPENSRP_ID, DBConstants.KEY.ZEIR_ID};
+        } else if ("ec_mother_details".equals(tableName)) {
+            return new String[]{"next_contact"};
+        } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
+            return new String[]{DBConstants.KEY.LOST_TO_FOLLOW_UP, DBConstants.KEY.INACTIVE};
         }
 
         return null;
     }
 
     private static String[] getFtsSortFields(String tableName, android.content.Context context) {
-        if (tableName.equals(GizConstants.TABLE_NAME.CHILD)) {
-
-            List<VaccineGroup> vaccines = getVaccineGroups(context);
+        if (tableName.equals(GizConstants.TABLE_NAME.ALL_CLIENTS)) {
             List<String> names = new ArrayList<>();
             names.add(GizConstants.KEY.FIRST_NAME);
+            names.add(OpdDbConstants.KEY.LAST_NAME);
             names.add(GizConstants.KEY.DOB);
             names.add(GizConstants.KEY.ZEIR_ID);
             names.add(GizConstants.KEY.LAST_INTERACTED_WITH);
-            names.add(GizConstants.KEY.INACTIVE);
-            names.add(GizConstants.KEY.LOST_TO_FOLLOW_UP);
             names.add(GizConstants.KEY.DOD);
             names.add(GizConstants.KEY.DATE_REMOVED);
+            return names.toArray(new String[names.size()]);
+        } else if ("ec_mother_details".equals(tableName)) {
+            return new String[]{DBConstantsUtils.KeyUtils.NEXT_CONTACT};
+        } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
+            List<VaccineGroup> vaccineList = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+            List<String> names = new ArrayList<>();
+            names.add(DBConstants.KEY.INACTIVE);
+            names.add("relational_id");
+            names.add(DBConstants.KEY.LOST_TO_FOLLOW_UP);
 
-            for (VaccineGroup vaccineGroup : vaccines) {
+            for (VaccineGroup vaccineGroup : vaccineList) {
                 populateAlertColumnNames(vaccineGroup.vaccines, names);
             }
 
             return names.toArray(new String[names.size()]);
-        } else if (tableName.equals(DBConstantsUtils.WOMAN_TABLE_NAME)) {
-            return new String[]{DBConstantsUtils.KeyUtils.BASE_ENTITY_ID, DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME,
-                    DBConstantsUtils.KeyUtils.LAST_INTERACTED_WITH, OpdDbConstants.KEY.REGISTER_ID, DBConstantsUtils.KeyUtils.DATE_REMOVED, DBConstantsUtils.KeyUtils.NEXT_CONTACT};
-        } else if (tableName.equals(OpdDbConstants.Table.EC_CLIENT)) {
-            return new String[]{OpdDbConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME,
-                    OpdDbConstants.KEY.LAST_INTERACTED_WITH, OpdDbConstants.KEY.DATE_REMOVED};
-        }
 
+        }
         return null;
     }
 
@@ -195,7 +219,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
             } else {
 
-                map.put(vaccine.name, Pair.create(GizConstants.TABLE_NAME.CHILD, false));
+                // TODO: This needs to be fixed because it is a configuration & not a hardcoded string
+                map.put(vaccine.name, Pair.create("ec_child_details", false));
             }
     }
 
@@ -234,19 +259,23 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         //Initialize Modules
         CoreLibrary.init(context, new GizMalawiSyncConfiguration(), BuildConfig.BUILD_TIMESTAMP);
 
-        GrowthMonitoringConfig growthMonitoringConfig = new GrowthMonitoringConfig();
-        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION,
-                growthMonitoringConfig);
+        GrowthMonitoringLibrary.init(context, getRepository(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        GrowthMonitoringLibrary.getInstance().setGrowthMonitoringSyncTime(3, TimeUnit.MINUTES);
         ImmunizationLibrary.init(context, getRepository(), createCommonFtsObject(context.applicationContext()), BuildConfig.VERSION_CODE,
                 BuildConfig.DATABASE_VERSION);
+        ImmunizationLibrary.getInstance().setVaccineSyncTime(3, TimeUnit.MINUTES);
         fixHardcodedVaccineConfiguration();
 
-        ConfigurableViewsLibrary.init(context, getRepository());
+        ConfigurableViewsLibrary.init(context);
         ChildLibrary.init(context, getRepository(), getMetadata(), BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        // Init Reporting library
+        ReportingLibrary.init(context, getRepository(), null, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        ReportingLibrary.getInstance().addMultiResultProcessor(new TripleResultProcessor());
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
-        AncLibrary.init(context, getRepository(), BuildConfig.DATABASE_VERSION, activityConfiguration);
+        activityConfiguration.setLandingPageActivityClass(ChildRegisterActivity.class);
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider());
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
@@ -254,6 +283,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
                 .setOpdMetadata(opdMetadata)
+                .setOpdRegisterProviderMetadata(GizOpdRegisterProviderMetadata.class)
                 .setOpdRegisterRowOptions(GizOpdRegisterRowOptions.class)
                 .setOpdRegisterSwitcher(GizOpdRegisterSwitcher.class)
                 .build();
@@ -277,9 +307,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private ChildMetadata getMetadata() {
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
-                ChildImmunizationActivity.class, true);
-        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.CHILD,
-                GizConstants.TABLE_NAME.MOTHER_TABLE_NAME, GizConstants.EventType.CHILD_REGISTRATION,
+                ChildImmunizationActivity.class, true, new GizChildRegisterQueryProvider());
+        metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.ALL_CLIENTS,
+                GizConstants.TABLE_NAME.ALL_CLIENTS, GizConstants.EventType.CHILD_REGISTRATION,
                 GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.EventType.OUT_OF_CATCHMENT, GizConstants.CONFIGURATION.CHILD_REGISTER,
                 GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
         return metadata;
@@ -401,7 +431,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public EventClientRepository eventClientRepository() {
         if (eventClientRepository == null) {
-            eventClientRepository = new EventClientRepository(getRepository());
+            eventClientRepository = new EventClientRepository();
         }
         return eventClientRepository;
     }
@@ -452,6 +482,35 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ImmunizationLibrary.getInstance().setVaccines(vaccines);
     }
 
+    public DailyTalliesRepository dailyTalliesRepository() {
+        if (dailyTalliesRepository == null) {
+            dailyTalliesRepository = new DailyTalliesRepository();
+        }
+        return dailyTalliesRepository;
+    }
+
+    public HIA2IndicatorsRepository hIA2IndicatorsRepository() {
+        if (hia2IndicatorsRepository == null) {
+            hia2IndicatorsRepository = new HIA2IndicatorsRepository();
+        }
+        return hia2IndicatorsRepository;
+    }
+
+    public MonthlyTalliesRepository monthlyTalliesRepository() {
+        if (monthlyTalliesRepository == null) {
+            monthlyTalliesRepository = new MonthlyTalliesRepository();
+        }
+
+        return monthlyTalliesRepository;
+    }
+
+    public Hia2ReportRepository hia2ReportRepository() {
+        if (hia2ReportRepository == null) {
+            hia2ReportRepository = new Hia2ReportRepository();
+        }
+        return hia2ReportRepository;
+    }
+
     public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
         if (vaccineGroups == null) {
 
@@ -464,6 +523,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     @VisibleForTesting
     public void setVaccineGroups(List<VaccineGroup> vaccines) {
         this.vaccineGroups = vaccines;
+    }
+
+    public ClientRegisterTypeRepository registerTypeRepository() {
+        if (registerTypeRepository == null) {
+            this.registerTypeRepository = new ClientRegisterTypeRepository();
+        }
+        return this.registerTypeRepository;
     }
 }
 

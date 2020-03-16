@@ -6,7 +6,6 @@
     android:padding="15dp"
     android:paddingBottom="15dp">
 
-
     <ImageView
         android:id="@+id/ivIcon"
         android:layout_width="33dp"

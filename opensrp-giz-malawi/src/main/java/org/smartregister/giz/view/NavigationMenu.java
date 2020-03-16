@@ -28,6 +28,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
+import org.smartregister.giz.activity.ReportRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationContract;
@@ -35,7 +36,7 @@ import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.presenter.NavigationPresenter;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.p2p.activity.P2pModeSelectActivity;
+import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
@@ -53,7 +54,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
-    private String TAG = NavigationMenu.class.getCanonicalName();
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationAdapter navigationAdapter;
@@ -67,12 +67,14 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private TextView txtLocationSelected;
 
     private View parentView;
+    private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
 
     private NavigationMenu() {
 
     }
 
+    @Nullable
     public static NavigationMenu getInstance(Activity activity, View parentView, Toolbar myToolbar) {
         SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(instance);
         activityWeakReference = new WeakReference<>(activity);
@@ -96,8 +98,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             parentView = myParentView;
             mPresenter = new NavigationPresenter(this);
             prepareViews(activity);
+            registerDrawer(activity);
         } catch (Exception e) {
-            Timber.e(e, "NavigationMenu --> init");
+            Timber.e(e);
         }
     }
 
@@ -159,6 +162,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         ivSync = rootView.findViewById(R.id.ivSyncIcon);
         syncProgressBar = rootView.findViewById(R.id.pbSync);
         settingsLayout = rootView.findViewById(R.id.rlSettings);
+        reportView = rootView.findViewById(R.id.report_view);
 
         ImageView ivLogo = rootView.findViewById(R.id.ivLogo);
         LinearLayout locationLayout = rootView.findViewById(R.id.giz_location_layout);
@@ -167,13 +171,13 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         locationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GizUtils.showLocations(activity, instance, null);
+                GizUtils.showLocations(activity, (OnLocationChangeListener) instance, null);
             }
         });
 
         txtLocationSelected = rootView.findViewById(R.id.giz_txt_location_selected);
 
-        updateUi(GizMalawiApplication.getInstance().context().allSharedPreferences().fetchCurrentLocality());
+        updateUi(LocationHelper.getInstance().getOpenMrsReadableName(GizUtils.getCurrentLocality()));
 
         ivLogo.setContentDescription(activity.getString(R.string.nav_logo));
         ivLogo.setImageResource(R.drawable.ic_logo);
@@ -197,11 +201,32 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         registerSync(activity);
         registerLanguageSwitcher(activity);
 
-        registerDeviceToDeviceSync(activity);
         registerSettings(activity);
+        registerReporting(activity);
 
         // update all actions
         mPresenter.refreshLastSync();
+    }
+
+    private void registerReporting(@Nullable Activity parentActivity) {
+        reportView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startReportActivity(parentActivity);
+            }
+        });
+    }
+
+    private void startReportActivity(@Nullable Activity parentActivity) {
+        if (parentActivity instanceof ReportRegisterActivity) {
+            drawer.closeDrawer(GravityCompat.START);
+            return;
+        }
+
+        if (parentActivity != null) {
+            Intent intent = new Intent(parentActivity, ReportRegisterActivity.class);
+            parentActivity.startActivity(intent);
+        }
     }
 
     private void registerSettings(@NonNull final Activity activity) {
@@ -272,16 +297,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         tvLang.setText(StringUtils.capitalize(current.getDisplayLanguage()));
     }
 
-    private void registerDeviceToDeviceSync(@NonNull final Activity activity) {
-        rootView.findViewById(R.id.rlIconDevice)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startP2PActivity(activity);
-                    }
-                });
-    }
-
     protected void refreshSyncProgressSpinner() {
         if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             syncProgressBar.setVisibility(View.VISIBLE);
@@ -290,10 +305,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             syncProgressBar.setVisibility(View.INVISIBLE);
             ivSync.setVisibility(View.VISIBLE);
         }
-    }
-
-    public void startP2PActivity(@NonNull Activity activity) {
-        activity.startActivity(new Intent(activity, P2pModeSelectActivity.class));
     }
 
     @Override
@@ -359,12 +370,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         mPresenter.refreshNavigationCount();
     }
 
-    public void openDrawer() {
-        drawer.openDrawer(GravityCompat.START);
-    }
-
     public DrawerLayout getDrawer() {
         return drawer;
+    }
+
+    public void openDrawer() {
+        drawer.openDrawer(GravityCompat.START);
     }
 
     public static void closeDrawer() {
@@ -378,5 +389,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (txtLocationSelected != null && StringUtils.isNotBlank(location)) {
             txtLocationSelected.setText(location);
         }
+    }
+
+    public void setReportsSelected() {
+        // TODO: Set the reports UI as selected
     }
 }

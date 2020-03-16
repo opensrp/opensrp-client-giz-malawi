@@ -4,6 +4,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.fragment.BaseChildRegisterFragment;
@@ -16,13 +17,17 @@ import org.smartregister.giz.model.ChildRegisterFragmentModel;
 import org.smartregister.giz.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.view.NavigationMenu;
+import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class ChildRegisterFragment extends BaseChildRegisterFragment implements CompoundButton.OnCheckedChangeListener {
     private View view;
     private SwitchCompat filterSection;
+
     @Override
     protected void initializePresenter() {
         if (getActivity() == null) {
@@ -39,16 +44,32 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     }
 
 
-    @Override
     protected void toggleFilterSelection() {
         if (filterSection != null) {
             String tagString = "PRESSED";
+
+            // The due-only toggle is on
             if (filterSection.getTag() == null) {
                 filter("", "", filterSelectionCondition(false), false);
                 filterSection.setTag(tagString);
+                filterSection.setBackgroundResource(R.drawable.transparent_clicked_background);
+
+                Calendar calendar = Calendar.getInstance();
+
+                if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
+                    calendar.set(Calendar.HOUR_OF_DAY, 1);
+                    long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis())/ TimeUnit.HOURS.toMillis(1);
+
+                    if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM)) {
+                        Toast.makeText(getContext(), R.string.vaccine_schedule_update_wait_message, Toast.LENGTH_LONG)
+                                .show();
+                        VaccineSchedulesUpdateJob.scheduleJobImmediately();
+                    }
+                }
             } else if (filterSection.getTag().toString().equals(tagString)) {
-                filter("", "", "", false);
+                filter("", "", " ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) ", false);
                 filterSection.setTag(null);
+                filterSection.setBackgroundResource(R.drawable.transparent_gray_background);
             }
         }
     }
@@ -75,11 +96,11 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     protected void onViewClicked(View view) {
         super.onViewClicked(view);
         RegisterClickables registerClickables = new RegisterClickables();
-        if (view.getTag(org.smartregister.child.R.id.record_action) != null) {
+        if (view.getTag(R.id.record_action) != null) {
             registerClickables.setRecordWeight(
-                    Constants.RECORD_ACTION.GROWTH.equals(view.getTag(org.smartregister.child.R.id.record_action)));
+                    Constants.RECORD_ACTION.GROWTH.equals(view.getTag(R.id.record_action)));
             registerClickables.setRecordAll(
-                    Constants.RECORD_ACTION.VACCINATION.equals(view.getTag(org.smartregister.child.R.id.record_action)));
+                    Constants.RECORD_ACTION.VACCINATION.equals(view.getTag(R.id.record_action)));
         }
 
         CommonPersonObjectClient client = null;
