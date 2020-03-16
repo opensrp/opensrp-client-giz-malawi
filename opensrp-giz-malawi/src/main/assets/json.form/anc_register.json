@@ -88,11 +88,9 @@
         "openmrs_entity_id": "national_id",
         "type": "edit_text",
         "hint": "National ID",
-        "edit_type": "name",
-        "look_up": true,
-        "v_required": {
-          "value": false,
-          "err": "Please enter the patient's national id"
+        "v_regex": {
+          "value": "([A-Za-z0-9]{11})|\\s*",
+          "err": "Please enter a valid national id"
         }
       },
       {
@@ -320,7 +318,11 @@
         "openmrs_data_type": "text",
         "type": "tree",
         "tree": [],
-        "hint": "Village"
+        "hint": "Village",
+        "v_required": {
+          "value": true,
+          "err": "Please enter a village"
+        }
       },
       {
         "key": "phone_number",

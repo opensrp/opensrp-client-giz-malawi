@@ -2338,7 +2338,7 @@
             "openmrs_entity_id": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "ttcv_not_received",
+            "key": "tdv_not_received",
             "text": "TDV not received",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -2374,7 +2374,7 @@
               {
                 "or": [
                   "1-4_doses",
-                  "ttcv_not_received",
+                  "tdv_not_received",
                   "unknown"
                 ]
               }

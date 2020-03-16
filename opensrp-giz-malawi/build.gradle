@@ -32,7 +32,7 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 26
-        versionName "0.2.11"
+        versionName "0.2.13"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -126,7 +126,7 @@ android {
             signingConfig signingConfigs.debug
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://jembi-preview.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://jembi-staging.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -205,8 +205,8 @@ tasks.withType(Test) {
 dependencies {
     implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
-
-    implementation('org.smartregister:opensrp-client-opd:0.0.13-GIZ-0.2.7r7-SNAPSHOT@aar') {
+//org.smartregister:opensrp-client-opd:0.0.13.1-SNAPSHOT@aar
+    implementation('org.smartregister:opensrp-client-opd:0.0.13.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-anc'
@@ -225,16 +225,14 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:0.1.0.712-GIZ-0.2.7-r7-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-anc:2.0.1.17-SNAPSHOT@aar') {
         transitive = true
-        exclude group: 'id.zelory', module:'compressor'
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation ('org.smartregister:opensrp-client-native-form:1.7.20-GIZ-0.2.7-r1-SNAPSHOT@aar') {
+    implementation ('org.smartregister:opensrp-client-native-form:1.7.25-giz-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -247,19 +245,19 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    implementation('org.smartregister:opensrp-client-core:1.8.26-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'id.zelory', module:'compressor'
-        exclude group: 'com.github.bmelnychuk', module: 'atv'
-        exclude group: 'com.google.guava', module: 'guava'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-        exclude group: 'com.android.support', module: 'support-media-compat'
-        exclude group: 'com.android.support', module: 'cardview-v7'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'design'
-    }
+//    implementation('org.smartregister:opensrp-client-core:1.8.26-SNAPSHOT@aar') {
+//        transitive = true
+//        exclude group: 'id.zelory', module:'compressor'
+//        exclude group: 'com.github.bmelnychuk', module: 'atv'
+//        exclude group: 'com.google.guava', module: 'guava'
+//        exclude group: 'com.android.support', module: 'appcompat-v7'
+//        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
+//        exclude group: 'com.android.support', module: 'recyclerview-v7'
+//        exclude group: 'com.android.support', module: 'support-media-compat'
+//        exclude group: 'com.android.support', module: 'cardview-v7'
+//        exclude group: 'com.android.support', module: 'support-v4'
+//        exclude group: 'com.android.support', module: 'design'
+//    }
 
     api('org.smartregister:opensrp-client-immunization:1.4.42r4-GIZ-0.2.8r1-SNAPSHOT@aar') {
     //api (project(':opensrp-immunization')) {

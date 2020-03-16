@@ -236,7 +236,7 @@ group: immunisation_status
 fields:
 - template: "TDV immunisation status: {tt_immun_status}"
   relevance: "tt_immun_status != ''"
-  isRedFont: "tt_immun_status == 'ttcv_not_received' || tt_immun_status == 'unknown'"
+  isRedFont: "tt_immun_status == 'tdv_not_received' || tt_immun_status == 'unknown'"
 
 - template: "TDV dose #1: {tt1_date}"
   relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"

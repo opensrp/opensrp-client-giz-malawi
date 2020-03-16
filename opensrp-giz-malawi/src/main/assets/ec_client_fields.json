@@ -101,7 +101,6 @@
             "field": "middleName"
           }
         },
-
         {
           "column_name": "national_id",
           "type": "Client",
@@ -165,7 +164,6 @@
             "field": "version"
           }
         },
-
         {
           "column_name": "home_address",
           "type": "Event",
@@ -193,6 +191,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "addresses.addressFields.address1"
+          }
+        },
+        {
+          "column_name": "village",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address1"
           }
         },
         {
