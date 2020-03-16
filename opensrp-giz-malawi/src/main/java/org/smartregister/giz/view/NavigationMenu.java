@@ -390,4 +390,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             txtLocationSelected.setText(location);
         }
     }
+
+    public void setReportsSelected() {
+        // TODO: Set the reports UI as selected
+    }
 }

@@ -3,7 +3,6 @@ package org.smartregister.giz.domain;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.jetbrains.annotations.Nullable;
-import org.smartregister.reporting.domain.IndicatorTally;
 
 import java.io.Serializable;
 import java.util.Date;

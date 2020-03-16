@@ -11,11 +11,11 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -34,6 +34,7 @@ import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.ReportHia2Indicator;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
 import org.smartregister.giz.fragment.SendMonthlyDraftDialogFragment;
+import org.smartregister.giz.model.ReportGroupingModel;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
 import org.smartregister.giz.task.StartDraftMonthlyFormTask;
@@ -118,7 +119,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new ReportsSectionsPagerAdapter(this, getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout.setupWithViewPager(mViewPager);
@@ -126,6 +127,24 @@ public class HIA2ReportsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null) {
             reportGrouping = intent.getStringExtra(GizConstants.IntentKey.REPORT_GROUPING);
+        }
+
+        // Set the title dependent on the
+        TextView titleTv = findViewById(R.id.title);
+        if (titleTv != null && reportGrouping != null) {
+            ArrayList<ReportGroupingModel.ReportGrouping> registerModels = (new ReportGroupingModel(this)).getReportGroupings();
+
+            String humanReadableTitle = null;
+
+            for (ReportGroupingModel.ReportGrouping reportGroupingObj: registerModels) {
+                if (reportGrouping.equals(reportGroupingObj.getGrouping())) {
+                    humanReadableTitle = reportGroupingObj.getDisplayName();
+                }
+            }
+
+            if (humanReadableTitle != null) {
+                titleTv.setText(humanReadableTitle + " " + getString(R.string.reports));
+            }
         }
 
         // Update Draft Monthly Title
@@ -297,7 +316,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                                             monthlyTallies == null ? 0 : monthlyTallies.size()));
                                 }
                             }
-                        }catch (Exception e){
+                        } catch (Exception e){
                             Timber.e(e);
                         }
                     }

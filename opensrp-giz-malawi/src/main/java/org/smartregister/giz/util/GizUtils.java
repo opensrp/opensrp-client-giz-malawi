@@ -6,11 +6,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;

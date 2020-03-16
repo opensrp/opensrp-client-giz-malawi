@@ -36,7 +36,6 @@ public class ReportSummaryActivity extends BaseActivity {
     private LinkedHashMap<String, ArrayList<Tally>> tallies;
 
     private String subTitle;
-    private String reportGrouping;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -59,7 +58,6 @@ public class ReportSummaryActivity extends BaseActivity {
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
             Serializable talliesSerializable = extras.getSerializable(EXTRA_TALLIES);
-            reportGrouping = extras.getString(EXTRA_REPORT_GROUPING);
 
             if (talliesSerializable != null && talliesSerializable instanceof  ArrayList) {
                 ArrayList<MonthlyTally> tallies = (ArrayList<MonthlyTally>) talliesSerializable;

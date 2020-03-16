@@ -2,7 +2,6 @@ package org.smartregister.giz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,6 +12,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.child.activity.BaseActivity;
 import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.giz.R;
+import org.smartregister.giz.model.ReportGroupingModel;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavigationMenu;
 
@@ -31,11 +31,11 @@ public class ReportRegisterActivity extends BaseActivity {
             titleTv.setText(R.string.dhis2_reports);
         }
 
-        final ArrayList<ReportGrouping> reportGroupings = getReportGroupings();
+        final ArrayList<ReportGroupingModel.ReportGrouping> reportGroupings = getReportGroupings();
         listView.setAdapter(new ArrayAdapter<>(this, R.layout.report_grouping_list_item, reportGroupings));
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(ReportRegisterActivity.this, HIA2ReportsActivity.class);
-            intent.putExtra(GizConstants.IntentKey.REPORT_GROUPING, reportGroupings.get(position).grouping);
+            intent.putExtra(GizConstants.IntentKey.REPORT_GROUPING, reportGroupings.get(position).getGrouping());
             startActivity(intent);
         });
     }
@@ -61,11 +61,8 @@ public class ReportRegisterActivity extends BaseActivity {
         return null;
     }
 
-    protected ArrayList<ReportGrouping> getReportGroupings() {
-        ArrayList<ReportGrouping> groupings = new ArrayList<>();
-        groupings.add(new ReportGrouping("Child", "child"));
-        groupings.add(new ReportGrouping("ANC", "anc"));
-        return groupings;
+    protected ArrayList<ReportGroupingModel.ReportGrouping> getReportGroupings() {
+        return (new ReportGroupingModel(this)).getReportGroupings();
     }
 
     public void onClickReport(View view) {
@@ -85,32 +82,31 @@ public class ReportRegisterActivity extends BaseActivity {
 
     @Override
     public void onUniqueIdFetched(Triple<String, String, String> triple, String s) {
-
+        // Nothing to happen here
     }
 
     @Override
     public void onNoUniqueId() {
-
+        // Nothing to happen here
     }
 
     @Override
     public void onRegistrationSaved(boolean b) {
-
+        // Nothing to happen here
     }
 
-    public static class ReportGrouping {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createDrawer();
+    }
 
-        private String displayName;
-        private String grouping;
-
-        public ReportGrouping(@Nullable String displayName, @Nullable String grouping) {
-            this.displayName = displayName;
-            this.grouping = grouping;
-        }
-
-        @Override
-        public String toString() {
-            return displayName;
+    public void createDrawer() {
+        NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
+        if (navigationMenu != null) {
+            navigationMenu.getNavigationAdapter().setSelectedView(null);
+            navigationMenu.runRegisterCount();
         }
     }
+
 }

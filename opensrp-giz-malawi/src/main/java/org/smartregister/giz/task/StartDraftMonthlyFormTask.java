@@ -72,7 +72,7 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
             String title = MonthlyTalliesRepository.DF_YYYYMM.format(date).concat(" Draft");
             step1.put(GizConstants.KEY.TITLE, title);
 
-            JSONArray fieldsArray = step1.getJSONArray("fields");
+            JSONArray fieldsArray = step1.getJSONArray(GizConstants.KEY.FIELDS);
 
             // Sort the indicators for better readability from the JSON FORM
             Collections.sort(monthlyTallies, new Comparator<MonthlyTally>() {
