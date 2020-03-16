@@ -6,6 +6,8 @@ public class GizConstants {
     public static final String PROTECTED_AT_BIRTH = "protected_at_birth";
     public static final String REACTION_VACCINE = "Reaction_Vaccine";
     public static final String FORM_CONFIG_LOCATION = "json.form/json.form.config.json";
+    public static final String NATIONAL_ID = "national_id";
+    public static final String BHT_MID = "bht_mid";
 
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
