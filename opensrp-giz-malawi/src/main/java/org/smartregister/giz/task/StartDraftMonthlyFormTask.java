@@ -85,58 +85,13 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
             // This map holds each category as key and all the fields for that category as the
             // value (jsonarray)
             for (MonthlyTally monthlyTally : monthlyTallies) {
-                JSONObject jsonObject = new JSONObject();
-
-                int resourceId = baseActivity.getResources().getIdentifier(GizReportUtils.getStringIdentifier(monthlyTally.getIndicator()), "string", baseActivity.getPackageName());
-                String label = resourceId != 0 ? baseActivity.getResources().getString(resourceId) : monthlyTally.getIndicator();
-
-                JSONObject vRequired = new JSONObject();
-                vRequired.put(JsonFormConstants.VALUE, "true");
-                vRequired.put(JsonFormConstants.ERR, "Specify: " + label);
-                JSONObject vNumeric = new JSONObject();
-                vNumeric.put(JsonFormConstants.VALUE, "true");
-                vNumeric.put(JsonFormConstants.ERR, "Value should be numeric");
-
-                String key = monthlyTally.getIndicator();
-                if (monthlyTally.getGrouping() != null) {
-                    key += ">" + monthlyTally.getGrouping();
-                }
-
-                jsonObject.put(JsonFormConstants.KEY, key);
-                jsonObject.put(JsonFormConstants.TYPE, "edit_text");
-                jsonObject.put(JsonFormConstants.READ_ONLY, false);
-                jsonObject.put(JsonFormConstants.HINT, label);
-                jsonObject.put(JsonFormConstants.VALUE, monthlyTally.getValue());
-
-                //jsonObject.put(JsonFormConstants.READ_ONLY, readOnlyList.contains(monthlyTally.getIndicatorCode()));
-
-                // This will be used for the target indicators
-                    /*if (DailyTalliesRepository.IGNORED_INDICATOR_CODES
-                            .contains(monthlyTally.getIndicatorCode()) && firstTimeEdit) {
-                        jsonObject.put(JsonFormConstants.VALUE, "");
-                    }*/
-                jsonObject.put(JsonFormConstants.V_REQUIRED, vRequired);
-                jsonObject.put(JsonFormConstants.V_NUMERIC, vNumeric);
-                jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, "");
-                jsonObject.put(JsonFormConstants.OPENMRS_ENTITY, "");
-                jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-                jsonObject.put(GizConstants.KEY.HIA_2_INDICATOR, monthlyTally.getIndicator());
+                JSONObject jsonObject = createFormIndicatorField(monthlyTally);
 
                 fieldsArray.put(jsonObject);
             }
 
             // Add the confirm button
-            JSONObject buttonObject = new JSONObject();
-            buttonObject.put(JsonFormConstants.KEY, HIA2ReportsActivity.FORM_KEY_CONFIRM);
-            buttonObject.put(JsonFormConstants.VALUE, "false");
-            buttonObject.put(JsonFormConstants.TYPE, "button");
-            buttonObject.put(JsonFormConstants.HINT, "Confirm");
-            buttonObject.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, "");
-            buttonObject.put(JsonFormConstants.OPENMRS_ENTITY, "");
-            buttonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
-            JSONObject action = new JSONObject();
-            action.put(JsonFormConstants.BEHAVIOUR, "finish_form");
-            buttonObject.put(JsonFormConstants.ACTION, action);
+            JSONObject buttonObject = createFormConfirmButton();
 
             fieldsArray.put(buttonObject);
 
@@ -153,6 +108,63 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
         }
 
         return null;
+    }
+
+    @NonNull
+    private JSONObject createFormIndicatorField(MonthlyTally monthlyTally) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+
+        int resourceId = baseActivity.getResources().getIdentifier(GizReportUtils.getStringIdentifier(monthlyTally.getIndicator()), "string", baseActivity.getPackageName());
+        String label = resourceId != 0 ? baseActivity.getResources().getString(resourceId) : monthlyTally.getIndicator();
+
+        JSONObject vRequired = new JSONObject();
+        vRequired.put(JsonFormConstants.VALUE, "true");
+        vRequired.put(JsonFormConstants.ERR, "Specify: " + label);
+        JSONObject vNumeric = new JSONObject();
+        vNumeric.put(JsonFormConstants.VALUE, "true");
+        vNumeric.put(JsonFormConstants.ERR, "Value should be numeric");
+
+        String key = monthlyTally.getIndicator();
+        if (monthlyTally.getGrouping() != null) {
+            key += ">" + monthlyTally.getGrouping();
+        }
+
+        jsonObject.put(JsonFormConstants.KEY, key);
+        jsonObject.put(JsonFormConstants.TYPE, "edit_text");
+        jsonObject.put(JsonFormConstants.READ_ONLY, false);
+        jsonObject.put(JsonFormConstants.HINT, label);
+        jsonObject.put(JsonFormConstants.VALUE, monthlyTally.getValue());
+
+        //jsonObject.put(JsonFormConstants.READ_ONLY, readOnlyList.contains(monthlyTally.getIndicatorCode()));
+
+        // This will be used for the target indicators
+                    /*if (DailyTalliesRepository.IGNORED_INDICATOR_CODES
+                            .contains(monthlyTally.getIndicatorCode()) && firstTimeEdit) {
+                        jsonObject.put(JsonFormConstants.VALUE, "");
+                    }*/
+        jsonObject.put(JsonFormConstants.V_REQUIRED, vRequired);
+        jsonObject.put(JsonFormConstants.V_NUMERIC, vNumeric);
+        jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, "");
+        jsonObject.put(JsonFormConstants.OPENMRS_ENTITY, "");
+        jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
+        jsonObject.put(GizConstants.KEY.HIA_2_INDICATOR, monthlyTally.getIndicator());
+        return jsonObject;
+    }
+
+    @NonNull
+    private JSONObject createFormConfirmButton() throws JSONException {
+        JSONObject buttonObject = new JSONObject();
+        buttonObject.put(JsonFormConstants.KEY, HIA2ReportsActivity.FORM_KEY_CONFIRM);
+        buttonObject.put(JsonFormConstants.VALUE, "false");
+        buttonObject.put(JsonFormConstants.TYPE, "button");
+        buttonObject.put(JsonFormConstants.HINT, "Confirm");
+        buttonObject.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, "");
+        buttonObject.put(JsonFormConstants.OPENMRS_ENTITY, "");
+        buttonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
+        JSONObject action = new JSONObject();
+        action.put(JsonFormConstants.BEHAVIOUR, "finish_form");
+        buttonObject.put(JsonFormConstants.ACTION, action);
+        return buttonObject;
     }
 
     @Override
