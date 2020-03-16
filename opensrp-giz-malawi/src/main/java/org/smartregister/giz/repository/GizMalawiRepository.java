@@ -158,6 +158,8 @@ public class GizMalawiRepository extends Repository {
         }
 
         PatientRepositoryHelper.performMigrations(db);
+        DailyIndicatorCountRepository.performMigrations(db);
+        IndicatorQueryRepository.performMigrations(db);
     }
 
     @Override

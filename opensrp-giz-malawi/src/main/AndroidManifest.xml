@@ -31,7 +31,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,android:icon,android:label,android:theme">
-        <activity android:name=".activity.ReportRegisterActivity"></activity>
+        <activity
+            android:theme="@style/ChildTheme.NoActionBar"
+            android:name=".activity.ReportRegisterActivity"/>
         <activity
             android:name=".activity.ChildImmunizationActivity"
             android:label="@string/title_activity_child_immunization"

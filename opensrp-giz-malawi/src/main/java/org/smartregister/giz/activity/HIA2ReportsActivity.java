@@ -13,21 +13,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.child.activity.BaseActivity;
-import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.JsonFormUtils;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Response;
 import org.smartregister.giz.R;
 import org.smartregister.giz.adapter.ReportsSectionsPagerAdapter;
@@ -72,7 +70,7 @@ import static org.smartregister.util.JsonFormUtils.VALUE;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
-public class HIA2ReportsActivity extends BaseActivity {
+public class HIA2ReportsActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_GET_JSON = 3432;
     public static final int MONTH_SUGGESTION_LIMIT = 3;
@@ -100,13 +98,20 @@ public class HIA2ReportsActivity extends BaseActivity {
 
     private ReportingProcessingSnackbar reportingProcessingSnackbar;
     private ArrayList<FragmentRefreshListener> fragmentRefreshListeners = new ArrayList<>();
+
     @Nullable
     private String reportGrouping;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hia2_reports);
         tabLayout = findViewById(R.id.tabs);
+
+        ImageView backBtnImg = findViewById(R.id.back_button);
+        if (backBtnImg != null) {
+            backBtnImg.setImageResource(R.drawable.ic_back);
+        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -125,11 +130,6 @@ public class HIA2ReportsActivity extends BaseActivity {
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();
-    }
-
-    @Override
-    public void onSyncStart() {
-        super.onSyncStart();
     }
 
     @Override
@@ -168,11 +168,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onSyncComplete(FetchStatus fetchStatus) {
-        super.onSyncComplete(fetchStatus);
-    }
-
     private Fragment currentFragment() {
         if (mViewPager == null || mSectionsPagerAdapter == null) {
             return null;
@@ -186,21 +181,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         if (currentFragment instanceof DraftMonthlyFragment) {
             Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, reportGrouping, date, formName), null);
         }
-    }
-
-    @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-        // This method is useless -> Do nothing
-    }
-
-    @Override
-    public void onNoUniqueId() {
-        // This method is useless -> Do nothing
-    }
-
-    @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        // This method is useless -> Do nothing
     }
 
     @Override
@@ -300,26 +280,6 @@ public class HIA2ReportsActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected int getContentView() {
-        return R.layout.activity_hia2_reports;
-    }
-
-    @Override
-    protected int getDrawerLayoutId() {
-        return R.id.drawer_layout;
-    }
-
-    @Override
-    protected int getToolbarId() {
-        return LocationSwitcherToolbar.TOOLBAR_ID;
-    }
-
-    @Override
-    protected Class onBackActivity() {
-        return null;
-    }
-
     public void refreshDraftMonthlyTitle() {
         Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(reportGrouping, new FetchEditedMonthlyTalliesTask.TaskListener() {
             @Override
@@ -354,7 +314,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         progressDialog.setMessage(getString(R.string.please_wait_message));
     }
 
-    @Override
     public void showProgressDialog() {
         if (progressDialog == null) {
             initializeProgressDialog();
@@ -363,7 +322,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         progressDialog.show();
     }
 
-    @Override
     public void hideProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
@@ -373,12 +331,7 @@ public class HIA2ReportsActivity extends BaseActivity {
     public void onClickReport(View view) {
         switch (view.getId()) {
             case R.id.btn_back_to_home:
-
-                NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
-                if (navigationMenu != null) {
-                    navigationMenu.getDrawer()
-                            .openDrawer(GravityCompat.START);
-                }
+                finish();
                 break;
             default:
                 break;

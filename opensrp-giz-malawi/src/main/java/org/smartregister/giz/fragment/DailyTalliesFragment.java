@@ -12,7 +12,6 @@ import android.widget.ExpandableListView;
 
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
-import org.smartregister.giz.activity.ReportRegisterActivity;
 import org.smartregister.giz.activity.ReportSummaryActivity;
 import org.smartregister.giz.adapter.ExpandedListAdapter;
 import org.smartregister.giz.util.AppExecutors;
