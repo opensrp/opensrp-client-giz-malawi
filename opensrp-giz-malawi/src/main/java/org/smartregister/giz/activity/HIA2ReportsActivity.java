@@ -30,6 +30,7 @@ import org.smartregister.domain.Response;
 import org.smartregister.giz.R;
 import org.smartregister.giz.adapter.ReportsSectionsPagerAdapter;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.ReportHia2Indicator;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
@@ -353,6 +354,8 @@ public class HIA2ReportsActivity extends AppCompatActivity {
             if (month != null) {
                 List<MonthlyTally> tallies = monthlyTalliesRepository
                         .find(MonthlyTalliesRepository.DF_YYYYMM.format(month), reportGrouping);
+
+                HashMap<String, Hia2Indicator> hia2IndicatorHashMap = GizMalawiApplication.getInstance().hIA2IndicatorsRepository().findAll();
                 if (tallies != null) {
                     List<ReportHia2Indicator> reportHia2Indicators = new ArrayList<>();
                     for (MonthlyTally curTally : tallies) {
@@ -361,6 +364,11 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                                 // TODO: Fix this categorization for ANC, Child, OPD
                                 , "Immunization"
                                 , curTally.getValue());
+
+                        Hia2Indicator hia2Indicator = hia2IndicatorHashMap.get(reportHia2Indicator.getIndicatorCode());
+                        if (hia2Indicator != null) {
+                            reportHia2Indicator.setDhisId(hia2Indicator.getDhisId());
+                        }
 
                         reportHia2Indicators.add(reportHia2Indicator);
                     }

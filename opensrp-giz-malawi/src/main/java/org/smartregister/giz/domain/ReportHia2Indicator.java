@@ -22,6 +22,9 @@ public class ReportHia2Indicator implements Serializable {
     @JsonProperty
     private String value;
 
+    @JsonProperty
+    private String dhisId;
+
 
     public ReportHia2Indicator() {
     }
@@ -72,5 +75,13 @@ public class ReportHia2Indicator implements Serializable {
             this.description = hia2Indicator.getDescription();
             this.category = hia2Indicator.getCategory();
         }
+    }
+
+    public String getDhisId() {
+        return dhisId;
+    }
+
+    public void setDhisId(String dhisId) {
+        this.dhisId = dhisId;
     }
 }
