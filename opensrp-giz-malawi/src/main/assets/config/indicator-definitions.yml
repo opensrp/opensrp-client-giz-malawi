@@ -567,3 +567,9 @@ indicators:
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Female"
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"
     grouping: "child"
+
+  - key: "ME_Number_of_women_registered"
+    description: "Number of women registered"
+    indicatorQuery: "select count(ec_client.base_entity_id) from ec_client join client_register_type on
+                     client_register_type.base_entity_id = ec_client.base_entity_id where client_register_type.register_type = 'anc' and  ec_client.date = strftime('%Y-%m-%d', 'now', 'localtime')"
+    grouping: "anc"
