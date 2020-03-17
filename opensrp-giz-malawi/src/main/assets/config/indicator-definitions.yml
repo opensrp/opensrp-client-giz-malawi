@@ -380,6 +380,7 @@ indicators:
                      AND weights.z_score <= 3
                      AND weights.z_score >= -3
                      GROUP  BY waz_score"
+    isMultiResult: true
     expectedIndicators:
       - "ME_Weight_Over2_Normal"
       - "ME_Weight_Over2_Overweight"
@@ -405,6 +406,7 @@ indicators:
                       AND weights.z_score <= 3
                       AND weights.z_score >= -3
                       GROUP  BY waz_score, ec_client.gender"
+    isMultiResult: true
     expectedIndicators:
       - "ME_Weight_Over2_Gender_Normal_Female"
       - "ME_Weight_Over2_Gender_Normal_Male"
@@ -443,6 +445,7 @@ indicators:
       - "ME_Weight_Under2_Age_Overweight_Under_1"
       - "ME_Weight_Under2_Age_Overweight_Over_1"
       - "ME_Weight_Under2_Age_Underweight_Under_1"
+    isMultiResult: true
     grouping: "child"
 
   - key: "ME_Weight_Under2_Age_Gender"
@@ -481,6 +484,7 @@ indicators:
       - "ME_Weight_Under2_Age_Gender_Underweight_Over_1_Male"
       - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Female"
       - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Male"
+    isMultiResult: true
     grouping: "child"
 
   - key: "ME_Height_Over2_Gender"
@@ -505,6 +509,7 @@ indicators:
       - "ME_Height_Over2_Gender_Normal_Male"
       - "ME_Height_Over2_Gender_Stunted_Female"
       - "ME_Height_Over2_Gender_Stunted_Male"
+    isMultiResult: true
     grouping: "child"
 
   - key: "ME_Height_Under2_Age"
@@ -534,6 +539,7 @@ indicators:
       - "ME_Height_Under2_Age_Severe_Under_1"
       - "ME_Height_Under2_Age_Severe_Over_1"
       - "ME_Height_Under2_Age_Stunted_Under_1"
+    isMultiResult: true
     grouping: "child"
 
   - key: "ME_Height_Under2_Age_Gender"
@@ -566,4 +572,5 @@ indicators:
       - "ME_Height_Under2_Age_Gender_Severe_Over_1_Male"
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Female"
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"
+    isMultiResult: true
     grouping: "child"
