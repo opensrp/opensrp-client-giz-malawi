@@ -292,7 +292,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-reporting:0.0.19r2-LOCAL-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-reporting:0.0.19.61-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
