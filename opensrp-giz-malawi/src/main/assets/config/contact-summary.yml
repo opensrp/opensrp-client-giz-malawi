@@ -149,13 +149,22 @@ fields:
   relevance: "tt_immun_status_value != ''"
 
 - template: "TDV dose #1: {tt1_date_done}"
-  relevance: "tt1_date == 'done_today' || tt1_date == 'done_earlier'"
+  relevance: "tt1_date == 'done_earlier'"
+
+- template: "TDV dose #1: {tt1_date_done_date_today_hidden}"
+  relevance: "tt1_date == 'done_today'"
 
 - template: "TDV dose #2: {tt2_date_done}"
-  relevance: "tt2_date == 'done_today' || tt2_date == 'done_earlier'"
+  relevance: "tt2_date == 'done_earlier'"
+
+- template: "TDV dose #2: {tt2_date_done_date_today_hidden}"
+  relevance: "tt2_date == 'done_today'"
 
 - template: "TDV dose #3: {tt3_date_done}"
-  relevance: "tt3_date == 'done_today' || tt3_date == 'done_earlier'"
+  relevance: "tt3_date == 'done_earlier'"
+
+- template: "TDV dose #3: {tt3_date_done_date_today_hidden}"
+  relevance: "tt3_date == 'done_today'"
 
 - template: "TDV dose not given: {tt_dose_notdone_value}"
   relevance: "tt1_date == 'not_done' || tt2_date == 'not_done' || tt3_date == 'not_done'"
@@ -163,14 +172,23 @@ fields:
 - template: "Hep B immunisation status: {hepb_immun_status}"
   relevance: "hepb_immun_status_value != ''"
 
+- template: "Hep B dose #1: {hepb1_date_done_date_today_hidden}"
+  relevance: "hepb1_date == 'done_today'"
+
 - template: "Hep B dose #1: {hepb1_date_done}"
-  relevance: "hepb1_date == 'done_today' || hepb1_date == 'done_earlier'"
+  relevance: "hepb1_date == 'done_earlier'"
+
+- template: "Hep B dose #2: {hepb2_date_done_date_today_hidden}"
+  relevance: "hepb2_date == 'done_today'"
 
 - template: "Hep B dose #2: {hepb2_date_done}"
-  relevance: "hepb2_date == 'done_today' || hepb2_date == 'done_earlier'"
+  relevance: "hepb2_date == 'done_earlier'"
+
+- template: "Hep B dose #3: {hepb3_date_done_date_today_hidden}"
+  relevance: "hepb3_date == 'done_today'"
 
 - template: "Hep B dose #3: {hepb3_date_done}"
-  relevance: "hepb3_date == 'done_today' || hepb3_date == 'done_earlier'"
+  relevance: "hepb3_date == 'done_earlier'"
 
 - template: "Hep B dose not given: {hepb_dose_notdone_value}"
   relevance: "hepb1_date == 'not_done' || hepb2_date == 'not_done' || hepb3_date == 'not_done'"
@@ -179,7 +197,10 @@ fields:
   relevance: "flu_immun_status_value != ''"
 
 - template: "Flu dose: {flu_date_done}"
-  relevance: "flu_date == 'done_today' || flu_date == 'done_earlier'"
+  relevance: "flu_date == 'done_earlier'"
+
+- template: "Flu dose: {flu_date_done_date_today_hidden}"
+  relevance: "flu_date == 'done_today'"
 
 - template: "Flu dose not given: {flu_dose_notdone_value}"
   relevance: "flu_date == 'not_done'"

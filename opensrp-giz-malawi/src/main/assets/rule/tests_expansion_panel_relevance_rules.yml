@@ -138,3 +138,17 @@ priority: 1
 condition: "(global_contact_no > 1  && (global_previous_hb_test_status != '' && (global_previous_hb_test_status == 'done_earlier' || global_previous_hb_test_status == 'done_today')))"
 actions:
   - "isRelevant = true"
+---
+name: step1_accordion_blood_glucose
+description: accordion_blood_glucose
+priority: 1
+condition: "(helper.getValueFromAccordion('accordion_urine', 'step1_urine_glucose') == '+' || helper.getValueFromAccordion('accordion_urine', 'step1_urine_glucose') == '++' || helper.getValueFromAccordion('accordion_urine', 'step1_urine_glucose') == '+++' || helper.getValueFromAccordion('accordion_urine', 'step1_urine_glucose') == '++++') || (helper.getValueFromAccordion('accordion_urine', 'step2_urine_glucose') == '+' || helper.getValueFromAccordion('accordion_urine', 'step2_urine_glucose') == '++' || helper.getValueFromAccordion('accordion_urine', 'step2_urine_glucose') == '+++' || helper.getValueFromAccordion('accordion_urine', 'step2_urine_glucose') == '++++')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_accordion_blood_glucose
+description: accordion_blood_glucose
+priority: 1
+condition: "(helper.getValueFromAccordion('accordion_urine', 'step1_urine_glucose') == '+' || helper.getValueFromAccordion('accordion_urine', 'step1_urine_glucose') == '++' || helper.getValueFromAccordion('accordion_urine', 'step1_urine_glucose') == '+++' || helper.getValueFromAccordion('accordion_urine', 'step1_urine_glucose') == '++++') || (helper.getValueFromAccordion('accordion_urine', 'step2_urine_glucose') == '+' || helper.getValueFromAccordion('accordion_urine', 'step2_urine_glucose') == '++' || helper.getValueFromAccordion('accordion_urine', 'step2_urine_glucose') == '+++' || helper.getValueFromAccordion('accordion_urine', 'step2_urine_glucose') == '++++')"
+actions:
+  - "isRelevant = true"

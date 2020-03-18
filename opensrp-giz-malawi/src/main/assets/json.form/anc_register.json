@@ -89,7 +89,7 @@
         "type": "edit_text",
         "hint": "National ID",
         "v_regex": {
-          "value": "([A-Za-z0-9]{11})|\\s*",
+          "value": "([A-Za-z0-9]{8})|\\s*",
           "err": "Please enter a valid national id"
         }
       },

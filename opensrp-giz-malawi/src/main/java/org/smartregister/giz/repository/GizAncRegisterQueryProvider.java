@@ -8,9 +8,7 @@ import org.smartregister.anc.library.util.DBConstantsUtils;
 public class GizAncRegisterQueryProvider extends RegisterQueryProvider {
 
     @Override
-    public String getObjectIdsQuery(String tempMainCondition, String tempFilters) {
-        String mainCondition = tempMainCondition;
-        String filters = tempFilters;
+    public String getObjectIdsQuery(String mainCondition, String filters) {
         if (!filters.isEmpty()) {
             filters = String.format(" and ec_client_search.phrase MATCH '*%s*'", filters);
         }
@@ -25,9 +23,7 @@ public class GizAncRegisterQueryProvider extends RegisterQueryProvider {
                 "where register_type='anc' " + mainCondition + filters;
     }
 
-    public String getCountExecuteQuery(String tempMainCondition, String tempFilters) {
-        String filters = tempFilters;
-        String mainCondition = tempMainCondition;
+    public String getCountExecuteQuery(String mainCondition, String filters) {
         if (!filters.isEmpty()) {
             filters = String.format(" and ec_client_search.phrase MATCH '*%s*'", filters);
         }
@@ -54,6 +50,7 @@ public class GizAncRegisterQueryProvider extends RegisterQueryProvider {
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.VISIT_START_DATE, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.RED_FLAG_COUNT,
                 getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE,
                 getDemographicTable() + "." + DBConstantsUtils.KeyUtils.RELATIONAL_ID, getDemographicTable() + "." + ConstantsUtils.JsonFormKeyUtils.VILLAGE,
-                "ec_client.national_id", "ec_client.bht_mid"};
+                getDemographicTable() + "." + GizConstants.NATIONAL_ID, getDemographicTable() + "." + GizConstants.BHT_MID};
     }
+
 }
