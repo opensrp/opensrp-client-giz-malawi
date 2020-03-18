@@ -89,8 +89,28 @@
         "type": "edit_text",
         "hint": "National ID",
         "v_regex": {
-          "value": "([A-Za-z0-9]{11})|\\s*",
+          "value": "([A-Za-z0-9]{8})|\\s*",
           "err": "Please enter a valid national id"
+        }
+      },
+      {
+        "key": "bht_mid",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "bht_mid",
+        "type": "barcode",
+        "barcode_type": "qrcode",
+        "hint": "BHT ID",
+        "value": "0",
+        "scanButtonText": "Scan Barcode",
+        "look_up": true,
+        "v_numeric": {
+          "value": "true",
+          "err": "Please enter a valid BHT ID"
+        },
+        "v_required": {
+          "value": false,
+          "err": "Please enter a valid BHT ID"
         }
       },
       {

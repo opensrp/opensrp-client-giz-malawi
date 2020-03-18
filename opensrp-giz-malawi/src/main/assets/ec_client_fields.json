@@ -182,6 +182,13 @@
           }
         },
         {
+          "column_name": "village",
+          "type": "Client",
+          "json_mapping": {
+            "field": "addresses.address1"
+          }
+        },
+        {
           "column_name": "traditional_authority",
           "type": "Client",
           "json_mapping": {
