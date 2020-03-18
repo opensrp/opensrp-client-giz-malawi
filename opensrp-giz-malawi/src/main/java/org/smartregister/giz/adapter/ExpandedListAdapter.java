@@ -107,7 +107,7 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
     }
 
     private void populateTitleView(View convertView, String text) {
-        View tvView = convertView.findViewById(R.id.tv);
+        View tvView = convertView.findViewById(R.id.tv_sentMonthlyItem_title);
         if (tvView != null && text != null) {
             TextView tv = (TextView) tvView;
             tv.setText(text);
@@ -116,7 +116,7 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
     }
 
     private void populateDetailView(View convertView, ItemData<L, T> childObject, String details) {
-        View detailView = convertView.findViewById(R.id.details);
+        View detailView = convertView.findViewById(R.id.tv_sentMonthlyItem_details);
         if (detailView != null && details != null) {
             TextView detailTextView = (TextView) detailView;
             detailTextView.setText(details);
@@ -164,29 +164,20 @@ public class ExpandedListAdapter<K, L, T> extends BaseExpandableListAdapter {
 
         if (group != null) {
             String header = null;
-            String details = null;
 
             if (group instanceof String) {
                 header = group.toString();
             } else if (group instanceof Pair) {
                 Pair<String, String> pair = (Pair<String, String>) group;
                 header = pair.first;
-                details = pair.second;
             }
 
-            View tvView = convertView.findViewById(R.id.tv);
+            View tvView = convertView.findViewById(R.id.tv_sentMonthlyHeader_title);
             if (tvView != null) {
                 TextView tv = (TextView) tvView;
                 tv.setText(header);
                 convertView.setTag(header);
             }
-
-            View detailView = convertView.findViewById(R.id.details);
-            if (detailView != null && details != null) {
-                TextView detailTextView = (TextView) detailView;
-                detailTextView.setText(details);
-            }
-
         }
 
         ExpandableListView mExpandableListView = (ExpandableListView) parent;

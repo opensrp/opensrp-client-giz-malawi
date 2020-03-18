@@ -3,6 +3,7 @@ package org.smartregister.giz.activity;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,10 +12,10 @@ import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.child.activity.BaseActivity;
 import org.smartregister.child.toolbar.SimpleToolbar;
 import org.smartregister.giz.R;
+import org.smartregister.giz.domain.MonthlyTally;
+import org.smartregister.giz.domain.Tally;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.view.IndicatorCategoryView;
-import org.smartregister.reporting.ReportingLibrary;
-import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.io.Serializable;
@@ -23,6 +24,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.domain.IndicatorTally;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
@@ -34,8 +37,11 @@ public class ReportSummaryActivity extends BaseActivity {
     public static final String EXTRA_DAY = "tally_day";
     public static final String EXTRA_SUB_TITLE = "sub_title";
     public static final String EXTRA_TITLE = "title";
-    private LinkedHashMap<String, ArrayList<IndicatorTally>> tallies;
+    public static final String EXTRA_REPORT_GROUPING = "report-grouping";
+    private LinkedHashMap<String, ArrayList<Tally>> tallies;
+
     private String subTitle;
+    private String reportGrouping;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -57,9 +63,17 @@ public class ReportSummaryActivity extends BaseActivity {
 
         Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
+            Serializable talliesSerializable = extras.getSerializable(EXTRA_TALLIES);
             Serializable tallyDaySerializable = extras.getSerializable(EXTRA_DAY);
+            reportGrouping = extras.getString(EXTRA_REPORT_GROUPING);
+
+            if (talliesSerializable != null && talliesSerializable instanceof  ArrayList) {
+                ArrayList<MonthlyTally> tallies = (ArrayList<MonthlyTally>) talliesSerializable;
+                setTallies(tallies, false);
+            }
+
             if (tallyDaySerializable instanceof Date) {
-                fetchIndicatorTalliesForDay((Date) tallyDaySerializable);
+                fetchIndicatorTalliesForDay((Date) tallyDaySerializable, reportGrouping);
             }
 
             Serializable submittedBySerializable = extras.getSerializable(EXTRA_SUB_TITLE);
@@ -107,11 +121,31 @@ public class ReportSummaryActivity extends BaseActivity {
         return null;
     }
 
-    public void setTallies(ArrayList<IndicatorTally> tallies) {
+    public void setTallies(ArrayList<MonthlyTally> tallies) {
         setTallies(tallies, true);
     }
 
-    private void setTallies(@NonNull ArrayList<IndicatorTally> tallies, boolean refreshViews) {
+    private void setTallies(@NonNull ArrayList<MonthlyTally> tallies, boolean refreshViews) {
+        this.tallies = new LinkedHashMap<>();
+        this.tallies.put("", new ArrayList<>());
+
+        Collections.sort(tallies, new Comparator<MonthlyTally>() {
+            @Override
+            public int compare(MonthlyTally lhs, MonthlyTally rhs) {
+                return lhs.getIndicator().compareTo(rhs.getIndicator());
+            }
+        });
+
+        for (MonthlyTally curTally : tallies) {
+            if (curTally != null && !TextUtils.isEmpty(curTally.getIndicator())) {
+                this.tallies.get("").add(curTally.getIndicatorTally());
+            }
+        }
+
+        if (refreshViews) refreshIndicatorViews();
+    }
+
+    private void setDailyTallies(@NonNull ArrayList<IndicatorTally> tallies, boolean refreshViews) {
         this.tallies = new LinkedHashMap<>();
         this.tallies.put("", new ArrayList<>());
 
@@ -124,7 +158,17 @@ public class ReportSummaryActivity extends BaseActivity {
 
         for (IndicatorTally curTally : tallies) {
             if (curTally != null && !TextUtils.isEmpty(curTally.getIndicatorCode())) {
-                this.tallies.get("").add(curTally);
+                Tally tally = new Tally();
+                tally.setIndicator(curTally.getIndicatorCode());
+                tally.setValue(String.valueOf(curTally.getFloatCount()));
+
+                if (curTally.getId() == null) {
+                    tally.setId(0);
+                } else {
+                    tally.setId(curTally.getId());
+                }
+
+                this.tallies.get("").add(tally);
             }
         }
 
@@ -159,19 +203,19 @@ public class ReportSummaryActivity extends BaseActivity {
         // Nothing to do
     }
 
-    public void fetchIndicatorTalliesForDay(@NonNull final Date date) {
+    public void fetchIndicatorTalliesForDay(@NonNull final Date date, @Nullable String reportGrouping) {
         AppExecutors appExecutors = new AppExecutors();
         appExecutors.diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 ArrayList<IndicatorTally> indicatorTallies = ReportingLibrary.getInstance()
                         .dailyIndicatorCountRepository()
-                        .getIndicatorTalliesForDay(date);
+                        .getIndicatorTalliesForDay(date, reportGrouping);
 
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        setTallies(indicatorTallies, true);
+                        setDailyTallies(indicatorTallies, true);
                     }
                 });
             }

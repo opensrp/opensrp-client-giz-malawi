@@ -42,18 +42,13 @@ public class SentMonthlyFragment extends ReportFragment {
     private HashMap<String, ArrayList<MonthlyTally>> sentMonthlyTallies;
     private ProgressDialog progressDialog;
 
-    public static SentMonthlyFragment newInstance() {
+    public static SentMonthlyFragment newInstance(@Nullable String reportGrouping) {
         SentMonthlyFragment fragment = new SentMonthlyFragment();
+        fragment.reportGrouping = reportGrouping;
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
         return fragment;
-    }
-
-    private HashMap<String, ArrayList<MonthlyTally>> retrieveSentMonthlyTallies() {
-        Locale locale = GizUtils.getLocale(getContext());
-        SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy", locale);
-        return GizMalawiApplication.getInstance().monthlyTalliesRepository().findAllSent(MONTH_YEAR_FORMAT);
     }
 
     @Override
@@ -76,6 +71,12 @@ public class SentMonthlyFragment extends ReportFragment {
 
             }
         });
+    }
+
+    private HashMap<String, ArrayList<MonthlyTally>> retrieveSentMonthlyTallies() {
+        Locale locale = GizUtils.getLocale(getContext());
+        SimpleDateFormat MONTH_YEAR_FORMAT = new SimpleDateFormat("MMMM yyyy", locale);
+        return GizMalawiApplication.getInstance().monthlyTalliesRepository().findAllSent(MONTH_YEAR_FORMAT, reportGrouping);
     }
 
     @Nullable
@@ -131,6 +132,7 @@ public class SentMonthlyFragment extends ReportFragment {
                         intent.putExtra(ReportSummaryActivity.EXTRA_TALLIES, indicators);
                         intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, title);
                         intent.putExtra(ReportSummaryActivity.EXTRA_SUB_TITLE, subTitle);
+                        intent.putExtra(ReportSummaryActivity.EXTRA_REPORT_GROUPING, reportGrouping);
                         startActivity(intent);
                     }
                 }

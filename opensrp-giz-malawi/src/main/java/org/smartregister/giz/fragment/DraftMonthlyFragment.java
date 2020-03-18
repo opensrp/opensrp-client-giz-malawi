@@ -45,8 +45,11 @@ public class DraftMonthlyFragment extends ReportFragment {
     private ListView listView;
     private View noDraftsView;
 
-    public static DraftMonthlyFragment newInstance() {
+
+
+    public static DraftMonthlyFragment newInstance(@Nullable String reportGrouping) {
         DraftMonthlyFragment fragment = new DraftMonthlyFragment();
+        fragment.reportGrouping = reportGrouping;
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -105,7 +108,7 @@ public class DraftMonthlyFragment extends ReportFragment {
     }
 
     private void setupUneditedDraftsView() {
-        Utils.startAsyncTask(new FetchUneditedMonthlyTalliesTask(new FetchUneditedMonthlyTalliesTask.TaskListener() {
+        Utils.startAsyncTask(new FetchUneditedMonthlyTalliesTask(reportGrouping, new FetchUneditedMonthlyTalliesTask.TaskListener() {
             @Override
             public void onPostExecute(@NonNull List<Date> dates) {
                 updateStartNewReportButton(dates);
@@ -118,7 +121,7 @@ public class DraftMonthlyFragment extends ReportFragment {
             ((HIA2ReportsActivity) getActivity()).refreshDraftMonthlyTitle();
         }
 
-        Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(this::updateDraftsReportListView), null);
+        Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(reportGrouping, this::updateDraftsReportListView), null);
     }
 
     public void updateDraftsReportListView(@Nullable final List<MonthlyTally> monthlyTallies) {
@@ -217,7 +220,7 @@ public class DraftMonthlyFragment extends ReportFragment {
 
             Object tag = v.getTag();
             if (tag instanceof Date) {
-                startMonthlyReportForm((Date) tag);
+                startMonthlyReportForm((Date) tag, reportGrouping);
             }
         }
     };
@@ -238,10 +241,10 @@ public class DraftMonthlyFragment extends ReportFragment {
         snackbar.show();
     }
 
-    private void startMonthlyReportForm(@NonNull Date date) {
+    private void startMonthlyReportForm(@NonNull Date date, @Nullable String reportGrouping) {
         if (getActivity() != null) {
             ((HIA2ReportsActivity) getActivity())
-                    .startMonthlyReportForm("monthly_report", date);
+                    .startMonthlyReportForm("monthly_report", reportGrouping, date);
         }
     }
 

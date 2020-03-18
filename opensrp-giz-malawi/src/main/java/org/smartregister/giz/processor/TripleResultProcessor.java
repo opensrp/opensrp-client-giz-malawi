@@ -46,6 +46,7 @@ public class TripleResultProcessor implements MultiResultProcessor {
         for (Object[] compositeTally: compositeTallies) {
             IndicatorTally indicatorTally = new IndicatorTally();
             indicatorTally.setCreatedAt(compositeIndicatorTally.getCreatedAt());
+            indicatorTally.setGrouping(compositeIndicatorTally.getGrouping());
 
             if (compositeTally.length == 3) {
 

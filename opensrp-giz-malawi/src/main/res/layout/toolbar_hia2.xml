@@ -8,32 +8,20 @@
         android:id="@+id/location_switching_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/smart_register_blue"
-        >
+        android:background="@color/smart_register_blue">
+
         <RelativeLayout
             android:id="@+id/back_btn_layout"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_centerVertical="true">
+
             <LinearLayout
                 android:id="@+id/btn_back_to_home"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:onClick="onClickReport">
-
-                <!--<TextView
-                    android:id="@+id/name_inits"
-                    android:layout_width="47dp"
-                    android:layout_height="47dp"
-                    android:layout_margin="1dp"
-                    android:background="@drawable/name_inits_bg"
-                    android:gravity="center"
-                    android:text="RW"
-                    android:textAllCaps="true"
-                    android:textColor="@color/actionbar"
-                    android:textSize="25sp"
-                    android:layout_gravity="center_vertical" /> -->
 
                 <ImageView
                     android:id="@+id/back_button"
@@ -42,7 +30,9 @@
                     android:gravity="center"
                     android:src="@drawable/ic_menu_white_24dp"
                     android:visibility="visible" />
+
             </LinearLayout>
+
             <ProgressBar
                 android:id="@+id/sync_progress_bar"
                 android:layout_width="45dp"
@@ -50,6 +40,7 @@
                 android:visibility="gone"
                 android:layout_centerInParent="true"
                 android:indeterminate="true" />
+
         </RelativeLayout>
 
         <FrameLayout
@@ -62,8 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:text="@string/report"
-                />
+                android:text="@string/reports" />
 
             <View
                 android:id="@+id/separator_v"

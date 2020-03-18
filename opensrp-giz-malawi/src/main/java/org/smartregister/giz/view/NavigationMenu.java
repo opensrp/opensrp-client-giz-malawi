@@ -28,7 +28,7 @@ import com.github.ybq.android.spinkit.style.FadingCircle;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
-import org.smartregister.giz.activity.HIA2ReportsActivity;
+import org.smartregister.giz.activity.ReportRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.NavigationContract;
@@ -218,13 +218,13 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     private void startReportActivity(@Nullable Activity parentActivity) {
-        if (parentActivity instanceof HIA2ReportsActivity) {
+        if (parentActivity instanceof ReportRegisterActivity) {
             drawer.closeDrawer(GravityCompat.START);
             return;
         }
 
         if (parentActivity != null) {
-            Intent intent = new Intent(parentActivity, HIA2ReportsActivity.class);
+            Intent intent = new Intent(parentActivity, ReportRegisterActivity.class);
             parentActivity.startActivity(intent);
         }
     }
@@ -389,5 +389,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (txtLocationSelected != null && StringUtils.isNotBlank(location)) {
             txtLocationSelected.setText(location);
         }
+    }
+
+    public void setReportsSelected() {
+        // TODO: Set the reports UI as selected
     }
 }

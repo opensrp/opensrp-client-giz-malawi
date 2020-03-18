@@ -134,7 +134,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:text="@string/report"
+                            android:text="@string/reports"
                             android:textColor="@color/white"
                             android:textSize="@dimen/table_contents_text_size" />
                     </LinearLayout>

@@ -93,7 +93,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-
     public static GizMalawiProcessorForJava getInstance(Context context) {
         if (instance == null) {
             instance = new GizMalawiProcessorForJava(context);

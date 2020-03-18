@@ -13,6 +13,8 @@ import org.smartregister.giz.fragment.GizMalawiJsonFormFragment;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.stock.activity.StockJsonFormActivity;
 
+import timber.log.Timber;
+
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
@@ -77,7 +79,7 @@ public class GizJsonFormReportsActivity extends StockJsonFormActivity {
                 }
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
 
         return false;

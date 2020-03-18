@@ -32,7 +32,7 @@
             android:paddingEnd="0dp">
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/tv"
+                android:id="@+id/tv_sentMonthlyItem_title"
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:textSize="22sp" />
 
             <org.smartregister.view.customcontrols.CustomFontTextView
-                android:id="@+id/details"
+                android:id="@+id/tv_sentMonthlyItem_details"
                 style="@style/CustomFontTextViewStyle.ClientList.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

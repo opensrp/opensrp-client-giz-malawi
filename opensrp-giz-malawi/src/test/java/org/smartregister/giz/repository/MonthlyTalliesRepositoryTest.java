@@ -93,7 +93,8 @@ public class MonthlyTalliesRepositoryTest extends BaseRobolectricTest {
         tallyMonths.add("2020-06");
         tallyMonths.add("2019-06");
 
-        Mockito.doReturn(tallyMonths).when(dailyTalliesRepository).findAllDistinctMonths(Mockito.any(SimpleDateFormat.class), Mockito.any(Date.class), Mockito.any(Date.class));
+        Mockito.doReturn(tallyMonths).when(dailyTalliesRepository).findAllDistinctMonths(Mockito.any(SimpleDateFormat.class)
+                , Mockito.any(Date.class), Mockito.any(Date.class), Mockito.nullable(String.class));
 
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"month"}, 0);
         matrixCursor.addRow(new String[]{"2020-09"});
@@ -119,7 +120,8 @@ public class MonthlyTalliesRepositoryTest extends BaseRobolectricTest {
         tallyMonths.add("2020-08");
         tallyMonths.add("2020-07");
         tallyMonths.add("2020-06");
-        Mockito.doReturn(tallyMonths).when(dailyTalliesRepository).findAllDistinctMonths(Mockito.any(SimpleDateFormat.class), Mockito.any(Date.class), Mockito.any(Date.class));
+        Mockito.doReturn(tallyMonths).when(dailyTalliesRepository).findAllDistinctMonths(Mockito.any(SimpleDateFormat.class)
+                , Mockito.any(Date.class), Mockito.any(Date.class), Mockito.nullable(String.class));
 
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"month"}, 0);
         matrixCursor.addRow(new String[]{"2020-09"});
@@ -139,9 +141,9 @@ public class MonthlyTalliesRepositoryTest extends BaseRobolectricTest {
         calendarStartDate.add(Calendar.MONTH, -24);
 
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"_id", "indicator_code", "provider_id", "value", "month"
-                , "edited", "date_sent", "created_at", "updated_at"}, 0);
-        matrixCursor.addRow(new Object[]{1L, "CHN_01", "anm", "90", "2020-09", 0, dateNow.getTime(), dateNow.getTime(), dateNow.getTime()});
-        matrixCursor.addRow(new Object[]{2L, "CHN_02", "anm", "100", "2020-09", 0, dateNow.getTime(), dateNow.getTime(), dateNow.getTime()});
+                , "edited", "date_sent", "indicator_grouping", "created_at", "updated_at"}, 0);
+        matrixCursor.addRow(new Object[]{1L, "CHN_01", "anm", "90", "2020-09", 0, dateNow.getTime(), null, dateNow.getTime(), dateNow.getTime()});
+        matrixCursor.addRow(new Object[]{2L, "CHN_02", "anm", "100", "2020-09", 0, dateNow.getTime(), null, dateNow.getTime(), dateNow.getTime()});
 
         Mockito.doReturn(matrixCursor).when(database).query(Mockito.eq("monthly_tallies"), Mockito.any(String[].class)
                 , Mockito.anyString(), Mockito.nullable(String[].class), Mockito.nullable(String.class)
@@ -181,7 +183,7 @@ public class MonthlyTalliesRepositoryTest extends BaseRobolectricTest {
         dailyTallies.put("CHN_01", chn1IndicatorTallies);
         dailyTallies.put("CHN_02", chn2IndicatorTallies);
 
-        Mockito.doReturn(dailyTallies).when(dailyIndicatorCountRepository).findTalliesInMonth(Mockito.any(Date.class));
+        Mockito.doReturn(dailyTallies).when(dailyIndicatorCountRepository).findTalliesInMonth(Mockito.any(Date.class), Mockito.nullable(String.class));
 
         List<MonthlyTally> draftMonthly = monthlyTalliesRepository.findDrafts("2020-09");
         Assert.assertEquals(2, draftMonthly.size());
@@ -200,9 +202,9 @@ public class MonthlyTalliesRepositoryTest extends BaseRobolectricTest {
         calendarStartDate.add(Calendar.MONTH, -24);
 
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"_id", "indicator_code", "provider_id", "value", "month"
-                , "edited", "date_sent", "created_at", "updated_at"}, 0);
-        matrixCursor.addRow(new Object[]{1L, "CHN_01", "anm", "90", "2020-09", 0, dateNow.getTime(), dateNow.getTime(), dateNow.getTime()});
-        matrixCursor.addRow(new Object[]{2L, "CHN_02", "anm", "100", "2020-09", 0, dateNow.getTime(), dateNow.getTime(), dateNow.getTime()});
+                , "edited", "date_sent", "indicator_grouping", "created_at", "updated_at"}, 0);
+        matrixCursor.addRow(new Object[]{1L, "CHN_01", "anm", "90", "2020-09", 0, dateNow.getTime(), null, dateNow.getTime(), dateNow.getTime()});
+        matrixCursor.addRow(new Object[]{2L, "CHN_02", "anm", "100", "2020-09", 0, dateNow.getTime(), null, dateNow.getTime(), dateNow.getTime()});
 
         Mockito.doReturn(matrixCursor).when(database).query(Mockito.eq("monthly_tallies"), Mockito.any(String[].class)
                 , Mockito.anyString(), Mockito.nullable(String[].class), Mockito.nullable(String.class)
@@ -225,9 +227,9 @@ public class MonthlyTalliesRepositoryTest extends BaseRobolectricTest {
         calendarStartDate.add(Calendar.MONTH, -24);
 
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"_id", "indicator_code", "provider_id", "value", "month"
-                , "edited", "date_sent", "created_at", "updated_at"}, 0);
-        matrixCursor.addRow(new Object[]{1L, "CHN_01", "anm", "90", "2020-09", 0, dateNow.getTime(), dateNow.getTime(), dateNow.getTime()});
-        matrixCursor.addRow(new Object[]{2L, "CHN_02", "anm", "100", "2020-09", 0, dateNow.getTime(), dateNow.getTime(), dateNow.getTime()});
+                , "edited", "date_sent", "indicator_grouping", "created_at", "updated_at"}, 0);
+        matrixCursor.addRow(new Object[]{1L, "CHN_01", "anm", "90", "2020-09", 0, dateNow.getTime(), null, dateNow.getTime(), dateNow.getTime()});
+        matrixCursor.addRow(new Object[]{2L, "CHN_02", "anm", "100", "2020-09", 0, dateNow.getTime(), null, dateNow.getTime(), dateNow.getTime()});
 
         Mockito.doReturn(matrixCursor).when(database).query(Mockito.eq("monthly_tallies"), Mockito.any(String[].class)
                 , Mockito.anyString(), Mockito.nullable(String[].class), Mockito.nullable(String.class)

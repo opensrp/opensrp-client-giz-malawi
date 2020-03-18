@@ -14,8 +14,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.smartregister.giz.R;
+import org.smartregister.giz.domain.Tally;
 import org.smartregister.giz.util.GizReportUtils;
-import org.smartregister.reporting.domain.IndicatorTally;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class IndicatorCategoryView extends LinearLayout {
     private Context context;
     private TableLayout indicatorTable;
-    private ArrayList<IndicatorTally> tallies;
+    private ArrayList<Tally> tallies;
 
     public IndicatorCategoryView(Context context) {
         super(context);
@@ -57,14 +57,14 @@ public class IndicatorCategoryView extends LinearLayout {
         indicatorTable = findViewById(R.id.indicator_table);
     }
 
-    public void setTallies(ArrayList<IndicatorTally> tallies) {
+    public void setTallies(ArrayList<Tally> tallies) {
         this.tallies = tallies;
         refreshIndicatorTable();
     }
 
     private void refreshIndicatorTable() {
         if (tallies != null) {
-            for (IndicatorTally curTally : tallies) {
+            for (Tally curTally : tallies) {
                 TableRow dividerRow = new TableRow(context);
                 View divider = new View(context);
                 TableRow.LayoutParams params = (TableRow.LayoutParams) divider.getLayoutParams();
@@ -88,8 +88,8 @@ public class IndicatorCategoryView extends LinearLayout {
                         getResources().getDimensionPixelSize(R.dimen.table_contents_text_v_margin),
                         getResources().getDimensionPixelSize(R.dimen.table_row_middle_margin),
                         getResources().getDimensionPixelSize(R.dimen.table_contents_text_v_margin));
-                int resourceId = this.getResources().getIdentifier(GizReportUtils.getStringIdentifier(curTally.getIndicatorCode()), "string", getContext().getPackageName());
-                String name = resourceId != 0 ? getResources().getString(resourceId) : curTally.getIndicatorCode();
+                int resourceId = this.getResources().getIdentifier(GizReportUtils.getStringIdentifier(curTally.getIndicator()), "string", getContext().getPackageName());
+                String name = resourceId != 0 ? getResources().getString(resourceId) : curTally.getIndicator();
                 nameTextView.setText(name);
                 nameTextView.setTextColor(getResources().getColor(R.color.client_list_grey));
                 curRow.addView(nameTextView);
@@ -104,7 +104,7 @@ public class IndicatorCategoryView extends LinearLayout {
                         getResources().getDimensionPixelSize(R.dimen.table_row_side_margin),
                         getResources().getDimensionPixelSize(R.dimen.table_contents_text_v_margin));
                 valueTextView.setTextColor(getResources().getColor(R.color.client_list_grey));
-                valueTextView.setText(String.valueOf(curTally.getCount()));
+                valueTextView.setText(curTally.getValue());
                 curRow.addView(valueTextView);
                 indicatorTable.addView(curRow);
             }

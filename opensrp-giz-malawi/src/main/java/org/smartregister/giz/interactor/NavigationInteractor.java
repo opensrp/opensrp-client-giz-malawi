@@ -82,7 +82,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
                 count = cursor.getInt(0);
             }
         } catch (Exception e) {
-            Timber.e(e, "NavigationInteractor --> getCount");
+            Timber.e(e);
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -102,8 +102,9 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         try {
             syncDate = new Date(getLastCheckTimeStamp());
         } catch (Exception e) {
-            Timber.e(e, "NavigationInteractor --> sync");
+            Timber.e(e);
         }
+
         return syncDate;
     }
 

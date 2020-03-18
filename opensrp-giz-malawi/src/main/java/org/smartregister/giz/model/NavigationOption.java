@@ -7,13 +7,15 @@ public class NavigationOption {
     private int TitleID;
     private String MenuTitle;
     private long RegisterCount;
+    private boolean isEnabled;
 
-    public NavigationOption(int resourceID, int resourceActiveID, int titleID, String menuTitle, long registerCount) {
+    public NavigationOption(int resourceID, int resourceActiveID, int titleID, String menuTitle, long registerCount, boolean isEnabled) {
         ResourceID = resourceID;
         ResourceActiveID = resourceActiveID;
         TitleID = titleID;
         MenuTitle = menuTitle;
         RegisterCount = registerCount;
+        this.isEnabled = isEnabled;
     }
 
     public int getResourceID() {
@@ -56,5 +58,12 @@ public class NavigationOption {
         RegisterCount = registerCount;
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
 }
 

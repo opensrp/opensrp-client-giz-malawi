@@ -11,23 +11,21 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import org.apache.commons.lang3.tuple.Triple;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.child.activity.BaseActivity;
-import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.JsonFormUtils;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.domain.Response;
 import org.smartregister.giz.R;
 import org.smartregister.giz.adapter.ReportsSectionsPagerAdapter;
@@ -36,12 +34,13 @@ import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.ReportHia2Indicator;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
 import org.smartregister.giz.fragment.SendMonthlyDraftDialogFragment;
+import org.smartregister.giz.model.ReportGroupingModel;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
 import org.smartregister.giz.task.StartDraftMonthlyFormTask;
 import org.smartregister.giz.util.AppExecutors;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizReportUtils;
-import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.reporting.domain.TallyStatus;
 import org.smartregister.reporting.event.IndicatorTallyEvent;
 import org.smartregister.reporting.util.ViewUtils;
@@ -71,7 +70,7 @@ import static org.smartregister.util.JsonFormUtils.VALUE;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
-public class HIA2ReportsActivity extends BaseActivity {
+public class HIA2ReportsActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_GET_JSON = 3432;
     public static final int MONTH_SUGGESTION_LIMIT = 3;
@@ -100,35 +99,60 @@ public class HIA2ReportsActivity extends BaseActivity {
     private ReportingProcessingSnackbar reportingProcessingSnackbar;
     private ArrayList<FragmentRefreshListener> fragmentRefreshListeners = new ArrayList<>();
 
+    @Nullable
+    private String reportGrouping;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hia2_reports);
         tabLayout = findViewById(R.id.tabs);
+
+        ImageView backBtnImg = findViewById(R.id.back_button);
+        if (backBtnImg != null) {
+            backBtnImg.setImageResource(R.drawable.ic_back);
+        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new ReportsSectionsPagerAdapter(this, getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tabLayout.setupWithViewPager(mViewPager);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            reportGrouping = intent.getStringExtra(GizConstants.IntentKey.REPORT_GROUPING);
+        }
+
+        // Set the title dependent on the
+        TextView titleTv = findViewById(R.id.title);
+        if (titleTv != null && reportGrouping != null) {
+            ArrayList<ReportGroupingModel.ReportGrouping> registerModels = (new ReportGroupingModel(this)).getReportGroupings();
+
+            String humanReadableTitle = null;
+
+            for (ReportGroupingModel.ReportGrouping reportGroupingObj: registerModels) {
+                if (reportGrouping.equals(reportGroupingObj.getGrouping())) {
+                    humanReadableTitle = reportGroupingObj.getDisplayName();
+                }
+            }
+
+            if (humanReadableTitle != null) {
+                titleTv.setText(humanReadableTitle + " " + getString(R.string.reports));
+            }
+        }
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();
     }
 
     @Override
-    public void onSyncStart() {
-        super.onSyncStart();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        openDrawer();
-
         EventBus.getDefault().register(this);
     }
 
@@ -153,18 +177,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         }
     }
 
-    public void openDrawer() {
-        NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
-        if (navigationMenu != null) {
-            navigationMenu.runRegisterCount();
-        }
-    }
-
-    @Override
-    public void onSyncComplete(FetchStatus fetchStatus) {
-        super.onSyncComplete(fetchStatus);
-    }
-
     private Fragment currentFragment() {
         if (mViewPager == null || mSectionsPagerAdapter == null) {
             return null;
@@ -173,26 +185,11 @@ public class HIA2ReportsActivity extends BaseActivity {
         return mSectionsPagerAdapter.getItem(mViewPager.getCurrentItem());
     }
 
-    public void startMonthlyReportForm(@NonNull String formName, @NonNull Date date) {
+    public void startMonthlyReportForm(@NonNull String formName, @Nullable String reportGrouping, @NonNull Date date) {
         Fragment currentFragment = currentFragment();
         if (currentFragment instanceof DraftMonthlyFragment) {
-            Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, date, formName), null);
+            Utils.startAsyncTask(new StartDraftMonthlyFormTask(this, reportGrouping, date, formName), null);
         }
-    }
-
-    @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-        // This method is useless -> Do nothing
-    }
-
-    @Override
-    public void onNoUniqueId() {
-        // This method is useless -> Do nothing
-    }
-
-    @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        // This method is useless -> Do nothing
     }
 
     @Override
@@ -292,28 +289,8 @@ public class HIA2ReportsActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected int getContentView() {
-        return R.layout.activity_hia2_reports;
-    }
-
-    @Override
-    protected int getDrawerLayoutId() {
-        return R.id.drawer_layout;
-    }
-
-    @Override
-    protected int getToolbarId() {
-        return LocationSwitcherToolbar.TOOLBAR_ID;
-    }
-
-    @Override
-    protected Class onBackActivity() {
-        return null;
-    }
-
     public void refreshDraftMonthlyTitle() {
-        Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(new FetchEditedMonthlyTalliesTask.TaskListener() {
+        Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(reportGrouping, new FetchEditedMonthlyTalliesTask.TaskListener() {
             @Override
             public void onPostExecute(final List<MonthlyTally> monthlyTallies) {
                 tabLayout.post(new Runnable() {
@@ -329,7 +306,7 @@ public class HIA2ReportsActivity extends BaseActivity {
                                             monthlyTallies == null ? 0 : monthlyTallies.size()));
                                 }
                             }
-                        }catch (Exception e){
+                        } catch (Exception e){
                             Timber.e(e);
                         }
                     }
@@ -346,7 +323,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         progressDialog.setMessage(getString(R.string.please_wait_message));
     }
 
-    @Override
     public void showProgressDialog() {
         if (progressDialog == null) {
             initializeProgressDialog();
@@ -355,7 +331,6 @@ public class HIA2ReportsActivity extends BaseActivity {
         progressDialog.show();
     }
 
-    @Override
     public void hideProgressDialog() {
         if (progressDialog != null) {
             progressDialog.dismiss();
@@ -365,12 +340,7 @@ public class HIA2ReportsActivity extends BaseActivity {
     public void onClickReport(View view) {
         switch (view.getId()) {
             case R.id.btn_back_to_home:
-
-                NavigationMenu navigationMenu = NavigationMenu.getInstance(this, null, null);
-                if (navigationMenu != null) {
-                    navigationMenu.getDrawer()
-                            .openDrawer(GravityCompat.START);
-                }
+                finish();
                 break;
             default:
                 break;
@@ -382,12 +352,13 @@ public class HIA2ReportsActivity extends BaseActivity {
         try {
             if (month != null) {
                 List<MonthlyTally> tallies = monthlyTalliesRepository
-                        .find(MonthlyTalliesRepository.DF_YYYYMM.format(month));
+                        .find(MonthlyTalliesRepository.DF_YYYYMM.format(month), reportGrouping);
                 if (tallies != null) {
                     List<ReportHia2Indicator> reportHia2Indicators = new ArrayList<>();
                     for (MonthlyTally curTally : tallies) {
                         ReportHia2Indicator reportHia2Indicator = new ReportHia2Indicator(curTally.getIndicator()
                                 , curTally.getIndicator()
+                                // TODO: Fix this categorization for ANC, Child, OPD
                                 , "Immunization"
                                 , curTally.getValue());
 
@@ -450,7 +421,7 @@ public class HIA2ReportsActivity extends BaseActivity {
 
                 // update drafts view
                 refreshDraftMonthlyTitle();
-                org.smartregister.child.util.Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(new FetchEditedMonthlyTalliesTask.TaskListener() {
+                org.smartregister.child.util.Utils.startAsyncTask(new FetchEditedMonthlyTalliesTask(reportGrouping, new FetchEditedMonthlyTalliesTask.TaskListener() {
                     @Override
                     public void onPostExecute(List<MonthlyTally> monthlyTallies) {
                         Fragment fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + mViewPager.getCurrentItem());
@@ -490,5 +461,10 @@ public class HIA2ReportsActivity extends BaseActivity {
 
         void onRefresh();
 
+    }
+
+    @Nullable
+    public String getReportGrouping() {
+        return reportGrouping;
     }
 }

@@ -18,11 +18,11 @@ public class GizOpdRegisterProviderMetadata extends BaseOpdRegisterProviderMetad
     @NonNull
     @Override
     public String getGender(@NonNull Map<String, String> columnMaps) {
-        String gender = Utils.getValue(columnMaps, "gender", true);
+        String gender = Utils.getValue(columnMaps, GizConstants.KEY.GENDER, true);
         if(gender.startsWith("F") || gender.startsWith("f")){
-            columnMaps.put("gender", "Female");
+            columnMaps.put(GizConstants.KEY.GENDER, "Female");
         } else {
-            columnMaps.put("gender", "Male");
+            columnMaps.put(GizConstants.KEY.GENDER, "Male");
         }
         return super.getGender(columnMaps);
     }

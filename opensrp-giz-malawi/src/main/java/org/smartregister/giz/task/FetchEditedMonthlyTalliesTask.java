@@ -2,6 +2,7 @@ package org.smartregister.giz.task;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.MonthlyTally;
@@ -16,9 +17,11 @@ import java.util.List;
 
 public class FetchEditedMonthlyTalliesTask extends AsyncTask<Void, Void, List<MonthlyTally>> {
     private final TaskListener taskListener;
+    private String reportGrouping;
 
-    public FetchEditedMonthlyTalliesTask(@NonNull TaskListener taskListener) {
+    public FetchEditedMonthlyTalliesTask(@Nullable String reportGrouping, @NonNull TaskListener taskListener) {
         this.taskListener = taskListener;
+        this.reportGrouping = reportGrouping;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class FetchEditedMonthlyTalliesTask extends AsyncTask<Void, Void, List<Mo
         endDate.set(Calendar.MILLISECOND, 999);
         endDate.add(Calendar.DATE, -1); // Move the date to last day of last month
 
-        return monthlyTalliesRepository.findEditedDraftMonths(null, endDate.getTime());
+        return monthlyTalliesRepository.findEditedDraftMonths(null, endDate.getTime(), reportGrouping);
     }
 
     @Override
