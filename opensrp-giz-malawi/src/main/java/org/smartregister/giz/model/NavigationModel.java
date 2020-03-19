@@ -43,7 +43,7 @@ public class NavigationModel implements NavigationContract.Model {
 
             NavigationOption ancNavigationOption = new NavigationOption(R.mipmap.sidemenu_children,
                     R.mipmap.sidemenu_children_active, R.string.menu_anc_clients, GizConstants.DrawerMenu.ANC_CLIENTS,
-                    0, true);
+                    0, false);
             if (ancNavigationOption.isEnabled()) {
                 navigationOptions.add(ancNavigationOption);
             }
