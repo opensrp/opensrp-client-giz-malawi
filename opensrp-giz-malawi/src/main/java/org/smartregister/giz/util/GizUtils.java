@@ -195,7 +195,7 @@ public class GizUtils extends Utils {
             String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
             }.getType());
             GizTreeViewDialog treeViewDialog = new GizTreeViewDialog(context,
-                    new JSONArray(upToFacilitiesString), defaultLocation, defaultLocation);
+                    new JSONArray(upToFacilitiesString), defaultLocation, new ArrayList<>());
 
             treeViewDialog.setCancelable(true);
             treeViewDialog.setCanceledOnTouchOutside(true);

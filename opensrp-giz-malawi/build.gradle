@@ -233,7 +233,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-native-form:1.7.26-giz-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:1.7.26-giz-r1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -290,7 +290,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-reporting:0.0.19.61-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-reporting:0.0.19.544-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
