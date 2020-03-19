@@ -16,6 +16,7 @@ import org.smartregister.configurableviews.repository.ConfigurableViewsRepositor
 import org.smartregister.domain.db.Column;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
