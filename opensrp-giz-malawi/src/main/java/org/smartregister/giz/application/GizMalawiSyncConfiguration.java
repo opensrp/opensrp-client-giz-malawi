@@ -53,7 +53,7 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean updateClientDetailsTable() {
-        return true;
+        return false;
     }
 
     @Override

@@ -1,11 +1,15 @@
 package org.smartregister.giz.util;
 
+import net.sqlcipher.database.SQLiteDatabase;
+
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.domain.AlertStatus;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.util.VaccinateActionUtils;
+import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.List;
 
@@ -77,4 +81,32 @@ public class DBQueryHelper {
         }
     }
 
+    public static void removeIndicators(SQLiteDatabase db) {
+
+        AllSharedPreferences allSharedPreferences = GizMalawiApplication.getInstance().context().allSharedPreferences();
+        if (allSharedPreferences.getPreference("cleared_indicators").isEmpty() && db != null) {
+            db.delete("indicators", "indicator_code IN (?,?,?,?,?,?,?,?,?,?,?)", new String[]
+                    {"ME_PAB_Gender", "ME_PAB_Age", "ME_Child_HIV_Under2_Gender",
+                            "ME_Child_HIV_Status_Under2_Gender",
+                            "ME_Child_HIV_Status_Over2_Gender", "ME_Child_HIV_Treatment_Under2_Gender",
+                            "ME_Child_HIV_Treatment_Over2_Gender", "ME_Child_HIV_Status_Over2",
+                            "ME_Child_HIV_Status_Under2", "ME_Child_HIV_Treatment_Over2",
+                            "ME_Child_HIV_Treatment_Under2"});
+            db.delete("indicator_queries", "indicator_code IN (?,?,?,?,?,?,?,?,?,?,?)", new String[]
+                    {"ME_PAB_Gender", "ME_PAB_Age", "ME_Child_HIV_Under2_Gender",
+                            "ME_Child_HIV_Status_Under2_Gender",
+                            "ME_Child_HIV_Status_Over2_Gender", "ME_Child_HIV_Treatment_Under2_Gender",
+                            "ME_Child_HIV_Treatment_Over2_Gender", "ME_Child_HIV_Status_Over2",
+                            "ME_Child_HIV_Status_Under2", "ME_Child_HIV_Treatment_Over2",
+                            "ME_Child_HIV_Treatment_Under2"});
+            db.delete("indicator_daily_tally", "indicator_code IN (?,?,?,?,?,?,?,?,?,?,?)", new String[]
+                    {"ME_PAB_Gender", "ME_PAB_Age", "ME_Child_HIV_Under2_Gender",
+                            "ME_Child_HIV_Status_Under2_Gender",
+                            "ME_Child_HIV_Status_Over2_Gender", "ME_Child_HIV_Treatment_Under2_Gender",
+                            "ME_Child_HIV_Treatment_Over2_Gender", "ME_Child_HIV_Status_Over2",
+                            "ME_Child_HIV_Status_Under2", "ME_Child_HIV_Treatment_Over2",
+                            "ME_Child_HIV_Treatment_Under2"});
+            allSharedPreferences.savePreference("cleared_indicators", "done");
+        }
+    }
 }
