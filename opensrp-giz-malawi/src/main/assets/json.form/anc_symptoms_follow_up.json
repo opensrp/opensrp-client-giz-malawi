@@ -27,6 +27,7 @@
     "condom_use",
     "alcohol_substance_use",
     "phys_symptoms",
+    "phys_symptoms_other",
     "other_symptoms",
     "calcium_supp",
     "vita_supp",
@@ -1426,11 +1427,38 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "460AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "Other(specify)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
           }
         ],
         "v_required": {
           "value": "true",
           "err": "Please specify any other physiological symptoms or select none"
+        }
+      },
+      {
+        "key": "phys_symptoms_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "relevance": {
+          "step4:phys_symptoms": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
         }
       },
       {

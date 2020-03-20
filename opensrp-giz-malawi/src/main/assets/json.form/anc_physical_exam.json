@@ -403,7 +403,7 @@
         "openmrs_entity": "Body mass Index",
         "openmrs_entity_id": "1432",
         "type": "toaster_notes",
-        "text": "Body mass index (BMI) = {bmi}\n\nWoman is {weight_cat}. Weight gain during pregnancy should be {exp_weight_gain} kg.",
+        "text": "Pre-pregnancy Body mass index (BMI) = {bmi} based on pre-gestational weight\n\nWoman is {weight_cat}. Weight gain during pregnancy should be {exp_weight_gain} kg.",
         "text_color": "#1199F9",
         "toaster_type": "info",
         "calculation": {

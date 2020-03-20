@@ -100,17 +100,17 @@
         "openmrs_entity_id": "bht_mid",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "BHT ID",
+        "hint": "Patient ID",
         "value": "0",
         "scanButtonText": "Scan Barcode",
         "look_up": true,
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid BHT ID"
+          "err": "Please enter a valid Patient ID"
         },
         "v_required": {
           "value": false,
-          "err": "Please enter a valid BHT ID"
+          "err": "Please enter a valid Patient ID"
         }
       },
       {

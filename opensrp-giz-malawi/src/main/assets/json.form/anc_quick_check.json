@@ -68,24 +68,17 @@
         "options": [
           {
             "key": "first_contact",
-            "text": "First contact",
+            "text": "1st Visit",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "scheduled_contact",
-            "text": "Scheduled contact",
+            "key": "subsequent_visit",
+            "text": "Subsequent visit",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "specific_complaint",
-            "text": "Specific complaint",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {

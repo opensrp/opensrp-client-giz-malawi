@@ -79,14 +79,14 @@ actions:
 name: step1_accordion_tb_screening
 description: tb_screening_status
 priority: 1
-condition: "(global_previous_tb_screening_status == '' || global_previous_tb_screening_status == 'ordered' || global_previous_tb_screening_status == 'not_done')"
+condition: "(global_previous_tb_screening_status == '' || global_previous_tb_screening_status == 'ordered' || global_previous_tb_screening_status == 'not_done') && (!global_tb_screening.isEmpty() && !global_tb_screening.contains('none'))"
 actions:
   - "isRelevant = true"
 ---
 name: step2_accordion_tb_screening
 description: tb_screening_status
 priority: 1
-condition: "(global_contact_no > 1 && (global_previous_tb_screening_status != '' && (global_previous_tb_screening_status == 'done_earlier' || global_previous_tb_screening_status == 'done_today')))"
+condition: "(global_previous_tb_screening_status == '' || global_previous_tb_screening_status == 'ordered' || global_previous_tb_screening_status == 'not_done') && (global_tb_screening.isEmpty() || global_tb_screening.contains('none'))"
 actions:
   - "isRelevant = true"
 ---

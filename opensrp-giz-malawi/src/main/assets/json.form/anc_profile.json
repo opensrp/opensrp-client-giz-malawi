@@ -84,7 +84,6 @@
     "hiv_diagnosis_date",
     "tt_immun_status",
     "hepb_immun_status",
-
     "flu_immun_status",
     "medications",
     "medications_other",
@@ -1117,11 +1116,11 @@
         "key": "gravida_label",
         "type": "label",
         "label_text_style": "bold",
-        "text": "No. of pregnancies (including this pregnancy)",
+        "text": "No. of pregnancies (including this one)",
         "text_color": "#000000",
         "v_required": {
           "value": true,
-          "err": "No of pregnancies is required"
+          "err": "No. of pregnancies is required"
         }
       },
       {
@@ -1565,6 +1564,13 @@
             "openmrs_entity_id": "124858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "3rd_degree_tear",
             "text": "3rd or 4th degree tear"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "fistula",
+            "text": "Fistula"
           },
           {
             "openmrs_entity_parent": "",
@@ -2157,6 +2163,13 @@
             "openmrs_entity_id": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "kidney_disease",
             "text": "Kidney disease"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "asthma",
+            "text": "Asthma"
           },
           {
             "openmrs_entity_parent": "",
@@ -2763,8 +2776,8 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "asthma",
-            "text": "Asthma",
+            "key": "anti_asthma",
+            "text": "Anti-asthmatic",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2912,11 +2925,7 @@
             "key": "none",
             "text": "None of the above"
           }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Daily caffeine intake is required"
-        }
+        ]
       },
       {
         "key": "caffeine_reduction_toaster",

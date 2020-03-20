@@ -161,6 +161,7 @@ fields:
   - "alcohol_substance_use"
   - "health_conditions"
   - "hypertension"
+  - "tb_screening"
 ---
 form: anc_test
 fields:
@@ -214,3 +215,4 @@ fields:
   - "hepb_positive"
   - "lmp_known"
   - "ultrasound_done"
+  - "tb_screening"
