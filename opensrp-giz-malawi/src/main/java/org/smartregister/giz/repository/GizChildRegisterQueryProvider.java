@@ -2,11 +2,12 @@ package org.smartregister.giz.repository;
 
 import org.smartregister.child.provider.RegisterQueryProvider;
 import org.smartregister.child.util.Constants;
+import org.smartregister.giz.util.GizConstants;
 
 public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
 
     @Override
-    public String[] getMainColumns() {
+    public String[] mainColumns() {
         return new String[]{
                 getDemographicTable() + "." + Constants.KEY.ID + " as _id",
                 getDemographicTable() + "." + Constants.KEY.RELATIONALID,
@@ -25,6 +26,13 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getDemographicTable() + "." + Constants.KEY.LAST_INTERACTED_WITH,
                 getChildDetailsTable() + "." + Constants.KEY.INACTIVE,
                 getChildDetailsTable() + "." + Constants.KEY.LOST_TO_FOLLOW_UP,
+                getDemographicTable() + "." + Constants.KEY.VILLAGE,
+                getDemographicTable() + "." + Constants.KEY.HOME_ADDRESS,
+                getChildDetailsTable() + "." + Constants.SHOW_BCG_SCAR,
+                getChildDetailsTable() + "." + Constants.SHOW_BCG2_REMINDER,
+                getMotherDetailsTable() + "." + GizConstants.PROTECTED_AT_BIRTH,
+                getMotherDetailsTable() + "." + GizConstants.MOTHER_TDV_DOSES
+
         };
     }
 

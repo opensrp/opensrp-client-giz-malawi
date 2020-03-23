@@ -266,13 +266,6 @@
           }
         },
         {
-          "column_name": "gender",
-          "type": "Client",
-          "json_mapping": {
-            "field": "gender"
-          }
-        },
-        {
           "column_name": "protected_at_birth",
           "type": "Event",
           "json_mapping": {

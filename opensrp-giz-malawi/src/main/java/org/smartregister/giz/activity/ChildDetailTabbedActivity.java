@@ -78,7 +78,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
         switch (item.getItemId()) {
             case R.id.registration_data:
-                String populatedForm = GizJsonFormUtils.getMetadataForEditForm(this, detailsMap, nonEditableFields);
+                String populatedForm = org.smartregister.child.util.JsonFormUtils.getMetadataForEditForm(this, detailsMap, nonEditableFields);
                 startFormActivity(populatedForm);
                 // User chose the "Settings" item, show the app settings UI...
                 return true;

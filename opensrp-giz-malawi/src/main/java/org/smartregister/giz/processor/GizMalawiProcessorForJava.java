@@ -557,7 +557,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
 
         DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
-        detailsRepository.add(baseEntityId, ChildImmunizationActivity.SHOW_BCG_SCAR, String.valueOf(date), date);
+        detailsRepository.add(baseEntityId, Constants.SHOW_BCG_SCAR, String.valueOf(date), date);
     }
 
     private boolean unSync(List<Event> events) {

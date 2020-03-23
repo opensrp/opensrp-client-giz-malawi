@@ -11,6 +11,7 @@ import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.child.util.DbMigrations;
 import org.smartregister.child.util.Utils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.domain.db.Column;
@@ -156,6 +157,8 @@ public class GizMalawiRepository extends Repository {
             }
             upgradeTo++;
         }
+
+        DbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
 
 //        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
