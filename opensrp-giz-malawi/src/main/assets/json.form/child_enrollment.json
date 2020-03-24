@@ -218,8 +218,8 @@
       {
         "key": "home_address",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address1",
         "openmrs_data_type": "text",
         "type": "tree",
         "tree": [],
@@ -232,9 +232,8 @@
       {
         "key": "village",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_address",
-        "openmrs_entity_id": "address1",
-        "openmrs_data_type": "text",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "village",
         "type": "edit_text",
         "label_info_text": "Indicate the area or location where the child comes from e.g in an urban setting Area X",
         "hint": "Address/Location",

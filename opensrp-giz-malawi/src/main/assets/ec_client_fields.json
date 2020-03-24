@@ -187,17 +187,17 @@
           }
         },
         {
-          "column_name": "village",
+          "column_name": "home_address",
           "type": "Client",
           "json_mapping": {
-            "field": "addresses.addressFields.address1"
+            "field": "addresses.address1"
           }
         },
         {
           "column_name": "village",
           "type": "Client",
           "json_mapping": {
-            "field": "addresses.address1"
+            "field": "attributes.village"
           }
         },
         {

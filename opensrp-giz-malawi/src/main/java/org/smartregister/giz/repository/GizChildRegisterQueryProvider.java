@@ -31,8 +31,9 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getChildDetailsTable() + "." + Constants.SHOW_BCG_SCAR,
                 getChildDetailsTable() + "." + Constants.SHOW_BCG2_REMINDER,
                 getMotherDetailsTable() + "." + GizConstants.PROTECTED_AT_BIRTH,
-                getMotherDetailsTable() + "." + GizConstants.MOTHER_TDV_DOSES
-
+                getMotherDetailsTable() + "." + GizConstants.MOTHER_TDV_DOSES,
+                getMotherDetailsTable() + "." + GizConstants.MOTHER_HIV_STATUS,
+                getChildDetailsTable() + "." + GizConstants.BIRTH_REGISTRATION_NUMBER
         };
     }
 

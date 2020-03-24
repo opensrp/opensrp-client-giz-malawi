@@ -37,4 +37,10 @@ public class GizChildFormFragment extends ChildFormFragment {
     public interface OnReactionVaccineSelected {
         void updateDatePicker(String date);
     }
+
+    @Override
+    public void onDestroy() {
+        OnReactionVaccineSelected = null;
+        super.onDestroy();
+    }
 }

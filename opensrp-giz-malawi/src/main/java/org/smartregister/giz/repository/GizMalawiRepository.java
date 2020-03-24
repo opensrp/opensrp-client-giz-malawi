@@ -152,6 +152,9 @@ public class GizMalawiRepository extends Repository {
                 case 8:
                     upgradeToVersion8AddServiceGroupColumn(db);
                     break;
+                case 9:
+                    DbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
+                    break;
                 default:
                     break;
             }

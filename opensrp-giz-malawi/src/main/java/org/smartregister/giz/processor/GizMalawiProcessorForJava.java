@@ -13,6 +13,7 @@ import org.joda.time.DateTime;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.DbUtils;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.MoveToMyCatchmentUtils;
 import org.smartregister.child.util.Utils;
@@ -25,7 +26,6 @@ import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
-import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
@@ -47,7 +47,6 @@ import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
-import org.smartregister.repository.DetailsRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.MiniClientProcessorForJava;
@@ -152,15 +151,15 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         continue;
                     }
 
-                    if(eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() != null){
+                    if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() != null) {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                     }
 
-                    if(eventType.equals(Constants.EventType.BITRH_REGISTRATION) && eventClient.getClient() != null){
+                    if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) && eventClient.getClient() != null) {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.CHILD, event.getBaseEntityId());
                     }
 
-                    if(eventType.equals(Constants.EventType.NEW_WOMAN_REGISTRATION) && eventClient.getClient() != null){
+                    if (eventType.equals(Constants.EventType.NEW_WOMAN_REGISTRATION) && eventClient.getClient() != null) {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                     }
 
@@ -172,7 +171,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     processBirthAndWomanRegistrationEvent(clientClassification, eventClient, event);
                 } else if (processorMap.containsKey(eventType)) {
                     try {
-                        if(eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null){
+                        if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
                         }
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
@@ -192,7 +191,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
 
-        for (String baseEntityId: clientsForAlertUpdates.keySet()) {
+        for (String baseEntityId : clientsForAlertUpdates.keySet()) {
             DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
             if (birthDateTime != null) {
                 VaccineSchedule.updateOfflineAlerts(baseEntityId, birthDateTime, "child");
@@ -556,8 +555,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             date = eventDate.getMillis();
         }
 
-        DetailsRepository detailsRepository = GizMalawiApplication.getInstance().context().detailsRepository();
-        detailsRepository.add(baseEntityId, Constants.SHOW_BCG_SCAR, String.valueOf(date), date);
+        DbUtils.updateChildDetailsValue(Constants.SHOW_BCG_SCAR, String.valueOf(date), baseEntityId);
     }
 
     private boolean unSync(List<Event> events) {
