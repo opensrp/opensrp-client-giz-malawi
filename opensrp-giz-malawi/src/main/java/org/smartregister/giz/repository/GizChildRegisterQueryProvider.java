@@ -3,6 +3,7 @@ package org.smartregister.giz.repository;
 import org.smartregister.child.provider.RegisterQueryProvider;
 import org.smartregister.child.util.Constants;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.growthmonitoring.util.GrowthMonitoringConstants;
 
 public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
 
@@ -33,7 +34,8 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getMotherDetailsTable() + "." + GizConstants.PROTECTED_AT_BIRTH,
                 getMotherDetailsTable() + "." + GizConstants.MOTHER_TDV_DOSES,
                 getMotherDetailsTable() + "." + GizConstants.MOTHER_HIV_STATUS,
-                getChildDetailsTable() + "." + GizConstants.BIRTH_REGISTRATION_NUMBER
+                getChildDetailsTable() + "." + GizConstants.BIRTH_REGISTRATION_NUMBER,
+                getChildDetailsTable() + "." + GrowthMonitoringConstants.PMTCT_STATUS
         };
     }
 

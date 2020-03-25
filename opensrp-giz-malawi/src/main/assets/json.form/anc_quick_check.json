@@ -68,14 +68,14 @@
         "options": [
           {
             "key": "first_contact",
-            "text": "1st Visit",
+            "text": "First contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "subsequent_visit",
-            "text": "Subsequent visit",
+            "key": "scheduled_contact",
+            "text": "Scheduled contact",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"

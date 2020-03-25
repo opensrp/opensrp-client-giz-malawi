@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +28,7 @@ import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.growthmonitoring.domain.Height;
@@ -68,7 +70,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private HashMap<String, MiniClientProcessorForJava> processorMap = new HashMap<>();
     private HashMap<MiniClientProcessorForJava, List<Event>> unsyncEventsPerProcessor = new HashMap<>();
-
+    AppExecutors appExecutors = new AppExecutors();
     private HashMap<String, DateTime> clientsForAlertUpdates = new HashMap<>();
 
     private GizMalawiProcessorForJava(Context context) {
@@ -100,7 +102,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @Override
-    public synchronized void processClient(List<EventClient> eventClients) throws Exception {
+    public  void processClient(List<EventClient> eventClients) throws Exception {
+        long start = System.currentTimeMillis();
+        Timber.d("Starting event %d", start);
 
         ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json",
                 ClientClassification.class);
@@ -144,7 +148,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
-
+                    long starts = (System.currentTimeMillis());
+                    Timber.d("Starting birth-reg event %d", starts);
 
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
                         Timber.e(new Exception(), "Cannot find client corresponding to %s with base-entity-id %s", OpdConstants.EventType.OPD_REGISTRATION, event.getBaseEntityId());
@@ -169,6 +174,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     }
 
                     processBirthAndWomanRegistrationEvent(clientClassification, eventClient, event);
+                    Timber.d("end birth-reg event %d", (System.currentTimeMillis() - starts));
+
+
                 } else if (processorMap.containsKey(eventType)) {
                     try {
                         if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null) {
@@ -180,25 +188,29 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     }
                 }
             }
+            Timber.d("start birth--reg event %d", (System.currentTimeMillis() - start));
 
             // Unsync events that are should not be in this device
             processUnsyncEvents(unsyncEvents);
-
+            Timber.d("end birth--reg event %d", (System.currentTimeMillis() - start));
             // Process alerts for clients
-            updateClientAlerts(clientsForAlertUpdates);
+            Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
+
+            appExecutors.diskIO().execute(runnable);
+            Timber.d("end event %d", (System.currentTimeMillis() - start));
+
         }
     }
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
-
-        for (String baseEntityId : clientsForAlertUpdates.keySet()) {
+        HashMap<String, DateTime>  stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
+        for (String baseEntityId : stringDateTimeHashMap.keySet()) {
             DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
             if (birthDateTime != null) {
                 VaccineSchedule.updateOfflineAlerts(baseEntityId, birthDateTime, "child");
                 ServiceSchedule.updateOfflineAlerts(baseEntityId, birthDateTime);
             }
         }
-
         clientsForAlertUpdates.clear();
     }
 
@@ -652,9 +664,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public void updateFTSsearch(String tableName, String entityId, ContentValues contentValues) {
-//        if (GizConstants.TABLE_NAME.MOTHER_TABLE_NAME.equals(tableName)) {
-//            return;
-//        }
 
         Timber.d("Starting updateFTSsearch table: %s", tableName);
 

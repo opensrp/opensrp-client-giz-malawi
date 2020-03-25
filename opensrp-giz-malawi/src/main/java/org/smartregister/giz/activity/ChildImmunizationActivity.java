@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.AllConstants;
@@ -14,8 +15,13 @@ import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.giz.R;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     @Override
@@ -28,7 +34,7 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocationSwitcherToolbar myToolbar  = (LocationSwitcherToolbar) this.getToolbar();
+        LocationSwitcherToolbar myToolbar = (LocationSwitcherToolbar) this.getToolbar();
 
         if (myToolbar != null) {
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -116,5 +122,21 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null) return;
+    }
+
+    @Override
+    public void updateScheduleDate() {
+        Calendar calendar = Calendar.getInstance();
+
+        if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
+            calendar.set(Calendar.HOUR_OF_DAY, 1);
+            long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis()) / TimeUnit.HOURS.toMillis(1);
+
+            if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM)) {
+//                Toast.makeText(getApplicationContext(), R.string.vaccine_schedule_update_wait_message, Toast.LENGTH_LONG)
+//                        .show();
+                super.updateScheduleDate();
+            }
+        }
     }
 }

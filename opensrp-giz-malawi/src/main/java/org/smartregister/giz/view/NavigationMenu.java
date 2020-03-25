@@ -96,7 +96,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             setParentView(activity, parentView);
             toolbar = myToolbar;
             parentView = myParentView;
-            mPresenter = new NavigationPresenter(this);
+            WeakReference<NavigationContract.View> weakReference = new WeakReference(this);
+            mPresenter = new NavigationPresenter(weakReference.get());
             prepareViews(activity);
             registerDrawer(activity);
         } catch (Exception e) {

@@ -25,7 +25,8 @@
     "hepb2_date_done",
     "deworm",
     "flu_date",
-    "hepb_positive"
+    "hepb_positive",
+    "itn_given_notdone_other"
   ],
   "metadata": {
     "start": {
@@ -3752,6 +3753,13 @@
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "no_signs_and_symptoms,_client_unwilling_to_respond",
+            "text": "No signs and symptoms,Client unwilling to respond",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
             "key": "other",
             "text": "Other (specify)",
             "openmrs_entity_parent": "",
@@ -5082,6 +5090,68 @@
             "openmrs_entity_id": ""
           }
         ]
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "10dp"
+      },
+      {
+        "key": "itn_given_notdone",
+        "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "already_given",
+            "text": "Already given",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other(specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "itn_given_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "edit_text",
+        "relevance": {
+          "step10:itn_given_notdone": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
       },
       {
         "key": "malaria_counsel_notdone",

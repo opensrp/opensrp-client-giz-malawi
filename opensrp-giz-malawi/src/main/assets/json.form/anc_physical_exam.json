@@ -2424,16 +2424,40 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "anterior",
-            "text": "Anterior",
+            "key": "left_occipital_anterior",
+            "text": "Left occipital anterior(LOA)",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "posterior",
-            "text": "Posterior",
+            "key": "right_occipital_anterior",
+            "text": "Right occipital anterior(ROA)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "left_sacro_anterior",
+            "text": "Left sacro anterior (LSA)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "right_sacro_anterior",
+            "text": "Right sacro anterior (RSA)",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "other",
+            "text": "Other",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -2485,6 +2509,22 @@
           {
             "key": "unstable",
             "text": "Unstable",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "ball",
+            "text": "Ball",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "nil_palpable",
+            "text": "Nil palpable",
             "value": false,
             "openmrs_entity": "",
             "openmrs_entity_id": "",

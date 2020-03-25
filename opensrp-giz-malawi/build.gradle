@@ -149,7 +149,7 @@ android {
 
             versionNameSuffix "-debug"
 
-            resValue "string", 'opensrp_url', '"https://jembi-preview.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://opensrp-jembi-eregister.smartregister.org/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '250'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -215,7 +215,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.2.6.72-PREVIEW-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.3.1.5-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -245,8 +245,8 @@ dependencies {
         exclude group: 'org.yaml', module: 'snakeyaml'
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
-
-//    implementation('org.smartregister:opensrp-client-core:1.8.26-SNAPSHOT@aar') {
+//
+//    implementation('org.smartregister:opensrp-client-core:1.9.3.1-SNAPSHOT@aar') {
 //        transitive = true
 //        exclude group: 'id.zelory', module:'compressor'
 //        exclude group: 'com.github.bmelnychuk', module: 'atv'
@@ -346,7 +346,7 @@ dependencies {
     implementation group: 'io.fabric.sdk.android', name: 'fabric', version: '1.4.8'
 
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'

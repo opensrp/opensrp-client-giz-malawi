@@ -93,7 +93,6 @@
               "Other(specify)"
             ]
           },
-
           {
             "key": "diagnostic_test_other",
             "openmrs_entity_parent": "",

@@ -110,7 +110,8 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
     }
 
     private void createDrawer() {
-        navigationMenu = NavigationMenu.getInstance(this, null, null);
+        WeakReference<ChildRegisterActivity> childRegisterActivityWeakReference = new WeakReference<>(this);
+        navigationMenu = NavigationMenu.getInstance(childRegisterActivityWeakReference.get(), null, null);
         navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
         navigationMenu.runRegisterCount();
     }
@@ -181,5 +182,11 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
     @Override
     public void finishActivity() {
         finish();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
