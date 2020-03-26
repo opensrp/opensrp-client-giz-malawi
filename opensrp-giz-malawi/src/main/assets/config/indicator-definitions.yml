@@ -214,7 +214,6 @@ indicators:
                      WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
                      AND ec_client.dob < date('now', '-2 years')
                      AND ec_client.dob >= date('now', '-5 years')
-                     AND ec_child_details.child_hiv_status IS NOT NULL
                      group by ec_child_details.child_hiv_status, ec_client.gender"
     isMultiResult: true
     expectedIndicators:
@@ -274,7 +273,6 @@ indicators:
                      WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
                      AND ec_client.dob < date('now', '-2 years')
                      AND ec_client.dob >= date('now', '-5 years')
-                     AND ec_child_details.child_hiv_status IS NOT NULL
                      group by ec_child_details.child_hiv_status"
     isMultiResult: true
     expectedIndicators:
@@ -537,6 +535,23 @@ indicators:
       - "ME_Height_Under2_Age_Gender_Severe_Over_1_Male"
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Female"
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"
+    grouping: "child"
+
+  - key: "ME_Fully_Immunized"
+    description: "Fully Immunized"
+    indicatorQuery: "select count(1) from (select vaccines.base_entity_id from vaccines
+                     join ec_client on vaccines.base_entity_id = ec_client.base_entity_id where '%s' = strftime('%Y-%m-%d', ec_client.date)
+                     group by vaccines.base_entity_id
+                     having sum(case when name = 'bcg' then 1 else 0 end) > 0
+                     and sum(case when name = 'ipv' then 1 else 0 end) > 0
+                     and sum(case when name = 'mr_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'opv_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'opv_3' then 1 else 0 end) > 0
+                     and sum(case when name = 'pcv_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_2' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_3' then 1 else 0 end) > 0
+                     and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
     grouping: "child"
 
 

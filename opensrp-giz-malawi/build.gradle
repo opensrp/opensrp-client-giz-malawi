@@ -32,7 +32,7 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 26
-        versionName "0.2.18"
+        versionName "0.2.19"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
