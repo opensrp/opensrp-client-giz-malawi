@@ -210,6 +210,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
         <activity
+            android:name="org.smartregister.maternity.activity.BaseMaternityFormActivity"
+            android:screenOrientation="portrait"
+            tools:replace="android:theme"
+            android:theme="@style/ChildTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
             android:name="org.smartregister.maternity.activity.BaseMaternityProfileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"

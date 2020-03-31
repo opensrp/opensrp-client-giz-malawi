@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
+import org.smartregister.giz.interactor.MaternityRegisterActivityInteractor;
 import org.smartregister.maternity.contract.MaternityRegisterActivityContract;
 import org.smartregister.maternity.pojos.MaternityEventClient;
 import org.smartregister.maternity.pojos.RegisterParams;
@@ -20,6 +21,12 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
 
     public MaternityRegisterActivityPresenter(@NonNull MaternityRegisterActivityContract.View view, @NonNull MaternityRegisterActivityContract.Model model) {
         super(view, model);
+    }
+
+    @NonNull
+    @Override
+    public MaternityRegisterActivityContract.Interactor createInteractor() {
+        return new MaternityRegisterActivityInteractor();
     }
 
     @Override
