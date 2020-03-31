@@ -821,42 +821,42 @@ actions:
 name: step1_cbc
 description: cbc
 priority: 1
-condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && (!step1_hb_test_type.isEmpty() && step1_hb_test_type.contains('complete_blood_count'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_cbc
 description: cbc
 priority: 1
-condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'complete_blood_count'"
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && (!step2_hb_test_type.isEmpty() && step2_hb_test_type.contains('complete_blood_count'))"
 actions:
 - "isRelevant = true"
 ---
 name: step1_hb_gmeter
 description: hb_gmeter
 priority: 1
-condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'hemocue_haemoglobinometer'"
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && (!step1_hb_test_type.isEmpty() && step1_hb_test_type.contains('hemocue_haemoglobinometer'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_hb_gmeter
 description: hb_gmeter
 priority: 1
-condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'hemocue_haemoglobinometer'"
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && (!step2_hb_test_type.isEmpty() && step2_hb_test_type.contains('hemocue_haemoglobinometer'))"
 actions:
 - "isRelevant = true"
 ---
 name: step1_hb_colour
 description: hb_test_type
 priority: 1
-condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'hb_test_colour_scale'"
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && (!step1_hb_test_type.isEmpty() && step1_hb_test_type.contains('hb_test_colour_scale'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_hb_colour
 description: hb_test_type
 priority: 1
-condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'hb_test_colour_scale'"
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && (!step2_hb_test_type.isEmpty() && step2_hb_test_type.contains('hb_test_colour_scale'))"
 actions:
 - "isRelevant = true"
 ---
@@ -884,14 +884,14 @@ actions:
 name: step1_ht
 description: ht
 priority: 1
-condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && (!step1_hb_test_type.isEmpty() && step1_hb_test_type.contains('complete_blood_count'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_ht
 description: ht
 priority: 1
-condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'complete_blood_count'"
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && (!step2_hb_test_type.isEmpty() && step2_hb_test_type.contains('complete_blood_count'))"
 actions:
 - "isRelevant = true"
 ---
@@ -912,14 +912,14 @@ actions:
 name: step1_wbc
 description: wbc
 priority: 1
-condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && (!step1_hb_test_type.isEmpty() && step1_hb_test_type.contains('complete_blood_count'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_wbc
 description: wbc
 priority: 1
-condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'complete_blood_count'"
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && (!step2_hb_test_type.isEmpty() && step2_hb_test_type.contains('complete_blood_count'))"
 actions:
 - "isRelevant = true"
 ---
@@ -940,14 +940,14 @@ actions:
 name: step1_platelets
 description: platelets
 priority: 1
-condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && step1_hb_test_type == 'complete_blood_count'"
+condition: "(step1_hb_test_status == 'done_today' || step1_hb_test_status == 'done_earlier') && (!step1_hb_test_type.isEmpty() && step1_hb_test_type.contains('complete_blood_count'))"
 actions:
 - "isRelevant = true"
 ---
 name: step2_platelets
 description: platelets
 priority: 1
-condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && step2_hb_test_type == 'complete_blood_count'"
+condition: "(step2_hb_test_status == 'done_today' || step2_hb_test_status == 'done_earlier') && (!step2_hb_test_type.isEmpty() && step2_hb_test_type.contains('complete_blood_count'))"
 actions:
 - "isRelevant = true"
 ---

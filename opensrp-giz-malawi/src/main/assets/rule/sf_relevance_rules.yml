@@ -71,9 +71,16 @@ actions:
   - "isRelevant = true"
 ---
 name: step3_other_sym_vvo
+description: Varicose Veins
+priority: 1
+condition: "(!step3_phys_symptoms_persist.isEmpty() && (step3_phys_symptoms_persist.contains('varicose_veins')))"
+actions:
+  - "isRelevant = true"
+---
+name: step3_other_sym_vvo_oedema
 description: Oedema symptoms
 priority: 1
-condition: "(!step3_phys_symptoms_persist.isEmpty() && (step3_phys_symptoms_persist.contains('varicose_veins') || step3_phys_symptoms_persist.contains('oedema')))"
+condition: "(!step3_phys_symptoms_persist.isEmpty() && (step3_phys_symptoms_persist.contains('oedema')))"
 actions:
   - "isRelevant = true"
 ---
@@ -99,9 +106,16 @@ actions:
   - "isRelevant = true"
 ---
 name: step4_other_sym_vvo
+description: Varicose Veins
+priority: 1
+condition: "(!step4_phys_symptoms_persist.isEmpty() && (step4_phys_symptoms_persist.contains('varicose_veins')))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_other_sym_vvo_oedema
 description: Oedema symptoms
 priority: 1
-condition: "(!step4_phys_symptoms.isEmpty() && (step4_phys_symptoms.contains('varicose_veins') || step4_phys_symptoms.contains('oedema')))"
+condition: "(!step4_phys_symptoms_persist.isEmpty() && (step4_phys_symptoms_persist.contains('oedema')))"
 actions:
   - "isRelevant = true"
 ---

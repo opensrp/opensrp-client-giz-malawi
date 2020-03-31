@@ -174,7 +174,7 @@
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "165397AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "native_radio",
+      "type": "check_box",
       "label": "Blood haemoglobin test type",
       "label_info_text": "Complete blood count test is the preferred method for testing for anaemia in pregnancy. If complete blood count test is not available, haemoglobinometer is recommended over haemoglobin colour scale.",
       "label_info_title": "Blood haemoglobin test type",

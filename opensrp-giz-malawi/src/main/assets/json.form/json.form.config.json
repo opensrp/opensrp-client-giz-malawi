@@ -11,7 +11,6 @@
     "hidden_fields": [],
     "disabled_fields": [
       "hepatitis_b_info_toaster",
-      "accordion_hepatitis_c",
       "syphilis_greater_5_toaster",
       "syphilis_below_5_toaster",
       "lab_syphilis_test",

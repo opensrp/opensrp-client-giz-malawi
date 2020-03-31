@@ -95,6 +95,7 @@
     "other_substance_use",
     "partner_hiv_status",
     "religion",
+    "religion_other",
     "last_live_birth_preterm",
     "shs_exposure",
     "condom_use"
@@ -146,6 +147,7 @@
     "lmp_ultrasound_gest_age_selection",
     "sfh_ultrasound_gest_age_selection",
     "religion",
+    "religion_other",
     "last_live_birth_preterm",
     "shs_exposure",
     "condom_use"
@@ -215,7 +217,14 @@
         "options": [
           {
             "key": "married",
-            "text": "Married or living together",
+            "text": "Married",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "married",
+            "text": "Living together",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1055AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -344,11 +353,65 @@
       {
         "key": "religion",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "",
+        "type": "native_radio",
+        "label": "Religion",
         "hint": "Religion",
-        "edit_type": "name"
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "christian",
+            "text": "Christian",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "muslim",
+            "text": "Muslim",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162933AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "traditional",
+            "text": "Traditional",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "religion_other",
+        "openmrs_entity_parent": "162929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Write in the woman's other religion that is not on the list.",
+        "edit_type": "name",
+        "relevance": {
+          "step1:religion": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
       },
       {
         "openmrs_entity_parent": "",
@@ -2022,6 +2085,20 @@
           },
           {
             "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "repair_of_obstetic_fistula",
+            "text": "Repair of Obstetic Fistula"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "caesarian_section",
+            "text": "Caesarian Section"
+          },
+          {
+            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "other",
@@ -2343,15 +2420,15 @@
         "multi_relevance": true,
         "options": [
           {
-            "key": "3_doses",
-            "text": "3 doses of TDV in past 5 years",
+            "key": "2-4_doses",
+            "text": "2-4 TDV doses received in the past",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "1-4_doses",
-            "text": "1-4 doses of TDV in the past",
+            "key": "1_received",
+            "text": "1 TDV received",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2392,7 +2469,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "1-4_doses",
+                  "1_received",
                   "tdv_not_received",
                   "unknown"
                 ]
@@ -2415,7 +2492,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "3_doses"
+                  "2-4_doses"
                 ]
               }
             ]

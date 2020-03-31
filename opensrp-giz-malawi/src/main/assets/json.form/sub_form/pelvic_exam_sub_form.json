@@ -27,14 +27,6 @@
           "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "smelling_vaginal_discharge",
-          "text": "Foul-smelling vaginal discharge",
-          "value": false,
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
           "key": "erythematous_papules",
           "text": "Clusters of erythematous papules",
           "value": false,

@@ -11,14 +11,6 @@
       "text_color": "#000000",
       "options": [
         {
-          "key": "mass_tumour",
-          "text": "Mass/tumour",
-          "value": false,
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "5103AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165370AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
           "key": "superficial_palpation_pain",
           "text": "Pain on superficial palpation",
           "value": false,

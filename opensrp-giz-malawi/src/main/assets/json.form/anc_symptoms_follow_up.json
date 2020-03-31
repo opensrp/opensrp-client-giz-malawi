@@ -998,7 +998,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Any other symptoms related to varicose veins or oedema?",
+        "label": "Any other symptoms related to varicose veins?",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -1032,7 +1032,57 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify any other symptoms related varicose vein/oedema or select none"
+          "err": "Please specify any other symptoms related varicose veins or select none"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_sym_vvo_oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any other symptoms related to oedema?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_pain",
+            "text": "Leg pain",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_redness",
+            "text": "Leg redness",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please specify any other symptoms related to oedema or select none"
         },
         "relevance": {
           "rules-engine": {
@@ -1530,7 +1580,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "label": "Any other symptoms related to varicose veins or oedema?",
+        "label": "Any other symptoms related to varicose veins?",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -1564,7 +1614,57 @@
         ],
         "v_required": {
           "value": "true",
-          "err": "Please specify any other symptoms related varicose vein/oedema or select none"
+          "err": "Please specify any other symptoms related varicose veins or select none"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "other_sym_vvo_oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "label": "Any other symptoms related to oedema?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_pain",
+            "text": "Leg pain",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "leg_redness",
+            "text": "Leg redness",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165215AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please specify any other symptoms related to oedema or select none"
         },
         "relevance": {
           "rules-engine": {

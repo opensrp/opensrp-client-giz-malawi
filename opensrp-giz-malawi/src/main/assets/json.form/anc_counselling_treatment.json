@@ -3489,6 +3489,102 @@
         }
       },
       {
+        "key": "transport_options",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Transport mode options",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "walk",
+            "text": "Walk",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1613AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "bicycle",
+            "text": "Bicycle",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159748AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "vehicle",
+            "text": "Vehicle",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162712AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "birth_companion",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Birth companion identified?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unknown",
+            "text": "Unknown",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "money_saved",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165581AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Has client saved money in case of emergencies?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unknown",
+            "text": "Unknown",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
         "key": "rh_negative_counsel",
         "openmrs_entity_parent": "165338AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -3691,6 +3787,31 @@
             }
           }
         }
+      },
+      {
+        "key": "partner_present",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "native_radio",
+        "label": "Is the partner present?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
       }
     ]
   },
@@ -5065,6 +5186,54 @@
         }
       },
       {
+        "key": "malaria_counsel_notdone",
+        "openmrs_entity_parent": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "",
+        "type": "native_radio",
+        "label": "Reason",
+        "hint": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "referred_instead",
+            "text": "Referred instead",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "step10:malaria_counsel": {
+            "type": "string",
+            "ex": "equalTo(., \"not_done\")"
+          }
+        }
+      },
+      {
+        "key": "malaria_counsel_notdone_other",
+        "openmrs_entity_parent": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "name",
+        "relevance": {
+          "step10:malaria_counsel_notdone": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
+      {
         "key": "itn_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -5148,54 +5317,6 @@
         "edit_type": "edit_text",
         "relevance": {
           "step10:itn_given_notdone": {
-            "type": "string",
-            "ex": "equalTo(., \"other\")"
-          }
-        }
-      },
-      {
-        "key": "malaria_counsel_notdone",
-        "openmrs_entity_parent": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_data_type": "",
-        "type": "native_radio",
-        "label": "Reason",
-        "hint": "Reason",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "referred_instead",
-            "text": "Referred instead",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "other",
-            "text": "Other (specify)",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "relevance": {
-          "step10:malaria_counsel": {
-            "type": "string",
-            "ex": "equalTo(., \"not_done\")"
-          }
-        }
-      },
-      {
-        "key": "malaria_counsel_notdone_other",
-        "openmrs_entity_parent": "164884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Specify",
-        "edit_type": "name",
-        "relevance": {
-          "step10:malaria_counsel_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }

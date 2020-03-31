@@ -809,14 +809,14 @@ indicators:
   - key: "ME_Total_Number_With_TDV_doses_less_than_2"
     description: "Total number with TDV doses < 2"
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact group by base_entity_id
-                   having sum (case when key = 'tt_immun_status' and value <> '3_doses' then 1 else 0 end) > 0
+                   having sum (case when key = 'tt_immun_status' and value <> '2-4_doses' then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_Total_Number_With_TDV_doses_2_plus"
     description: "Total number with TDV doses  2+"
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact group by base_entity_id
-                   having sum (case when key = 'tt_immun_status' and value = '3_doses' then 1 else 0 end) > 0
+                   having sum (case when key = 'tt_immun_status' and value = '2-4_doses' then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0 ))"
     grouping: "anc"
 

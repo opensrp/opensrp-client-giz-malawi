@@ -2,6 +2,6 @@
 name: step1_danger_signs
 description: danger_signs
 priority: 1
-condition: "!step1_contact_reason.isEmpty()"
+condition: "!step1_contact_reason.isEmpty() || step1_first_contact == 'yes'"
 actions:
   - "isRelevant = true"

@@ -58,6 +58,31 @@
     "title": "Quick Check",
     "fields": [
       {
+        "key": "first_contact",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAn",
+        "type": "native_radio",
+        "hint": "Is this the first contact for the woman?",
+        "label": "Is this the first contact for the woman?",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
         "key": "contact_reason",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -66,13 +91,6 @@
         "label": "Reason for coming to facility",
         "label_text_style": "bold",
         "options": [
-          {
-            "key": "first_contact",
-            "text": "First contact",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165269AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
           {
             "key": "scheduled_contact",
             "text": "Scheduled contact",
@@ -91,6 +109,12 @@
         "v_required": {
           "value": "true",
           "err": "Reason for coming to facility is required"
+        },
+        "relevance": {
+          "step1:first_contact": {
+            "type": "string",
+            "ex": "equalTo(., \"no\")"
+          }
         }
       },
       {
@@ -573,6 +597,14 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "difficulty_breathing",
+            "text": "Difficulty breathing",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "142373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
