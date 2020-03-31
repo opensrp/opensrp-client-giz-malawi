@@ -368,6 +368,11 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                         Hia2Indicator hia2Indicator = hia2IndicatorHashMap.get(reportHia2Indicator.getIndicatorCode());
                         if (hia2Indicator != null) {
                             reportHia2Indicator.setDhisId(hia2Indicator.getDhisId());
+                        } else {
+                            // This enables the server to skip this indicator tally and not crash
+                            // when it tries to compare NULL to "unknown" and throws an NPE
+                            // The server is equipped to handle unknowns and ignore them
+                            reportHia2Indicator.setDhisId("unknown");
                         }
 
                         reportHia2Indicators.add(reportHia2Indicator);
