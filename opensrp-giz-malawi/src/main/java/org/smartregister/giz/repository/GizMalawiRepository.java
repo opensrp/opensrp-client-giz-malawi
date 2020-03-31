@@ -96,7 +96,7 @@ public class GizMalawiRepository extends Repository {
         OpdTestConductedRepository.createTable(database);
         OpdServiceDetailRepository.createTable(database);
         ClientRegisterTypeRepository.createTable(database);
-
+        ChildAlertUpdatedRepository.createTable(database);
         //reporting
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
@@ -165,6 +165,7 @@ public class GizMalawiRepository extends Repository {
 
 //        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
+
     }
 
     @Override

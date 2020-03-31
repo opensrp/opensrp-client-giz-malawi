@@ -100,34 +100,35 @@
       {
         "key": "reaction",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "149254AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "",
         "type": "check_box",
         "label": "Select the reaction",
         "hint": "Select the reaction",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "bold",
         "options": [
           {
             "key": "bacteria_abscesses",
             "text": "Minor AEFI Bacteria abscesses",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "150632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "lymphadenitis",
             "text": "Minor AEFI Lymphadenitis",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "116190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sepsis",
             "text": "Minor AEFI Sepsis",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "126721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "local_reaction",
@@ -147,57 +148,57 @@
             "key": "death",
             "text": "Serious AEFI Death",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "154223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "encephalopathy",
             "text": "Serious AEFI Encephalopathy",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "high_fever ",
             "text": "Serious AEFI High fever > 38 Degrees Celcius",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "paralysis",
             "text": "Serious AEFI Paralysis",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "seizures",
             "text": "Serious AEFI Seizures",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "206AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "birth_defect",
             "text": "Serious AEFI Significant Disability",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "toxic_shock_syndrome",
             "text": "Serious AEFI Toxic shock syndrome",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "24419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
             "text": "Other (specify)",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {
@@ -207,9 +208,9 @@
       },
       {
         "key": "other_reaction",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "149254AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Other Reaction",
@@ -229,7 +230,7 @@
         "key": "child_referred",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "163340AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1788AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_data_type": "select one",
         "type": "native_radio",
         "label": "Child Referred?",
@@ -240,14 +241,14 @@
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "No",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -266,14 +267,14 @@
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "No",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "163339AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       }

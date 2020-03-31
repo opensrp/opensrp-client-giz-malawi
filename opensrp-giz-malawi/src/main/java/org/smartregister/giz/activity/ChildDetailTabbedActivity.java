@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.cloudant.sync.sqlite.sqlite4java.DBUtils;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
@@ -16,6 +17,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.child.activity.BaseChildDetailTabbedActivity;
 import org.smartregister.child.fragment.StatusEditDialogFragment;
 import org.smartregister.child.task.LoadAsyncTask;
+import org.smartregister.child.util.DbUtils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.ChildRegistrationDataFragment;
 import org.smartregister.giz.util.GizJsonFormUtils;
@@ -71,10 +73,9 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         super.onOptionsItemSelected(item);
-
-        detailsMap = getChildDetails().getColumnmaps();
+        detailsMap = DbUtils.fetchChildDetails(getChildDetails().entityId());
+        detailsMap.putAll(DbUtils.fetchChildFirstGrowthAndMonitoring(getChildDetails().entityId()));
 
         switch (item.getItemId()) {
             case R.id.registration_data:
@@ -166,6 +167,11 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, formData);
 
         startActivityForResult(intent, REQUEST_CODE_GET_JSON);
+    }
+
+    @Override
+    public void onRegistrationSaved(boolean isEdit) {
+        super.onRegistrationSaved(isEdit);
     }
 
     @Override

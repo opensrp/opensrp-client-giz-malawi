@@ -115,6 +115,7 @@ public class GizConstants {
         public static final String CHILD = "ec_client";
         public static final String ALL_CLIENTS = "ec_client";
         public static final String REGISTER_TYPE = "client_register_type";
+        public static final String CHILD_UPDATED_ALERTS = "child_updated_alerts";
     }
 
     public interface Columns {

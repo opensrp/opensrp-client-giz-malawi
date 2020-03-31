@@ -70,7 +70,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private HashMap<String, MiniClientProcessorForJava> processorMap = new HashMap<>();
     private HashMap<MiniClientProcessorForJava, List<Event>> unsyncEventsPerProcessor = new HashMap<>();
-    AppExecutors appExecutors = new AppExecutors();
+    private AppExecutors appExecutors = new AppExecutors();
     private HashMap<String, DateTime> clientsForAlertUpdates = new HashMap<>();
 
     private GizMalawiProcessorForJava(Context context) {
@@ -102,7 +102,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @Override
-    public  void processClient(List<EventClient> eventClients) throws Exception {
+    public void processClient(List<EventClient> eventClients) throws Exception {
         long start = System.currentTimeMillis();
         Timber.d("Starting event %d", start);
 
@@ -203,7 +203,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
-        HashMap<String, DateTime>  stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
+        HashMap<String, DateTime> stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
         for (String baseEntityId : stringDateTimeHashMap.keySet()) {
             DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
             if (birthDateTime != null) {
@@ -678,10 +678,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName)) {
             String dobString = contentValues.getAsString(Constants.KEY.DOB);
             // TODO: Fix this to use the ec_child_details table & fetch the birthDateTime from the ec_client table
-            DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
-            if (birthDateTime != null) {
-                VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, "child");
-                ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
+            if (StringUtils.isNotBlank(dobString)) {
+                DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
+                if (birthDateTime != null) {
+                    VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, "child");
+                    ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
+                }
             }
         }
 

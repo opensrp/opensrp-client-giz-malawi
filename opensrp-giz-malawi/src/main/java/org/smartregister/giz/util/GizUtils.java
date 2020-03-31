@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -18,7 +19,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -32,16 +32,16 @@ import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.widget.GizTreeViewDialog;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.AssetHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -158,7 +158,7 @@ public class GizUtils extends Utils {
     }
 
     @NonNull
-    public static Locale getLocale(Context context){
+    public static Locale getLocale(Context context) {
         if (context == null) {
             return Locale.getDefault();
         } else {
@@ -218,28 +218,41 @@ public class GizUtils extends Utils {
     }
 
 
-    public static JSONObject getFormConfig(@NonNull String formName, String configLocation, Context context) throws JSONException {
-        String fileContent = AssetHandler.readFileFromAssetsFolder(configLocation, context);
-        if (StringUtils.isNotBlank(fileContent)) {
-            JSONArray jsonArray = new JSONArray(fileContent);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.optJSONObject(i);
-                if (formName.equals(jsonObject.optString("form_name"))) {
-                    return jsonObject;
-                }
-            }
+    public static void startReportJob(Context context) {
+        String reportJobExecutionTime = GizMalawiApplication.getInstance().context().allSharedPreferences().getPreference("report_job_execution_time");
+        if (StringUtils.isBlank(reportJobExecutionTime) || timeBetweenLastExecutionAndNow(30, reportJobExecutionTime)) {
+            GizMalawiApplication.getInstance().context().allSharedPreferences().savePreference("report_job_execution_time", String.valueOf(System.currentTimeMillis()));
+            Toast.makeText(context, "Reporting Job Has Started, It will take some time", Toast.LENGTH_LONG).show();
+            RecurringIndicatorGeneratingJob.scheduleJobImmediately(RecurringIndicatorGeneratingJob.TAG);
+        } else {
+            Toast.makeText(context, "Reporting Job Has Already Been Started, Try again in 30 mins", Toast.LENGTH_LONG).show();
         }
-        return null;
     }
 
-    public static Set<String> convertStringJsonArrayToSet(@Nullable JSONArray jsonArray) {
-        if (jsonArray != null) {
-            Set<String> strings = new HashSet<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                strings.add(jsonArray.optString(i));
-            }
-            return strings;
+    public static boolean timeBetweenLastExecutionAndNow(int i, String reportJobExecutionTime) {
+        try {
+            long executionTime = Long.parseLong(reportJobExecutionTime);
+            long now = System.currentTimeMillis();
+            long diffNowExecutionTime = now - executionTime;
+            return TimeUnit.MILLISECONDS.toMinutes(diffNowExecutionTime) > i;
+        } catch (NumberFormatException e) {
+            Timber.e(e);
+            return false;
         }
-        return null;
+    }
+
+    public static boolean getSyncStatus() {
+        String synComplete = GizMalawiApplication.getInstance().context().allSharedPreferences().getPreference("syncComplete");
+        boolean isSyncComplete = false;
+        if (StringUtils.isBlank(synComplete)) {
+            GizMalawiApplication.getInstance().context().allSharedPreferences().savePreference("syncComplete", String.valueOf(false));
+        } else {
+            isSyncComplete = Boolean.parseBoolean(synComplete);
+        }
+        return isSyncComplete;
+    }
+
+    public static void updateSyncStatus(boolean isComplete) {
+        GizMalawiApplication.getInstance().context().allSharedPreferences().savePreference("syncComplete", String.valueOf(isComplete));
     }
 }

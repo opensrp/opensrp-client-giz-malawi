@@ -39,10 +39,11 @@
           }
         },
         {
-          "column_name": "national_id",
-          "type": "Client",
+          "column_name": "bht_mid",
+          "type": "Event",
           "json_mapping": {
-            "field": "attributes.national_id"
+            "field": "obs.fieldCode",
+            "concept": "5325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -99,6 +100,14 @@
           "type": "Client",
           "json_mapping": {
             "field": "middleName"
+          }
+        },
+        {
+          "column_name": "national_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
@@ -187,17 +196,18 @@
           }
         },
         {
-          "column_name": "home_address",
-          "type": "Client",
+          "column_name": "village",
+          "type": "Event",
           "json_mapping": {
-            "field": "addresses.address1"
+            "field": "obs.fieldCode",
+            "concept": "1354AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
           "column_name": "village",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.village"
+            "field": "addresses.address1"
           }
         },
         {

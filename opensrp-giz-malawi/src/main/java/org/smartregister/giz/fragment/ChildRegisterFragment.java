@@ -6,16 +6,20 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.fragment.BaseChildRegisterFragment;
 import org.smartregister.child.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.model.ChildRegisterFragmentModel;
 import org.smartregister.giz.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.giz.util.DBQueryHelper;
+import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -23,6 +27,8 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+
+import timber.log.Timber;
 
 public class ChildRegisterFragment extends BaseChildRegisterFragment implements CompoundButton.OnCheckedChangeListener {
     private View view;
@@ -54,22 +60,26 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
                 filterSection.setTag(tagString);
                 filterSection.setBackgroundResource(R.drawable.transparent_clicked_background);
 
-                Calendar calendar = Calendar.getInstance();
+                initiateReportJob();
 
-                if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
-                    calendar.set(Calendar.HOUR_OF_DAY, 1);
-                    long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis())/ TimeUnit.HOURS.toMillis(1);
-
-                    if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM)) {
-                        Toast.makeText(getContext(), R.string.vaccine_schedule_update_wait_message, Toast.LENGTH_LONG)
-                                .show();
-                        VaccineSchedulesUpdateJob.scheduleJobImmediately();
-                    }
-                }
             } else if (filterSection.getTag().toString().equals(tagString)) {
                 filter("", "", " ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) ", false);
                 filterSection.setTag(null);
                 filterSection.setBackgroundResource(R.drawable.transparent_gray_background);
+            }
+        }
+    }
+
+    private void initiateReportJob() {
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
+            calendar.set(Calendar.HOUR_OF_DAY, 1);
+            long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis()) / TimeUnit.HOURS.toMillis(1);
+
+            if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM)) {
+                Toast.makeText(getContext(), R.string.vaccine_schedule_update_wait_message, Toast.LENGTH_LONG)
+                        .show();
+                VaccineSchedulesUpdateJob.scheduleJobImmediately();
             }
         }
     }
@@ -164,5 +174,10 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         toggleFilterSelection();
+    }
+
+    @Override
+    public void onSyncStart() {
+        super.onSyncStart();
     }
 }

@@ -249,8 +249,8 @@
       {
         "key": "muac",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "MUAC",
         "label_text_style": "bold",
@@ -263,25 +263,25 @@
             "key": "red",
             "text": "Red",
             "value": false,
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity_id": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity":"concept"
           },
           {
             "key": "yellow",
             "text": "Yellow",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "green",
             "text": "Green",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },

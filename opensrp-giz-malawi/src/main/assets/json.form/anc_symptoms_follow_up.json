@@ -1432,8 +1432,8 @@
             "key": "other",
             "text": "Other(specify)",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           }
         ],
@@ -1445,8 +1445,8 @@
       {
         "key": "phys_symptoms_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Specify",
         "relevance": {

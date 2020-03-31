@@ -39,6 +39,7 @@ import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.processor.TripleResultProcessor;
+import org.smartregister.giz.repository.ChildAlertUpdatedRepository;
 import org.smartregister.giz.repository.ClientRegisterTypeRepository;
 import org.smartregister.giz.repository.DailyTalliesRepository;
 import org.smartregister.giz.repository.GizAncRegisterQueryProvider;
@@ -113,6 +114,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ECSyncHelper ecSyncHelper;
 
     private ClientRegisterTypeRepository registerTypeRepository;
+    private ChildAlertUpdatedRepository childAlertUpdatedRepository;
     private static List<VaccineGroup> vaccineGroups;
 
     public static JsonSpecHelper getJsonSpecHelper() {
@@ -536,6 +538,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             this.registerTypeRepository = new ClientRegisterTypeRepository();
         }
         return this.registerTypeRepository;
+    }
+
+    public ChildAlertUpdatedRepository alertUpdatedRepository() {
+        if (childAlertUpdatedRepository == null) {
+            this.childAlertUpdatedRepository = new ChildAlertUpdatedRepository();
+        }
+        return this.childAlertUpdatedRepository;
     }
 }
 

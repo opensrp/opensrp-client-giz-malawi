@@ -57,14 +57,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
             intent.putExtra(GizConstants.IntentKeyUtil.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         }
-        try {
-            DBQueryHelper.removeIndicators(
-                    GizMalawiApplication
-                            .getInstance()
-                            .context().getEventClientRepository().getWritableDatabase());
-        } catch (Exception e) {
-            Timber.e(e);
-        }
+
         finish();
     }
 

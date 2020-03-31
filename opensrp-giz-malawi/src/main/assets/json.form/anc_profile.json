@@ -192,8 +192,8 @@
             "openmrs_entity_id": "1714AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "higher",
-            "text": "Higher",
+            "key": "tertiary",
+            "text": "Tertiary",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160292AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -231,8 +231,8 @@
             "key": "married_not_living_together",
             "text": "Married & Not Living Together",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "single",
@@ -1304,8 +1304,8 @@
           {
             "key": "dont_know",
             "text": "Don't know",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
@@ -1566,10 +1566,17 @@
           },
           {
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "key": "fistula",
-            "text": "Fistula"
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "rectovaginal_fistula",
+            "text": "Rectovaginal fistula"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "49AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "vesicovaginal_fistula",
+            "text": "Vesico-vaginal fistula"
           },
           {
             "openmrs_entity_parent": "",

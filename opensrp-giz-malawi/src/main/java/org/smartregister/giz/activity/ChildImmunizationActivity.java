@@ -17,11 +17,14 @@ import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.repository.ChildAlertUpdatedRepository;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+
+import timber.log.Timber;
 
 public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     @Override
@@ -126,17 +129,19 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
 
     @Override
     public void updateScheduleDate() {
-        Calendar calendar = Calendar.getInstance();
-
-        if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
-            calendar.set(Calendar.HOUR_OF_DAY, 1);
-            long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis()) / TimeUnit.HOURS.toMillis(1);
-
-            if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM)) {
-//                Toast.makeText(getApplicationContext(), R.string.vaccine_schedule_update_wait_message, Toast.LENGTH_LONG)
-//                        .show();
-                super.updateScheduleDate();
+        try {
+            Calendar calendar = Calendar.getInstance();
+            if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
+                calendar.set(Calendar.HOUR_OF_DAY, 1);
+                long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis()) / TimeUnit.HOURS.toMillis(1);
+                if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM) && !GizMalawiApplication.getInstance().alertUpdatedRepository().findOne(childDetails.entityId())) {
+                    super.updateScheduleDate();
+                    GizMalawiApplication.getInstance().alertUpdatedRepository().saveOrUpdate(childDetails.entityId());
+                }
             }
+        }
+        catch (Exception e){
+            Timber.e(e);
         }
     }
 }

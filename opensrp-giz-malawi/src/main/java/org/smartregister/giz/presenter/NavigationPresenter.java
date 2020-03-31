@@ -94,7 +94,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
         HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
         VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
-        RecurringIndicatorGeneratingJob.scheduleJobImmediately(RecurringIndicatorGeneratingJob.TAG);
+//        RecurringIndicatorGeneratingJob.scheduleJobImmediately(RecurringIndicatorGeneratingJob.TAG);
     }
 
     @Override

@@ -2397,9 +2397,9 @@
       },
       {
         "key": "syphilis_benzathine1",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Syphilis treatment - 2.4 mg benzathine 1st dose",
         "label_info_title": "Syphilis treatment - 2.4 mg benzathine 1st dose",
@@ -2430,9 +2430,9 @@
       },
       {
         "key": "syphilis_benzathine2",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Syphilis treatment - 2.4 mg benzathine 2nd dose",
         "label_info_title": "Syphilis treatment - 2.4 mg benzathine 2nd dose",
@@ -2463,9 +2463,9 @@
       },
       {
         "key": "syphilis_benzathine3",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "164464AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Syphilis treatment - 2.4 mg benzathine 3rd dose",
         "label_info_title": "Syphilis treatment - 2.4 mg benzathine 3rd dose",
@@ -5067,8 +5067,8 @@
       {
         "key": "itn_given",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Insecticide Treated Net (ITN) given",
         "label_info_text": "",
@@ -5079,15 +5079,15 @@
             "key": "done",
             "text": "Done",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "not_done",
             "text": "Not done",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -5101,9 +5101,9 @@
       },
       {
         "key": "itn_given_notdone",
-        "openmrs_entity_parent": "159617AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "160427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165182AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Reason",
         "label_text_style": "bold",
@@ -5113,14 +5113,14 @@
             "text": "Stock out",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "already_given",
             "text": "Already given",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
@@ -5140,7 +5140,7 @@
       },
       {
         "key": "itn_given_notdone_other",
-        "openmrs_entity_parent": "",
+        "openmrs_entity_parent": "160427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "edit_text",
@@ -5585,8 +5585,8 @@
       {
         "key": "anti_d1_date",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Anti-D immunoglobulin prophylaxis 1st dose",
         "label_info_title": "Anti-D immunoglobulin prophylaxis 1st dose",
@@ -5597,21 +5597,21 @@
             "text": "Done today",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "done_earlier",
             "text": "Done earlier",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "not_done",
             "text": "Not done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
@@ -5659,8 +5659,8 @@
       {
         "key": "anti_d2_date",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Anti-D immunoglobulin prophylaxis 2nd dose",
         "label_info_title": "Anti-D immunoglobulin prophylaxis 2nd dose",
@@ -5671,21 +5671,21 @@
             "text": "Done today",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "165229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "done_earlier",
             "text": "Done earlier",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160699AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "not_done",
             "text": "Not done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "165228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
@@ -5698,9 +5698,9 @@
       },
       {
         "key": "anti_d2_dose_number",
-        "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_parent": "160707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "165358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1418AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "hidden",
         "calculation": {
           "rules-engine": {
@@ -5712,9 +5712,9 @@
       },
       {
         "key": "anti_d2_date_done",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "160707AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Date that gets recorded for anti-D dose 2.",
         "expanded": "false",
