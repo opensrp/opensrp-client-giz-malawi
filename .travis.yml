@@ -28,6 +28,11 @@ android:
     - extra-android-m2repository
 
 script:
+  - cd ..
+  - git clone https://github.com/OpenSRP/opensrp-client-maternity.git
+  - cd opensrp-client-maternity
+  - git checkout add-maternity-library
+  - cd ../opensrp-client-giz-malawi
   - echo "Travis branch is $TRAVIS_BRANCH"
   - echo "Travis branch is in pull request $TRAVIS_PULL+REQUEST"
   - chmod 755 gradlew

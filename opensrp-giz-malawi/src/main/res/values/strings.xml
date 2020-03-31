@@ -124,6 +124,7 @@
     <string name="bcg">BCG</string>
 
     <string name="menu_anc_clients">ANC Clients</string>
+    <string name="menu_maternity_clients">Maternity Clients</string>
     <string name="due_only">Due Only</string>
     <string name="anc_register">ANC Register</string>
 
