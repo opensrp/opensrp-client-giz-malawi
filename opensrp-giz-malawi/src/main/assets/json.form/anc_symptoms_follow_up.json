@@ -1243,13 +1243,13 @@
         }
       },
       {
-        "key": "toaster12",
+        "key": "toaster12_other_sym_vvo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Non-pharmacological options for varicose veins and oedema counseling",
-        "toaster_info_text": "Counsel pregnant women on non-pharmacological options, such as compression stockings, leg elevation and water immersion for the management of varicose veins and oedema.\n\nWomen should be informed that symptoms associated with varicose veins may worsen as pregnancy progresses but that most women will experience some improvement within a few months of giving birth.\n\nRest, leg elevation and water immersion are low-cost interventions that are unlikely to be harmful.",
+        "text": "Non-pharmacological options for varicose veins counseling",
+        "toaster_info_text": "Counsel pregnant women on non-pharmacological options, such as compression stockings, leg elevation and water immersion for the management of varicose veins oedema.\n\nWomen should be informed that symptoms associated with varicose veins may worsen as pregnancy progresses but that most women will experience some improvement within a few months of giving birth.\n\nRest, leg elevation and water immersion are low-cost interventions that are unlikely to be harmful.",
         "text_color": "#4855B3",
         "toaster_type": "info",
         "relevance": {
@@ -1261,16 +1261,56 @@
         }
       },
       {
-        "key": "toaster13",
+        "key": "toaster12_other_sym_vvo_oedema",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
+        "text": "Non-pharmacological options for oedema counseling",
+        "toaster_info_text": "Counsel pregnant women on non-pharmacological options, such as compression stockings, leg elevation and water immersion for the management of oedema.\n\nWomen should be informed that symptoms associated with varicose veins may worsen as pregnancy progresses but that most women will experience some improvement within a few months of giving birth.\n\nRest, leg elevation and water immersion are low-cost interventions that are unlikely to be harmful.",
+        "text_color": "#4855B3",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster13_other_sym_vvo",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please investigate any possible complications, including thrombosis, related to varicose veins",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
           "step3:other_sym_vvo": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_pain",
+                  "leg_redness"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster13_other_sym_vvo_oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please investigate any possible complications, including thrombosis, related to oedema",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step3:other_sym_vvo_oedema": {
             "ex-checkbox": [
               {
                 "or": [
@@ -1843,16 +1883,38 @@
         }
       },
       {
-        "key": "toaster22",
+        "key": "toaster22_other_sym_vvo",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Please investigate any possible complications, including thrombosis, related to varicose veins and oedema",
+        "text": "Please investigate any possible complications, including thrombosis, related to varicose veins",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
           "step4:other_sym_vvo": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "leg_pain",
+                  "leg_redness"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "toaster22_other_sym_vvo_oedema",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Please investigate any possible complications, including thrombosis, related to oedema",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "step4:other_sym_vvo_oedema": {
             "ex-checkbox": [
               {
                 "or": [

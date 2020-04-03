@@ -9,9 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
-import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
-import org.smartregister.child.util.DbMigrations;
+import org.smartregister.child.util.ChildDbMigrations;
 import org.smartregister.child.util.Utils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.domain.db.Column;
@@ -153,7 +152,7 @@ public class GizMalawiRepository extends Repository {
                     upgradeToVersion8AddServiceGroupColumn(db);
                     break;
                 case 9:
-                    DbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
+                    ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
                     break;
                 default:
                     break;
@@ -161,7 +160,7 @@ public class GizMalawiRepository extends Repository {
             upgradeTo++;
         }
 
-        DbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
+        ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
 
 //        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
@@ -339,7 +338,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
 
         } catch (Exception e) {
-            Timber.e(e,"upgradeToVersion7");
+            Timber.e(e, "upgradeToVersion7");
         }
     }
 
@@ -386,7 +385,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
         } catch (Exception e) {
-            Timber.e(e,"upgradeToVersion7VaccineRecurringServiceRecordChange");
+            Timber.e(e, "upgradeToVersion7VaccineRecurringServiceRecordChange");
         }
     }
 

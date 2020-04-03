@@ -71,7 +71,11 @@
     "hepc_positive",
     "syph_test_status",
     "ultrasound",
-    "hepb_positive"
+    "hepb_positive",
+    "malaria_test_status",
+    "malaria_test_type",
+    "malaria_test_result",
+    "malaria_test_type"
   ],
   "step1": {
     "title": "Due",
@@ -226,6 +230,16 @@
             }
           }
         }
+      },
+      {
+        "key": "accordion_malaria",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Malaria test",
+        "type": "expansion_panel",
+        "content_form": "tests_malaria_sub_form",
+        "container": "anc_test"
       },
       {
         "key": "accordion_tb_screening",

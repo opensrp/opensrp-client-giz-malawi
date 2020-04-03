@@ -13,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.child.util.ChildDbUtils;
 import org.smartregister.child.util.Constants;
-import org.smartregister.child.util.DbUtils;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.MoveToMyCatchmentUtils;
 import org.smartregister.child.util.Utils;
@@ -567,7 +567,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             date = eventDate.getMillis();
         }
 
-        DbUtils.updateChildDetailsValue(Constants.SHOW_BCG_SCAR, String.valueOf(date), baseEntityId);
+        ChildDbUtils.updateChildDetailsValue(Constants.SHOW_BCG_SCAR, String.valueOf(date), baseEntityId);
     }
 
     private boolean unSync(List<Event> events) {

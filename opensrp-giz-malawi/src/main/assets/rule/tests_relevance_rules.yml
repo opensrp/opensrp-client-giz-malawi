@@ -1104,3 +1104,45 @@ priority: 1
 condition: "step2_other_test == 'done_earlier' || step2_other_test == 'done_today'"
 actions:
 - "isRelevant = true"
+---
+name: step1_malaria_test_notdone
+description: malaria test notdone
+priority: 1
+condition: "(step1_malaria_test_status == 'not_done')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_test_date
+description: malaria_test_date
+priority: 1
+condition: "(step1_malaria_test_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_test_type
+description: malaria_test_type
+priority: 1
+condition: "(step1_malaria_test_status == 'done_earlier' || step1_malaria_test_status == 'done_today')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_test_notdone_other
+description: malaria_test_notdone_other
+priority: 1
+condition: "(!step1_malaria_test_notdone.isEmpty() && step1_malaria_test_notdone.contains('other'))"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_test_result
+description: malaria_test_result
+priority: 1
+condition: "(step1_malaria_test_type == 'microscopy' || step1_malaria_test_type == 'mrdt')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_malaria_danger_toaster
+description: malaria_danger_toaster
+priority: 1
+condition: "(step1_malaria_test_result == 'positive')"
+actions:
+  - "isRelevant = true"

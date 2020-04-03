@@ -30,6 +30,9 @@ public class GizJsonFormUtils extends JsonFormUtils {
 
     public static String getMetadataForEditForm(Context context, Map<String, String> childDetails, List<String> nonEditableFields) {
         try {
+            if (nonEditableFields != null && !nonEditableFields.isEmpty()) {
+                nonEditableFields.remove("Date_Birth");
+            }
             JSONObject birthRegistrationForm = FormUtils.getInstance(context)
                     .getFormJson(Utils.metadata().childRegister.formName);
             updateRegistrationEventType(birthRegistrationForm);

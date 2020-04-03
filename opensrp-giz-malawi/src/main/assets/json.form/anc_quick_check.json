@@ -80,7 +80,14 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "contact_reason",
@@ -111,9 +118,10 @@
           "err": "Reason for coming to facility is required"
         },
         "relevance": {
-          "step1:first_contact": {
-            "type": "string",
-            "ex": "equalTo(., \"no\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "quick_check_relevance_rules.yml"
+            }
           }
         }
       },
