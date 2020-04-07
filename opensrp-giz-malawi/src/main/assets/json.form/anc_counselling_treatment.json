@@ -5767,9 +5767,10 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step11:anti_d1_date": {
-            "type": "string",
-            "ex": "equalTo(., \"done\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
           }
         },
         "v_required": {
@@ -5841,9 +5842,10 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step11:anti_d1_date": {
-            "type": "string",
-            "ex": "equalTo(., \"done\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
           }
         },
         "v_required": {

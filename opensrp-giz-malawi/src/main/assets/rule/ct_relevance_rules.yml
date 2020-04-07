@@ -684,3 +684,17 @@ priority: 1
 condition: "step10_itn_given == 'not_done'"
 actions:
   - "isRelevant = true"
+---
+name: step11_anti_d2_date_done
+description: Date anti_d2_date_done given
+priority: 1
+condition: "(step11_anti_d2_date_done != '') && (step11_anti_d2_date_done == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step11_anti_d1_date_done
+description: Date anti_d1_date_done given
+priority: 1
+condition: "(step11_anti_d1_date_done != '') && (step11_anti_d1_date_done == 'done_earlier')"
+actions:
+  - "isRelevant = true"

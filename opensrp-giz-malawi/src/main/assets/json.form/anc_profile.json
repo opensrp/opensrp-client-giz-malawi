@@ -2795,8 +2795,8 @@
             "openmrs_entity_parent": ""
           },
           {
-            "key": "anti_convulsive",
-            "text": "Anti-convulsive",
+            "key": "anti_convulsants",
+            "text": "Anti-convulsants",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2864,6 +2864,14 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "anti_psychotic",
+            "text": "Anti-Psychotic",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
