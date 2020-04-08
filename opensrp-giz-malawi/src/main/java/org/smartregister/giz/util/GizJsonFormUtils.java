@@ -29,13 +29,8 @@ import timber.log.Timber;
 public class GizJsonFormUtils extends JsonFormUtils {
 
     public static String getMetadataForEditForm(Context context, Map<String, String> childDetails, List<String> nonEditableFields) {
-        try {
-            List<String> nonEditableFieldsArrayList = new ArrayList<>();
-            if (nonEditableFields != null && !nonEditableFields.isEmpty()) {
-                nonEditableFieldsArrayList = new ArrayList<>(nonEditableFields);
-                nonEditableFieldsArrayList.remove("Date_Birth");
-            }
 
+        try {
             JSONObject birthRegistrationForm = FormUtils.getInstance(context)
                     .getFormJson(Utils.metadata().childRegister.formName);
             updateRegistrationEventType(birthRegistrationForm);
@@ -59,7 +54,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
                 //inject zeir id into the birthRegistrationForm
                 JSONObject stepOne = birthRegistrationForm.getJSONObject(JsonFormUtils.STEP1);
                 JSONArray jsonArray = stepOne.getJSONArray(JsonFormUtils.FIELDS);
-                updateFormDetailsForEdit(childDetails, jsonArray, nonEditableFieldsArrayList);
+                updateFormDetailsForEdit(childDetails, jsonArray, nonEditableFields);
                 return birthRegistrationForm.toString();
             }
         } catch (Exception e) {

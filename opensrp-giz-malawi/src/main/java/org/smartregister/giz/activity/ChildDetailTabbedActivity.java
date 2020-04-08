@@ -39,7 +39,7 @@ import static org.smartregister.giz.util.GizUtils.setAppLocale;
  * Created by ndegwamartin on 06/03/2019.
  */
 public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
-    private static List<String> nonEditableFields = Arrays.asList("Date_Birth", "Sex", "zeir_id", "Birth_Weight", "Birth_Height");
+    private static List<String> nonEditableFields = Arrays.asList("Sex", "zeir_id", "Birth_Weight", "Birth_Height");
 
     @Override
     protected void attachBaseContext(android.content.Context base) {
