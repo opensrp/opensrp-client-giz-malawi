@@ -383,6 +383,13 @@
             "openmrs_entity_id": ""
           },
           {
+            "key": "pagan",
+            "text": "Pagan",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
             "key": "none",
             "text": "None",
             "openmrs_entity_parent": "",
@@ -1346,7 +1353,7 @@
         "key": "last_live_birth_preterm",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "",
+        "openmrs_entity_id": "129218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Was the last live birth preterm (less than 37 weeks)?",
         "text_color": "#000000",
@@ -1640,6 +1647,20 @@
             "openmrs_entity_id": "49AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "vesicovaginal_fistula",
             "text": "Vesico-vaginal fistula"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "ectopic_pregnancy",
+            "text": "Ectopic pregnancy"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "abortions",
+            "text": "Abortions"
           },
           {
             "openmrs_entity_parent": "",
@@ -2100,6 +2121,13 @@
           {
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
+            "openmrs_entity_id": "127246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "raptured_ectopic_pregnancy",
+            "text": "Raptured Ectopic Pregnancy"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "other",
             "text": "Other surgeries (specify)"
@@ -2253,6 +2281,20 @@
             "openmrs_entity_id": "",
             "key": "asthma",
             "text": "Asthma"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129318AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "puerperal_psychosis",
+            "text": "Puerperal Psychosis"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "depression",
+            "text": "Depression"
           },
           {
             "openmrs_entity_parent": "",

@@ -477,7 +477,7 @@
       "key": "congenital_anomalies",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
-      "openmrs_entity_id": "",
+      "openmrs_entity_id": "120129AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "type": "native_radio",
       "label": "Congenital anomalies",
       "label_text_style": "bold",
@@ -486,15 +486,15 @@
           "key": "detected",
           "text": "Detected",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1301AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
           "key": "not_detected",
           "text": "Not detected",
           "openmrs_entity_parent": "",
-          "openmrs_entity": "",
-          "openmrs_entity_id": ""
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1302AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
       ]
     },

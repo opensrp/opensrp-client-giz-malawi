@@ -2212,8 +2212,8 @@
       {
         "key": "fetal_movement_seen",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165376AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Fetal movements seen?",
         "label_text_style": "bold",
@@ -2223,17 +2223,17 @@
             "key": "yes",
             "text": "Yes",
             "value": false,
-            "openmrs_entity_id": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity":"concept"
           },
           {
             "key": "no",
             "text": "No",
             "value": false,
-            "openmrs_entity_id": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity":"concept"
           }
         ],
         "relevance": {
@@ -2475,8 +2475,8 @@
       {
         "key": "fetal_lie",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Fetal lie",
         "label_text_style": "bold",
@@ -2486,32 +2486,32 @@
             "key": "oblique",
             "text": "Oblique",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "132623AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
             "key": "transverse",
             "text": "Transverse",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "124261AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
             "key": "longitudinal",
             "text": "Longitudinal",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162088AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
             "key": "unstable",
             "text": "Unstable",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {

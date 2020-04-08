@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "display_scroll_bars": true,
   "skip_blank_steps": true,
-  "count": "5",
+  "count": "6",
   "encounter_type": "Symptoms and Follow-up",
   "entity_id": "",
   "relational_id": "",
@@ -994,9 +994,9 @@
       },
       {
         "key": "other_sym_vvo",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165341AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Any other symptoms related to varicose veins?",
         "label_text_style": "bold",
@@ -1044,9 +1044,9 @@
       },
       {
         "key": "other_sym_vvo_oedema",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165341AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1728AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Any other symptoms related to oedema?",
         "label_text_style": "bold",
@@ -2115,12 +2115,13 @@
   },
   "step5": {
     "title": "TB Screening",
+    "next": "step6",
     "fields": [
       {
         "key": "tb_screening",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Has the woman experienced any of the following symptoms?",
         "label_info_text": "The woman should be screened for the following TB symptoms at every contact.",
@@ -2134,48 +2135,64 @@
             "key": "none",
             "text": "None",
             "value": false,
-            "openmrs_entity_id": "",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity":"concept"
           },
           {
             "key": "cough_lasting_loner_than_2_weeks",
             "text": "Cough lasting longer than 2 weeks",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159799AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
             "key": "cough_of_any_duration",
             "text": "Cough of any duration",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
             "key": "haemoptysis",
             "text": "Haemoptysis",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "138905AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
             "key": "weight_loss",
             "text": "Weight loss",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {
-            "key": "fever_or_night_sweats",
-            "text": "Fever or night sweats",
+            "key": "fever",
+            "text": "Fever",
             "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "night_sweats",
+            "text": "Night sweats",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "133027AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "productive_cough",
+            "text": "Productive cough",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5957AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           }
         ]
@@ -2200,5 +2217,65 @@
         }
       }
     ]
+  },
+  "step6": {
+    "title": "MENTAL HEALTH",
+    "fields": [
+      {
+        "key": "mental_assessment",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Assess the mental health of the woman.",
+        "label_info_text": "Assess the mental health of the woman.",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "normal",
+            "text": "Normal",
+            "value": false,
+            "openmrs_entity_id": "159531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": "",
+            "openmrs_entity":"concept"
+          },
+          {
+            "key": "fear",
+            "text": "fear",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "confused",
+            "text": "Confused",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "violent",
+            "text": "Violent",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "uncooperative",
+            "text": "Uncooperative",
+            "value": false,
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_entity_parent": ""
+          }
+
+        ]
+      }
+    ]
   }
+
 }
