@@ -1,9 +1,8 @@
 package org.smartregister.giz.repository;
 
-import java.io.Serializable;
 import java.util.Date;
 
-class ClientRegisterType implements Serializable {
+public class ClientRegisterType {
     private String baseEntityId;
     private String registerType;
     private Date dateCreated;

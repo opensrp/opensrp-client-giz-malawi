@@ -23,23 +23,23 @@ import timber.log.Timber;
 
 public class AdverseEffectDatePickerFactory extends DatePickerFactory implements GizChildFormFragment.OnReactionVaccineSelected {
 
-    private WeakReference<GizChildFormFragment> formFragment;
-    private WeakReference<TextView> txtDuration;
-    private WeakReference<MaterialEditText> edtText;
+    private GizChildFormFragment formFragment;
+    private TextView txtDuration;
+    private MaterialEditText edtText;
     private JSONObject jsonObject;
 
     @Override
     protected List<View> attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, boolean popup, CommonListener listener) {
-        this.formFragment = new WeakReference<>((GizChildFormFragment) formFragment);
-        this.formFragment.get().setOnReactionVaccineSelected(this);
+        this.formFragment = new WeakReference<>((GizChildFormFragment) formFragment).get();
+        this.formFragment.setOnReactionVaccineSelected(this);
         return super.attachJson(stepName, context, formFragment, jsonObject, popup, listener);
     }
 
     @Override
     protected DatePickerDialog createDateDialog(Context context, TextView duration, MaterialEditText editText, JSONObject jsonObject) throws JSONException {
         DatePickerDialog datePickerDialog = super.createDateDialog(context, duration, editText, jsonObject);
-        txtDuration = new WeakReference<>(duration);
-        this.edtText = new WeakReference<>(editText);
+        this.txtDuration = new WeakReference<>(duration).get();
+        this.edtText = new WeakReference<>(editText).get();
         this.jsonObject = jsonObject;
         return datePickerDialog;
     }
@@ -48,7 +48,7 @@ public class AdverseEffectDatePickerFactory extends DatePickerFactory implements
     public void updateDatePicker(String date) {
         try {
             jsonObject.put(JsonFormConstants.MIN_DATE, date);
-            attachLayout(JsonFormConstants.STEP1, formFragment.get().getContext(), formFragment.get(), jsonObject, edtText.get(), txtDuration.get());
+            attachLayout(JsonFormConstants.STEP1, formFragment.getContext(), formFragment, jsonObject, edtText, txtDuration);
         } catch (JSONException e) {
             Timber.e(e);
         }

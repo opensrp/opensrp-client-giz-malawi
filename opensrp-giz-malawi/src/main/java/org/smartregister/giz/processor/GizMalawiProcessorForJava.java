@@ -103,9 +103,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
-        long start = System.currentTimeMillis();
-        Timber.d("Starting event %d", start);
-
         ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json",
                 ClientClassification.class);
         Table vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
@@ -148,8 +145,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
-                    long starts = (System.currentTimeMillis());
-                    Timber.d("Starting birth-reg event %d", starts);
 
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
                         Timber.e(new Exception(), "Cannot find client corresponding to %s with base-entity-id %s", OpdConstants.EventType.OPD_REGISTRATION, event.getBaseEntityId());
@@ -174,9 +169,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     }
 
                     processBirthAndWomanRegistrationEvent(clientClassification, eventClient, event);
-                    Timber.d("end birth-reg event %d", (System.currentTimeMillis() - starts));
-
-
                 } else if (processorMap.containsKey(eventType)) {
                     try {
                         if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null) {
@@ -188,17 +180,13 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     }
                 }
             }
-            Timber.d("start birth--reg event %d", (System.currentTimeMillis() - start));
 
             // Unsync events that are should not be in this device
             processUnsyncEvents(unsyncEvents);
-            Timber.d("end birth--reg event %d", (System.currentTimeMillis() - start));
             // Process alerts for clients
             Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
 
             appExecutors.diskIO().execute(runnable);
-            Timber.d("end event %d", (System.currentTimeMillis() - start));
-
         }
     }
 

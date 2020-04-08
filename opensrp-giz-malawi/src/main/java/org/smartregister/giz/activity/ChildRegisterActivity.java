@@ -183,10 +183,4 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
     public void finishActivity() {
         finish();
     }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.AllConstants;
@@ -15,9 +14,7 @@ import org.smartregister.child.toolbar.LocationSwitcherToolbar;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.giz.R;
 import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz.repository.ChildAlertUpdatedRepository;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 
@@ -139,8 +136,7 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
                     GizMalawiApplication.getInstance().alertUpdatedRepository().saveOrUpdate(childDetails.entityId());
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             Timber.e(e);
         }
     }

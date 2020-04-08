@@ -6,20 +6,16 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.fragment.BaseChildRegisterFragment;
 import org.smartregister.child.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
-import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.model.ChildRegisterFragmentModel;
 import org.smartregister.giz.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.giz.util.DBQueryHelper;
-import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -27,8 +23,6 @@ import org.smartregister.view.activity.BaseRegisterActivity;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
-
-import timber.log.Timber;
 
 public class ChildRegisterFragment extends BaseChildRegisterFragment implements CompoundButton.OnCheckedChangeListener {
     private View view;
@@ -174,10 +168,5 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         toggleFilterSelection();
-    }
-
-    @Override
-    public void onSyncStart() {
-        super.onSyncStart();
     }
 }

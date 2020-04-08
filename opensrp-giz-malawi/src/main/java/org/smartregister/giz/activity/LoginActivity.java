@@ -5,16 +5,12 @@ import android.os.Bundle;
 
 import org.smartregister.anc.library.activity.SiteCharacteristicsEnterActivity;
 import org.smartregister.giz.R;
-import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.presenter.LoginPresenter;
-import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
-
-import timber.log.Timber;
 
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
 

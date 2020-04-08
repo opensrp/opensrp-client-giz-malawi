@@ -169,11 +169,6 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     }
 
     @Override
-    public void onRegistrationSaved(boolean isEdit) {
-        super.onRegistrationSaved(isEdit);
-    }
-
-    @Override
     protected String getReportDeceasedMetadata() {
         try {
             JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("report_deceased");
