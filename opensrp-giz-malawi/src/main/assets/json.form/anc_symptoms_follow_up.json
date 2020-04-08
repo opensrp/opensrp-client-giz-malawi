@@ -2242,7 +2242,7 @@
           },
           {
             "key": "fear",
-            "text": "fear",
+            "text": "Fear",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
