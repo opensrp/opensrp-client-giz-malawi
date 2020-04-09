@@ -1818,7 +1818,7 @@
         "type": "toaster_notes",
         "text": "Pre-eclampsia risk counseling",
         "text_color": "#000000",
-        "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling.",
+        "toaster_info_text": "The use of calcium if low dietary intake area is recommended. Please also provide counseling.",
         "toaster_info_title": "Pre-eclampsia risk counseling",
         "toaster_type": "warning",
         "relevance": {
@@ -2360,7 +2360,7 @@
         "type": "toaster_notes",
         "text": "Pre-eclampsia risk counseling",
         "text_color": "#000000",
-        "toaster_info_text": "The use of aspirin after 12 weeks gestation is recommended as well as calcium if low dietary intake area. Please also provide counseling.",
+        "toaster_info_text": "The use of calcium if low dietary intake area is recommended. Please also provide counseling.",
         "toaster_info_title": "Pre-eclampsia risk counseling",
         "toaster_type": "warning",
         "relevance": {

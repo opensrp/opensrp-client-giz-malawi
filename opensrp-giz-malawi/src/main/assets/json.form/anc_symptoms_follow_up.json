@@ -2233,16 +2233,16 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "normal",
-            "text": "Normal",
+            "key": "normal_mental_state",
+            "text": "Normal mental state",
             "value": false,
             "openmrs_entity_id": "159531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
             "openmrs_entity":"concept"
           },
           {
-            "key": "fear",
-            "text": "Fear",
+            "key": "fear_mood",
+            "text": "Fearful mood",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "140487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2258,7 +2258,7 @@
           },
           {
             "key": "violent",
-            "text": "Violent",
+            "text": "Physically violent",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
