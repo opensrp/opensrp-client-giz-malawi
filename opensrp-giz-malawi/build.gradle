@@ -225,27 +225,27 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:2.0.2.6-LOCAL-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-anc:2.0.2.7-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module:'compressor'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+//        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
-
-    implementation('org.smartregister:opensrp-client-native-form:1.7.32-LOCAL-SNAPSHOT@aar') {
-        transitive = true
-        exclude group: 'id.zelory', module: 'compressor'
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'cardview-v7'
-        exclude group: 'com.android.support', module: 'support-media-compat'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'design'
-        exclude group: 'org.yaml', module: 'snakeyaml'
-        exclude group: 'io.ona.rdt-capture', module: 'lib'
-    }
 //
+//    implementation('org.smartregister:opensrp-client-native-form:1.7.31.9-SNAPSHOT@aar') {
+//        transitive = true
+//        exclude group: 'id.zelory', module: 'compressor'
+//        exclude group: 'com.android.support', module: 'recyclerview-v7'
+//        exclude group: 'com.android.support', module: 'appcompat-v7'
+//        exclude group: 'com.android.support', module: 'cardview-v7'
+//        exclude group: 'com.android.support', module: 'support-media-compat'
+//        exclude group: 'com.android.support', module: 'support-v4'
+//        exclude group: 'com.android.support', module: 'design'
+//        exclude group: 'org.yaml', module: 'snakeyaml'
+//        exclude group: 'io.ona.rdt-capture', module: 'lib'
+//    }
+
 //    implementation('org.smartregister:opensrp-client-core:1.9.3.1-SNAPSHOT@aar') {
 //        transitive = true
 //        exclude group: 'id.zelory', module:'compressor'

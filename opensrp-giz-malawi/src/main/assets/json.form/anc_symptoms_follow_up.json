@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "display_scroll_bars": true,
   "skip_blank_steps": true,
-  "count": "6",
+  "count": "5",
   "encounter_type": "Symptoms and Follow-up",
   "entity_id": "",
   "relational_id": "",
@@ -2115,7 +2115,6 @@
   },
   "step5": {
     "title": "TB Screening",
-    "next": "step6",
     "fields": [
       {
         "key": "tb_screening",
@@ -2217,65 +2216,5 @@
         }
       }
     ]
-  },
-  "step6": {
-    "title": "MENTAL HEALTH",
-    "fields": [
-      {
-        "key": "mental_assessment",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "label": "Assess the mental health of the woman.",
-        "label_info_text": "Assess the mental health of the woman.",
-        "label_text_style": "bold",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "normal_mental_state",
-            "text": "Normal mental state",
-            "value": false,
-            "openmrs_entity_id": "159531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": "",
-            "openmrs_entity":"concept"
-          },
-          {
-            "key": "fear_mood",
-            "text": "Fearful mood",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "140487AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "confused",
-            "text": "Confused",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "120345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "violent",
-            "text": "Physically violent",
-            "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "158358AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity_parent": ""
-          },
-          {
-            "key": "uncooperative",
-            "text": "Uncooperative",
-            "value": false,
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "openmrs_entity_parent": ""
-          }
-
-        ]
-      }
-    ]
   }
-
 }
