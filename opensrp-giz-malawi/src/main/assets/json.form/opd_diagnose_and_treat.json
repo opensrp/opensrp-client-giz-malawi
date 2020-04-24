@@ -54,8 +54,351 @@
     }
   },
   "step1": {
-    "title": "Test Conducted",
+    "title": "Pregnancy Status",
     "next": "step2",
+    "fields": [
+      {
+        "key": "pregnancy_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "What is the current pregnancy status?",
+        "values": [
+          "Positive",
+          "Negative",
+          "Unknown"
+        ],
+        "keys": [
+          "Positive",
+          "Negative",
+          "Unknown"
+        ]
+      },
+      {
+        "key": "lmp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "When was the last menstrual period?"
+      },
+      {
+        "key": "lmp_duration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Duration (in days)"
+      }
+    ]
+  },
+  "step2": {
+    "title": "MEDICAL CONDITIONS & HIV DETAILS",
+    "next": "step3",
+    "fields": [
+      {
+        "key": "medical_conditions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Do you have any of these medical conditions?",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "none",
+            "text": "None"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "allergies",
+            "text": "Allergies"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "allergies",
+            "text": "Allergies"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "mental_diseases",
+            "text": "Mental diseases"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "neoplasms",
+            "text": "Neoplasms"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "asthma",
+            "text": "Asthma"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "diabetes",
+            "text": "Diabetes"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "cardiovascular_diseases",
+            "text": "Cardiovascular diseases"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "endocrine_diseases",
+            "text": "Endocrine diseases"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "hypertension",
+            "text": "Hypertension"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "rheumatism",
+            "text": "Rheumatism"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "sickle_cell_diseases",
+            "text": "Sickle cell diseases"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "hiv",
+            "text": "HIV"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "history_of_surgery",
+            "text": "History of surgery"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "epilepsy",
+            "text": "Epilepsy"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "mental_illness",
+            "text": "Mental illness"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "other",
+            "text": "Other(Specify)"
+          }
+        ]
+      },
+      {
+        "key": "medical_conditions_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other condition",
+        "relevance": {
+          "step2:medical_conditions": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "hiv_tested_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "When was the HIV test done?"
+      },
+      {
+        "key": "hiv_prev_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "What were the results?",
+        "values": [
+          "Positive",
+          "Negative",
+          "Unknown"
+        ],
+        "keys": [
+          "Positive",
+          "Negative",
+          "Unknown"
+        ]
+      },
+      {
+        "key": "hiv_prev_pos_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Is the client taking ART?",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "medical_conditions_duration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Duration (in days)"
+      }
+    ]
+  },
+  "step3": {
+    "title": "Diagnosis",
+    "next": "step4",
+    "fields": [
+      {
+        "key": "disease_code_label",
+        "type": "label",
+        "text": "Disease code",
+        "text_color": "#000000",
+        "relevance": {
+          "step2:diagnosis": {
+            "type": "string",
+            "ex": "notEqualTo(., \"\")"
+          }
+        }
+      },
+      {
+        "key": "disease_code",
+        "openmrs_entity_parent": "test",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "test",
+        "sort": true,
+        "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
+        "source": "csv",
+        "sortClass": "org.smartregister.opd.comparator.MultiSelectListAlphabetTextComparator",
+        "type": "multi_select_list",
+        "buttonText": "+ Add disease code",
+        "dialogTitle": "Add disease code",
+        "repositoryClass": "org.smartregister.opd.widgets.OpdDiseaseCodeMultiSelectListRepository",
+        "searchHint": "Type Disease Name",
+        "relevance": {
+          "step2:diagnosis": {
+            "type": "string",
+            "ex": "notEqualTo(., \"\")"
+          }
+        }
+      },
+      {
+        "key": "diagnosis_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Diagnosis Type",
+        "type": "native_radio",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis type"
+        },
+        "options": [
+          {
+            "key": "Confirmed",
+            "text": "Confirmed"
+          },
+          {
+            "key": "Presumed",
+            "text": "Presumed"
+          }
+        ],
+        "relevance": {
+          "step2:diagnosis": {
+            "type": "string",
+            "ex": "notEqualTo(., \"\")"
+          }
+        }
+      },
+      {
+        "key": "diagnosis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Diagnosis Text",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis"
+        }
+      },
+      {
+        "key": "diagnosis_same",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Same as final diagnosis",
+        "label": "",
+        "options": [
+          {
+            "key": "isSameAsFinalDiagnosis",
+            "text": "Is same as final diagnosis?",
+            "value": "false"
+          }
+        ]
+      }
+    ]
+  },
+  "step4": {
+    "title": "Test Conducted",
+    "next": "step5",
     "fields": [
       {
         "key": "tests_repeating_group",
@@ -79,17 +422,22 @@
               "Ultra sound",
               "Malaria test",
               "HIV test",
-              "Syphilis test",
+              "Syphilis test - VDRL",
               "Hep B test",
               "Hep C test",
               "Blood Type test",
               "TB Screening",
-              "Blood Glucose test",
-              "Blood Glucose test (75g OGTT - fasting glucose (1 hr))",
-              "Blood Glucose test (Initial 75g OGTT - fasting glucose)",
-              "Blood Glucose test (Fasting plasma glucose test)",
-              "Blood Glucose test ( random plasma glucose test))",
+              "Blood Glucose test (random plasma glucose test)",
               "Midstream urine Gram-staining",
+              "Malaria - MRDT",
+              "TB-Gene Xpert ",
+              "TB-smear microscopy",
+              "TB-urine LAM",
+              "Urine dipstick",
+              "Hemocue (haemoglobinometer)",
+              "HIV Viral Load",
+              "HIV EID",
+              "HIV test - Rapid Test",
               "Other(specify)"
             ]
           },
@@ -122,7 +470,7 @@
             "values": [
               "Positive",
               "Negative",
-              "Inconsistent"
+              "Inconclusive"
             ],
             "relevance": {
               "rules-engine": {
@@ -156,6 +504,115 @@
                 }
               }
             }
+          },
+          {
+            "key": "diagnostic_test_result_spinner_tb_gen_xpert",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Test Result",
+            "type": "spinner",
+            "values": [
+              "MTB Detected & RR not detected",
+              "RR Detected & MTB Not Detected",
+              "MTB Not Detected",
+              "Error/Indeterminate"
+            ]
+          },
+          {
+            "key": "diagnostic_test_result_spinner_tb_smear_microscopy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Test Result",
+            "type": "spinner",
+            "values": [
+              "Negative",
+              "Scanty",
+              "1+",
+              "2+",
+              "3+"
+            ]
+          },
+          {
+            "key": "diagnostic_test_result_spinner_urine_dipstick_nitrites",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Urine dipstick result - nitrites",
+            "type": "spinner",
+            "values": [
+              "None",
+              "+",
+              "++",
+              "+++",
+              "++++"
+            ]
+          },
+          {
+            "key": "diagnostic_test_result_spinner_urine_dipstick_leukocytes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Urine dipstick result - leukocytes",
+            "type": "spinner",
+            "values": [
+              "None",
+              "+",
+              "++",
+              "+++",
+              "++++"
+            ]
+          },
+          {
+            "key": "diagnostic_test_result_spinner_urine_dipstick_protein",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Urine dipstick result - protein",
+            "type": "spinner",
+            "values": [
+              "None",
+              "+",
+              "++",
+              "+++",
+              "++++"
+            ]
+          },
+          {
+            "key": "diagnostic_test_result_spinner_urine_dipstick_glucose",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Urine dipstick result - glucose",
+            "type": "spinner",
+            "values": [
+              "None",
+              "+",
+              "++",
+              "+++",
+              "++++"
+            ]
+          },
+          {
+            "key": "diagnostic_test_result_spinner_hiv_viral_load",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "HIV Viral Load",
+            "type": "spinner",
+            "values": [
+              "Detectable",
+              "Undetectable"
+            ]
+          },
+          {
+            "key": "diagnostic_test_result_spinner_hiv_viral_load",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "HIV Viral Load - Detectable",
+            "type": "edit_text"
           },
           {
             "key": "diagnostic_test_result_glucose",
@@ -203,88 +660,9 @@
       }
     ]
   },
-  "step2": {
-    "title": "Diagnosis",
-    "next": "step3",
-    "fields": [
-      {
-        "key": "diagnosis",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hint": "The diagnosis",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the diagnosis"
-        }
-      },
-      {
-        "key": "diagnosis_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "label": "Diagnosis Type",
-        "type": "native_radio",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the diagnosis type"
-        },
-        "options": [
-          {
-            "key": "Confirmed",
-            "text": "Confirmed"
-          },
-          {
-            "key": "Presumed",
-            "text": "Presumed"
-          }
-        ],
-        "relevance": {
-          "step2:diagnosis": {
-            "type": "string",
-            "ex": "notEqualTo(., \"\")"
-          }
-        }
-      },
-      {
-        "key": "disease_code_label",
-        "type": "label",
-        "text": "Disease code",
-        "text_color": "#000000",
-        "relevance": {
-          "step2:diagnosis": {
-            "type": "string",
-            "ex": "notEqualTo(., \"\")"
-          }
-        }
-      },
-      {
-        "key": "disease_code",
-        "openmrs_entity_parent": "test",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "test",
-        "sort": true,
-        "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
-        "source": "csv",
-        "sortClass": "org.smartregister.opd.comparator.MultiSelectListAlphabetTextComparator",
-        "type": "multi_select_list",
-        "buttonText": "+ Add disease code",
-        "dialogTitle": "Add disease code",
-        "repositoryClass": "org.smartregister.opd.widgets.OpdDiseaseCodeMultiSelectListRepository",
-        "searchHint": "Type Disease Name",
-        "relevance": {
-          "step2:diagnosis": {
-            "type": "string",
-            "ex": "notEqualTo(., \"\")"
-          }
-        }
-      }
-    ]
-  },
-  "step3": {
+  "step5": {
     "title": "Treatment",
-    "next": "step4",
+    "next": "step6",
     "display_back_button": "false",
     "fields": [
       {
@@ -310,7 +688,114 @@
       }
     ]
   },
-  "step4": {
+  "step6": {
+    "title": "Outcome",
+    "next": "step7",
+    "display_back_button": "true",
+    "fields": [
+      {
+        "key": "discharge_alive",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Was the client discharged alive?",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "discharged_home",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Were they discharged to home?",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "referral",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Was the client referred?",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "text": "No"
+          }
+        ]
+      },
+      {
+        "key": "referral_location",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Where were they referred to?",
+        "values": [
+          "Nutrition Clinic",
+          "ART Clinic",
+          "TB Clinic",
+          "ANC Clinic",
+          "Down Referral",
+          "Other Health Facility",
+          "Other (specify)"
+        ],
+        "keys": [
+          "nutrition_clinic",
+          "art_clinic",
+          "tb_clinic",
+          "anc_clinic",
+          "down_referral",
+          "other_health_facility",
+          "other"
+        ]
+      },
+      {
+        "key": "referral_location_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify any referral location",
+        "relevance": {
+          "step6:referral_location": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "step7": {
     "title": "Service Fee",
     "display_back_button": "true",
     "fields": [
