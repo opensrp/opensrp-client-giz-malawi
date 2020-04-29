@@ -1,31 +1,178 @@
 ---
-name: step1_diagnostic_test_result_spinner
+name: step4_diagnostic_test_result_spinner
 description: diagnostic_test_result_spinner
 priority: 1
-condition: "step1_diagnostic_test == 'Pregnancy Test' || step1_diagnostic_test == 'Malaria test'
-|| step1_diagnostic_test == 'HIV test' || step1_diagnostic_test == 'Syphilis test'
-|| step1_diagnostic_test == 'Hep B test' || step1_diagnostic_test == 'Hep C test'
- || step1_diagnostic_test == 'TB Screening' || step1_diagnostic_test == 'Midstream urine Gram-staining'"
+condition: "step4_diagnostic_test == 'Pregnancy Test' || step4_diagnostic_test == 'Malaria test' || step4_diagnostic_test == 'HIV test - Rapid Test'
+|| step4_diagnostic_test == 'HIV test' || step4_diagnostic_test == 'Syphilis Test - VDRL' || step4_diagnostic_test == 'HIV EID'
+|| step4_diagnostic_test == 'Hep B test' || step4_diagnostic_test == 'Hep C test' || step4_diagnostic_test == 'TB-urine LAM'
+|| step4_diagnostic_test == 'TB Screening' || step4_diagnostic_test == 'Midstream urine Gram-staining' || step4_diagnostic_test == 'Malaria - MRDT'"
 actions:
   - "isRelevant = true"
 ---
-name: step1_diagnostic_test_result_specify
+name: step4_diagnostic_test_result_specify
 description: diagnostic_test_result_specify
 priority: 1
-condition: "step1_diagnostic_test == 'Ultra sound'"
+condition: "step4_diagnostic_test == 'Ultra sound'"
 actions:
   - "isRelevant = true"
 ---
-name: step1_diagnostic_test_result_glucose
+name: step4_diagnostic_test_result_spinner_tb_gene_xpert
+description: diagnostic_test_result_spinner_tb_gene_xpert
+priority: 1
+condition: "step4_diagnostic_test == 'TB-Gene Xpert'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_spinner_tb_smear_microscopy
+description: diagnostic_test_result_spinner_tb_smear_microscopy
+priority: 1
+condition: "step4_diagnostic_test == 'TB-smear microscopy'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_spinner_urine_dipstick_nitrites
+description: diagnostic_test_result_spinner_urine_dipstick_nitrites
+priority: 1
+condition: "step4_diagnostic_test == 'Urine dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_spinner_urine_dipstick_leukocytes
+description: diagnostic_test_result_spinner_urine_dipstick_leukocytes
+priority: 1
+condition: "step4_diagnostic_test == 'Urine dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_spinner_urine_dipstick_leukocytes
+description: diagnostic_test_result_spinner_urine_dipstick_leukocytes
+priority: 1
+condition: "step4_diagnostic_test == 'Urine dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_spinner_urine_dipstick_protein
+description: diagnostic_test_result_spinner_urine_dipstick_protein
+priority: 1
+condition: "step4_diagnostic_test == 'Urine dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_spinner_urine_dipstick_glucose
+description: diagnostic_test_result_spinner_urine_dipstick_glucose
+priority: 1
+condition: "step4_diagnostic_test == 'Urine dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_spinner_hiv_viral_load
+description: diagnostic_test_result_spinner_hiv_viral_load
+priority: 1
+condition: "step4_diagnostic_test == 'HIV Viral Load'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_hiv_viral_load_no
+description: diagnostic_test_result_hiv_viral_load_no
+priority: 1
+condition: "step4_diagnostic_test_result_spinner_hiv_viral_load == 'Detectable'"
+actions:
+  - "isRelevant = true"
+---
+name: step4_diagnostic_test_result_glucose
 description: diagnostic_test_result_glucose
 priority: 1
-condition: "step1_diagnostic_test.startsWith('Blood Glucose test')"
+condition: "step4_diagnostic_test.startsWith('Blood Glucose test') || step4_diagnostic_test == 'Hemocue (haemoglobinometer)'"
 actions:
   - "isRelevant = true"
 ---
-name: step1_diagnostic_test_result_spinner_blood_type
+name: step4_diagnostic_test_result_spinner_blood_type
 description: diagnostic_test_result_spinner_blood_type
 priority: 1
-condition: "step1_diagnostic_test == 'Blood Type test'"
+condition: "step4_diagnostic_test == 'Blood Type test'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_pregnancy_status
+description: opd_client_pregnancy_status
+priority: 1
+condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 )"
+actions:
+  - "isRelevant = true"
+---
+name: step1_lmp
+description: opd_lmp
+priority: 1
+condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 )"
+actions:
+  - "isRelevant = true"
+---
+name: step1_lmp_duration
+description: lmp duration
+priority: 1
+condition: "!step1_lmp.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step2_hiv_tested_date
+description: hiv_tested_date
+priority: 1
+condition: "step2_medical_conditions.contains('hiv')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_hiv_prev_status
+description: hiv_prev_status
+priority: 1
+condition: "step2_medical_conditions.contains('hiv')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_hiv_prev_pos_art
+description: hiv_prev_pos_art
+priority: 1
+condition: "step2_medical_conditions.contains('hiv') && step2_hiv_prev_status == 'positive'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_medical_conditions_duration
+description: medical_conditions_duration
+priority: 1
+condition: "!step2_medical_conditions.isEmpty() && !step2_medical_conditions.contains('None')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_medicine
+description: medicine
+priority: 1
+condition: "step5_treatment_type == 'medicine'"
+actions:
+  - "isRelevant = true"
+---
+name: step6_discharged_home
+description: discharged_home
+priority: 1
+condition: "step6_discharged_alive == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step6_referral
+description: referral
+priority: 1
+condition: "step6_discharged_alive == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step6_referral_location
+description: referral_location
+priority: 1
+condition: "step6_discharged_alive == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_medical_conditions_specify
+description: medical_conditions_specify
+priority: 1
+condition: "!step2_medical_conditions.isEmpty() && step2_medical_conditions.contains('other')"
 actions:
   - "isRelevant = true"
