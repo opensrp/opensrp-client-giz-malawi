@@ -107,6 +107,13 @@
             "creates_case": [
               "opd_diagnosis"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Check-In",
+            "creates_case": [
+              "opd_checkin"
+            ]
           }
         ]
       }

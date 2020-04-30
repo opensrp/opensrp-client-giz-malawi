@@ -747,6 +747,67 @@
           }
         }
       ]
+    },
+    {
+      "name": "opd_checkin",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "visit_type",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_type"
+          }
+        },
+        {
+          "column_name": "appointment_scheduled",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "appointment_scheduled"
+          }
+        },
+        {
+          "column_name": "appointment_done_inless_time",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "appointment_done_inless_time"
+          }
+        },
+        {
+          "column_name": "appointment_made_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "appointment_made_date"
+          }
+        },
+        {
+          "column_name": "visit_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_id"
+          }
+        },
+        {
+          "column_name": "created_at",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_date"
+          }
+        }
+      ]
     }
+
   ]
 }
