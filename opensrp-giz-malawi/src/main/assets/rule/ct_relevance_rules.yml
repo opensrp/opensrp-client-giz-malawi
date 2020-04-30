@@ -698,3 +698,24 @@ priority: 1
 condition: "(step11_anti_d1_date_done != '') && (step11_anti_d1_date_done == 'done_earlier')"
 actions:
   - "isRelevant = true"
+---
+name: step5_cpt_medication
+description: cpt_medication
+priority: 1
+condition: "(step5_hiv_positive_counsel != '') && (step5_hiv_positive_counsel == 'done')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_art_medication
+description: art_medication
+priority: 1
+condition: "(step5_hiv_positive_counsel != '') && (step5_hiv_positive_counsel == 'done')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_nvp_medication
+description: nvp_medication
+priority: 1
+condition: "(step5_hiv_positive_counsel != '') && (step5_hiv_positive_counsel == 'done')"
+actions:
+  - "isRelevant = true"

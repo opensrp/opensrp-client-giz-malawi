@@ -324,6 +324,14 @@
             "openmrs_entity_parent": ""
           },
           {
+            "key": "nevirapine",
+            "text": "Nevirapine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
             "key": "other",
             "text": "Other (specify)",
             "value": false,
@@ -2136,7 +2144,7 @@
             "value": false,
             "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "openmrs_entity":"concept"
+            "openmrs_entity": "concept"
           },
           {
             "key": "cough_lasting_loner_than_2_weeks",

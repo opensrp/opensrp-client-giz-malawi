@@ -98,7 +98,8 @@
     "religion_other",
     "last_live_birth_preterm",
     "shs_exposure",
-    "condom_use"
+    "condom_use",
+    "pregnancy_test_first_trimester"
   ],
   "default_values": [
     "educ_level",
@@ -150,7 +151,8 @@
     "religion_other",
     "last_live_birth_preterm",
     "shs_exposure",
-    "condom_use"
+    "condom_use",
+    "pregnancy_test_first_trimester"
   ],
   "step1": {
     "title": "Demographic Info",
@@ -464,6 +466,35 @@
     "title": "Current Pregnancy",
     "next": "step3",
     "fields": [
+      {
+        "key": "pregnancy_test_first_trimester",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Was the pregnancy test done in the first trimester?",
+        "hint": "Was the pregnancy test done in the first trimester?",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Required"
+        }
+      },
       {
         "key": "lmp_known",
         "openmrs_entity_parent": "",
@@ -2462,11 +2493,18 @@
         "multi_relevance": true,
         "options": [
           {
+            "key": "5_tdv_doses_received",
+            "text": "5 TDV doses received",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "2-4_doses",
             "text": "2-4 TDV doses received in the past",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "1_received",
@@ -2511,6 +2549,7 @@
             "ex-checkbox": [
               {
                 "or": [
+                  "2-4_doses",
                   "1_received",
                   "tdv_not_received",
                   "unknown"
@@ -2534,7 +2573,7 @@
             "ex-checkbox": [
               {
                 "or": [
-                  "2-4_doses"
+                  "5_tdv_doses_received"
                 ]
               }
             ]
@@ -2904,8 +2943,8 @@
             "key": "anti_asthma",
             "text": "Anti-asthmatic",
             "value": false,
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "165234AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "openmrs_entity_parent": ""
           },
           {
@@ -2962,6 +3001,14 @@
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_parent": ""
+          },
+          {
+            "key": "nevirapine",
+            "text": "Nevirapine",
+            "value": false,
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": ""
           },
           {

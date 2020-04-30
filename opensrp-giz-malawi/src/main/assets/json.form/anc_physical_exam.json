@@ -458,7 +458,7 @@
         "text": "Healthy eating and keeping physically active counseling",
         "text_color": "#1199F9",
         "toaster_type": "info",
-        "toaster_info_text": "Healthy eating and keeping physically active during pregnancy is recommended for pregnant women to stay healthy and to prevent excessive weight gain during pregnancy.",
+        "toaster_info_text": "A healthy diet contains all 6 food groups which include legumes, carbohydrates, proteins, oils, vegetables and fruits.\nA healthy lifestyle includes aerobic physical activity and strength-conditioning exercise aimed at maintaining a good level of fitness throughout pregnancy.",
         "toaster_info_title": "Nutritional and Exercise Folder"
       },
       {
@@ -470,7 +470,7 @@
         "text": "Increase daily energy and protein intake counseling",
         "text_color": "#1199F9",
         "toaster_type": "info",
-        "toaster_info_text": "Increase daily energy and protein intake to reduce the risk of low-birth-weight neonates.",
+        "toaster_info_text": "All pregnant women should receive nutritional counseling throughout pregnancy\nAll pregnant women should have one additional meal every day for proper physical and mental growth of the fetus and to maintain her strength and wellbeing\nAll health educators should provide guidance on nutrition based on culturally acceptable and locally available food.",
         "toaster_info_title": "Increase daily energy and protein intake counseling",
         "relevance": {
           "rules-engine": {
@@ -1790,7 +1790,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "Pelvic exam (visual)",
+        "label": "Vulval Inspections",
+        "hint": "Whether or not the result of the vulval Inspections is normal.",
         "label_text_style": "bold",
         "text_color": "#000000",
         "extra_rel": true,

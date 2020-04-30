@@ -27,6 +27,14 @@
           "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
+          "key": "smelling_vaginal_discharge",
+          "text": "Foul-smelling vaginal discharge",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "165162AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
           "key": "erythematous_papules",
           "text": "Clusters of erythematous papules",
           "value": false,
@@ -51,27 +59,11 @@
           "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
-          "key": "genital_pain",
-          "text": "Genital pain",
-          "value": false,
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "123385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "femoral_lymphadenopathy",
-          "text": "Tender bilateral inguinal and femoral lymphadenopathy",
+          "key": "inguinal_and_femoral_lymphadenopathy",
+          "text": "Swollen bilateral inguinal and femoral lymphadenopathy",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165287AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "cervical_friability",
-          "text": "Cervical friability",
-          "value": false,
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "165288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         {
@@ -84,7 +76,7 @@
         },
         {
           "key": "unilateral_lymphadenopathy",
-          "text": "Tender unilateral lymphadenopathy",
+          "text": "Swollen unilateral lymphadenopathy",
           "value": false,
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165289AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -97,6 +89,46 @@
           "openmrs_entity": "concept",
           "openmrs_entity_id": "165290AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "genital_sores",
+          "text": "Genital sores",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "864AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "genital_warts",
+          "text": "Genital warts",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "139505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "bleeding",
+          "text": "Bleeding",
+          "value": false,
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "147241AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "openmrs_entity_parent": "165373AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "draining_liquor",
+          "text": "Draining liquor",
+          "value": false,
+          "openmrs_entity": "",
+          "openmrs_entity_id": "",
+          "openmrs_entity_parent": ""
+        },
+        {
+          "key": "growths",
+          "text": "Growths",
+          "value": false,
+          "openmrs_entity": "",
+          "openmrs_entity_id": "",
+          "openmrs_entity_parent": ""
         },
         {
           "key": "other",
