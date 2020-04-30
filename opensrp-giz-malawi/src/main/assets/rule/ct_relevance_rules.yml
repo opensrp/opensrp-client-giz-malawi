@@ -443,35 +443,35 @@ actions:
 name: step10_iptp_sp2
 description: iptp_sp2
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp1_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
 name: step10_iptp_sp3
 description: iptp_sp3
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp2_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
 name: step10_iptp_sp4
 description: iptp_sp4
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == -1) && (global_previous_iptp_sp4 == '' || global_previous_iptp_sp4 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp3_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp3_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == -1) && (global_previous_iptp_sp4 == '' || global_previous_iptp_sp4 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
 name: step10_iptp_sp5
 description: iptp_sp5
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == -1) && (global_previous_iptp_sp5 == '' || global_previous_iptp_sp5 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp4_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp4_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == -1) && (global_previous_iptp_sp5 == '' || global_previous_iptp_sp5 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
 name: step10_iptp_sp6
 description: iptp_sp6
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == -1) && (global_previous_iptp_sp6 == '' || global_previous_iptp_sp6 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp5_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp5_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == -1) && (global_previous_iptp_sp6 == '' || global_previous_iptp_sp6 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
@@ -499,7 +499,7 @@ actions:
 name: step11_anti_d2_date
 description: anti_d2_date
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == -1)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_anti_d1_date_done,'6w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_anti_d1_date_done,'6w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == -1)"
 actions:
   - "isRelevant = true"
 ---
@@ -511,16 +511,16 @@ actions:
   - "isRelevant = true"
 ---
 name: step11_tt2_date
-description: tt1_date
+description: tt2_date
 priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt2_date == '' || global_previous_tt2_date == 'not_done')"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_tt1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_tt1_date_done,'28d') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt2_date == '' || global_previous_tt2_date == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
 name: step11_tt3_date
-description: tt1_date
+description: tt3_date
 priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt3_date == '' || global_previous_tt3_date == 'not_done')"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_tt2_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_tt2_date_done,'28d') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt3_date == '' || global_previous_tt3_date == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
@@ -688,14 +688,14 @@ actions:
 name: step11_anti_d2_date_done
 description: Date anti_d2_date_done given
 priority: 1
-condition: "(step11_anti_d2_date_done != '') && (step11_anti_d2_date_done == 'done_earlier')"
+condition: "(step11_anti_d2_date != '') && (step11_anti_d2_date == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
 name: step11_anti_d1_date_done
 description: Date anti_d1_date_done given
 priority: 1
-condition: "(step11_anti_d1_date_done != '') && (step11_anti_d1_date_done == 'done_earlier')"
+condition: "(step11_anti_d1_date != '') && (step11_anti_d1_date == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---

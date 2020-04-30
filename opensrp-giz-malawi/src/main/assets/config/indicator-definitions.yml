@@ -680,7 +680,7 @@ indicators:
     indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'health_conditions' and instr(value, 'hiv') = 0 then 1 else 0 end) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
     grouping: "anc"
 
   - key: "ME_HIV_Status_Final_Prev_Positive"
@@ -688,7 +688,7 @@ indicators:
     indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
     grouping: "anc"
 
   - key: "ME_HIV_Status_Final_New_Negative"
@@ -696,7 +696,7 @@ indicators:
     indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'hiv_test_result' and value = 'negative' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_HIV_Status_Final_New_Positive"
@@ -704,9 +704,8 @@ indicators:
     indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
-
 
   - key: "ME_HIV_Status_Final_Not_Done"
     description: "HIV status Final (Not done)"
@@ -714,7 +713,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0
                    or sum(case when key = 'hiv_test_status' then 1 else 0 end ) = 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_ART_Status_Final_Visit_Not_On_ART"
@@ -723,7 +722,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
                    and sum(case when key = 'art_medication' and value = 'done' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_ART_Status_Final_Visit_On_ART_Before_ANC"
@@ -732,7 +731,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
                    and sum(case when key = 'medications' and instr(value, 'arvs') > 0 then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_ART_Status_Final_Visit_Start_ART_0_27_Weeks"
@@ -742,7 +741,7 @@ indicators:
                    having sum(case when key = 'art_medication' and value = 'done' then 1 else 0 end ) > 0
                    and sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
                    and sum(case when key = 'gest_age_openmrs' and cast(value as integer) <= 27 then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_ART_Status_Final_Visit_Start_ART_28_plus_Weeks"
@@ -752,7 +751,7 @@ indicators:
                    having sum(case when key = 'art_medication' and value = 'done' then 1 else 0 end ) > 0
                    and sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
                    and sum(case when key = 'gest_age_openmrs' and cast(value as integer) >= 28 then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME__CPT_out_of_HIV_positive"
@@ -761,7 +760,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'cpt_medication' and value = 'done' then 1 else 0 end ) > 0
                    and sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME__Not_on_CPT"
@@ -770,7 +769,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'cpt_medication' and value = 'not_done' then 1 else 0 end ) > 0
                    and sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME__NVP_syrup_given"
@@ -779,7 +778,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'nvp_medication' and value = 'done' then 1 else 0 end ) > 0
                    and sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
 
@@ -789,7 +788,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'nvp_medication' and value = 'not_done' then 1 else 0 end ) > 0
                    and sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_Total_Visits_Per_Woman_With_1_Visit"
@@ -797,7 +796,7 @@ indicators:
     indicatorQuery: "select count(1) from (select ec_mother_details.base_entity_id from ec_mother_details
                      join previous_contact on previous_contact.base_entity_id = ec_mother_details.base_entity_id
                      where ec_mother_details.next_contact = '2' group by ec_mother_details.base_entity_id
-                     having sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                     having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_Total_Visits_Per_Woman_With_2_Visits"
@@ -805,7 +804,7 @@ indicators:
     indicatorQuery: "select count(1) from (select ec_mother_details.base_entity_id from ec_mother_details
                      join previous_contact on previous_contact.base_entity_id = ec_mother_details.base_entity_id
                      where ec_mother_details.next_contact = '3' group by ec_mother_details.base_entity_id
-                     having sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                     having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_Total_Visits_Per_Woman_With_3_Visits"
@@ -813,7 +812,7 @@ indicators:
     indicatorQuery: "select count(1) from (select ec_mother_details.base_entity_id from ec_mother_details
                      join previous_contact on previous_contact.base_entity_id = ec_mother_details.base_entity_id
                      where ec_mother_details.next_contact = '4' group by ec_mother_details.base_entity_id
-                     having sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                     having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_Total_Visits_Per_Woman_With_4_Visits"
@@ -821,7 +820,7 @@ indicators:
     indicatorQuery: "select count(1) from (select ec_mother_details.base_entity_id from ec_mother_details
                      join previous_contact on previous_contact.base_entity_id = ec_mother_details.base_entity_id
                      where ec_mother_details.next_contact = '5' group by ec_mother_details.base_entity_id
-                     having sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                     having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_Total_Visits_Per_Woman_With_5_plus_Visits"
@@ -829,7 +828,7 @@ indicators:
     indicatorQuery: "select count(1) from (select ec_mother_details.base_entity_id from ec_mother_details
                      join previous_contact on previous_contact.base_entity_id = ec_mother_details.base_entity_id
                      where cast(ec_mother_details.next_contact as integer) >= 5 group by ec_mother_details.base_entity_id
-                     having sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+                     having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
     grouping: "anc"
 
   - key: "ME_With_Preeclampsia"
@@ -837,7 +836,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'severe_preeclampsia' and value  = '1' or key = 'preeclampsia' and value  = '1' then 1 else 0 end) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end)))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end)))"
     grouping: "anc"
 
   - key: "ME_With_No_Preeclampsia"
@@ -846,7 +845,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'severe_preeclampsia' and value  <> '1' then 1 else 0 end) > 0
                    and sum(case when key = 'preeclampsia' and value  <> '1' then 1 else 0 end) >0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 )"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 )"
     grouping: "anc"
 
   - key: "ME_Total_Number_With_TDV_doses_less_than_2"
@@ -854,7 +853,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum (case when key = 'tt_immun_status' and (value = 'tdv_not_received' or value = '1_received') then 1 else 0 end) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_Total_Number_With_TDV_doses_2_plus"
@@ -862,7 +861,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum (case when key = 'tt_immun_status' and (value = '2-4_doses' or value = '5_tdv_doses_received') then 1 else 0 end) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_SP_Doses_0_Dose"
@@ -871,7 +870,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum (case when key = 'iptp_sp1' and value <> 'done' then 1 else 0 end) > 0
                    or sum (case when key = 'iptp_sp1' then 1 else 0 end) = 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_SP_Doses_1_Dose"
@@ -880,7 +879,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum (case when key = 'iptp_sp1' and value = 'done' then 1 else 0 end) > 0
                    and sum (case when key = 'iptp_sp2' then 1 else 0 end) = 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_SP_Doses_2_Dose"
@@ -889,7 +888,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum (case when key = 'iptp_sp2' and value = 'done' then 1 else 0 end) > 0
                    and sum (case when key = 'iptp_sp3' then 1 else 0 end) = 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_SP_Doses_3_plus_Dose"
@@ -897,7 +896,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'iptp_sp3' and value = 'done' then 1 else 0 end ) > 0
-                   and sum (case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) >0 ))"
+                   and sum (case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) >0 ))"
     grouping: "anc"
 
   - key: "ME_Albendazole_doses_None"
@@ -906,7 +905,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'deworm' and value <> 'done' then 1 else 0 end ) > 0
                    or sum(case when key = 'deworm' then 1 else 0 end) = 0
-                   and sum (case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) >0 ))"
+                   and sum (case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) >0 ))"
     grouping: "anc"
 
   - key: "ME_Albendazole_doses_One_dose"
@@ -914,7 +913,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'deworm' and value = 'done' then 1 else 0 end ) > 0
-                   and sum (case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) >0 ))"
+                   and sum (case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) >0 ))"
     grouping: "anc"
 
   - key: "ME_ITN_Bed_Nets_Given"
@@ -922,7 +921,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum (case when key = 'itn_given' and value = 'done' then 1 else 0 end) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_ITN_Bed_Nets_Not_Given"
@@ -931,7 +930,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum (case when key = 'itn_given' and value <> 'done' then 1 else 0 end) > 0
                    or sum (case when key = 'itn_given' then 1 else 0 end) = 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_Hb_(g/dl)_less_than_7"
@@ -939,7 +938,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'hb_result' and cast(value as integer) < 7 then 1 else 0 end) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_Hb_g_over_dl_greater_than_and_equal_to_7"
@@ -947,7 +946,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum (case when key = 'hb_result' and cast(value as integer) >= 7 then 1 else 0 end) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_Hb_g_over_dl_ND"
@@ -956,7 +955,7 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum( case when key = 'hb_test_status' and value = 'not_done' then 1 else 0 end) > 0
                    or sum( case when key = 'hb_test_status' then 1 else 0 end) = 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_Syphilis_Status_Negative"
@@ -964,7 +963,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'syphilis_positive' and value = '0' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_Syphilis_Status_Positive"
@@ -972,7 +971,7 @@ indicators:
     indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'syphilis_positive' and value = '1' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
 
   - key: "ME_Syphilis_Status_Not_Done"
@@ -981,5 +980,5 @@ indicators:
                    where previous_contact.contact_no = '1' group by base_entity_id
                    having sum(case when key = 'syph_test_status' and value = 'not_done' then 1 else 0 end ) > 0
                    or sum(case when key = 'syph_test_status' then 1 else 0 end ) = 0
-                   and sum(case when key = 'contact_date' and strftime('%Y-%m',  value) = strftime('%Y-%m',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
