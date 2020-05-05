@@ -653,7 +653,7 @@
           }
         },
         {
-          "column_name": "disease_code",
+          "column_name": "disease",
           "type": "Event",
           "save_format": "json_array",
           "json_mapping": {
@@ -696,7 +696,7 @@
       ]
     },
     {
-      "name": "opd_treatment_and_management",
+      "name": "opd_treatment",
       "columns": [
         {
           "column_name": "base_entity_id",
@@ -749,7 +749,7 @@
       ]
     },
     {
-      "name": "opd_checkin",
+      "name": "opd_check_in",
       "columns": [
         {
           "column_name": "base_entity_id",
@@ -807,7 +807,42 @@
           }
         }
       ]
+    },
+    {
+      "name": "opd_test",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "test_obj",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "repeatingGroupMap"
+          }
+        },
+        {
+          "column_name": "visit_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_id"
+          }
+        },
+        {
+          "column_name": "created_at",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "visit_date"
+          }
+        }
+      ]
     }
-
   ]
 }

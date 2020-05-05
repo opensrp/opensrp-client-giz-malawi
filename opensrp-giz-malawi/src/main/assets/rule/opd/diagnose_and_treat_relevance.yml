@@ -1,6 +1,6 @@
 ---
-name: step4_diagnostic_test_result_spinner
-description: diagnostic_test_result_spinner
+name: step4_diagnostic_test_result
+description: diagnostic_test_result
 priority: 1
 condition: "step4_diagnostic_test == 'Pregnancy Test' || step4_diagnostic_test == 'Malaria test' || step4_diagnostic_test == 'HIV test - Rapid Test'
 || step4_diagnostic_test == 'HIV test' || step4_diagnostic_test == 'Syphilis Test - VDRL' || step4_diagnostic_test == 'HIV EID'
@@ -16,57 +16,57 @@ condition: "step4_diagnostic_test == 'Ultra sound'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_tb_gene_xpert
-description: diagnostic_test_result_spinner_tb_gene_xpert
+name: step4_diagnostic_test_result_tb_gene_xpert
+description: diagnostic_test_result_tb_gene_xpert
 priority: 1
 condition: "step4_diagnostic_test == 'TB-Gene Xpert'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_tb_smear_microscopy
-description: diagnostic_test_result_spinner_tb_smear_microscopy
+name: step4_diagnostic_test_result_tb_smear_microscopy
+description: diagnostic_test_result_tb_smear_microscopy
 priority: 1
 condition: "step4_diagnostic_test == 'TB-smear microscopy'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_urine_dipstick_nitrites
-description: diagnostic_test_result_spinner_urine_dipstick_nitrites
+name: step4_diagnostic_test_result_urine_dipstick_nitrites
+description: diagnostic_test_result_urine_dipstick_nitrites
 priority: 1
 condition: "step4_diagnostic_test == 'Urine dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_urine_dipstick_leukocytes
-description: diagnostic_test_result_spinner_urine_dipstick_leukocytes
+name: step4_diagnostic_test_result_urine_dipstick_leukocytes
+description: diagnostic_test_result_urine_dipstick_leukocytes
 priority: 1
 condition: "step4_diagnostic_test == 'Urine dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_urine_dipstick_leukocytes
-description: diagnostic_test_result_spinner_urine_dipstick_leukocytes
+name: step4_diagnostic_test_result_urine_dipstick_leukocytes
+description: diagnostic_test_result_urine_dipstick_leukocytes
 priority: 1
 condition: "step4_diagnostic_test == 'Urine dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_urine_dipstick_protein
-description: diagnostic_test_result_spinner_urine_dipstick_protein
+name: step4_diagnostic_test_result_urine_dipstick_protein
+description: diagnostic_test_result_urine_dipstick_protein
 priority: 1
 condition: "step4_diagnostic_test == 'Urine dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_urine_dipstick_glucose
-description: diagnostic_test_result_spinner_urine_dipstick_glucose
+name: step4_diagnostic_test_result_urine_dipstick_glucose
+description: diagnostic_test_result_urine_dipstick_glucose
 priority: 1
 condition: "step4_diagnostic_test == 'Urine dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_hiv_viral_load
-description: diagnostic_test_result_spinner_hiv_viral_load
+name: step4_diagnostic_test_result_hiv_viral_load
+description: diagnostic_test_result_hiv_viral_load
 priority: 1
 condition: "step4_diagnostic_test == 'HIV Viral Load'"
 actions:
@@ -75,7 +75,7 @@ actions:
 name: step4_diagnostic_test_result_hiv_viral_load_no
 description: diagnostic_test_result_hiv_viral_load_no
 priority: 1
-condition: "step4_diagnostic_test_result_spinner_hiv_viral_load == 'Detectable'"
+condition: "step4_diagnostic_test_result_hiv_viral_load == 'Detectable'"
 actions:
   - "isRelevant = true"
 ---
@@ -86,8 +86,8 @@ condition: "step4_diagnostic_test.startsWith('Blood Glucose test') || step4_diag
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_spinner_blood_type
-description: diagnostic_test_result_spinner_blood_type
+name: step4_diagnostic_test_result_blood_type
+description: diagnostic_test_result_blood_type
 priority: 1
 condition: "step4_diagnostic_test == 'Blood Type test'"
 actions:

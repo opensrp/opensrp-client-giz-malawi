@@ -5,6 +5,7 @@
   "relational_id": "",
   "validate_on_submit": true,
   "show_errors_on_submit": true,
+  "skip_blank_steps": true,
   "metadata": {
     "start": {
       "openmrs_entity_parent": "",
@@ -119,16 +120,14 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "label",
-        "hidden": true
+        "type": "hidden"
       },
       {
         "key": "age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "label",
-        "hidden": true
+        "type": "hidden"
       },
       {
         "key": "visit_id",
@@ -560,7 +559,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner",
+            "key": "diagnostic_test_result",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -580,7 +579,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner_blood_type",
+            "key": "diagnostic_test_result_blood_type",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -605,7 +604,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner_tb_gene_xpert",
+            "key": "diagnostic_test_result_tb_gene_xpert",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -626,7 +625,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner_tb_smear_microscopy",
+            "key": "diagnostic_test_result_tb_smear_microscopy",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -655,7 +654,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner_urine_dipstick_nitrites",
+            "key": "diagnostic_test_result_urine_dipstick_nitrites",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -684,7 +683,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner_urine_dipstick_leukocytes",
+            "key": "diagnostic_test_result_urine_dipstick_leukocytes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -713,7 +712,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner_urine_dipstick_protein",
+            "key": "diagnostic_test_result_urine_dipstick_protein",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -742,7 +741,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner_urine_dipstick_glucose",
+            "key": "diagnostic_test_result_urine_dipstick_glucose",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -771,7 +770,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_spinner_hiv_viral_load",
+            "key": "diagnostic_test_result_hiv_viral_load",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -847,6 +846,13 @@
             "spacer_height": "40sp"
           }
         ]
+      },
+      {
+        "key": "visit_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
       }
     ]
   },

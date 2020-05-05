@@ -98,7 +98,7 @@
             "field": "eventType",
             "field_value": "OPD Treatment",
             "creates_case": [
-              "opd_treatment_and_management"
+              "opd_treatment"
             ]
           },
           {
@@ -112,7 +112,14 @@
             "field": "eventType",
             "field_value": "OPD Check-In",
             "creates_case": [
-              "opd_checkin"
+              "opd_check_in"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Test Conducted",
+            "creates_case": [
+              "opd_test"
             ]
           }
         ]
