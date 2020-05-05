@@ -540,12 +540,12 @@
             ]
           },
           {
-            "key": "diagnostic_test_other",
+            "key": "diagnostic_test_result_other",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "type": "edit_text",
-            "hint": "Specify any other reason why the test was not done",
+            "hint": "Specify the result of the test",
             "edit_type": "name",
             "v_required": {
               "value": true,
