@@ -2,8 +2,8 @@ package org.smartregister.giz.processor;
 
 import android.content.Context;
 
-import org.smartregister.anc.library.sync.MiniClientProcessorForJava;
 import org.smartregister.maternity.processor.MaternityMiniClientProcessorForJava;
+import org.smartregister.sync.MiniClientProcessorForJava;
 
 /**
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 31-03-2020.
