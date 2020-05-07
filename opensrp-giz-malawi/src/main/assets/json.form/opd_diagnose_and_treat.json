@@ -573,7 +573,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -598,7 +598,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -619,7 +619,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -648,7 +648,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -677,7 +677,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -706,7 +706,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -735,7 +735,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -764,7 +764,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -783,7 +783,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -798,7 +798,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -817,7 +817,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -832,7 +832,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-dynamic": "opd/diagnose_and_treat_relevance.yml"
+                  "rules-dynamic": "opd/diagnose_and_treat_relevance_repeating_group.yml"
                 }
               }
             }
@@ -910,10 +910,9 @@
         "text": "Treatment/Medicines Provided",
         "text_color": "#000000",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_relevance.yml"
-            }
+          "step5:treatment_type": {
+            "type": "string",
+            "ex": "equalTo(.,\"medicine\")"
           }
         }
       },
@@ -932,10 +931,9 @@
         "dialogTitle": "Add treatment/medicine",
         "searchHint": "Type treatment/medicine name",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_relevance.yml"
-            }
+          "step5:treatment_type": {
+            "type": "string",
+            "ex": "equalTo(.,\"medicine\")"
           }
         }
       },

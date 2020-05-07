@@ -1,0 +1,19 @@
+---
+sub_group: "{visit_date}"
+fields:
+  - template: "{test_name}: {test_result}"
+    relevance: "test_name != '' && test_result != ''"
+    isHtml: true
+
+  - template: "{diagnosis_label}: {diagnosis}"
+    relevance: "diagnosis != ''"
+
+  - template: "{diagnosis_type_label}: {diagnosis_type}"
+    relevance: "diagnosis_type != ''"
+
+  - template: "{disease_code_label}: {disease_code}"
+    relevance: "disease_code != ''"
+
+  - template: "{treatment_label}: {treatment}"
+    relevance: "treatment != ''"
+    isHtml: true
