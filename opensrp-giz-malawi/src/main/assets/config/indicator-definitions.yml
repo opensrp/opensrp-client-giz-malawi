@@ -1,7 +1,10 @@
 indicators:
   - key: "ME_Child_Total"
     description: "ME_Child_Total_label"
-    indicatorQuery: "select count(*) from ec_client child WHERE '%s' = strftime('%Y-%m-%d', child.date)"
+    indicatorQuery: "SELECT count(*) from ec_client child
+                      JOIN client_register_type reg_type ON child.base_entity_id=reg_type.base_entity_id
+                      WHERE reg_type.register_type='child';
+                      AND '%s' = strftime('%Y-%m-%d', child.date)"
     grouping: "child"
 
   - key: "ME_PAB_Gender"
@@ -159,6 +162,7 @@ indicators:
                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                      AND ec_client.dob >= date('now', '-2 years')
+                     AND ec_client.dob < date('now', '-1 years')
                      GROUP BY vaccines.name"
     isMultiResult: true
     expectedIndicators:
@@ -554,7 +558,116 @@ indicators:
                      and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
     grouping: "child"
 
+  # Additional DHIS2 Indicators
+  - key: "ME_Vaccines_Age_Static"
+      description: "ME_Vaccines_Age_Static_label"
+      indicatorQuery: "SELECT vaccines.name,
+                       CASE
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Static)'
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Static)'
+                          ELSE 'Null'
+                          END age, count(*) counter
+                      FROM vaccines
+                      INNER JOIN ec_client
+                      ON vaccines.base_entity_id = ec_client.base_entity_id
+                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                      AND ec_client.dob >= date('now', '-2 years')
+                      AND vaccines.child_location_id=vaccines.location_id OR vaccines.child_location_id IS NULL
+                      GROUP BY vaccines.name, age"
+      isMultiResult: true
+      expectedIndicators:
+        - "ME_Vaccines_Age_bcg_Over_1(Static)"
+        - "ME_Vaccines_Age_bcg_Under_1(Static)"
+        - "ME_Vaccines_Age_opv_0_Over_1(Static)"
+        - "ME_Vaccines_Age_opv_0_Under_1(Static)"
+        - "ME_Vaccines_Age_opv_1_Over_1(Static)"
+        - "ME_Vaccines_Age_opv_1_Under_1(Static)"
+        - "ME_Vaccines_Age_opv_2_Over_1(Static)"
+        - "ME_Vaccines_Age_opv_2_Under_1(Static)"
+        - "ME_Vaccines_Age_opv_3_Over_1(Static)"
+        - "ME_Vaccines_Age_opv_3_Under_1(Static)"
+        - "ME_Vaccines_Age_penta_1_Over_1(Static)"
+        - "ME_Vaccines_Age_penta_1_Under_1(Static)"
+        - "ME_Vaccines_Age_penta_2_Over_1(Static)"
+        - "ME_Vaccines_Age_penta_2_Under_1(Static)"
+        - "ME_Vaccines_Age_penta_3_Over_1(Static)"
+        - "ME_Vaccines_Age_penta_3_Under_1(Static)"
+        - "ME_Vaccines_Age_pcv_1_Over_1(Static)"
+        - "ME_Vaccines_Age_pcv_1_Under_1(Static)"
+        - "ME_Vaccines_Age_pcv_2_Over_1(Static)"
+        - "ME_Vaccines_Age_pcv_2_Under_1(Static)"
+        - "ME_Vaccines_Age_rota_1_Over_1(Static)"
+        - "ME_Vaccines_Age_rota_1_Under_1(Static)"
+        - "ME_Vaccines_Age_rota_2_Over_1(Static)"
+        - "ME_Vaccines_Age_rota_2_Under_1(Static)"
+        - "ME_Vaccines_Age_mv_1_Over_1(Static)"
+        - "ME_Vaccines_Age_mv_1_Under_1(Static)"
+        - "ME_Vaccines_Age_mv_2_Over_1(Static)"
+        - "ME_Vaccines_Age_mv_2_Under_1(Static)"
+        - "ME_Vaccines_Age_mv_3_Over_1(Static)"
+        - "ME_Vaccines_Age_mv_3_Under_1(Static)"
+        - "ME_Vaccines_Age_measles_1_/_mr_1_Over_1(Static)"
+        - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1(Static)"
+        - "ME_Vaccines_Age_ipv_Over_1(Static)"
+        - "ME_Vaccines_Age_ipv_Under_1(Static)"
+      grouping: "child"
 
+  - key: "ME_Vaccines_Age_Outreach"
+      description: "ME_Vaccines_Age_Outreach_label"
+      indicatorQuery: "SELECT vaccines.name,
+                       CASE
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Outreach)'
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Outreach)'
+                          ELSE 'Null'
+                          END age, count(*) counter
+                      FROM vaccines
+                      INNER JOIN ec_client
+                      ON vaccines.base_entity_id = ec_client.base_entity_id
+                      WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                      AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                      AND ec_client.dob >= date('now', '-2 years')
+                      AND vaccines.child_location_id!=vaccines.location_id
+                      GROUP BY vaccines.name, age"
+      isMultiResult: true
+      expectedIndicators:
+        - "ME_Vaccines_Age_bcg_Over_1(Outreach)"
+        - "ME_Vaccines_Age_bcg_Under_1(Outreach)"
+        - "ME_Vaccines_Age_opv_0_Over_1(Outreach)"
+        - "ME_Vaccines_Age_opv_0_Under_1(Outreach)"
+        - "ME_Vaccines_Age_opv_1_Over_1(Outreach)"
+        - "ME_Vaccines_Age_opv_1_Under_1(Outreach)"
+        - "ME_Vaccines_Age_opv_2_Over_1(Outreach)"
+        - "ME_Vaccines_Age_opv_2_Under_1(Outreach)"
+        - "ME_Vaccines_Age_opv_3_Over_1(Outreach)"
+        - "ME_Vaccines_Age_opv_3_Under_1(Outreach)"
+        - "ME_Vaccines_Age_penta_1_Over_1(Outreach)"
+        - "ME_Vaccines_Age_penta_1_Under_1(Outreach)"
+        - "ME_Vaccines_Age_penta_2_Over_1(Outreach)"
+        - "ME_Vaccines_Age_penta_2_Under_1(Outreach)"
+        - "ME_Vaccines_Age_penta_3_Over_1(Outreach)"
+        - "ME_Vaccines_Age_penta_3_Under_1(Outreach)"
+        - "ME_Vaccines_Age_pcv_1_Over_1(Outreach)"
+        - "ME_Vaccines_Age_pcv_1_Under_1(Outreach)"
+        - "ME_Vaccines_Age_pcv_2_Over_1(Outreach)"
+        - "ME_Vaccines_Age_pcv_2_Under_1(Outreach)"
+        - "ME_Vaccines_Age_rota_1_Over_1(Outreach)"
+        - "ME_Vaccines_Age_rota_1_Under_1(Outreach)"
+        - "ME_Vaccines_Age_rota_2_Over_1(Outreach)"
+        - "ME_Vaccines_Age_rota_2_Under_1(Outreach)"
+        - "ME_Vaccines_Age_mv_1_Over_1(Outreach)"
+        - "ME_Vaccines_Age_mv_1_Under_1(Outreach)"
+        - "ME_Vaccines_Age_mv_2_Over_1(Outreach)"
+        - "ME_Vaccines_Age_mv_2_Under_1(Outreach)"
+        - "ME_Vaccines_Age_mv_3_Over_1(Outreach)"
+        - "ME_Vaccines_Age_mv_3_Under_1(Outreach)"
+        - "ME_Vaccines_Age_measles_1_/_mr_1_Over_1(Outreach)"
+        - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1(Outreach)"
+        - "ME_Vaccines_Age_ipv_Over_1(Outreach)"
+        - "ME_Vaccines_Age_ipv_Under_1(Outreach)"
+      grouping: "child"
+
+        -
   # ANC Indicators
   - key: "ME_Number_Of_Women_Registered"
     description: "Number of women registered"
