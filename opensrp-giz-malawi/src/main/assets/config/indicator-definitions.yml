@@ -627,7 +627,7 @@ indicators:
                       WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND ec_client.dob >= date('now', '-2 years')
-                      AND vaccines.child_location_id!=vaccines.location_id
+                      AND vaccines.child_location_id!=vaccines.location_id OR vaccines.child_location_id IS NOT NULL
                       GROUP BY vaccines.name, age"
       isMultiResult: true
       expectedIndicators:
@@ -667,7 +667,111 @@ indicators:
         - "ME_Vaccines_Age_ipv_Under_1(Outreach)"
       grouping: "child"
 
-        -
+  - key: "ME_Recurring_Age_Static"
+      description: "ME_Recurring_Age_Static_label"
+      indicatorQuery: "SELECT recur_type.name,
+                       CASE
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Static)'
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Static)'
+                            ELSE 'Null'
+                            END age, count(*) counter
+                       FROM recurring_service_records recur
+                       INNER JOIN ec_client
+                       ON recur.base_entity_id = ec_client.base_entity_id
+                       JOIN recurring_service_types recur_type
+                       ON recur_type._id = recur.recurring_service_id
+                       WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND ec_client.dob >= date('now', '-2 years')
+                       AND recur.child_location_id=recur.location_id OR recur.child_location_id IS NULL
+                       GROUP BY recur_type.name, age"
+      isMultiResult: true
+      expectedIndicators:
+        - "ME_Recurring_Age_Deworming_1_Over_1(Static)"
+        - "ME_Recurring_Age_Deworming_1_Under_1(Static)"
+        - "ME_Recurring_Age_Deworming_2_Over_1(Static)"
+        - "ME_Recurring_Age_Deworming_2_Under_1(Static)"
+        - "ME_Recurring_Age_Deworming_3_Over_1(Static)"
+        - "ME_Recurring_Age_Deworming_3_Under_1(Static)"
+        - "ME_Recurring_Age_Deworming_4_Over_1(Static)"
+        - "ME_Recurring_Age_Deworming_4_Under_1(Static)"
+        - "ME_Recurring_Age_Deworming_5_Over_1(Static)"
+        - "ME_Recurring_Age_Deworming_5_Under_1(Static)"
+        - "ME_Recurring_Age_Deworming_6_Over_1(Static)"
+        - "ME_Recurring_Age_Deworming_6_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_1_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_1_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_2_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_2_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_3_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_3_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_4_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_4_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_5_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_5_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_6_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_6_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_7_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_7_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_8_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_8_Under_1(Static)"
+        - "ME_Recurring_Age_Vit_A_9_Over_1(Static)"
+        - "ME_Recurring_Age_Vit_A_9_Under_1(Static)"
+      grouping: "child"
+
+  - key: "ME_Recurring_Age_Outreach"
+      description: "ME_Recurring_Age_Outreach_label"
+      indicatorQuery: "SELECT recur_type.name,
+                         CASE
+                              WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Outreach)'
+                              WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Outreach)'
+                              ELSE 'Null'
+                              END age, count(*) counter
+                         FROM recurring_service_records recur
+                         INNER JOIN ec_client
+                         ON recur.base_entity_id = ec_client.base_entity_id
+                         JOIN recurring_service_types recur_type
+                         ON recur_type._id = recur.recurring_service_id
+                         WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                         AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                         AND ec_client.dob >= date('now', '-2 years')
+                         AND recur.child_location_id!=recur.location_id OR recur.child_location_id IS NOT NULL
+                         GROUP BY recur_type.name, age"
+      isMultiResult: true
+      expectedIndicators:
+        - "ME_Recurring_Age_Deworming_1_Over_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_1_Under_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_2_Over_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_2_Under_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_3_Over_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_3_Under_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_4_Over_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_4_Under_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_5_Over_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_5_Under_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_6_Over_1(Outreach)"
+        - "ME_Recurring_Age_Deworming_6_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_1_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_1_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_2_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_2_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_3_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_3_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_4_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_4_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_5_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_5_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_6_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_6_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_7_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_7_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_8_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_8_Under_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_9_Over_1(Outreach)"
+        - "ME_Recurring_Age_Vit_A_9_Under_1(Outreach)"
+      grouping: "child"
+
+
   # ANC Indicators
   - key: "ME_Number_Of_Women_Registered"
     description: "Number of women registered"
