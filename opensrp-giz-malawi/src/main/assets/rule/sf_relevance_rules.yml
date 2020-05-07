@@ -160,3 +160,10 @@ priority: 1
 condition: "!step5_tb_screening.isEmpty() && !step5_tb_screening.contains('none')"
 actions:
   - "isRelevant = true"
+---
+name: step6_toaster_frq_of_depressed
+description: toaster_frq_of_depressed
+priority: 1
+condition: "step6_mh_phq_score != -2"
+actions:
+  - "isRelevant = true"

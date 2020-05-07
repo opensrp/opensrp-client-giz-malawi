@@ -2321,9 +2321,9 @@
       },
       {
         "key": "cpt_medication",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "162229AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Cotrimoxazole medications provided",
         "label_info_text": "This is to capture if CPT treatment was provided",
@@ -2359,9 +2359,9 @@
       },
       {
         "key": "nvp_medication",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Nevirapine medications provided",
         "label_info_text": "This is to capture if NVP treatment was provided",
@@ -2397,9 +2397,9 @@
       },
       {
         "key": "art_medication",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity_parent": "165328AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Antiretroviral medications provided",
         "label_info_text": "This is to capture if ART treatment was provided",
@@ -2433,7 +2433,6 @@
           }
         }
       },
-
       {
         "key": "hepb_positive_counsel",
         "openmrs_entity_parent": "165329AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -2954,6 +2953,25 @@
             "ex-rules": {
               "rules-file": "ct_calculation_rules.yml"
             }
+          }
+        }
+      },
+      {
+        "key": "fefo_tablets_number_anaemia",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Number of FeFo tablets given",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid number"
+        },
+        "relevance": {
+          "step5:ifa_anaemia": {
+            "type": "string",
+            "ex": "equalTo(., \"done\")"
           }
         }
       },
@@ -4395,6 +4413,26 @@
         }
       },
       {
+        "key": "fefo_tablets_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Number of FeFo tablets given",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid number"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -4417,7 +4455,7 @@
         "openmrs_entity_id": "165345AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
-        "label_info_text": "High risk pregnant women such as prim-gravidas, grand-multiparas and those with pre-eclampsia should be provided with daily calcium supplementation (1.5–2.0 g oral elemental calcium) to reduce the risk of pre-eclampsia\nDietary counselling of pregnant women should promote adequate calcium intake through locally available, calcium-rich foods.\nThe high-risk pregnant women should be given calcium 1.5-2.0 g daily  with the total dose divided in three doses preferably taken at meal times  after 20 weeks of gestation\nNegative interactions between iron and calcium supplements may occur therefore the two should preferably be administered several hours apart rather than concomitantly.",
+        "label_info_text": "High risk pregnant women such as prim-gravidas, grand-multiparas and those with pre-eclampsia should be provided with daily calcium supplementation (1.5–2.0 g oral elemental calcium) to reduce the risk of pre-eclampsia\nDietary counselling of pregnant women should promote adequate calcium intake through locally available, calcium-rich foods.\nThe high-risk pregnant women should be given calcium 1.5-2.0 g daily  with the total dose divided in three doses preferably taken at meal times  after 20 weeks of gestation\nNegative interactions between iron and calcium supplements may occur therefore the two should preferably be administered several hours apart rather than concomitantly",
         "label_info_title": "Prescribe daily calcium supplementation (1.5–2.0 g oral elemental calcium)",
         "label_text_style": "bold",
         "options": [

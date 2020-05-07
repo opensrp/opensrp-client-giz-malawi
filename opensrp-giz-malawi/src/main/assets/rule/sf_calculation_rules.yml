@@ -1,0 +1,28 @@
+---
+name: step6_mh_little_interest_score
+description: mh_little_interest_score
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step6_mh_little_interest == 'not_at_all' ? 1 : step6_mh_little_interest == 'several_days' ? 1 : step6_mh_little_interest == 'more_than_half_the_days' ? 2 : step6_mh_little_interest == 'nearly_every_day' ? 3 : -1)"
+---
+name: step6_mh_feeling_down_score
+description: mh_feeling_down_score
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step6_mh_feeling_down == 'not_at_all' ? 1 : step6_mh_feeling_down == 'several_days' ? 1 : step6_mh_feeling_down == 'more_than_half_the_days' ? 2 : step6_mh_feeling_down == 'nearly_every_day' ? 3 : -1)"
+---
+name: step6_mh_phq_score
+description: mh_phq_score
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step6_mh_little_interest_score + step6_mh_feeling_down_score)"
+---
+name: step6_toaster_frq_of_depressed
+description: toaster_frq_of_depressed
+priority: 1
+condition: "true"
+actions:
+  - "calculation = ['mh_phq_score' : step6_mh_phq_score]"

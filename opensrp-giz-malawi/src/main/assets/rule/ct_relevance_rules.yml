@@ -719,3 +719,10 @@ priority: 1
 condition: "(step5_hiv_positive_counsel != '') && (step5_hiv_positive_counsel == 'done')"
 actions:
   - "isRelevant = true"
+---
+name: step9_fefo_tablets_number
+description: fefo_tablets_number
+priority: 1
+condition: "step9_ifa_low_prev == 'done' || step9_ifa_prev_prev == 'done' || step9_ifa_weekly_prev == 'done'"
+actions:
+  - "isRelevant = true"

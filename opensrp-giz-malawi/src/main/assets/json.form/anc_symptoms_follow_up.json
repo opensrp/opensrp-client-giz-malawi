@@ -2,7 +2,7 @@
   "validate_on_submit": true,
   "display_scroll_bars": true,
   "skip_blank_steps": true,
-  "count": "5",
+  "count": "6",
   "encounter_type": "Symptoms and Follow-up",
   "entity_id": "",
   "relational_id": "",
@@ -2123,6 +2123,7 @@
   },
   "step5": {
     "title": "TB Screening",
+    "next": "step6",
     "fields": [
       {
         "key": "tb_screening",
@@ -2219,6 +2220,132 @@
           "rules-engine": {
             "ex-rules": {
               "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "step6": {
+    "title": "MENTAL HEALTH",
+    "fields": [
+      {
+        "key": "mental_health_note",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Over the last 2 weeks, how often has the woman been bothered by the following problems?",
+        "text_color": "#000000",
+        "v_required": {
+          "value": true
+        }
+      },
+      {
+        "key": "mh_little_interest",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Little interest or pleasure in doing things",
+        "type": "spinner",
+        "values": [
+          "Not at all(0)",
+          "Several days(+1)",
+          "More than half the days(+2)",
+          "Nearly every day(+3)"
+        ],
+        "keys": [
+          "not_at_all",
+          "several_days",
+          "more_than_half_the_days",
+          "nearly_every_day"
+        ]
+      },
+      {
+        "key": "mh_feeling_down",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Feeling down, depressed or hopeless",
+        "type": "spinner",
+        "values": [
+          "Not at all(0)",
+          "Several days(+1)",
+          "More than half the days(+2)",
+          "Nearly every day(+3)"
+        ],
+        "keys": [
+          "not_at_all",
+          "several_days",
+          "more_than_half_the_days",
+          "nearly_every_day"
+        ]
+      },
+      {
+        "key": "mh_little_interest_score",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Feeling down, depressed or hopeless",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mh_feeling_down_score",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Feeling down, depressed or hopeless",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "mh_phq_score",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Feeling down, depressed or hopeless",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "toaster_frq_of_depressed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Frequency of depressed mood score: {mh_phq_score}. \nTap on the info icon to see how to interpret this score.",
+        "toaster_info_text": "Interpretation:\n- A score ranges from 0-6. \n- If the score is 3 or greater, major depressive disorder is likely.\n- Women who score 3 or greater should be evaluated further to determine whether they meet the criteria for a depressive disorder.",
+        "toaster_info_title": "TB Screening",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_calculation_rules.yml"
             }
           }
         }
