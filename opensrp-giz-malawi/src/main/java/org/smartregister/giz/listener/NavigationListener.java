@@ -7,6 +7,7 @@ import android.view.View;
 
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.giz.activity.ChildRegisterActivity;
+import org.smartregister.giz.activity.MaternityRegisterActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
@@ -39,6 +40,10 @@ public class NavigationListener implements View.OnClickListener {
 
                 case GizConstants.DrawerMenu.ANC_CLIENTS:
                     navigateToActivity(AncLibrary.getInstance().getActivityConfiguration().getHomeRegisterActivityClass());
+                    break;
+
+                case GizConstants.DrawerMenu.MATERNITY_CLIENTS:
+                    navigateToActivity(MaternityRegisterActivity.class);
                     break;
 
                 default:

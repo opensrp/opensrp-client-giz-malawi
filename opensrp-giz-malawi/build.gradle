@@ -260,6 +260,16 @@ dependencies {
 //        exclude group: 'com.android.support', module: 'design'
 //    }
 
+    //api('org.smartregister:opensrp-client-maternity:0.0.1-SNAPSHOT@aar') {
+    api (project(':opensrp-maternity')) {
+        transitive = true
+        exclude group: 'id.zelory', module: 'compressor'
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+
     api('org.smartregister:opensrp-client-immunization:1.4.43-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
@@ -343,9 +353,6 @@ dependencies {
         transitive = true
     }
     implementation group: 'io.fabric.sdk.android', name: 'fabric', version: '1.4.8'
-
-
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.apache.maven:maven-ant-tasks:2.1.3'

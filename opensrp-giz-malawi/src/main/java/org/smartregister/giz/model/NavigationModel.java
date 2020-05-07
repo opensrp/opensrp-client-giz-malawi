@@ -47,6 +47,14 @@ public class NavigationModel implements NavigationContract.Model {
             if (ancNavigationOption.isEnabled()) {
                 navigationOptions.add(ancNavigationOption);
             }
+
+            // Maternity navigation
+            NavigationOption maternityNavigationOption = new NavigationOption(R.mipmap.sidemenu_children,
+                    R.mipmap.sidemenu_children_active, R.string.menu_maternity_clients, GizConstants.DrawerMenu.MATERNITY_CLIENTS,
+                    0, true);
+            if (maternityNavigationOption.isEnabled()) {
+                navigationOptions.add(maternityNavigationOption);
+            }
         }
 
         return navigationOptions;
@@ -54,13 +62,13 @@ public class NavigationModel implements NavigationContract.Model {
 
     @Override
     public String getCurrentUser() {
-        String prefferedName = "";
+        String preferredName = "";
         try {
-            prefferedName = Utils.getPrefferedName().split(" ")[0];
+            preferredName = Utils.getPrefferedName().split(" ")[0];
         } catch (Exception e) {
             Timber.e(e);
         }
 
-        return prefferedName;
+        return preferredName;
     }
 }

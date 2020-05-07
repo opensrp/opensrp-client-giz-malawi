@@ -33,6 +33,7 @@ import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
+import org.smartregister.giz.configuration.GizMaternityRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
@@ -47,6 +48,7 @@ import org.smartregister.giz.repository.GizChildRegisterQueryProvider;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
+import org.smartregister.giz.util.DbConstants;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
 import org.smartregister.giz.util.GizUtils;
@@ -67,6 +69,13 @@ import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinateActionUtils;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.maternity.MaternityLibrary;
+import org.smartregister.maternity.activity.BaseMaternityFormActivity;
+import org.smartregister.maternity.activity.BaseMaternityProfileActivity;
+import org.smartregister.maternity.configuration.MaternityConfiguration;
+import org.smartregister.maternity.pojos.MaternityMetadata;
+import org.smartregister.maternity.utils.MaternityConstants;
+import org.smartregister.maternity.utils.MaternityDbConstants;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
@@ -135,7 +144,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }
 
     private static String[] getFtsTables() {
-        return new String[]{OpdDbConstants.KEY.TABLE, "ec_mother_details", DBConstants.RegisterTable.CHILD_DETAILS};
+        return new String[]{OpdDbConstants.KEY.TABLE, "ec_mother_details", DBConstants.RegisterTable.CHILD_DETAILS, MaternityDbConstants.Table.MATERNITY_REGISTRATION_DETAILS};
     }
 
     private static String[] getFtsSearchFields(String tableName) {
@@ -147,6 +156,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             return new String[]{"next_contact"};
         } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
             return new String[]{DBConstants.KEY.LOST_TO_FOLLOW_UP, DBConstants.KEY.INACTIVE};
+        } else if (tableName.equals(MaternityDbConstants.Table.MATERNITY_REGISTRATION_DETAILS)) {
+            return new String[]{MaternityDbConstants.KEY.CONCEPTION_DATE};
         }
 
         return null;
@@ -177,14 +188,15 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             }
 
             return names.toArray(new String[names.size()]);
-
+        } else if (tableName.equals(MaternityDbConstants.Table.MATERNITY_REGISTRATION_DETAILS)) {
+            return new String[]{MaternityDbConstants.KEY.CONCEPTION_DATE};
         }
+
         return null;
     }
 
     private static void populateAlertColumnNames(List<Vaccine> vaccines, List<String> names) {
-
-        for (Vaccine vaccine : vaccines)
+        for (Vaccine vaccine : vaccines) {
             if (vaccine.getVaccineSeparator() != null && vaccine.getName().contains(vaccine.getVaccineSeparator().trim())) {
                 String[] individualVaccines = vaccine.getName().split(vaccine.getVaccineSeparator().trim());
 
@@ -196,17 +208,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
                 }
                 populateAlertColumnNames(vaccineList, names);
-
-
             } else {
-
                 names.add("alerts." + VaccinateActionUtils.addHyphen(vaccine.getName()));
             }
+        }
     }
 
-
     private static void populateAlertScheduleMap(List<Vaccine> vaccines, Map<String, Pair<String, Boolean>> map) {
-
         for (Vaccine vaccine : vaccines)
             if (vaccine.getVaccineSeparator() != null && vaccine.getName().contains(vaccine.getVaccineSeparator().trim())) {
                 String[] individualVaccines = vaccine.getName().split(vaccine.getVaccineSeparator().trim());
@@ -285,18 +293,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ancMetadata.setFieldsWithLocationHierarchy(Arrays.asList("village"));
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider(), ancMetadata);
 
-        OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
-                OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
-                OpdConstants.CONFIG, OpdFormActivity.class, BaseOpdProfileActivity.class, true);
-
-        OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
-                .setOpdMetadata(opdMetadata)
-                .setOpdRegisterProviderMetadata(GizOpdRegisterProviderMetadata.class)
-                .setOpdRegisterRowOptions(GizOpdRegisterRowOptions.class)
-                .setOpdRegisterSwitcher(GizOpdRegisterSwitcher.class)
-                .build();
-
-        OpdLibrary.init(context, getRepository(), opdConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        setupOPDLibrary();
+        setupMaternityLibrary();
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
@@ -311,6 +309,38 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
+    }
+
+    private void setupMaternityLibrary() {
+        //Maternity Initialization
+        MaternityMetadata maternityMetadata = new MaternityMetadata(MaternityConstants.Form.MATERNITY_REGISTRATION
+                , MaternityDbConstants.KEY.TABLE
+                , MaternityConstants.EventType.MATERNITY_REGISTRATION
+                , MaternityConstants.EventType.UPDATE_MATERNITY_REGISTRATION
+                , MaternityConstants.CONFIG
+                , BaseMaternityFormActivity.class
+                , BaseMaternityProfileActivity.class
+                ,true);
+        MaternityConfiguration maternityConfiguration = new MaternityConfiguration
+                .Builder(GizMaternityRegisterQueryProvider.class)
+                .setMaternityMetadata(maternityMetadata)
+                .build();
+        MaternityLibrary.init(context, getRepository(), maternityConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+    }
+
+    private void setupOPDLibrary() {
+        OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
+                OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
+                OpdConstants.CONFIG, OpdFormActivity.class, BaseOpdProfileActivity.class, true);
+
+        OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
+                .setOpdMetadata(opdMetadata)
+                .setOpdRegisterProviderMetadata(GizOpdRegisterProviderMetadata.class)
+                .setOpdRegisterRowOptions(GizOpdRegisterRowOptions.class)
+                .setOpdRegisterSwitcher(GizOpdRegisterSwitcher.class)
+                .build();
+
+        OpdLibrary.init(context, getRepository(), opdConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
     }
 
     private ChildMetadata getMetadata() {

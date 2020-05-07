@@ -47,6 +47,8 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
+import org.smartregister.maternity.processor.MaternityMiniClientProcessorForJava;
+import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.repository.EventClientRepository;
@@ -77,9 +79,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         super(context);
 
         BaseAncClientProcessorForJava baseAncClientProcessorForJava = new BaseAncClientProcessorForJava(context);
+        GizMaternityProcessorForJava maternityMiniClientProcessorForJava = new GizMaternityProcessorForJava(context);
         OpdMiniClientProcessorForJava opdMiniClientProcessorForJava = new OpdMiniClientProcessorForJava(context);
 
-        addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava);
+        addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava, maternityMiniClientProcessorForJava);
     }
 
     public void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
@@ -173,7 +176,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     try {
                         if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
+                        } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_REGISTRATION) && eventClient.getClient() != null) {
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
                         }
+
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
                     } catch (Exception ex) {
                         Timber.e(ex);
@@ -244,6 +250,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 unsyncEventsPerProcessor.put(miniClientProcessorForJava, processorUnsyncEvents);
             }
 
+            completeProcessing(eventClient.getEvent());
             miniClientProcessorForJava.processEventClient(eventClient, processorUnsyncEvents, clientClassification);
         }
     }

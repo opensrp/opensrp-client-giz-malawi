@@ -184,6 +184,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <!-- END OF ANC ACTIVITIES -->
+
         <!-- OPD ACTIVITIES -->
         <activity
             android:name=".activity.OpdRegisterActivity"
@@ -201,6 +202,25 @@
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
         <!-- END OF OPD ACTIVITIES -->
+        <!-- MATERNITY ACTIVITIES -->
+        <activity
+            android:name=".activity.MaternityRegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChildTheme.NoActionBar" />
+        <activity
+            android:name="org.smartregister.maternity.activity.BaseMaternityFormActivity"
+            android:screenOrientation="portrait"
+            tools:replace="android:theme"
+            android:theme="@style/ChildTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity
+            android:name="org.smartregister.maternity.activity.BaseMaternityProfileActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            tools:replace="android:theme"
+            android:theme="@style/ChildTheme.NoActionBar" />
+        <!-- END OF MATERNITY ACTIVITIES -->
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.VaccineSchedulesUpdateIntentService" />
