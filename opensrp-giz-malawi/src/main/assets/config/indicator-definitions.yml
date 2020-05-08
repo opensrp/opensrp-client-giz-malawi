@@ -1,7 +1,10 @@
 indicators:
   - key: "ME_Child_Total"
     description: "ME_Child_Total_label"
-    indicatorQuery: "select count(*) from ec_client child WHERE '%s' = strftime('%Y-%m-%d', child.date)"
+    indicatorQuery: "SELECT count(*) from ec_client child
+                      JOIN client_register_type reg_type ON child.base_entity_id=reg_type.base_entity_id
+                      WHERE reg_type.register_type = 'child';
+                      AND '%s' = strftime('%Y-%m-%d', child.date)"
     grouping: "child"
 
   - key: "ME_PAB_Gender"
@@ -115,7 +118,7 @@ indicators:
     isMultiResult: true
     expectedIndicators:
       - "ME_Vaccines_Age_bcg_Over_1"
-      - "ME_Vaccines_Age_bcg_Under_1"
+      - "ME_Vaccines_Age_bcg_Under_1(Static)"
       - "ME_Vaccines_Age_opv_0_Over_1"
       - "ME_Vaccines_Age_opv_0_Under_1"
       - "ME_Vaccines_Age_opv_1_Over_1"
@@ -180,18 +183,18 @@ indicators:
       - "ME_Vaccines_Under2_measles_1_/_mr_1"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Under2_Gender"
-    description: "ME_Child_HIV_Under2_label"
-    indicatorQuery: "SELECT 'HIV ' || d.value ,ec_client.gender,count(*) counter
-                     FROM ec_details d
-                     JOIN ec_client
-                     ON d.base_entity_id=ec_client.base_entity_id
-                     WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                     AND round(julianday('now')-julianday(ec_client.dob)) < 730.0
-                     group by d.value,ec_client.gender
-                     HAVING d.key IN ('child_hiv_status', NULL);"
-    isMultiResult: true
-    grouping: "child"
+#  - key: "ME_Child_HIV_Under2_Gender"
+#    description: "ME_Child_HIV_Under2_label"
+#    indicatorQuery: "SELECT 'HIV ' || d.value ,ec_client.gender,count(*) counter
+#                     FROM ec_details d
+#                     JOIN ec_client
+#                     ON d.base_entity_id=ec_client.base_entity_id
+#                     WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
+#                     AND round(julianday('now')-julianday(ec_client.dob)) < 730.0
+#                     group by d.value,ec_client.gender
+#                     HAVING d.key IN ('child_hiv_status', NULL);"
+#    isMultiResult: true
+#    grouping: "child"
 
   - key: "ME_Child_HIV_Status_Under2_Gender"
     description: "ME_Child_HIV_Status_Under2_Gender_label"
