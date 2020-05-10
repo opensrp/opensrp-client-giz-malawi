@@ -494,6 +494,23 @@
     <string name="me_height_under2_age_gender_severe_over_1_male">Severe Height Male Over 1</string>
     <string name="me_height_under2_age_gender_stunted_under_1_female">Stunted Height Female Under 1</string>
     <string name="me_height_under2_age_gender_stunted_under_1_male">Stunted Height Male Under 1</string>
+    <string name="me_weight_over2_label">Weight Over 2</string>
+    <string name="me_weight_over2_gender_label">Weight Over 2</string>
+    <string name="me_weight_under2_age_label">Weight Under 2 </string>
+    <string name="me_weight_under2_age_gender_label">Weight Under 2 </string>
+    <string name="me_height_over2_label">Height Over 2</string>
+    <string name="me_height_over2_gender_label">Height Over 2</string>
+    <string name="me_height_under2_age_label">Height Under 2 </string>
+    <string name="me_height_under2_age_gender_label">Height Under 2 </string>
+    <string name="me_fully_immunized">Fully Immunized </string>
+    <string name="me_fully_immunized_static">Fully Immunized Static</string>
+    <string name="me_fully_immunized_outreach">Fully Immunized Outreach</string>
+    <!-- Additional DHIS2 reports -->
+    <string name="me_vaccines_age_static_label">Vaccinations Static</string>
+    <string name="me_vaccines_age_outreach_label">Vaccinations Outreach</string>
+    <string name="me_recurring_age_static_label">Recurring Services Static</string>
+    <string name="me_recurring_age_outreach_label">Recurring Services Outreach</string>
+
     <string name="me_child_total">Total Children Born</string>
     <string name="indicator">Indicator</string>
     <string name="value">Value</string>

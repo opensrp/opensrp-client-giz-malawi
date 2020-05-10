@@ -147,6 +147,8 @@ indicators:
       - "ME_Vaccines_Age_mv_2_Under_1"
       - "ME_Vaccines_Age_mv_3_Over_1"
       - "ME_Vaccines_Age_mv_3_Under_1"
+      - "ME_Vaccines_Age_mv_4_Over_1"
+      - "ME_Vaccines_Age_mv_4_Under_1"
       - "ME_Vaccines_Age_measles_1_/_mr_1_Over_1"
       - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1"
       - "ME_Vaccines_Age_ipv_Over_1"
@@ -541,23 +543,73 @@ indicators:
       - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"
     grouping: "child"
 
-  - key: "ME_Fully_Immunized"
+  - key: "ME_Fully_Immunized_Static"
     description: "Fully Immunized"
-    indicatorQuery: "select count(1) from (select vaccines.base_entity_id from vaccines
-                     join ec_client on vaccines.base_entity_id = ec_client.base_entity_id where '%s' = strftime('%Y-%m-%d', ec_client.date)
-                     group by vaccines.base_entity_id
-                     having sum(case when name = 'bcg' then 1 else 0 end) > 0
-                     and sum(case when name = 'ipv' then 1 else 0 end) > 0
-                     and sum(case when name = 'mr_1' then 1 else 0 end) > 0
-                     and sum(case when name = 'opv_1' then 1 else 0 end) > 0
-                     and sum(case when name = 'opv_3' then 1 else 0 end) > 0
-                     and sum(case when name = 'pcv_1' then 1 else 0 end) > 0
-                     and sum(case when name = 'penta_1' then 1 else 0 end) > 0
-                     and sum(case when name = 'penta_2' then 1 else 0 end) > 0
-                     and sum(case when name = 'penta_3' then 1 else 0 end) > 0
-                     and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
-    grouping: "child"
+#      indicatorQuery: "select count(1) from (select vaccines.base_entity_id from vaccines
+#                     join ec_client on vaccines.base_entity_id = ec_client.base_entity_id where '%s' = strftime('%Y-%m-%d', ec_client.date)
+#                     group by vaccines.base_entity_id
+#                     having sum(case when name = 'bcg' then 1 else 0 end) > 0
+#                     and sum(case when name = 'ipv' then 1 else 0 end) > 0
+#                     and sum(case when name = 'mr_1' then 1 else 0 end) > 0
+#                     and sum(case when name = 'opv_1' then 1 else 0 end) > 0
+#                     and sum(case when name = 'opv_3' then 1 else 0 end) > 0
+#                     and sum(case when name = 'pcv_1' then 1 else 0 end) > 0
+#                     and sum(case when name = 'penta_1' then 1 else 0 end) > 0
+#                     and sum(case when name = 'penta_2' then 1 else 0 end) > 0
+#                     and sum(case when name = 'penta_3' then 1 else 0 end) > 0
+#                     and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
 
+    indicatorQuery: "select name,
+                        CASE
+                              WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Static)'
+                              WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Static)'
+                              ELSE 'Null'
+                              END age,count(1)
+                         from ec_client, (select vaccines.name,vaccines.base_entity_id from vaccines
+                         join ec_client
+    					 on vaccines.base_entity_id = ec_client.base_entity_id
+    					 where '%s' = strftime('%Y-%m-%d', ec_client.date)
+                         and vaccines.child_location_id=vaccines.location_id OR vaccines.child_location_id IS NULL
+    					 group by vaccines.base_entity_id
+                         having sum(case when name = 'bcg' then 1 else 0 end) > 0
+                         and sum(case when name = 'ipv' then 1 else 0 end) > 0
+                         and sum(case when name = 'mr_1' then 1 else 0 end) > 0
+                         and sum(case when name = 'opv_1' then 1 else 0 end) > 0
+                         and sum(case when name = 'opv_3' then 1 else 0 end) > 0
+                         and sum(case when name = 'pcv_1' then 1 else 0 end) > 0
+                         and sum(case when name = 'penta_1' then 1 else 0 end) > 0
+                         and sum(case when name = 'penta_2' then 1 else 0 end) > 0
+                         and sum(case when name = 'penta_3' then 1 else 0 end) > 0
+                         and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
+    isMultiResult: true
+    grouping: "child"
+  - key: "ME_Fully_Immunized_Outreach"
+    description: "Fully Immunized"
+
+    indicatorQuery: "select name,
+                        CASE
+                              WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Outreach)'
+                              WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Outreach)'
+                              ELSE 'Null'
+                              END age,count(1)
+                         from ec_client, (select vaccines.name,vaccines.base_entity_id from vaccines
+                         join ec_client
+    					 on vaccines.base_entity_id = ec_client.base_entity_id
+    					 where '%s' = strftime('%Y-%m-%d', ec_client.date)
+                         and vaccines.child_location_id!=vaccines.location_id OR vaccines.child_location_id IS NOT NULL
+    					 group by vaccines.base_entity_id
+                         having sum(case when name = 'bcg' then 1 else 0 end) > 0
+                         and sum(case when name = 'ipv' then 1 else 0 end) > 0
+                         and sum(case when name = 'mr_1' then 1 else 0 end) > 0
+                         and sum(case when name = 'opv_1' then 1 else 0 end) > 0
+                         and sum(case when name = 'opv_3' then 1 else 0 end) > 0
+                         and sum(case when name = 'pcv_1' then 1 else 0 end) > 0
+                         and sum(case when name = 'penta_1' then 1 else 0 end) > 0
+                         and sum(case when name = 'penta_2' then 1 else 0 end) > 0
+                         and sum(case when name = 'penta_3' then 1 else 0 end) > 0
+                         and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
+    isMultiResult: true
+    grouping: "child"
   # Additional DHIS2 Indicators
   - key: "ME_Vaccines_Age_Static"
       description: "ME_Vaccines_Age_Static_label"
@@ -607,6 +659,8 @@ indicators:
         - "ME_Vaccines_Age_mv_2_Under_1(Static)"
         - "ME_Vaccines_Age_mv_3_Over_1(Static)"
         - "ME_Vaccines_Age_mv_3_Under_1(Static)"
+        - "ME_Vaccines_Age_mv_4_Over_1(Static)"
+        - "ME_Vaccines_Age_mv_4_Under_1(Static)"
         - "ME_Vaccines_Age_measles_1_/_mr_1_Over_1(Static)"
         - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1(Static)"
         - "ME_Vaccines_Age_ipv_Over_1(Static)"
@@ -684,6 +738,7 @@ indicators:
                        AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                        AND ec_client.dob >= date('now', '-5 years')
                        AND recur.child_location_id=recur.location_id OR recur.child_location_id IS NULL
+                       AND recur_type.name IN ('Vit_A_1', 'Vit_A_2','Deworming_1','Deworming_2')
                        GROUP BY recur_type.name, age"
       isMultiResult: true
       expectedIndicators:
@@ -723,6 +778,7 @@ indicators:
                          AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                          AND ec_client.dob >= date('now', '-5 years')
                          AND recur.child_location_id!=recur.location_id OR recur.child_location_id IS NOT NULL
+                         AND recur_type.name IN ('Vit_A_1', 'Vit_A_2','Deworming_1','Deworming_2')
                          GROUP BY recur_type.name, age"
       isMultiResult: true
       expectedIndicators:
@@ -752,6 +808,7 @@ indicators:
                      where previous_contact.contact_no = '1' group by base_entity_id
                      having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_Pregnancy_Tests_Done_In_The_First_Trimester"
     description: "Pregnancy tests Done In the first trimester"
@@ -760,6 +817,7 @@ indicators:
                      having sum(case when key = 'pregnancy_test_first_trimester' and value = 'yes' then 1 else 0 end) > 0
                      and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_Pregnancy_Tests_Done_After_The_First_Trimester"
     description: "Pregnancy tests Done AFTER the first trimester"
@@ -768,6 +826,7 @@ indicators:
                    having sum(case when key = 'pregnancy_test_first_trimester' and value = 'no' then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_Week_Of_First_ANC_Visit_0_12_weeks"
     description: "Week of First ANC Visit (0-12 weeks)"
@@ -776,6 +835,7 @@ indicators:
                    having sum(case when key = 'gest_age_openmrs' and cast(value as integer) <= 12 then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_Week_Of_First_ANC_Visit_13_plus_weeks"
     description: "Week of First ANC Visit (13+ weeks)"
@@ -784,6 +844,7 @@ indicators:
                    having sum(case when key = 'gest_age_openmrs' and cast(value as integer) > 12 then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_HIV_Status_First_Visit_Prev_Negative"
     description: "HIV status first visit (Prev. negative)"
@@ -792,6 +853,7 @@ indicators:
                    having sum(case when key = 'health_conditions' and instr(value, 'hiv') = 0 then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_HIV_Status_First_Visit_Prev_Positive"
     description: "HIV status first visit (Prev. positive)"
@@ -800,6 +862,7 @@ indicators:
                    having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_HIV_Status_First_Visit_New_Negative"
     description: "HIV status first visit (New negative)"
@@ -808,6 +871,7 @@ indicators:
                    having sum(case when key = 'hiv_test_result' and value = 'negative' then 1 else 0 end ) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_HIV_Status_First_Visit_New_Positive"
     description: "HIV status first visit (New positive)"
@@ -816,15 +880,18 @@ indicators:
                    having sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_HIV_Status_First_Visit_Not_Done"
     description: "HIV status first visit (Not done)"
     indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
                    where previous_contact.contact_no = '1' group by base_entity_id
-                   having sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0
+                   having sum(case when key = 'hiv_test_status' and value != 'not_done' then 1 else 0 end ) > 0
                    or sum(case when key = 'hiv_test_status' then 1 else 0 end ) = 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -Ask about this line or sum(case when key = 'hiv_test_status' then 1 else 0 end ) = 0
+
 
   - key: "ME_ART_Status_First_Visit_Not_On_ART"
     description: "ART status first visit (Not on ART)"
@@ -834,6 +901,7 @@ indicators:
                    and sum(case when key = 'medications' and instr(value, 'arvs') = 0 then 1 else 0 end ) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_ART_Status_First_Visit_On_ART_Before_ANC"
     description: "ART status first visit( On ART before ANC)"
@@ -843,6 +911,7 @@ indicators:
                    and sum(case when key = 'medications' and instr(value, 'arvs') > 0 then 1 else 0 end ) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_ART_Status_First_Visit_Start_ART_0_27_Weeks"
     description: "ART status First Visit (Start ART 0-27 weeks)"
@@ -853,6 +922,7 @@ indicators:
                    and sum(case when key = 'gest_age_openmrs' and cast(value as integer) <= 27 then 1 else 0 end ) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_ART_Status_First_Visit_Start_ART_28_plus_Weeks"
     description: "ART status first visit (Start ART 28+ weeks)"
@@ -863,6 +933,7 @@ indicators:
                    and sum(case when key = 'gest_age_openmrs' and cast(value as integer) >= 28 then 1 else 0 end ) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   ##Booking Cohort
   - key: "ME_HIV_Status_Final_Prev_Negative"
@@ -872,6 +943,7 @@ indicators:
                    having sum(case when key = 'health_conditions' and instr(value, 'hiv') = 0 then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_HIV_Status_Final_Prev_Positive"
     description: "HIV status Final (Prev positive)"
@@ -880,22 +952,45 @@ indicators:
                    having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
     grouping: "anc"
+    #QA 08/05/2020 -OK
 
   - key: "ME_HIV_Status_Final_New_Negative"
     description: "HIV status Final (New negative)"
-    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
-                   where previous_contact.contact_no = '1' group by base_entity_id
-                   having sum(case when key = 'hiv_test_result' and value = 'negative' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+#    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
+#                   where previous_contact.contact_no = '1' group by base_entity_id
+#                   having sum(case when key = 'hiv_test_result' and value = 'negative' then 1 else 0 end ) > 0
+#                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+#
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                    where z.contact_no = '1' group by z.base_entity_id
+                    having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+				    ) a
+				    JOIN
+				    ( select y.base_entity_id from previous_contact y group by y.base_entity_id
+                      having sum(case when key = 'hiv_test_result' and value = 'negative' then 1 else 0 end ) > 0
+                    ) b
+				    ON a.base_entity_id=b.base_entity_id "
     grouping: "anc"
+    #QA 08/05/2020 -TBD
 
   - key: "ME_HIV_Status_Final_New_Positive"
     description: "HIV status Final (New positive)"
-    indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
-                   where previous_contact.contact_no = '1' group by base_entity_id
-                   having sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+#    indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
+#                   where previous_contact.contact_no = '1' group by base_entity_id
+#                   having sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+#                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end ) > 0)"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                          where z.contact_no = '1' group by z.base_entity_id
+                          having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+      				    ) a
+      				    JOIN
+      				    ( select y.base_entity_id from previous_contact y group by y.base_entity_id
+                            having sum(case when key = 'hiv_test_result' and value = 'negative' then 1 else 0 end ) > 0
+                        ) b
+    				    ON a.base_entity_id=b.base_entity_id "
     grouping: "anc"
+    #QA 08/05/2020 -TBD
+
 
   - key: "ME_HIV_Status_Final_Not_Done"
     description: "HIV status Final (Not done)"
