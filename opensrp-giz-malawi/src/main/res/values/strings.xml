@@ -563,6 +563,8 @@
     <string name="me_syphilis_status_negative">Syphilis Status Negative</string>
     <string name="me_syphilis_status_positive">Syphilis Status Positive</string>
     <string name="me_syphilis_status_not_done">Syphilis Status Not Done</string>
+    <string name="me_fefo_less_than_120"><![CDATA[FeFo tablets <120 tabs]]></string>
+    <string name="me_fefo_more_than_120">FeFo tablets 120+ tabs</string>
     <!-- END OF ANC INDICATOR LABELS-->
 
     <string name="str_page_info">Page {0} of {1}</string>
