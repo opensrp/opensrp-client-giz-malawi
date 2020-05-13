@@ -99,7 +99,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
 
     private ReportingProcessingSnackbar reportingProcessingSnackbar;
     private ArrayList<FragmentRefreshListener> fragmentRefreshListeners = new ArrayList<>();
-
+    private HashMap<String, String> groupingReportMap = new HashMap<>();
     @Nullable
     private String reportGrouping;
 
@@ -109,6 +109,8 @@ public class HIA2ReportsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hia2_reports);
         tabLayout = findViewById(R.id.tabs);
 
+        groupingReportMap.put("child", "EPI Vaccination Performance and Disease Surveillance (NEW)");
+        groupingReportMap.put("anc", "ANC Monthly Facility Report");
         ImageView backBtnImg = findViewById(R.id.back_button);
         if (backBtnImg != null) {
             backBtnImg.setImageResource(R.drawable.ic_back);
@@ -383,7 +385,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                         reportHia2Indicators.add(reportHia2Indicator);
                     }
 
-                    GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, REPORT_NAME);
+                    GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, groupingReportMap.get(getReportGrouping()));
 
                     for (MonthlyTally curTally : tallies) {
                         curTally.setDateSent(Calendar.getInstance().getTime());

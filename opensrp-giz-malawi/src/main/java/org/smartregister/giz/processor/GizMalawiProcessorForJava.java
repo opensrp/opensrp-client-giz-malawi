@@ -662,17 +662,18 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
-        // Todo: Disable this in favour of the vaccine post-processing at the end :shrug: Might not be the best for real-time updates to the register
         if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName)) {
-            String dobString = contentValues.getAsString(Constants.KEY.DOB);
-            // TODO: Fix this to use the ec_child_details table & fetch the birthDateTime from the ec_client table
-            if (StringUtils.isNotBlank(dobString)) {
-                DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
-                if (birthDateTime != null) {
-                    VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, "child");
-                    ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
+            if (GizMalawiApplication.getInstance().registerTypeRepository().findByRegisterType(entityId, GizConstants.RegisterType.CHILD)) {
+                String dobString = contentValues.getAsString(Constants.KEY.DOB);
+                if (StringUtils.isNotBlank(dobString)) {
+                    DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
+                    if (birthDateTime != null) {
+                        VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, GizConstants.RegisterType.CHILD);
+                        ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
+                    }
                 }
             }
+
         }
 
         Timber.d("Finished updateFTSsearch table: %s", tableName);

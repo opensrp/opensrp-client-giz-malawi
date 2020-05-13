@@ -7,4 +7,5 @@ interface ClientRegisterTypeDao {
     boolean remove(String registerType, String baseEntityId);
     boolean removeAll(String baseEntityId);
     boolean add(String registerType, String baseEntityId);
+    boolean findByRegisterType(String baseEntityId, String registerType);
 }

@@ -3,6 +3,7 @@ package org.smartregister.giz.repository;
 import android.content.ContentValues;
 import android.support.annotation.NonNull;
 
+import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.giz.util.GizConstants;
@@ -54,5 +55,17 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
         contentValues.put(GizConstants.Columns.RegisterType.DATE_CREATED, new Date().getTime());
         long result = database.insert(GizConstants.TABLE_NAME.REGISTER_TYPE, null, contentValues);
         return result != -1;
+    }
+
+    @Override
+    public boolean findByRegisterType(String baseEntityId, String registerType) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(GizConstants.TABLE_NAME.REGISTER_TYPE, new String[]{GizConstants.Columns.RegisterType.BASE_ENTITY_ID},
+                GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? and " + GizConstants.Columns.RegisterType.REGISTER_TYPE + " = ?",
+                new String[]{baseEntityId, registerType}, null, null, null);
+        if (cursor != null) {
+            return cursor.getCount() > 0;
+        }
+        return false;
     }
 }
