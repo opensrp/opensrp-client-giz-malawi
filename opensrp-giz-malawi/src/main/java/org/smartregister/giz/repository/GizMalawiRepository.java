@@ -37,6 +37,7 @@ import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
 import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.reporting.repository.IndicatorRepository;
+import org.smartregister.reporting.util.ReportingUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Hia2ReportRepository;
@@ -46,6 +47,8 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -101,6 +104,7 @@ public class GizMalawiRepository extends Repository {
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
         MonthlyTalliesRepository.createTable(database);
+        HIA2IndicatorsRepository.createTable(database);
 
         EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, Hia2ReportRepository.report_column.values());
 
@@ -154,6 +158,10 @@ public class GizMalawiRepository extends Repository {
                 case 9:
                     ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
                     break;
+                case 11:
+                    upgradeToVersion11CreateHia2IndicatorsRepository(db);
+                    break;
+
                 default:
                     break;
             }
@@ -165,6 +173,13 @@ public class GizMalawiRepository extends Repository {
 //        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
 
+    }
+
+    private void upgradeToVersion11CreateHia2IndicatorsRepository(SQLiteDatabase db) {
+        if (!ReportingUtils.isTableExists(db, HIA2IndicatorsRepository.TABLE_NAME)) {
+            HIA2IndicatorsRepository.createTable(db);
+        }
+        dumpHIA2IndicatorsCSV(db);
     }
 
     @Override
@@ -434,6 +449,17 @@ public class GizMalawiRepository extends Repository {
             int savedVersion = Integer.parseInt(savedAppVersion);
             return (BuildConfig.VERSION_CODE > savedVersion);
         }
+    }
+
+
+    private void dumpHIA2IndicatorsCSV(SQLiteDatabase db) {
+        List<Map<String, String>> csvData = Utils.populateTableFromCSV(
+                context,
+                HIA2IndicatorsRepository.INDICATORS_CSV_FILE,
+                HIA2IndicatorsRepository.CSV_COLUMN_MAPPING);
+        HIA2IndicatorsRepository hIA2IndicatorsRepository = GizMalawiApplication.getInstance()
+                .hIA2IndicatorsRepository();
+        hIA2IndicatorsRepository.save(db, csvData);
     }
 
 

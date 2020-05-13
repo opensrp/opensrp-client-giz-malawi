@@ -20,7 +20,13 @@ public class ReportHia2Indicator implements Serializable {
     private String category;
 
     @JsonProperty
+    private String categoryOptionCombo;
+
+    @JsonProperty
     private String value;
+
+    @JsonProperty
+    private String dhisId;
 
 
     public ReportHia2Indicator() {
@@ -31,6 +37,14 @@ public class ReportHia2Indicator implements Serializable {
         this.description = description;
         this.category = category;
         this.value = value;
+    }
+
+    public String getCategoryOptionCombo() {
+        return categoryOptionCombo;
+    }
+
+    public void setCategoryOptionCombo(String categoryOptionCombo) {
+        this.categoryOptionCombo = categoryOptionCombo;
     }
 
     public String getIndicatorCode() {
@@ -72,5 +86,13 @@ public class ReportHia2Indicator implements Serializable {
             this.description = hia2Indicator.getDescription();
             this.category = hia2Indicator.getCategory();
         }
+    }
+
+    public String getDhisId() {
+        return dhisId;
+    }
+
+    public void setDhisId(String dhisId) {
+        this.dhisId = dhisId;
     }
 }

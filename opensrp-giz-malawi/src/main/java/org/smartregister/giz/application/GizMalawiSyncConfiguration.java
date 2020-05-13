@@ -65,5 +65,15 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
     public String getTopAllowedLocationLevel() {
         return null;
     }
+
+    @Override
+    public List<String> getSynchronizedLocationTags() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getTopAllowedLocationLevel() {
+        return null;
+    }
 }
 
