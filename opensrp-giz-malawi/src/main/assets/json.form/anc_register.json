@@ -84,35 +84,33 @@
       {
         "key": "national_id",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "national_id",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "163084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "National ID",
-        "edit_type": "name",
-        "look_up": true,
-        "v_required": {
-          "value": false,
-          "err": "Please enter the patient's national id"
+        "v_regex": {
+          "value": "([A-Za-z0-9]{8})|\\s*",
+          "err": "Please enter a valid national id"
         }
       },
       {
         "key": "bht_mid",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "bht_mid",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5325AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "BHT ID",
+        "hint": "Patient ID",
         "value": "0",
         "scanButtonText": "Scan Barcode",
         "look_up": true,
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid BHT ID"
+          "err": "Please enter a valid Patient ID"
         },
         "v_required": {
           "value": false,
-          "err": "Please enter a valid BHT ID"
+          "err": "Please enter a valid Patient ID"
         }
       },
       {
@@ -304,12 +302,26 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "address2",
+        "openmrs_data_type": "text",
         "type": "edit_text",
         "hint": "Home address",
         "edit_type": "name",
         "v_required": {
           "value": "true",
           "err": "Please enter the woman's home address"
+        }
+      },
+      {
+        "key": "village",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1354AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "tree",
+        "tree": [],
+        "hint": "Village",
+        "v_required": {
+          "value": true,
+          "err": "Please enter a village"
         }
       },
       {
@@ -322,39 +334,6 @@
         "v_numeric": {
           "value": "true",
           "err": "Phone number must be numeric"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please specify the woman's phone number"
-        }
-      },
-      {
-        "key": "reminders",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "163164AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "native_radio",
-        "label": "Woman wants to receive reminders during pregnancy",
-        "label_info_text": "Does she want to receive reminders for care and messages regarding her health throughout her pregnancy?",
-        "label_text_style": "normal",
-        "text_color": "#000000",
-        "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please select whether the woman has agreed to receiving reminder notifications"
         }
       },
       {
@@ -410,6 +389,14 @@
       },
       {
         "key": "contact_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "person_attribute",
+        "openmrs_entity_id": "contact_status",
+        "type": "hidden",
+        "value": ""
+      },
+      {
+        "key": "previous_contact_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "contact_status",

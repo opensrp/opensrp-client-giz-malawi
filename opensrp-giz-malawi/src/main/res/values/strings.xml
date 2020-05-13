@@ -500,6 +500,54 @@
 
 
     <!-- END OF INDICATOR LABELS -->
+
+    <!-- Start ANC reports labels -->
+    <string name="me_number_of_women_registered">Number Of Women Registered</string>
+    <string name="me_pregnancy_tests_done_in_the_first_trimester">Pregnancy Test Done In First Trimester</string>
+    <string name="me_pregnancy_tests_done_after_the_first_trimester">Pregnancy Test Done After First Trimester</string>
+    <string name="me_week_of_first_anc_visit_0_12_weeks">First ANC Visit 0–12 weeks</string>
+    <string name="me_week_of_first_anc_visit_13_plus_weeks">First ANC Visit 13+ weeks</string>
+    <string name="me_hiv_status_first_visit_prev_negative">HIV Status First Visit Prev Negative</string>
+    <string name="me_hiv_status_first_visit_prev_positive">HIV Status First Visit Prev Positive</string>
+    <string name="me_hiv_status_first_visit_new_negative">HIV Status First Visit New Negative</string>
+    <string name="me_hiv_status_first_visit_new_positive">HIV Status First Visit New Positive</string>
+    <string name="me_hiv_status_first_visit_not_done">HIV Status First Visit Not Done</string>
+    <string name="me_art_status_first_visit_not_on_art">HIV Status First Visit Not On ART</string>
+    <string name="me_art_status_first_visit_on_art_before_anc">HIV Status First Visit On ART Before ANC</string>
+    <string name="me_art_status_first_visit_start_art_0_27_weeks">HIV Status First Visit Start ART 0–27 Weeks</string>
+    <string name="me_art_status_first_visit_start_art_28_plus_weeks">HIV Status First Visit Start ART 28+ Weeks</string>
+    <string name="me_hiv_status_final_prev_positive">HIV Status Final Prev Positive</string>
+    <string name="me_hiv_status_final_prev_negative">HIV Status Final Prev Negative</string>
+    <string name="me_hiv_status_final_new_negative">HIV Status Final New Negative</string>
+    <string name="me_hiv_status_final_new_positive">HIV Status Final New Positive</string>
+    <string name="me_hiv_status_final_not_done">HIV Status Final Not Done</string>
+    <string name="me_art_status_final_visit_not_on_art">Final Visit Not On ART</string>
+    <string name="me_art_status_final_visit_on_art_before_anc">Final Visit On ART Before ANC</string>
+    <string name="me_art_status_final_visit_start_art_0_27_weeks">Final Visit On ART 0–27 weeks</string>
+    <string name="me_art_status_final_visit_start_art_28_plus_weeks">Final Visit On ART 28+ weeks</string>
+    <string name="me_total_visits_per_woman_with_1_visit">Total Visits per woman with 1 Visit</string>
+    <string name="me_total_visits_per_woman_with_2_visits">Total Visits per woman with 2 Visits</string>
+    <string name="me_total_visits_per_woman_with_3_visits">Total Visits per woman with 3 Visits</string>
+    <string name="me_total_visits_per_woman_with_4_visits">Total Visits per woman with 4 Visits</string>
+    <string name="me_total_visits_per_woman_with_5_plus_visits">Total Visits per woman with 5+ Visits</string>
+    <string name="me_with_preeclampsia">With Pre-eclampsia</string>
+    <string name="me_with_no_preeclampsia">With No Pre-eclampsia</string>
+    <string name="me_total_number_with_tdv_doses_less_than_2"><![CDATA[Total Number With TDV doses < 2]]></string>
+    <string name="me_total_number_with_tdv_doses_2_plus">Total Number With TDV doses  2+</string>
+    <string name="me_sp_doses_0_dose">SP Doses 0 Dose</string>
+    <string name="me_sp_doses_1_dose">SP Doses 1 Dose</string>
+    <string name="me_sp_doses_2_dose">SP Doses 2 Dose</string>
+    <string name="me_sp_doses_3_plus_dose">SP Doses 3+ Dose</string>
+    <string name="me_itn_bed_nets_given">ITN Bed Nets Given</string>
+    <string name="me_itn_bed_nets_not_given">ITN Bed Nets Not Given</string>
+    <string name="me_hb_g_over_dl_less_than_7"><![CDATA[Hb (g/dl) <7 ]]></string>
+    <string name="me_hb_g_over_dl_greater_than_and_equal_to_7"><![CDATA[Hb (g/dl) >= 7]]></string>
+    <string name="me_hb_g_over_dl_nd"><![CDATA[Hb (g/dl) ND]]></string>
+    <string name="me_syphilis_status_negative">Syphilis Status Negative</string>
+    <string name="me_syphilis_status_positive">Syphilis Status Positive</string>
+    <string name="me_syphilis_status_not_done">Syphilis Status Not Done</string>
+    <!-- END OF ANC INDICATOR LABELS-->
+
     <string name="str_page_info">Page {0} of {1}</string>
     <string name="vaccine_schedule_update_wait_message">This might take some time... Kindly wait</string>
     <string name="dismiss_lookup">Confirm</string>

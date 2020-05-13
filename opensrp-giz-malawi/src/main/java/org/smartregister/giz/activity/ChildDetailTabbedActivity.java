@@ -16,6 +16,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.child.activity.BaseChildDetailTabbedActivity;
 import org.smartregister.child.fragment.StatusEditDialogFragment;
 import org.smartregister.child.task.LoadAsyncTask;
+import org.smartregister.child.util.ChildDbUtils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.ChildRegistrationDataFragment;
 import org.smartregister.giz.util.GizJsonFormUtils;
@@ -38,7 +39,7 @@ import static org.smartregister.giz.util.GizUtils.setAppLocale;
  * Created by ndegwamartin on 06/03/2019.
  */
 public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
-    private static List<String> nonEditableFields = Arrays.asList("Date_Birth", "Sex", "zeir_id", "Birth_Weight", "Birth_Height");
+    private static List<String> nonEditableFields = Arrays.asList("Sex", "zeir_id", "Birth_Weight", "Birth_Height");
 
     @Override
     protected void attachBaseContext(android.content.Context base) {
@@ -71,10 +72,9 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         super.onOptionsItemSelected(item);
-
-        detailsMap = getChildDetails().getColumnmaps();
+        detailsMap = ChildDbUtils.fetchChildDetails(getChildDetails().entityId());
+        detailsMap.putAll(ChildDbUtils.fetchChildFirstGrowthAndMonitoring(getChildDetails().entityId()));
 
         switch (item.getItemId()) {
             case R.id.registration_data:

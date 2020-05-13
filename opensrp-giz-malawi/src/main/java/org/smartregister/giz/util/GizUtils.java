@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -31,6 +32,7 @@ import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.widget.GizTreeViewDialog;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.AssetHandler;
 
@@ -39,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
@@ -155,7 +158,7 @@ public class GizUtils extends Utils {
     }
 
     @NonNull
-    public static Locale getLocale(Context context){
+    public static Locale getLocale(Context context) {
         if (context == null) {
             return Locale.getDefault();
         } else {
@@ -164,12 +167,12 @@ public class GizUtils extends Utils {
     }
 
     @NonNull
-    private static ArrayList<String> getLocationLevels() {
+    public static ArrayList<String> getLocationLevels() {
         return new ArrayList<>(Arrays.asList(BuildConfig.LOCATION_LEVELS));
     }
 
     @NonNull
-    private static ArrayList<String> getHealthFacilityLevels() {
+    public static ArrayList<String> getHealthFacilityLevels() {
         return new ArrayList<>(Arrays.asList(BuildConfig.HEALTH_FACILITY_LEVELS));
     }
 
@@ -192,7 +195,7 @@ public class GizUtils extends Utils {
             String upToFacilitiesString = AssetHandler.javaToJsonString(upToFacilities, new TypeToken<List<FormLocation>>() {
             }.getType());
             GizTreeViewDialog treeViewDialog = new GizTreeViewDialog(context,
-                    new JSONArray(upToFacilitiesString), defaultLocation, defaultLocation);
+                    new JSONArray(upToFacilitiesString), defaultLocation, new ArrayList<>());
 
             treeViewDialog.setCancelable(true);
             treeViewDialog.setCanceledOnTouchOutside(true);
@@ -212,5 +215,44 @@ public class GizUtils extends Utils {
         } catch (JSONException e) {
             Timber.e(e);
         }
+    }
+
+
+    public static void startReportJob(Context context) {
+        String reportJobExecutionTime = GizMalawiApplication.getInstance().context().allSharedPreferences().getPreference("report_job_execution_time");
+        if (StringUtils.isBlank(reportJobExecutionTime) || timeBetweenLastExecutionAndNow(30, reportJobExecutionTime)) {
+            GizMalawiApplication.getInstance().context().allSharedPreferences().savePreference("report_job_execution_time", String.valueOf(System.currentTimeMillis()));
+            Toast.makeText(context, "Reporting Job Has Started, It will take some time", Toast.LENGTH_LONG).show();
+            RecurringIndicatorGeneratingJob.scheduleJobImmediately(RecurringIndicatorGeneratingJob.TAG);
+        } else {
+            Toast.makeText(context, "Reporting Job Has Already Been Started, Try again in 30 mins", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static boolean timeBetweenLastExecutionAndNow(int i, String reportJobExecutionTime) {
+        try {
+            long executionTime = Long.parseLong(reportJobExecutionTime);
+            long now = System.currentTimeMillis();
+            long diffNowExecutionTime = now - executionTime;
+            return TimeUnit.MILLISECONDS.toMinutes(diffNowExecutionTime) > i;
+        } catch (NumberFormatException e) {
+            Timber.e(e);
+            return false;
+        }
+    }
+
+    public static boolean getSyncStatus() {
+        String synComplete = GizMalawiApplication.getInstance().context().allSharedPreferences().getPreference("syncComplete");
+        boolean isSyncComplete = false;
+        if (StringUtils.isBlank(synComplete)) {
+            GizMalawiApplication.getInstance().context().allSharedPreferences().savePreference("syncComplete", String.valueOf(false));
+        } else {
+            isSyncComplete = Boolean.parseBoolean(synComplete);
+        }
+        return isSyncComplete;
+    }
+
+    public static void updateSyncStatus(boolean isComplete) {
+        GizMalawiApplication.getInstance().context().allSharedPreferences().savePreference("syncComplete", String.valueOf(isComplete));
     }
 }

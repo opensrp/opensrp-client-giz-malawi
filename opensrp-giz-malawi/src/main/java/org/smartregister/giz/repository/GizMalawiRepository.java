@@ -7,10 +7,7 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+
 import org.smartregister.child.util.Utils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.domain.db.Column;
@@ -80,9 +77,9 @@ public class GizMalawiRepository extends Repository {
         ConfigurableViewsRepository.createTable(database);
         UniqueIdRepository.createTable(database);
 
-        PartialContactRepositoryHelper.createTable(database);
-        PreviousContactRepositoryHelper.createTable(database);
-        ContactTasksRepositoryHelper.createTable(database);
+        PartialContactRepository.createTable(database);
+        PreviousContactRepository.createTable(database);
+        ContactTasksRepository.createTable(database);
 
         SettingsRepository.onUpgrade(database);
         WeightRepository.createTable(database);
@@ -98,7 +95,7 @@ public class GizMalawiRepository extends Repository {
         OpdTestConductedRepository.createTable(database);
         OpdServiceDetailRepository.createTable(database);
         ClientRegisterTypeRepository.createTable(database);
-
+        ChildAlertUpdatedRepository.createTable(database);
         //reporting
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
@@ -155,7 +152,9 @@ public class GizMalawiRepository extends Repository {
                 case 8:
                     upgradeToVersion8AddServiceGroupColumn(db);
                     break;
-
+                case 9:
+                    ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
+                    break;
                 case 11:
                     upgradeToVersion11CreateHia2IndicatorsRepository(db);
                     break;
@@ -166,9 +165,11 @@ public class GizMalawiRepository extends Repository {
             upgradeTo++;
         }
 
-        PatientRepositoryHelper.performMigrations(db);
-        DailyIndicatorCountRepository.performMigrations(db);
+        ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
+
+//        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
+
     }
 
     private void upgradeToVersion11CreateHia2IndicatorsRepository(SQLiteDatabase db) {
@@ -349,7 +350,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
 
         } catch (Exception e) {
-            Timber.e(e,"upgradeToVersion7");
+            Timber.e(e, "upgradeToVersion7");
         }
     }
 
@@ -396,7 +397,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
         } catch (Exception e) {
-            Timber.e(e,"upgradeToVersion7VaccineRecurringServiceRecordChange");
+            Timber.e(e, "upgradeToVersion7VaccineRecurringServiceRecordChange");
         }
     }
 

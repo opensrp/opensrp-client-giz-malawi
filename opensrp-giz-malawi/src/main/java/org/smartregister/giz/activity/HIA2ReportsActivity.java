@@ -146,6 +146,10 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                 titleTv.setText(humanReadableTitle + " " + getString(R.string.reports));
             }
         }
+        ImageView reportSyncBtn = findViewById(R.id.report_sync_btn);
+        if (reportSyncBtn != null) {
+            reportSyncBtn.setVisibility(View.GONE);
+        }
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();

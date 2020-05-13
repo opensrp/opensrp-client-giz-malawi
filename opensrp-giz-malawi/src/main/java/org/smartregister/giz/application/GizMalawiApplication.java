@@ -17,6 +17,7 @@ import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.ActivityConfiguration;
+import org.smartregister.anc.library.util.AncMetadata;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.domain.ChildMetadata;
@@ -38,6 +39,7 @@ import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.processor.TripleResultProcessor;
+import org.smartregister.giz.repository.ChildAlertUpdatedRepository;
 import org.smartregister.giz.repository.ClientRegisterTypeRepository;
 import org.smartregister.giz.repository.DailyTalliesRepository;
 import org.smartregister.giz.repository.GizAncRegisterQueryProvider;
@@ -83,6 +85,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -111,6 +114,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ECSyncHelper ecSyncHelper;
 
     private ClientRegisterTypeRepository registerTypeRepository;
+    private ChildAlertUpdatedRepository childAlertUpdatedRepository;
     private static List<VaccineGroup> vaccineGroups;
 
     public static JsonSpecHelper getJsonSpecHelper() {
@@ -275,7 +279,11 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         activityConfiguration.setLandingPageActivityClass(ChildRegisterActivity.class);
-        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider());
+        AncMetadata ancMetadata = new AncMetadata();
+        ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
+        ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
+        ancMetadata.setFieldsWithLocationHierarchy(Arrays.asList("village"));
+        AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider(), ancMetadata);
 
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
@@ -530,6 +538,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             this.registerTypeRepository = new ClientRegisterTypeRepository();
         }
         return this.registerTypeRepository;
+    }
+
+    public ChildAlertUpdatedRepository alertUpdatedRepository() {
+        if (childAlertUpdatedRepository == null) {
+            this.childAlertUpdatedRepository = new ChildAlertUpdatedRepository();
+        }
+        return this.childAlertUpdatedRepository;
     }
 }
 

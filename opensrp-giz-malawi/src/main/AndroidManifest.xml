@@ -32,8 +32,8 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup,android:icon,android:label,android:theme">
         <activity
-            android:theme="@style/ChildTheme.NoActionBar"
-            android:name=".activity.ReportRegisterActivity"/>
+            android:name=".activity.ReportRegisterActivity"
+            android:theme="@style/ChildTheme.NoActionBar" />
         <activity
             android:name=".activity.ChildImmunizationActivity"
             android:label="@string/title_activity_child_immunization"
@@ -102,7 +102,8 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/captured_images_path" />
-        </provider> <!-- ANC ACTIVITIES -->
+        </provider>
+        <!-- ANC ACTIVITIES -->
         <activity
             android:name="com.vijay.jsonwizard.activities.JsonFormActivity"
             android:launchMode="singleTask"
@@ -181,7 +182,8 @@
         <activity
             android:name="org.smartregister.anc.library.activity.PreviousContactsTestsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait" /> <!-- END OF ANC ACTIVITIES -->
+            android:screenOrientation="portrait" />
+        <!-- END OF ANC ACTIVITIES -->
         <!-- OPD ACTIVITIES -->
         <activity
             android:name=".activity.OpdRegisterActivity"
@@ -197,7 +199,8 @@
             android:name="org.smartregister.opd.activity.BaseOpdProfileActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/ChildTheme.NoActionBar" /> <!-- END OF OPD ACTIVITIES -->
+            android:theme="@style/ChildTheme.NoActionBar" />
+        <!-- END OF OPD ACTIVITIES -->
         <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
         <service android:name="org.smartregister.immunization.service.intent.VaccineSchedulesUpdateIntentService" />

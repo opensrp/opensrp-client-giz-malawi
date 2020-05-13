@@ -54,22 +54,26 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
                 filterSection.setTag(tagString);
                 filterSection.setBackgroundResource(R.drawable.transparent_clicked_background);
 
-                Calendar calendar = Calendar.getInstance();
+                initiateReportJob();
 
-                if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
-                    calendar.set(Calendar.HOUR_OF_DAY, 1);
-                    long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis())/ TimeUnit.HOURS.toMillis(1);
-
-                    if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM)) {
-                        Toast.makeText(getContext(), R.string.vaccine_schedule_update_wait_message, Toast.LENGTH_LONG)
-                                .show();
-                        VaccineSchedulesUpdateJob.scheduleJobImmediately();
-                    }
-                }
             } else if (filterSection.getTag().toString().equals(tagString)) {
                 filter("", "", " ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) ", false);
                 filterSection.setTag(null);
                 filterSection.setBackgroundResource(R.drawable.transparent_gray_background);
+            }
+        }
+    }
+
+    private void initiateReportJob() {
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
+            calendar.set(Calendar.HOUR_OF_DAY, 1);
+            long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis()) / TimeUnit.HOURS.toMillis(1);
+
+            if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM)) {
+                Toast.makeText(getContext(), R.string.vaccine_schedule_update_wait_message, Toast.LENGTH_LONG)
+                        .show();
+                VaccineSchedulesUpdateJob.scheduleJobImmediately();
             }
         }
     }

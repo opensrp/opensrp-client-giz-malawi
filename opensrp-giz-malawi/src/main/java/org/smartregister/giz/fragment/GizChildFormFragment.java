@@ -3,11 +3,14 @@ package org.smartregister.giz.fragment;
 import android.os.Bundle;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
 import org.smartregister.child.fragment.ChildFormFragment;
 import org.smartregister.child.presenter.ChildFormFragmentPresenter;
 import org.smartregister.giz.interactor.ChildFormInteractor;
 import org.smartregister.giz.presenter.GizChildFormFragmentPresenter;
+
+import java.lang.ref.WeakReference;
 
 public class GizChildFormFragment extends ChildFormFragment {
 
@@ -31,10 +34,17 @@ public class GizChildFormFragment extends ChildFormFragment {
 
     @Override
     protected ChildFormFragmentPresenter createPresenter() {
-        return new GizChildFormFragmentPresenter(this, ChildFormInteractor.getChildInteractorInstance());
+        WeakReference gizChildFormFragmentWeakReference = new WeakReference<>(this);
+        return new GizChildFormFragmentPresenter((JsonFormFragment) gizChildFormFragmentWeakReference.get(), ChildFormInteractor.getChildInteractorInstance());
     }
 
     public interface OnReactionVaccineSelected {
         void updateDatePicker(String date);
+    }
+
+    @Override
+    public void onDestroy() {
+        setOnReactionVaccineSelected(null);
+        super.onDestroy();
     }
 }

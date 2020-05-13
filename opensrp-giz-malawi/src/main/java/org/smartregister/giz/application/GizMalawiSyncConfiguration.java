@@ -53,7 +53,17 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
 
     @Override
     public boolean updateClientDetailsTable() {
-        return true;
+        return false;
+    }
+
+    @Override
+    public List<String> getSynchronizedLocationTags() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getTopAllowedLocationLevel() {
+        return null;
     }
 
     @Override
