@@ -11,12 +11,12 @@ indicators:
 
   - key: "ME_Fully_Immunized_Static"
     description: "Fully Immunized"
-    indicatorQuery: "select age,count(1) from (select
+    indicatorQuery: "select age,count(*) from (select
                      CASE
-                           WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Static)'
-                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Static)'
+                           WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1_Static'
+                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1_Static'
                            ELSE 'Null'
-                           END age,count(1)
+                           END age,count(*)
                      from vaccines
                      join ec_client
                      on vaccines.base_entity_id = ec_client.base_entity_id
@@ -35,19 +35,19 @@ indicators:
                      and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Fully_Immunized_Static_Over_1(Static)"
-      - "ME_Fully_Immunized_Static_Under_1(Static)"
+      - "ME_Fully_Immunized_Static_Over_1_Static"
+      - "ME_Fully_Immunized_Static_Under_1_Static"
 
     grouping: "child"
 
   - key: "ME_Fully_Immunized_Outreach"
     description: "Fully Immunized"
-    indicatorQuery: "select age,count(1) from (select
+    indicatorQuery: "select age,count(*) from (select
                      CASE
-                           WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Static)'
-                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Static)'
+                           WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1_Outreach'
+                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1_Outreach'
                            ELSE 'Null'
-                           END age,count(1)
+                           END age,count(*)
                      from vaccines
                      join ec_client
                      on vaccines.base_entity_id = ec_client.base_entity_id
@@ -66,18 +66,18 @@ indicators:
                      and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Fully_Immunized_Static_Over_1(Outreach)"
-      - "ME_Fully_Immunized_Static_Under_1(Outreach)"
+      - "ME_Fully_Immunized_Outreach_Over_1_Outreach"
+      - "ME_Fully_Immunized_Outreach_Under_1_Outreach"
     grouping: "child"
 
   - key: "ME_Vaccines_Age_Static"
     description: "ME_Vaccines_Age_Static_label"
     indicatorQuery: "SELECT vaccines.name,
                        CASE
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Static)'
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Static)'
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1_Static'
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1_Static'
                           ELSE 'Null'
-                          END age, count(*) counter
+                          END age, count(*)
                       FROM vaccines
                       INNER JOIN ec_client
                       ON vaccines.base_entity_id = ec_client.base_entity_id
@@ -88,52 +88,52 @@ indicators:
                       GROUP BY vaccines.name, age"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Vaccines_Age_bcg_Over_1(Static)"
-      - "ME_Vaccines_Age_bcg_Under_1(Static)"
-      - "ME_Vaccines_Age_opv_0_Over_1(Static)"
-      - "ME_Vaccines_Age_opv_0_Under_1(Static)"
-      - "ME_Vaccines_Age_opv_1_Over_1(Static)"
-      - "ME_Vaccines_Age_opv_1_Under_1(Static)"
-      - "ME_Vaccines_Age_opv_2_Over_1(Static)"
-      - "ME_Vaccines_Age_opv_2_Under_1(Static)"
-      - "ME_Vaccines_Age_opv_3_Over_1(Static)"
-      - "ME_Vaccines_Age_opv_3_Under_1(Static)"
-      - "ME_Vaccines_Age_penta_1_Over_1(Static)"
-      - "ME_Vaccines_Age_penta_1_Under_1(Static)"
-      - "ME_Vaccines_Age_penta_2_Over_1(Static)"
-      - "ME_Vaccines_Age_penta_2_Under_1(Static)"
-      - "ME_Vaccines_Age_penta_3_Over_1(Static)"
-      - "ME_Vaccines_Age_penta_3_Under_1(Static)"
-      - "ME_Vaccines_Age_pcv_1_Over_1(Static)"
-      - "ME_Vaccines_Age_pcv_1_Under_1(Static)"
-      - "ME_Vaccines_Age_pcv_2_Over_1(Static)"
-      - "ME_Vaccines_Age_pcv_2_Under_1(Static)"
-      - "ME_Vaccines_Age_rota_1_Over_1(Static)"
-      - "ME_Vaccines_Age_rota_1_Under_1(Static)"
-      - "ME_Vaccines_Age_rota_2_Over_1(Static)"
-      - "ME_Vaccines_Age_rota_2_Under_1(Static)"
-      - "ME_Vaccines_Age_mv_1_Over_1(Static)"
-      - "ME_Vaccines_Age_mv_1_Under_1(Static)"
-      - "ME_Vaccines_Age_mv_2_Over_1(Static)"
-      - "ME_Vaccines_Age_mv_2_Under_1(Static)"
-      - "ME_Vaccines_Age_mv_3_Over_1(Static)"
-      - "ME_Vaccines_Age_mv_3_Under_1(Static)"
-      - "ME_Vaccines_Age_mv_4_Over_1(Static)"
-      - "ME_Vaccines_Age_mv_4_Under_1(Static)"
-      - "ME_Vaccines_Age_mr_1_Over_1(Static)"
-      - "ME_Vaccines_Age_mr_1_Under_1(Static)"
-      - "ME_Vaccines_Age_mr_2_Over_1(Static)"
-      - "ME_Vaccines_Age_mr_2_Under_1(Static)"
-      - "ME_Vaccines_Age_ipv_Over_1(Static)"
-      - "ME_Vaccines_Age_ipv_Under_1(Static)"
+      - "ME_Vaccines_Age_Static_bcg_Over_1_Static"
+      - "ME_Vaccines_Age_Static_bcg_Under_1_Static"
+      - "ME_Vaccines_Age_Static_opv_0_Over_1_Static"
+      - "ME_Vaccines_Age_Static_opv_0_Under_1_Static"
+      - "ME_Vaccines_Age_Static_opv_1_Over_1_Static"
+      - "ME_Vaccines_Age_Static_opv_1_Under_1_Static"
+      - "ME_Vaccines_Age_Static_opv_2_Over_1_Static"
+      - "ME_Vaccines_Age_Static_opv_2_Under_1_Static"
+      - "ME_Vaccines_Age_Static_opv_3_Over_1_Static"
+      - "ME_Vaccines_Age_Static_opv_3_Under_1_Static"
+      - "ME_Vaccines_Age_Static_penta_1_Over_1_Static"
+      - "ME_Vaccines_Age_Static_penta_1_Under_1_Static"
+      - "ME_Vaccines_Age_Static_penta_2_Over_1_Static"
+      - "ME_Vaccines_Age_Static_penta_2_Under_1_Static"
+      - "ME_Vaccines_Age_Static_penta_3_Over_1_Static"
+      - "ME_Vaccines_Age_Static_penta_3_Under_1_Static"
+      - "ME_Vaccines_Age_Static_pcv_1_Over_1_Static"
+      - "ME_Vaccines_Age_Static_pcv_1_Under_1_Static"
+      - "ME_Vaccines_Age_Static_pcv_2_Over_1_Static"
+      - "ME_Vaccines_Age_Static_pcv_2_Under_1_Static"
+      - "ME_Vaccines_Age_Static_rota_1_Over_1_Static"
+      - "ME_Vaccines_Age_Static_rota_1_Under_1_Static"
+      - "ME_Vaccines_Age_Static_rota_2_Over_1_Static"
+      - "ME_Vaccines_Age_Static_rota_2_Under_1_Static"
+      - "ME_Vaccines_Age_Static_mv_1_Over_1_Static"
+      - "ME_Vaccines_Age_Static_mv_1_Under_1_Static"
+      - "ME_Vaccines_Age_Static_mv_2_Over_1_Static"
+      - "ME_Vaccines_Age_Static_mv_2_Under_1_Static"
+      - "ME_Vaccines_Age_Static_mv_3_Over_1_Static"
+      - "ME_Vaccines_Age_Static_mv_3_Under_1_Static"
+      - "ME_Vaccines_Age_Static_mv_4_Over_1_Static"
+      - "ME_Vaccines_Age_Static_mv_4_Under_1_Static"
+      - "ME_Vaccines_Age_Static_mr_1_Over_1_Static"
+      - "ME_Vaccines_Age_Static_mr_1_Under_1_Static"
+      - "ME_Vaccines_Age_Static_mr_2_Over_1_Static"
+      - "ME_Vaccines_Age_Static_mr_2_Under_1_Static"
+      - "ME_Vaccines_Age_Static_ipv_Over_1_Static"
+      - "ME_Vaccines_Age_Static_ipv_Under_1_Static"
     grouping: "child"
 
   - key: "ME_Vaccines_Age_Outreach"
     description: "ME_Vaccines_Age_Outreach_label"
     indicatorQuery: "SELECT vaccines.name,
                        CASE
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Outreach)'
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Outreach)'
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1_Outreach'
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1_Outreach'
                           ELSE 'Null'
                           END age, count(*) counter
                       FROM vaccines
@@ -146,84 +146,52 @@ indicators:
                       GROUP BY vaccines.name, age"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Vaccines_Age_bcg_Over_1(Outreach)"
-      - "ME_Vaccines_Age_bcg_Under_1(Outreach)"
-      - "ME_Vaccines_Age_opv_0_Over_1(Outreach)"
-      - "ME_Vaccines_Age_opv_0_Under_1(Outreach)"
-      - "ME_Vaccines_Age_opv_1_Over_1(Outreach)"
-      - "ME_Vaccines_Age_opv_1_Under_1(Outreach)"
-      - "ME_Vaccines_Age_opv_2_Over_1(Outreach)"
-      - "ME_Vaccines_Age_opv_2_Under_1(Outreach)"
-      - "ME_Vaccines_Age_opv_3_Over_1(Outreach)"
-      - "ME_Vaccines_Age_opv_3_Under_1(Outreach)"
-      - "ME_Vaccines_Age_penta_1_Over_1(Outreach)"
-      - "ME_Vaccines_Age_penta_1_Under_1(Outreach)"
-      - "ME_Vaccines_Age_penta_2_Over_1(Outreach)"
-      - "ME_Vaccines_Age_penta_2_Under_1(Outreach)"
-      - "ME_Vaccines_Age_penta_3_Over_1(Outreach)"
-      - "ME_Vaccines_Age_penta_3_Under_1(Outreach)"
-      - "ME_Vaccines_Age_pcv_1_Over_1(Outreach)"
-      - "ME_Vaccines_Age_pcv_1_Under_1(Outreach)"
-      - "ME_Vaccines_Age_pcv_2_Over_1(Outreach)"
-      - "ME_Vaccines_Age_pcv_2_Under_1(Outreach)"
-      - "ME_Vaccines_Age_rota_1_Over_1(Outreach)"
-      - "ME_Vaccines_Age_rota_1_Under_1(Outreach)"
-      - "ME_Vaccines_Age_rota_2_Over_1(Outreach)"
-      - "ME_Vaccines_Age_rota_2_Under_1(Outreach)"
-      - "ME_Vaccines_Age_mv_1_Over_1(Outreach)"
-      - "ME_Vaccines_Age_mv_1_Under_1(Outreach)"
-      - "ME_Vaccines_Age_mv_2_Over_1(Outreach)"
-      - "ME_Vaccines_Age_mv_2_Under_1(Outreach)"
-      - "ME_Vaccines_Age_mv_3_Over_1(Outreach)"
-      - "ME_Vaccines_Age_mv_3_Under_1(Outreach)"
-      - "ME_Vaccines_Age_mr_1_Over_1(Outreach)"
-      - "ME_Vaccines_Age_mr_1_Under_1(Outreach)"
-      - "ME_Vaccines_Age_mr_2_Over_1(Outreach)"
-      - "ME_Vaccines_Age_mr_2_Under_1(Outreach)"
-      - "ME_Vaccines_Age_ipv_Over_1(Outreach)"
-      - "ME_Vaccines_Age_ipv_Under_1(Outreach)"
+      - "ME_Vaccines_Age_Outreach_bcg_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_bcg_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_opv_0_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_opv_0_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_opv_1_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_opv_1_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_opv_2_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_opv_2_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_opv_3_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_opv_3_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_penta_1_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_penta_1_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_penta_2_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_penta_2_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_penta_3_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_penta_3_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_pcv_1_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_pcv_1_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_pcv_2_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_pcv_2_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_rota_1_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_rota_1_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_rota_2_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_rota_2_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mv_1_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mv_1_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mv_2_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mv_2_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mv_3_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mv_3_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mr_1_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mr_1_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mr_2_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_mr_2_Under_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_ipv_Over_1_Outreach"
+      - "ME_Vaccines_Age_Outreach_ipv_Under_1_Outreach"
     grouping: "child"
 
-  - key: "ME_Recurring_Age_Static_Female"
+  - key: "ME_Recurring_Age_Static"
     description: "ME_Recurring_Age_Static_label"
     indicatorQuery: "SELECT recur_type.name,
                        CASE
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Static)'
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Static)'
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_Static'
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1_Static'
                             ELSE 'Null'
-                            END age, count(*) counter
-                       FROM recurring_service_records recur
-                       INNER JOIN ec_client
-                       ON recur.base_entity_id = ec_client.base_entity_id
-                       JOIN recurring_service_types recur_type
-                       ON recur_type._id = recur.recurring_service_id
-                       WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                       AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                       AND ec_client.dob >= date('now', '-5 years')
-                       AND recur.child_location_id = recur.location_id OR recur.child_location_id IS NULL
-                       AND recur_type.name IN ('Vit_A_1', 'Vit_A_2','Deworming_1','Deworming_2')
-                       AND ec_client.gender = 'Female' or ec_client.gender = 'female'
-                       GROUP BY recur_type.name, age"
-    isMultiResult: true
-    expectedIndicators:
-      - "ME_Recurring_Age_Deworming_1_Over_1(Static)_Female"
-      - "ME_Recurring_Age_Deworming_1_Under_1(Static)_Female"
-      - "ME_Recurring_Age_Deworming_2_Over_1(Static)_Female"
-      - "ME_Recurring_Age_Deworming_2_Under_1(Static)_Female"
-      - "ME_Recurring_Age_Vit_A_1_Over_1(Static)_Female"
-      - "ME_Recurring_Age_Vit_A_1_Under_1(Static)_Female"
-      - "ME_Recurring_Age_Vit_A_2_Over_1(Static)_Female"
-      - "ME_Recurring_Age_Vit_A_2_Under_1(Static)_Female"
-    grouping: "child"
-
-  - key: "ME_Recurring_Age_Static_Male"
-    description: "ME_Recurring_Age_Static_label"
-    indicatorQuery: "SELECT recur_type.name,
-                       CASE
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1(Static)'
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Static)'
-                            ELSE 'Null'
-                            END age, count(*) counter
+                            END age, ec_client.gender, count(*) counter
                        FROM recurring_service_records recur
                        INNER JOIN ec_client
                        ON recur.base_entity_id = ec_client.base_entity_id
@@ -234,28 +202,35 @@ indicators:
                        AND ec_client.dob >= date('now', '-5 years')
                        AND recur.child_location_id=recur.location_id OR recur.child_location_id IS NULL
                        AND recur_type.name IN ('Vit_A_1', 'Vit_A_2','Deworming_1','Deworming_2')
-                       AND ec_client.gender = 'Male' or ec_client.gender = 'male'
                        GROUP BY recur_type.name, age"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Recurring_Age_Deworming_1_Over_1(Static)_Male"
-      - "ME_Recurring_Age_Deworming_1_Under_1(Static)_Male"
-      - "ME_Recurring_Age_Deworming_2_Over_1(Static)_Male"
-      - "ME_Recurring_Age_Deworming_2_Under_1(Static)_Male"
-      - "ME_Recurring_Age_Vit_A_1_Over_1(Static)_Male"
-      - "ME_Recurring_Age_Vit_A_1_Under_1(Static)_Male"
-      - "ME_Recurring_Age_Vit_A_2_Over_1(Static)_Male"
-      - "ME_Recurring_Age_Vit_A_2_Under_1(Static)_Male"
+      - "ME_Recurring_Age_Static_Deworming_1_Over_1_Static_Male"
+      - "ME_Recurring_Age_Static_Deworming_1_Under_1_Static_Male"
+      - "ME_Recurring_Age_Static_Deworming_2_Over_1_Static_Male"
+      - "ME_Recurring_Age_Static_Deworming_2_Under_1_Static_Male"
+      - "ME_Recurring_Age_Static_Vit_A_1_Over_1_Static_Male"
+      - "ME_Recurring_Age_Static_Vit_A_1_Under_1_Static_Male"
+      - "ME_Recurring_Age_Static_Vit_A_2_Over_1_Static_Male"
+      - "ME_Recurring_Age_Static_Vit_A_2_Under_1_Static_Male"
+      - "ME_Recurring_Age_Static_Deworming_1_Over_1_Static_Female"
+      - "ME_Recurring_Age_Static_Deworming_1_Under_1_Static_Female"
+      - "ME_Recurring_Age_Static_Deworming_2_Over_1_Static_Female"
+      - "ME_Recurring_Age_Static_Deworming_2_Under_1_Static_Female"
+      - "ME_Recurring_Age_Static_Vit_A_1_Over_1_Static_Female"
+      - "ME_Recurring_Age_Static_Vit_A_1_Under_1_Static_Female"
+      - "ME_Recurring_Age_Static_Vit_A_2_Over_1_Static_Female"
+      - "ME_Recurring_Age_Static_Vit_A_2_Under_1_Static_Female"
     grouping: "child"
 
-  - key: "ME_Recurring_Age_Outreach_Female"
+  - key: "ME_Recurring_Age_Outreach"
     description: "ME_Recurring_Age_Outreach_label"
     indicatorQuery: "SELECT recur_type.name,
                          CASE
-                              WHEN round(julianday('now')-julianday(ec_client.dob)) >= 365.0 THEN 'Over_1(Outreach)'
-                              WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Outreach)'
+                              WHEN round(julianday('now')-julianday(ec_client.dob)) >= 365.0 THEN 'Over_1_Outreach'
+                              WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1_Outreach'
                               ELSE 'Null'
-                              END age, count(*) counter
+                              END age, ec_client.gender, count(*) counter
                          FROM recurring_service_records recur
                          INNER JOIN ec_client
                          ON recur.base_entity_id = ec_client.base_entity_id
@@ -266,72 +241,26 @@ indicators:
                          AND ec_client.dob >= date('now', '-5 years')
                          AND recur.child_location_id <> recur.location_id OR recur.child_location_id IS NOT NULL
                          AND recur_type.name IN ('Vit_A_1', 'Vit_A_2','Deworming_1','Deworming_2')
-                         AND ec_client.gender = 'Female' or ec_client.gender = 'female'
                          GROUP BY recur_type.name, age"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Recurring_Age_Deworming_1_Over_1(Outreach)_Male"
-      - "ME_Recurring_Age_Deworming_1_Under_1(Outreach)_Male"
-      - "ME_Recurring_Age_Deworming_2_Over_1(Outreach)_Male"
-      - "ME_Recurring_Age_Deworming_2_Under_1(Outreach)_Male"
-      - "ME_Recurring_Age_Vit_A_1_Over_1(Outreach)_Male"
-      - "ME_Recurring_Age_Vit_A_1_Under_1(Outreach)_Male"
-      - "ME_Recurring_Age_Vit_A_2_Over_1(Outreach)_Male"
-      - "ME_Recurring_Age_Vit_A_2_Under_1(Outreach)_Male"
+      - "ME_Recurring_Age_Outreach_Deworming_1_Over_1_Outreach_Male"
+      - "ME_Recurring_Age_Outreach_Deworming_1_Under_1_Outreach_Male"
+      - "ME_Recurring_Age_Outreach_Deworming_2_Over_1_Outreach_Male"
+      - "ME_Recurring_Age_Outreach_Deworming_2_Under_1_Outreach_Male"
+      - "ME_Recurring_Age_Outreach_Vit_A_1_Over_1_Outreach_Male"
+      - "ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Male"
+      - "ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Male"
+      - "ME_Recurring_Age_Outreach_Vit_A_2_Under_1_Outreach_Male"
+      - "ME_Recurring_Age_Outreach_Deworming_1_Over_1_Outreach_Female"
+      - "ME_Recurring_Age_Outreach_Deworming_1_Under_1_Outreach_Female"
+      - "ME_Recurring_Age_Outreach_Deworming_2_Over_1_Outreach_Female"
+      - "ME_Recurring_Age_Outreach_Deworming_2_Under_1_Outreach_Female"
+      - "ME_Recurring_Age_Outreach_Vit_A_1_Over_1_Outreach_Female"
+      - "ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Female"
+      - "ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Female"
+      - "ME_Recurring_Age_Outreach_Vit_A_2_Under_1_Outreach_Female"
     grouping: "child"
-
-  - key: "ME_Recurring_Age_Outreach_Male"
-    description: "ME_Recurring_Age_Outreach_label"
-    indicatorQuery: "SELECT recur_type.name,
-                         CASE
-                              WHEN round(julianday('now')-julianday(ec_client.dob)) >= 365.0 THEN 'Over_1(Outreach)'
-                              WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1(Outreach)'
-                              ELSE 'Null'
-                              END age, count(*) counter
-                         FROM recurring_service_records recur
-                         INNER JOIN ec_client
-                         ON recur.base_entity_id = ec_client.base_entity_id
-                         JOIN recurring_service_types recur_type
-                         ON recur_type._id = recur.recurring_service_id
-                         WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                         AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                         AND ec_client.dob >= date('now', '-5 years')
-                         AND recur.child_location_id  <>  recur.location_id OR recur.child_location_id IS NOT NULL
-                         AND recur_type.name IN ('Vit_A_1', 'Vit_A_2','Deworming_1','Deworming_2')
-                         AND ec_client.gender = 'Male' or ec_client.gender = 'male'
-                         GROUP BY recur_type.name, age"
-    isMultiResult: true
-    expectedIndicators:
-      - "ME_Recurring_Age_Deworming_1_Over_1(Outreach)_Male"
-      - "ME_Recurring_Age_Deworming_1_Under_1(Outreach)_Male"
-      - "ME_Recurring_Age_Deworming_2_Over_1(Outreach)_Male"
-      - "ME_Recurring_Age_Deworming_2_Under_1(Outreach)_Male"
-      - "ME_Recurring_Age_Vit_A_1_Over_1(Outreach)_Male"
-      - "ME_Recurring_Age_Vit_A_1_Under_1(Outreach)_Male"
-      - "ME_Recurring_Age_Vit_A_2_Over_1(Outreach)_Male"
-      - "ME_Recurring_Age_Vit_A_2_Under_1(Outreach)_Male"
-    grouping: "child"
-
-  #  - key: "ME_PAB_Age_Outreach"
-  #    description: "ME_PAB_Age_Outreach_label"
-  #    indicatorQuery: "select
-  #                     CASE
-  #                     WHEN round(julianday('now') - julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
-  #                     WHEN round(julianday('now') - julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
-  #                     ELSE 'Null'
-  #                     END age, count(*) counter
-  #                     FROM ec_child_details
-  #                     JOIN ec_client ON ec_child_details.base_entity_id = ec_client.base_entity_id
-  #                     JOIN ec_mother_details ON ec_child_details.relational_id = ec_mother_details.base_entity_id
-  #                     WHERE ec_mother_details.protected_at_birth IS NOT NULL AND '%s' = strftime('%Y-%m-%d', ec_client.date)
-  #                     AND ec_client.dob >= date('now','-5 years')
-  #                     AND ec_mother_detail.child_location_id <> ec_mother_detail.location_id OR ec_mother_detail.child_location_id IS NOT NULL
-  #                     group by age"
-  #    isMultiResult: true
-  #    expectedIndicators: ["ME_PAB_Age_Over_1(Outreach)", "ME_PAB_Age_Under_1(Outreach)", "ME_PAB_Age_Total(Outreach)"]
-  #    grouping: "child"
-  #12/05/2020 QA-No locations on ec_mother details would need these what to do?
-
 
   # ANC Indicators
   - key: "ME_Number_Of_Women_Registered"
@@ -601,7 +530,7 @@ indicators:
     grouping: "anc"
     #QA 10/05/2020 -OK
 
-  - key: "ME__CPT_out_of_HIV_positive"
+  - key: "ME_CPT_out_of_HIV_positive"
     description: "On CPT out of HIV+"
     indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
                             where z.contact_no = '1' group by z.base_entity_id
@@ -634,7 +563,7 @@ indicators:
     grouping: "anc"
   #QA 10/05/2020 -OK
 
-  - key: "ME__NVP_syrup_given"
+  - key: "ME_NVP_syrup_given"
     description: "NVP syrup given"
     indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
                      where z.contact_no = '1' group by z.base_entity_id
@@ -650,7 +579,7 @@ indicators:
     grouping: "anc"
     #QA 10/05/2020 -OK
 
-  - key: "ME__NVP_syrup_not_given"
+  - key: "ME_NVP_syrup_not_given"
     description: "NVP syrup not given"
     indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
                     where z.contact_no = '1' group by z.base_entity_id
@@ -760,11 +689,11 @@ indicators:
 
   - key: "ME_With_Preeclampsia"
     description: "With preeclampsia"
-#    indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
-#                   where previous_contact.contact_no = '1' group by base_entity_id
-#                   having sum(case when key = 'severe_preeclampsia' and value  = '1' or key = 'preeclampsia' and value  = '1' then 1 else 0 end) > 0
-#                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end)))"
-#
+    #    indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
+    #                   where previous_contact.contact_no = '1' group by base_entity_id
+    #                   having sum(case when key = 'severe_preeclampsia' and value  = '1' or key = 'preeclampsia' and value  = '1' then 1 else 0 end) > 0
+    #                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end)))"
+    #
     indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
                       where z.contact_no = '1' group by z.base_entity_id
                       having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
@@ -781,12 +710,12 @@ indicators:
 
   - key: "ME_With_No_Preeclampsia"
     description: "With no pre eclampsia"
-#    indicatorQuery: "select count(1) from (SELECT base_entity_id FROM  previous_contact
-#                   where previous_contact.contact_no = '1' group by base_entity_id
-#                   having sum(case when key = 'severe_preeclampsia' and value  <> '1' then 1 else 0 end) > 0
-#                   and sum(case when key = 'preeclampsia' and value  <> '1' then 1 else 0 end) >0
-#                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 )"
-#
+    #    indicatorQuery: "select count(1) from (SELECT base_entity_id FROM  previous_contact
+    #                   where previous_contact.contact_no = '1' group by base_entity_id
+    #                   having sum(case when key = 'severe_preeclampsia' and value  <> '1' then 1 else 0 end) > 0
+    #                   and sum(case when key = 'preeclampsia' and value  <> '1' then 1 else 0 end) >0
+    #                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 )"
+    #
     indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
                      where z.contact_no = '1' group by z.base_entity_id
                      having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
@@ -1143,6 +1072,8 @@ indicators:
                      having sum(value)>= 120
                      ) b
                      ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
   - key: "ME_FeFo_Less_Than_120"
     description: "FeFo Tablets given less than 120"
     indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
