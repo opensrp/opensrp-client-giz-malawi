@@ -25,20 +25,23 @@ import timber.log.Timber;
 
 public class HIA2IndicatorsRepository extends BaseRepository {
 
-    public static final String INDICATORS_CSV_FILE = "Zambia-EIR-DataDictionaryReporting-HIA2.csv";
-    private static final String HIA2_INDICATORS_SQL = "CREATE TABLE hia2_indicators (_id INTEGER NOT NULL,provider_id VARCHAR,indicator_code VARCHAR NOT NULL,label VARCHAR,dhis_id VARCHAR ,description VARCHAR,category VARCHAR ,created_at DATETIME NULL,updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP)";
+    public static final String INDICATORS_CSV_FILE = "DataDictionaryReporting.csv";
+    private static final String HIA2_INDICATORS_SQL = "CREATE TABLE hia2_indicators (_id INTEGER NOT NULL,provider_id VARCHAR,indicator_code VARCHAR NOT NULL,label VARCHAR,dhis_id VARCHAR ,category_option_combo VARCHAR , description VARCHAR,category VARCHAR ,grouping VARCHAR, created_at DATETIME NULL,updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP)";
     public static final String TABLE_NAME = "hia2_indicators";
     private static final String ID_COLUMN = "_id";
     private static final String PROVIDER_ID = "provider_id";
     private static final String INDICATOR_CODE = "indicator_code";
     private static final String LABEL = "label";
+    private static final String GROUPING = "grouping";
     private static final String DESCRIPTION = "description";
     private static final String DHIS_ID = "dhis_id";
+    private static final String CATEGORY_OPTION_COMBO = "category_option_combo";
+
     private static final String CATEGORY = "category";
 
     private static final String CREATED_AT_COLUMN = "created_at";
     private static final String UPDATED_AT_COLUMN = "updated_at";
-    private static final String[] HIA2_TABLE_COLUMNS = {ID_COLUMN, PROVIDER_ID, INDICATOR_CODE, LABEL, DHIS_ID, DESCRIPTION, CATEGORY, CREATED_AT_COLUMN, UPDATED_AT_COLUMN};
+    private static final String[] HIA2_TABLE_COLUMNS = {ID_COLUMN, PROVIDER_ID, INDICATOR_CODE, LABEL, DHIS_ID, CATEGORY_OPTION_COMBO, DESCRIPTION, CATEGORY, GROUPING, CREATED_AT_COLUMN, UPDATED_AT_COLUMN};
     public static final Map<Integer, String> CSV_COLUMN_MAPPING;
 
     private static final String PROVIDER_ID_INDEX = "CREATE INDEX " + TABLE_NAME + "_" + PROVIDER_ID + "_index ON " + TABLE_NAME + "(" + PROVIDER_ID + " COLLATE NOCASE);";
@@ -55,7 +58,9 @@ public class HIA2IndicatorsRepository extends BaseRepository {
         CSV_COLUMN_MAPPING.put(1, HIA2IndicatorsRepository.INDICATOR_CODE);
         CSV_COLUMN_MAPPING.put(2, HIA2IndicatorsRepository.LABEL);
         CSV_COLUMN_MAPPING.put(3, HIA2IndicatorsRepository.DHIS_ID);
-        CSV_COLUMN_MAPPING.put(4, HIA2IndicatorsRepository.DESCRIPTION);
+        CSV_COLUMN_MAPPING.put(4, HIA2IndicatorsRepository.CATEGORY_OPTION_COMBO);
+        CSV_COLUMN_MAPPING.put(5, HIA2IndicatorsRepository.DESCRIPTION);
+        CSV_COLUMN_MAPPING.put(6, HIA2IndicatorsRepository.GROUPING);
         CSV_COLUMN_MAPPING.put(999, HIA2IndicatorsRepository.CATEGORY); //999 means nothing really, just to hold the column name for categories since category is a row in the hia2 csv
     }
 
@@ -77,6 +82,28 @@ public class HIA2IndicatorsRepository extends BaseRepository {
 
         try {
             cursor = getReadableDatabase().query(TABLE_NAME, HIA2_TABLE_COLUMNS, null, null, null, null, null, null);
+            List<Hia2Indicator> hia2Indicators = readAllDataElements(cursor);
+            for (Hia2Indicator curIndicator : hia2Indicators) {
+                response.put(curIndicator.getIndicatorCode(), curIndicator);
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return response;
+    }
+
+    public HashMap<String, Hia2Indicator> findAllByGrouping(String grouping) {
+        HashMap<String, Hia2Indicator> response = new HashMap<>();
+        Cursor cursor = null;
+
+        try {
+            cursor = getReadableDatabase()
+                    .query(TABLE_NAME, HIA2_TABLE_COLUMNS, "grouping = ?", new String[]{grouping}, null, null, null, null);
             List<Hia2Indicator> hia2Indicators = readAllDataElements(cursor);
             for (Hia2Indicator curIndicator : hia2Indicators) {
                 response.put(curIndicator.getIndicatorCode(), curIndicator);
@@ -144,8 +171,10 @@ public class HIA2IndicatorsRepository extends BaseRepository {
                     hia2Indicator.setLabel(cursor.getString(cursor.getColumnIndex(LABEL)));
                     hia2Indicator.setDescription(cursor.getString(cursor.getColumnIndex(DESCRIPTION)));
                     hia2Indicator.setDhisId(cursor.getString(cursor.getColumnIndex(DHIS_ID)));
+                    hia2Indicator.setCategoryOptionCombo(cursor.getString(cursor.getColumnIndex(CATEGORY_OPTION_COMBO)));
                     hia2Indicator.setIndicatorCode(cursor.getString(cursor.getColumnIndex(INDICATOR_CODE)));
                     hia2Indicator.setCategory(cursor.getString(cursor.getColumnIndex(CATEGORY)));
+                    hia2Indicator.setGrouping(cursor.getString(cursor.getColumnIndex(GROUPING)));
                     hia2Indicator.setCreatedAt(new Date(cursor.getLong(cursor.getColumnIndex(CREATED_AT_COLUMN))));
                     hia2Indicator.setUpdatedAt(new Date(Timestamp.valueOf(cursor.getString(cursor.getColumnIndex(UPDATED_AT_COLUMN))).getTime()));
                     hia2Indicators.add(hia2Indicator);
@@ -156,7 +185,7 @@ public class HIA2IndicatorsRepository extends BaseRepository {
         } catch (Exception e) {
             Timber.e(e);
         } finally {
-            if(cursor != null) {
+            if (cursor != null) {
                 cursor.close();
             }
         }

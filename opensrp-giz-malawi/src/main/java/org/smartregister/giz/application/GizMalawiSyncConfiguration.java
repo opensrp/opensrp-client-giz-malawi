@@ -5,6 +5,9 @@ import org.smartregister.SyncFilter;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.repository.AllSharedPreferences;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GizMalawiSyncConfiguration extends SyncConfiguration {
     @Override
     public int getSyncMaxRetries() {
@@ -51,6 +54,16 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean updateClientDetailsTable() {
         return true;
+    }
+
+    @Override
+    public List<String> getSynchronizedLocationTags() {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public String getTopAllowedLocationLevel() {
+        return null;
     }
 }
 

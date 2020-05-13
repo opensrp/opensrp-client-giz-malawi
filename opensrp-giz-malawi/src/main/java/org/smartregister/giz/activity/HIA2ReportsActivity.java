@@ -78,7 +78,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
     public static final String FORM_KEY_CONFIRM = "confirm";
     public static final DateFormat yyyyMMdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
-    public static final String REPORT_NAME = "HIA2";
+    public static final String REPORT_NAME = "EPI Vaccination Performance and Disease Surveillance (NEW)";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -136,7 +136,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
 
             String humanReadableTitle = null;
 
-            for (ReportGroupingModel.ReportGrouping reportGroupingObj: registerModels) {
+            for (ReportGroupingModel.ReportGrouping reportGroupingObj : registerModels) {
                 if (reportGrouping.equals(reportGroupingObj.getGrouping())) {
                     humanReadableTitle = reportGroupingObj.getDisplayName();
                 }
@@ -307,7 +307,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                                             monthlyTallies == null ? 0 : monthlyTallies.size()));
                                 }
                             }
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             Timber.e(e);
                         }
                     }
@@ -355,7 +355,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                 List<MonthlyTally> tallies = monthlyTalliesRepository
                         .find(MonthlyTalliesRepository.DF_YYYYMM.format(month), reportGrouping);
 
-                HashMap<String, Hia2Indicator> hia2IndicatorHashMap = GizMalawiApplication.getInstance().hIA2IndicatorsRepository().findAll();
+                HashMap<String, Hia2Indicator> hia2IndicatorHashMap = GizMalawiApplication.getInstance().hIA2IndicatorsRepository().findAllByGrouping(getReportGrouping());
                 if (tallies != null) {
                     List<ReportHia2Indicator> reportHia2Indicators = new ArrayList<>();
                     for (MonthlyTally curTally : tallies) {
@@ -368,6 +368,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                         Hia2Indicator hia2Indicator = hia2IndicatorHashMap.get(reportHia2Indicator.getIndicatorCode());
                         if (hia2Indicator != null) {
                             reportHia2Indicator.setDhisId(hia2Indicator.getDhisId());
+                            reportHia2Indicator.setCategoryOptionCombo(hia2Indicator.getCategoryOptionCombo());
                         } else {
                             // This enables the server to skip this indicator tally and not crash
                             // when it tries to compare NULL to "unknown" and throws an NPE

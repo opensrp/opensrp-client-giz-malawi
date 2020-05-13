@@ -11,7 +11,6 @@ import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
-import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.util.concurrent.TimeUnit;
@@ -57,8 +56,8 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
                 .scheduleJob(ImageUploadServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.IMAGE_UPLOAD_MINUTES),
                         getFlexValue(BuildConfig.IMAGE_UPLOAD_MINUTES));
 
-        RecurringIndicatorGeneratingJob.scheduleJob(RecurringIndicatorGeneratingJob.TAG,
-                TimeUnit.MINUTES.toMinutes(1), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+//        RecurringIndicatorGeneratingJob.scheduleJob(RecurringIndicatorGeneratingJob.TAG,
+//                TimeUnit.MINUTES.toMinutes(1), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
 
         // Schedule vaccine schedules update after midnight
         GizVaccineUpdateJob.scheduleEverydayAt(GizVaccineUpdateJob.TAG, 1, 7);

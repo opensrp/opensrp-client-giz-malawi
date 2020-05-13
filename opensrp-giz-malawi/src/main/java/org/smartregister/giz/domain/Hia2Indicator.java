@@ -21,9 +21,12 @@ public class Hia2Indicator implements Serializable {
     @JsonProperty
     private String dhisId;
     @JsonProperty
+    private String categoryOptionCombo;
+    @JsonProperty
     private String description;
     @JsonProperty
     private String category;
+    private String grouping;
     private Date createdAt;
     private Date updatedAt;
 
@@ -47,6 +50,14 @@ public class Hia2Indicator implements Serializable {
         this.category = category;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public String getCategoryOptionCombo() {
+        return categoryOptionCombo;
+    }
+
+    public void setCategoryOptionCombo(String categoryOptionCombo) {
+        this.categoryOptionCombo = categoryOptionCombo;
     }
 
     public long getId() {
@@ -122,5 +133,13 @@ public class Hia2Indicator implements Serializable {
         object.put("category", category);
 
         return object;
+    }
+
+    public String getGrouping() {
+        return grouping;
+    }
+
+    public void setGrouping(String grouping) {
+        this.grouping = grouping;
     }
 }
