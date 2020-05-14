@@ -188,7 +188,7 @@ indicators:
     description: "ME_Recurring_Age_Static_label"
     indicatorQuery: "SELECT recur_type.name,
                        CASE
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_Static'
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1_Static'
                             WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1_Static'
                             ELSE 'Null'
                             END age, ec_client.gender, count(*) counter
@@ -940,7 +940,7 @@ indicators:
     grouping: "anc"
     #QA 10/05/2020 -OK
 
-  - key: "ME_Hb_(g/dl)_less_than_7"
+  - key: "ME_Hb_g_dl_less_than_7"
     description: "Hb (g/dl)  < 7"
     #    indicatorQuery: "select count(1) from ((SELECT base_entity_id FROM  previous_contact
     #                   where previous_contact.contact_no = '1' group by base_entity_id

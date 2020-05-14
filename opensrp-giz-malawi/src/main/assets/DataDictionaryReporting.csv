@@ -1,89 +1,89 @@
-2,ME_Vaccines_Age_opv_0_Under_1(Outreach),OPV0 Count for under 1 (0-11months) (Outreach),pVdb1wcTMyw,H5xzz0m9zyd,CHD EPI OPV 0 Childhood Vaccination Outreach,child
-3,ME_Vaccines_Age_opv_0_Under_1(Static),OPV0 Count for under 1 (0-11months)(Static),pVdb1wcTMyw,goHo0wV2Gx1,CHD EPI OPV 0 Childhood Vaccination Static Under 1 ,child
-4,ME_Vaccines_Age_opv_1_Over_1(Outreach),OPV1 Count for over 1 (Outreach),hftsrvq65Ia,zKLduwqZFnh,CHD EPI OPV1 Childhood Vaccination Outreach Over 1,child
-5,ME_Vaccines_Age_opv_1_Over_1(Static),OPV1 Count for over 1 (Static),hftsrvq65Ia,r2NJTUrJ2TL,CHD EPI OPV1 Childhood Vaccination Static Over 1,child
-6,ME_Vaccines_Age_opv_1_Under_1(Outreach),OPV1 Count for under 1 (0-11months)(Outreach),hftsrvq65Ia,ipKITPnwlcP,CHD EPI OPV1 Childhood Vaccination Outreach Under 1,child
-7,ME_Vaccines_Age_opv_1_Under_1(Static),OPV1 Count for under 1 (0-11months)(Static),hftsrvq65Ia,UHR4d8LgGou,CHD EPI OPV1 Childhood Vaccination Static Under 1,child
-8,ME_Vaccines_Age_opv_2_Over_1(Outreach),OPV2 Count for over 1 (Outreach),cC69GTz2OSm,zKLduwqZFnh,CHD EPI OPV2 Childhood Vaccination Outreach Over 1,child
-9,ME_Vaccines_Age_opv_2_Over_1(Static),OPV2 Count for over 1 (Static),cC69GTz2OSm,r2NJTUrJ2TL,CHD EPI OPV2 Childhood Vaccination Static Over 1,child
-10,ME_Vaccines_Age_opv_2_Under_1(Outreach),OPV2 Count for under 1 (0-11months)(Outreach),cC69GTz2OSm,ipKITPnwlcP,CHD EPI OPV2 Childhood Vaccination Outreach Under 1,child
-11,ME_Vaccines_Age_opv_2_Under_1(Static),OPV2 Count for under 1 (0-11months)(Static),cC69GTz2OSm,UHR4d8LgGou,CHD EPI OPV2 Childhood Vaccination Static Under 1,child
-12,ME_Vaccines_Age_opv_3_Over_1(Outreach),OPV3 Count for over 1 (Outreach),CrELJNRN6Ok,zKLduwqZFnh,CHD EPI OPV3 Childhood Vaccination Outreach Over 1,child
-13,ME_Vaccines_Age_opv_3_Over_1(Static),OPV3 Count for over 1 (Static),CrELJNRN6Ok,r2NJTUrJ2TL,CHD EPI OPV3 Childhood Vaccination Static Over 1,child
-14,ME_Vaccines_Age_opv_3_Under_1(Outreach),OPV3 Count for under 1 (0-11months) (Outreach),CrELJNRN6Ok,ipKITPnwlcP,CHD EPI OPV3 Childhood Vaccination Outreach Under 1,child
-15,ME_Vaccines_Age_opv_3_Under_1(Static),OPV3 Count for under 1 (0-11months)(Static),CrELJNRN6Ok,UHR4d8LgGou,CHD EPI OPV3 Childhood Vaccination Static Under 1,child
-16,ME_Vaccines_Age_pcv_1_Over_1(Outreach),PCV1 Count for over 1 (Outreach),TOdUoVRc7n0,zKLduwqZFnh,CHD EPI PCV1 Childhood Vaccination Outreach Over 1,child
-17,ME_Vaccines_Age_pcv_1_Over_1(Static),PCV1 Count for over 1 (Static),TOdUoVRc7n0,r2NJTUrJ2TL,CHD EPI PCV1 Childhood Vaccination Static Over 1,child
-18,ME_Vaccines_Age_pcv_1_Under_1(Outreach),PCV1 Count for under 1 (0-11months)(Outreach),TOdUoVRc7n0,ipKITPnwlcP,CHD EPI PCV1 Childhood Vaccination Outreach Under 1,child
-19,ME_Vaccines_Age_pcv_1_Under_1(Static),PCV1 Count for under 1 (0-11months)(Static),TOdUoVRc7n0,UHR4d8LgGou,CHD EPI PCV1 Childhood Vaccination Static Under 1,child
-20,ME_Vaccines_Age_pcv_2_Over_1(Outreach),PCV2 Count for over 1 (Outreach),iV9Ijd0qjPU,zKLduwqZFnh,CHD EPI PCV2 Childhood Vaccination Outreach Over 1,child
-21,ME_Vaccines_Age_pcv_2_Over_1(Static),PCV2 Count for over 1 (Static),iV9Ijd0qjPU,r2NJTUrJ2TL,CHD EPI PCV2 Childhood Vaccination Static Over 1,child
-22,ME_Vaccines_Age_pcv_2_Under_1(Outreach),PCV2 Count for under 1 (0-11months)(Outreach),iV9Ijd0qjPU,ipKITPnwlcP,CHD EPI PCV2 Childhood Vaccination Outreach Under 1,child
-23,ME_Vaccines_Age_pcv_2_Under_1(Static),PCV2 Count for under 1 (0-11months)(Static),iV9Ijd0qjPU,UHR4d8LgGou,CHD EPI PCV2 Childhood Vaccination Static Under 1,child
-24,ME_Vaccines_Age_pcv_3_Over_1(Outreach),PCV3 Count for over 1 (Outreach),IQFC39nNHPX,zKLduwqZFnh,CHD EPI PCV3 Childhood Vaccination Outreach Over 1,child
-25,ME_Vaccines_Age_pcv_3_Over_1(Outreach),PCV3 Count for under 1 (0-11months)(Outreach),IQFC39nNHPX,ipKITPnwlcP,CHD EPI PCV3 Childhood Vaccination Outreach Under 1,child
-26,ME_Vaccines_Age_pcv_3_Over_1(Static),PCV3 Count for over 1 (Static),IQFC39nNHPX,r2NJTUrJ2TL,CHD EPI PCV3 Childhood Vaccination Static Over 1,child
-27,ME_Vaccines_Age_pcv_3_Over_1(Static),PCV3 Count for under 1 (0-11months)(Static),IQFC39nNHPX,UHR4d8LgGou,CHD EPI PCV3 Childhood Vaccination Static Under 1,child
-28,ME_Vaccines_Age_penta_1_Over_1(Outreach),Pentavalent1 Count for over 1 (Outreach),bUpxQhmf8ZK,zKLduwqZFnh,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Over 1,child
-29,ME_Vaccines_Age_penta_1_Over_1(Static),Pentavalent1 Count for over 1 (Static),bUpxQhmf8ZK,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Over 1,child
-30,ME_Vaccines_Age_penta_1_Under_1(Outreach),Pentavalent1 Count for under 1 (0-11months)(Outreach),bUpxQhmf8ZK,ipKITPnwlcP,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Under 1,child
-31,ME_Vaccines_Age_penta_1_Under_1(Static),Pentavalent1 Count for under 1 (0-11months)(Static),bUpxQhmf8ZK,UHR4d8LgGou,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Under 1,child
-32,ME_Vaccines_Age_penta_2_Over_1(Outreach),Pentavalent2 Count for over 1 (Outreach),oVS5H2KNyxb,zKLduwqZFnh,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Over 1,child
-33,ME_Vaccines_Age_penta_2_Over_1(Static),Pentavalent2 Count for over 1 (Static),oVS5H2KNyxb,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Over 1,child
-34,ME_Vaccines_Age_penta_2_Under_1(Outreach),Pentavalent2 Count for under 1 (0-11months)(Outreach),oVS5H2KNyxb,ipKITPnwlcP,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Under 1,child
-35,ME_Vaccines_Age_penta_2_Under_1(Static),Pentavalent2 Count for under 1 (0-11months)(Static),oVS5H2KNyxb,UHR4d8LgGou,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Under 1,child
-36,ME_Vaccines_Age_penta_3_Over_1(Outreach),Pentavalent3 Count for over 1 (Outreach),cq3o6581c85,zKLduwqZFnh,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Over 1,child
-37,ME_Vaccines_Age_penta_3_Over_1(Static),Pentavalent3 Count for over 1 (Static),cq3o6581c85,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Over 1,child
-38,ME_Vaccines_Age_penta_3_Under_1(Outreach),Pentavalent3 Count for under 1 (0-11months)(Outreach),cq3o6581c85,ipKITPnwlcP,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Under 1,child
-39,ME_Vaccines_Age_penta_3_Under_1(Static),Pentavalent3 Count for under 1 (0-11months)(Static),cq3o6581c85,UHR4d8LgGou,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Under 1,child
-40,ME_Vaccines_Age_rota_1_Under_1(Outreach),ROTA1 Count for under 1 (0-11months)(Outreach),DzCqBNtgw2C,H5xzz0m9zyd,CHD EPI ROTA 1 Childhood Vaccination Outreach Under 1,child
-41,ME_Vaccines_Age_rota_1_Under_1(Static),ROTA1 Count for under 1 (0-11months)(Static),DzCqBNtgw2C,goHo0wV2Gx1,CHD EPI ROTA 1 Childhood Vaccination Static Under 1,child
-42,ME_Vaccines_Age_rota_2_Under_1(Static),ROTA2 Count for under 1 (0-11months)(Outreach),kBNHszeOCpn,H5xzz0m9zyd,CHD EPI ROTA 2 Childhood Vaccination Outreach Under 1,child
-43,ME_Vaccines_Age_rota_2_Under_1(Static),ROTA2 Count for under 1 (0-11months)(Static),kBNHszeOCpn,goHo0wV2Gx1,CHD EPI ROTA 2 Childhood Vaccination Static Under 1,child
-44,ME_Fully_Immunized_Static_Over_1(Outreach),Fully Immunized Children Count for over 1 (Outreach),NxggSy8gzqo,zKLduwqZFnh,CHD EPI Fully Immunized children Outreach Over 1,child
-45,ME_Fully_Immunized_Static_Over_1(Static),Fully Immunized Children Count for over 1(Static),NxggSy8gzqo,r2NJTUrJ2TL,CHD EPI Fully Immunized children Static Over 1,child
-46,ME_Fully_Immunized_Static_Under_1(Outreach),Fully Immunized Children Count for under 1 (0-11months)(Outreach),NxggSy8gzqo,ipKITPnwlcP,CHD EPI Fully Immunized children Outreach Under 1,child
-47,ME_Fully_Immunized_Static_Under_1(Static),Fully Immunized Children Count for under 1 (0-11months)(Static),NxggSy8gzqo,UHR4d8LgGou,CHD EPI Fully Immunized children Static Under 1,child
-48,ME_PAB_Age_Under_1(Outreach),Protected At Birth Count for under 1 (0-11months)(Outreach),ds8EuoyoTUK,H5xzz0m9zyd,CHD EPI Protection At Birth (PAB) Childhood Vaccination Outreach Under 1,child
-49,ME_PAB_Age_Under_1(Static),Protected At Birth Count for under 1 (0-11months)(Static),ds8EuoyoTUK,goHo0wV2Gx1,CHD EPI Protection At Birth (PAB) Childhood Vaccination Static Under 1,child
-50,ME_Recurring_Age_Deworming_1_Over_1(Outreach)(Female),Deworming Count for over 1 ( 12-23mths)(Female)(Outreach) (1st Dose),Ojz51mfHBQH,e6tut7p8b3U,CHD EPI Number dewormed 12 - 23 Months Female Outreach,child
-51,ME_Recurring_Age_Deworming_1_Over_1(Outreach)(Male),Deworming Count for over 1 ( 12-23mths)(Male)(Outreach) (1st Dose),Ojz51mfHBQH,XAPWPhdXPpN,CHD EPI Number dewormed 12 - 23 Months Male Outreach,child
-52,ME_Recurring_Age_Deworming_1_Over_1(Static)(Female),Deworming Count for over 1 ( 12-23mths)(Female)(Static) (1st Dose),Ojz51mfHBQH,sVUMSUwxQyj,CHD EPI Number dewormed 12 - 23 Months Female Static,child
-53,ME_Recurring_Age_Deworming_1_Over_1(Static)(Male),Deworming Count for over 1 ( 12-23mths)(Male)(Static) (1st Dose),Ojz51mfHBQH,mVBoBn7kcA3,CHD EPI Number dewormed 12 - 23 Months Male Static,child
-54,ME_Recurring_Age_Deworming_2_Over_1(Outreach)(Female),Deworming Count for over 2  ( 24-59mths)(Female)(Outreach),Ojz51mfHBQH,mAcNlntVW6y,CHD EPI Number dewormed 24 - 59 Months Female Outreach,child
-55,ME_Recurring_Age_Deworming_2_Over_1(Outreach)(Male),Deworming Count for over 2  ( 24-59mths)(Male)(Outreach),Ojz51mfHBQH,sNWb5qxiOkh,CHD EPI Number dewormed 24 - 59 Months Male Outreach,child
-56,ME_Recurring_Age_Deworming_2_Over_1(Static)(Female),Deworming Count for over 2  ( 24-59mths)(Female)(Static),Ojz51mfHBQH,OX3bT0qfrwH,CHD EPI Number dewormed 24 - 59 Months Female Static,child
-57,ME_Recurring_Age_Deworming_2_Over_1(Static)(Male),Deworming Count for over 2  ( 24-59mths)(Male)(Static),Ojz51mfHBQH,p7xCFOF37EI,CHD EPI Number dewormed 24 - 59 Months Male Static,child
-58,ME_Recurring_Age_Vit_A_1_Over_1(Outreach)(Female),Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Outreach)(Female),QBgBWJAlOxW,gB0W63Kq6AZ,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
-59,ME_Recurring_Age_Vit_A_1_Over_1(Outreach)(Male),Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Outreach)(Male),QBgBWJAlOxW,rumJgZkdY47,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Outreach,child
-60,ME_Recurring_Age_Vit_A_1_Over_1(Static)(Female),Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Static)(Female),QBgBWJAlOxW,FpdeEDs8TIP,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
-61,ME_Recurring_Age_Vit_A_1_Over_1(Static)(Male),Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Static)(Male),QBgBWJAlOxW,KgiMiWs1E8P,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Static,child
-62,ME_Recurring_Age_Vit_A_1_Under_1(Outreach)(Female),Vitamin A Count for under  1 (6-11mths)(Outreach)(Female),QBgBWJAlOxW,GC3TdzwM8OA,CHD EPI Vitamin A suplemented 6 - 11 Months Female Outreach,child
-63,ME_Recurring_Age_Vit_A_1_Under_1(Outreach)(Male),Vitamin A Count for under 1 (6-11mths) (Outreach)(Male),QBgBWJAlOxW,fuvlp9uqcPd,CHD EPI Vitamin A suplemented 6 - 11 Months Male Outreach,child
-64,ME_Recurring_Age_Vit_A_1_Under_1(Static)(Female),Vitamin A Count for under  1 (6-11mths)(Static)(Female),QBgBWJAlOxW,TEIykBA5pf5,CHD EPI Vitamin A suplemented 6 - 11 Months Female Static,child
-65,ME_Recurring_Age_Vit_A_1_Under_1(Static)(Male),Vitamin A Count for under 1 (6-11mths) (Static)(Male),QBgBWJAlOxW,xZ6voDw6RH5,CHD EPI Vitamin A suplemented 6 - 11 Months Male Static,child
-66,ME_Recurring_Age_Vit_A_2_Over_1(Outreach)(Female),Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Outreach)(Female),QBgBWJAlOxW,hGXCz93cOZz,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
-67,ME_Recurring_Age_Vit_A_2_Over_1(Outreach)(Male),Vitamin A Count for over 1  (2nd Dose) 12-59mths)(Outreach)(Male),QBgBWJAlOxW,tsqT0XhqObc,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Outreach,child
-68,ME_Recurring_Age_Vit_A_2_Over_1(Static)(Female),Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Static)(Female),QBgBWJAlOxW,UWrsmTpB3fF,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
-69,ME_Recurring_Age_Vit_A_2_Over_1(Static)(Male),Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Static)(Male),QBgBWJAlOxW,PRPdhssSeW6,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Static,child
-70,ME_Vaccines_Age_bcg_Over_1(Outreach),BCG Count for over 1 (Outreach),s79kWckFPLs,zKLduwqZFnh,CHD EPI BCG Childhood Vaccination Outreach Over 1,child
-71,ME_Vaccines_Age_bcg_Over_1(Static),BCG Count for over 1(Static),s79kWckFPLs,r2NJTUrJ2TL,CHD EPI BCG Childhood Vaccination Static Over 1,child
-72,ME_Vaccines_Age_bcg_Under_1(Outreach),BCG Count for under 1 (0-11months)(Outreach),s79kWckFPLs,ipKITPnwlcP,CHD EPI BCG Childhood Vaccination Outreach Under 1,child
-73,ME_Vaccines_Age_bcg_Under_1(Static),BCG Count for under 1 (0-11months) (Static),s79kWckFPLs,UHR4d8LgGou,CHD EPI BCG Childhood Vaccination Static Under 1,child
-74,ME_Vaccines_Age_mr_1_Over_1(Outreach),MR1 Count for over 1 (12-59months)(Outreach),noxYd7tOSon,zKLduwqZFnh,CHD EPI MR1 Childhood Vaccination Outreach Over 1,child
-75,ME_Vaccines_Age_mr_1_Over_1(Outreach),MR1 Count for under 1 (6-11months)(Outreach),noxYd7tOSon,ipKITPnwlcP,CHD EPI MR1 Childhood Vaccination Outreach Under 1,child
-76,ME_Vaccines_Age_mr_1_Over_1(Static),MR1 Count for over 1(12-59months) (Static),noxYd7tOSon,r2NJTUrJ2TL,CHD EPI MR1 Childhood Vaccination Static Over 1,child
-77,ME_Vaccines_Age_mr_1_Over_1(Static),MR1 Count for under 1 (6-11months)(Static),noxYd7tOSon,UHR4d8LgGou,CHD EPI MR1 Childhood Vaccination Static Under 1,child
-78,ME_Vaccines_Age_mr_2_Over_1(Outreach),MR2 Count for Over 1 (Outreach),i78OLuiaUDY,zKLduwqZFnh,CHD EPI MR2 Childhood Vaccination Outreach Over 1,child
-79,ME_Vaccines_Age_mr_2_Over_1(Static),MR2 Count for Over 1 (Static),i78OLuiaUDY,r2NJTUrJ2TL,CHD EPI MR2 Childhood Vaccination Static Over 1,child
-80,ME_Vaccines_Age_mv_1_Under_1(Outreach),MV1 Count for Under 1 (Outreach),a3DjUocUyEa,H5xzz0m9zyd,CHD EPI Malaria Vaccine 1 Childhood Vaccination Outreach Under 1,child
-81,ME_Vaccines_Age_mv_1_Under_1(Static),MV1 Count for Under 1 (Static),a3DjUocUyEa,goHo0wV2Gx1,CHD EPI Malaria Vaccine 1 Childhood Vaccination Static Under 1,child
-82,ME_Vaccines_Age_mv_2_Under_1(Outreach),MV2 Count for Under 1 (Outreach),qcbczRGg4Gm,H5xzz0m9zyd,CHD EPI Malaria Vaccine 2 Childhood Vaccination Outreach Under 1,child
-83,ME_Vaccines_Age_mv_2_Under_1(Static),MV2 Count for Under 1 (Static),qcbczRGg4Gm,goHo0wV2Gx1,CHD EPI Malaria Vaccine 2 Childhood Vaccination Static Under 1,child
-84,ME_Vaccines_Age_mv_3_Over_1(Outreach),MV4 Count for Over 1 (Outreach),BcipDoKGMNu,heiO5lIn7Cs,CHD EPI Malaria Vaccine 4 Childhood Vaccination Outreach > 24-27 Months,child
-85,ME_Vaccines_Age_mv_3_Under_1(Outreach),MV3 Count for Under 1 (Outreach),MqhI0ToAbRd,H5xzz0m9zyd,CHD EPI Malaria Vaccine 3 Childhood Vaccination Outreach Under 1,child
-86,ME_Vaccines_Age_mv_3_Under_1(Static),MV3 Count for Under 1 (Static),MqhI0ToAbRd,goHo0wV2Gx1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Static Under 1,child
-87,ME_Vaccines_Age_mv_4_Over_1(Static),MV4 Count for Over 1 (Static),BcipDoKGMNu,k4MfKNU5WDq,CHD EPI Malaria Vaccine 4 Childhood Vaccination Static > 24-27 Months,child
+2,ME_Vaccines_Age_Outreach_opv_0_Under_1_Outreach,OPV0 Count for under 1 (0-11months) (Outreach),pVdb1wcTMyw,H5xzz0m9zyd,CHD EPI OPV 0 Childhood Vaccination Outreach,child
+3,ME_Vaccines_Age_Static_opv_0_Under_1_Static,OPV0 Count for under 1 (0-11months)(Static),pVdb1wcTMyw,goHo0wV2Gx1,CHD EPI OPV 0 Childhood Vaccination Static Under 1 ,child
+4,ME_Vaccines_Age_Outreach_opv_1_Over_1_Outreach,OPV1 Count for over 1 (Outreach),hftsrvq65Ia,zKLduwqZFnh,CHD EPI OPV1 Childhood Vaccination Outreach Over 1,child
+5,ME_Vaccines_Age_Static_opv_1_Over_1_Static,OPV1 Count for over 1 (Static),hftsrvq65Ia,r2NJTUrJ2TL,CHD EPI OPV1 Childhood Vaccination Static Over 1,child
+6,ME_Vaccines_Age_Outreach_opv_1_Under_1_Outreach,OPV1 Count for under 1 (0-11months)(Outreach),hftsrvq65Ia,ipKITPnwlcP,CHD EPI OPV1 Childhood Vaccination Outreach Under 1,child
+7,ME_Vaccines_Age_Static_opv_1_Under_1_Static,OPV1 Count for under 1 (0-11months)(Static),hftsrvq65Ia,UHR4d8LgGou,CHD EPI OPV1 Childhood Vaccination Static Under 1,child
+8,ME_Vaccines_Age_Outreach_opv_2_Over_1_Outreach,OPV2 Count for over 1 (Outreach),cC69GTz2OSm,zKLduwqZFnh,CHD EPI OPV2 Childhood Vaccination Outreach Over 1,child
+9,ME_Vaccines_Age_Static_opv_2_Over_1_Static,OPV2 Count for over 1 (Static),cC69GTz2OSm,r2NJTUrJ2TL,CHD EPI OPV2 Childhood Vaccination Static Over 1,child
+10,ME_Vaccines_Age_Outreach_opv_2_Under_1_Outreach,OPV2 Count for under 1 (0-11months)(Outreach),cC69GTz2OSm,ipKITPnwlcP,CHD EPI OPV2 Childhood Vaccination Outreach Under 1,child
+11,ME_Vaccines_Age_Static_opv_2_Under_1_Static,OPV2 Count for under 1 (0-11months)(Static),cC69GTz2OSm,UHR4d8LgGou,CHD EPI OPV2 Childhood Vaccination Static Under 1,child
+12,ME_Vaccines_Age_Outreach_opv_3_Over_1_Outreach,OPV3 Count for over 1 (Outreach),CrELJNRN6Ok,zKLduwqZFnh,CHD EPI OPV3 Childhood Vaccination Outreach Over 1,child
+13,ME_Vaccines_Age_Static_opv_3_Over_1_Static,OPV3 Count for over 1 (Static),CrELJNRN6Ok,r2NJTUrJ2TL,CHD EPI OPV3 Childhood Vaccination Static Over 1,child
+14,ME_Vaccines_Age_Outreach_opv_3_Under_1_Outreach,OPV3 Count for under 1 (0-11months) (Outreach),CrELJNRN6Ok,ipKITPnwlcP,CHD EPI OPV3 Childhood Vaccination Outreach Under 1,child
+15,ME_Vaccines_Age_Static_opv_3_Under_1_Static,OPV3 Count for under 1 (0-11months)(Static),CrELJNRN6Ok,UHR4d8LgGou,CHD EPI OPV3 Childhood Vaccination Static Under 1,child
+16,ME_Vaccines_Age__Outreachpcv_1_Over_1_Outreach,PCV1 Count for over 1 (Outreach),TOdUoVRc7n0,zKLduwqZFnh,CHD EPI PCV1 Childhood Vaccination Outreach Over 1,child
+17,ME_Vaccines_Age_Static_pcv_1_Over_1_Static,PCV1 Count for over 1 (Static),TOdUoVRc7n0,r2NJTUrJ2TL,CHD EPI PCV1 Childhood Vaccination Static Over 1,child
+18,ME_Vaccines_Age_Outreach_pcv_1_Under_1_Outreach,PCV1 Count for under 1 (0-11months)(Outreach),TOdUoVRc7n0,ipKITPnwlcP,CHD EPI PCV1 Childhood Vaccination Outreach Under 1,child
+19,ME_Vaccines_Age_Static_pcv_1_Under_1_Static,PCV1 Count for under 1 (0-11months)(Static),TOdUoVRc7n0,UHR4d8LgGou,CHD EPI PCV1 Childhood Vaccination Static Under 1,child
+20,ME_Vaccines_Age_Outreach_pcv_2_Over_1_Outreach,PCV2 Count for over 1 (Outreach),iV9Ijd0qjPU,zKLduwqZFnh,CHD EPI PCV2 Childhood Vaccination Outreach Over 1,child
+21,ME_Vaccines_Age_Static_pcv_2_Over_1_Static,PCV2 Count for over 1 (Static),iV9Ijd0qjPU,r2NJTUrJ2TL,CHD EPI PCV2 Childhood Vaccination Static Over 1,child
+22,ME_Vaccines_Age_Outreach_pcv_2_Under_1_Outreach,PCV2 Count for under 1 (0-11months)(Outreach),iV9Ijd0qjPU,ipKITPnwlcP,CHD EPI PCV2 Childhood Vaccination Outreach Under 1,child
+23,ME_Vaccines_Age_Static_pcv_2_Under_1_Static,PCV2 Count for under 1 (0-11months)(Static),iV9Ijd0qjPU,UHR4d8LgGou,CHD EPI PCV2 Childhood Vaccination Static Under 1,child
+24,ME_Vaccines_Age_Outreach_pcv_3_Over_1_Outreach,PCV3 Count for over 1 (Outreach),IQFC39nNHPX,zKLduwqZFnh,CHD EPI PCV3 Childhood Vaccination Outreach Over 1,child
+25,ME_Vaccines_Age_Outreach_pcv_3_Over_1_Outreach,PCV3 Count for under 1 (0-11months)(Outreach),IQFC39nNHPX,ipKITPnwlcP,CHD EPI PCV3 Childhood Vaccination Outreach Under 1,child
+26,ME_Vaccines_Age_Static_pcv_3_Over_1_Static,PCV3 Count for over 1 (Static),IQFC39nNHPX,r2NJTUrJ2TL,CHD EPI PCV3 Childhood Vaccination Static Over 1,child
+27,ME_Vaccines_Age_Static_pcv_3_Over_1_Static,PCV3 Count for under 1 (0-11months)(Static),IQFC39nNHPX,UHR4d8LgGou,CHD EPI PCV3 Childhood Vaccination Static Under 1,child
+28,ME_Vaccines_Age_Outreach_penta_1_Over_1_Outreach,Pentavalent1 Count for over 1 (Outreach),bUpxQhmf8ZK,zKLduwqZFnh,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Over 1,child
+29,ME_Vaccines_Age_Static_penta_1_Over_1_Static,Pentavalent1 Count for over 1 (Static),bUpxQhmf8ZK,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Over 1,child
+30,ME_Vaccines_Age_Outreach_penta_1_Under_1_Outreach,Pentavalent1 Count for under 1 (0-11months)(Outreach),bUpxQhmf8ZK,ipKITPnwlcP,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Under 1,child
+31,ME_Vaccines_Age_Static_penta_1_Under_1_Static,Pentavalent1 Count for under 1 (0-11months)(Static),bUpxQhmf8ZK,UHR4d8LgGou,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Under 1,child
+32,ME_Vaccines_Age_Outreach_penta_2_Over_1_Outreach,Pentavalent2 Count for over 1 (Outreach),oVS5H2KNyxb,zKLduwqZFnh,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Over 1,child
+33,ME_Vaccines_Age_Static_penta_2_Over_1_Static,Pentavalent2 Count for over 1 (Static),oVS5H2KNyxb,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Over 1,child
+34,ME_Vaccines_Age_Outreach_penta_2_Under_1_Outreach,Pentavalent2 Count for under 1 (0-11months)(Outreach),oVS5H2KNyxb,ipKITPnwlcP,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Under 1,child
+35,ME_Vaccines_Age_Static_penta_2_Under_1_Static,Pentavalent2 Count for under 1 (0-11months)(Static),oVS5H2KNyxb,UHR4d8LgGou,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Under 1,child
+36,ME_Vaccines_Age_Outreach_penta_3_Over_1_Outreach,Pentavalent3 Count for over 1 (Outreach),cq3o6581c85,zKLduwqZFnh,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Over 1,child
+37,ME_Vaccines_Age_Static_penta_3_Over_1_Static,Pentavalent3 Count for over 1 (Static),cq3o6581c85,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Over 1,child
+38,ME_Vaccines_Age_Outreach_penta_3_Under_1_Outreach,Pentavalent3 Count for under 1 (0-11months)(Outreach),cq3o6581c85,ipKITPnwlcP,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Under 1,child
+39,ME_Vaccines_Age_Static_penta_3_Under_1_Static,Pentavalent3 Count for under 1 (0-11months)(Static),cq3o6581c85,UHR4d8LgGou,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Under 1,child
+40,ME_Vaccines_Age_Outreach_rota_1_Under_1_Outreach,ROTA1 Count for under 1 (0-11months)(Outreach),DzCqBNtgw2C,H5xzz0m9zyd,CHD EPI ROTA 1 Childhood Vaccination Outreach Under 1,child
+41,ME_Vaccines_Age_Static_rota_1_Under_1_Static,ROTA1 Count for under 1 (0-11months)(Static),DzCqBNtgw2C,goHo0wV2Gx1,CHD EPI ROTA 1 Childhood Vaccination Static Under 1,child
+42,ME_Vaccines_Age_Static_rota_2_Under_1_Static,ROTA2 Count for under 1 (0-11months)(Outreach),kBNHszeOCpn,H5xzz0m9zyd,CHD EPI ROTA 2 Childhood Vaccination Outreach Under 1,child
+43,ME_Vaccines_Age_Static_rota_2_Under_1_Static,ROTA2 Count for under 1 (0-11months)(Static),kBNHszeOCpn,goHo0wV2Gx1,CHD EPI ROTA 2 Childhood Vaccination Static Under 1,child
+44,ME_Fully_Immunized_Outreach_Over_1_Outreach,Fully Immunized Children Count for over 1 (Outreach),NxggSy8gzqo,zKLduwqZFnh,CHD EPI Fully Immunized children Outreach Over 1,child
+45,ME_Fully_Immunized_Static_Over_1_Static,Fully Immunized Children Count for over 1(Static),NxggSy8gzqo,r2NJTUrJ2TL,CHD EPI Fully Immunized children Static Over 1,child
+46,ME_Fully_Immunized_Outreach_Under_1_Outreach,Fully Immunized Children Count for under 1 (0-11months)(Outreach),NxggSy8gzqo,ipKITPnwlcP,CHD EPI Fully Immunized children Outreach Under 1,child
+47,ME_Fully_Immunized_Static_Under_1_Static,Fully Immunized Children Count for under 1 (0-11months)(Static),NxggSy8gzqo,UHR4d8LgGou,CHD EPI Fully Immunized children Static Under 1,child
+48,ME_PAB_Age_Under_1_Outreach,Protected At Birth Count for under 1 (0-11months)(Outreach),ds8EuoyoTUK,H5xzz0m9zyd,CHD EPI Protection At Birth (PAB) Childhood Vaccination Outreach Under 1,child
+49,ME_PAB_Age_Under_1_Static,Protected At Birth Count for under 1 (0-11months)(Static),ds8EuoyoTUK,goHo0wV2Gx1,CHD EPI Protection At Birth (PAB) Childhood Vaccination Static Under 1,child
+50,ME_Recurring_Age_Outreach_Deworming_1_Over_1_Outreach_Female,Deworming Count for over 1 ( 12-23mths)(Female)(Outreach) (1st Dose),Ojz51mfHBQH,e6tut7p8b3U,CHD EPI Number dewormed 12 - 23 Months Female Outreach,child
+51,ME_Recurring_Age_Outreach_Deworming_1_Over_1_Outreach_Male,Deworming Count for over 1 ( 12-23mths)(Male)(Outreach) (1st Dose),Ojz51mfHBQH,XAPWPhdXPpN,CHD EPI Number dewormed 12 - 23 Months Male Outreach,child
+52,ME_Recurring_Age_Outreach_Deworming_2_Over_1_Outreach_Female,Deworming Count for over 2  ( 24-59mths)(Female)(Outreach),Ojz51mfHBQH,mAcNlntVW6y,CHD EPI Number dewormed 24 - 59 Months Female Outreach,child
+53,ME_Recurring_Age_Outreach_Deworming_2_Over_1_Outreach_Male,Deworming Count for over 2  ( 24-59mths)(Male)(Outreach),Ojz51mfHBQH,sNWb5qxiOkh,CHD EPI Number dewormed 24 - 59 Months Male Outreach,child
+54,ME_Recurring_Age_Outreach_Vit_A_1_Over_1_Outreach_Male,Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Outreach)(Male),QBgBWJAlOxW,rumJgZkdY47,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Outreach,child
+55,ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Female,Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Outreach)(Female),QBgBWJAlOxW,gB0W63Kq6AZ,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
+56,ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Female,Vitamin A Count for under  1 (6-11mths)(Outreach)(Female),QBgBWJAlOxW,GC3TdzwM8OA,CHD EPI Vitamin A suplemented 6 - 11 Months Female Outreach,child
+57,ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Male,Vitamin A Count for under 1 (6-11mths) (Outreach)(Male),QBgBWJAlOxW,fuvlp9uqcPd,CHD EPI Vitamin A suplemented 6 - 11 Months Male Outreach,child
+58,ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Female,Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Outreach)(Female),QBgBWJAlOxW,hGXCz93cOZz,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
+59,ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Male,Vitamin A Count for over 1  (2nd Dose) 12-59mths)(Outreach)(Male),QBgBWJAlOxW,tsqT0XhqObc,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Outreach,child
+60,ME_Recurring_Age_Static_Deworming_1_Over_1_Static_Female,Deworming Count for over 1 ( 12-23mths)(Female)(Static) (1st Dose),Ojz51mfHBQH,sVUMSUwxQyj,CHD EPI Number dewormed 12 - 23 Months Female Static,child
+61,ME_Recurring_Age_Static_Deworming_1_Over_1_Static_Male,Deworming Count for over 1 ( 12-23mths)(Male)(Static) (1st Dose),Ojz51mfHBQH,mVBoBn7kcA3,CHD EPI Number dewormed 12 - 23 Months Male Static,child
+62,ME_Recurring_Age_Static_Deworming_2_Over_1_Static_Female,Deworming Count for over 2  ( 24-59mths)(Female)(Static),Ojz51mfHBQH,OX3bT0qfrwH,CHD EPI Number dewormed 24 - 59 Months Female Static,child
+63,ME_Recurring_Age_Static_Deworming_2_Over_1_Static_Male,Deworming Count for over 2  ( 24-59mths)(Male)(Static),Ojz51mfHBQH,p7xCFOF37EI,CHD EPI Number dewormed 24 - 59 Months Male Static,child
+64,ME_Recurring_Age_Static_Vit_A_1_Over_1_Static_Female,Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Static)(Female),QBgBWJAlOxW,FpdeEDs8TIP,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
+65,ME_Recurring_Age_Static_Vit_A_1_Over_1_Static_Male,Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Static)(Male),QBgBWJAlOxW,KgiMiWs1E8P,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Static,child
+66,ME_Recurring_Age_Static_Vit_A_1_Under_1_Static_Female,Vitamin A Count for under  1 (6-11mths)(Static)(Female),QBgBWJAlOxW,TEIykBA5pf5,CHD EPI Vitamin A suplemented 6 - 11 Months Female Static,child
+67,ME_Recurring_Age_Static_Vit_A_1_Under_1_Static_Male,Vitamin A Count for under 1 (6-11mths) (Static)(Male),QBgBWJAlOxW,xZ6voDw6RH5,CHD EPI Vitamin A suplemented 6 - 11 Months Male Static,child
+68,ME_Recurring_Age_Static_Vit_A_2_Over_1_Static_Female,Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Static)(Female),QBgBWJAlOxW,UWrsmTpB3fF,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
+69,ME_Recurring_Age_Static_Vit_A_2_Over_1_Static_Male,Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Static)(Male),QBgBWJAlOxW,PRPdhssSeW6,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Static,child
+70,ME_Vaccines_Age_Outreach_bcg_Over_1_Outreach,BCG Count for over 1 (Outreach),s79kWckFPLs,zKLduwqZFnh,CHD EPI BCG Childhood Vaccination Outreach Over 1,child
+71,ME_Vaccines_Age_Static_bcg_Over_1_Static,BCG Count for over 1(Static),s79kWckFPLs,r2NJTUrJ2TL,CHD EPI BCG Childhood Vaccination Static Over 1,child
+72,ME_Vaccines_Age_Outreach_bcg_Under_1_Outreach,BCG Count for under 1 (0-11months)(Outreach),s79kWckFPLs,ipKITPnwlcP,CHD EPI BCG Childhood Vaccination Outreach Under 1,child
+73,ME_Vaccines_Age_Static_bcg_Under_1_Static,BCG Count for under 1 (0-11months) (Static),s79kWckFPLs,UHR4d8LgGou,CHD EPI BCG Childhood Vaccination Static Under 1,child
+74,ME_Vaccines_Age_Outreach_mr_1_Over_1_Outreach,MR1 Count for over 1 (12-59months)(Outreach),noxYd7tOSon,zKLduwqZFnh,CHD EPI MR1 Childhood Vaccination Outreach Over 1,child
+75,ME_Vaccines_Age_Outreach_mr_1_Over_1_Outreach,MR1 Count for under 1 (6-11months)(Outreach),noxYd7tOSon,ipKITPnwlcP,CHD EPI MR1 Childhood Vaccination Outreach Under 1,child
+76,ME_Vaccines_Age_Static_mr_1_Over_1_Static,MR1 Count for over 1(12-59months) (Static),noxYd7tOSon,r2NJTUrJ2TL,CHD EPI MR1 Childhood Vaccination Static Over 1,child
+77,ME_Vaccines_Age_Static_mr_1_Over_1_Static,MR1 Count for under 1 (6-11months)(Static),noxYd7tOSon,UHR4d8LgGou,CHD EPI MR1 Childhood Vaccination Static Under 1,child
+78,ME_Vaccines_Age_Outreach_mr_2_Over_1_Outreach,MR2 Count for Over 1 (Outreach),i78OLuiaUDY,zKLduwqZFnh,CHD EPI MR2 Childhood Vaccination Outreach Over 1,child
+79,ME_Vaccines_Age_Static_mr_2_Over_1_Static,MR2 Count for Over 1 (Static),i78OLuiaUDY,r2NJTUrJ2TL,CHD EPI MR2 Childhood Vaccination Static Over 1,child
+80,ME_Vaccines_Age_Outreach_mv_1_Under_1_Outreach,MV1 Count for Under 1 (Outreach),a3DjUocUyEa,H5xzz0m9zyd,CHD EPI Malaria Vaccine 1 Childhood Vaccination Outreach Under 1,child
+81,ME_Vaccines_Age_Static_mv_1_Under_1_Static,MV1 Count for Under 1 (Static),a3DjUocUyEa,goHo0wV2Gx1,CHD EPI Malaria Vaccine 1 Childhood Vaccination Static Under 1,child
+82,ME_Vaccines_Age_Outreach_mv_2_Under_1_Outreach,MV2 Count for Under 1 (Outreach),qcbczRGg4Gm,H5xzz0m9zyd,CHD EPI Malaria Vaccine 2 Childhood Vaccination Outreach Under 1,child
+83,ME_Vaccines_Age_Static_mv_2_Under_1_Static,MV2 Count for Under 1 (Static),qcbczRGg4Gm,goHo0wV2Gx1,CHD EPI Malaria Vaccine 2 Childhood Vaccination Static Under 1,child
+84,ME_Vaccines_Age_Outreach_mv_3_Over_1_Outreach,MV4 Count for Over 1 (Outreach),BcipDoKGMNu,heiO5lIn7Cs,CHD EPI Malaria Vaccine 4 Childhood Vaccination Outreach > 24-27 Months,child
+85,ME_Vaccines_Age_Outreach_mv_3_Under_1_Outreach,MV3 Count for Under 1 (Outreach),MqhI0ToAbRd,H5xzz0m9zyd,CHD EPI Malaria Vaccine 3 Childhood Vaccination Outreach Under 1,child
+86,ME_Vaccines_Age_Static_mv_3_Under_1_Static,MV3 Count for Under 1 (Static),MqhI0ToAbRd,goHo0wV2Gx1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Static Under 1,child
+87,ME_Vaccines_Age_Static_mv_4_Over_1_Static,MV4 Count for Over 1 (Static),BcipDoKGMNu,k4MfKNU5WDq,CHD EPI Malaria Vaccine 4 Childhood Vaccination Static > 24-27 Months,child
 88,ME__CPT_out_of_HIV_positive,On CPT out of HIV+,Mvo7Ah1xx61,Tt7fU5lUhAU,RHD ANC CPT Women on CPT,anc
 89,ME__NVP_syrup_given,NVP syrup given,XXKhfvXpgmF,Tt7fU5lUhAU,RHD ANC NVP Syrup Given Received NVP,anc
 90,ME_Albendazole_doses_One_dose,Albendazole doses 1 dose,MXHcqC6ruW6,Tt7fU5lUhAU,RHD ANC Albendazole 1,anc

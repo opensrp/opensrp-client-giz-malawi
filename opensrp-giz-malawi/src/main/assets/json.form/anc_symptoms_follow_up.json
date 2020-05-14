@@ -2331,8 +2331,8 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Frequency of depressed mood score: {mh_phq_score}. \nTap on the info icon to see how to interpret this score.",
-        "toaster_info_text": "Interpretation:\n- A score ranges from 0-6. \n- If the score is 3 or greater, major depressive disorder is likely.\n- Women who score 3 or greater should be evaluated further to determine whether they meet the criteria for a depressive disorder.",
-        "toaster_info_title": "TB Screening",
+        "toaster_info_text": "- A score ranges from 0-6. \n- If the score is 3 or greater, major depressive disorder is likely.\n- Women who score 3 or greater should be evaluated further to determine whether they meet the criteria for a depressive disorder.",
+        "toaster_info_title": "Interpretation",
         "text_color": "#D56900",
         "toaster_type": "warning",
         "relevance": {
