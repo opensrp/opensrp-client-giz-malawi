@@ -94,6 +94,10 @@
         "v_required": {
           "value": false,
           "err": "Please enter the patient's national id"
+        },
+        "v_regex": {
+          "value": "([A-Za-z0-9]{8})|\\s*",
+          "err": "Please enter a valid national id"
         }
       },
       {
@@ -103,17 +107,17 @@
         "openmrs_entity_id": "bht_mid",
         "type": "barcode",
         "barcode_type": "qrcode",
-        "hint": "BHT ID",
+        "hint": "Patient ID",
         "value": "0",
         "scanButtonText": "Scan Barcode",
         "look_up": true,
         "v_numeric": {
           "value": "true",
-          "err": "Please enter a valid BHT ID"
+          "err": "Please enter a valid Patient ID"
         },
         "v_required": {
           "value": false,
-          "err": "Please enter a valid BHT ID"
+          "err": "Please enter a valid Patient ID"
         }
       },
       {
@@ -294,13 +298,25 @@
         "openmrs_entity": "person_address",
         "openmrs_entity_id": "address2",
         "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Home address",
+        "edit_type": "name",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the woman's home address"
+        }
+      },
+      {
+        "key": "village",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1354AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "tree",
         "tree": [],
-        "value": "Lombwa Outreach",
-        "hint": "Address/Location",
+        "hint": "Village",
         "v_required": {
           "value": true,
-          "err": "Please enter the Home Address"
+          "err": "Please enter a village"
         }
       },
       {
@@ -314,21 +330,6 @@
           "value": "([0][0-9]{9})|\\s*",
           "err": "Number must begin with 0 and must be a total of 10 digits in length"
         }
-      },
-      {
-        "key": "reminders",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "person_attribute",
-        "openmrs_entity_id": "reminders",
-        "openmrs_data_type": "select one",
-        "type": "check_box",
-        "options": [
-          {
-            "key" : "isEnrolledInSmsMessages",
-            "text": "Enroll in Sms Messages",
-            "value": "false"
-          }
-        ]
       }
     ]
   }

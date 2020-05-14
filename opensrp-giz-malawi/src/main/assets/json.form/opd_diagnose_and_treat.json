@@ -101,21 +101,6 @@
         }
       },
       {
-        "key": "lmp_duration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hint": "Duration (in days)",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "gender",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -153,6 +138,9 @@
         "hint": "Do you have any of these medical conditions?",
         "label": "Do you have any of these medical conditions?",
         "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none"
+        ],
         "options": [
           {
             "openmrs_entity_parent": "",
@@ -350,22 +338,6 @@
         }
       },
       {
-        "key": "medical_conditions_duration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "openmrs_data_type": "text",
-        "type": "edit_text",
-        "hint": "Duration (in days)",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_relevance.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "visit_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -528,9 +500,9 @@
               "Blood Glucose test (random plasma glucose test)",
               "Midstream urine Gram-staining",
               "Malaria - MRDT",
-              "TB-Gene Xpert",
-              "TB-smear microscopy",
-              "TB-urine LAM",
+              "TB Gene Xpert",
+              "TB smear microscopy",
+              "TB urine LAM",
               "Urine dipstick",
               "Hemocue (haemoglobinometer)",
               "HIV Viral Load",
@@ -867,27 +839,68 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "spinner",
         "hint": "The type of treatment provided",
-        "values": [
-          "Medicine",
-          "Immobilization",
-          "IV line",
-          "Suturing",
-          "Wound dressing",
-          "Foreign body removal",
-          "Incision and Drainage(I&D)",
-          "Other (specify)"
-        ],
-        "keys": [
-          "medicine",
-          "immobilization",
-          "iv_line",
-          "suturing",
-          "wound_dressing",
-          "foreign_body_removal",
-          "incision_and_drainage",
-          "other"
+        "type": "check_box",
+        "label": "The type of treatment provided",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "medicine",
+            "text": "Medicine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "immobilization",
+            "text": "Immobilization",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "iv_line",
+            "text": "IV line",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "suturing",
+            "text": "Suturing",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "wound_dressing",
+            "text": "Wound dressing",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "foreign_body_removal",
+            "text": "Foreign body removal",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "incision_and_drainage",
+            "text": "Incision and Drainage(I&D)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
         ]
       },
       {
@@ -910,9 +923,10 @@
         "text": "Treatment/Medicines Provided",
         "text_color": "#000000",
         "relevance": {
-          "step5:treatment_type": {
-            "type": "string",
-            "ex": "equalTo(.,\"medicine\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/diagnose_and_treat_relevance.yml"
+            }
           }
         }
       },
@@ -931,9 +945,10 @@
         "dialogTitle": "Add treatment/medicine",
         "searchHint": "Type treatment/medicine name",
         "relevance": {
-          "step5:treatment_type": {
-            "type": "string",
-            "ex": "equalTo(.,\"medicine\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/diagnose_and_treat_relevance.yml"
+            }
           }
         }
       },

@@ -708,6 +708,7 @@
         {
           "column_name": "treatment_type",
           "type": "Event",
+          "save_format": "json_array",
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "treatment_type"

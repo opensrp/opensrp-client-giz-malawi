@@ -48,13 +48,13 @@ condition: "!step2_medical_conditions.isEmpty() && !step2_medical_conditions.con
 actions:
   - "isRelevant = true"
 ---
-#name: step5_medicine
-#description: medicine
-#priority: 1
-#condition: "step5_treatment_type == 'medicine'"
-#actions:
-#  - "isRelevant = true"
-#---
+name: step5_medicine
+description: medicine
+priority: 1
+condition: "!step5_treatment_type.isEmpty() && step5_treatment_type.contains('medicine')"
+actions:
+  - "isRelevant = true"
+---
 name: step6_discharged_home
 description: discharged_home
 priority: 1
