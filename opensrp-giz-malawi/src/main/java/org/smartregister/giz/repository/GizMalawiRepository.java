@@ -25,6 +25,9 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.maternity.repository.MaternityOutcomeDetailsRepository;
+import org.smartregister.maternity.repository.MaternityOutcomeFormRepository;
+import org.smartregister.maternity.repository.MaternityRegistrationDetailsRepository;
 import org.smartregister.opd.repository.OpdCheckInRepository;
 import org.smartregister.opd.repository.OpdDetailsRepository;
 import org.smartregister.opd.repository.OpdDiagnosisAndTreatmentFormRepository;
@@ -122,6 +125,11 @@ public class GizMalawiRepository extends Repository {
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         }
+
+        // Maternity
+        MaternityRegistrationDetailsRepository.createTable(database);
+        MaternityOutcomeDetailsRepository.createTable(database);
+        MaternityOutcomeFormRepository.createTable(database);
     }
 
 

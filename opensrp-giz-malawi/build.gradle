@@ -208,6 +208,7 @@ dependencies {
 
     implementation('org.smartregister:opensrp-client-opd:0.0.14.8.1-SNAPSHOT@aar') {
         transitive = true
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -258,6 +259,16 @@ dependencies {
 //        exclude group: 'com.android.support', module: 'support-v4'
 //        exclude group: 'com.android.support', module: 'design'
 //    }
+
+    //api('org.smartregister:opensrp-client-maternity:0.0.1-SNAPSHOT@aar') {
+    api (project(':opensrp-maternity')) {
+        transitive = true
+        exclude group: 'id.zelory', module: 'compressor'
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
 
     api('org.smartregister:opensrp-client-immunization:1.4.43-SNAPSHOT@aar') {
         transitive = true

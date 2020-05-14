@@ -42,6 +42,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(GizConstants.DrawerMenu.ANC_CLIENTS, GizConstants.RegisterType.ANC);
         tableMap.put(GizConstants.DrawerMenu.ANC, GizConstants.RegisterType.ANC);
         tableMap.put(GizConstants.DrawerMenu.ALL_CLIENTS, GizConstants.RegisterType.OPD);
+        tableMap.put(GizConstants.DrawerMenu.MATERNITY_CLIENTS, GizConstants.RegisterType.MATERNITY);
     }
 
     @Override

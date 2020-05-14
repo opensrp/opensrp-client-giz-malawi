@@ -39,6 +39,13 @@
           }
         },
         {
+          "column_name": "national_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.national_id"
+          }
+        },
+        {
           "column_name": "bht_mid",
           "type": "Event",
           "json_mapping": {
@@ -122,6 +129,13 @@
           "type": "Client",
           "json_mapping": {
             "field": "attributes.annual_serial_number"
+          }
+        },
+        {
+          "column_name": "opd_reg_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.reg_number"
           }
         },
         {
