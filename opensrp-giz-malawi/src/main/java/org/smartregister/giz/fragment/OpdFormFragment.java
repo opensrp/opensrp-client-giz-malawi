@@ -18,4 +18,10 @@ public class OpdFormFragment extends BaseOpdFormFragment implements ClientLookUp
         jsonFormFragment.setArguments(bundle);
         return jsonFormFragment;
     }
+
+    @Override
+    public void onResume() {
+        setShouldSkipStep(true);
+        super.onResume();
+    }
 }

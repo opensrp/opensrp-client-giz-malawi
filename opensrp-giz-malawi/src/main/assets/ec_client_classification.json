@@ -65,8 +65,63 @@
             "creates_case": [
               "ec_client"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Pregnancy Status",
+            "creates_case": [
+              "opd_pregnancy_status"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Medical Conditions And HIV Details",
+            "creates_case": [
+              "opd_medical_condition"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Outcome",
+            "creates_case": [
+              "opd_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Service Detail",
+            "creates_case": [
+              "opd_service_detail"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Treatment",
+            "creates_case": [
+              "opd_treatment"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Diagnosis",
+            "creates_case": [
+              "opd_diagnosis"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Check-In",
+            "creates_case": [
+              "opd_check_in"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "OPD Test Conducted",
+            "creates_case": [
+              "opd_test"
+            ]
           }
-
         ]
       }
     }

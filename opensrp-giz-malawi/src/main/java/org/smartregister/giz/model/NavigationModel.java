@@ -28,7 +28,7 @@ public class NavigationModel implements NavigationContract.Model {
         if (navigationOptions.size() == 0) {
 
             NavigationOption allClientsOption = new NavigationOption(R.mipmap.sidemenu_children
-                    , R.mipmap.sidemenu_children_active, R.string.all_clients, GizConstants.DrawerMenu.ALL_CLIENTS, 0, false);
+                    , R.mipmap.sidemenu_children_active, R.string.all_clients, GizConstants.DrawerMenu.ALL_CLIENTS, 0, true);
 
             if (allClientsOption.isEnabled()) {
                 navigationOptions.add(allClientsOption);
