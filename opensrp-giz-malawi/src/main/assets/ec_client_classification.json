@@ -129,6 +129,13 @@
             "creates_case": [
               "opd_test"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Maternity Close",
+            "creates_case": [
+              "maternity_close"
+            ]
           }
         ]
       }

@@ -9,6 +9,13 @@ actions:
 name: step1_lmp
 description: opd_lmp
 priority: 1
+condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 ) && (step1_lmp_unknown.isEmpty())"
+actions:
+  - "isRelevant = true"
+---
+name: step1_lmp_unknown
+description: opd_lmp_unknown
+priority: 1
 condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 )"
 actions:
   - "isRelevant = true"
@@ -37,7 +44,7 @@ actions:
 name: step2_hiv_prev_pos_art
 description: hiv_prev_pos_art
 priority: 1
-condition: "step2_medical_conditions.contains('hiv') && step2_hiv_prev_status == 'positive'"
+condition: "step2_hiv_prev_status == 'positive'"
 actions:
   - "isRelevant = true"
 ---
@@ -80,5 +87,12 @@ name: step2_medical_conditions_specify
 description: medical_conditions_specify
 priority: 1
 condition: "!step2_medical_conditions.isEmpty() && step2_medical_conditions.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_treatment_type_specify
+description: treatment_type_specify
+priority: 1
+condition: "!step5_treatment_type.isEmpty() &&  step5_treatment_type.contains('other')"
 actions:
   - "isRelevant = true"

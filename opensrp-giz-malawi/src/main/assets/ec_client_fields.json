@@ -858,6 +858,18 @@
           }
         }
       ]
+    },
+    {
+      "name": "maternity_close",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        }
+      ]
     }
   ]
 }

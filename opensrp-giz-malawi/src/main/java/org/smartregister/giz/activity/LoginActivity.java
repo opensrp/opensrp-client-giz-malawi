@@ -3,6 +3,7 @@ package org.smartregister.giz.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.SiteCharacteristicsEnterActivity;
 import org.smartregister.giz.R;
 import org.smartregister.giz.presenter.LoginPresenter;
@@ -45,7 +46,7 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         }
 
         if (mLoginPresenter.isServerSettingsSet()) {
-            Intent intent = new Intent(this, ChildRegisterActivity.class);
+            Intent intent = new Intent(this, AncLibrary.getInstance().getActivityConfiguration().getLandingPageActivityClass());
             intent.putExtra(GizConstants.IntentKeyUtil.IS_REMOTE_LOGIN, remote);
             startActivity(intent);
         } else {

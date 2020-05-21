@@ -60,7 +60,6 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "choose_image",
-
         "uploadButtonText": "Take a photo of the person"
       },
       {
@@ -137,8 +136,8 @@
         "type": "edit_text",
         "hint": "First name",
         "edit_type": "name",
-        "look_up" : "true",
-        "entity_id" :"",
+        "look_up": "true",
+        "entity_id": "",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
           "err": "Please enter a valid name"
@@ -156,7 +155,7 @@
         "type": "edit_text",
         "hint": "Last name",
         "edit_type": "name",
-        "look_up" : "true",
+        "look_up": "true",
         "v_required": {
           "value": true,
           "err": "Please enter the last name"
@@ -183,11 +182,11 @@
           "err": "Please enter the date of birth"
         },
         "relevance": {
-        "step1:dob_unknown": {
-          "type": "string",
-          "ex": "equalTo(., \"false\")"
+          "step1:dob_unknown": {
+            "type": "string",
+            "ex": "equalTo(., \"false\")"
+          }
         }
-      }
       },
       {
         "key": "dob_unknown",
@@ -199,7 +198,7 @@
         "label": "",
         "options": [
           {
-            "key" : "isDobUnknown",
+            "key": "isDobUnknown",
             "text": "DOB unknown?",
             "value": "false"
           }

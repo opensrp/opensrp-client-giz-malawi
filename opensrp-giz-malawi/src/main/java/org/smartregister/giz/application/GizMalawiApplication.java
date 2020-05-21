@@ -33,7 +33,9 @@ import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
+import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.configuration.GizMaternityRegisterQueryProvider;
+import org.smartregister.giz.configuration.GizMaternityRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
@@ -286,7 +288,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
-        activityConfiguration.setLandingPageActivityClass(ChildRegisterActivity.class);
+        activityConfiguration.setLandingPageActivityClass(OpdRegisterActivity.class);
         AncMetadata ancMetadata = new AncMetadata();
         ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
         ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
@@ -321,9 +323,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , BaseMaternityFormActivity.class
                 , BaseMaternityProfileActivity.class
                 ,true);
+        maternityMetadata.setLocationLevels(GizUtils.getLocationLevels());
+        maternityMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
         MaternityConfiguration maternityConfiguration = new MaternityConfiguration
                 .Builder(GizMaternityRegisterQueryProvider.class)
                 .setMaternityMetadata(maternityMetadata)
+                .setMaternityRegisterRowOptions(GizMaternityRegisterRowOptions.class)
                 .build();
         MaternityLibrary.init(context, getRepository(), maternityConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
     }
@@ -332,6 +337,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
                 OpdConstants.CONFIG, OpdFormActivity.class, BaseOpdProfileActivity.class, true);
+
+        opdMetadata.setFieldsWithLocationHierarchy(Arrays.asList("village"));
 
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
                 .setOpdMetadata(opdMetadata)

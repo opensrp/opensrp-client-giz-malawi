@@ -66,7 +66,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "What is the current pregnancy status?",
+        "hint": "Current pregnancy status?",
         "values": [
           "Positive",
           "Negative",
@@ -91,7 +91,30 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
-        "hint": "When was the last menstrual period?",
+        "hint": "Last menstrual period date",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/diagnose_and_treat_relevance.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "lmp_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Last menstrual period unknown checkbox",
+        "label": "",
+        "options": [
+          {
+            "key" : "lmp_unknown",
+            "text": "Last menstrual period unknown?",
+            "value": "false"
+          }
+        ],
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -135,8 +158,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "hint": "Do you have any of these medical conditions?",
-        "label": "Do you have any of these medical conditions?",
+        "hint": "Previous medical conditions",
+        "label": "Previous medical conditions",
         "combine_checkbox_option_values": "true",
         "exclusive": [
           "none"
@@ -278,7 +301,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "date_picker",
-        "hint": "When was the HIV test done?",
+        "hint": "HIV diagnosis date",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -293,16 +316,16 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "spinner",
-        "hint": "What were the results?",
+        "hint": "HIV test results",
         "values": [
           "Positive",
           "Negative",
           "Unknown"
         ],
         "keys": [
-          "Positive",
-          "Negative",
-          "Unknown"
+          "positive",
+          "negative",
+          "unknown"
         ],
         "relevance": {
           "rules-engine": {
@@ -317,7 +340,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "label": "Is the client taking ART?",
+        "label": "Is the client taking Antiretroviral treatment (ART)?",
         "type": "native_radio",
         "options": [
           {
@@ -782,9 +805,10 @@
             "openmrs_entity_id": "",
             "hint": "The result of the test conducted",
             "type": "edit_text",
+            "edit_type": "number",
             "v_regex": {
-              "value": "([3-8][0-9]|9[0-9]|[1-4][0-9]{2}|500)",
-              "err": "Number must be between 30 and 500"
+              "value": "^[0-9]+(\\.)[0-9]+?$",
+              "err": "Please enter a valid result"
             },
             "relevance": {
               "rules-engine": {
@@ -911,9 +935,10 @@
         "hint": "Specify any other treatment type",
         "type": "edit_text",
         "relevance": {
-          "step5:treatment_type": {
-            "type": "string",
-            "ex": "equalTo(.,\"other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/diagnose_and_treat_relevance.yml"
+            }
           }
         }
       },
