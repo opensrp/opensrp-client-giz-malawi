@@ -515,7 +515,7 @@ indicators:
                      ELSE ''
                      END AS haz_score,
                      CASE
-                     WHEN round(julianday('now') - julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
+                     WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827.0 THEN 'Over_1'
                      WHEN round(julianday('now') - julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                      ELSE 'Null'
                      END age, ec_client.gender, count(*)
@@ -982,3 +982,445 @@ indicators:
                    or sum(case when key = 'syph_test_status' then 1 else 0 end ) = 0
                    and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0 ))"
     grouping: "anc"
+
+##OPD Reports
+  - key: "ME_Malaria_Cases_Confirmed"
+    description: "Malaria cases"
+    indicatorQuery: "SELECT
+                     	CASE
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                     		ELSE 'Null'
+                     	END age, count(*)
+                        FROM opd_diagnosis_detail b
+                        INNER JOIN ec_client
+                        ON b.base_entity_id = ec_client.base_entity_id
+                        WHERE b.code in ('code_32aCo','code_32bCo')
+                        GROUP  BY age,b.type"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Malaria_Cases_Confirmed_Over_5"
+      - "ME_Malaria_Cases_Confirmed_Under_5"
+     grouping: "opd"
+
+  - key: "ME_Malaria_Cases_Presumed"
+    description: "Malaria cases"
+    indicatorQuery: "SELECT
+                     	CASE
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                     		ELSE 'Null'
+                     	END age, count(*)
+                     	FROM opd_diagnosis_detail b
+                     	INNER JOIN ec_client
+                     	ON b.base_entity_id = ec_client.base_entity_id
+                     	WHERE b.code in ('code_32aPr','code_32bPr')
+                     	AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%Malaria%')
+                     	GROUP  BY age,b.type"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Malaria_Cases_Presumed_Over_5"
+      - "ME_Malaria_Cases_Presumed_Under_5"
+      grouping: "opd"
+
+  - key: "ME_Total_Malaria_Cases"
+    description: "Malaria total cases"
+    indicatorQuery: "SELECT
+                     	CASE
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                     		ELSE 'Null'
+                     	END age, count(*)
+                     	FROM opd_diagnosis_detail b
+                     	INNER JOIN ec_client
+                     	ON b.base_entity_id = ec_client.base_entity_id
+                     	WHERE b.code in ('code_32aCo','code_32bCo','code_32aPr','code_32bPr')
+                     	GROUP  BY age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Total_Malaria_Case_Over_5"
+      - "ME_Total_Malaria_Case_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Anti_Malaria_Treatment_Confirmed"
+    description: "Malaria anti malarial treatment"
+    indicatorQuery: "SELECT
+                     	CASE
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                     		ELSE 'Null'
+                     	END age, count(*)
+                        FROM opd_diagnosis_detail b
+                        INNER JOIN ec_client
+                        ON b.base_entity_id = ec_client.base_entity_id
+                        WHERE b.code in ('code_32aCo','code_32bCo')
+                        GROUP  BY age,b.type"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Anti_Malaria_Treatment_Confirmed_Over_5"
+      - "ME_Anti_Malaria_Treatment_Confirmed_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Anti_Malaria_Treatment_Presumed"
+    description: "Malaria anti malarial treatment"
+    indicatorQuery: "SELECT
+                     	CASE
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                     		WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                     		ELSE 'Null'
+                     	END age, count(*)
+                        FROM opd_diagnosis_detail b
+                        INNER JOIN ec_client
+                        ON b.base_entity_id = ec_client.base_entity_id
+                        WHERE b.code in ('code_32aCo','code_32bCo')
+                        GROUP  BY age,b.type"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Anti_Malaria_Treatment_Presumed_Over_5"
+      - "ME_Anti_Malaria_Treatment_Presumed_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Malaria_Test"
+    description: "Malaria tests"
+    indicatorQuery: "SELECT
+                     CASE
+                     	WHEN b.test_type='Malaria - MRDT' THEN 'mRDT'
+                     	WHEN b.test_type='Malaria test' THEN 'mRDT'
+                     	WHEN b.test_type='Malaria - Microscopy' THEN 'Microscopy'
+                     ELSE 'Null' END malaria_test,
+                     CASE
+                     	WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                     	WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                     ELSE 'Null' END age,
+                     count(*)
+                     FROM opd_test_conducted b
+                     INNER JOIN ec_client
+                     ON b.base_entity_id = ec_client.base_entity_id
+                     WHERE b.test_type in ('Malaria test','Malaria - MRDT','Malaria - Microscopy')
+                     GROUP  BY age,malaria_test"
+    isMultiResult: true
+    expectedIndicators:
+        - "ME_Malaria_Test_mRDT_Over_5"
+        - "ME_Malaria_Test_mRDT_Under_5"
+        - "ME_Malaria_Test_Microscopy_Over_5"
+        - "ME_Malaria_Test_Microscopy_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Positive_Malaria_Cases"
+    description: "Positive malaria cases"
+    indicatorQuery: "SELECT
+                     CASE
+                     	WHEN b.test_type='Malaria - MRDT' THEN 'mRDT'
+                     	WHEN b.test_type='Malaria test' THEN 'mRDT'
+                     	WHEN b.test_type='Malaria - Microscopy' THEN 'Microscopy'
+                     ELSE 'Null' END malaria_test,
+                     CASE
+                     	WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                     	WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                     ELSE 'Null' END age, count(*)
+                     FROM opd_test_conducted b
+                     INNER JOIN ec_client
+                     ON b.base_entity_id = ec_client.base_entity_id
+                     WHERE b.test_type in ('Malaria test','Malaria - MRDT','Malaria-Microscopy')
+                     AND b.result='Positive'
+                     GROUP  BY age,malaria_test,b.result"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Positive_Malaria_Cases_Malaria - MRDT_Over_5"
+      - "ME_Positive_Malaria_Cases_Malaria - MRDT_Under_5"
+      - "ME_Positive_Malaria_Cases_Malaria - Microscopy_Over_5"
+      - "ME_Positive_Malaria_Cases_Malaria - Microscopy_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Total_Suspected_Malaria"
+    description: "Total suspected malaria cases"
+    indicatorQuery: "SELECT count(*) FROM (SELECT b.base_entity_id
+                     	FROM opd_diagnosis_detail b
+                     	WHERE b.code in ('code_32aPr','code_32bPr')
+                     	AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%Malaria%')
+                     	UNION
+                     	SELECT d.base_entity_id FROM opd_test_conducted d
+                     	WHERE d.test_type in ('Malaria test','Malaria - MRDT','Malaria - Microscopy')
+                     	)"
+    grouping: "opd"
+
+  ##Maternity
+  - key: "ME_HIV_Previous"
+    description: "Maternity HIV previous positive"
+    indicatorQuery: "SELECT count(1)
+                     FROM maternity_outcome
+                     WHERE hiv_status_previous='Positive'"
+    grouping: "maternity"
+
+  - key: "ME_HIV_Current"
+    description: "Maternity HIV current"
+    indicatorQuery: "SELECT
+                     CASE
+                     	WHEN hiv_status_current='Negative' THEN 'New_Negative'
+                     	WHEN hiv_status_current ='Positive' THEN 'New_Positive'
+                     	ELSE 'Not_Done'
+                     END descr,count (*)
+                     FROM maternity_outcome
+                     GROUP BY descr"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_HIV_Current_New_Negative"
+      - "ME_HIV_Current_New_Positive"
+      - "ME_HIV_Current_Not_Done"
+    grouping: "maternity"
+
+  - key: "ME_ART_Start"
+    description: "Maternity ART start period"
+    indicatorQuery: "SELECT
+                     CASE
+                     	WHEN hiv_treatment_start='On ART before pregnancy' THEN 'Before_Pregnacy'
+                     	WHEN hiv_treatment_start='1st or 2nd Trimester (0-27 weeks)' THEN 'First_Trimester'
+                     	WHEN hiv_treatment_start='3rd Trimester (28+)' THEN 'Third_Trimester'
+                     	WHEN hiv_treatment_start='During Labour' THEN 'Labour'
+                     	ELSE 'Not_On_ART'
+                     END treatment,count (*)
+                     FROM maternity_outcome
+                     GROUP BY hiv_treatment_start"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_ART_Start_Before_Pregnacy"
+      - "ME_ART_Start_First_Trimester"
+      - "ME_ART_Start_Third_Trimester"
+      - "ME_ART_Start_Labour"
+      - "ME_ART_Not_On_ART"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Complications"
+    description: "Maternity obstetric complications"
+    indicatorQuery: "SELECT * FROM (
+                     SELECT
+                     CASE
+                        WHEN obstetric_complications LIKE '%None%' THEN 'None'
+                     	WHEN obstetric_complications LIKE '%Antepartum haemorrhage%' THEN 'APH'
+                     	WHEN obstetric_complications LIKE '%Postpartum Haemorhage%' THEN 'PPH'
+                     	WHEN obstetric_complications LIKE '%Obstructed/Prolonged Labour%' THEN 'OPL'
+                     	WHEN obstetric_complications LIKE '%Pre-eclampsia%' OR '%Eclampsia%' THEN 'ECL'
+                     	WHEN obstetric_complications LIKE '%Sepsis%' THEN 'SEP'
+                     	WHEN obstetric_complications LIKE '%Ruptured Uterus%' THEN 'RU'
+                     	WHEN obstetric_complications LIKE '%Retained placenta%' THEN 'RP'
+                     	WHEN obstetric_complications LIKE '%Fetal distress%' THEN 'FD'
+                     	ELSE 'Null'
+                      END complications,count (*)
+                      FROM maternity_outcome
+                      GROUP BY complications
+                      UNION
+                      SELECT
+                      CASE
+                      WHEN obstetric_complications LIKE '%Abnormal presentation%' THEN 'Other'
+                      WHEN obstetric_complications LIKE '%Cord prolapse%' THEN 'Other'
+                      WHEN obstetric_complications LIKE '%Haemorrhage%' THEN 'Other'
+                      WHEN obstetric_complications LIKE '%Perineal tear (2nd, 3rd, or 4th degree)%' THEN 'Other'
+                      WHEN obstetric_complications LIKE '%Placenta praevia%' THEN 'Other'
+                      WHEN obstetric_complications LIKE '%Placental abruption%' THEN 'Other'
+                      WHEN obstetric_complications LIKE '%Premature labour%' THEN 'Other'
+                      WHEN obstetric_complications LIKE '%Severe Anaemia%' THEN 'Other'
+                      WHEN obstetric_complications LIKE '%Symphysiotomy%' THEN 'Other'
+                      WHEN obstetric_complications ='' THEN 'Other'
+                      ELSE 'Null'
+                      END complications,count (*)
+                      FROM maternity_outcome
+                      GROUP BY complications
+                      ) a
+                      WHERE complications !='Null'
+                      GROUP BY a.complications"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Complications_APH"
+      - "ME_MAT_Complications_PPH"
+      - "ME_MAT_Complications_OPL"
+      - "ME_MAT_Complications_ECL"
+      - "ME_MAT_Complications_SEP"
+      - "ME_MAT_Complications_RU"
+      - "ME_MAT_Complications_RP"
+      - "ME_MAT_Complications_FD"
+      - "ME_MAT_Complications_Other"
+      - "ME_MAT_Complications_None"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Care"
+    description: "Maternity obstetric care"
+    indicatorQuery: "SELECT 'None',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%None%'
+                     UNION SELECT 'Ox',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Oxytocin%'
+                     UNION SELECT 'AC',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Anticonvulsants%'
+                     UNION SELECT 'Abx',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Antibiotics%'
+                     UNION SELECT 'Acs',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Antenatal corticosteroids (Dose 1)%' OR obstetric_care LIKE '%Antenatal corticosteroids (Dose 2)%'
+                     UNION SELECT 'Tr',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Blood transfusion%'
+                     UNION SELECT 'MRP',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Manual removal of placenta (MRP)%'
+                     UNION SELECT 'NASG',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Non-pneumatic anti shock garment (NASG)%'
+                     UNION SELECT 'ROPC',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Removal of retained products of conception (RPOC)%'
+                     "
+
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Care_None"
+      - "ME_MAT_Care_Ox"
+      - "ME_MAT_Care_AC"
+      - "ME_MAT_Care_Abx"
+      - "ME_MAT_Care_Acs"
+      - "ME_MAT_Care_Tr"
+      - "ME_MAT_Care_MRP"
+      - "ME_MAT_Care_NASG"
+      - "ME_MAT_Care_ROPC"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Referred"
+    description: "Maternity Referred out"
+    indicatorQuery: "SELECT count(1)
+                     FROM maternity_outcome
+                     WHERE referred_out='Yes'"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Delivery_Person"
+    description: "Maternity staff conducting delivery"
+    indicatorQuery: "SELECT
+                     CASE
+                     	WHEN delivery_person LIKE '%Medical Doctor (MD)%' THEN 'Skilled'
+                     	WHEN delivery_person LIKE '%Clinical Officer (CO)%' THEN 'Skilled'
+                     	WHEN delivery_person LIKE '%Medical Assistant (MA)%' THEN 'Skilled'
+                     	WHEN delivery_person LIKE '%Nurse Midwife%' THEN 'Skilled'
+                     	ELSE 'Not_skilled'
+                     	END delivery_person,count (*)
+                     FROM maternity_outcome
+                     GROUP BY delivery_person"
+
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Delivery_Person_Skilled"
+      - "ME_MAT_Delivery_Person_Not_skilled"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Vitamin_A"
+    description: "Maternity vitamin A given"
+    indicatorQuery: "SELECT count(1)
+                     FROM maternity_outcome
+                     WHERE vit_a='Yes'"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Mother_Status"
+    description: "Maternity Mother Status"
+    indicatorQuery: "SELECT
+                     CASE WHEN mother_status='Alive' THEN 'Alive'
+                     	WHEN mother_status='Brought In Dead (BID)' THEN 'BID'
+                     	WHEN mother_status='Died Before Discharge (DBD)' THEN 'DBD'
+                     	ELSE 'Null'
+                     END status,count(1)
+                     FROM maternity_outcome
+                     GROUP BY mother_status"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Mother_Status_Alive"
+      - "ME_MAT_Mother_Status_BID"
+      - "ME_MAT_Mother_Status_DBD"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Babies"
+    description: "Maternity Babies "
+    indicatorQuery: "SELECT
+                     CASE
+                     	WHEN a.counter>1 THEN 'Multiple'
+                     	ELSE 'Single'
+                     	END birth,sum(a.counter)
+                     FROM (SELECT count(*) counter from maternity_baby
+                     GROUP BY mother_base_entity_id) a
+                     GROUP BY birth"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Babies_Multiple"
+      - "ME_MAT_Babies_Single"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Delivery_Place"
+    description: "Maternity delivery place "
+    indicatorQuery: "SELECT
+                     CASE
+                     	WHEN delivery_place='In Transit (TR)' THEN 'TR'
+                     	WHEN delivery_place='This Facility' THEN 'Facility'
+                     	WHEN delivery_place='Other Facility' THEN 'Other'
+                     	WHEN delivery_place='Home/Traditional Birth Authority (TBA)' THEN 'Home'
+                     	ELSE 'Null'
+                      END delivery_place,count(*)
+                      FROM maternity_outcome
+                      GROUP BY delivery_place"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Delivery_Place_This"
+      - "ME_MAT_Delivery_Place_TR"
+      - "ME_MAT_Delivery_Place_Other"
+      - "ME_MAT_Delivery_Place_Home"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Delivery_Mode"
+    description: "Maternity delivery mode "
+    indicatorQuery: "SELECT
+                     CASE
+                     	WHEN delivery_mode='Spontaneous Vertex (SVD)' THEN 'SVD'
+                     	WHEN delivery_mode='Vacuum Extraction (VE)' THEN 'VE'
+                     	WHEN delivery_mode='Breech (BR)' THEN 'BR'
+                     	WHEN delivery_mode='Caesarean Section (CS)' THEN 'CS'
+                     	ELSE 'Null'
+                     	END delivery_mode  ,count(*)
+                     FROM maternity_outcome
+                     GROUP BY delivery_mode"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Delivery_Mode_SVD)"
+      - "ME_MAT_Delivery_Mode_VE"
+      - "ME_MAT_Delivery_Mode_BR"
+      - "ME_MAT_Delivery_Mode_CS"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Baby_Complications"
+    description: "Maternity baby complications"
+    indicatorQuery: "SELECT 'None',count(*) FROM maternity_baby WHERE complications LIKE '%None%'
+                     UNION SELECT 'Prem',count(*) FROM maternity_baby WHERE complications LIKE '%Premature%'
+                     UNION SELECT 'Asphy',count(*) FROM maternity_baby WHERE complications LIKE '%Asphyxia%'
+                     UNION SELECT 'Sep',count(*) FROM maternity_baby WHERE complications LIKE '%Sepsis%'
+                     UNION SELECT 'Defects',count(*) FROM maternity_baby WHERE complications LIKE '%Birth defects%'
+                     UNION SELECT 'Other',count(*) FROM maternity_baby WHERE complications LIKE '%Other (Specify)%' OR complications =''
+                     UNION SELECT 'Low_Weight',count(*) from maternity_baby WHERE Weight<'2500'"
+
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Baby_Complications_None"
+      - "ME_MAT_Baby_Complications_Prem"
+      - "ME_MAT_Baby_Complications_Asphy"
+      - "ME_MAT_Baby_Complications_Sep"
+      - "ME_MAT_Baby_Complications_Defects"
+      - "ME_MAT_Baby_Complications_Other"
+      - "ME_MAT_Baby_Complications_Low_Weight"  
+    grouping: "maternity"
+
+  - key: "ME_MAT_Baby_Care"
+    description: "Maternity baby care"
+    indicatorQuery: "SELECT 'None',count(*) FROM maternity_baby WHERE care_mgt LIKE '%None%'
+                   UNION SELECT 'KMC',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Kangaroo Mother Care (KMC)%'
+                   UNION SELECT 'Antibiotics',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Antibiotics%'
+                   UNION SELECT 'Resuscitation',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Resuscitation%'
+                   UNION SELECT 'TEO',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Tetracycline Eye Ointment (TEO)%'
+                   UNION SELECT 'CHL',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Chlorhexidine (7.1%'
+                   UNION SELECT 'VitK',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Vitamin K%'
+                   UNION SELECT 'Other_Mgt',count(*) FROM maternity_baby WHERE care_mgt NOT LIKE '%Kangaroo Mother Care (KMC)%' OR
+                        care_mgt NOT LIKE '%Antibiotics%' OR care_mgt NOT LIKE '%Rescuscitation%' OR care_mgt IS NULL"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Baby_Care_None"
+      - "ME_MAT_Baby_Care_KMC"
+      - "ME_MAT_Baby_Care_Antibiotics"
+      - "ME_MAT_Baby_Care_Resuscitation"
+      - "ME_MAT_Baby_Care_TEO"
+      - "ME_MAT_Baby_Care_CHL"
+      - "ME_MAT_Baby_Care_VitK"
+      - "ME_MAT_Baby_Care_Other_Mgt"
+    grouping: "maternity"
+
+  - key: "ME_MAT_BF_First_Hour"
+    description: "Maternity vitamin A given"
+    indicatorQuery: "SELECT count(1)
+                     FROM maternity_baby
+                     WHERE bf_first_hour ='Yes'"
+    grouping: "maternity"
