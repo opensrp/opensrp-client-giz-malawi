@@ -515,7 +515,7 @@ indicators:
                      ELSE ''
                      END AS haz_score,
                      CASE
-                     WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827.0 THEN 'Over_1'
+                     WHEN round(julianday('now') - julianday(ec_client.dob)) >= 365.0 THEN 'Over_1'
                      WHEN round(julianday('now') - julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                      ELSE 'Null'
                      END age, ec_client.gender, count(*)
