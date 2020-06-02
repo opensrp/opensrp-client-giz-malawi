@@ -646,5 +646,8 @@
     <string name="ME_MAT_Baby_Care_VitK">Baby Care VitK</string>
     <string name="ME_MAT_Baby_Care_Other_Mgt">Baby Care Other Mgt</string>
     <string name="ME_MAT_BF_First_Hour">BF First Hour</string>
+    <string name="ME_MAT_Stillbirth_Macerated">Stillbirths Macerated</string>
+    <string name="ME_MAT_Stillbirth_Fresh">Stillbirths Fresh</string>
+    <string name="ME_MAT_Neonatal_Death">Neonatal deaths</string>
     <!-- Start Maternity reports labels -->
 </resources>
