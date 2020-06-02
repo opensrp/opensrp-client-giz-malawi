@@ -1388,7 +1388,7 @@ indicators:
                      GROUP BY delivery_mode"
     isMultiResult: true
     expectedIndicators:
-      - "ME_MAT_Delivery_Mode_SVD)"
+      - "ME_MAT_Delivery_Mode_SVD"
       - "ME_MAT_Delivery_Mode_VE"
       - "ME_MAT_Delivery_Mode_BR"
       - "ME_MAT_Delivery_Mode_CS"
@@ -1444,4 +1444,22 @@ indicators:
                      FROM maternity_baby
                      WHERE bf_first_hour ='Yes'
                      AND '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Stillbirth"
+    description: "Maternity vitamin A given"
+    indicatorQuery: "SELECT stillbirth_condition,count(*) from maternity_baby
+                     WHERE stillbirth_condition IN('Macerated','Fresh')
+                     GROUP BY stillbirth_condition"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Stillbirth_Macerated"
+      - "ME_MAT_Stillbirth_Fresh"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Neonatal_Death"
+    description: "Maternity Neonatal deaths"
+    indicatorQuery: "SELECT count(*) from maternity_baby
+                     WHERE discharged_alive ='No'
+                     GROUP BY discharged_alive"
     grouping: "maternity"
