@@ -11,10 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.OpdRegisterActivity;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
@@ -60,16 +63,25 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
             ImageView hamburgerMenu = view.findViewById(R.id.left_menu);
             if (hamburgerMenu != null) {
-                hamburgerMenu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (getActivity() instanceof NavDrawerActivity) {
-                            ((NavDrawerActivity) getActivity()).openDrawer();
-                        }
+                hamburgerMenu.setOnClickListener(v -> {
+                    if (getActivity() instanceof NavDrawerActivity) {
+                        ((NavDrawerActivity) getActivity()).openDrawer();
                     }
                 });
             }
 
+            TextView titleView = view.findViewById(R.id.txt_title_label);
+            if (titleView != null) {
+                titleView.setVisibility(View.VISIBLE);
+                String title = ((OpdRegisterActivity) getActivity()).getNavigationMenu().getNavigationAdapter().getSelectedView();
+                if (StringUtils.isBlank(title) || GizConstants.DrawerMenu.ALL_CLIENTS.equals(title)) {
+                    titleView.setText(getString(R.string.opd_register_title_name));
+                } else {
+                    titleView.setText(title);
+                }
+                //titleView.setFontVariant(FontVariant.REGULAR);
+                titleView.setPadding(0, titleView.getTop(), titleView.getPaddingRight(), titleView.getPaddingBottom());
+            }
             // Disable go-back on clicking the OPD Register title
             view.findViewById(R.id.title_layout).setOnClickListener(null);
         }

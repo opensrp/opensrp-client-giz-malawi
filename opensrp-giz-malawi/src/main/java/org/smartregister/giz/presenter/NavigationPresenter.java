@@ -40,8 +40,9 @@ public class NavigationPresenter implements NavigationContract.Presenter {
     private void initialize() {
         tableMap.put(GizConstants.DrawerMenu.CHILD_CLIENTS, GizConstants.RegisterType.CHILD);
         tableMap.put(GizConstants.DrawerMenu.ANC_CLIENTS, GizConstants.RegisterType.ANC);
-        tableMap.put(GizConstants.DrawerMenu.ANC, GizConstants.RegisterType.ANC);
-        tableMap.put(GizConstants.DrawerMenu.ALL_CLIENTS, GizConstants.RegisterType.OPD);
+//        tableMap.put(GizConstants.DrawerMenu.ANC, GizConstants.RegisterType.ANC);
+        tableMap.put(GizConstants.DrawerMenu.ALL_CLIENTS, GizConstants.RegisterType.ALL_CLIENTS);
+        tableMap.put(GizConstants.DrawerMenu.OPD_CLIENTS, GizConstants.RegisterType.OPD);
         tableMap.put(GizConstants.DrawerMenu.MATERNITY_CLIENTS, GizConstants.RegisterType.MATERNITY);
     }
 

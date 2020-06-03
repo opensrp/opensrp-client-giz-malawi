@@ -164,6 +164,20 @@ actions:
 name: step6_toaster_frq_of_depressed
 description: toaster_frq_of_depressed
 priority: 1
-condition: "step6_mh_phq_score != -2"
+condition: "step6_mh_phq_score != ''"
+actions:
+  - "isRelevant = true"
+---
+name: step4_phys_symptoms_other
+description: phys_symptoms_other
+priority: 1
+condition: "(!step4_phys_symptoms.isEmpty() && (step4_phys_symptoms.contains('other')))"
+actions:
+  - "isRelevant = true"
+---
+name: step4_other_sym_lbpp
+description: other_sym_lbpp
+priority: 1
+condition: "(!step4_phys_symptoms.isEmpty() && ((step4_phys_symptoms.contains('low_back_pain')) || (step4_phys_symptoms.contains('pelvic_pain'))))"
 actions:
   - "isRelevant = true"

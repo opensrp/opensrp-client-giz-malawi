@@ -10,8 +10,6 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static java.util.Arrays.asList;
-
 public class NavigationModel implements NavigationContract.Model {
     private static NavigationModel instance;
     private static List<NavigationOption> navigationOptions = new ArrayList<>();
@@ -27,11 +25,18 @@ public class NavigationModel implements NavigationContract.Model {
     public List<NavigationOption> getNavigationItems() {
         if (navigationOptions.size() == 0) {
 
-            NavigationOption allClientsOption = new NavigationOption(R.mipmap.sidemenu_children
-                    , R.mipmap.sidemenu_children_active, R.string.all_clients, GizConstants.DrawerMenu.ALL_CLIENTS, 0, true);
+            NavigationOption allClientsOption = new NavigationOption(R.mipmap.sidemenu_families
+                    , R.mipmap.sidemenu_families_active, R.string.all_clients, GizConstants.DrawerMenu.ALL_CLIENTS, 0, true);
 
             if (allClientsOption.isEnabled()) {
                 navigationOptions.add(allClientsOption);
+            }
+
+            NavigationOption opdNavigationOption = new NavigationOption(R.mipmap.sidemenu_families,
+                    R.mipmap.sidemenu_families_active, R.string.menu_opd_clients, GizConstants.DrawerMenu.OPD_CLIENTS,
+                    0, true);
+            if (opdNavigationOption.isEnabled()) {
+                navigationOptions.add(opdNavigationOption);
             }
 
             NavigationOption childNavigationOption = new NavigationOption(R.mipmap.sidemenu_children,
@@ -41,16 +46,16 @@ public class NavigationModel implements NavigationContract.Model {
                 navigationOptions.add(childNavigationOption);
             }
 
-            NavigationOption ancNavigationOption = new NavigationOption(R.mipmap.sidemenu_children,
-                    R.mipmap.sidemenu_children_active, R.string.menu_anc_clients, GizConstants.DrawerMenu.ANC_CLIENTS,
+            NavigationOption ancNavigationOption = new NavigationOption(R.mipmap.sidemenu_anc,
+                    R.mipmap.sidemenu_anc_active, R.string.menu_anc_clients, GizConstants.DrawerMenu.ANC_CLIENTS,
                     0, true);
             if (ancNavigationOption.isEnabled()) {
                 navigationOptions.add(ancNavigationOption);
             }
 
             // Maternity navigation
-            NavigationOption maternityNavigationOption = new NavigationOption(R.mipmap.sidemenu_children,
-                    R.mipmap.sidemenu_children_active, R.string.menu_maternity_clients, GizConstants.DrawerMenu.MATERNITY_CLIENTS,
+            NavigationOption maternityNavigationOption = new NavigationOption(R.mipmap.sidemenu_maternity,
+                    R.mipmap.sidemenu_maternity_active, R.string.menu_maternity_clients, GizConstants.DrawerMenu.MATERNITY_CLIENTS,
                     0, true);
             if (maternityNavigationOption.isEnabled()) {
                 navigationOptions.add(maternityNavigationOption);

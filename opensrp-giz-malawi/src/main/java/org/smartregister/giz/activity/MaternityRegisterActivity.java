@@ -99,7 +99,7 @@ public class MaternityRegisterActivity extends BaseMaternityRegisterActivity imp
                 JSONObject form = new JSONObject(jsonString);
                 String encounterType = form.getString(MaternityJsonFormUtils.ENCOUNTER_TYPE);
                 if (MaternityUtils.metadata() != null && encounterType.equals(MaternityUtils.metadata().getRegisterEventType())) {
-                    org.smartregister.maternity.pojos.RegisterParams registerParam = new org.smartregister.maternity.pojos.RegisterParams();
+                    org.smartregister.maternity.pojo.RegisterParams registerParam = new org.smartregister.maternity.pojo.RegisterParams();
                     registerParam.setEditMode(false);
                     registerParam.setFormTag(MaternityJsonFormUtils.formTag(MaternityUtils.context().allSharedPreferences()));
 

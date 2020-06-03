@@ -1,11 +1,59 @@
 package org.smartregister.giz.repository;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.child.provider.RegisterQueryProvider;
 import org.smartregister.child.util.Constants;
+import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.growthmonitoring.util.GrowthMonitoringConstants;
 
 public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
+
+    @Override
+    public String getObjectIdsQuery(String mainCondition, String filters) {
+        String strMainCondition = getMainCondition(mainCondition);
+
+        String strFilters = getFilter(filters);
+
+        if (StringUtils.isNotBlank(strFilters) && StringUtils.isBlank(strMainCondition)) {
+            strFilters = String.format(" where " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
+        }
+
+        return "select " + getDemographicTable() + ".object_id from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
+                "join " + getChildDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getChildDetailsTable() + ".id " +
+                "left join (select * from " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ") " + CommonFtsObject.searchTableName(getChildDetailsTable()) + " on " + getDemographicTable() + ".object_id =  " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ".object_id "
+                + strMainCondition + strFilters;
+    }
+
+    @Override
+    public String getCountExecuteQuery(String mainCondition, String filters) {
+        String strMainCondition = getMainCondition(mainCondition);
+
+        String strFilters = getFilter(filters);
+
+        if (StringUtils.isNotBlank(strFilters) && StringUtils.isBlank(strMainCondition)) {
+            strFilters = String.format(" where " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
+        }
+
+        return "select count(" + getDemographicTable() + ".object_id) from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
+                "join " + getChildDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getChildDetailsTable() + ".id " +
+                "left join (select * from " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ") " + CommonFtsObject.searchTableName(getChildDetailsTable()) + " on " + getDemographicTable() + ".object_id =  " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ".object_id "
+                + strMainCondition + strFilters;
+    }
+
+    private String getFilter(String filters) {
+        if (StringUtils.isNotBlank(filters)) {
+            return String.format(" AND " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
+        }
+        return "";
+    }
+
+    private String getMainCondition(String mainCondition) {
+        if (!StringUtils.isBlank(mainCondition)) {
+            return " where " + mainCondition;
+        }
+        return "";
+    }
 
     @Override
     public String[] mainColumns() {

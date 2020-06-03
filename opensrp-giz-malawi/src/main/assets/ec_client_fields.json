@@ -504,6 +504,13 @@
             "field": "obs.fieldCode",
             "concept": "visit_id"
           }
+        },
+        {
+          "column_name": "date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
         }
       ]
     },
@@ -565,6 +572,13 @@
             "field": "obs.fieldCode",
             "concept": "visit_id"
           }
+        },
+        {
+          "column_name": "date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
         }
       ]
     },
@@ -625,6 +639,13 @@
             "field": "obs.fieldCode",
             "concept": "visit_id"
           }
+        },
+        {
+          "column_name": "date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
         }
       ]
     },
@@ -653,112 +674,12 @@
             "field": "obs.fieldCode",
             "concept": "visit_id"
           }
-        }
-      ]
-    },
-    {
-      "name": "opd_diagnosis",
-      "columns": [
-        {
-          "column_name": "base_entity_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "baseEntityId"
-          }
         },
         {
-          "column_name": "disease",
-          "type": "Event",
-          "save_format": "json_array",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "disease_code_object"
-          }
-        },
-        {
-          "column_name": "diagnosis_type",
+          "column_name": "date",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "diagnosis_type"
-          }
-        },
-        {
-          "column_name": "diagnosis",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "diagnosis"
-          }
-        },
-        {
-          "column_name": "diagnosis_same",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "diagnosis_same"
-          }
-        },
-        {
-          "column_name": "visit_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "visit_id"
-          }
-        }
-      ]
-    },
-    {
-      "name": "opd_treatment",
-      "columns": [
-        {
-          "column_name": "base_entity_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "baseEntityId"
-          }
-        },
-        {
-          "column_name": "treatment_type",
-          "type": "Event",
-          "save_format": "json_array",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "treatment_type"
-          }
-        },
-        {
-          "column_name": "treatment_type_specify",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "treatment_type_specify"
-          }
-        },
-        {
-          "column_name": "medicine",
-          "type": "Event",
-          "save_format": "json_array",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "medicine_object"
-          }
-        },
-        {
-          "column_name": "special_instructions",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "special_instructions"
-          }
-        },
-        {
-          "column_name": "visit_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "visit_id"
+            "field": "eventDate"
           }
         }
       ]
@@ -820,41 +741,12 @@
             "field": "obs.fieldCode",
             "concept": "visit_date"
           }
-        }
-      ]
-    },
-    {
-      "name": "opd_test",
-      "columns": [
-        {
-          "column_name": "base_entity_id",
-          "type": "Client",
-          "json_mapping": {
-            "field": "baseEntityId"
-          }
         },
         {
-          "column_name": "test_obj",
+          "column_name": "date",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "repeatingGroupMap"
-          }
-        },
-        {
-          "column_name": "visit_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "visit_id"
-          }
-        },
-        {
-          "column_name": "created_at",
-          "type": "Event",
-          "json_mapping": {
-            "field": "obs.fieldCode",
-            "concept": "visit_date"
+            "field": "eventDate"
           }
         }
       ]
@@ -867,6 +759,210 @@
           "type": "Client",
           "json_mapping": {
             "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
+        }
+      ]
+    },
+    {
+      "name": "maternity_outcome",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "hiv_status_previous",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_status_previous"
+          }
+        },
+        {
+          "column_name": "hiv_status_current",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_status_current"
+          }
+        },
+        {
+          "column_name": "on_art_treatment",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "on_art_treatment"
+          }
+        },
+        {
+          "column_name": "art_clinic_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "art_clinic_number"
+          }
+        },
+        {
+          "column_name": "hiv_treatment_start",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "hiv_treatment_start"
+          }
+        },
+        {
+          "column_name": "not_art_reason",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "not_art_reason"
+          }
+        },
+        {
+          "column_name": "not_art_reason_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "not_art_reason_other"
+          }
+        },
+        {
+          "column_name": "delivery_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "delivery_place",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1572AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "delivery_person",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1573AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "delivery_person_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "delivery_mode",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "delivery_mode_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "mother_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "mother_status"
+          }
+        },
+        {
+          "column_name": "obstetric_complications",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "obstetric_complications"
+          }
+        },
+        {
+          "column_name": "obstetric_complications_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "obstetric_complications_other"
+          }
+        },
+        {
+          "column_name": "obstetric_care",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "obstetric_care"
+          }
+        },
+        {
+          "column_name": "obstetric_care_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "obstetric_care_other"
+          }
+        },
+        {
+          "column_name": "referred_out",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "referred_out"
+          }
+        },
+        {
+          "column_name": "vit_a",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "vit_a"
+          }
+        },
+        {
+          "column_name": "itn_given",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "discharge_status",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "discharge_status"
+          }
+        },
+        {
+          "column_name": "date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
           }
         }
       ]

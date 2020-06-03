@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
@@ -58,7 +59,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     public void createDrawer() {
         navigationMenu = NavigationMenu.getInstance(this, null, null);
         if (navigationMenu != null) {
-            navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.ALL_CLIENTS);
+            navigationMenu.getNavigationAdapter().setSelectedView(StringUtils.isNotBlank(navigationMenu.getNavigationAdapter().getSelectedView()) ? navigationMenu.getNavigationAdapter().getSelectedView() : GizConstants.DrawerMenu.ALL_CLIENTS);
             navigationMenu.runRegisterCount();
         }
     }

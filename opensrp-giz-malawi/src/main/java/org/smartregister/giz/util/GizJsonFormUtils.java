@@ -34,8 +34,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
             JSONObject birthRegistrationForm = FormUtils.getInstance(context)
                     .getFormJson(Utils.metadata().childRegister.formName);
             updateRegistrationEventType(birthRegistrationForm);
-            JsonFormUtils.addChildRegLocHierarchyQuestions(birthRegistrationForm, GizConstants.KEY.REGISTRATION_HOME_ADDRESS,
-                    LocationHierarchy.ENTIRE_TREE);
+            JsonFormUtils.addChildRegLocHierarchyQuestions(birthRegistrationForm);
 
             if (birthRegistrationForm != null) {
                 birthRegistrationForm.put(JsonFormUtils.ENTITY_ID, childDetails.get(Constants.KEY.BASE_ENTITY_ID));

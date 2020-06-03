@@ -15,6 +15,7 @@ public class OpdFormActivity extends BaseOpdFormActivity {
 
     protected void initializeFormFragmentCore() {
         OpdFormFragment opdFormFragment = (OpdFormFragment) OpdFormFragment.getFormFragment(JsonFormConstants.FIRST_STEP_NAME);
-        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, opdFormFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, opdFormFragment)
+                .addToBackStack(opdFormFragment.getArguments().getString(JsonFormConstants.STEPNAME)).commit();
     }
 }

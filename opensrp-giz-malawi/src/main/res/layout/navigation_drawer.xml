@@ -125,7 +125,7 @@
                             android:layout_marginEnd="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginBottom="5dp"
-                            android:src="@drawable/ic_daily_tallies" />
+                            android:src="@drawable/sidemenu_report" />
 
                         <org.smartregister.view.customcontrols.CustomFontTextView
                             android:id="@+id/report_text_view"

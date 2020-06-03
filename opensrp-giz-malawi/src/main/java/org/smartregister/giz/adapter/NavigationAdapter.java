@@ -23,7 +23,7 @@ import java.util.Locale;
 public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.MyViewHolder> {
 
     private List<NavigationOption> navigationOptionList;
-    private String selectedView = GizConstants.DrawerMenu.ALL_FAMILIES;
+    private String selectedView = GizConstants.DrawerMenu.ALL_CLIENTS;
     private View.OnClickListener onClickListener;
     private Activity context;
 
@@ -36,6 +36,10 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.My
     public void setSelectedView(String selectedView) {
         this.selectedView = selectedView;
         this.notifyDataSetChanged();
+    }
+
+    public String getSelectedView() {
+        return selectedView;
     }
 
     @NonNull

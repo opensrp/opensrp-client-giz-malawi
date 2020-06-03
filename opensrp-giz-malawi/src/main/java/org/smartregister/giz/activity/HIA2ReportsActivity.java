@@ -78,8 +78,6 @@ public class HIA2ReportsActivity extends AppCompatActivity {
     public static final String FORM_KEY_CONFIRM = "confirm";
     public static final DateFormat yyyyMMdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
-    public static final String REPORT_NAME = "EPI Vaccination Performance and Disease Surveillance (NEW)";
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a

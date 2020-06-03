@@ -35,6 +35,7 @@ public class NavigationListener implements View.OnClickListener {
                     break;
 
                 case GizConstants.DrawerMenu.ALL_CLIENTS:
+                case GizConstants.DrawerMenu.OPD_CLIENTS:
                     navigateToActivity(OpdRegisterActivity.class);
                     break;
 

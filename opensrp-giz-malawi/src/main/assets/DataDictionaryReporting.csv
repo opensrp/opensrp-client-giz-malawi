@@ -97,7 +97,7 @@
 98,ME_ART_Status_First_Visit_Start_ART_28_plus_Weeks,ART status first visit (Start ART 28+ weeks),fKcDMJPqgIk,jCWx8luh4FJ,RHD ANC 1st Visit ART Status of mother Start ART 28+ weeks,anc
 99,ME_FeFo_More_Than_120,FeFo tablets 120+ tabs,Rczpg2vCvat,Tt7fU5lUhAU,RHD ANC Fe-Fo Tablets 120+,anc
 100,ME_Hb_(g/dl)_less_than_7,Hb (g/dl) <7,AmkTUKYrM31,Tt7fU5lUhAU,RHD ANC HB (G/dl) <7,anc
-101,ME_Hb_g_over_dl_greater_than_and_equal_to_7,Hb (g/dl) â‰Ą7,QUDJ8U1O0Yl,Tt7fU5lUhAU,RHD ANC HB (G/dl) ?7,anc
+101,ME_Hb_g_over_dl_greater_than_and_equal_to_7,Hb (g/dl) 7,QUDJ8U1O0Yl,Tt7fU5lUhAU,RHD ANC HB (G/dl) 7,anc
 102,ME_Hb_g_over_dl_ND,Hb (g/dl) ND,AbDFS7NVOc9,Tt7fU5lUhAU,RHD ANC HB (G/dl) ND,anc
 103,ME_HIV_Status_Final_New_Negative,HIV status Final (New negative),qG10jihknty,Tt7fU5lUhAU,RHD ANC HIV Test Result New Negative,anc
 104,ME_HIV_Status_Final_New_Positive,HIV status Final (New positive),Xr6Xa1ZnJqy,Tt7fU5lUhAU,RHD ANC HIV Test Result New Positive,anc

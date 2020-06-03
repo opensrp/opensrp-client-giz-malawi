@@ -590,7 +590,7 @@ actions:
 name: step11_hepb1_date_done
 description: Date hepb1 dose given
 priority: 1
-condition: "(step11_hepb1_date!= '') && (step11_hepb1_date == 'done_earlier')"
+condition: "step11_hepb1_date == 'done_earlier'"
 actions:
   - "isRelevant = true"
 ---

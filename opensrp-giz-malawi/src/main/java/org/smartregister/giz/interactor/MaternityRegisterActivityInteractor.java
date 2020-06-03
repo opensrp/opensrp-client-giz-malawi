@@ -12,8 +12,8 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.UniqueId;
 import org.smartregister.maternity.contract.MaternityRegisterActivityContract;
 import org.smartregister.maternity.interactor.BaseMaternityRegisterActivityInteractor;
-import org.smartregister.maternity.pojos.MaternityEventClient;
-import org.smartregister.maternity.pojos.RegisterParams;
+import org.smartregister.maternity.pojo.MaternityEventClient;
+import org.smartregister.maternity.pojo.RegisterParams;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.maternity.utils.MaternityJsonFormUtils;
 import org.smartregister.repository.EventClientRepository;
@@ -112,6 +112,7 @@ public class MaternityRegisterActivityInteractor extends BaseMaternityRegisterAc
             Timber.e(e);
         }
     }
+
     private void addImageLocation(String jsonString, int i, Client baseClient, Event baseEvent) {
         if (baseClient != null && baseEvent != null) {
             String imageLocation = null;

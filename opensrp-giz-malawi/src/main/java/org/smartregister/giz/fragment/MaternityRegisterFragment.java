@@ -17,8 +17,8 @@ import org.smartregister.giz.activity.MaternityRegisterActivity;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.maternity.MaternityLibrary;
 import org.smartregister.maternity.fragment.BaseMaternityRegisterFragment;
-import org.smartregister.maternity.pojos.MaternityMetadata;
-import org.smartregister.maternity.pojos.MaternityRegistrationDetails;
+import org.smartregister.maternity.pojo.MaternityMetadata;
+import org.smartregister.maternity.pojo.MaternityRegistrationDetails;
 import org.smartregister.maternity.utils.MaternityConstants;
 
 import java.util.HashMap;

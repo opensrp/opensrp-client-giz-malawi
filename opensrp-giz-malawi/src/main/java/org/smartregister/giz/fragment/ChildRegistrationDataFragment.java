@@ -1,18 +1,10 @@
 package org.smartregister.giz.fragment;
 
-import android.text.TextUtils;
-
-import org.smartregister.child.adapter.ChildRegistrationDataAdapter;
-import org.smartregister.child.domain.KeyValueItem;
 import org.smartregister.child.fragment.BaseChildRegistrationDataFragment;
-import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizConstants;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by ndegwamartin on 2019-05-30.

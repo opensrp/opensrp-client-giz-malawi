@@ -502,6 +502,7 @@
     <string name="dhis2_reports">DHIS2 Reports</string>
     <string name="child_report_grouping_title">Child</string>
     <string name="anc_report_grouping_title">ANC</string>
+    <string name="menu_opd_clients">OPD Clients</string>
 
 
 </resources>

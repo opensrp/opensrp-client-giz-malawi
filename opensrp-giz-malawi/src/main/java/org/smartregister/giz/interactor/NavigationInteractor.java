@@ -59,14 +59,14 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         String registerType = tempRegisterType;
         int count = 0;
         Cursor cursor = null;
-        if (GizConstants.RegisterType.OPD.equals(registerType)){
-            registerType = "'"+GizConstants.RegisterType.OPD+"'," + "'"+GizConstants.RegisterType.ANC+"'," + "'"+GizConstants.RegisterType.CHILD+"'";
+        if (GizConstants.RegisterType.ALL_CLIENTS.equals(registerType)) {
+            registerType = "'" + GizConstants.RegisterType.OPD + "'," + "'" + GizConstants.RegisterType.ANC + "',"
+                    + "'" + GizConstants.RegisterType.CHILD + "',"  + "'" + GizConstants.RegisterType.MATERNITY + "'";
         } else {
-            registerType = "'"+registerType+"'";
-
+            registerType = "'" + registerType + "'";
         }
 
-        String mainCondition = String.format(" where %s is null AND register_type IN (%s) ", GizConstants.TABLE_NAME.ALL_CLIENTS+"."+GizConstants.KEY.DATE_REMOVED, registerType);
+        String mainCondition = String.format(" where %s is null AND register_type IN (%s) ", GizConstants.TABLE_NAME.ALL_CLIENTS + "." + GizConstants.KEY.DATE_REMOVED, registerType);
 
         if (registerType.contains(GizConstants.RegisterType.CHILD)) {
             mainCondition += " AND ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) ";

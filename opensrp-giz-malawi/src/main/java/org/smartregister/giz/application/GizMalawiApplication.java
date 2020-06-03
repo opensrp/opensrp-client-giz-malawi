@@ -30,10 +30,10 @@ import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildFormActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
-import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
+import org.smartregister.giz.configuration.GizMaternityOutcomeFormProcessing;
 import org.smartregister.giz.configuration.GizMaternityRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizMaternityRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
@@ -50,7 +50,6 @@ import org.smartregister.giz.repository.GizChildRegisterQueryProvider;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
-import org.smartregister.giz.util.DbConstants;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
 import org.smartregister.giz.util.GizUtils;
@@ -75,7 +74,7 @@ import org.smartregister.maternity.MaternityLibrary;
 import org.smartregister.maternity.activity.BaseMaternityFormActivity;
 import org.smartregister.maternity.activity.BaseMaternityProfileActivity;
 import org.smartregister.maternity.configuration.MaternityConfiguration;
-import org.smartregister.maternity.pojos.MaternityMetadata;
+import org.smartregister.maternity.pojo.MaternityMetadata;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.maternity.utils.MaternityDbConstants;
 import org.smartregister.opd.OpdLibrary;
@@ -98,6 +97,7 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -322,13 +322,14 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , MaternityConstants.CONFIG
                 , BaseMaternityFormActivity.class
                 , BaseMaternityProfileActivity.class
-                ,true);
+                , true);
         maternityMetadata.setLocationLevels(GizUtils.getLocationLevels());
         maternityMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
         MaternityConfiguration maternityConfiguration = new MaternityConfiguration
                 .Builder(GizMaternityRegisterQueryProvider.class)
                 .setMaternityMetadata(maternityMetadata)
                 .setMaternityRegisterRowOptions(GizMaternityRegisterRowOptions.class)
+                .addMaternityFormProcessingTask(MaternityConstants.EventType.MATERNITY_OUTCOME, GizMaternityOutcomeFormProcessing.class)
                 .build();
         MaternityLibrary.init(context, getRepository(), maternityConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
     }
@@ -357,6 +358,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 GizConstants.TABLE_NAME.ALL_CLIENTS, GizConstants.EventType.CHILD_REGISTRATION,
                 GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.EventType.OUT_OF_CATCHMENT, GizConstants.CONFIGURATION.CHILD_REGISTER,
                 GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
+        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("home_address")));
+        metadata.setLocationLevels(GizUtils.getLocationLevels());
+        metadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
         return metadata;
     }
 

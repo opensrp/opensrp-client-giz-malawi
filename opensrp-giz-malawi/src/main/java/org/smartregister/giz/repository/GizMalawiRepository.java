@@ -25,15 +25,15 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
+import org.smartregister.maternity.repository.MaternityChildRepository;
 import org.smartregister.maternity.repository.MaternityOutcomeDetailsRepository;
 import org.smartregister.maternity.repository.MaternityOutcomeFormRepository;
 import org.smartregister.maternity.repository.MaternityRegistrationDetailsRepository;
-import org.smartregister.opd.repository.OpdCheckInRepository;
 import org.smartregister.opd.repository.OpdDetailsRepository;
 import org.smartregister.opd.repository.OpdDiagnosisAndTreatmentFormRepository;
 import org.smartregister.opd.repository.OpdDiagnosisDetailRepository;
-import org.smartregister.opd.repository.OpdTreatmentDetailRepository;
 import org.smartregister.opd.repository.OpdTestConductedRepository;
+import org.smartregister.opd.repository.OpdTreatmentDetailRepository;
 import org.smartregister.opd.repository.OpdVisitRepository;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
@@ -111,7 +111,7 @@ public class GizMalawiRepository extends Repository {
 
         runLegacyUpgrades(database);
 
-        onUpgrade(database, 8, BuildConfig.DATABASE_VERSION);
+        onUpgrade(database, 10, BuildConfig.DATABASE_VERSION);
 
         // initialize from yml file
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
@@ -130,6 +130,7 @@ public class GizMalawiRepository extends Repository {
         MaternityRegistrationDetailsRepository.createTable(database);
         MaternityOutcomeDetailsRepository.createTable(database);
         MaternityOutcomeFormRepository.createTable(database);
+        MaternityChildRepository.createTable(database);
     }
 
 
@@ -164,6 +165,7 @@ public class GizMalawiRepository extends Repository {
                 case 9:
                     ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
                     break;
+                case 10:
                 case 11:
                     upgradeToVersion11CreateHia2IndicatorsRepository(db);
                     break;

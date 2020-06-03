@@ -7,14 +7,6 @@
         "fields": [
           {
             "field": "eventType",
-            "field_value": "Maternity Registration",
-            "creates_case": [
-              "ec_client",
-              "maternity_registration_details"
-            ]
-          },
-          {
-            "field": "eventType",
             "field_value": "New Woman Registration",
             "creates_case": [
               "ec_client",
@@ -132,9 +124,25 @@
           },
           {
             "field": "eventType",
+            "field_value": "Maternity Registration",
+            "creates_case": [
+              "ec_client",
+              "ec_mother_details",
+              "maternity_registration_details"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "Maternity Close",
             "creates_case": [
               "maternity_close"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Maternity Outcome",
+            "creates_case": [
+              "maternity_outcome"
             ]
           }
         ]

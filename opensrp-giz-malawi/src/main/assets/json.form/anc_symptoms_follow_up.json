@@ -1548,14 +1548,10 @@
         "type": "edit_text",
         "hint": "Specify",
         "relevance": {
-          "step4:phys_symptoms": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
@@ -1610,15 +1606,10 @@
           "err": "Please specify any other symptoms related low back and pelvic pain or select none"
         },
         "relevance": {
-          "step4:phys_symptoms": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "low_back_pain",
-                  "pelvic_pain"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "sf_relevance_rules.yml"
+            }
           }
         }
       },
