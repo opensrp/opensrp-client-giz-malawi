@@ -1040,7 +1040,7 @@ indicators:
     grouping: "anc"
     #QA 10/05/2020 -OK
 
-##OPD Reports
+  ##OPD Reports
   - key: "ME_Malaria_Cases_Confirmed"
     description: "Malaria cases"
     indicatorQuery: "SELECT
@@ -1053,13 +1053,13 @@ indicators:
                         INNER JOIN ec_client
                         ON b.base_entity_id = ec_client.base_entity_id
                         WHERE b.code in ('code_32aCo','code_32bCo')
-                        AND b.visit_id IN (SELECT distinct(p.visit_id) FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
+                        and '%s' = strftime('%Y-%m-%d', b.created_at)
                         GROUP  BY age"
     isMultiResult: true
     expectedIndicators:
       - "ME_Malaria_Cases_Confirmed_Over_5"
       - "ME_Malaria_Cases_Confirmed_Under_5"
-     grouping: "opd"
+    grouping: "opd"
 
   - key: "ME_Malaria_Cases_Presumed"
     description: "Malaria cases"
@@ -1074,13 +1074,13 @@ indicators:
                      	ON b.base_entity_id = ec_client.base_entity_id
                      	WHERE b.code in ('code_32aPr','code_32bPr')
                      	AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%Malaria%')
-                        AND b.visit_id IN (SELECT distinct(p.visit_id) FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
+                        AND '%s' = strftime('%Y-%m-%d', b.created_at)
                      	GROUP  BY age"
     isMultiResult: true
     expectedIndicators:
       - "ME_Malaria_Cases_Presumed_Over_5"
       - "ME_Malaria_Cases_Presumed_Under_5"
-      grouping: "opd"
+    grouping: "opd"
 
   - key: "ME_Total_Malaria_Cases"
     description: "Malaria total cases"
@@ -1094,17 +1094,17 @@ indicators:
                      	INNER JOIN ec_client
                      	ON b.base_entity_id = ec_client.base_entity_id
                      	WHERE b.code in ('code_32aCo','code_32bCo','code_32aPr','code_32bPr')
-                     	AND b.visit_id IN (SELECT distinct(p.visit_id) FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
-                     	GROUP  BY age"
+                     	AND '%s' = strftime('%Y-%m-%d', b.created_at)
+                     	GROUP BY age"
     isMultiResult: true
     expectedIndicators:
       - "ME_Total_Malaria_Cases_Over_5"
       - "ME_Total_Malaria_Cases_Under_5"
     grouping: "opd"
 
-  - key: "ME_Anti_Malaria_Treatment_Confirmed"
+  - key: "ME_Anti_Malaria_Treatment"
     description: "Malaria anti malarial treatment"
-    indicatorQuery: "SELECT
+    indicatorQuery: "SELECT b.type,
                      	CASE
                      		WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
                      		WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
@@ -1114,32 +1114,14 @@ indicators:
                         INNER JOIN ec_client
                         ON b.base_entity_id = ec_client.base_entity_id
                         WHERE b.code in ('code_32aCo','code_32bCo')
-                        AND b.visit_id IN (SELECT distinct(p.visit_id) FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
-                        GROUP  BY age,b.type"
-    isMultiResult: true
-    expectedIndicators:
-      - "ME_Anti_Malaria_Treatment_Confirmed_Over_5"
-      - "ME_Anti_Malaria_Treatment_Confirmed_Under_5"
-    grouping: "opd"
-
-  - key: "ME_Anti_Malaria_Treatment_Presumed"
-    description: "Malaria anti malarial treatment"
-    indicatorQuery: "SELECT
-                     	CASE
-                     		WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                     		WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
-                     		ELSE 'Null'
-                     	END age, count(*)
-                        FROM opd_diagnosis_detail b
-                        INNER JOIN ec_client
-                        ON b.base_entity_id = ec_client.base_entity_id
-                        WHERE b.code in ('code_32aCo','code_32bCo')
-                        AND b.visit_id IN (SELECT distinct(p.visit_id) FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
-                        GROUP  BY age,b.type"
+                        AND '%s' = strftime('%Y-%m-%d', b.created_at)
+                        GROUP BY age,b.type"
     isMultiResult: true
     expectedIndicators:
       - "ME_Anti_Malaria_Treatment_Presumed_Over_5"
       - "ME_Anti_Malaria_Treatment_Presumed_Under_5"
+      - "ME_Anti_Malaria_Treatment_Confirmed_Over_5"
+      - "ME_Anti_Malaria_Treatment_Confirmed_Under_5"
     grouping: "opd"
 
   - key: "ME_Malaria_Test"
@@ -1158,14 +1140,14 @@ indicators:
                      INNER JOIN ec_client
                      ON b.base_entity_id = ec_client.base_entity_id
                      WHERE b.test_type in ('Malaria MRDT','Malaria Microscopy')
-                     AND b.visit_id IN (SELECT distinct(p.visit_id) FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
+                     AND '%s' = strftime('%Y-%m-%d', b.created_at)
                      GROUP  BY age,malaria_test"
     isMultiResult: true
     expectedIndicators:
-        - "ME_Malaria_Test_mRDT_Over_5"
-        - "ME_Malaria_Test_mRDT_Under_5"
-        - "ME_Malaria_Test_Microscopy_Over_5"
-        - "ME_Malaria_Test_Microscopy_Under_5"
+      - "ME_Malaria_Test_mRDT_Over_5"
+      - "ME_Malaria_Test_mRDT_Under_5"
+      - "ME_Malaria_Test_Microscopy_Over_5"
+      - "ME_Malaria_Test_Microscopy_Under_5"
     grouping: "opd"
 
   - key: "ME_Positive_Malaria_Cases"
@@ -1184,14 +1166,14 @@ indicators:
                      ON b.base_entity_id = ec_client.base_entity_id
                      WHERE b.test_type in ('Malaria MRDT','Malaria Microscopy')
                      AND b.result='Positive'
-                     AND b.visit_id IN (SELECT distinct(p.visit_id) FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
+                     AND '%s' = strftime('%Y-%m-%d', b.created_at)
                      GROUP  BY age,malaria_test,b.result"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Positive_Malaria_Cases_Malaria_MRDT_Over_5"
-      - "ME_Positive_Malaria_Cases_Malaria_MRDT_Under_5"
-      - "ME_Positive_Malaria_Cases_Malaria_Microscopy_Over_5"
-      - "ME_Positive_Malaria_Cases_Malaria_Microscopy_Under_5"
+      - "ME_Positive_Malaria_Cases_mRDT_Over_5"
+      - "ME_Positive_Malaria_Cases_mRDT_Under_5"
+      - "ME_Positive_Malaria_Cases_Microscopy_Over_5"
+      - "ME_Positive_Malaria_Cases_Microscopy_Under_5"
     grouping: "opd"
 
   - key: "ME_Total_Suspected_Malaria"
@@ -1200,12 +1182,12 @@ indicators:
                      FROM opd_diagnosis_detail b
                      	WHERE b.code in ('code_32aPr','code_32bPr')
                      		AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%Malaria%')
-                     		AND b.visit_id IN (SELECT distinct(p.visit_id)  FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
+                     		AND '%s' = strftime('%Y-%m-%d', b.created_at)
                      	UNION
                      SELECT d.base_entity_id
                      FROM opd_test_conducted d
                      	WHERE d.test_type in ('Malaria MRDT','Malaria Microscopy')
-                     	AND d.visit_id IN (SELECT distinct(p.visit_id) FROM opd_details p WHERE '%s'=strftime('%Y-%m-%d', p.created_at))
+                     	AND '%s' = strftime('%Y-%m-%d', d.created_at)
                      )"
     grouping: "opd"
 
@@ -1240,7 +1222,7 @@ indicators:
     description: "Maternity ART start period"
     indicatorQuery: "SELECT
                      CASE
-                     	WHEN hiv_treatment_start='On ART before pregnancy' THEN 'Before_Pregnacy'
+                     	WHEN hiv_treatment_start='On ART before pregnancy' THEN 'Before_Pregnancy'
                      	WHEN hiv_treatment_start='1st or 2nd Trimester (0-27 weeks)' THEN 'First_Trimester'
                      	WHEN hiv_treatment_start='3rd Trimester (28+)' THEN 'Third_Trimester'
                      	WHEN hiv_treatment_start='During Labour' THEN 'Labour'
@@ -1251,7 +1233,7 @@ indicators:
                      GROUP BY hiv_treatment_start"
     isMultiResult: true
     expectedIndicators:
-      - "ME_ART_Start_Before_Pregnacy"
+      - "ME_ART_Start_Before_Pregnancy"
       - "ME_ART_Start_First_Trimester"
       - "ME_ART_Start_Third_Trimester"
       - "ME_ART_Start_Labour"
@@ -1399,7 +1381,7 @@ indicators:
                      	WHEN a.counter>1 THEN 'Multiple'
                      	ELSE 'Single'
                      	END birth,sum(a.counter)
-                     FROM (SELECT count(*) counter from maternity_baby
+                     FROM (SELECT count(*) counter from maternity_child
                      WHERE '%s' = strftime('%Y-%m-%d', event_date)
                      GROUP BY mother_base_entity_id) a
                      GROUP BY birth"
@@ -1453,13 +1435,13 @@ indicators:
 
   - key: "ME_MAT_Baby_Complications"
     description: "Maternity baby complications"
-    indicatorQuery: "SELECT 'None',count(*) FROM maternity_baby WHERE complications LIKE '%None%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                     UNION SELECT 'Prem',count(*) FROM maternity_baby WHERE complications LIKE '%Premature%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                     UNION SELECT 'Asphy',count(*) FROM maternity_baby WHERE complications LIKE '%Asphyxia%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                     UNION SELECT 'Sep',count(*) FROM maternity_baby WHERE complications LIKE '%Sepsis%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                     UNION SELECT 'Defects',count(*) FROM maternity_baby WHERE complications LIKE '%Birth defects%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                     UNION SELECT 'Other',count(*) FROM maternity_baby WHERE (complications LIKE '%Other (Specify)%' OR complications ='') AND '%s' = strftime('%Y-%m-%d', event_date)
-                     UNION SELECT 'Low_Weight',count(*) from maternity_baby WHERE Weight<'2500' AND '%s' = strftime('%Y-%m-%d', event_date)"
+    indicatorQuery: "SELECT 'None',count(*) FROM maternity_child WHERE complications LIKE '%None%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                     UNION SELECT 'Prem',count(*) FROM maternity_child WHERE complications LIKE '%Premature%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                     UNION SELECT 'Asphy',count(*) FROM maternity_child WHERE complications LIKE '%Asphyxia%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                     UNION SELECT 'Sep',count(*) FROM maternity_child WHERE complications LIKE '%Sepsis%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                     UNION SELECT 'Defects',count(*) FROM maternity_child WHERE complications LIKE '%Birth defects%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                     UNION SELECT 'Other',count(*) FROM maternity_child WHERE (complications LIKE '%Other (Specify)%' OR complications ='') AND '%s' = strftime('%Y-%m-%d', event_date)
+                     UNION SELECT 'Low_Weight',count(*) from maternity_child WHERE Weight<'2500' AND '%s' = strftime('%Y-%m-%d', event_date)"
 
     isMultiResult: true
     expectedIndicators:
@@ -1474,14 +1456,14 @@ indicators:
 
   - key: "ME_MAT_Baby_Care"
     description: "Maternity baby care"
-    indicatorQuery: "SELECT 'None',count(*) FROM maternity_baby WHERE care_mgt LIKE '%None%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'KMC',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Kangaroo Mother Care (KMC)%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'Antibiotics',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Antibiotics%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'Resuscitation',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Resuscitation%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'TEO',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Tetracycline Eye Ointment (TEO)%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'CHL',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Chlorhexidine (7.1%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'VitK',count(*) FROM maternity_baby WHERE care_mgt LIKE '%Vitamin K%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'Other_Mgt',count(*) FROM maternity_baby WHERE (care_mgt NOT LIKE '%Kangaroo Mother Care (KMC)%' OR
+    indicatorQuery: "SELECT 'None',count(*) FROM maternity_child WHERE care_mgt LIKE '%None%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'KMC',count(*) FROM maternity_child WHERE care_mgt LIKE '%Kangaroo Mother Care (KMC)%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Antibiotics',count(*) FROM maternity_child WHERE care_mgt LIKE '%Antibiotics%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Resuscitation',count(*) FROM maternity_child WHERE care_mgt LIKE '%Resuscitation%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'TEO',count(*) FROM maternity_child WHERE care_mgt LIKE '%Tetracycline Eye Ointment (TEO)%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'CHL',count(*) FROM maternity_child WHERE care_mgt LIKE '%Chlorhexidine (7.1%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'VitK',count(*) FROM maternity_child WHERE care_mgt LIKE '%Vitamin K%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Other_Mgt',count(*) FROM maternity_child WHERE (care_mgt NOT LIKE '%Kangaroo Mother Care (KMC)%' OR
                         care_mgt NOT LIKE '%Antibiotics%' OR care_mgt NOT LIKE '%Recuscitation%' OR care_mgt IS NULL) AND '%s' = strftime('%Y-%m-%d', event_date)"
     isMultiResult: true
     expectedIndicators:
@@ -1498,16 +1480,14 @@ indicators:
   - key: "ME_MAT_BF_First_Hour"
     description: "Maternity vitamin A given"
     indicatorQuery: "SELECT count(1)
-                     FROM maternity_baby
+                     FROM maternity_child
                      WHERE bf_first_hour ='Yes'
                      AND '%s' = strftime('%Y-%m-%d', event_date)"
     grouping: "maternity"
 
   - key: "ME_MAT_Stillbirth"
     description: "Maternity vitamin A given"
-    indicatorQuery: "SELECT stillbirth_condition,count(*) from maternity_baby
-                     WHERE stillbirth_condition IN('Macerated','Fresh')
-                     GROUP BY stillbirth_condition"
+    indicatorQuery: "SELECT stillbirth_condition,count(*) from maternity_child WHERE stillbirth_condition IN('Macerated','Fresh') and '%s' = strftime('%Y-%m-%d', event_date) GROUP BY stillbirth_condition"
     isMultiResult: true
     expectedIndicators:
       - "ME_MAT_Stillbirth_Macerated"
@@ -1516,7 +1496,36 @@ indicators:
 
   - key: "ME_MAT_Neonatal_Death"
     description: "Maternity Neonatal deaths"
-    indicatorQuery: "SELECT count(*) from maternity_baby
-                     WHERE discharged_alive ='No'
-                     GROUP BY discharged_alive"
+    indicatorQuery: "SELECT count(*) from maternity_child WHERE discharged_alive = 'No' and '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_ITN_Given"
+    description: "Maternity ITN Given"
+    indicatorQuery: "SELECT count(*) from maternity_outcome WHERE itn_given = 'Yes' and '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Child_HIV_Status_Unknown"
+    description: "Maternity Child HIV Status Unknown"
+    indicatorQuery: "SELECT count(*) from maternity_child WHERE child_hiv_status = 'Unknown' and '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Child_HIV_Status_Not_Exposed"
+    description: "Maternity Child HIV Status Not Exposed"
+    indicatorQuery: "SELECT count(*) from maternity_child WHERE child_hiv_status <> 'Exposed' and '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Child_HIV_Status_Exposed"
+    description: "Maternity Child HIV Status Exposed"
+    indicatorQuery: "SELECT
+                     		case
+                     		when nvp_administration = 'No' THEN 'No_NVP'
+                     		when nvp_administration = 'Yes' THEN 'NVP_Started'
+                     		else 'Null'
+                     		END nvp, count(1)
+                     from maternity_child WHERE  child_hiv_status = 'Exposed'
+                     and '%s' = strftime('%Y-%m-%d', event_date)"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Child_HIV_Status_Exposed_No_NVP"
+      - "ME_MAT_Child_HIV_Status_Exposed_NVP_Started"
     grouping: "maternity"

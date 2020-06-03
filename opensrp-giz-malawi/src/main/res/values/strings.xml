@@ -554,8 +554,6 @@
     <string name="ME_MAT_Care_MRP">Care MRP</string>
     <string name="ME_MAT_Care_NASG">Care NASG</string>
     <string name="ME_MAT_Care_ROPC">Care ROPC</string>
-    <string name="ME_MAT_Delivery_Person_Skilled">Delivery Person Skilled</string>
-    <string name="ME_MAT_Delivery_Person_Not_skilled">Delivery Person Not skilled</string>
     <string name="ME_MAT_Referred">Referred</string>
     <string name="ME_MAT_Delivery_Person_Skilled">Delivery Person Skilled</string>
     <string name="ME_MAT_Delivery_Person_Not_skilled">Delivery Person Not skilled</string>
@@ -593,4 +591,7 @@
     <string name="ME_MAT_Stillbirth_Fresh">Stillbirths Fresh</string>
     <string name="ME_MAT_Neonatal_Death">Neonatal deaths</string>
     <!-- Start Maternity reports labels -->
+
+    <string name="opd_report_grouping_title">OPD</string>
+    <string name="maternity_report_grouping_title">Maternity</string>
 </resources>

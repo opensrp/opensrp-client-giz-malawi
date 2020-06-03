@@ -48,24 +48,24 @@
 49,ME_PAB_Age_Under_1_Static,Protected At Birth Count for under 1 (0-11months)(Static),ds8EuoyoTUK,goHo0wV2Gx1,CHD EPI Protection At Birth (PAB) Childhood Vaccination Static Under 1,child
 50,ME_Recurring_Age_Outreach_Deworming_1_Over_1_Outreach_Female,Deworming Count for over 1 ( 12-23mths)(Female)(Outreach) (1st Dose),Ojz51mfHBQH,e6tut7p8b3U,CHD EPI Number dewormed 12 - 23 Months Female Outreach,child
 51,ME_Recurring_Age_Outreach_Deworming_1_Over_1_Outreach_Male,Deworming Count for over 1 ( 12-23mths)(Male)(Outreach) (1st Dose),Ojz51mfHBQH,XAPWPhdXPpN,CHD EPI Number dewormed 12 - 23 Months Male Outreach,child
-52,ME_Recurring_Age_Outreach_Deworming_2_Over_1_Outreach_Female,Deworming Count for over 2  ( 24-59mths)(Female)(Outreach),Ojz51mfHBQH,mAcNlntVW6y,CHD EPI Number dewormed 24 - 59 Months Female Outreach,child
-53,ME_Recurring_Age_Outreach_Deworming_2_Over_1_Outreach_Male,Deworming Count for over 2  ( 24-59mths)(Male)(Outreach),Ojz51mfHBQH,sNWb5qxiOkh,CHD EPI Number dewormed 24 - 59 Months Male Outreach,child
-54,ME_Recurring_Age_Outreach_Vit_A_1_Over_1_Outreach_Male,Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Outreach)(Male),QBgBWJAlOxW,rumJgZkdY47,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Outreach,child
-55,ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Female,Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Outreach)(Female),QBgBWJAlOxW,gB0W63Kq6AZ,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
-56,ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Female,Vitamin A Count for under  1 (6-11mths)(Outreach)(Female),QBgBWJAlOxW,GC3TdzwM8OA,CHD EPI Vitamin A suplemented 6 - 11 Months Female Outreach,child
+52,ME_Recurring_Age_Outreach_Deworming_2_Over_1_Outreach_Female,Deworming Count for over 2 ( 24-59mths)(Female)(Outreach),Ojz51mfHBQH,mAcNlntVW6y,CHD EPI Number dewormed 24 - 59 Months Female Outreach,child
+53,ME_Recurring_Age_Outreach_Deworming_2_Over_1_Outreach_Male,Deworming Count for over 2 ( 24-59mths)(Male)(Outreach),Ojz51mfHBQH,sNWb5qxiOkh,CHD EPI Number dewormed 24 - 59 Months Male Outreach,child
+54,ME_Recurring_Age_Outreach_Vit_A_1_Over_1_Outreach_Male,Vitamin A Count for over 1 (1st Dose)( 12-59mths)(Outreach)(Male),QBgBWJAlOxW,rumJgZkdY47,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Outreach,child
+55,ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Female,Vitamin A Count for over 1 (1st Dose)( 12-59mths)(Outreach)(Female),QBgBWJAlOxW,gB0W63Kq6AZ,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
+56,ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Female,Vitamin A Count for under 1 (6-11mths)(Outreach)(Female),QBgBWJAlOxW,GC3TdzwM8OA,CHD EPI Vitamin A suplemented 6 - 11 Months Female Outreach,child
 57,ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Male,Vitamin A Count for under 1 (6-11mths) (Outreach)(Male),QBgBWJAlOxW,fuvlp9uqcPd,CHD EPI Vitamin A suplemented 6 - 11 Months Male Outreach,child
-58,ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Female,Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Outreach)(Female),QBgBWJAlOxW,hGXCz93cOZz,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
-59,ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Male,Vitamin A Count for over 1  (2nd Dose) 12-59mths)(Outreach)(Male),QBgBWJAlOxW,tsqT0XhqObc,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Outreach,child
+58,ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Female,Vitamin A Count for over 1 (2nd Dose)( 12-59mths)(Outreach)(Female),QBgBWJAlOxW,hGXCz93cOZz,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
+59,ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Male,Vitamin A Count for over 1 (2nd Dose) 12-59mths)(Outreach)(Male),QBgBWJAlOxW,tsqT0XhqObc,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Outreach,child
 60,ME_Recurring_Age_Static_Deworming_1_Over_1_Static_Female,Deworming Count for over 1 ( 12-23mths)(Female)(Static) (1st Dose),Ojz51mfHBQH,sVUMSUwxQyj,CHD EPI Number dewormed 12 - 23 Months Female Static,child
 61,ME_Recurring_Age_Static_Deworming_1_Over_1_Static_Male,Deworming Count for over 1 ( 12-23mths)(Male)(Static) (1st Dose),Ojz51mfHBQH,mVBoBn7kcA3,CHD EPI Number dewormed 12 - 23 Months Male Static,child
-62,ME_Recurring_Age_Static_Deworming_2_Over_1_Static_Female,Deworming Count for over 2  ( 24-59mths)(Female)(Static),Ojz51mfHBQH,OX3bT0qfrwH,CHD EPI Number dewormed 24 - 59 Months Female Static,child
-63,ME_Recurring_Age_Static_Deworming_2_Over_1_Static_Male,Deworming Count for over 2  ( 24-59mths)(Male)(Static),Ojz51mfHBQH,p7xCFOF37EI,CHD EPI Number dewormed 24 - 59 Months Male Static,child
-64,ME_Recurring_Age_Static_Vit_A_1_Over_1_Static_Female,Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Static)(Female),QBgBWJAlOxW,FpdeEDs8TIP,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
-65,ME_Recurring_Age_Static_Vit_A_1_Over_1_Static_Male,Vitamin A Count for over 1  (1st Dose)( 12-59mths)(Static)(Male),QBgBWJAlOxW,KgiMiWs1E8P,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Static,child
-66,ME_Recurring_Age_Static_Vit_A_1_Under_1_Static_Female,Vitamin A Count for under  1 (6-11mths)(Static)(Female),QBgBWJAlOxW,TEIykBA5pf5,CHD EPI Vitamin A suplemented 6 - 11 Months Female Static,child
+62,ME_Recurring_Age_Static_Deworming_2_Over_1_Static_Female,Deworming Count for over 2 ( 24-59mths)(Female)(Static),Ojz51mfHBQH,OX3bT0qfrwH,CHD EPI Number dewormed 24 - 59 Months Female Static,child
+63,ME_Recurring_Age_Static_Deworming_2_Over_1_Static_Male,Deworming Count for over 2 ( 24-59mths)(Male)(Static),Ojz51mfHBQH,p7xCFOF37EI,CHD EPI Number dewormed 24 - 59 Months Male Static,child
+64,ME_Recurring_Age_Static_Vit_A_1_Over_1_Static_Female,Vitamin A Count for over 1 (1st Dose)( 12-59mths)(Static)(Female),QBgBWJAlOxW,FpdeEDs8TIP,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
+65,ME_Recurring_Age_Static_Vit_A_1_Over_1_Static_Male,Vitamin A Count for over 1 (1st Dose)( 12-59mths)(Static)(Male),QBgBWJAlOxW,KgiMiWs1E8P,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Static,child
+66,ME_Recurring_Age_Static_Vit_A_1_Under_1_Static_Female,Vitamin A Count for under 1 (6-11mths)(Static)(Female),QBgBWJAlOxW,TEIykBA5pf5,CHD EPI Vitamin A suplemented 6 - 11 Months Female Static,child
 67,ME_Recurring_Age_Static_Vit_A_1_Under_1_Static_Male,Vitamin A Count for under 1 (6-11mths) (Static)(Male),QBgBWJAlOxW,xZ6voDw6RH5,CHD EPI Vitamin A suplemented 6 - 11 Months Male Static,child
-68,ME_Recurring_Age_Static_Vit_A_2_Over_1_Static_Female,Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Static)(Female),QBgBWJAlOxW,UWrsmTpB3fF,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
-69,ME_Recurring_Age_Static_Vit_A_2_Over_1_Static_Male,Vitamin A Count for over 1  (2nd Dose)( 12-59mths)(Static)(Male),QBgBWJAlOxW,PRPdhssSeW6,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Static,child
+68,ME_Recurring_Age_Static_Vit_A_2_Over_1_Static_Female,Vitamin A Count for over 1 (2nd Dose)( 12-59mths)(Static)(Female),QBgBWJAlOxW,UWrsmTpB3fF,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
+69,ME_Recurring_Age_Static_Vit_A_2_Over_1_Static_Male,Vitamin A Count for over 1 (2nd Dose)( 12-59mths)(Static)(Male),QBgBWJAlOxW,PRPdhssSeW6,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Static,child
 70,ME_Vaccines_Age_Outreach_bcg_Over_1_Outreach,BCG Count for over 1 (Outreach),s79kWckFPLs,zKLduwqZFnh,CHD EPI BCG Childhood Vaccination Outreach Over 1,child
 71,ME_Vaccines_Age_Static_bcg_Over_1_Static,BCG Count for over 1(Static),s79kWckFPLs,r2NJTUrJ2TL,CHD EPI BCG Childhood Vaccination Static Over 1,child
 72,ME_Vaccines_Age_Outreach_bcg_Under_1_Outreach,BCG Count for under 1 (0-11months)(Outreach),s79kWckFPLs,ipKITPnwlcP,CHD EPI BCG Childhood Vaccination Outreach Under 1,child
@@ -104,11 +104,11 @@
 105,ME_HIV_Status_Final_Not_Done,HIV status Final (Not done),iYKNoPBnrJl,Tt7fU5lUhAU,RHD ANC HIV Test Result Not Done,anc
 106,ME_HIV_Status_Final_Prev_Negative,HIV status Final (Prev. negative),CRhkHMKt3Ps,Tt7fU5lUhAU,RHD ANC HIV Test Result Previous Negative,anc
 107,ME_HIV_Status_Final_Prev_Positive,HIV status Final( Prev. positive),hbFsoMQNkwe,Tt7fU5lUhAU,RHD ANC HIV Test Result Previous Positive,anc
-108,ME_HIV_Status_First_Visit_New_Negative,HIV status first visit (New negative),nh9VegOdCIt,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit New Negative,anc
-109,ME_HIV_Status_First_Visit_New_Positive,HIV status first visit (New positive),PwDJPETFRej,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit New Positive,anc
-110,ME_HIV_Status_First_Visit_Not_Done,HIV status first visit (Not done),rkkM59tCAjG,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit Not Done,anc
+108,ME_HIV_Status_First_Visit_New_Negative,HIV status first visit (New negative),nh9VegOdCIt,Tt7fU5lUhAU,RHD ANC HIV Status 1st Visit New Negative,anc
+109,ME_HIV_Status_First_Visit_New_Positive,HIV status first visit (New positive),PwDJPETFRej,Tt7fU5lUhAU,RHD ANC HIV Status 1st Visit New Positive,anc
+110,ME_HIV_Status_First_Visit_Not_Done,HIV status first visit (Not done),rkkM59tCAjG,Tt7fU5lUhAU,RHD ANC HIV Status 1st Visit Not Done,anc
 111,ME_HIV_Status_First_Visit_Prev_Negative,HIV status first visit (Prev. negative),tnFn3i2VC1R,Tt7fU5lUhAU,RHD ANC HIV Status 1st Visit Previous Negative,anc
-112,ME_HIV_Status_First_Visit_Prev_Positive,HIV status first visit( Prev. positive),QrqDZ718WEz,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit Previous Positive,anc
+112,ME_HIV_Status_First_Visit_Prev_Positive,HIV status first visit( Prev. positive),QrqDZ718WEz,Tt7fU5lUhAU,RHD ANC HIV Status 1st Visit Previous Positive,anc
 113,ME_ITN_Bed_Nets_Given,ITN (bed nets) given,gLN6hOgR6ra,Tt7fU5lUhAU,RHD ANC ITN (Bed nets) given Received ITN,anc
 114,ME_Number_Of_Women_Registered,Number of women registered,zAvhV81SCLV,Tt7fU5lUhAU,RHD ANC New Women Registered,anc
 115,ME_Pregnancy_Tests_Done_In_The_First_Trimester,Pregnancy tests Done in the first trimester,ouOeJELRncp,Tt7fU5lUhAU,RHD ANC Pregnancy Test Done in 1st Trimester,anc
@@ -127,3 +127,88 @@
 128,ME_Total_Visits_Per_Woman_With_5_plus_Visits,Total Visits per woman with 5+ visits,EUvtRZSLh2F,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 5+ Visits,anc
 129,ME_Week_Of_First_ANC_Visit_0_12_weeks,Week of first ANC Visit(0-12 weeks),EVt2iC6Tn34,Tt7fU5lUhAU,RHD ANC Week of first ANC Visit Week 0-12,anc
 130,ME_With_Preeclampsia,With (Pre-) Eclampsia,sNlbaVoobzq,Tt7fU5lUhAU,RHD ANC (Pre-) Eclampsia Yes,anc
+130,ME_ART_Complications,Number of mothers (pre) Eclampsia (Ecl),RS3PtRniRns,JPgETYeD4qF,RHD MAT Obstetric Complications (Pre-) Eclampsia,maternity
+131,ME_ART_Complications,Number of mothers Ante partum. haem. (APH),RS3PtRniRns,DfPxMVfjndd,RHD MAT Obstetric Complications Ante Partum Heam,maternity
+132,ME_ART_Complications,Number of mothers Foetal distress (FD),RS3PtRniRns,PEpIz3uFJ4a,RHD MAT Obstetric Complications Foetal distress (FD),maternity
+133,ME_ART_Complications,Number of mothers Obstructed/Prolonged labour (OPL),RS3PtRniRns,Ht1Pz8Kn2k3,RHD MAT Obstetric Complications Obstr/Prol Labor,maternity
+134,ME_ART_Complications,Number of mothers Others (Oth),RS3PtRniRns,R2qiSvs4zGK,RHD MAT Obstetric Complications Others,maternity
+135,ME_ART_Complications,Number of mothers Post-partum haem. (PPH),RS3PtRniRns,ZGX8SK5P435,RHD MAT Obstetric Complications Post Partum Heam,maternity
+136,ME_ART_Complications,Number of mothers Premature labour (PL),RS3PtRniRns,ezMtOgig3e6,RHD MAT Obstetric Complications Premature labour (pl),maternity
+137,ME_ART_Complications,Number of mothers Retained placenta (Rp),RS3PtRniRns,qffHiXEve5i,RHD MAT Obstetric Complications Retained placenta (RP),maternity
+138,ME_ART_Complications,Number of mothers Ruptured Uterus (RU),RS3PtRniRns,VrBgkdWJor3,RHD MAT Obstetric Complications Raptured Uterus,maternity
+139,ME_ART_Complications,Number of mothers Sepsis (Sep),RS3PtRniRns,N6Kp9pEEqSI,RHD MAT Obstetric Complications Sepsis,maternity
+140,ME_ART_Complications,Number of mothers with no complications,RS3PtRniRns,XvMqbLpCTt8,RHD MAT Obstetric Complications None,maternity
+141,ME_ART_Start,Not on ART (incl. HIV–),MoximPvXuj6,GoX45uTUUCH,RHD MAT ART Mother Not on ART,maternity
+142,ME_ART_Start,Start before pregnancy (Prev. ART,MoximPvXuj6,xmKtsiRYAXz,RHD MAT ART Mother Start Before Pregnancy,maternity
+143,ME_ART_Start,Start during Labour (Lab ART),MoximPvXuj6,hPVDsUM32VS,RHD MAT ART Mother Start During Labor,maternity
+144,ME_ART_Start,Start in 1st or 2nd trim. (0-27w ART),MoximPvXuj6,jMqmEmzruFg,RHD MAT ART Mother Start In 1st or 2nd Trimester,maternity
+145,ME_ART_Start,Start in 3rd trimester (28+w ART),MoximPvXuj6,UyOtLy9DhPs,RHD MAT ART Mother Start In 3rd Trimester,maternity
+146,ME_HIV_Current,HIV test result New negative,MD0Gp8MzkHf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Negative,maternity
+147,ME_HIV_Current,HIV test result New positive,xRrJWogiEMf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Positive,maternity
+148,ME_HIV_Current,HIV test result Not done,U3FydV1M1RQ,Tt7fU5lUhAU,RHD MAT HIV Test Results Not Done,maternity
+149,ME_HIV_Previous,HIV test result Previous positive,a3DzFDGAQAi,Tt7fU5lUhAU,RHD MAT HIV Test Results Previous Positive,maternity
+150,ME_MAT_Babies,Singletons,jZ5TP3UpaiQ,PJEmG4BbHTf,RHD MAT Number of Babies (still and live) Singletons,maternity
+151,ME_MAT_Babies,Twins/Triplets,jZ5TP3UpaiQ,W3Angorx03z,RHD MAT Number of Babies (still and live) Twins/Triplets,maternity
+152,ME_MAT_Baby_Care,Antibiotics,mWeTHZCPNT0,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Antibiotics,maternity
+153,ME_MAT_Baby_Care,Chlorohexidine given,YvNy8rie5j7,Tt7fU5lUhAU,RHD MAT Routine Care Chlorohexidine Given,maternity
+154,ME_MAT_Baby_Care,Kangaroo mother care (KMC),zANGFtNoUEt,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Kangaroo Mother Care,maternity
+155,ME_MAT_Baby_Care,Other,qYKuaHC8Gnk,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Other,maternity
+156,ME_MAT_Baby_Care,Resuscitation,zE0WLBSHx1e,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Rescucitations,maternity
+157,ME_MAT_Baby_Care,Tetracycline ointment given,YGJbvAkqBgI,Tt7fU5lUhAU,RHD MAT Tetracycline Eye Oitment Given,maternity
+158,ME_MAT_Baby_Care,Vitamin K given,zAcW94iEdXU,Tt7fU5lUhAU,RHD MAT Routine Care Vitamin K Given,maternity
+159,ME_MAT_Baby_Complications,Asphyxia,vcEWpcFjEuU,Tt7fU5lUhAU,RHD MAT Newborn Complications Asphyxia,maternity
+160,ME_MAT_Baby_Complications,Newborns with no complications,SytVoNgDYlf,Tt7fU5lUhAU,RHD MAT Newborn Complications None,maternity
+161,ME_MAT_Baby_Complications,Other newborn complications,Z9Q4qIjoePS,Tt7fU5lUhAU,RHD MAT Newborn Complications Other,maternity
+162,ME_MAT_Baby_Complications,Prematurity,UXTZkim1Npv,Tt7fU5lUhAU,RHD MAT Newborn Complications Prematurity,maternity
+163,ME_MAT_Baby_Complications,Sepsis,bPvw8ZdBgRe,Tt7fU5lUhAU,RHD MAT Newborn Complications Sepsis,maternity
+164,ME_MAT_Baby_Complications,Weight less 2500g,gkgM1TgE5oF,Tt7fU5lUhAU,RHD MAT Newborn Complications Weight < 2500g,maternity
+165,ME_MAT_BF_First_Hour,Started Breastfeeding within 60 minutes,bjLZY1FqdDJ,Tt7fU5lUhAU,RHD MAT Breastfeeding Initiated,maternity
+166,ME_MAT_Care,Antenatal corticosteroids (Acs),b4WuKkuuR0W,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antenatal corticosteroids (Acs),maternity
+167,ME_MAT_Care,Antibiotics (Abx),gXjGJoC7gDs,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics,maternity
+168,ME_MAT_Care,Anticonvulsants (AC),n7XnfWv0tHo,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Anticonvulsive,maternity
+169,ME_MAT_Care,Blood Transfusion (Tr),vyIPU3KOFF6,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Blood Transfusion,maternity
+170,ME_MAT_Care,Evacuation of Retained Products (ERP),p1OuCSVe4Gk,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics Evacuation of Retained Products (ERP),maternity
+171,ME_MAT_Care,Manual Removal of Placenta (MRP),BbmxEK5AYaL,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Manual Rem Placenta,maternity
+172,ME_MAT_Care,Non pneumatic Anti-Shock Garment (NASG),Tx8IDGqV3rt,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Non pneumatic Anti-Shock Garment (NASG),maternity
+173,ME_MAT_Care,Oxytocin (Ox),FhNg0SdUMe8,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Oxytocin,maternity
+174,ME_MAT_Child_HIV_Status_Exposed_No_NVP,"Alive, exposed, no NVP",EeywK6AHQdK,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp No NVP,maternity
+175,ME_MAT_Child_HIV_Status_Exposed_NVP_Started,"Alive, exp., NVP started",iBBnHx1Uf50,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp NVP Started,maternity
+176,ME_MAT_Child_HIV_Status_Not_Exposed,"Alive, not HIV exposed",q7NoDcfaciO,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive not HIV Exp,maternity
+177,ME_MAT_Child_HIV_Status_Unknown,"Alive, unknown exp",kaYz6eqxqQH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive unknown Exp,maternity
+178,ME_MAT_Delivery_Mode,Breech,UdxIE19B603,Tt7fU5lUhAU,RHD MAT Delivery Mode Breech,maternity
+179,ME_MAT_Delivery_Mode,Caesarean section,FYDa4NcJNrq,Tt7fU5lUhAU,RHD MAT Delivery Mode Caesarian Section,maternity
+180,ME_MAT_Delivery_Mode,Spontaneous vertex,GwzEUK12Pqh,Tt7fU5lUhAU,RHD MAT Delivery Mode Spontaneous Vagina,maternity
+181,ME_MAT_Delivery_Mode,Vacuum extraction,LLrXje6xH8D,Tt7fU5lUhAU,RHD MAT Delivery Mode Vacuum Extraction,maternity
+182,ME_MAT_Delivery_Person,Skilled birth attendant (MD/CO/MA/Nurse/MW),R9CHUW81m9o,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery MO/CO/MA/Nurse/MW,maternity
+183,ME_MAT_Delivery_Person,Unskilled birth attendant (PA/WA/HSA/Other/None),mHcrkMgxARq,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery PA/WA/HSA,maternity
+184,ME_MAT_Delivery_Place,Home / TBA,hPhTbuLFnx4,Tt7fU5lUhAU,RHD MAT Delivery Place Home/TBA,maternity
+185,ME_MAT_Delivery_Place,In transit (BBA),KOu770F7YOQ,Tt7fU5lUhAU,RHD MAT Delivery In Transit (BBA),maternity
+186,ME_MAT_Delivery_Place,Other facility,iGYCZRe52Vy,Tt7fU5lUhAU,RHD MAT Delivery Place Other Facility,maternity
+187,ME_MAT_Delivery_Place,This facility,YIP4fvYcGYQ,Tt7fU5lUhAU,RHD MAT Delivery Place This Facility,maternity
+188,ME_MAT_ITN_Given,ITN given,NNFGzJD43R9,Tt7fU5lUhAU,RHD MAT Routine Care ITN Given,maternity
+189,ME_MAT_Mother_Status,Mother died before discharge (DBD),WjHvEHMCyKo,Tt7fU5lUhAU,RHD MAT Maternal Deaths,maternity
+190,ME_MAT_Neonatal_Death,Neonatal death,jz793Wzon1W,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Neonatal Death,maternity
+191,ME_MAT_Referred,Yes,l2GWTPGK4QP,Tt7fU5lUhAU,RHD MAT Referred Out Yes,maternity
+192,ME_MAT_Stillbirth,Fresh stillbirth,YLydKJIyGFF,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Still/Fresh,maternity
+193,ME_MAT_Stillbirth,Macerated stillbirth,EJ0qYm1FrcH,Tt7fU5lUhAU,"RHD MAT Newborn Survival/PMTCT Stillbirth, Macerated",maternity
+194,ME_MAT_Vitamin_A,Yes,B0MbTYjfUhd,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Given,maternity
+195,ME_Anti_Malaria_Treatment_Confirmed_Over_5,D: Confirmed cases receiving first-line anti malarial medication (5+ years),ie9Vtnde6in,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
+196,ME_Anti_Malaria_Treatment_Confirmed_Over_5,E: Confirmed cases receiving second-line anti malarial medication (ASAQ) (5+ years),BOAUQVmPxf3,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
+197,ME_Anti_Malaria_Treatment_Confirmed_Under_5,D: Confirmed cases receiving first-line anti malarial medication (< 5 years),ie9Vtnde6in,pE37AYgl7bx,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) <5Yrs,opd
+198,ME_Anti_Malaria_Treatment_Confirmed_Under_5,E: Confirmed cases receiving second-line anti malarial medication (ASAQ) (< 5 years),BOAUQVmPxf3,pE37AYgl7bx,NMCP OPD Confirmed cases receiving second-line anti malarial medication (ASAQ) <5Yrs,opd
+199,ME_Anti_Malaria_Treatment_Presumed_Over_5,E: Presumed malaria cases receiving first-line anti malarial medication (5+ years),oHAvOrxnkDm,V8ASMfxytS4,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) >5Yrs,opd
+200,ME_Anti_Malaria_Treatment_Presumed_Over_5,F: Presumed malaria cases receiving second-line anti malarial medication(ASAQ)(5+ years),nRGVy7VlKO9,V8ASMfxytS4,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) >5Yrs,opd
+201,ME_Anti_Malaria_Treatment_Presumed_Under_5,E: Presumed malaria cases receiving first-line anti malarial medication (< 5 years),oHAvOrxnkDm,pE37AYgl7bx,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) <5Yrs,opd
+202,ME_Anti_Malaria_Treatment_Presumed_Under_5,F: Presumed malaria cases receiving second-line anti malarial medication(ASAQ),nRGVy7VlKO9,pE37AYgl7bx,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) <5Yrs,opd
+203,ME_Malaria_Cases_Confirmed,A: Confirmed malaria cases (< 5 years),aSmSrrByuaa,pE37AYgl7bx,[ NMCP OPD Confirmed Malaria Cases <5Yrs ],opd
+204,ME_Malaria_Cases_Confirmed,A: Confirmed malaria cases (5+ years),aSmSrrByuaa,V8ASMfxytS4,[ NMCP OPD Confirmed Malaria Cases >5Yrs ],opd
+205,ME_Malaria_Cases_Presumed,B: Presumed malaria cases (clinically diagnosed without test ) (< 5 years),b7NiKuhEqI6,pE37AYgl7bx,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) <5Yrs,opd
+206,ME_Malaria_Cases_Presumed,B: Presumed malaria cases (clinically diagnosed without test ) (5+ years),b7NiKuhEqI6,V8ASMfxytS4,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) >5Yrs,opd
+207,ME_Malaria_Test,F: Suspected malaria cases tested using mRDT (< 5 years),Ycfd6ROuM7h,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT <5Yrs,opd
+208,ME_Malaria_Test,F: Suspected malaria cases tested using mRDT (5+ years),Ycfd6ROuM7h,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT >5Yrs,opd
+209,ME_Malaria_Test,G: Suspected malaria cases tested using microscopy(< 5 years),xACp6CWblnY,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy <5Yrs,opd
+210,ME_Malaria_Test,G: Suspected malaria cases tested using microscopy(5+ 5 years),xACp6CWblnY,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy >5Yrs,opd
+211,ME_Positive_Malaria_Cases,H: Positive malaria cases using mRDT (<5 years),E4LZP3KUbOG,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through RDT <5Yrs,opd
+212,ME_Positive_Malaria_Cases,H: Positive malaria cases using mRDT (5+ years),E4LZP3KUbOG,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through RDT >5Yrs,opd
+213,ME_Positive_Malaria_Cases,I: Positive malaria cases using microscopy (<5 years),fCx1cSTnUUL,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through Microscopy <5Yrs,opd
+214,ME_Positive_Malaria_Cases,I: Positive malaria cases using microscopy(5+ years),fCx1cSTnUUL,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through Microscopy >5Yrs,opd

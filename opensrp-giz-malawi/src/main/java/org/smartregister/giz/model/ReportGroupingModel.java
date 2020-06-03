@@ -25,6 +25,8 @@ public class ReportGroupingModel {
         if (groupings.isEmpty()) {
             groupings.add(new ReportGrouping(context.getString(R.string.child_report_grouping_title), "child"));
             groupings.add(new ReportGrouping(context.getString(R.string.anc_report_grouping_title), "anc"));
+            groupings.add(new ReportGrouping(context.getString(R.string.maternity_report_grouping_title), "maternity"));
+            groupings.add(new ReportGrouping(context.getString(R.string.opd_report_grouping_title), "opd"));
         }
 
         return groupings;

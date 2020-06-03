@@ -107,8 +107,8 @@ public class HIA2ReportsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hia2_reports);
         tabLayout = findViewById(R.id.tabs);
 
-        groupingReportMap.put("child", "EPI Vaccination Performance and Disease Surveillance (NEW)");
-        groupingReportMap.put("anc", "ANC Monthly Facility Report");
+        initGroupingReportMap();
+
         ImageView backBtnImg = findViewById(R.id.back_button);
         if (backBtnImg != null) {
             backBtnImg.setImageResource(R.drawable.ic_back);
@@ -153,6 +153,13 @@ public class HIA2ReportsActivity extends AppCompatActivity {
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();
+    }
+
+    private void initGroupingReportMap() {
+        groupingReportMap.put("child", "EPI Vaccination Performance and Disease Surveillance (NEW)");
+        groupingReportMap.put("anc", "ANC Monthly Facility Report");
+        groupingReportMap.put("opd", "Malaria Health Facility Report");
+        groupingReportMap.put("maternity", "Maternity Monthly Report");
     }
 
     @Override

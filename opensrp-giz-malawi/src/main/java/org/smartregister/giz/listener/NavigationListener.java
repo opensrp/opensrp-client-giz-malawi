@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.giz.activity.AllClientsRegisterActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.MaternityRegisterActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
@@ -35,6 +36,9 @@ public class NavigationListener implements View.OnClickListener {
                     break;
 
                 case GizConstants.DrawerMenu.ALL_CLIENTS:
+                    navigateToActivity(AllClientsRegisterActivity.class);
+                    break;
+
                 case GizConstants.DrawerMenu.OPD_CLIENTS:
                     navigateToActivity(OpdRegisterActivity.class);
                     break;

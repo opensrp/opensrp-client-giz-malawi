@@ -26,6 +26,7 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.giz.BuildConfig;
+import org.smartregister.giz.activity.AllClientsRegisterActivity;
 import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildFormActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
@@ -288,7 +289,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
-        activityConfiguration.setLandingPageActivityClass(OpdRegisterActivity.class);
+        activityConfiguration.setLandingPageActivityClass(AllClientsRegisterActivity.class);
         AncMetadata ancMetadata = new AncMetadata();
         ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
         ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());

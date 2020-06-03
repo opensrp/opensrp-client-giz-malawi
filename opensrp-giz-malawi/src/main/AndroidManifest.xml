@@ -187,6 +187,11 @@
 
         <!-- OPD ACTIVITIES -->
         <activity
+            android:name=".activity.AllClientsRegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChildTheme.NoActionBar" />
+        <activity
             android:name=".activity.OpdRegisterActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"

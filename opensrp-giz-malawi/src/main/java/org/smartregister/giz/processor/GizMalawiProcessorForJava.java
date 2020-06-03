@@ -178,6 +178,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                        } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) && eventClient.getClient() != null) {
+                            GizMalawiApplication.getInstance().registerTypeRepository().remove(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
                         }
 
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
