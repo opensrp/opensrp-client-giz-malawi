@@ -1184,7 +1184,7 @@ indicators:
                      		AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%Malaria%')
                      		AND '%s' = strftime('%Y-%m-%d', b.created_at)
                      	UNION
-                     SELECT d.base_entity_id
+                     SELECT d.base_entity_id, d.visit_id
                      FROM opd_test_conducted d
                      	WHERE d.test_type in ('Malaria MRDT','Malaria Microscopy')
                      	AND '%s' = strftime('%Y-%m-%d', d.created_at)
@@ -1478,7 +1478,7 @@ indicators:
     grouping: "maternity"
 
   - key: "ME_MAT_BF_First_Hour"
-    description: "Maternity vitamin A given"
+    description: "Maternity bf first hour"
     indicatorQuery: "SELECT count(1)
                      FROM maternity_child
                      WHERE bf_first_hour ='Yes'
@@ -1486,7 +1486,7 @@ indicators:
     grouping: "maternity"
 
   - key: "ME_MAT_Stillbirth"
-    description: "Maternity vitamin A given"
+    description: "Maternity still birth"
     indicatorQuery: "SELECT stillbirth_condition,count(*) from maternity_child WHERE stillbirth_condition IN('Macerated','Fresh') and '%s' = strftime('%Y-%m-%d', event_date) GROUP BY stillbirth_condition"
     isMultiResult: true
     expectedIndicators:
@@ -1501,7 +1501,7 @@ indicators:
 
   - key: "ME_MAT_ITN_Given"
     description: "Maternity ITN Given"
-    indicatorQuery: "SELECT count(*) from maternity_outcome WHERE itn_given = 'Yes' and '%s' = strftime('%Y-%m-%d', event_date)"
+    indicatorQuery: "SELECT count(*) from maternity_outcome WHERE itn_given = 'Yes' and '%s' = strftime('%Y-%m-%d', date)"
     grouping: "maternity"
 
   - key: "ME_MAT_Child_HIV_Status_Unknown"

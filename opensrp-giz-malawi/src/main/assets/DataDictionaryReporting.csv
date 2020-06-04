@@ -171,10 +171,10 @@
 171,ME_MAT_Care,Manual Removal of Placenta (MRP),BbmxEK5AYaL,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Manual Rem Placenta,maternity
 172,ME_MAT_Care,Non pneumatic Anti-Shock Garment (NASG),Tx8IDGqV3rt,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Non pneumatic Anti-Shock Garment (NASG),maternity
 173,ME_MAT_Care,Oxytocin (Ox),FhNg0SdUMe8,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Oxytocin,maternity
-174,ME_MAT_Child_HIV_Status_Exposed_No_NVP,"Alive, exposed, no NVP",EeywK6AHQdK,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp No NVP,maternity
-175,ME_MAT_Child_HIV_Status_Exposed_NVP_Started,"Alive, exp., NVP started",iBBnHx1Uf50,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp NVP Started,maternity
-176,ME_MAT_Child_HIV_Status_Not_Exposed,"Alive, not HIV exposed",q7NoDcfaciO,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive not HIV Exp,maternity
-177,ME_MAT_Child_HIV_Status_Unknown,"Alive, unknown exp",kaYz6eqxqQH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive unknown Exp,maternity
+174,ME_MAT_Child_HIV_Status_Exposed_No_NVP,Alive exposed no NVP,EeywK6AHQdK,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp No NVP,maternity
+175,ME_MAT_Child_HIV_Status_Exposed_NVP_Started,Alive exp NVP started,iBBnHx1Uf50,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp NVP Started,maternity
+176,ME_MAT_Child_HIV_Status_Not_Exposed,Alive not HIV exposed,q7NoDcfaciO,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive not HIV Exp,maternity
+177,ME_MAT_Child_HIV_Status_Unknown,Alive unknown exp,kaYz6eqxqQH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive unknown Exp,maternity
 178,ME_MAT_Delivery_Mode,Breech,UdxIE19B603,Tt7fU5lUhAU,RHD MAT Delivery Mode Breech,maternity
 179,ME_MAT_Delivery_Mode,Caesarean section,FYDa4NcJNrq,Tt7fU5lUhAU,RHD MAT Delivery Mode Caesarian Section,maternity
 180,ME_MAT_Delivery_Mode,Spontaneous vertex,GwzEUK12Pqh,Tt7fU5lUhAU,RHD MAT Delivery Mode Spontaneous Vagina,maternity
@@ -190,7 +190,7 @@
 190,ME_MAT_Neonatal_Death,Neonatal death,jz793Wzon1W,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Neonatal Death,maternity
 191,ME_MAT_Referred,Yes,l2GWTPGK4QP,Tt7fU5lUhAU,RHD MAT Referred Out Yes,maternity
 192,ME_MAT_Stillbirth,Fresh stillbirth,YLydKJIyGFF,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Still/Fresh,maternity
-193,ME_MAT_Stillbirth,Macerated stillbirth,EJ0qYm1FrcH,Tt7fU5lUhAU,"RHD MAT Newborn Survival/PMTCT Stillbirth, Macerated",maternity
+193,ME_MAT_Stillbirth,Macerated stillbirth,EJ0qYm1FrcH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Stillbirth Macerated,maternity
 194,ME_MAT_Vitamin_A,Yes,B0MbTYjfUhd,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Given,maternity
 195,ME_Anti_Malaria_Treatment_Confirmed_Over_5,D: Confirmed cases receiving first-line anti malarial medication (5+ years),ie9Vtnde6in,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
 196,ME_Anti_Malaria_Treatment_Confirmed_Over_5,E: Confirmed cases receiving second-line anti malarial medication (ASAQ) (5+ years),BOAUQVmPxf3,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
