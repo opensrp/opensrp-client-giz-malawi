@@ -47,10 +47,11 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
-import org.smartregister.maternity.processor.MaternityMiniClientProcessorForJava;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.opd.utils.OpdDbConstants;
+import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.MiniClientProcessorForJava;
@@ -179,7 +180,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) && eventClient.getClient() != null) {
-                            GizMalawiApplication.getInstance().registerTypeRepository().remove(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                            //TODO add a filter in register queries
+                            GizMalawiApplication.getInstance().registerTypeRepository().softDelete(GizConstants.RegisterType.MATERNITY,
+                                    event.getBaseEntityId(),
+                                    OpdUtils.convertDate(event.getEventDate().toLocalDate().toDate(), OpdDbConstants.DATE_FORMAT));
                         }
 
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);

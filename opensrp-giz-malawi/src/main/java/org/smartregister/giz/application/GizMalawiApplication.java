@@ -33,7 +33,6 @@ import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
-import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.configuration.GizMaternityOutcomeFormProcessing;
 import org.smartregister.giz.configuration.GizMaternityRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizMaternityRegisterRowOptions;
@@ -340,7 +339,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
                 OpdConstants.CONFIG, OpdFormActivity.class, BaseOpdProfileActivity.class, true);
 
-        opdMetadata.setFieldsWithLocationHierarchy(Arrays.asList("village"));
+        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
 
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
                 .setOpdMetadata(opdMetadata)

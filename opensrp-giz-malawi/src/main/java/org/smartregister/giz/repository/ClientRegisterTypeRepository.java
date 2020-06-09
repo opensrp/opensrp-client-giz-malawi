@@ -19,7 +19,7 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
             + GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " VARCHAR NOT NULL,"
             + GizConstants.Columns.RegisterType.REGISTER_TYPE + " VARCHAR NOT NULL, "
             + GizConstants.Columns.RegisterType.DATE_CREATED + " INTEGER NOT NULL, "
-            + GizConstants.Columns.RegisterType.DATE_REMOVED + " INTEGER NULL, "
+            + GizConstants.Columns.RegisterType.DATE_REMOVED + " VARCHAR NULL, "
             + "UNIQUE(" + GizConstants.Columns.RegisterType.BASE_ENTITY_ID + ", " + GizConstants.Columns.RegisterType.REGISTER_TYPE + ") ON CONFLICT REPLACE)";
 
     private static final String INDEX_BASE_ENTITY_ID = "CREATE INDEX " + GizConstants.TABLE_NAME.REGISTER_TYPE
@@ -42,6 +42,16 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
         int rowsAffected = sqLiteDatabase.delete(GizConstants.TABLE_NAME.REGISTER_TYPE,
                 GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? and " + GizConstants.Columns.RegisterType.REGISTER_TYPE + " = ?", new String[]{baseEntityId, registerType});
 
+        return rowsAffected > 0;
+    }
+
+    @Override
+    public boolean softDelete(String registerType, String baseEntityId, String dateRemoved) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(GizConstants.Columns.RegisterType.DATE_REMOVED, dateRemoved);
+        int rowsAffected = sqLiteDatabase.update(GizConstants.TABLE_NAME.REGISTER_TYPE, contentValues,
+                GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? and " + GizConstants.Columns.RegisterType.REGISTER_TYPE + " = ?", new String[]{baseEntityId, registerType});
         return rowsAffected > 0;
     }
 

@@ -18,7 +18,6 @@ import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.maternity.MaternityLibrary;
 import org.smartregister.maternity.fragment.BaseMaternityRegisterFragment;
 import org.smartregister.maternity.pojo.MaternityMetadata;
-import org.smartregister.maternity.pojo.MaternityRegistrationDetails;
 import org.smartregister.maternity.utils.MaternityConstants;
 
 import java.util.HashMap;
@@ -94,7 +93,7 @@ public class MaternityRegisterFragment extends BaseMaternityRegisterFragment {
 
         if (maternityRegisterActivity != null) {
             String entityTable = clientColumnMaps.get(MaternityConstants.IntentKey.ENTITY_TABLE);
-            String currentHivStatus = clientColumnMaps.get(MaternityRegistrationDetails.Property.hiv_status_current.name());
+            String currentHivStatus = clientColumnMaps.get("hiv_status_current.name");
 
             HashMap<String, String> injectableFormValues = new HashMap<>();
             injectableFormValues.put(MaternityConstants.JsonFormField.MOTHER_HIV_STATUS, currentHivStatus);

@@ -1128,8 +1128,8 @@ indicators:
     description: "Malaria tests"
     indicatorQuery: "SELECT
                      CASE
-                     	WHEN b.test_type='Malaria MRDT' THEN 'mRDT'
-                     	WHEN b.test_type='Malaria Microscopy' THEN 'Microscopy'
+                     	WHEN b.test_type='malaria mrdt' THEN 'mRDT'
+                     	WHEN b.test_type='malaria microscopy' THEN 'Microscopy'
                      ELSE 'Null' END malaria_test,
                      CASE
                      	WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
@@ -1139,7 +1139,7 @@ indicators:
                      FROM opd_test_conducted b
                      INNER JOIN ec_client
                      ON b.base_entity_id = ec_client.base_entity_id
-                     WHERE b.test_type in ('Malaria MRDT','Malaria Microscopy')
+                     WHERE b.test_type in ('malaria mrdt','malaria microscopy')
                      AND '%s' = strftime('%Y-%m-%d', b.created_at)
                      GROUP  BY age,malaria_test"
     isMultiResult: true
@@ -1154,7 +1154,7 @@ indicators:
     description: "Positive malaria cases"
     indicatorQuery: "SELECT
                      CASE
-                     	WHEN b.test_type='Malaria MRDT' THEN 'mRDT'
+                     	WHEN b.test_type='malaria mrdt' THEN 'mRDT'
                      	WHEN b.test_type='Malaria - Microscopy' THEN 'Microscopy'
                      ELSE 'Null' END malaria_test,
                      CASE
@@ -1164,7 +1164,7 @@ indicators:
                      FROM opd_test_conducted b
                      INNER JOIN ec_client
                      ON b.base_entity_id = ec_client.base_entity_id
-                     WHERE b.test_type in ('Malaria MRDT','Malaria Microscopy')
+                     WHERE b.test_type in ('malaria mrdt','malaria microscopy')
                      AND b.result='Positive'
                      AND '%s' = strftime('%Y-%m-%d', b.created_at)
                      GROUP  BY age,malaria_test,b.result"
@@ -1181,12 +1181,12 @@ indicators:
     indicatorQuery: "SELECT count(*) FROM (SELECT b.base_entity_id,b.visit_id
                      FROM opd_diagnosis_detail b
                      	WHERE b.code in ('code_32aPr','code_32bPr')
-                     		AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%Malaria%')
+                     		AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%malaria%')
                      		AND '%s' = strftime('%Y-%m-%d', b.created_at)
                      	UNION
                      SELECT d.base_entity_id, d.visit_id
                      FROM opd_test_conducted d
-                     	WHERE d.test_type in ('Malaria MRDT','Malaria Microscopy')
+                     	WHERE d.test_type in ('malaria mrdt','malaria microscopy')
                      	AND '%s' = strftime('%Y-%m-%d', d.created_at)
                      )"
     grouping: "opd"

@@ -133,9 +133,18 @@
           },
           {
             "field": "eventType",
-            "field_value": "Maternity Close",
+            "field_value": "Update Maternity Registration",
             "creates_case": [
-              "maternity_close"
+              "ec_client",
+              "ec_mother_details",
+              "maternity_registration_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Maternity Close",
+            "closes_case": [
+              "ec_client"
             ]
           },
           {

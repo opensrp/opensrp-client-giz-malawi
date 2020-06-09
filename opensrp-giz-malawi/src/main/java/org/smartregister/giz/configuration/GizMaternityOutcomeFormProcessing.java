@@ -38,11 +38,8 @@ public class GizMaternityOutcomeFormProcessing implements MaternityFormProcessin
 
 
     @Override
-    public List<Event> processMaternityForm(@NonNull String eventType, String jsonString, @Nullable Intent data) throws JSONException {
-        if (eventType.equals(MaternityConstants.EventType.MATERNITY_OUTCOME)) {
-            return processMaternityOutcomeForm(jsonString, data);
-        }
-        return new ArrayList<>();
+    public List<Event> processMaternityForm(String jsonString, @Nullable Intent data) throws JSONException {
+        return processMaternityOutcomeForm(jsonString, data);
     }
 
     public List<Event> processMaternityOutcomeForm(@NonNull String jsonString, @NonNull Intent data) throws JSONException {

@@ -534,27 +534,27 @@
               "Other(specify)"
             ],
             "keys": [
-              "Pregnancy Test",
-              "Ultra sound",
-              "Malaria Microscopy",
-              "HIV test",
-              "Syphilis Test - VDRL",
-              "Hep B test",
-              "Hep C test",
-              "Blood Type test",
-              "TB Screening",
-              "Blood Glucose test (random plasma glucose test)",
-              "Midstream urine Gram-staining",
-              "Malaria MRDT",
-              "TB Gene Xpert",
-              "TB smear microscopy",
-              "TB urine LAM",
-              "Urine dipstick",
-              "Hemocue (haemoglobinometer)",
-              "HIV Viral Load",
-              "HIV EID",
-              "HIV test - Rapid Test",
-              "Other(specify)"
+              "pregnancy_test",
+              "ultra_sound",
+              "malaria_microscopy",
+              "hiv_test",
+              "syphilis_vdrl",
+              "hep_b",
+              "hep_c",
+              "blood_type",
+              "tb_screening",
+              "blood_glucose_random_plasma_glucose_test",
+              "midstream_urine_gram_staining",
+              "malaria_mrdt",
+              "tb_gene_xpert",
+              "tb_smear_microscopy",
+              "tb_urine_lam",
+              "urine_dipstick",
+              "hemocue_haemoglobinometer",
+              "hiv_viral_load",
+              "hiv_eid",
+              "hiv_test_rapid",
+              "other"
             ]
           },
           {
@@ -572,7 +572,7 @@
             "relevance": {
               "step4:diagnostic_test": {
                 "type": "string",
-                "ex": "equalTo(., \"Other(specify)\")"
+                "ex": "equalTo(., \"other\")"
               }
             }
           },
