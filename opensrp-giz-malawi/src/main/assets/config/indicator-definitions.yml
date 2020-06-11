@@ -260,7 +260,247 @@ indicators:
       - "ME_Recurring_Age_Outreach_Vit_A_1_Under_1_Outreach_Female"
       - "ME_Recurring_Age_Outreach_Vit_A_2_Over_1_Outreach_Female"
       - "ME_Recurring_Age_Outreach_Vit_A_2_Under_1_Outreach_Female"
+
+
+  - key: "ME_OTHER"
+    description: "ME_Vaccines_Age_Static_label"
+    indicatorQuery: "SELECT 'CHD EPI Annual total population' indicator,count(*)-1 counter UNION
+                     SELECT 'CHD EPI Live births' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Pregnant women' ,count(*)-1 UNION
+                     SELECT 'CHD EPI 9 years old girls' ,count(*)-1 UNION
+                     SELECT 'CHD EPI BCG and OPV 0 monthly target' ,count(*)-1 UNION
+                     SELECT 'CHD EPI MR1 monthly target surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI MR2 monthly target surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI OPV 1 to OPV 3 monthly target surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV1 to PCV3 monthly target surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccines 1to4 monthly target' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Children Protection At Birth PAB monthly target' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Fully Immunized monthly target' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Immunization sessions planned Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Immunization sessions cancelled Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Immunization sessions planned Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Immunization sessions cancelled Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Reasons for cancellation' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA monthly target Pregnant women Td1' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA monthly target Pregnant women Td2' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA monthly target Pregnant women Td3' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA monthly target Pregnant women Td4' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA monthly target Pregnant women Td5' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Static Td1' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Static Td2' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Static Td3' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Static Td4' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Static Td5' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Outreach Td1' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Outreach Td2' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Outreach Td3' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Outreach Td4' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td for women of child bearing age CBA Pregnant women Outreach Td5' ,count(*)-1 UNION
+                     SELECT 'CHD EPI BCG doses used and wasted A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI BCG doses used and wasted A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI OPV doses used and wasted A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI OPV doses used and wasted A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI IPV doses used and wasted A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI IPV doses used and wasted A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI MR doses used and wasted A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI MR doses used and wasted A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPT HepB Hib doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPT HepB Hib doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPT HepB Hib doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPT HepB Hib doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI HPV doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI HPV doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI HPV doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI HPV doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplementation monthly target 6 to 11 Months Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplementation monthly target 6 to 11 Months Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplementation monthly target 12 to 59 Months 1st Dose Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplementation monthly target 12 to 59 Months 1st Dose Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplementation monthly target 13 to 59 Months 2nd Dose Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplementation monthly target 13 to 59 Months 2nd Dose Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplemented Postnatal Mothers Female Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A suplemented Postnatal Mothers Female Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Deworming monthly target 12 to 23 Months Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Deworming monthly target 12 to 23 Months Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Deworming monthly target 24 to 59 Months Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Deworming monthly target 24 to 59 Months Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A doses received A Vitamin A 100 000 ius, Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A doses received A Vitamin A 100 000 ius, Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A doses used B Vitamin A 100 000 ius, Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Vitamin A doses used B Vitamin A 100 000 ius, Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Deworming doses discarded C Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Deworming doses discarded C Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Minor AEFIs TT or Td Bacterial Abscesses' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Minor AEFIs TT or Td Severe local reaction' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Minor AEFIs TT or Td Lymphadenitis' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Minor AEFIs TT or Td Sepsis' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs TT or Td High fever More Than 38 degrees celcius' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs TT or Td Death' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs TT or Td Encephalopathy' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs TT or Td Seizures' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs TT or Td Paralysis' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs TT or Td Significant disability' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs TT or Td Birth defect' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs TT or Td Toxic shock syndrome' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Minor AEFIs HPV Bacterial Abscesses' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Minor AEFIs HPV Severe local reaction' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Minor AEFIs HPV Lymphadenitis' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Minor AEFIs HPV Sepsis' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs HPV High fever More Than 38 degrees celcius' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs HPV Death' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs HPV Encephalopathy' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs HPV Seizures' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs HPV Paralysis' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs HPV Significant disability' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs HPV Birth defect' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Serious AEFIs HPV Toxic shock syndrome' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Suspected measles cases reported' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Suspected measles cases investigated' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Deaths due to measles' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Acute Flaccid Paralysis AFP cases reported' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Acute Flaccid Paralysis AFP cases investigated' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Neonatal Tetanus NNT cases reported' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Neonatal Tetanus NNT cases investigated' ,count(*)-1"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_OTHER_CHD_EPI_Annual_total_population"
+      - "ME_OTHER_CHD_EPI_Live_births"
+      - "ME_OTHER_CHD_EPI_Surviving_infants"
+      - "ME_OTHER_CHD_EPI_Pregnant_women"
+      - "ME_OTHER_CHD_EPI_9_years_old_girls"
+      - "ME_OTHER_CHD_EPI_BCG_and_OPV_0_monthly_target"
+      - "ME_OTHER_CHD_EPI_MR1_monthly_target_surviving_infants"
+      - "ME_OTHER_CHD_EPI_MR2_monthly_target_surviving_infants"
+      - "ME_OTHER_CHD_EPI_OPV_1_to_OPV_3_monthly_target_surviving_infants"
+      - "ME_OTHER_CHD_EPI_PCV1_to_PCV3_monthly_target_surviving_infants"
+      - "ME_OTHER_CHD_EPI_Malaria_Vaccines_1to4_monthly_target"
+      - "ME_OTHER_CHD_EPI_Children_Protection_At_Birth_PAB_monthly_target"
+      - "ME_OTHER_CHD_EPI_Fully_Immunized_monthly_target"
+      - "ME_OTHER_CHD_EPI_Immunization_sessions_planned_Static"
+      - "ME_OTHER_CHD_EPI_Immunization_sessions_cancelled_Static"
+      - "ME_OTHER_CHD_EPI_Immunization_sessions_planned_Outreach"
+      - "ME_OTHER_CHD_EPI_Immunization_sessions_cancelled_Outreach"
+      - "ME_OTHER_CHD_EPI_Reasons_for_cancellation"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_monthly_target_Pregnant_women_Td1"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_monthly_target_Pregnant_women_Td2"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_monthly_target_Pregnant_women_Td3"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_monthly_target_Pregnant_women_Td4"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_monthly_target_Pregnant_women_Td5"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Static_Td1"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Static_Td2"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Static_Td3"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Static_Td4"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Static_Td5"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Outreach_Td1"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Outreach_Td2"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Outreach_Td3"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Outreach_Td4"
+      - "ME_OTHER_CHD_EPI_Td_for_women_of_child_bearing_age_CBA_Pregnant_women_Outreach_Td5"
+      - "ME_OTHER_CHD_EPI_BCG_doses_used_and_wasted_A_Static"
+      - "ME_OTHER_CHD_EPI_BCG_doses_used_and_wasted_A_Outreach"
+      - "ME_OTHER_CHD_EPI_OPV_doses_used_and_wasted_A_Static"
+      - "ME_OTHER_CHD_EPI_OPV_doses_used_and_wasted_A_Outreach"
+      - "ME_OTHER_CHD_EPI_IPV_doses_used_and_wasted_A_Static"
+      - "ME_OTHER_CHD_EPI_IPV_doses_used_and_wasted_A_Outreach"
+      - "ME_OTHER_CHD_EPI_MR_doses_used_and_wasted_A_Static"
+      - "ME_OTHER_CHD_EPI_MR_doses_used_and_wasted_A_Outreach"
+      - "ME_OTHER_CHD_EPI_DPT_HepB_Hib_doses_used_A_Static"
+      - "ME_OTHER_CHD_EPI_DPT_HepB_Hib_doses_used_A_Outreach"
+      - "ME_OTHER_CHD_EPI_DPT_HepB_Hib_doses_discarded_B_Static"
+      - "ME_OTHER_CHD_EPI_DPT_HepB_Hib_doses_discarded_B_Outreach"
+      - "ME_OTHER_CHD_EPI_PCV_doses_used_A_Static"
+      - "ME_OTHER_CHD_EPI_PCV_doses_used_A_Outreach"
+      - "ME_OTHER_CHD_EPI_PCV_doses_discarded_B_Static"
+      - "ME_OTHER_CHD_EPI_PCV_doses_discarded_B_Outreach"
+      - "ME_OTHER_CHD_EPI_ROTA_doses_used_A_Static"
+      - "ME_OTHER_CHD_EPI_ROTA_doses_used_A_Outreach"
+      - "ME_OTHER_CHD_EPI_ROTA_doses_discarded_B_Static"
+      - "ME_OTHER_CHD_EPI_ROTA_doses_discarded_B_Outreach"
+      - "ME_OTHER_CHD_EPI_Malaria_Vaccine_doses_used_A_Static"
+      - "ME_OTHER_CHD_EPI_Malaria_Vaccine_doses_used_A_Outreach"
+      - "ME_OTHER_CHD_EPI_Malaria_Vaccine_doses_discarded_B_Static"
+      - "ME_OTHER_CHD_EPI_Malaria_Vaccine_doses_discarded_B_Outreach"
+      - "ME_OTHER_CHD_EPI_Td_doses_used_A_Static"
+      - "ME_OTHER_CHD_EPI_Td_doses_used_A_Outreach"
+      - "ME_OTHER_CHD_EPI_Td_doses_discarded_B_Static"
+      - "ME_OTHER_CHD_EPI_Td_doses_discarded_B_Outreach"
+      - "ME_OTHER_CHD_EPI_HPV_doses_used_A_Static"
+      - "ME_OTHER_CHD_EPI_HPV_doses_used_A_Outreach"
+      - "ME_OTHER_CHD_EPI_HPV_doses_discarded_B_Static"
+      - "ME_OTHER_CHD_EPI_HPV_doses_discarded_B_Outreach"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplementation_monthly_target_6_to_11_Months_Static"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplementation_monthly_target_6_to_11_Months_Outreach"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplementation_monthly_target_12_to_59_Months_1st_Dose_Static"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplementation_monthly_target_12_to_59_Months_1st_Dose_Outreach"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplementation_monthly_target_13_to_59_Months_2nd_Dose_Static"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplementation_monthly_target_13_to_59_Months_2nd_Dose_Outreach"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplementation_monthly_target_Postnatal_Mothers_Static"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplementation_monthly_target_Postnatal_Mothers_Outreach"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplemented_Postnatal_Mothers_Female_Static"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_suplemented_Postnatal_Mothers_Female_Outreach"
+      - "ME_OTHER_CHD_EPI_Deworming_monthly_target_12_to_23_Months_Static"
+      - "ME_OTHER_CHD_EPI_Deworming_monthly_target_12_to_23_Months_Outreach"
+      - "ME_OTHER_CHD_EPI_Deworming_monthly_target_24_to_59_Months_Static"
+      - "ME_OTHER_CHD_EPI_Deworming_monthly_target_24_to_59_Months_Outreach"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_doses_received_A_Vitamin_A_100_000_ius_Static"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_doses_received_A_Vitamin_A_100_000_ius_Outreach"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_doses_used_B_Vitamin_A_100_000_ius_Static"
+      - "ME_OTHER_CHD_EPI_Vitamin_A_doses_used_B_Vitamin_A_100_000_ius_Outreach"
+      - "ME_OTHER_CHD_EPI_Deworming_doses_discarded_C_Static"
+      - "ME_OTHER_CHD_EPI_Deworming_doses_discarded_C_Outreach"
+      - "ME_OTHER_CHD_EPI_Minor_AEFIs_TT_or_Td_Bacterial_Abscesses"
+      - "ME_OTHER_CHD_EPI_Minor_AEFIs_TT_or_Td_Severe_local_reaction"
+      - "ME_OTHER_CHD_EPI_Minor_AEFIs_TT_or_Td_Lymphadenitis"
+      - "ME_OTHER_CHD_EPI_Minor_AEFIs_TT_or_Td_Sepsis"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_TT_or_Td_High_fever_More_Than_38_degrees_celcius"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_TT_or_Td_Death"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_TT_or_Td_Encephalopathy"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_TT_or_Td_Seizures"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_TT_or_Td_Paralysis"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_TT_or_Td_Significant_disability"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_TT_or_Td_Birth_defect"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_TT_or_Td_Toxic_shock_syndrome"
+      - "ME_OTHER_CHD_EPI_Minor_AEFIs_HPV_Bacterial_Abscesses"
+      - "ME_OTHER_CHD_EPI_Minor_AEFIs_HPV_Severe_local_reaction"
+      - "ME_OTHER_CHD_EPI_Minor_AEFIs_HPV_Lymphadenitis"
+      - "ME_OTHER_CHD_EPI_Minor_AEFIs_HPV_Sepsis"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_HPV_High_fever_More_Than_38_degrees_celcius"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_HPV_Death"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_HPV_Encephalopathy"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_HPV_Seizures"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_HPV_Paralysis"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_HPV_Significant_disability"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_HPV_Birth_defect"
+      - "ME_OTHER_CHD_EPI_Serious_AEFIs_HPV_Toxic_shock_syndrome"
+      - "ME_OTHER_CHD_EPI_Suspected_measles_cases_reported"
+      - "ME_OTHER_CHD_EPI_Suspected_measles_cases_investigated"
+      - "ME_OTHER_CHD_EPI_Deaths_due_to_measles"
+      - "ME_OTHER_CHD_EPI_Acute_Flaccid_Paralysis_AFP_cases_reported"
+      - "ME_OTHER_CHD_EPI_Acute_Flaccid_Paralysis_AFP_cases_investigated"
+      - "ME_OTHER_CHD_EPI_Neonatal_Tetanus_NNT_cases_reported"
+      - "ME_OTHER_CHD_EPI_Neonatal_Tetanus_NNT_cases_investigated"
     grouping: "child"
+
+
 
   # ANC Indicators
   - key: "ME_Number_Of_Women_Registered"
