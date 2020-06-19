@@ -152,8 +152,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private static String[] getFtsSearchFields(String tableName) {
         if (tableName.equalsIgnoreCase(DBConstantsUtils.DEMOGRAPHIC_TABLE_NAME)) {
             return new String[]{DBConstantsUtils.KeyUtils.FIRST_NAME, DBConstantsUtils.KeyUtils.LAST_NAME, DBConstantsUtils.KeyUtils.ANC_ID, GizConstants.KEY.ZEIR_ID};
-        } else if (tableName.equals(OpdDbConstants.KEY.TABLE)) {
-            return new String[]{OpdDbConstants.KEY.FIRST_NAME, OpdDbConstants.KEY.LAST_NAME, OpdDbConstants.KEY.OPENSRP_ID, DBConstants.KEY.ZEIR_ID};
         } else if ("ec_mother_details".equals(tableName)) {
             return new String[]{"next_contact"};
         } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
@@ -323,8 +321,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , BaseMaternityFormActivity.class
                 , BaseMaternityProfileActivity.class
                 , true);
+        maternityMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
         maternityMetadata.setLocationLevels(GizUtils.getLocationLevels());
         maternityMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
+
         MaternityConfiguration maternityConfiguration = new MaternityConfiguration
                 .Builder(GizMaternityRegisterQueryProvider.class)
                 .setMaternityMetadata(maternityMetadata)

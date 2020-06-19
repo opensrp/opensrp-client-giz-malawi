@@ -258,6 +258,13 @@ condition: "!step3_pelvic_exam_abnormal.isEmpty() && step3_pelvic_exam_abnormal.
 actions:
   - "isRelevant = true"
 ---
+name: step3_pelvic_exam_abnormal_other
+description: pelvic_exam_abnormal_other
+priority: 1
+condition: "!step3_pelvic_exam_abnormal.isEmpty() && step3_pelvic_exam_abnormal.contains('other')"
+actions:
+  - "isRelevant = true"
+---
 name: step5_presenting_part
 description: Presenting Part
 priority: 1

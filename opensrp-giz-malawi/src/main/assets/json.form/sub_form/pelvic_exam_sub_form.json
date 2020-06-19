@@ -169,14 +169,10 @@
         "err": "Please enter valid content"
       },
       "relevance": {
-        "step3:pelvic_exam_abnormal": {
-          "ex-checkbox": [
-            {
-              "or": [
-                "other"
-              ]
-            }
-          ]
+        "rules-engine": {
+          "ex-rules": {
+            "rules-file": "physical-exam-relevance-rules.yml"
+          }
         }
       }
     }

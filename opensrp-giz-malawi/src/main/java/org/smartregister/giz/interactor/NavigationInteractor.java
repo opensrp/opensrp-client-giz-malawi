@@ -61,12 +61,12 @@ public class NavigationInteractor implements NavigationContract.Interactor {
         Cursor cursor = null;
         if (GizConstants.RegisterType.ALL_CLIENTS.equals(registerType)) {
             registerType = "'" + GizConstants.RegisterType.OPD + "'," + "'" + GizConstants.RegisterType.ANC + "',"
-                    + "'" + GizConstants.RegisterType.CHILD + "',"  + "'" + GizConstants.RegisterType.MATERNITY + "'";
+                    + "'" + GizConstants.RegisterType.CHILD + "'," + "'" + GizConstants.RegisterType.MATERNITY + "'";
         } else {
             registerType = "'" + registerType + "'";
         }
 
-        String mainCondition = String.format(" where %s is null AND register_type IN (%s) ", GizConstants.TABLE_NAME.ALL_CLIENTS + "." + GizConstants.KEY.DATE_REMOVED, registerType);
+        String mainCondition = String.format(" where %s is null AND %s is null AND register_type IN (%s) ", GizConstants.TABLE_NAME.ALL_CLIENTS + "." + GizConstants.KEY.DATE_REMOVED, GizConstants.TABLE_NAME.REGISTER_TYPE + "." + GizConstants.KEY.DATE_REMOVED, registerType);
 
         if (registerType.contains(GizConstants.RegisterType.CHILD)) {
             mainCondition += " AND ( " + Constants.KEY.DOD + " is NULL OR " + Constants.KEY.DOD + " = '' ) ";
@@ -74,7 +74,7 @@ public class NavigationInteractor implements NavigationContract.Interactor {
 
         try {
             SmartRegisterQueryBuilder smartRegisterQueryBuilder = new SmartRegisterQueryBuilder();
-            String query = MessageFormat.format("select count(*) from {0} inner join client_register_type on ec_client.id=client_register_type.base_entity_id {1}", GizConstants.TABLE_NAME.ALL_CLIENTS, mainCondition);
+            String query = MessageFormat.format("select count(*) from {0} inner join client_register_type on ec_client.id = client_register_type.base_entity_id {1}", GizConstants.TABLE_NAME.ALL_CLIENTS, mainCondition);
             query = smartRegisterQueryBuilder.Endquery(query);
             Timber.i("2%s", query);
             cursor = commonRepository(GizConstants.TABLE_NAME.ALL_CLIENTS).rawCustomQueryForAdapter(query);

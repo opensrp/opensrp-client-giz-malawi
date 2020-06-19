@@ -225,7 +225,7 @@
             "openmrs_entity_id": "5555AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "married",
+            "key": "living_together",
             "text": "Living together",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",

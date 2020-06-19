@@ -1,94 +1,94 @@
 ---
-name: step4_diagnostic_test_result
+name: step3_diagnostic_test_result
 description: diagnostic_test_result
 priority: 1
-condition: "step4_diagnostic_test == 'pregnancy_test' || step4_diagnostic_test == 'malaria_microscopy' || step4_diagnostic_test == 'hiv_test_rapid'
-|| step4_diagnostic_test == 'hiv_test' || step4_diagnostic_test == 'syphilis_vdrl' || step4_diagnostic_test == 'hiv_eid'
-|| step4_diagnostic_test == 'hep_b' || step4_diagnostic_test == 'hep_c' || step4_diagnostic_test == 'tb_urine_lam'
-|| step4_diagnostic_test == 'tb_screening' || step4_diagnostic_test == 'midstream_urine_gram_staining' || step4_diagnostic_test == 'malaria_mrdt'"
+condition: "step3_diagnostic_test == 'pregnancy_test' || step3_diagnostic_test == 'malaria_microscopy' || step3_diagnostic_test == 'hiv_test_rapid'
+|| step3_diagnostic_test == 'hiv_test' || step3_diagnostic_test == 'syphilis_vdrl' || step3_diagnostic_test == 'hiv_eid'
+|| step3_diagnostic_test == 'hep_b' || step3_diagnostic_test == 'hep_c' || step3_diagnostic_test == 'tb_urine_lam'
+|| step3_diagnostic_test == 'tb_screening' || step3_diagnostic_test == 'midstream_urine_gram_staining' || step3_diagnostic_test == 'malaria_mrdt'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_specify
+name: step3_diagnostic_test_result_specify
 description: diagnostic_test_result_specify
 priority: 1
-condition: "step4_diagnostic_test == 'ultra_sound'"
+condition: "step3_diagnostic_test == 'ultra_sound'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_tb_gene_xpert
+name: step3_diagnostic_test_result_tb_gene_xpert
 description: diagnostic_test_result_tb_gene_xpert
 priority: 1
-condition: "step4_diagnostic_test == 'tb_gene_xpert'"
+condition: "step3_diagnostic_test == 'tb_gene_xpert'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_tb_smear_microscopy
+name: step3_diagnostic_test_result_tb_smear_microscopy
 description: diagnostic_test_result_tb_smear_microscopy
 priority: 1
-condition: "step4_diagnostic_test == 'tb_smear_microscopy'"
+condition: "step3_diagnostic_test == 'tb_smear_microscopy'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_urine_dipstick_nitrites
+name: step3_diagnostic_test_result_urine_dipstick_nitrites
 description: diagnostic_test_result_urine_dipstick_nitrites
 priority: 1
-condition: "step4_diagnostic_test == 'urine_dipstick'"
+condition: "step3_diagnostic_test == 'urine_dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_urine_dipstick_leukocytes
+name: step3_diagnostic_test_result_urine_dipstick_leukocytes
 description: diagnostic_test_result_urine_dipstick_leukocytes
 priority: 1
-condition: "step4_diagnostic_test == 'urine_dipstick'"
+condition: "step3_diagnostic_test == 'urine_dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_urine_dipstick_leukocytes
+name: step3_diagnostic_test_result_urine_dipstick_leukocytes
 description: diagnostic_test_result_urine_dipstick_leukocytes
 priority: 1
-condition: "step4_diagnostic_test == 'urine_dipstick'"
+condition: "step3_diagnostic_test == 'urine_dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_urine_dipstick_protein
+name: step3_diagnostic_test_result_urine_dipstick_protein
 description: diagnostic_test_result_urine_dipstick_protein
 priority: 1
-condition: "step4_diagnostic_test == 'urine_dipstick'"
+condition: "step3_diagnostic_test == 'urine_dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_urine_dipstick_glucose
+name: step3_diagnostic_test_result_urine_dipstick_glucose
 description: diagnostic_test_result_urine_dipstick_glucose
 priority: 1
-condition: "step4_diagnostic_test == 'urine_dipstick'"
+condition: "step3_diagnostic_test == 'urine_dipstick'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_hiv_viral_load
+name: step3_diagnostic_test_result_hiv_viral_load
 description: diagnostic_test_result_hiv_viral_load
 priority: 1
-condition: "step4_diagnostic_test == 'hiv_viral_load'"
+condition: "step3_diagnostic_test == 'hiv_viral_load'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_hiv_viral_load_no
+name: step3_diagnostic_test_result_hiv_viral_load_no
 description: diagnostic_test_result_hiv_viral_load_no
 priority: 1
-condition: "step4_diagnostic_test_result_hiv_viral_load == 'Detectable'"
+condition: "step3_diagnostic_test_result_hiv_viral_load == 'Detectable'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_glucose
+name: step3_diagnostic_test_result_glucose
 description: diagnostic_test_result_glucose
 priority: 1
-condition: "step4_diagnostic_test.startsWith('blood_glucose') || step4_diagnostic_test == 'hemocue_haemoglobinometer'"
+condition: "step3_diagnostic_test.startsWith('blood_glucose') || step3_diagnostic_test == 'hemocue_haemoglobinometer'"
 actions:
   - "isRelevant = true"
 ---
-name: step4_diagnostic_test_result_blood_type
+name: step3_diagnostic_test_result_blood_type
 description: diagnostic_test_result_blood_type
 priority: 1
-condition: "step4_diagnostic_test == 'blood_type'"
+condition: "step3_diagnostic_test == 'blood_type'"
 actions:
   - "isRelevant = true"

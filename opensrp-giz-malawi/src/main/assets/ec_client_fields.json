@@ -1031,6 +1031,14 @@
           }
         },
         {
+          "column_name": "ga_calculated",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ga_calculated"
+          }
+        },
+        {
           "column_name": "onset_labour_date",
           "type": "Event",
           "json_mapping": {

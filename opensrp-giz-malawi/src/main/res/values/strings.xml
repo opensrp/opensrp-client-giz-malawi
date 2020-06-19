@@ -103,6 +103,8 @@
     <string name="all_registers">All Registers</string>
     <string name="menu_child_clients">Child Clients</string>
 
+    <string name="any_changes_you_make">Are you sure you want to go back? All data you have entered in this form will be cleared.</string>
+
     <string name="vit_a_1">Vit A 1</string>
     <string name="vit_a_2">Vit A 2</string>
     <string name="vit_a_3">Vit A 3</string>

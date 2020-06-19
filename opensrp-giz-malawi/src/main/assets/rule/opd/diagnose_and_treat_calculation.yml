@@ -6,9 +6,9 @@ condition: "true"
 actions:
   - 'calculation = step5_medicine'
 ---
-name: step3_disease_code_object
+name: step4_disease_code_object
 description: disease_code_object
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = step3_disease_code'
+  - 'calculation = step4_disease_code'

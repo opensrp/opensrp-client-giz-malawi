@@ -2795,6 +2795,23 @@
         }
       },
       {
+        "key": "toaster28",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Fetal heart rate out of normal range (120-160). Please have the woman lay on her left side for 15 minutes and check again.",
+        "text_color": "#D56900",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "fetal_heart_rate_repeat_label",
         "type": "label",
         "label_text_style": "bold",
@@ -2858,23 +2875,6 @@
         "text": "Abnormal fetal heart rate. Refer to hospital.",
         "text_color": "#E20000",
         "toaster_type": "problem",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "physical-exam-relevance-rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "toaster28",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Fetal heart rate out of normal range (120-160). Please have the woman lay on her left side for 15 minutes and check again.",
-        "text_color": "#D56900",
-        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

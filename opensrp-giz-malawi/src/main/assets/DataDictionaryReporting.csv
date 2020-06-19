@@ -1,5 +1,5 @@
 2,ME_Vaccines_Age_Outreach_opv_0_Under_1_Outreach,OPV0 Count for under 1 (0-11months) (Outreach),pVdb1wcTMyw,H5xzz0m9zyd,CHD EPI OPV 0 Childhood Vaccination Outreach,child
-3,ME_Vaccines_Age_Static_opv_0_Under_1_Static,OPV0 Count for under 1 (0-11months)(Static),pVdb1wcTMyw,goHo0wV2Gx1,CHD EPI OPV 0 Childhood Vaccination Static Under 1 ,child
+3,ME_Vaccines_Age_Static_opv_0_Under_1_Static,OPV0 Count for under 1 (0-11months)(Static),pVdb1wcTMyw,goHo0wV2Gx1,CHD EPI OPV 0 Childhood Vaccination Static Under 1,child
 4,ME_Vaccines_Age_Outreach_opv_1_Over_1_Outreach,OPV1 Count for over 1 (Outreach),hftsrvq65Ia,zKLduwqZFnh,CHD EPI OPV1 Childhood Vaccination Outreach Over 1,child
 5,ME_Vaccines_Age_Static_opv_1_Over_1_Static,OPV1 Count for over 1 (Static),hftsrvq65Ia,r2NJTUrJ2TL,CHD EPI OPV1 Childhood Vaccination Static Over 1,child
 6,ME_Vaccines_Age_Outreach_opv_1_Under_1_Outreach,OPV1 Count for under 1 (0-11months)(Outreach),hftsrvq65Ia,ipKITPnwlcP,CHD EPI OPV1 Childhood Vaccination Outreach Under 1,child
@@ -84,8 +84,8 @@
 85,ME_Vaccines_Age_Outreach_mv_3_Under_1_Outreach,MV3 Count for Under 1 (Outreach),MqhI0ToAbRd,H5xzz0m9zyd,CHD EPI Malaria Vaccine 3 Childhood Vaccination Outreach Under 1,child
 86,ME_Vaccines_Age_Static_mv_3_Under_1_Static,MV3 Count for Under 1 (Static),MqhI0ToAbRd,goHo0wV2Gx1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Static Under 1,child
 87,ME_Vaccines_Age_Static_mv_4_Over_1_Static,MV4 Count for Over 1 (Static),BcipDoKGMNu,k4MfKNU5WDq,CHD EPI Malaria Vaccine 4 Childhood Vaccination Static > 24-27 Months,child
-88,ME__CPT_out_of_HIV_positive,On CPT out of HIV+,Mvo7Ah1xx61,Tt7fU5lUhAU,RHD ANC CPT Women on CPT,anc
-89,ME__NVP_syrup_given,NVP syrup given,XXKhfvXpgmF,Tt7fU5lUhAU,RHD ANC NVP Syrup Given Received NVP,anc
+88,ME_CPT_out_of_HIV_positive,On CPT out of HIV+,Mvo7Ah1xx61,Tt7fU5lUhAU,RHD ANC CPT Women on CPT,anc
+89,ME_NVP_syrup_given,NVP syrup given,XXKhfvXpgmF,Tt7fU5lUhAU,RHD ANC NVP Syrup Given Received NVP,anc
 90,ME_Albendazole_doses_One_dose,Albendazole doses 1 dose,MXHcqC6ruW6,Tt7fU5lUhAU,RHD ANC Albendazole 1,anc
 91,ME_ART_Status_Final_Visit_Not_On_ART,ART status Final Visit (Not on ART),jEFHH54Zr4C,Y416M7Sz8eZ,RHD ANC Final ART Status of mother Not on ART,anc
 92,ME_ART_Status_Final_Visit_On_ART_Before_ANC,ART status Final Visit ( On ART before ANC),jEFHH54Zr4C,DqSyuOT5XSd,RHD ANC Final ART Status of mother On ART Before ANC,anc
@@ -96,7 +96,7 @@
 97,ME_ART_Status_First_Visit_Start_ART_0_27_Weeks,ART status first visit (Start ART 0-27 weeks),fKcDMJPqgIk,mHUeH2KKajo,RHD ANC 1st Visit ART Status of mother Start ART 0-27 weeks,anc
 98,ME_ART_Status_First_Visit_Start_ART_28_plus_Weeks,ART status first visit (Start ART 28+ weeks),fKcDMJPqgIk,jCWx8luh4FJ,RHD ANC 1st Visit ART Status of mother Start ART 28+ weeks,anc
 99,ME_FeFo_More_Than_120,FeFo tablets 120+ tabs,Rczpg2vCvat,Tt7fU5lUhAU,RHD ANC Fe-Fo Tablets 120+,anc
-100,ME_Hb_(g/dl)_less_than_7,Hb (g/dl) <7,AmkTUKYrM31,Tt7fU5lUhAU,RHD ANC HB (G/dl) <7,anc
+100,ME_Hb_g_dl_less_than_7,Hb (g/dl) <7,AmkTUKYrM31,Tt7fU5lUhAU,RHD ANC HB (G/dl) <7,ancAmkTUKYrM31-Tt7fU5lUhAU-val
 101,ME_Hb_g_over_dl_greater_than_and_equal_to_7,Hb (g/dl) 7,QUDJ8U1O0Yl,Tt7fU5lUhAU,RHD ANC HB (G/dl) 7,anc
 102,ME_Hb_g_over_dl_ND,Hb (g/dl) ND,AbDFS7NVOc9,Tt7fU5lUhAU,RHD ANC HB (G/dl) ND,anc
 103,ME_HIV_Status_Final_New_Negative,HIV status Final (New negative),qG10jihknty,Tt7fU5lUhAU,RHD ANC HIV Test Result New Negative,anc
@@ -127,70 +127,70 @@
 128,ME_Total_Visits_Per_Woman_With_5_plus_Visits,Total Visits per woman with 5+ visits,EUvtRZSLh2F,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 5+ Visits,anc
 129,ME_Week_Of_First_ANC_Visit_0_12_weeks,Week of first ANC Visit(0-12 weeks),EVt2iC6Tn34,Tt7fU5lUhAU,RHD ANC Week of first ANC Visit Week 0-12,anc
 130,ME_With_Preeclampsia,With (Pre-) Eclampsia,sNlbaVoobzq,Tt7fU5lUhAU,RHD ANC (Pre-) Eclampsia Yes,anc
-130,ME_ART_Complications,Number of mothers (pre) Eclampsia (Ecl),RS3PtRniRns,JPgETYeD4qF,RHD MAT Obstetric Complications (Pre-) Eclampsia,maternity
-131,ME_ART_Complications,Number of mothers Ante partum. haem. (APH),RS3PtRniRns,DfPxMVfjndd,RHD MAT Obstetric Complications Ante Partum Heam,maternity
-132,ME_ART_Complications,Number of mothers Foetal distress (FD),RS3PtRniRns,PEpIz3uFJ4a,RHD MAT Obstetric Complications Foetal distress (FD),maternity
-133,ME_ART_Complications,Number of mothers Obstructed/Prolonged labour (OPL),RS3PtRniRns,Ht1Pz8Kn2k3,RHD MAT Obstetric Complications Obstr/Prol Labor,maternity
-134,ME_ART_Complications,Number of mothers Others (Oth),RS3PtRniRns,R2qiSvs4zGK,RHD MAT Obstetric Complications Others,maternity
-135,ME_ART_Complications,Number of mothers Post-partum haem. (PPH),RS3PtRniRns,ZGX8SK5P435,RHD MAT Obstetric Complications Post Partum Heam,maternity
-136,ME_ART_Complications,Number of mothers Premature labour (PL),RS3PtRniRns,ezMtOgig3e6,RHD MAT Obstetric Complications Premature labour (pl),maternity
-137,ME_ART_Complications,Number of mothers Retained placenta (Rp),RS3PtRniRns,qffHiXEve5i,RHD MAT Obstetric Complications Retained placenta (RP),maternity
-138,ME_ART_Complications,Number of mothers Ruptured Uterus (RU),RS3PtRniRns,VrBgkdWJor3,RHD MAT Obstetric Complications Raptured Uterus,maternity
-139,ME_ART_Complications,Number of mothers Sepsis (Sep),RS3PtRniRns,N6Kp9pEEqSI,RHD MAT Obstetric Complications Sepsis,maternity
-140,ME_ART_Complications,Number of mothers with no complications,RS3PtRniRns,XvMqbLpCTt8,RHD MAT Obstetric Complications None,maternity
-141,ME_ART_Start,Not on ART (incl. HIV–),MoximPvXuj6,GoX45uTUUCH,RHD MAT ART Mother Not on ART,maternity
-142,ME_ART_Start,Start before pregnancy (Prev. ART,MoximPvXuj6,xmKtsiRYAXz,RHD MAT ART Mother Start Before Pregnancy,maternity
-143,ME_ART_Start,Start during Labour (Lab ART),MoximPvXuj6,hPVDsUM32VS,RHD MAT ART Mother Start During Labor,maternity
-144,ME_ART_Start,Start in 1st or 2nd trim. (0-27w ART),MoximPvXuj6,jMqmEmzruFg,RHD MAT ART Mother Start In 1st or 2nd Trimester,maternity
-145,ME_ART_Start,Start in 3rd trimester (28+w ART),MoximPvXuj6,UyOtLy9DhPs,RHD MAT ART Mother Start In 3rd Trimester,maternity
-146,ME_HIV_Current,HIV test result New negative,MD0Gp8MzkHf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Negative,maternity
-147,ME_HIV_Current,HIV test result New positive,xRrJWogiEMf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Positive,maternity
-148,ME_HIV_Current,HIV test result Not done,U3FydV1M1RQ,Tt7fU5lUhAU,RHD MAT HIV Test Results Not Done,maternity
+130,ME_MAT_Complications_ECL,Number of mothers (pre) Eclampsia (Ecl),RS3PtRniRns,JPgETYeD4qF,RHD MAT Obstetric Complications (Pre-) Eclampsia,maternity
+131,ME_MAT_Complications_APH,Number of mothers Ante partum. haem. (APH),RS3PtRniRns,DfPxMVfjndd,RHD MAT Obstetric Complications Ante Partum Heam,maternity
+132,ME_MAT_Complications_FD,Number of mothers Foetal distress (FD),RS3PtRniRns,PEpIz3uFJ4a,RHD MAT Obstetric Complications Foetal distress (FD),maternity
+133,ME_MAT_Complications_OPL,Number of mothers Obstructed/Prolonged labour (OPL),RS3PtRniRns,Ht1Pz8Kn2k3,RHD MAT Obstetric Complications Obstr/Prol Labor,maternity
+134,ME_MAT_Complications_Other,Number of mothers Others (Oth),RS3PtRniRns,R2qiSvs4zGK,RHD MAT Obstetric Complications Others,maternity
+135,ME_MAT_Complications_PPH,Number of mothers Post-partum haem. (PPH),RS3PtRniRns,ZGX8SK5P435,RHD MAT Obstetric Complications Post Partum Heam,maternity
+136,ME_MAT_Complications_PL,Number of mothers Premature labour (PL),RS3PtRniRns,ezMtOgig3e6,RHD MAT Obstetric Complications Premature labour (pl),maternity
+137,ME_MAT_Complications_RP,Number of mothers Retained placenta (Rp),RS3PtRniRns,qffHiXEve5i,RHD MAT Obstetric Complications Retained placenta (RP),maternity
+138,ME_MAT_Complications_RU,Number of mothers Ruptured Uterus (RU),RS3PtRniRns,VrBgkdWJor3,RHD MAT Obstetric Complications Raptured Uterus,maternity
+139,ME_MAT_Complications_SEP,Number of mothers Sepsis (Sep),RS3PtRniRns,N6Kp9pEEqSI,RHD MAT Obstetric Complications Sepsis,maternity
+140,ME_MAT_Complications_None,Number of mothers with no complications,RS3PtRniRns,XvMqbLpCTt8,RHD MAT Obstetric Complications None,maternity
+141,ME_ART_Not_On_ART,Not on ART (incl. HIV–),MoximPvXuj6,GoX45uTUUCH,RHD MAT ART Mother Not on ART,maternity
+142,ME_ART_Start_Before_Pregnancy,Start before pregnancy (Prev. ART,MoximPvXuj6,xmKtsiRYAXz,RHD MAT ART Mother Start Before Pregnancy,maternity
+143,ME_ART_Start_Labour,Start during Labour (Lab ART),MoximPvXuj6,hPVDsUM32VS,RHD MAT ART Mother Start During Labor,maternity
+144,ME_ART_Start_First_Trimester,Start in 1st or 2nd trim. (0-27w ART),MoximPvXuj6,jMqmEmzruFg,RHD MAT ART Mother Start In 1st or 2nd Trimester,maternity
+145,ME_ART_Start_Third_Trimester,Start in 3rd trimester (28+w ART),MoximPvXuj6,UyOtLy9DhPs,RHD MAT ART Mother Start In 3rd Trimester,maternity
+146,ME_HIV_Current_New_Negative,HIV test result New negative,MD0Gp8MzkHf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Negative,maternity
+147,ME_HIV_Current_New_Positive,HIV test result New positive,xRrJWogiEMf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Positive,maternity
+148,ME_HIV_Current_Not_Done,HIV test result Not done,U3FydV1M1RQ,Tt7fU5lUhAU,RHD MAT HIV Test Results Not Done,maternity
 149,ME_HIV_Previous,HIV test result Previous positive,a3DzFDGAQAi,Tt7fU5lUhAU,RHD MAT HIV Test Results Previous Positive,maternity
-150,ME_MAT_Babies,Singletons,jZ5TP3UpaiQ,PJEmG4BbHTf,RHD MAT Number of Babies (still and live) Singletons,maternity
-151,ME_MAT_Babies,Twins/Triplets,jZ5TP3UpaiQ,W3Angorx03z,RHD MAT Number of Babies (still and live) Twins/Triplets,maternity
-152,ME_MAT_Baby_Care,Antibiotics,mWeTHZCPNT0,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Antibiotics,maternity
-153,ME_MAT_Baby_Care,Chlorohexidine given,YvNy8rie5j7,Tt7fU5lUhAU,RHD MAT Routine Care Chlorohexidine Given,maternity
-154,ME_MAT_Baby_Care,Kangaroo mother care (KMC),zANGFtNoUEt,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Kangaroo Mother Care,maternity
-155,ME_MAT_Baby_Care,Other,qYKuaHC8Gnk,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Other,maternity
-156,ME_MAT_Baby_Care,Resuscitation,zE0WLBSHx1e,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Rescucitations,maternity
-157,ME_MAT_Baby_Care,Tetracycline ointment given,YGJbvAkqBgI,Tt7fU5lUhAU,RHD MAT Tetracycline Eye Oitment Given,maternity
-158,ME_MAT_Baby_Care,Vitamin K given,zAcW94iEdXU,Tt7fU5lUhAU,RHD MAT Routine Care Vitamin K Given,maternity
-159,ME_MAT_Baby_Complications,Asphyxia,vcEWpcFjEuU,Tt7fU5lUhAU,RHD MAT Newborn Complications Asphyxia,maternity
-160,ME_MAT_Baby_Complications,Newborns with no complications,SytVoNgDYlf,Tt7fU5lUhAU,RHD MAT Newborn Complications None,maternity
-161,ME_MAT_Baby_Complications,Other newborn complications,Z9Q4qIjoePS,Tt7fU5lUhAU,RHD MAT Newborn Complications Other,maternity
-162,ME_MAT_Baby_Complications,Prematurity,UXTZkim1Npv,Tt7fU5lUhAU,RHD MAT Newborn Complications Prematurity,maternity
-163,ME_MAT_Baby_Complications,Sepsis,bPvw8ZdBgRe,Tt7fU5lUhAU,RHD MAT Newborn Complications Sepsis,maternity
-164,ME_MAT_Baby_Complications,Weight less 2500g,gkgM1TgE5oF,Tt7fU5lUhAU,RHD MAT Newborn Complications Weight < 2500g,maternity
+150,ME_MAT_Babies_Single,Singletons,jZ5TP3UpaiQ,PJEmG4BbHTf,RHD MAT Number of Babies (still and live) Singletons,maternity
+151,ME_MAT_Babies_Multiple,Twins/Triplets,jZ5TP3UpaiQ,W3Angorx03z,RHD MAT Number of Babies (still and live) Twins/Triplets,maternity
+152,ME_MAT_Baby_Care_Antibiotics,Antibiotics,mWeTHZCPNT0,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Antibiotics,maternity
+153,ME_MAT_Baby_Care_CHL,Chlorohexidine given,YvNy8rie5j7,Tt7fU5lUhAU,RHD MAT Routine Care Chlorohexidine Given,maternity
+154,ME_MAT_Baby_Care_KMC,Kangaroo mother care (KMC),zANGFtNoUEt,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Kangaroo Mother Care,maternity
+155,ME_MAT_Baby_Care_Other_Mgt,Other,qYKuaHC8Gnk,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Other,maternity
+156,ME_MAT_Baby_Care_Resuscitation,Resuscitation,zE0WLBSHx1e,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Rescucitations,maternity
+157,ME_MAT_Baby_Care_TEO,Tetracycline ointment given,YGJbvAkqBgI,Tt7fU5lUhAU,RHD MAT Tetracycline Eye Oitment Given,maternity
+158,ME_MAT_Baby_Care_VitK,Vitamin K given,zAcW94iEdXU,Tt7fU5lUhAU,RHD MAT Routine Care Vitamin K Given,maternity
+159,ME_MAT_Baby_Complications_Asphy,Asphyxia,vcEWpcFjEuU,Tt7fU5lUhAU,RHD MAT Newborn Complications Asphyxia,maternity
+160,ME_MAT_Baby_Complications_None,Newborns with no complications,SytVoNgDYlf,Tt7fU5lUhAU,RHD MAT Newborn Complications None,maternity
+161,ME_MAT_Baby_Complications_Other,Other newborn complications,Z9Q4qIjoePS,Tt7fU5lUhAU,RHD MAT Newborn Complications Other,maternity
+162,ME_MAT_Baby_Complications_Prem,Prematurity,UXTZkim1Npv,Tt7fU5lUhAU,RHD MAT Newborn Complications Prematurity,maternity
+163,ME_MAT_Baby_Complications_Sep,Sepsis,bPvw8ZdBgRe,Tt7fU5lUhAU,RHD MAT Newborn Complications Sepsis,maternity
+164,ME_MAT_Baby_Complications_Low_Weight,Weight less 2500g,gkgM1TgE5oF,Tt7fU5lUhAU,RHD MAT Newborn Complications Weight < 2500g,maternity
 165,ME_MAT_BF_First_Hour,Started Breastfeeding within 60 minutes,bjLZY1FqdDJ,Tt7fU5lUhAU,RHD MAT Breastfeeding Initiated,maternity
-166,ME_MAT_Care,Antenatal corticosteroids (Acs),b4WuKkuuR0W,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antenatal corticosteroids (Acs),maternity
-167,ME_MAT_Care,Antibiotics (Abx),gXjGJoC7gDs,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics,maternity
-168,ME_MAT_Care,Anticonvulsants (AC),n7XnfWv0tHo,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Anticonvulsive,maternity
-169,ME_MAT_Care,Blood Transfusion (Tr),vyIPU3KOFF6,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Blood Transfusion,maternity
-170,ME_MAT_Care,Evacuation of Retained Products (ERP),p1OuCSVe4Gk,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics Evacuation of Retained Products (ERP),maternity
-171,ME_MAT_Care,Manual Removal of Placenta (MRP),BbmxEK5AYaL,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Manual Rem Placenta,maternity
-172,ME_MAT_Care,Non pneumatic Anti-Shock Garment (NASG),Tx8IDGqV3rt,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Non pneumatic Anti-Shock Garment (NASG),maternity
-173,ME_MAT_Care,Oxytocin (Ox),FhNg0SdUMe8,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Oxytocin,maternity
+166,ME_MAT_Care_Acs,Antenatal corticosteroids (Acs),b4WuKkuuR0W,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antenatal corticosteroids (Acs),maternity
+167,ME_MAT_Care_Abx,Antibiotics (Abx),gXjGJoC7gDs,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics,maternity
+168,ME_MAT_Care_AC,Anticonvulsants (AC),n7XnfWv0tHo,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Anticonvulsive,maternity
+169,ME_MAT_Care_Tr,Blood Transfusion (Tr),vyIPU3KOFF6,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Blood Transfusion,maternity
+170,ME_MAT_Care_ROPC,Evacuation of Retained Products (ERP),p1OuCSVe4Gk,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics Evacuation of Retained Products (ERP),maternity
+171,ME_MAT_Care_MRP,Manual Removal of Placenta (MRP),BbmxEK5AYaL,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Manual Rem Placenta,maternity
+172,ME_MAT_Care_NASG,Non pneumatic Anti-Shock Garment (NASG),Tx8IDGqV3rt,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Non pneumatic Anti-Shock Garment (NASG),maternity
+173,ME_MAT_Care_Ox,Oxytocin (Ox),FhNg0SdUMe8,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Oxytocin,maternity
 174,ME_MAT_Child_HIV_Status_Exposed_No_NVP,Alive exposed no NVP,EeywK6AHQdK,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp No NVP,maternity
 175,ME_MAT_Child_HIV_Status_Exposed_NVP_Started,Alive exp NVP started,iBBnHx1Uf50,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp NVP Started,maternity
 176,ME_MAT_Child_HIV_Status_Not_Exposed,Alive not HIV exposed,q7NoDcfaciO,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive not HIV Exp,maternity
 177,ME_MAT_Child_HIV_Status_Unknown,Alive unknown exp,kaYz6eqxqQH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive unknown Exp,maternity
-178,ME_MAT_Delivery_Mode,Breech,UdxIE19B603,Tt7fU5lUhAU,RHD MAT Delivery Mode Breech,maternity
-179,ME_MAT_Delivery_Mode,Caesarean section,FYDa4NcJNrq,Tt7fU5lUhAU,RHD MAT Delivery Mode Caesarian Section,maternity
-180,ME_MAT_Delivery_Mode,Spontaneous vertex,GwzEUK12Pqh,Tt7fU5lUhAU,RHD MAT Delivery Mode Spontaneous Vagina,maternity
-181,ME_MAT_Delivery_Mode,Vacuum extraction,LLrXje6xH8D,Tt7fU5lUhAU,RHD MAT Delivery Mode Vacuum Extraction,maternity
-182,ME_MAT_Delivery_Person,Skilled birth attendant (MD/CO/MA/Nurse/MW),R9CHUW81m9o,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery MO/CO/MA/Nurse/MW,maternity
-183,ME_MAT_Delivery_Person,Unskilled birth attendant (PA/WA/HSA/Other/None),mHcrkMgxARq,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery PA/WA/HSA,maternity
-184,ME_MAT_Delivery_Place,Home / TBA,hPhTbuLFnx4,Tt7fU5lUhAU,RHD MAT Delivery Place Home/TBA,maternity
-185,ME_MAT_Delivery_Place,In transit (BBA),KOu770F7YOQ,Tt7fU5lUhAU,RHD MAT Delivery In Transit (BBA),maternity
-186,ME_MAT_Delivery_Place,Other facility,iGYCZRe52Vy,Tt7fU5lUhAU,RHD MAT Delivery Place Other Facility,maternity
-187,ME_MAT_Delivery_Place,This facility,YIP4fvYcGYQ,Tt7fU5lUhAU,RHD MAT Delivery Place This Facility,maternity
+178,ME_MAT_Delivery_Mode_BR,Breech,UdxIE19B603,Tt7fU5lUhAU,RHD MAT Delivery Mode Breech,maternity
+179,ME_MAT_Delivery_Mode_CS,Caesarean section,FYDa4NcJNrq,Tt7fU5lUhAU,RHD MAT Delivery Mode Caesarian Section,maternity
+180,ME_MAT_Delivery_Mode_SVD,Spontaneous vertex,GwzEUK12Pqh,Tt7fU5lUhAU,RHD MAT Delivery Mode Spontaneous Vagina,maternity
+181,ME_MAT_Delivery_Mode_VE,Vacuum extraction,LLrXje6xH8D,Tt7fU5lUhAU,RHD MAT Delivery Mode Vacuum Extraction,maternity
+182,ME_MAT_Delivery_Person_Skilled,Skilled birth attendant (MD/CO/MA/Nurse/MW),R9CHUW81m9o,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery MO/CO/MA/Nurse/MW,maternity
+183,ME_MAT_Delivery_Person_Not_skilled,Unskilled birth attendant (PA/WA/HSA/Other/None),mHcrkMgxARq,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery PA/WA/HSA,maternity
+184,ME_MAT_Delivery_Place_Home,Home / TBA,hPhTbuLFnx4,Tt7fU5lUhAU,RHD MAT Delivery Place Home/TBA,maternity
+185,ME_MAT_Delivery_Place_TR,In transit (BBA),KOu770F7YOQ,Tt7fU5lUhAU,RHD MAT Delivery In Transit (BBA),maternity
+186,ME_MAT_Delivery_Place_Other,Other facility,iGYCZRe52Vy,Tt7fU5lUhAU,RHD MAT Delivery Place Other Facility,maternity
+187,ME_MAT_Delivery_Place_This,This facility,YIP4fvYcGYQ,Tt7fU5lUhAU,RHD MAT Delivery Place This Facility,maternity
 188,ME_MAT_ITN_Given,ITN given,NNFGzJD43R9,Tt7fU5lUhAU,RHD MAT Routine Care ITN Given,maternity
-189,ME_MAT_Mother_Status,Mother died before discharge (DBD),WjHvEHMCyKo,Tt7fU5lUhAU,RHD MAT Maternal Deaths,maternity
+189,ME_MAT_Mother_Status_DBD,Mother died before discharge (DBD),WjHvEHMCyKo,Tt7fU5lUhAU,RHD MAT Maternal Deaths,maternity
 190,ME_MAT_Neonatal_Death,Neonatal death,jz793Wzon1W,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Neonatal Death,maternity
 191,ME_MAT_Referred,Yes,l2GWTPGK4QP,Tt7fU5lUhAU,RHD MAT Referred Out Yes,maternity
-192,ME_MAT_Stillbirth,Fresh stillbirth,YLydKJIyGFF,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Still/Fresh,maternity
-193,ME_MAT_Stillbirth,Macerated stillbirth,EJ0qYm1FrcH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Stillbirth Macerated,maternity
+192,ME_MAT_Stillbirth_Fresh,Fresh stillbirth,YLydKJIyGFF,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Still/Fresh,maternity
+193,ME_MAT_Stillbirth_Macerated,Macerated stillbirth,EJ0qYm1FrcH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Stillbirth Macerated,maternity
 194,ME_MAT_Vitamin_A,Yes,B0MbTYjfUhd,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Given,maternity
 195,ME_Anti_Malaria_Treatment_Confirmed_Over_5,D: Confirmed cases receiving first-line anti malarial medication (5+ years),ie9Vtnde6in,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
 196,ME_Anti_Malaria_Treatment_Confirmed_Over_5,E: Confirmed cases receiving second-line anti malarial medication (ASAQ) (5+ years),BOAUQVmPxf3,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
@@ -200,15 +200,15 @@
 200,ME_Anti_Malaria_Treatment_Presumed_Over_5,F: Presumed malaria cases receiving second-line anti malarial medication(ASAQ)(5+ years),nRGVy7VlKO9,V8ASMfxytS4,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) >5Yrs,opd
 201,ME_Anti_Malaria_Treatment_Presumed_Under_5,E: Presumed malaria cases receiving first-line anti malarial medication (< 5 years),oHAvOrxnkDm,pE37AYgl7bx,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) <5Yrs,opd
 202,ME_Anti_Malaria_Treatment_Presumed_Under_5,F: Presumed malaria cases receiving second-line anti malarial medication(ASAQ),nRGVy7VlKO9,pE37AYgl7bx,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) <5Yrs,opd
-203,ME_Malaria_Cases_Confirmed,A: Confirmed malaria cases (< 5 years),aSmSrrByuaa,pE37AYgl7bx,[ NMCP OPD Confirmed Malaria Cases <5Yrs ],opd
-204,ME_Malaria_Cases_Confirmed,A: Confirmed malaria cases (5+ years),aSmSrrByuaa,V8ASMfxytS4,[ NMCP OPD Confirmed Malaria Cases >5Yrs ],opd
-205,ME_Malaria_Cases_Presumed,B: Presumed malaria cases (clinically diagnosed without test ) (< 5 years),b7NiKuhEqI6,pE37AYgl7bx,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) <5Yrs,opd
-206,ME_Malaria_Cases_Presumed,B: Presumed malaria cases (clinically diagnosed without test ) (5+ years),b7NiKuhEqI6,V8ASMfxytS4,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) >5Yrs,opd
-207,ME_Malaria_Test,F: Suspected malaria cases tested using mRDT (< 5 years),Ycfd6ROuM7h,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT <5Yrs,opd
-208,ME_Malaria_Test,F: Suspected malaria cases tested using mRDT (5+ years),Ycfd6ROuM7h,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT >5Yrs,opd
-209,ME_Malaria_Test,G: Suspected malaria cases tested using microscopy(< 5 years),xACp6CWblnY,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy <5Yrs,opd
-210,ME_Malaria_Test,G: Suspected malaria cases tested using microscopy(5+ 5 years),xACp6CWblnY,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy >5Yrs,opd
-211,ME_Positive_Malaria_Cases,H: Positive malaria cases using mRDT (<5 years),E4LZP3KUbOG,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through RDT <5Yrs,opd
-212,ME_Positive_Malaria_Cases,H: Positive malaria cases using mRDT (5+ years),E4LZP3KUbOG,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through RDT >5Yrs,opd
-213,ME_Positive_Malaria_Cases,I: Positive malaria cases using microscopy (<5 years),fCx1cSTnUUL,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through Microscopy <5Yrs,opd
-214,ME_Positive_Malaria_Cases,I: Positive malaria cases using microscopy(5+ years),fCx1cSTnUUL,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through Microscopy >5Yrs,opd
+203,ME_Anti_Malaria_Treatment_Confirmed_Under_5,A: Confirmed malaria cases (< 5 years),aSmSrrByuaa,pE37AYgl7bx,[ NMCP OPD Confirmed Malaria Cases <5Yrs ],opd
+204,ME_Anti_Malaria_Treatment_Confirmed_Over_5,A: Confirmed malaria cases (5+ years),aSmSrrByuaa,V8ASMfxytS4,[ NMCP OPD Confirmed Malaria Cases >5Yrs ],opd
+205,ME_Anti_Malaria_Treatment_Presumed_Under_5,B: Presumed malaria cases (clinically diagnosed without test ) (< 5 years),b7NiKuhEqI6,pE37AYgl7bx,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) <5Yrs,opd
+206,ME_Anti_Malaria_Treatment_Presumed_Over_5,B: Presumed malaria cases (clinically diagnosed without test ) (5+ years),b7NiKuhEqI6,V8ASMfxytS4,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) >5Yrs,opd
+207,ME_Malaria_Test_mRDT_Under_5,F: Suspected malaria cases tested using mRDT (< 5 years),Ycfd6ROuM7h,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT <5Yrs,opd
+208,ME_Malaria_Test_mRDT_Over_5,F: Suspected malaria cases tested using mRDT (5+ years),Ycfd6ROuM7h,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT >5Yrs,opd
+209,ME_Malaria_Test_Microscopy_Under_5,G: Suspected malaria cases tested using microscopy(< 5 years),xACp6CWblnY,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy <5Yrs,opd
+210,ME_Malaria_Test_Microscopy_Over_5,G: Suspected malaria cases tested using microscopy(5+ 5 years),xACp6CWblnY,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy >5Yrs,opd
+211,ME_Positive_Malaria_Cases_mRDT_Under_5,H: Positive malaria cases using mRDT (<5 years),E4LZP3KUbOG,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through RDT <5Yrs,opd
+212,ME_Positive_Malaria_Cases_mRDT_Over_5,H: Positive malaria cases using mRDT (5+ years),E4LZP3KUbOG,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through RDT >5Yrs,opd
+213,ME_Positive_Malaria_Cases_Microscopy_Under_5,I: Positive malaria cases using microscopy (<5 years),fCx1cSTnUUL,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through Microscopy <5Yrs,opd
+214,ME_Positive_Malaria_Cases_Microscopy_Over_5,I: Positive malaria cases using microscopy(5+ years),fCx1cSTnUUL,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through Microscopy >5Yrs,opd

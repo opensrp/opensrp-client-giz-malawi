@@ -3,7 +3,6 @@
   "encounter_type": "OPD Diagnosis and Treatment",
   "entity_id": "",
   "relational_id": "",
-  "validate_on_submit": true,
   "show_errors_on_submit": true,
   "skip_blank_steps": true,
   "metadata": {
@@ -370,126 +369,8 @@
     ]
   },
   "step3": {
-    "title": "Diagnosis",
-    "next": "step4",
-    "encounter_type": "OPD Diagnosis",
-    "bind_type": "opd_diagnosis",
-    "fields": [
-      {
-        "key": "disease_code_label",
-        "type": "label",
-        "text": "Disease code",
-        "text_color": "#000000",
-        "relevance": {
-          "step2:diagnosis": {
-            "type": "string",
-            "ex": "notEqualTo(., \"\")"
-          }
-        }
-      },
-      {
-        "key": "disease_code",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "sort": true,
-        "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
-        "source": "csv",
-        "sortClass": "org.smartregister.opd.comparator.MultiSelectListAlphabetTextComparator",
-        "type": "multi_select_list",
-        "buttonText": "+ Add disease code",
-        "dialogTitle": "Add disease code",
-        "repositoryClass": "org.smartregister.opd.widgets.OpdDiseaseCodeMultiSelectListRepository",
-        "searchHint": "Type Disease Name",
-        "relevance": {
-          "step2:diagnosis": {
-            "type": "string",
-            "ex": "notEqualTo(., \"\")"
-          }
-        }
-      },
-      {
-        "key": "diagnosis_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "label": "Diagnosis Type",
-        "type": "native_radio",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the diagnosis type"
-        },
-        "options": [
-          {
-            "key": "Confirmed",
-            "text": "Confirmed"
-          },
-          {
-            "key": "Presumed",
-            "text": "Presumed"
-          }
-        ],
-        "relevance": {
-          "step2:diagnosis": {
-            "type": "string",
-            "ex": "notEqualTo(., \"\")"
-          }
-        }
-      },
-      {
-        "key": "diagnosis",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "edit_text",
-        "hint": "Diagnosis Text",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the diagnosis"
-        }
-      },
-      {
-        "key": "diagnosis_same",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "check_box",
-        "hint": "Same as final diagnosis",
-        "label": "",
-        "options": [
-          {
-            "key": "isSameAsFinalDiagnosis",
-            "text": "Is same as final diagnosis?",
-            "value": "false"
-          }
-        ]
-      },
-      {
-        "key": "disease_code_object",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/diagnose_and_treat_calculation.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "visit_id",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      }
-    ]
-  },
-  "step4": {
     "title": "Test Conducted",
-    "next": "step5",
+    "next": "step4",
     "encounter_type": "OPD Test Conducted",
     "bind_type": "opd_test_conducted",
     "fields": [
@@ -570,7 +451,7 @@
               "err": "Please specify the result of the test"
             },
             "relevance": {
-              "step4:diagnostic_test": {
+              "step3:diagnostic_test": {
                 "type": "string",
                 "ex": "equalTo(., \"other\")"
               }
@@ -865,6 +746,106 @@
             "spacer_height": "40sp"
           }
         ]
+      },
+      {
+        "key": "visit_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  },
+  "step4": {
+    "title": "Diagnosis",
+    "next": "step5",
+    "encounter_type": "OPD Diagnosis",
+    "bind_type": "opd_diagnosis",
+    "fields": [
+      {
+        "key": "disease_code_label",
+        "type": "label",
+        "text": "Disease code",
+        "text_color": "#000000"
+      },
+      {
+        "key": "disease_code",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "sort": true,
+        "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
+        "source": "csv",
+        "sortClass": "org.smartregister.opd.comparator.MultiSelectListAlphabetTextComparator",
+        "type": "multi_select_list",
+        "buttonText": "+ Add disease code",
+        "dialogTitle": "Add disease code",
+        "repositoryClass": "org.smartregister.opd.widgets.OpdDiseaseCodeMultiSelectListRepository",
+        "searchHint": "Type Disease Name"
+      },
+      {
+        "key": "diagnosis_type",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Diagnosis Type",
+        "type": "native_radio",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis type"
+        },
+        "options": [
+          {
+            "key": "Confirmed",
+            "text": "Confirmed"
+          },
+          {
+            "key": "Presumed",
+            "text": "Presumed"
+          }
+        ]
+      },
+      {
+        "key": "diagnosis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Diagnosis Text",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis"
+        }
+      },
+      {
+        "key": "diagnosis_same",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Same as final diagnosis",
+        "label": "",
+        "options": [
+          {
+            "key": "isSameAsFinalDiagnosis",
+            "text": "Is same as final diagnosis?",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "disease_code_object",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/diagnose_and_treat_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "visit_id",
