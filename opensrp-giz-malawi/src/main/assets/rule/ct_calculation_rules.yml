@@ -334,3 +334,24 @@ priority: 1
 condition: "step10_anti_d2_date != '' && (step10_anti_d2_date == 'done_today' || step10_anti_d2_date == 'done_earlier')"
 actions:
  - "calculation = 2"
+---
+name: step5_syphilis_benzathine1_done_date_today_hidden
+description: syphilis_benzathine1_done_date_today_hidden
+priority: 1
+condition: "step5_syphilis_benzathine1 != '' && step5_syphilis_benzathine1 == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
+name: step5_syphilis_benzathine2_done_date_today_hidden
+description: syphilis_benzathine2_done_date_today_hidden
+priority: 1
+condition: "step5_syphilis_benzathine2 != '' && step5_syphilis_benzathine2 == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"
+---
+name: step5_syphilis_benzathine3_done_date_today_hidden
+description: syphilis_benzathine3_done_date_today_hidden
+priority: 1
+condition: "step5_syphilis_benzathine3 != '' && step5_syphilis_benzathine3 == 'done_today'"
+actions:
+ - "calculation = helper.getDateToday()"

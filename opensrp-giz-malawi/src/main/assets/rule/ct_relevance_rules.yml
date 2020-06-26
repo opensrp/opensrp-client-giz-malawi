@@ -9,7 +9,7 @@ actions:
 name: step1_severe_hypertension_toaster
 description: Severe hypertension toaster
 priority: 1
-condition: "global_severe_hypertension != '' && global_severe_hypertension == 1"
+condition: "global_severe_hypertension != '' && global_severe_hypertension == 1 && Boolean.valueOf(global_is_first_contact)"
 actions:
   - "isRelevant = true"
 ---
@@ -23,14 +23,14 @@ actions:
 name: step1_pre_eclampsia_dialog_toaster
 description: Pre-eclampsia diagnosis
 priority: 1
-condition: "global_preeclampsia == 1"
+condition: "global_preeclampsia == 1 && Boolean.valueOf(global_is_first_contact)"
 actions:
   - "isRelevant = true"
 ---
 name: step1_severe_pre_eclampsia_dialog_toaster
 description: Severe pre-eclampsia diagnosis
 priority: 1
-condition: "global_severe_preeclampsia == 1"
+condition: "global_severe_preeclampsia == 1 && Boolean.valueOf(global_is_first_contact)"
 actions:
   - "isRelevant = true"
 ---
@@ -422,7 +422,7 @@ actions:
 name: step10_deworm
 description: deworm
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (global_contact_no == 1 || (global_contact_no > 1 && global_previous_deworm == '')) "
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && (global_pop_anaemia_40 == true || global_pop_helminth == true) && (Boolean.valueOf(global_is_first_contact) || (!Boolean.valueOf(global_is_first_contact) && global_previous_deworm == ''))"
 actions:
   - "isRelevant = true"
 ---
@@ -436,7 +436,7 @@ actions:
 name: step10_iptp_sp1
 description: iptsp
 priority: 1
-condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
+condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (Boolean.valueOf(global_is_first_contact) || (!Boolean.valueOf(global_is_first_contact) && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---
@@ -506,7 +506,7 @@ actions:
 name: step11_tt1_date
 description: tt1_date
 priority: 1
-condition: "(global_tt_immun_status != '' && global_tt_immun_status != '2-4_doses') && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
+condition: "(global_tt_immun_status != '' && global_tt_immun_status != '2-4_doses') && (Boolean.valueOf(global_is_first_contact) || (!Boolean.valueOf(global_is_first_contact) && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---
@@ -569,21 +569,21 @@ actions:
 name: step11_hepb1_date
 description: hepb1_date
 priority: 1
-condition: "global_hepb_positive == 0 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && (global_contact_no == 1 || (global_contact_no > 1 && (global_previous_hepb1_date== '' || global_previous_hepb1_date == 'not_done')))"
+condition: "global_hepb_positive == 0 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && (Boolean.valueOf(global_is_first_contact) || (!Boolean.valueOf(global_is_first_contact) && (global_previous_hepb1_date== '' || global_previous_hepb1_date == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---
 name: step11_hepb2_date
 description: hepb2_date
 priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb1_date_done,'28d') == -1) && (global_previous_hepb2_date == '' || global_previous_hepb2_date == 'not_done')"
+condition: "!Boolean.valueOf(global_is_first_contact) && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb1_date_done,'28d') == -1) && (global_previous_hepb2_date == '' || global_previous_hepb2_date == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
 name: step11_hepb3_date
 description: hepb3_date
 priority: 1
-condition: "global_contact_no > 1 && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb2_date_done,'140d') == -1) && (global_previous_hepb3_date == '' || global_previous_hepb3_date == 'not_done')"
+condition: "!Boolean.valueOf(global_is_first_contact) && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb2_date_done,'140d') == -1) && (global_previous_hepb3_date == '' || global_previous_hepb3_date == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
@@ -660,21 +660,21 @@ actions:
 name: step5_syphilis_benzathine1
 description: syphilis_benzathine1
 priority: 1
-condition: "(global_contact_no == 1 || step5_syphilis_benzathine1 == 'not_done') && global_syphilis_positive == 1"
+condition: "(Boolean.valueOf(global_is_first_contact) || step5_syphilis_benzathine1 == 'not_done') && global_syphilis_positive == 1"
 actions:
   - "isRelevant = true"
 ---
 name: step5_syphilis_benzathine2
 description: syphilis_benzathine2
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine2,'1w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine2,'1w') == -1) && (step5_syphilis_benzathine2 == '' || step5_syphilis_benzathine2 == 'not_done')"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine1_test_date,'1w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine1_test_date,'1w') == -1)"
 actions:
   - "isRelevant = true"
 ---
 name: step5_syphilis_benzathine3
 description: syphilis_benzathine3
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine3,'1w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine3,'1w') == -1) && (step5_syphilis_benzathine3 == '' || step5_syphilis_benzathine3 == 'not_done')"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine2_test_date,'1w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_benzathine2_test_date,'1w') == -1)"
 actions:
   - "isRelevant = true"
 ---
@@ -724,5 +724,26 @@ name: step9_fefo_tablets_number
 description: fefo_tablets_number
 priority: 1
 condition: "step9_ifa_low_prev == 'done' || step9_ifa_prev_prev == 'done' || step9_ifa_weekly_prev == 'done'"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_benzathine1_test_date
+description: syphilis_benzathine1_test_date
+priority: 1
+condition: "(step5_syphilis_benzathine1 != '') && (step5_syphilis_benzathine1 == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_benzathine2_test_date
+description: syphilis_benzathine2_test_date
+priority: 1
+condition: "(step5_syphilis_benzathine2 != '') && (step5_syphilis_benzathine2 == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_syphilis_benzathine3_test_date
+description: syphilis_benzathine3_test_date
+priority: 1
+condition: "(step5_syphilis_benzathine3 != '') && (step5_syphilis_benzathine3 == 'done_earlier')"
 actions:
   - "isRelevant = true"

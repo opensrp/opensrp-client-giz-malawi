@@ -94,6 +94,20 @@
             android:theme="@style/ChildTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
 
+        <activity
+            android:name=".activity.GizAncContactActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activity.GizAncProfileActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AncAppTheme.NoActionBar" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -128,12 +142,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AncAppTheme.NoActionBar" />
-        <activity
-            android:name="org.smartregister.anc.library.activity.ProfileActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/AncAppTheme.NoActionBar" />
+<!--        <activity-->
+<!--            android:name="org.smartregister.anc.library.activity.ProfileActivity"-->
+<!--            android:configChanges="keyboardHidden|orientation|screenSize"-->
+<!--            android:launchMode="singleTask"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/AncAppTheme.NoActionBar" />-->
         <activity
             android:name="org.smartregister.anc.library.activity.PopulationCharacteristicsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

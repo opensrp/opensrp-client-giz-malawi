@@ -68,6 +68,13 @@
           },
           {
             "field": "eventType",
+            "field_value": "Update Opd Registration",
+            "creates_case": [
+              "ec_client"
+            ]
+          },
+          {
+            "field": "eventType",
             "field_value": "OPD Pregnancy Status",
             "creates_case": [
               "opd_pregnancy_status"
@@ -152,6 +159,20 @@
             "field_value": "Maternity Outcome",
             "creates_case": [
               "maternity_outcome"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "AEFI",
+            "creates_case": [
+              "aefi"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Death",
+            "creates_case": [
+              "deceased"
             ]
           }
         ]

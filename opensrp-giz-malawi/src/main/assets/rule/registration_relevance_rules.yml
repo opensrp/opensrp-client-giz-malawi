@@ -1,0 +1,7 @@
+---
+name: step1_previous_visits
+description: previous_visits
+priority: 1
+condition: "step1_prev_anc_done == 'yes'"
+actions:
+  - "isRelevant = true"

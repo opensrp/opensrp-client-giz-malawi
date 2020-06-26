@@ -426,6 +426,58 @@
         "openmrs_entity_id": "last_contact_record_date",
         "type": "hidden",
         "value": ""
+      },
+      {
+        "key": "prev_anc_done",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160288AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "select one",
+        "type": "native_radio",
+        "label": "Has the woman had previous ANC Visits?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "previous_visits",
+        "type": "repeating_group",
+        "reference_edit_text_hint": "# of previous visits",
+        "repeating_group_label": "Contact No.",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "value": [
+          {
+            "key": "visit_date",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "date_picker",
+            "hint": "Visit date"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "registration_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   }

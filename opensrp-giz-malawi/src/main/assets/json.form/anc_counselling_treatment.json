@@ -1,5 +1,4 @@
 {
-  "validate_on_submit": true,
   "display_scroll_bars": true,
   "skip_blank_steps": true,
   "count": "12",
@@ -2520,15 +2519,25 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "done",
-            "text": "Done",
+            "key": "done_today",
+            "text": "Done today",
+            "type": "done_today",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "type": "done_earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "not_done",
             "text": "Not done",
+            "type": "not_done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2543,6 +2552,55 @@
         }
       },
       {
+        "key": "syphilis_benzathine1_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "1"
+      },
+      {
+        "key": "syphilis_benzathine1_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date benzathine #1 was given",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Date for benzathine dose #1 is required"
+        }
+      },
+      {
+        "key": "syphilis_benzathine1_done_date_today_hidden",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "syphilis_benzathine2_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "2"
+      },
+      {
         "key": "syphilis_benzathine2",
         "openmrs_entity_parent": "165331AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "openmrs_entity": "concept",
@@ -2553,20 +2611,59 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "done",
-            "text": "Done",
+            "key": "done_today",
+            "text": "Done today",
+            "type": "done_today",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "type": "done_earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "not_done",
             "text": "Not done",
+            "type": "not_done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "syphilis_benzathine2_done_date_today_hidden",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "syphilis_benzathine2_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date benzathine #2 was given",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2586,20 +2683,67 @@
         "label_text_style": "bold",
         "options": [
           {
-            "key": "done",
-            "text": "Done",
+            "key": "done_today",
+            "text": "Done today",
+            "type": "done_today",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "165383AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "done_earlier",
+            "text": "Done earlier",
+            "type": "done_earlier",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165385AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "not_done",
             "text": "Not done",
+            "type": "not_done",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1118AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "syphilis_benzathine3_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "value": "3"
+      },
+      {
+        "key": "syphilis_benzathine3_done_date_today_hidden",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "ct_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "syphilis_benzathine3_test_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Date benzathine 3 was given",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -2904,6 +3048,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "165273AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
@@ -4372,6 +4523,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",

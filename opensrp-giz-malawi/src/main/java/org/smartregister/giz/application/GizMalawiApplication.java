@@ -31,6 +31,8 @@ import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildFormActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
+import org.smartregister.giz.activity.GizAncContactActivity;
+import org.smartregister.giz.activity.GizAncProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.configuration.GizMaternityOutcomeFormProcessing;
@@ -173,7 +175,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             names.add(GizConstants.KEY.LAST_INTERACTED_WITH);
             names.add(GizConstants.KEY.DOD);
             names.add(GizConstants.KEY.DATE_REMOVED);
-            return names.toArray(new String[names.size()]);
+            return names.toArray(new String[0]);
         } else if ("ec_mother_details".equals(tableName)) {
             return new String[]{DBConstantsUtils.KeyUtils.NEXT_CONTACT};
         } else if (tableName.equals(DBConstants.RegisterTable.CHILD_DETAILS)) {
@@ -187,7 +189,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 populateAlertColumnNames(vaccineGroup.vaccines, names);
             }
 
-            return names.toArray(new String[names.size()]);
+            return names.toArray(new String[0]);
         } else if (tableName.equals(MaternityDbConstants.Table.MATERNITY_REGISTRATION_DETAILS)) {
             return new String[]{MaternityDbConstants.KEY.CONCEPTION_DATE};
         }
@@ -287,10 +289,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ActivityConfiguration activityConfiguration = new ActivityConfiguration();
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         activityConfiguration.setLandingPageActivityClass(AllClientsRegisterActivity.class);
+        activityConfiguration.setProfileActivityClass(GizAncProfileActivity.class);
+//        activityConfiguration.setMainContactActivityClass(GizAncContactActivity.class);
         AncMetadata ancMetadata = new AncMetadata();
         ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
         ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
-        ancMetadata.setFieldsWithLocationHierarchy(Arrays.asList("village"));
+        ancMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider(), ancMetadata);
 
         setupOPDLibrary();

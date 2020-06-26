@@ -180,3 +180,31 @@ priority: 1
 condition: "(step8_hiv_risk == 1)"
 actions:
   - "isRelevant = true"
+---
+name: step6_total_fefo_tablets_given
+description: total fefo tablets given
+priority: 1
+condition: "!step6_medications.isEmpty() && step6_medications.contains('fefo')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_art_date_unknown
+description: art_date_unknown
+priority: 1
+condition: "!step6_medications.isEmpty() && step6_medications.contains('arvs')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_art_start_date
+description: art_start_date
+priority: 1
+condition: "step6_art_date_unknown.isEmpty() && (!step6_medications.isEmpty() && step6_medications.contains('arvs'))"
+actions:
+  - "isRelevant = true"
+---
+name: step6_art_date_before
+description: art_date_before
+priority: 1
+condition: "!step6_art_date_unknown.isEmpty()"
+actions:
+  - "isRelevant = true"

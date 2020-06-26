@@ -143,12 +143,15 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(MoveToMyCatchmentUtils.MOVE_TO_CATCHMENT_EVENT)) {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.DEATH)) {
-                    if (processDeathEvent(eventClient)) {
+                    if (processDeathEvent(eventClient, clientClassification)) {
                         unsyncEvents.add(event);
                     }
                 } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
-                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
+                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) ||
+                        eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) ||
+                        eventType.equals(OpdConstants.EventType.UPDATE_OPD_REGISTRATION) ||
+                        eventType.equals(Constants.EventType.AEFI)) {
 
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
                         Timber.e(new Exception(), "Cannot find client corresponding to %s with base-entity-id %s", OpdConstants.EventType.OPD_REGISTRATION, event.getBaseEntityId());
@@ -172,7 +175,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         continue;
                     }
 
-                    processBirthAndWomanRegistrationEvent(clientClassification, eventClient, event);
+                    processEventClient(clientClassification, eventClient, event);
                 } else if (processorMap.containsKey(eventType)) {
                     try {
                         if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null) {
@@ -214,8 +217,13 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         clientsForAlertUpdates.clear();
     }
 
-    private boolean processDeathEvent(@NonNull EventClient eventClient) {
+    private boolean processDeathEvent(@NonNull EventClient eventClient, ClientClassification clientClassification) {
         if (eventClient.getEvent().getEntityType().equals(GizConstants.EntityType.CHILD)) {
+            try {
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
             return GizUtils.updateChildDeath(eventClient);
         }
 
@@ -233,14 +241,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private void processBirthAndWomanRegistrationEvent(@NonNull ClientClassification clientClassification, @NonNull EventClient eventClient, @NonNull Event event) {
+    private void processEventClient(@NonNull ClientClassification clientClassification, @NonNull EventClient eventClient, @NonNull Event event) {
         Client client = eventClient.getClient();
-        //iterate through the events
         if (client != null) {
             try {
                 processEvent(event, client, clientClassification);
-
-                scheduleUpdatingClientAlerts(client.getBaseEntityId(), client.getBirthdate());
             } catch (Exception e) {
                 Timber.e(e);
             }

@@ -201,3 +201,17 @@ priority: 1
 condition: "(step8_partner_hiv_status == 'positive') || (global_hiv_test_partner_result != '' && global_hiv_test_partner_result == 'positive')"
 actions:
   - "calculation = 1"
+---
+name: step6_on_art
+description: on_art
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (!step6_medications.isEmpty() && step6_medications.contains('arvs')) ? 1 : 0"
+---
+name: step6_art_start_category
+description: art_start_category
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step6_art_start_date < global_first_contact_date || step6_art_date_before == 'yes') ? 'Before Pregnancy' : helper.getDifferenceDays(step6_art_start_date, step2_edd) < 196 ? '0-28 weeks' : '28+ weeks'"

@@ -877,7 +877,7 @@ actions:
 name: step1_hb_test_status
 description: hb test status
 priority: 1
-condition: "global_contact_no == 1  || (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
+condition: "Boolean.valueOf(global_is_first_contact) || (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
 actions:
   - "isRelevant = true"
 ---

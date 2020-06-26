@@ -1,5 +1,4 @@
 {
-  "validate_on_submit": true,
   "display_scroll_bars": true,
   "count": "6",
   "encounter_type": "Physical Exam",
@@ -82,10 +81,7 @@
         "type": "label",
         "label_text_style": "bold",
         "text": "Height (cm)",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        }
+        "text_color": "#000000"
       },
       {
         "key": "height",
@@ -95,10 +91,6 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the height"
-        },
         "v_numeric": {
           "value": "true",
           "err": ""
@@ -208,10 +200,7 @@
         "type": "label",
         "label_text_style": "bold",
         "text": "Current weight (kg)",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        }
+        "text_color": "#000000"
       },
       {
         "key": "current_weight",
@@ -232,10 +221,6 @@
         "v_max": {
           "value": "180",
           "err": "Weight must be equal or less than 180"
-        },
-        "v_required": {
-          "value": "true",
-          "err": "Please enter the current weight"
         }
       },
       {
@@ -265,7 +250,7 @@
             "value": false,
             "openmrs_entity_id": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "openmrs_entity":"concept"
+            "openmrs_entity": "concept"
           },
           {
             "key": "yellow",
@@ -700,6 +685,48 @@
                 ]
               }
             ]
+          }
+        }
+      },
+      {
+        "key": "prev_preeclampsia_diagnosis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Has the woman had pre-eclampsia diagnosis in previous visits?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "prev_preeclampsia_diagnosis_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159948AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "max_date": "today",
+        "hint": "Date of pre-eclampsia diagnosis",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "physical-exam-relevance-rules.yml"
+            }
           }
         }
       },
@@ -1162,10 +1189,7 @@
         "type": "label",
         "label_text_style": "bold",
         "text": "Temperature (ºC)",
-        "text_color": "#000000",
-        "v_required": {
-          "value": true
-        }
+        "text_color": "#000000"
       },
       {
         "key": "body_temp",
@@ -1175,10 +1199,6 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter body temperature"
-        },
         "v_numeric": {
           "value": "true",
           "err": ""
@@ -1223,9 +1243,6 @@
         "text": "Second temperature (ºC)",
         "text_color": "#000000",
         "label_info_text": "Retake the woman's temperature if the first reading was 38ºC or higher.",
-        "v_required": {
-          "value": true
-        },
         "relevance": {
           "step3:body_temp": {
             "type": "numeric",
@@ -1241,10 +1258,6 @@
         "type": "normal_edit_text",
         "edit_text_style": "bordered",
         "edit_type": "number",
-        "v_required": {
-          "value": "true",
-          "err": "Please enter second body temperature"
-        },
         "relevance": {
           "step3:body_temp": {
             "type": "numeric",
@@ -2034,7 +2047,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "big_for_gestational_age",
@@ -2042,7 +2055,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "small_for_gestational_age",
@@ -2050,7 +2063,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           }
         ]
       },
@@ -2070,7 +2083,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "broad",
@@ -2078,7 +2091,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "oval",
@@ -2086,7 +2099,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "saucer_shaped",
@@ -2094,7 +2107,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           }
         ]
       },
@@ -2114,7 +2127,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "no",
@@ -2122,7 +2135,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           }
         ]
       },
@@ -2142,7 +2155,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "no",
@@ -2150,7 +2163,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           }
         ]
       },
@@ -2170,7 +2183,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "no",
@@ -2178,7 +2191,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           }
         ]
       },
@@ -2198,7 +2211,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           },
           {
             "key": "no",
@@ -2206,7 +2219,7 @@
             "value": false,
             "openmrs_entity_id": "",
             "openmrs_entity_parent": "",
-            "openmrs_entity":""
+            "openmrs_entity": ""
           }
         ]
       },
@@ -2226,7 +2239,7 @@
             "value": false,
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "openmrs_entity":"concept"
+            "openmrs_entity": "concept"
           },
           {
             "key": "no",
@@ -2234,7 +2247,7 @@
             "value": false,
             "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "",
-            "openmrs_entity":"concept"
+            "openmrs_entity": "concept"
           }
         ],
         "relevance": {
@@ -2566,7 +2579,6 @@
           }
         ]
       },
-
       {
         "key": "no_of_fetuses_label",
         "type": "label",
