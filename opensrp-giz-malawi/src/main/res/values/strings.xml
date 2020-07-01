@@ -666,9 +666,9 @@
     <!-- Start ANC reports labels -->
     <string name="me_number_of_women_registered">RHD ANC New Women Registered</string>
     <string name="me_pregnancy_tests_done_in_the_first_trimester">RHD ANC Pregnancy Test Done in 1st Trimester</string>
-    <string name="me_pregnancy_tests_done_after_the_first_trimester">-</string>
-    <string name="me_week_of_first_anc_visit_0_12_weeks">RHD ANC Week of first ANC Visit Week 0-12</string>
-    <string name="me_week_of_first_anc_visit_13_plus_weeks">-</string>
+    <string name="me_pregnancy_tests_done_after_the_first_trimester">RHD ANC Pregnancy Test Done after 1st Trimester</string>
+    <string name="me_week_of_first_anc_visit_0_12_weeks">RHD ANC Week of first ANC Visit Week 0–12</string>
+    <string name="me_week_of_first_anc_visit_13_plus_weeks">RHD ANC Week of first ANC Visit Week 13+</string>
     <string name="me_hiv_status_first_visit_prev_negative">RHD ANC HIV Status 1st Visit Previous Negative</string>
     <string name="me_hiv_status_first_visit_prev_positive">RHD ANC  HIV Status 1st Visit Previous Positive</string>
     <string name="me_hiv_status_first_visit_new_negative">RHD ANC  HIV Status 1st Visit New Negative</string>
@@ -676,7 +676,7 @@
     <string name="me_hiv_status_first_visit_not_done">RHD ANC  HIV Status 1st Visit Not Done</string>
     <string name="me_art_status_first_visit_not_on_art">RHD ANC 1st Visit ART Status of mother Not on ART</string>
     <string name="me_art_status_first_visit_on_art_before_anc">RHD ANC 1st Visit ART Status of mother On ART Before ANC</string>
-    <string name="me_art_status_first_visit_start_art_0_27_weeks">RHD ANC 1st Visit ART Status of mother Start ART 0-27 weeks</string>
+    <string name="me_art_status_first_visit_start_art_0_27_weeks">RHD ANC 1st Visit ART Status of mother Start ART 0–27 weeks</string>
     <string name="me_art_status_first_visit_start_art_28_plus_weeks">RHD ANC 1st Visit ART Status of mother Start ART 28+ weeks</string>
     <string name="me_hiv_status_final_prev_negative">RHD ANC HIV Test Result Previous Negative</string>
     <string name="me_hiv_status_final_prev_positive">RHD ANC HIV Test Result Previous Positive</string>
@@ -685,12 +685,12 @@
     <string name="me_hiv_status_final_not_done">RHD ANC HIV Test Result Not Done</string>
     <string name="me_art_status_final_visit_not_on_art">RHD ANC Final ART Status of mother Not on ART</string>
     <string name="me_art_status_final_visit_on_art_before_anc">RHD ANC Final ART Status of mother On ART Before ANC</string>
-    <string name="me_art_status_final_visit_start_art_0_27_weeks">RHD ANC Final ART Status of mother Start ART 0-27 weeks</string>
+    <string name="me_art_status_final_visit_start_art_0_27_weeks">RHD ANC Final ART Status of mother Start ART 0–27 weeks</string>
     <string name="me_art_status_final_visit_start_art_28_plus_weeks">RHD ANC Final ART Status of mother Start ART 28+ weeks</string>
     <string name="me_cpt_out_of_hiv_positive">RHD ANC CPT Women on CPT</string>
-    <string name="me__not_on_cpt">RHD P ANC HIV+  Women Not on CPT</string>
-    <string name="me__nvp_syrup_given">RHD ANC NVP Syrup Given Received NVP</string>
-    <string name="me__nvp_syrup_not_given">RHD P ANC HIV+  Women Not Given NVP Syrup</string>
+    <string name="me_not_on_cpt">RHD P ANC HIV+  Women Not on CPT</string>
+    <string name="me_nvp_syrup_given">RHD ANC NVP Syrup Given Received NVP</string>
+    <string name="me_nvp_syrup_not_given">RHD P ANC HIV+  Women Not Given NVP Syrup</string>
     <string name="me_total_visits_per_woman_1_visits">RHD ANC Visits per Woman Total with 1 Visit</string>
     <string name="me_total_visits_per_woman_2_visits">RHD ANC Visits per Woman Total with 2 Visits</string>
     <string name="me_total_visits_per_woman_3_visits">RHD ANC Visits per Woman Total with 3 Visits</string>
@@ -704,14 +704,14 @@
     <string name="me_sp_doses_1_dose">RHD ANC SP Doses 1*3 doses</string>
     <string name="me_sp_doses_2_dose">RHD ANC SP Doses 2*3 doses</string>
     <string name="me_sp_doses_3_plus_dose">RHD ANC SP Doses >= 3 doses</string>
-    <string name="me_fefo_less_than_120"></string>
+    <string name="me_fefo_less_than_120">RHD ANC Fe-Fo Tablets less than 120</string>
     <string name="me_fefo_more_than_120">RHD ANC Fe-Fo Tablets 120+</string>
-    <string name="me_albendazole_doses_none"></string>
+    <string name="me_albendazole_doses_none">RHD ANC Albendazole none</string>
     <string name="me_albendazole_doses_one_dose">RHD ANC Albendazole 1</string>
     <string name="me_itn_bed_nets_given">RHD ANC ITN (Bed nets) given Received ITN</string>
     <string name="me_itn_bed_nets_not_given">RHD P ANC No ITN Bed nets given</string>
     <string name="me_hb_g_dl_less_than_7">RHD ANC HB (G/dl) less than 7</string>
-    <string name="me_hb_g_over_dl_greater_than_and_equal_to_7">RHD ANC HB (G/dl) ?7</string>
+    <string name="me_hb_g_over_dl_greater_than_and_equal_to_7">RHD ANC HB (G/dl) >= 7</string>
     <string name="me_hb_g_over_dl_nd">RHD ANC HB (G/dl) ND</string>
     <string name="me_syphilis_status_negative">RHD ANC Syphilis Status Negative</string>
     <string name="me_syphilis_status_positive">RHD ANC Syphilis Status Positive</string>
