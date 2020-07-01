@@ -90,7 +90,6 @@ public class GizMalawiRepository extends Repository {
         VaccineRepository.createTable(database);
 
         OpdVisitRepository.createTable(database);
-//        OpdCheckInRepository.createTable(database);
         OpdDetailsRepository.createTable(database);
         OpdDiagnosisAndTreatmentFormRepository.createTable(database);
         OpdDiagnosisDetailRepository.createTable(database);

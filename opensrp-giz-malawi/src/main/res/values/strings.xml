@@ -389,7 +389,7 @@
     <string name="me_vaccines_age_static_pcv_2_over_1">CHD EPI PCV2 Childhood Vaccination Static Over 1</string>
     <string name="me_vaccines_age_outreach_pcv_2_over_1">CHD EPI PCV2 Childhood Vaccination Outreach Over 1</string>
     <string name="me_vaccines_age_static_pcv_3_under_1">CHD EPI PCV3 Childhood Vaccination Static Under 1</string>
-    <string name="me_vaccines_age_pcv_3_over_1_outreach">CHD EPI PCV3 Childhood Vaccination Outreach Under 1</string>
+    <string name="me_vaccines_age_pcv_3_under_1_outreach">CHD EPI PCV3 Childhood Vaccination Outreach Under 1</string>
     <string name="me_vaccines_age_static_pcv_3_over_1">CHD EPI PCV3 Childhood Vaccination Static Over 1</string>
     <string name="me_vaccines_age_pcv_3_over_1_outreach">CHD EPI PCV3 Childhood Vaccination Outreach Over 1</string>
     <string name="me_vacc_target_chd_epi_rota_1_and_2_monthly_target">CHD EPI ROTA 1 and 2 monthly target</string>
@@ -698,7 +698,7 @@
     <string name="me_total_visits_per_woman_5_plus_visits">RHD ANC Visits per Woman Total with 5+ Visits</string>
     <string name="me_with_preeclampsia">RHD ANC (Pre-) Eclampsia Yes</string>
     <string name="me_with_no_preeclampsia">RHD P ANC No Pre-Eclampsia</string>
-    <string name="me_total_number_with_tdv_doses_less_than_2">RHD P ANC Received <2 TTV doses</string>
+    <string name="me_total_number_with_tdv_doses_less_than_2">RHD P ANC Received less than 2 TTV doses</string>
     <string name="me_total_number_with_tdv_doses_2_plus">RHD ANC TTV Doses 2+</string>
     <string name="me_sp_doses_0_dose">RHD ANC SP Doses 0 doses</string>
     <string name="me_sp_doses_1_dose">RHD ANC SP Doses 1*3 doses</string>
@@ -710,7 +710,7 @@
     <string name="me_albendazole_doses_one_dose">RHD ANC Albendazole 1</string>
     <string name="me_itn_bed_nets_given">RHD ANC ITN (Bed nets) given Received ITN</string>
     <string name="me_itn_bed_nets_not_given">RHD P ANC No ITN Bed nets given</string>
-    <string name="me_hb_g_dl_less_than_7">RHD ANC HB (G/dl) <7</string>
+    <string name="me_hb_g_dl_less_than_7">RHD ANC HB (G/dl) less than 7</string>
     <string name="me_hb_g_over_dl_greater_than_and_equal_to_7">RHD ANC HB (G/dl) ?7</string>
     <string name="me_hb_g_over_dl_nd">RHD ANC HB (G/dl) ND</string>
     <string name="me_syphilis_status_negative">RHD ANC Syphilis Status Negative</string>

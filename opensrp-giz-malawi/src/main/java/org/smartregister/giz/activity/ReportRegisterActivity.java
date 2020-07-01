@@ -115,7 +115,7 @@ public class ReportRegisterActivity extends BaseActivity {
         toggleReportSyncButton(fetchStatus);
     }
 
-    void toggleReportSyncButton(FetchStatus fetchStatus) {
+    private void toggleReportSyncButton(FetchStatus fetchStatus) {
         if (reportSyncBtn != null) {
             reportSyncBtn.setVisibility(View.GONE);
         }

@@ -680,20 +680,17 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
-        if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName)) {
-            if (GizMalawiApplication.getInstance().registerTypeRepository().findByRegisterType(entityId, GizConstants.RegisterType.CHILD)) {
-                String dobString = contentValues.getAsString(Constants.KEY.DOB);
-                if (StringUtils.isNotBlank(dobString)) {
-                    DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
-                    if (birthDateTime != null) {
-                        VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, GizConstants.RegisterType.CHILD);
-                        ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
-                    }
+        if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName) &&
+                GizMalawiApplication.getInstance().registerTypeRepository().findByRegisterType(entityId, GizConstants.RegisterType.CHILD)) {
+            String dobString = contentValues.getAsString(Constants.KEY.DOB);
+            if (StringUtils.isNotBlank(dobString)) {
+                DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
+                if (birthDateTime != null) {
+                    VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, GizConstants.RegisterType.CHILD);
+                    ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
                 }
             }
-
         }
-
         Timber.d("Finished updateFTSsearch table: %s", tableName);
     }
 
