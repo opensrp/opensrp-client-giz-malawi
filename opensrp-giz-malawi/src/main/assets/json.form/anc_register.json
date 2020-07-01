@@ -457,7 +457,7 @@
         "key": "previous_visits",
         "type": "repeating_group",
         "reference_edit_text_hint": "# of previous visits",
-        "repeating_group_label": "Contact No.",
+        "repeating_group_label": "Previous Contact No.",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -467,6 +467,8 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
+            "min_date": "today-40w",
+            "max_date": "today",
             "type": "date_picker",
             "hint": "Visit date"
           }
@@ -477,6 +479,10 @@
               "rules-file": "registration_relevance_rules.yml"
             }
           }
+        },
+        "v_required": {
+          "value": true,
+          "err": "Please enter number a previous visits"
         }
       }
     ]

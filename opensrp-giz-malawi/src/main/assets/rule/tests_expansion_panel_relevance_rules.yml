@@ -86,7 +86,7 @@ actions:
 name: step1_accordion_ultrasound
 description: ultrasound accordion
 priority: 1
-condition: "((Boolean.valueOf(global_is_first_contact) && (global_previous_ultrasound == '' || global_previous_ultrasound == 'not_done' || global_previous_ultrasound == 'ordered')))"
+condition: "((Boolean.valueOf(global_is_first_contact) && (global_previous_ultrasound == '' || global_previous_ultrasound == 'not_done' || global_previous_ultrasound == 'ordered'))) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 24)"
 actions:
   - "isRelevant = true"
 ---

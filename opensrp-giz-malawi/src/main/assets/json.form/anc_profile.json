@@ -473,6 +473,8 @@
         "openmrs_entity_id": "",
         "label": "Was the pregnancy test done in the first trimester?",
         "hint": "Was the pregnancy test done in the first trimester?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
         "type": "native_radio",
         "options": [
           {
@@ -3061,6 +3063,22 @@
         }
       },
       {
+        "key": "art_start_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "ARV treatment start date",
+        "edit_type": "edit_text",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "profile_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "art_date_unknown",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -3077,22 +3095,6 @@
             "openmrs_entity_id": ""
           }
         ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "profile_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "art_start_date",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "773AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "date_picker",
-        "hint": "ARV treatment start date",
-        "edit_type": "edit_text",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

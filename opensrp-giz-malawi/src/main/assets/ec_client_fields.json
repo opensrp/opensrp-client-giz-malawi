@@ -230,6 +230,20 @@
           "json_mapping": {
             "field": "attributes.traditional_authority"
           }
+        },
+        {
+          "column_name": "location_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "locationId"
+          }
+        },
+        {
+          "column_name": "child_location_id",
+          "type": "Event",
+          "json_mapping": {
+            "field": "childLocationId"
+          }
         }
       ]
     },
