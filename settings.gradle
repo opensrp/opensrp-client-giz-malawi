@@ -1,2 +1,1 @@
-include ':opensrp-giz-malawi' , ':opensrp-maternity'
-project(":opensrp-maternity").projectDir = new File("../opensrp-client-maternity/opensrp-maternity")
+include ':opensrp-giz-malawi'
