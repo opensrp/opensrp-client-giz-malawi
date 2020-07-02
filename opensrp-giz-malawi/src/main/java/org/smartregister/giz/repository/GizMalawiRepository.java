@@ -33,6 +33,11 @@ import org.smartregister.opd.repository.OpdDiagnosisDetailRepository;
 import org.smartregister.opd.repository.OpdTestConductedRepository;
 import org.smartregister.opd.repository.OpdTreatmentDetailRepository;
 import org.smartregister.opd.repository.OpdVisitRepository;
+import org.smartregister.pnc.repository.PncChildRepository;
+import org.smartregister.pnc.repository.PncRegistrationDetailsRepository;
+import org.smartregister.pnc.repository.PncStillBornRepository;
+import org.smartregister.pnc.repository.PncVisitChildStatusRepository;
+import org.smartregister.pnc.repository.PncVisitInfoRepository;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
 import org.smartregister.reporting.repository.IndicatorQueryRepository;
@@ -127,6 +132,13 @@ public class GizMalawiRepository extends Repository {
         // Maternity
         MaternityOutcomeFormRepository.createTable(database);
         MaternityChildRepository.createTable(database);
+
+        // Pnc
+        PncChildRepository.createTable(database);
+        PncStillBornRepository.createTable(database);
+        PncVisitInfoRepository.createTable(database);
+        PncVisitChildStatusRepository.createTable(database);
+        PncRegistrationDetailsRepository.createTable(database);
     }
 
 

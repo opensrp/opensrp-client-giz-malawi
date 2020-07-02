@@ -52,6 +52,8 @@ import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.opd.utils.OpdUtils;
+import org.smartregister.pnc.processor.PncMiniClientProcessorForJava;
+import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.MiniClientProcessorForJava;
@@ -81,9 +83,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
         BaseAncClientProcessorForJava baseAncClientProcessorForJava = new BaseAncClientProcessorForJava(context);
         GizMaternityProcessorForJava maternityMiniClientProcessorForJava = new GizMaternityProcessorForJava(context);
+        PncMiniClientProcessorForJava pncMiniClientProcessorForJava = new PncMiniClientProcessorForJava(context);
         OpdMiniClientProcessorForJava opdMiniClientProcessorForJava = new OpdMiniClientProcessorForJava(context);
 
-        addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava, maternityMiniClientProcessorForJava);
+        addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava, maternityMiniClientProcessorForJava, pncMiniClientProcessorForJava);
     }
 
     public void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
@@ -182,6 +185,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                        } else if (eventType.equals(PncConstants.EventTypeConstants.PNC_REGISTRATION) && eventClient.getClient() != null) {
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) && eventClient.getClient() != null) {
                             //TODO add a filter in register queries
                             GizMalawiApplication.getInstance().registerTypeRepository().softDelete(GizConstants.RegisterType.MATERNITY,

@@ -78,6 +78,7 @@ public class GizConstants {
         public static final String CHILD_CLIENTS = "Child Clients";
         public static final String OPD_CLIENTS = "OPD Clients";
         public static final String MATERNITY_CLIENTS = "Maternity Clients";
+        public static final String PNC_CLIENTS = "PNC Clients";
         public static final String ANC = "ANC";
     }
 
@@ -147,6 +148,7 @@ public class GizConstants {
         String OPD = "opd";
         String ALL_CLIENTS = "all_clients";
         String MATERNITY = "maternity";
+        String PNC = "pnc";
     }
 
     public interface MultiResultProcessor {

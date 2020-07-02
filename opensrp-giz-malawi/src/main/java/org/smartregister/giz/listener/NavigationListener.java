@@ -10,6 +10,7 @@ import org.smartregister.giz.activity.AllClientsRegisterActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.MaternityRegisterActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
+import org.smartregister.giz.activity.PncRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavDrawerActivity;
@@ -49,6 +50,10 @@ public class NavigationListener implements View.OnClickListener {
 
                 case GizConstants.DrawerMenu.MATERNITY_CLIENTS:
                     navigateToActivity(MaternityRegisterActivity.class);
+                    break;
+
+                case GizConstants.DrawerMenu.PNC_CLIENTS:
+                    navigateToActivity(PncRegisterActivity.class);
                     break;
 
                 default:

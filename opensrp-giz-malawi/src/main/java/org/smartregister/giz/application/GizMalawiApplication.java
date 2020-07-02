@@ -31,7 +31,6 @@ import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildFormActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
-import org.smartregister.giz.activity.GizAncContactActivity;
 import org.smartregister.giz.activity.GizAncProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
@@ -40,6 +39,9 @@ import org.smartregister.giz.configuration.GizMaternityRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizMaternityRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
+import org.smartregister.giz.configuration.GizPncOutcomeFormProcessing;
+import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
+import org.smartregister.giz.configuration.GizPncRegisterRowOptions;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
@@ -85,6 +87,13 @@ import org.smartregister.opd.configuration.OpdConfiguration;
 import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
+import org.smartregister.pnc.PncLibrary;
+import org.smartregister.pnc.activity.BasePncFormActivity;
+import org.smartregister.pnc.activity.BasePncProfileActivity;
+import org.smartregister.pnc.config.PncConfiguration;
+import org.smartregister.pnc.pojo.PncMetadata;
+import org.smartregister.pnc.utils.PncConstants;
+import org.smartregister.pnc.utils.PncDbConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.repository.EventClientRepository;
@@ -299,6 +308,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         setupOPDLibrary();
         setupMaternityLibrary();
+        setupPncLibrary();
 
         Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
@@ -336,6 +346,24 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 .addMaternityFormProcessingTask(MaternityConstants.EventType.MATERNITY_OUTCOME, GizMaternityOutcomeFormProcessing.class)
                 .build();
         MaternityLibrary.init(context, getRepository(), maternityConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+    }
+
+    private void setupPncLibrary() {
+        PncMetadata pncMetadata = new PncMetadata(PncConstants.Form.PNC_REGISTRATION
+                , PncDbConstants.KEY.TABLE
+                , PncConstants.EventTypeConstants.PNC_REGISTRATION
+                , PncConstants.EventTypeConstants.UPDATE_PNC_REGISTRATION
+                , PncConstants.CONFIG
+                , BasePncFormActivity.class
+                , BasePncProfileActivity.class
+                ,true);
+        PncConfiguration pncConfiguration = new PncConfiguration
+                .Builder(GizPncRegisterQueryProvider.class)
+                .setPncMetadata(pncMetadata)
+                .setPncRegisterRowOptions(GizPncRegisterRowOptions.class)
+                .addPncFormProcessingTask(PncConstants.EventTypeConstants.PNC_OUTCOME, GizPncOutcomeFormProcessing.class)
+                .build();
+        PncLibrary.init(context, getRepository(), pncConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
     }
 
     private void setupOPDLibrary() {
