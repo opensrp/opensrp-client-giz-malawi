@@ -2,6 +2,7 @@ package org.smartregister.giz.presenter;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -10,8 +11,11 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.commonregistry.CommonPersonObject;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
+import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
 import org.smartregister.giz.interactor.MaternityRegisterActivityInteractor;
 import org.smartregister.maternity.activity.BaseMaternityRegisterActivity;
 import org.smartregister.maternity.contract.MaternityRegisterActivityContract;
@@ -48,7 +52,6 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
 
     public MaternityRegisterActivityPresenter(@NonNull MaternityRegisterActivityContract.View view, @NonNull MaternityRegisterActivityContract.Model model) {
         super(view, model);
-        processPncRegistration();
     }
 
     @NonNull
@@ -100,7 +103,6 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
     }
 
     public void processPncRegistration() {
-        maternityBaseEntityId = "3738e11c-6f6b-4174-bf0f-8aa25b087bdf";
         String pncBaseEntityId = JsonFormUtils.generateRandomUUIDString();
 
         JSONObject jsonObject = PncUtils.getJsonFormToJsonObject("pnc_registration_template");
@@ -111,11 +113,15 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
                 String q1 = "SELECT * FROM ec_client WHERE base_entity_id='" + maternityBaseEntityId + "'";
                 String q2 = "SELECT * FROM maternity_registration_details WHERE base_entity_id='" + maternityBaseEntityId + "'";
 
+                String q3 = "SELECT * FROM maternity_outcome WHERE base_entity_id='" + maternityBaseEntityId + "'";
+                HashMap<String, String> tempData = getMergedData(q3);
+
                 Set<String> possibleJsonArrayKeys = new HashSet<>();
                 possibleJsonArrayKeys.add("dob_unknown");
                 possibleJsonArrayKeys.add("occupation");
 
                 HashMap<String, String> data = getMergedData(q1, q2);
+                data.put("mother_status", tempData.get("mother_status"));
 
                 if ("alive".equalsIgnoreCase(data.get("mother_status"))) {
 
@@ -202,7 +208,7 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
                 processPncData(intent, () -> {
                     if (getView() != null) {
                         getView().hideProgressDialog();
-                        showAlertDialog(getView());
+                        showAlertDialog(getView(), pncBaseEntityId);
                     }
                 });
             }
@@ -348,7 +354,7 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
                 }
                 PncUtils.saveRegistrationFormSilent(jsonString, registerParam, callBack);
             } else if (encounterType.equals(PncConstants.EventTypeConstants.PNC_OUTCOME)) {
-                PncUtils.saveOutcomeAndVisitFormSilent(jsonString, data, callBack);
+                PncUtils.saveOutcomeAndVisitFormSilent(encounterType, data, callBack);
             }
 
         } catch (JSONException e) {
@@ -356,7 +362,7 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
         }
     }
 
-    private void showAlertDialog(MaternityRegisterActivityContract.View view) {
+    private void showAlertDialog(MaternityRegisterActivityContract.View view, String pncBaseEntityId) {
         if (view instanceof BaseMaternityRegisterActivity) {
             BaseMaternityRegisterActivity activity = (BaseMaternityRegisterActivity) view;
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -366,9 +372,19 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
 
                 PncMetadata pncMetadata = PncLibrary.getInstance().getPncConfiguration().getPncMetadata();
 
+                GizPncRegisterQueryProvider pncRegisterQueryProvider = new GizPncRegisterQueryProvider();
+                String query = pncRegisterQueryProvider.mainSelectWhereIDsIn().replace("%s", "'" + pncBaseEntityId + "'");
+                Cursor cursor = PncLibrary.getInstance().getRepository().getReadableDatabase().rawQuery(query, null);
+                cursor.moveToFirst();
+
+                CommonPersonObject personinlist = PncLibrary.getInstance().context().commonrepository("ec_client").readAllcommonforCursorAdapter(cursor);
+                CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(),
+                        personinlist.getDetails(), personinlist.getDetails().get("FWHOHFNAME"));
+                pClient.setColumnmaps(personinlist.getColumnmaps());
+
                 if (pncMetadata != null) {
                     Intent intent = new Intent(activity, pncMetadata.getProfileActivity());
-                    //intent.putExtra(PncConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
+                    intent.putExtra(PncConstants.IntentKey.CLIENT_OBJECT, pClient);
                     activity.startActivity(intent);
                 }
             });
