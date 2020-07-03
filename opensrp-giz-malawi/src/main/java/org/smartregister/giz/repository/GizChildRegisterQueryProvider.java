@@ -69,6 +69,7 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 "mother" + "." + Constants.KEY.FIRST_NAME + " as mother_first_name",
                 "mother" + "." + Constants.KEY.LAST_NAME + " as mother_last_name",
                 getDemographicTable() + "." + Constants.KEY.DOB,
+                getDemographicTable() + "." + Constants.KEY.DOD,
                 "mother" + "." + Constants.KEY.DOB + " as mother_dob",
                 getMotherDetailsTable() + "." + Constants.KEY.NRC_NUMBER + " as mother_nrc_number",
                 getDemographicTable() + "." + Constants.KEY.CLIENT_REG_DATE,
@@ -83,7 +84,10 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getMotherDetailsTable() + "." + GizConstants.MOTHER_TDV_DOSES,
                 getMotherDetailsTable() + "." + GizConstants.MOTHER_HIV_STATUS,
                 getChildDetailsTable() + "." + GizConstants.BIRTH_REGISTRATION_NUMBER,
-                getChildDetailsTable() + "." + GrowthMonitoringConstants.PMTCT_STATUS
+                getChildDetailsTable() + "." + GrowthMonitoringConstants.PMTCT_STATUS,
+                getChildDetailsTable() + "." + Constants.KEY.CHILD_HIV_STATUS,
+                getChildDetailsTable() + "." + Constants.KEY.CHILD_TREATMENT,
+
         };
     }
 
