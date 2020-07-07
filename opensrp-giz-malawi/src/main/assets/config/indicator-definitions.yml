@@ -2203,3 +2203,85 @@ indicators:
       - "ME_MAT_Child_HIV_Status_Exposed_No_NVP"
       - "ME_MAT_Child_HIV_Status_Exposed_NVP_Started"
     grouping: "maternity"
+
+  ##PNC
+  - key: "ME_PNC_Total_Live_Birth"
+    description: "Total Live Birth Deliveries"
+    indicatorQuery: "SELECT COUNT(DISTINCT mother_base_entity_id) deliveries from pnc_baby'
+                     WHERE '%s' = strftime('%Y-%m-%d', birth_record_date)"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Checked_in"
+    description: "Mother Checked in"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN pnc_visit_period < '2' THEN '2days'
+                     WHEN pnc_visit_period < '7' THEN '7days'
+                     WHEN pnc_visit_period < '42' THEN '42days'
+                     ELSE 'MoreThan42'  END duration,count(*)
+                     FROM pnc_visit_info'
+                     WHERE '%s' = strftime('%Y-%m-%d', created_at)"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Checked_in_2days"
+      - "ME_PNC_Checked_in_7days"
+      - "ME_PNC_Checked_in_42days"
+    grouping: "pnc"
+    
+   - key: "ME_PNC_Checked_In_Twice_In_7days"
+   description: "Mother Checked in 2x in 7 Days"
+   indicatorQuery: "SELECT count(*) FROM (SELECT count(*) counter
+                    FROM pnc_visit_info
+                    WHERE pnc_visit_period < '7'
+                    GROUP BY parent_base_entity_id) a
+                    WHERE a.counter>=2
+                    AND '%s' = strftime('%Y-%m-%d', created_at)"
+   grouping: "pnc"
+
+  - key: "ME_PNC_Vit_a"
+    description: "Vitamin A doses"
+    indicatorQuery: "SELECT vit_a,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', created_at)
+                     GROUP BY vit_a"
+    isMultiResult: true
+    expectedIndicators:
+     - "ME_PNC_Vit_a_yes"
+     - "ME_PNC_Vit_a_no"
+    grouping: "pnc"
+
+  - key: "ME_PNC_fp_counsel"
+    description: "Immediate Family Planning"
+    indicatorQuery: "SELECT fp_counsel,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', created_at)
+                     AND fp_counsel='yes'
+                     GROUP BY fp_counsel"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_fp_counsel_yes"
+    grouping: "pnc"
+
+  - key: "ME_PNC_fp_method"
+    description: "Immediate Family Planning"
+    indicatorQuery: "SELECT fp_method,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', created_at)
+                     GROUP BY fp_method"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_fp_method_bilateral_tubal_ligation"
+      - "ME_PNC_fp_method_intrauterine_contraceptive_device"
+    grouping: "pnc"
+
+  - key: "ME_PNC_fp_method"
+    description: "Immediate Family Planning"
+    indicatorQuery: "SELECT fp_method,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', created_at)
+                     GROUP BY fp_method"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_fp_method_bilateral_tubal_ligation"
+      - "ME_PNC_fp_method_intrauterine_contraceptive_device"
+    grouping: "pnc"
