@@ -1569,7 +1569,7 @@ indicators:
     indicatorQuery: "SELECT vit_a,count(*)
                      FROM pnc_visit_info
                      WHERE '%s' = strftime('%Y-%m-%d', created_at)
-                     GROUP BY parent_base_entity_id, vit_a"
+                     GROUP BY vit_a"
     isMultiResult: true
     expectedIndicators:
      - "ME_PNC_Vit_a_yes"
@@ -1582,7 +1582,7 @@ indicators:
                      FROM pnc_visit_info
                      WHERE '%s' = strftime('%Y-%m-%d', created_at)
                      AND fp_counsel='yes'
-                     GROUP BY parent_base_entity_id, fp_counsel"
+                     GROUP BY fp_counsel"
     isMultiResult: true
     expectedIndicators:
       - "ME_PNC_fp_counsel_yes"
@@ -1593,7 +1593,19 @@ indicators:
     indicatorQuery: "SELECT fp_method,count(*)
                      FROM pnc_visit_info
                      WHERE '%s' = strftime('%Y-%m-%d', created_at)
-                     GROUP BY parent_base_entity_id, fp_method"
+                     GROUP BY fp_method"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_fp_method_bilateral_tubal_ligation"
+      - "ME_PNC_fp_method_intrauterine_contraceptive_device"
+    grouping: "pnc"
+
+  - key: "ME_PNC_fp_method"
+    description: "Immediate Family Planning"
+    indicatorQuery: "SELECT fp_method,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', created_at)
+                     GROUP BY fp_method"
     isMultiResult: true
     expectedIndicators:
       - "ME_PNC_fp_method_bilateral_tubal_ligation"
