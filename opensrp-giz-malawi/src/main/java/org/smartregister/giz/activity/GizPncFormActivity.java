@@ -13,6 +13,7 @@ import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.giz.fragment.GizPncFormFragment;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.activity.BasePncFormActivity;
 import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.pnc.utils.PncDbConstants;
@@ -67,6 +68,8 @@ public class GizPncFormActivity extends BasePncFormActivity {
 
         try {
             String motherBaseEntityId = getIntent().getStringExtra(PncDbConstants.KEY.BASE_ENTITY_ID);
+
+            HashMap<String, String> motherData = PncLibrary.getInstance().getPncRegistrationDetailsRepository().findByBaseEntityId(motherBaseEntityId);
 
             Set<String> possibleJsonArrayKeys = new HashSet<>();
             possibleJsonArrayKeys.add("first_name");
@@ -123,7 +126,7 @@ public class GizPncFormActivity extends BasePncFormActivity {
 
                         jsonObject = new JSONObject(jsonString);
                         JSONArray fieldsArray = jsonObject.getJSONArray("fields");
-                        processWithMandatoryChecks(fieldsArray, randomBaseEntityId);
+                        processWithMandatoryChecks(fieldsArray, randomBaseEntityId, motherData);
                         for (int i = 0; i < fieldsArray.length(); i++) {
                             if (!fieldsArray.getJSONObject(i).getString("key").equals("child_registered_" + randomBaseEntityId)) {
                                 step.getJSONArray("fields").put(fieldsArray.getJSONObject(i));
@@ -140,7 +143,7 @@ public class GizPncFormActivity extends BasePncFormActivity {
         }
     }
 
-    private void processWithMandatoryChecks(JSONArray fields, String baseEntityId) throws JSONException {
+    private void processWithMandatoryChecks(JSONArray fields, String baseEntityId, HashMap<String, String> motherData) throws JSONException {
 
         // remove relevance
         for (int i = 0; i < fields.length(); i++) {
@@ -177,6 +180,17 @@ public class GizPncFormActivity extends BasePncFormActivity {
                     || field.getString("key").equals("baby_gender_" + baseEntityId)
                     || field.getString("key").equals("baby_dob_" + baseEntityId)) {
                 field.put("read_only","true");
+            }
+
+            if (field.getString("key").equals("child_hiv_status_" + baseEntityId)) {
+
+                if ("positive".equalsIgnoreCase(motherData.get("hiv_status_previous"))
+                        || "unknown".equalsIgnoreCase(motherData.get("hiv_status_previous"))
+                        || "positive".equalsIgnoreCase(motherData.get("hiv_status_current"))
+                        || "unknown".equalsIgnoreCase(motherData.get("hiv_status_current"))) {
+
+                    field.remove("relevance");
+                }
             }
         }
     }
