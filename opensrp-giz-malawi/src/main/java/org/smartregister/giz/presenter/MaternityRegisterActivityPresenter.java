@@ -256,7 +256,8 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
                     JSONObject field = fields.getJSONObject(i);
                     String key = field.getString("key");
                     String newKey = key + randomBaseEntityId;
-                    jsonString = jsonString.replace(key, newKey);
+                    jsonString = jsonString.replace("\"" + key + "\"", "\"" + newKey + "\"");
+                    jsonString = jsonString.replace("\"step4:" + key + "\"", "\"step4:" + newKey + "\"");
                 }
 
                 jsonObject = new JSONObject(jsonString);

@@ -2,6 +2,7 @@ package org.smartregister.giz.util;
 
 public class GizConstants {
 
+    public static final int HOW_BABY_OLD_IN_DAYS = 28;
     public static final String MOTHER_TDV_DOSES = "mother_tdv_doses";
     public static final String PROTECTED_AT_BIRTH = "protected_at_birth";
     public static final String REACTION_VACCINE = "Reaction_Vaccine";
