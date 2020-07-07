@@ -250,7 +250,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.smartregister.pnc.activity.BasePncFormActivity"
+            android:name=".activity.GizPncFormActivity"
             android:screenOrientation="portrait"
             tools:replace="android:theme"
             android:theme="@style/ChildTheme.NoActionBar"

@@ -32,6 +32,7 @@ import org.smartregister.giz.activity.ChildFormActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.GizAncProfileActivity;
+import org.smartregister.giz.activity.GizPncFormActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.configuration.GizMaternityOutcomeFormProcessing;
@@ -88,7 +89,6 @@ import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.pnc.PncLibrary;
-import org.smartregister.pnc.activity.BasePncFormActivity;
 import org.smartregister.pnc.activity.BasePncProfileActivity;
 import org.smartregister.pnc.config.PncConfiguration;
 import org.smartregister.pnc.pojo.PncMetadata;
@@ -354,7 +354,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , PncConstants.EventTypeConstants.PNC_REGISTRATION
                 , PncConstants.EventTypeConstants.UPDATE_PNC_REGISTRATION
                 , PncConstants.CONFIG
-                , BasePncFormActivity.class
+                , GizPncFormActivity.class
                 , BasePncProfileActivity.class
                 ,true);
         PncConfiguration pncConfiguration = new PncConfiguration

@@ -313,6 +313,52 @@
         "value": "{home_address}"
       },
       {
+        "key": "village",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "tree",
+        "tree": [
+          {
+            "key": "Westeros",
+            "level": "",
+            "name": "Westeros",
+            "nodes": [
+              {
+                "key": "The North",
+                "level": "",
+                "name": "The North",
+                "nodes": [
+                  {
+                    "key": "Winterfell",
+                    "level": "",
+                    "name": "Winterfell",
+                    "nodes": [
+                      {
+                        "key": "The crypts",
+                        "level": "",
+                        "name": "The crypts"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "Other",
+            "level": "",
+            "name": "Other"
+          }
+        ],
+        "hint": "Village",
+        "v_required": {
+          "value": false,
+          "err": "Please enter the Woman's Village"
+        },
+        "value": "{village}"
+      },
+      {
         "key": "phone_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "person_attribute",
