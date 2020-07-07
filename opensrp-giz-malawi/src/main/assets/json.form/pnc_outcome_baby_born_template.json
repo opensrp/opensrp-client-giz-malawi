@@ -593,8 +593,13 @@
       "label_text_style": "bold",
       "relevance": {
         "step4:child_hiv_status_": {
-          "type": "string",
-          "ex": "equalTo(., \"[\"positive\",\"exposed\"]\")"
+          "ex-checkbox": [
+            {
+              "or": [
+                "positive", "exposed"
+              ]
+            }
+          ]
         }
       },
       "v_required": {
