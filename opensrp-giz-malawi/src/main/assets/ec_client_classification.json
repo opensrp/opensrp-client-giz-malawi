@@ -161,6 +161,49 @@
               "maternity_outcome"
             ]
           },
+
+
+          {
+            "field": "eventType",
+            "field_value": "PNC Registration",
+            "creates_case": [
+              "ec_client",
+              "ec_mother_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Update Pnc Registration",
+            "creates_case": [
+              "ec_client",
+              "ec_mother_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Pnc Close",
+            "closes_case": [
+              "ec_client"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Medic Information",
+            "creates_case": [
+              "pnc_registration_details",
+              "pnc_baby",
+              "pnc_still_born"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "PNC Visit",
+            "creates_case": [
+              "pnc_visit_info",
+              "pnc_visit_child_status"
+            ]
+          },
+
           {
             "field": "eventType",
             "field_value": "AEFI",

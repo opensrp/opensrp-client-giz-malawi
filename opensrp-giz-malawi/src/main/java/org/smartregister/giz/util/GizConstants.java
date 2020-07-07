@@ -2,6 +2,7 @@ package org.smartregister.giz.util;
 
 public class GizConstants {
 
+    public static final int HOW_BABY_OLD_IN_DAYS = 28;
     public static final String MOTHER_TDV_DOSES = "mother_tdv_doses";
     public static final String PROTECTED_AT_BIRTH = "protected_at_birth";
     public static final String REACTION_VACCINE = "Reaction_Vaccine";
@@ -78,6 +79,7 @@ public class GizConstants {
         public static final String CHILD_CLIENTS = "Child Clients";
         public static final String OPD_CLIENTS = "OPD Clients";
         public static final String MATERNITY_CLIENTS = "Maternity Clients";
+        public static final String PNC_CLIENTS = "PNC Clients";
         public static final String ANC = "ANC";
     }
 
@@ -148,6 +150,7 @@ public class GizConstants {
         String OPD = "opd";
         String ALL_CLIENTS = "all_clients";
         String MATERNITY = "maternity";
+        String PNC = "pnc";
     }
 
     public interface MultiResultProcessor {

@@ -14,7 +14,6 @@ import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
-import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -44,6 +43,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         tableMap.put(GizConstants.DrawerMenu.ALL_CLIENTS, GizConstants.RegisterType.ALL_CLIENTS);
         tableMap.put(GizConstants.DrawerMenu.OPD_CLIENTS, GizConstants.RegisterType.OPD);
         tableMap.put(GizConstants.DrawerMenu.MATERNITY_CLIENTS, GizConstants.RegisterType.MATERNITY);
+        tableMap.put(GizConstants.DrawerMenu.PNC_CLIENTS, GizConstants.RegisterType.PNC);
     }
 
     @Override

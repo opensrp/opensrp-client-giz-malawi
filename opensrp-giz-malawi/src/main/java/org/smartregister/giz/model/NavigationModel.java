@@ -60,6 +60,14 @@ public class NavigationModel implements NavigationContract.Model {
             if (maternityNavigationOption.isEnabled()) {
                 navigationOptions.add(maternityNavigationOption);
             }
+
+            // Pnc navigation
+            NavigationOption pncNavigationOption = new NavigationOption(R.mipmap.sidemenu_families,
+                    R.mipmap.sidemenu_families_active, R.string.menu_pnc_clients, GizConstants.DrawerMenu.PNC_CLIENTS,
+                    0, true);
+            if (pncNavigationOption.isEnabled()) {
+                navigationOptions.add(pncNavigationOption);
+            }
         }
 
         return navigationOptions;
