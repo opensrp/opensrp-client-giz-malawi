@@ -100,6 +100,7 @@ public class GizConstants {
         public static final String UPDATE_CHILD_REGISTRATION = "Update Birth Registration";
         public static final String OUT_OF_CATCHMENT = "Out of Catchment";
 
+        public static final String REPORT_CREATION = "REPORT CREATION";
     }
 
     public static class JSON_FORM {

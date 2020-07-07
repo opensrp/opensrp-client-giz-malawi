@@ -15,6 +15,7 @@ import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.AssetHandler;
@@ -124,6 +125,10 @@ public class GizJsonFormUtils extends JsonFormUtils {
         prefix = jsonObject.has(JsonFormUtils.ENTITY_ID) && jsonObject.getString(JsonFormUtils.ENTITY_ID)
                 .equalsIgnoreCase(GizConstants.KEY.MOTHER) ? GizConstants.KEY.MOTHER_ : "";
         return prefix;
+    }
+
+    public static void tagEventSyncMetadata(Event event){
+        tagSyncMetadata(event);
     }
 
     private static void processLocationTree(Map<String, String> childDetails, List<String> nonEditableFields, JSONObject jsonObject) throws JSONException {

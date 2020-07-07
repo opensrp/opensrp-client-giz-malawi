@@ -48,6 +48,7 @@ import org.smartregister.giz.repository.ClientRegisterTypeRepository;
 import org.smartregister.giz.repository.DailyTalliesRepository;
 import org.smartregister.giz.repository.GizAncRegisterQueryProvider;
 import org.smartregister.giz.repository.GizChildRegisterQueryProvider;
+import org.smartregister.giz.repository.GizHia2ReportRepository;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
@@ -558,7 +559,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public Hia2ReportRepository hia2ReportRepository() {
         if (hia2ReportRepository == null) {
-            hia2ReportRepository = new Hia2ReportRepository();
+            hia2ReportRepository = new GizHia2ReportRepository();
         }
         return hia2ReportRepository;
     }

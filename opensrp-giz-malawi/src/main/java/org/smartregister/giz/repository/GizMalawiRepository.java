@@ -101,10 +101,10 @@ public class GizMalawiRepository extends Repository {
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
-        MonthlyTalliesRepository.createTable(database);
+        GizMonthlyTalliesRepository.createTable(database);
         HIA2IndicatorsRepository.createTable(database);
 
-        EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, Hia2ReportRepository.report_column.values());
+        EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, GizHia2ReportRepository.report_column.values());
 
         runLegacyUpgrades(database);
 

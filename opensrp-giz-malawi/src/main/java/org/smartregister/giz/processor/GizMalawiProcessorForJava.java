@@ -11,6 +11,10 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.ChildDbUtils;
@@ -28,6 +32,8 @@ import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.domain.MonthlyTally;
+import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
@@ -146,7 +152,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     if (processDeathEvent(eventClient, clientClassification)) {
                         unsyncEvents.add(event);
                     }
-                } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
+                } else if (eventType.equals(GizConstants.EventType.REPORT_CREATION)) {
+                    processReport(event);
+                    CoreLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(eventClient.getEvent().getFormSubmissionId());
+                }
+                if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
                         .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) ||
                         eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) ||
@@ -202,6 +212,40 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
 
             appExecutors.diskIO().execute(runnable);
+        }
+    }
+
+    private void processReport(Event event) {
+        try {
+            JSONObject jsonObject = new JSONObject(event.getDetails().get("reportJson"));
+            String reportMonth = jsonObject.optString("reportDate");
+            String reportGrouping = jsonObject.optString("grouping");
+            String providerId = jsonObject.optString("providerId");
+            String dateCreated = jsonObject.optString("dateCreated");
+            DateTime dateSent = new DateTime(dateCreated);
+            Date dReportMonth = MonthlyTalliesRepository.DF_YYYYMM.parse(reportMonth);
+
+            JSONArray jsonArray = jsonObject.optJSONArray("hia2Indicators");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = jsonArray.optJSONObject(i);
+                String indicator = jsonObject1.optString("indicatorCode");
+                String value = jsonObject1.optString("value");
+                MonthlyTally monthlyTally = new MonthlyTally();
+                monthlyTally.setEdited(false);
+                monthlyTally.setGrouping(reportGrouping);
+                monthlyTally.setIndicator(indicator);
+                monthlyTally.setProviderId(providerId);
+                monthlyTally.setValue(value);
+                monthlyTally.setDateSent(dateSent.toDate());
+                monthlyTally.setCreatedAt(dateSent.toDate());
+                monthlyTally.setMonth(dReportMonth);
+                GizMalawiApplication.getInstance().monthlyTalliesRepository().save(monthlyTally);
+            }
+
+        } catch (JSONException e) {
+            Timber.e(e);
+        } catch (ParseException e) {
+            Timber.e(e);
         }
     }
 
