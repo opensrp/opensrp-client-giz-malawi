@@ -78,7 +78,9 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
                 GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? and " + GizConstants.Columns.RegisterType.REGISTER_TYPE + " = ?",
                 new String[]{baseEntityId, registerType}, null, null, null);
         if (cursor != null) {
-            return cursor.getCount() > 0;
+            boolean isType = cursor.getCount() > 0;
+            cursor.close();
+            return isType;
         }
         return false;
     }
