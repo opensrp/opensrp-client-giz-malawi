@@ -1574,6 +1574,7 @@ indicators:
     expectedIndicators:
      - "ME_PNC_Vit_a_yes"
      - "ME_PNC_Vit_a_no"
+    grouping: "pnc"
 
   - key: "ME_PNC_fp_counsel"
     description: "Immediate Family Planning"
@@ -1585,6 +1586,7 @@ indicators:
     isMultiResult: true
     expectedIndicators:
       - "ME_PNC_fp_counsel_yes"
+    grouping: "pnc"
 
   - key: "ME_PNC_fp_method"
     description: "Immediate Family Planning"
@@ -1596,3 +1598,4 @@ indicators:
     expectedIndicators:
       - "ME_PNC_fp_method_bilateral_tubal_ligation"
       - "ME_PNC_fp_method_intrauterine_contraceptive_device"
+    grouping: "pnc"
