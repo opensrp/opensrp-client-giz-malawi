@@ -54,7 +54,7 @@ public class GizPncFormActivity extends BasePncFormActivity {
         try {
             JSONObject jsonObject = new JSONObject(json);
             if (PncConstants.EventTypeConstants.PNC_OUTCOME.equals(jsonObject.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
-                addRepeatingGroupFields(jsonObject.getJSONObject("step4"));PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE.equals(jsonObject.optString(PncConstants.EventTypeConstants.PNC_OUTCOME));
+                addRepeatingGroupFields(jsonObject.getJSONObject("step4"));
             }
             super.init(jsonObject.toString());
         }
@@ -82,9 +82,6 @@ public class GizPncFormActivity extends BasePncFormActivity {
                     "WHERE ec_client.base_entity_id = ec_child.base_entity_id";
 
             ArrayList<HashMap<String, String>> childData = getData(query);
-
-            JSONObject repeatingGroup = step.getJSONArray("fields").getJSONObject(1);
-            int count = 0;
 
             for (HashMap<String, String> childMap : childData) {
 
@@ -133,9 +130,7 @@ public class GizPncFormActivity extends BasePncFormActivity {
                             }
                         }
                     }
-                    count += 1;
                 }
-                repeatingGroup.put("value", String.valueOf(count));
             }
         }
         catch (JSONException ex) {
@@ -145,7 +140,7 @@ public class GizPncFormActivity extends BasePncFormActivity {
 
     private void processWithMandatoryChecks(JSONArray fields, String baseEntityId, HashMap<String, String> motherData) throws JSONException {
 
-        // remove relevance
+        // update fields
         for (int i = 0; i < fields.length(); i++) {
             JSONObject field = fields.getJSONObject(i);
 
@@ -198,16 +193,6 @@ public class GizPncFormActivity extends BasePncFormActivity {
     private ArrayList<HashMap<String, String>> getData(String query) {
         BaseRepository repo = new BaseRepository();
         return repo.rawQuery(repo.getReadableDatabase(), query);
-    }
-
-    private boolean isValidJSONArray(String jsonString) {
-        try {
-            new JSONArray(jsonString);
-            return true;
-        }
-        catch (JSONException ex) {
-            return false;
-        }
     }
 
     private Date getDate(@Nullable String dob) {

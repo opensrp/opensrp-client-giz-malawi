@@ -32,39 +32,6 @@
       "value": "{discharged_alive}"
     },
     {
-      "key": "child_registered_",
-      "openmrs_entity_parent": "",
-      "openmrs_entity": "concept",
-      "openmrs_entity_id": "1695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "type": "native_radio",
-      "label": "Is the child already registered in the child register?",
-      "label_text_style": "bold",
-      "relevance": {
-        "step4:discharged_alive_": {
-          "type": "string",
-          "ex": "equalTo(., \"yes\")"
-        }
-      },
-      "options": [
-        {
-          "key": "yes",
-          "text": "Yes",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        {
-          "key": "no",
-          "text": "No",
-          "openmrs_entity_parent": "",
-          "openmrs_entity": "concept",
-          "openmrs_entity_id": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        }
-      ],
-      "is-rule-check": false,
-      "is_visible": true
-    },
-    {
       "key": "birth_record_date_",
       "openmrs_entity_parent": "",
       "openmrs_entity": "",
@@ -75,12 +42,6 @@
       "v_required": {
         "value": "true",
         "err": "Field required"
-      },
-      "relevance": {
-        "step4:child_registered_": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
       },
       "is_visible": true
     },
@@ -94,12 +55,6 @@
       "v_required": {
         "value": "true",
         "err": "Field required"
-      },
-      "relevance": {
-        "step4:child_registered_": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
       },
       "is_visible": true,
       "value": "{first_name}"
@@ -115,12 +70,6 @@
         "value": "true",
         "err": "Field required"
       },
-      "relevance": {
-        "step4:child_registered_": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
-      },
       "is_visible": true,
       "value": "{last_name}"
     },
@@ -134,12 +83,6 @@
       "v_required": {
         "value": "true",
         "err": "Field required"
-      },
-      "relevance": {
-        "step4:child_registered_": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
       },
       "is_visible": true,
       "value": "{dob}"
@@ -155,12 +98,6 @@
       "v_required": {
         "value": "true",
         "err": "Select at least one medical condition OR None"
-      },
-      "relevance": {
-        "step4:child_registered_": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
       },
       "options": [
         {
@@ -196,12 +133,6 @@
         "value": "true",
         "err": "Enter valid birth weight"
       },
-      "relevance": {
-        "step4:child_registered_": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
-      },
       "step": "step4",
       "is-rule-check": true,
       "is_visible": true
@@ -228,12 +159,6 @@
       "v_required": {
         "value": "true",
         "err": "Enter valid birth height"
-      },
-      "relevance": {
-        "step4:child_registered_": {
-          "type": "string",
-          "ex": "equalTo(., \"no\")"
-        }
       },
       "is_visible": true,
       "value": "{height}"

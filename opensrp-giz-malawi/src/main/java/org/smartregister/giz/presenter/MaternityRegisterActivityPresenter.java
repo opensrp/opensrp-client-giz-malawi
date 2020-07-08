@@ -114,13 +114,13 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
                 String q2 = "SELECT * FROM maternity_registration_details WHERE base_entity_id='" + maternityBaseEntityId + "'";
 
                 String q3 = "SELECT * FROM maternity_outcome WHERE base_entity_id='" + maternityBaseEntityId + "'";
-                HashMap<String, String> tempData = getMergedData(q3);
+                HashMap<String, String> tempData = PncUtils.getMergedData(q3);
 
                 Set<String> possibleJsonArrayKeys = new HashSet<>();
                 possibleJsonArrayKeys.add("dob_unknown");
                 possibleJsonArrayKeys.add("occupation");
 
-                HashMap<String, String> data = getMergedData(q1, q2);
+                HashMap<String, String> data = PncUtils.getMergedData(q1, q2);
                 data.put("mother_status", tempData.get("mother_status"));
 
                 if ("alive".equalsIgnoreCase(data.get("mother_status"))) {
@@ -175,7 +175,7 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
                 possibleJsonArrayKeys.add("obstetric_complications");
                 possibleJsonArrayKeys.add("obstetric_care");
 
-                HashMap<String, String> data = getMergedData(q1, q2);
+                HashMap<String, String> data = PncUtils.getMergedData(q1, q2);
                 for (Map.Entry<String, String> entry : data.entrySet()) {
 
                     String value = entry.getValue();
@@ -310,23 +310,6 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
     private ArrayList<HashMap<String, String>> getData(String query) {
         BaseRepository repo = new BaseRepository();
         return repo.rawQuery(repo.getReadableDatabase(), query);
-    }
-
-    private HashMap<String, String> getMergedData(String... queries) {
-        HashMap<String, String> mergedData = new HashMap<>();
-
-        BaseRepository repo = new BaseRepository();
-        for (String query : queries) {
-
-            ArrayList<HashMap<String, String>> dataList = repo.rawQuery(repo.getReadableDatabase(), query);
-
-            if (!dataList.isEmpty()) {
-                HashMap<String, String> data = dataList.get(0);
-                mergedData.putAll(data);
-            }
-        }
-
-        return mergedData;
     }
 
     private boolean isValidJSONArray(String jsonString) {
