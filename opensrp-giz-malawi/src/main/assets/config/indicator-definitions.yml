@@ -2207,7 +2207,7 @@ indicators:
   ##PNC
   - key: "ME_PNC_Total_Live_Birth"
     description: "Total Live Birth Deliveries"
-    indicatorQuery: "SELECT COUNT(DISTINCT mother_base_entity_id) deliveries from pnc_baby'
+    indicatorQuery: "SELECT COUNT(DISTINCT mother_base_entity_id) deliveries from pnc_baby
                      WHERE '%s' = strftime('%Y-%m-%d', birth_record_date)"
     grouping: "pnc"
 
@@ -2219,7 +2219,7 @@ indicators:
                      WHEN pnc_visit_period < '7' THEN '7days'
                      WHEN pnc_visit_period < '42' THEN '42days'
                      ELSE 'MoreThan42'  END duration,count(*)
-                     FROM pnc_visit_info'
+                     FROM pnc_visit_info
                      WHERE '%s' = strftime('%Y-%m-%d', created_at)"
     isMultiResult: true
     expectedIndicators:
@@ -2228,15 +2228,15 @@ indicators:
       - "ME_PNC_Checked_in_42days"
     grouping: "pnc"
     
-   - key: "ME_PNC_Checked_In_Twice_In_7days"
-   description: "Mother Checked in 2x in 7 Days"
-   indicatorQuery: "SELECT count(*) FROM (SELECT count(*) counter
+  - key: "ME_PNC_Checked_In_Twice_In_7days"
+    description: "Mother Checked in 2x in 7 Days"
+    indicatorQuery: "SELECT count(*) FROM (SELECT count(*) counter
                     FROM pnc_visit_info
                     WHERE pnc_visit_period < '7'
                     GROUP BY parent_base_entity_id) a
                     WHERE a.counter>=2
                     AND '%s' = strftime('%Y-%m-%d', created_at)"
-   grouping: "pnc"
+    grouping: "pnc"
 
   - key: "ME_PNC_Vit_a"
     description: "Vitamin A doses"

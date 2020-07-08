@@ -162,6 +162,11 @@ public class HIA2ReportsActivity extends AppCompatActivity {
         groupingReportMap.put("anc", "ANC Monthly Facility Report");
         groupingReportMap.put("opd", "Malaria Health Facility Report");
         groupingReportMap.put("maternity", "Maternity Monthly Report");
+//        groupingReportMap.put("pnc", "Sample Monthly Report");
+    }
+
+    public ReportsSectionsPagerAdapter getmSectionsPagerAdapter() {
+        return mSectionsPagerAdapter;
     }
 
     @Override
@@ -457,18 +462,15 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                         if (fragment != null) {
                             ((DraftMonthlyFragment) fragment).updateDraftsReportListView(monthlyTallies);
                         }
-//
-//                        try {
-//                            fragment = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.container + ":" + mViewPager.getCurrentItem() + 1);
-//                            if (fragment != null) {
-//                                ((SentMonthlyFragment) fragment).refreshData();
-//                            }
-//
-//                        } catch (Exception e) {
-//                            Timber.e(e);
-//                        }
+
                     }
                 }), null);
+
+                try {
+                    mSectionsPagerAdapter.getSentMonthlyFragment().refreshData();
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
             }
         } catch (Exception e) {
             Timber.e(e);

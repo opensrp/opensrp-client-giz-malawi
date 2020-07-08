@@ -823,4 +823,5 @@
 
     <string name="opd_report_grouping_title">OPD</string>
     <string name="maternity_report_grouping_title">Maternity</string>
+    <string name="pnc_report_grouping_title">PNC</string>
 </resources>
