@@ -1519,6 +1519,13 @@
         "reference_edit_text": "Number of babies born alive",
         "value": [
           {
+            "key": "generated_grp",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "hidden"
+          },
+          {
             "key": "discharged_alive",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -2197,10 +2204,6 @@
         "reference_edit_text_hint": "#Total baby stillborn",
         "repeating_group_label": "Baby stillborn",
         "reference_edit_text": "Number of babies stillborn",
-        "v_required": {
-          "value": "true",
-          "err": "Field required"
-        },
         "value": [
           {
             "key": "stillbirth_condition",

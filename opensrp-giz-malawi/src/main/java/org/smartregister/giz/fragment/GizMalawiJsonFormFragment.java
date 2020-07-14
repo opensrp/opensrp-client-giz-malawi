@@ -171,7 +171,7 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
                         MaterialEditText materialEditText = (MaterialEditText) view;
                         materialEditText.setEnabled(true);
                         enableEditText(materialEditText);
-                        materialEditText.setTag(com.vijay.jsonwizard.R.id.after_look_up, false);
+                        materialEditText.setTag(R.id.after_look_up, false);
                         materialEditText.setText("");
                     }
                 }
@@ -283,7 +283,7 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
 
                     for (View view : lookUpViews) {
 
-                        String key = (String) view.getTag(com.vijay.jsonwizard.R.id.key);
+                        String key = (String) view.getTag(R.id.key);
                         String text = "";
 
                         if (StringUtils.containsIgnoreCase(key, MotherLookUpUtils.firstName)) {
@@ -309,7 +309,7 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
                         if (view instanceof MaterialEditText) {
                             MaterialEditText materialEditText = (MaterialEditText) view;
                             materialEditText.setEnabled(false);
-                            materialEditText.setTag(com.vijay.jsonwizard.R.id.after_look_up, true);
+                            materialEditText.setTag(R.id.after_look_up, true);
                             materialEditText.setText(text);
                             materialEditText.setInputType(InputType.TYPE_NULL);
                             disableEditText(materialEditText);
@@ -363,7 +363,7 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
                 View view = getMainView().getChildAt(i);
                 if (view instanceof TextView) {
                     TextView textView = (TextView) view;
-                    String key = (String) textView.getTag(com.vijay.jsonwizard.R.id.key);
+                    String key = (String) textView.getTag(R.id.key);
                     if (key.equals(currentKey)) {
                         toreturn = textView.getText().toString();
                     }
@@ -377,7 +377,7 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean fillFormCheck = true;
 
-        if (item.getItemId() == com.vijay.jsonwizard.R.id.action_save) {
+        if (item.getItemId() == R.id.action_save) {
             JSONObject object = getStep("step1");
             try {
                 if (object.getString(GizConstants.KEY.TITLE).contains("Record out of catchment area service")) {

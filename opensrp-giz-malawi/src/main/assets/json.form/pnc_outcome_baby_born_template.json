@@ -521,7 +521,8 @@
           "ex-checkbox": [
             {
               "or": [
-                "positive", "exposed"
+                "positive",
+                "exposed"
               ]
             }
           ]
@@ -548,6 +549,14 @@
         }
       ],
       "value": "{nvp_administration}"
+    },
+    {
+      "key": "saved_child_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "value": "true"
     }
   ]
 }

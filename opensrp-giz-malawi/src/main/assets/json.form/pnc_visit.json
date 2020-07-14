@@ -690,9 +690,27 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "reference_edit_text_hint": "#Total child status",
-        "repeating_group_label": "Child status",
         "reference_edit_text": "Number of child status",
+        "showGroupLabel": false,
         "value": [
+          {
+            "key": "child_name",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "label",
+            "text_size": "30px",
+            "label_text_style": "bold",
+            "text_color": "#000000"
+          },
+          {
+            "key": "open_vaccine_card",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "button",
+            "hint": "Open Child's Vaccine Card"
+          },
           {
             "key": "baby_age",
             "openmrs_entity_parent": "",

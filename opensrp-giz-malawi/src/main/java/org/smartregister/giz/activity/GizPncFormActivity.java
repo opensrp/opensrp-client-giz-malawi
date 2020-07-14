@@ -4,39 +4,30 @@ import android.os.Bundle;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.Nullable;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.child.util.JsonFormUtils;
-import org.smartregister.clientandeventmodel.DateUtil;
+import org.smartregister.child.ChildLibrary;
+import org.smartregister.child.util.Constants;
+import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.GizPncFormFragment;
-import org.smartregister.giz.util.GizConstants;
-import org.smartregister.pnc.PncLibrary;
+import org.smartregister.giz.repository.GizChildRegisterQueryProvider;
 import org.smartregister.pnc.activity.BasePncFormActivity;
+import org.smartregister.pnc.config.RepeatingGroupGenerator;
+import org.smartregister.pnc.fragment.BasePncFormFragment;
 import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.pnc.utils.PncDbConstants;
-import org.smartregister.pnc.utils.PncUtils;
-import org.smartregister.repository.BaseRepository;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
 
 public class GizPncFormActivity extends BasePncFormActivity {
 
-    GizPncFormFragment pncFormFragment;
+    BasePncFormFragment pncFormFragment;
 
     @Override
     protected void initializeFormFragmentCore() {
@@ -44,176 +35,70 @@ public class GizPncFormActivity extends BasePncFormActivity {
         Bundle bundle = new Bundle();
         bundle.putString(JsonFormConstants.JSON_FORM_KEY.STEPNAME, JsonFormConstants.FIRST_STEP_NAME);
         pncFormFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(com.vijay.jsonwizard.R.id.container, pncFormFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container, pncFormFragment).commit();
     }
-
 
     @Override
-    public void init(String json) {
-
-        try {
-            JSONObject jsonObject = new JSONObject(json);
-            if (PncConstants.EventTypeConstants.PNC_OUTCOME.equals(jsonObject.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
-                addRepeatingGroupFields(jsonObject.getJSONObject("step4"));
-            }
-            super.init(jsonObject.toString());
-        }
-        catch (Exception ex) {
-            Timber.e(ex);
-            super.init(json);
-        }
+    protected void initiateFormUpdate(JSONObject json) {
+        super.initiateFormUpdate(json);
+        generateRepeatingGrpFields(json);
     }
 
-    private void addRepeatingGroupFields(JSONObject step) {
-
-        try {
-            String motherBaseEntityId = getIntent().getStringExtra(PncDbConstants.KEY.BASE_ENTITY_ID);
-
-            HashMap<String, String> motherData = PncLibrary.getInstance().getPncRegistrationDetailsRepository().findByBaseEntityId(motherBaseEntityId);
-
-            Set<String> possibleJsonArrayKeys = new HashSet<>();
-            possibleJsonArrayKeys.add("first_name");
-            possibleJsonArrayKeys.add("last_name");
-            possibleJsonArrayKeys.add("gender");
-            possibleJsonArrayKeys.add("dob");
-
-            String query = "SELECT * FROM ec_client AS ec_client " +
-                    "LEFT JOIN ec_child_details AS ec_child ON ec_child.relational_id = '" + motherBaseEntityId + "' " +
-                    "WHERE ec_client.base_entity_id = ec_child.base_entity_id";
-
-            ArrayList<HashMap<String, String>> childData = getData(query);
-
-            for (HashMap<String, String> childMap : childData) {
-
-                long dobInMills = getDate(childMap.get("dob")).getTime();
-                long currentTimeMillis = System.currentTimeMillis();
-                long diffInMillis = Math.abs(currentTimeMillis - dobInMills);
-                long diff = TimeUnit.DAYS.convert(diffInMillis, TimeUnit.MILLISECONDS);
-
-                if (diff <= GizConstants.HOW_BABY_OLD_IN_DAYS) {
-                    JSONObject jsonObject = PncUtils.getJsonFormToJsonObject("pnc_outcome_baby_born_template");
-                    if (jsonObject != null) {
-                        String jsonString = jsonObject.toString();
-
-                        for (Map.Entry<String, String> entry : childMap.entrySet()) {
-
-                            String value = entry.getValue();
-                            value = value == null ? "" : value;
-
-                            if (possibleJsonArrayKeys.contains(entry.getKey())) {
-                                if (entry.getKey().equals("dob")) {
-                                    Date dobDate = getDate(value);
-                                    value = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(dobDate);
-                                }
-                                jsonString = jsonString.replace("{" + entry.getKey() + "}", value);
-                            }
-                        }
-
-                        jsonObject = new JSONObject(jsonString);
-                        String randomBaseEntityId = JsonFormUtils.generateRandomUUIDString().replace("-","");
-                        JSONArray fields = jsonObject.getJSONArray("fields");
-
-                        for (int i = 0; i < fields.length(); i++) {
-                            JSONObject field = fields.getJSONObject(i);
-                            String key = field.getString("key");
-                            String newKey = key + randomBaseEntityId;
-                            jsonString = jsonString.replace("\"" + key + "\"", "\"" + newKey + "\"");
-                            jsonString = jsonString.replace("\"step4:" + key + "\"", "\"step4:" + newKey + "\"");
-                        }
-
-                        jsonObject = new JSONObject(jsonString);
-                        JSONArray fieldsArray = jsonObject.getJSONArray("fields");
-                        processWithMandatoryChecks(fieldsArray, randomBaseEntityId, motherData);
-                        for (int i = 0; i < fieldsArray.length(); i++) {
-                            if (!fieldsArray.getJSONObject(i).getString("key").equals("child_registered_" + randomBaseEntityId)) {
-                                step.getJSONArray("fields").put(fieldsArray.getJSONObject(i));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        catch (JSONException ex) {
-            Timber.e(ex);
-        }
-    }
-
-    private void processWithMandatoryChecks(JSONArray fields, String baseEntityId, HashMap<String, String> motherData) throws JSONException {
-
-        // update fields
-        for (int i = 0; i < fields.length(); i++) {
-            JSONObject field = fields.getJSONObject(i);
-
-            if (!field.getString("key").equals("baby_complications_other_" + baseEntityId)
-                    && !field.getString("key").equals("baby_care_mgt_" + baseEntityId)
-                    && !field.getString("key").equals("baby_care_mgt_specify_" + baseEntityId)
-                    && !field.getString("key").equals("baby_referral_location_" + baseEntityId)
-                    && !field.getString("key").equals("bf_first_hour_" + baseEntityId)
-                    && !field.getString("key").equals("child_hiv_status_" + baseEntityId)
-                    && !field.getString("key").equals("nvp_administration_" + baseEntityId)) {
-                field.remove("relevance");
-            }
-
-            if (field.getString("key").equals("baby_gender_" + baseEntityId)) {
-                field.put("type", "edit_text");
-                field.put("hint", field.optString("label"));
-                field.remove("options");
-                field.remove("label");
-                field.remove("label_text_style");
-            }
-
-            if (!field.getString("key").equals("baby_first_name_" + baseEntityId)
-                    && !field.getString("key").equals("baby_last_name_" + baseEntityId)
-                    && !field.getString("key").equals("baby_gender_" + baseEntityId)
-                    && !field.getString("key").equals("baby_dob_" + baseEntityId)) {
-                field.remove("value");
-            }
-
-            // make read only
-            if (field.getString("key").equals("baby_first_name_" + baseEntityId)
-                    || field.getString("key").equals("baby_last_name_" + baseEntityId)
-                    || field.getString("key").equals("baby_gender_" + baseEntityId)
-                    || field.getString("key").equals("baby_dob_" + baseEntityId)) {
-                field.put("read_only","true");
-            }
-
-            if (field.getString("key").equals("child_hiv_status_" + baseEntityId)) {
-
-                if ("positive".equalsIgnoreCase(motherData.get("hiv_status_previous"))
-                        || "unknown".equalsIgnoreCase(motherData.get("hiv_status_previous"))
-                        || "positive".equalsIgnoreCase(motherData.get("hiv_status_current"))
-                        || "unknown".equalsIgnoreCase(motherData.get("hiv_status_current"))) {
-
-                    field.remove("relevance");
-                }
-            }
-        }
-    }
-
-    private ArrayList<HashMap<String, String>> getData(String query) {
-        BaseRepository repo = new BaseRepository();
-        return repo.rawQuery(repo.getReadableDatabase(), query);
-    }
-
-    private Date getDate(@Nullable String dob) {
-        Date date = null;
-        if (StringUtils.isNotBlank(dob)) {
+    @Override
+    public void generateRepeatingGrpFields(JSONObject json) {
+        if (PncConstants.EventTypeConstants.PNC_OUTCOME.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
             try {
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ");
-                date = dateFormat.parse(dob);
-            } catch (ParseException e) {
-                try {
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-                    date = dateFormat.parse(dob);
-                } catch (ParseException pe) {
-                    try {
-                        date = DateUtil.parseDate(dob);
-                    } catch (ParseException pee) {
-                        Timber.e(e);
-                    }
-                }
+                RepeatingGroupGenerator repeatingGroupGenerator = new RepeatingGroupGenerator(json.optJSONObject("step4"),
+                        "baby_alive_group",
+                        OutcomeColumnMap(),
+                        PncDbConstants.KEY.BASE_ENTITY_ID,
+                        storedValues());
+                repeatingGroupGenerator
+                        .setFieldsWithoutSpecialViewValidation
+                                (new HashSet<>(
+                                        Arrays.asList("birth_weight_entered", "birth_height_entered", "birth_record_date", "baby_gender", "baby_first_name", "baby_last_name", "baby_dob")));
+                repeatingGroupGenerator.init();
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        } else if (PncConstants.EventTypeConstants.PNC_VISIT.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
+            try {
+                new RepeatingGroupGenerator(json.optJSONObject("step3"),
+                        "child_status",
+                        VisitColumnMap(),
+                        PncDbConstants.KEY.BASE_ENTITY_ID,
+                        storedValues()).init();
+            } catch (JSONException e) {
+                Timber.e(e);
             }
         }
-        return date;
+    }
+
+    public ArrayList<HashMap<String, String>> storedValues() {
+        String motherBaseEntityId = getIntent().getStringExtra(PncDbConstants.KEY.BASE_ENTITY_ID);
+        GizChildRegisterQueryProvider childRegisterQueryProvider = new GizChildRegisterQueryProvider();
+        return ChildLibrary.
+                getInstance()
+                .context()
+                .getEventClientRepository()
+                .rawQuery(ChildLibrary.getInstance().getRepository().getReadableDatabase(),
+                        childRegisterQueryProvider.mainRegisterQuery() +
+                                " where " + childRegisterQueryProvider.getChildDetailsTable() + "." + Constants.KEY.RELATIONAL_ID + " = '" + motherBaseEntityId + "'");
+    }
+
+    public Map<String, String> OutcomeColumnMap() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("baby_first_name", "first_name");
+        map.put("baby_last_name", "last_name");
+        map.put("baby_dob", "dob");
+        map.put("baby_gender", "gender");
+        return map;
+    }
+
+    public Map<String, String> VisitColumnMap() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("child_name", "first_name");
+        map.put("open_vaccine_card", "base_entity_id");
+        return map;
     }
 }

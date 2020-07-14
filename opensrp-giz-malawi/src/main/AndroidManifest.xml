@@ -242,12 +242,10 @@
         <!-- END OF MATERNITY ACTIVITIES -->
         <!-- PNC ACTIVITIES -->
         <activity
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:name=".activity.PncRegisterActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".activity.PncRegisterActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChildTheme.NoActionBar">
         </activity>
         <activity
             android:name=".activity.GizPncFormActivity"
