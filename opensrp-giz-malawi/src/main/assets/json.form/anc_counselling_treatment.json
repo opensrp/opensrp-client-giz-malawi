@@ -97,14 +97,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -121,14 +121,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -145,14 +145,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -170,7 +170,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -188,7 +188,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -206,14 +206,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -230,14 +230,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -254,14 +254,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -278,14 +278,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -302,14 +302,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -326,14 +326,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -350,14 +350,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -374,14 +374,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -399,7 +399,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
@@ -416,14 +416,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules_step.yml"
+              "rules-file": "ct_calculation_rules.yml"
             }
           }
         }
@@ -460,7 +460,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules_step.yml"
+              "rules-file": "ct_relevance_rules.yml"
             }
           }
         }
