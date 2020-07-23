@@ -534,19 +534,19 @@
         }
       },
       {
+        "key": "lmp_known_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "key": "lmp_known_date",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000"
       },
       {
+        "key": "lmp_edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "lmp_edd",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
@@ -562,10 +562,10 @@
         }
       },
       {
+        "key": "lmp_gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "lmp_gest_age",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
@@ -616,10 +616,10 @@
         }
       },
       {
+        "key": "ultrasound_done_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163165AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "key": "ultrasound_done_date",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000"
@@ -740,10 +740,10 @@
         }
       },
       {
+        "key": "ultrasound_edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "ultrasound_edd",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
@@ -774,10 +774,10 @@
         }
       },
       {
+        "key": "ultrasound_gest_age",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "ultrasound_gest_age",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
@@ -826,10 +826,10 @@
         }
       },
       {
+        "key": "sfh_edd",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "sfh_edd",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",

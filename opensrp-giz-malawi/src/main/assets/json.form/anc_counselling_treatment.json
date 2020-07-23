@@ -1,7 +1,7 @@
 {
   "display_scroll_bars": true,
   "skip_blank_steps": true,
-  "count": "12",
+  "count": "15",
   "encounter_type": "Counselling and Treatment",
   "entity_id": "",
   "relational_id": "",
@@ -97,14 +97,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -121,14 +121,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -145,14 +145,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -170,7 +170,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         }
@@ -188,7 +188,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         }
@@ -206,14 +206,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -230,14 +230,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -254,14 +254,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -278,14 +278,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -302,14 +302,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -326,14 +326,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -350,14 +350,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -374,14 +374,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -399,7 +399,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         }
@@ -416,14 +416,14 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         },
         "calculation": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_calculation_rules.yml"
+              "rules-file": "ct_calculation_rules_step.yml"
             }
           }
         }
@@ -460,7 +460,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "ct_relevance_rules.yml"
+              "rules-file": "ct_relevance_rules_step.yml"
             }
           }
         }
@@ -4832,7 +4832,7 @@
     ]
   },
   "step10": {
-    "title": "Deworming & Malaria Prophylaxis",
+    "title": "Deworming",
     "next": "step11",
     "fields": [
       {
@@ -4937,7 +4937,13 @@
             }
           }
         }
-      },
+      }
+    ]
+  },
+  "step11": {
+    "title": "Malaria Prophylaxis",
+    "next": "step12",
+    "fields": [
       {
         "key": "iptp_sp1",
         "openmrs_entity_parent": "1591AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -5000,7 +5006,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step10:iptp_sp1": {
+          "step11:iptp_sp1": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -5072,7 +5078,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step10:iptp_sp2": {
+          "step11:iptp_sp2": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -5144,7 +5150,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step10:iptp_sp3": {
+          "step11:iptp_sp3": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -5216,7 +5222,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step10:iptp_sp4": {
+          "step11:iptp_sp4": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -5288,7 +5294,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step10:iptp_sp5": {
+          "step11:iptp_sp5": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -5360,7 +5366,7 @@
         "expanded": "false",
         "max_date": "today",
         "relevance": {
-          "step10:iptp_sp6": {
+          "step11:iptp_sp6": {
             "type": "string",
             "ex": "equalTo(., \"done\")"
           }
@@ -5444,7 +5450,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step10:iptp_sp_notdone": {
+          "step11:iptp_sp_notdone": {
             "ex-checkbox": [
               {
                 "or": [
@@ -5530,7 +5536,7 @@
           }
         ],
         "relevance": {
-          "step10:malaria_counsel": {
+          "step11:malaria_counsel": {
             "type": "string",
             "ex": "equalTo(., \"not_done\")"
           }
@@ -5545,7 +5551,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step10:malaria_counsel_notdone": {
+          "step11:malaria_counsel_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -5634,7 +5640,7 @@
         "hint": "Specify",
         "edit_type": "edit_text",
         "relevance": {
-          "step10:itn_given_notdone": {
+          "step11:itn_given_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -5642,9 +5648,9 @@
       }
     ]
   },
-  "step11": {
-    "title": "Immunizations",
-    "next": "step12",
+  "step12": {
+    "title": "Immunizations: TDV",
+    "next": "step13",
     "fields": [
       {
         "key": "tt1_date",
@@ -6020,7 +6026,13 @@
             }
           }
         }
-      },
+      }
+    ]
+  },
+  "step13": {
+    "title": "Immunizations: Anti-d Haemoglobin",
+    "next": "step14",
+    "fields": [
       {
         "key": "anti_d1_date",
         "openmrs_entity_parent": "",
@@ -6170,7 +6182,13 @@
           "value": true,
           "err": "Enter date that gets recorded for anti-D dose 2."
         }
-      },
+      }
+    ]
+  },
+  "step14": {
+    "title": "Immunizations: HepB",
+    "next": "step15",
+    "fields": [
       {
         "key": "hepb_negative_note",
         "openmrs_entity_parent": "165363AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -6553,7 +6571,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step11:hepb_dose_notdone": {
+          "step13:hepb_dose_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -6574,7 +6592,13 @@
             }
           }
         }
-      },
+      }
+    ]
+  },
+  "step15": {
+    "title": "Immunizations: Flu",
+    "next": "step16",
+    "fields": [
       {
         "key": "flu_date",
         "openmrs_entity_parent": "78032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -6703,7 +6727,7 @@
           "err": "Reason Flu dose was not done is required"
         },
         "relevance": {
-          "step11:flu_date": {
+          "step14:flu_date": {
             "type": "string",
             "ex": "equalTo(., \"not_done\")"
           }
@@ -6718,7 +6742,7 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step11:flu_dose_notdone": {
+          "step14:flu_dose_notdone": {
             "type": "string",
             "ex": "equalTo(., \"other\")"
           }
@@ -6742,7 +6766,7 @@
       }
     ]
   },
-  "step12": {
+  "step16": {
     "title": "Not Recommended",
     "fields": [
       {

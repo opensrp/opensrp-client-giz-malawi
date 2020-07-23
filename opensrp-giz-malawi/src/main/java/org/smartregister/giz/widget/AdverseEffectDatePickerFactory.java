@@ -13,6 +13,7 @@ import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.child.widgets.ChildDatePickerFactory;
 import org.smartregister.giz.fragment.GizChildFormFragment;
 
 import java.lang.ref.WeakReference;
@@ -21,7 +22,7 @@ import java.util.List;
 import timber.log.Timber;
 
 
-public class AdverseEffectDatePickerFactory extends DatePickerFactory implements GizChildFormFragment.OnReactionVaccineSelected {
+public class AdverseEffectDatePickerFactory extends ChildDatePickerFactory implements GizChildFormFragment.OnReactionVaccineSelected {
 
     private GizChildFormFragment formFragment;
     private TextView txtDuration;

@@ -18,6 +18,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.ActivityConfiguration;
 import org.smartregister.anc.library.util.AncMetadata;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.domain.ChildMetadata;
@@ -31,10 +32,12 @@ import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildFormActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
+import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.GizAncProfileActivity;
 import org.smartregister.giz.activity.GizPncFormActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
+import org.smartregister.giz.configuration.GizAncMaternityTransferProcessor;
 import org.smartregister.giz.configuration.GizMaternityOutcomeFormProcessing;
 import org.smartregister.giz.configuration.GizMaternityRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizMaternityRegisterRowOptions;
@@ -125,20 +128,17 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private static CommonFtsObject commonFtsObject;
     private static JsonSpecHelper jsonSpecHelper;
-
+    private static List<VaccineGroup> vaccineGroups;
     private EventClientRepository eventClientRepository;
     private HIA2IndicatorsRepository hia2IndicatorsRepository;
     private DailyTalliesRepository dailyTalliesRepository;
     private MonthlyTalliesRepository monthlyTalliesRepository;
     private Hia2ReportRepository hia2ReportRepository;
-
     private String password;
     private boolean lastModified;
     private ECSyncHelper ecSyncHelper;
-
     private ClientRegisterTypeRepository registerTypeRepository;
     private ChildAlertUpdatedRepository childAlertUpdatedRepository;
-    private static List<VaccineGroup> vaccineGroups;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -263,6 +263,15 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return (GizMalawiApplication) mInstance;
     }
 
+    public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
+        if (vaccineGroups == null) {
+
+            vaccineGroups = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
+        }
+
+        return vaccineGroups;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -305,6 +314,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
         ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
         ancMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
+        ancMetadata.addTransferProcessorToHashMap(ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER, new GizAncMaternityTransferProcessor());
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider(), ancMetadata);
 
         setupOPDLibrary();
@@ -357,7 +367,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , PncConstants.CONFIG
                 , GizPncFormActivity.class
                 , BasePncProfileActivity.class
-                ,true);
+                , true);
         PncConfiguration pncConfiguration = new PncConfiguration
                 .Builder(GizPncRegisterQueryProvider.class)
                 .setPncMetadata(pncMetadata)
@@ -373,7 +383,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 OpdConstants.CONFIG, OpdFormActivity.class, BaseOpdProfileActivity.class, true);
 
         opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
-
+        opdMetadata.setLookUpQueryForOpdClient(String.format("select id as _id, %s, %s, %s, %s, %s, %s, %s, national_id from " + OpdDbConstants.KEY.TABLE + " where [condition] ", OpdConstants.KEY.RELATIONALID, OpdConstants.KEY.FIRST_NAME,
+                OpdConstants.KEY.LAST_NAME, OpdConstants.KEY.GENDER, OpdConstants.KEY.DOB, OpdConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.OPENSRP_ID));
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
                 .setOpdMetadata(opdMetadata)
                 .setOpdRegisterProviderMetadata(GizOpdRegisterProviderMetadata.class)
@@ -386,7 +397,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     private ChildMetadata getMetadata() {
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
-                ChildImmunizationActivity.class, true, new GizChildRegisterQueryProvider());
+                ChildImmunizationActivity.class, ChildRegisterActivity.class, true, new GizChildRegisterQueryProvider());
         metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.ALL_CLIENTS,
                 GizConstants.TABLE_NAME.ALL_CLIENTS, GizConstants.EventType.CHILD_REGISTRATION,
                 GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.EventType.OUT_OF_CATCHMENT, GizConstants.CONFIGURATION.CHILD_REGISTER,
@@ -591,15 +602,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             hia2ReportRepository = new GizHia2ReportRepository();
         }
         return hia2ReportRepository;
-    }
-
-    public static List<VaccineGroup> getVaccineGroups(android.content.Context context) {
-        if (vaccineGroups == null) {
-
-            vaccineGroups = VaccinatorUtils.getVaccineGroupsFromVaccineConfigFile(context, VaccinatorUtils.vaccines_file);
-        }
-
-        return vaccineGroups;
     }
 
     @VisibleForTesting

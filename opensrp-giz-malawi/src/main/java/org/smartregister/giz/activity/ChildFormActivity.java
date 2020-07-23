@@ -23,14 +23,13 @@ public class ChildFormActivity extends BaseChildFormActivity {
 
     @Override
     public String lookUpQuery(Map<String, String> entityMap, String tableName) {
-
-        SmartRegisterQueryBuilder queryBUilder = new SmartRegisterQueryBuilder();
-        queryBUilder.SelectInitiateMainTable(tableName,
+        SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
+        queryBuilder.SelectInitiateMainTable(tableName,
                 new String[]{MotherLookUpUtils.RELATIONALID, MotherLookUpUtils.DETAILS, Constants.KEY.ZEIR_ID,
                         Constants.KEY.FIRST_NAME, Constants.KEY.LAST_NAME,Constants.KEY.DOB, Constants.KEY.BASE_ENTITY_ID}
 
         );
-        String query = queryBUilder.mainCondition(getMainConditionString(entityMap));
-        return queryBUilder.Endquery(query);
+        String query = queryBuilder.mainCondition(getMainConditionString(entityMap));
+        return queryBuilder.Endquery(query);
     }
 }

@@ -426,213 +426,213 @@ condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) &&
 actions:
   - "isRelevant = true"
 ---
-name: step10_malaria_counsel
+name: step11_malaria_counsel
 description: malaria prevention counsel
 priority: 1
 condition: "global_pop_malaria == true"
 actions:
   - "isRelevant = true"
 ---
-name: step10_iptp_sp1
+name: step11_iptp_sp1
 description: iptsp
 priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 && global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_pop_malaria == true && (global_medications.isEmpty() || !global_medications.contains('cotrimoxazole'))) && (Boolean.valueOf(global_is_first_contact) || (!Boolean.valueOf(global_is_first_contact) && (global_previous_iptp_sp1 == '' || global_previous_iptp_sp1 == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---
-name: step10_iptp_sp2
+name: step11_iptp_sp2
 description: iptp_sp2
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp1_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp1_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp1_date,'4w') == -1) && (global_previous_iptp_sp2 == '' || global_previous_iptp_sp2 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
-name: step10_iptp_sp3
+name: step11_iptp_sp3
 description: iptp_sp3
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp2_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp2_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp2_date,'4w') == -1) && (global_previous_iptp_sp3 == '' || global_previous_iptp_sp3 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
-name: step10_iptp_sp4
+name: step11_iptp_sp4
 description: iptp_sp4
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp3_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp3_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == -1) && (global_previous_iptp_sp4 == '' || global_previous_iptp_sp4 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp3_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp3_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp3_date,'4w') == -1) && (global_previous_iptp_sp4 == '' || global_previous_iptp_sp4 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
-name: step10_iptp_sp5
+name: step11_iptp_sp5
 description: iptp_sp5
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp4_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp4_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == -1) && (global_previous_iptp_sp5 == '' || global_previous_iptp_sp5 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp4_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp4_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp4_date,'4w') == -1) && (global_previous_iptp_sp5 == '' || global_previous_iptp_sp5 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
-name: step10_iptp_sp6
+name: step11_iptp_sp6
 description: iptp_sp6
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp5_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step10_iptp_sp5_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == -1) && (global_previous_iptp_sp6 == '' || global_previous_iptp_sp6 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp5_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_iptp_sp5_date,'4w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_iptp_sp5_date,'4w') == -1) && (global_previous_iptp_sp6 == '' || global_previous_iptp_sp6 == 'not_done') && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38)"
 actions:
   - "isRelevant = true"
 ---
-name: step10_iptp_sp_toaster
+name: step11_iptp_sp_toaster
 description: iptp_sp_toaster
 priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 13 ) && ((global_pop_malaria == 1 && !global_medications.isEmpty() && global_medications.contains('cotrimoxazole')) || global_allergies.contains('sulphur'))"
 actions:
   - "isRelevant = true"
 ---
-name: step10_iptp_sp_notdone
+name: step11_iptp_sp_notdone
 description: iptp_sp_notdone
 priority: 1
-condition: "(step10_iptp_sp1 == 'not_done' ||  step10_iptp_sp2 == 'not_done' || step10_iptp_sp3 == 'not_done')"
+condition: "(step11_iptp_sp1 == 'not_done' ||  step11_iptp_sp2 == 'not_done' || step11_iptp_sp3 == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_anti_d1_date
+name: step13_anti_d1_date
 description: anti_d1_date
 priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs == 28) && global_rh_factor == 'negative'"
 actions:
   - "isRelevant = true"
 ---
-name: step11_anti_d2_date
+name: step13_anti_d2_date
 description: anti_d2_date
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_anti_d1_date_done,'6w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_anti_d1_date_done,'6w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == -1)"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step13_anti_d1_date_done,'6w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step13_anti_d1_date_done,'6w') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_anti_d1_date,'6w') == -1)"
 actions:
   - "isRelevant = true"
 ---
-name: step11_tt1_date
+name: step12_tt1_date
 description: tt1_date
 priority: 1
 condition: "(global_tt_immun_status != '' && global_tt_immun_status != '2-4_doses') && (Boolean.valueOf(global_is_first_contact) || (!Boolean.valueOf(global_is_first_contact) && (global_previous_tt1_date == '' || global_previous_tt1_date == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---
-name: step11_tt2_date
+name: step12_tt2_date
 description: tt2_date
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_tt1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_tt1_date_done,'28d') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt2_date == '' || global_previous_tt2_date == 'not_done')"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step12_tt1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step12_tt1_date_done,'28d') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt1_date_done,'28d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt2_date == '' || global_previous_tt2_date == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_tt3_date
+name: step12_tt3_date
 description: tt3_date
 priority: 1
-condition: "(helper.compareDateWithDurationsAddedAgainstToday(step11_tt2_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step11_tt2_date_done,'28d') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt3_date == '' || global_previous_tt3_date == 'not_done')"
+condition: "(helper.compareDateWithDurationsAddedAgainstToday(step12_tt2_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(step12_tt2_date_done,'28d') == -1) || (helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_tt2_date_done,'140d') == -1) && (global_gest_age_openmrs != '' && global_gest_age_openmrs < 38) && (global_previous_tt3_date == '' || global_previous_tt3_date == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_tt1_date_done
+name: step12_tt1_date_done
 description: Date tt1 dose given
 priority: 1
-condition: "(step11_tt1_date != '') && (step11_tt1_date == 'done_earlier')"
+condition: "(step12_tt1_date != '') && (step12_tt1_date == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_tt2_date_done
+name: step12_tt2_date_done
 description: Date tt2 dose given
 priority: 1
-condition: "(step11_tt2_date != '') && (step11_tt2_date == 'done_earlier')"
+condition: "(step12_tt2_date != '') && (step12_tt2_date == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_tt3_date_done
+name: step12_tt3_date_done
 description: Date tt3 dose given
 priority: 1
-condition: "(step11_tt3_date != '') && (step11_tt3_date == 'done_earlier')"
+condition: "(step12_tt3_date != '') && (step12_tt3_date == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_tt_dose_notdone
+name: step12_tt_dose_notdone
 description: tt_dose_notdone
 priority: 1
-condition: "step11_tt1_date == 'not_done' || step11_tt2_date == 'not_done' || step11_tt3_date == 'not_done'"
+condition: "step12_tt1_date == 'not_done' || step12_tt2_date == 'not_done' || step12_tt3_date == 'not_done'"
 actions:
   - "isRelevant = true"
 ---
-name: step11_woman_immunised_toaster
+name: step12_woman_immunised_toaster
 description: woman_immunised_toaster
 priority: 1
-condition: "step11_tt3_date == 'done_earlier' || step11_tt3_date == 'done_today' "
+condition: "step12_tt3_date == 'done_earlier' || step12_tt3_date == 'done_today' "
 actions:
   - "isRelevant = true"
 ---
-name: step11_hepb_negative_note
+name: step14_hepb_negative_note
 description: hepb_negative_note
 priority: 1
 condition: "global_hepb_positive != '' && global_hepb_positive == 0"
 actions:
   - "isRelevant = true"
 ---
-name: step11_hepb1_date
+name: step14_hepb1_date
 description: hepb1_date
 priority: 1
 condition: "global_hepb_positive == 0 && (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 12) && (Boolean.valueOf(global_is_first_contact) || (!Boolean.valueOf(global_is_first_contact) && (global_previous_hepb1_date== '' || global_previous_hepb1_date == 'not_done')))"
 actions:
   - "isRelevant = true"
 ---
-name: step11_hepb2_date
+name: step14_hepb2_date
 description: hepb2_date
 priority: 1
 condition: "!Boolean.valueOf(global_is_first_contact) && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb1_date_done,'28d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb1_date_done,'28d') == -1) && (global_previous_hepb2_date == '' || global_previous_hepb2_date == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_hepb3_date
+name: step14_hepb3_date
 description: hepb3_date
 priority: 1
 condition: "!Boolean.valueOf(global_is_first_contact) && (helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb2_date_done,'140d') == 0 || helper.compareDateWithDurationsAddedAgainstToday(global_previous_hepb2_date_done,'140d') == -1) && (global_previous_hepb3_date == '' || global_previous_hepb3_date == 'not_done')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_hepb1_date_done
+name: step14_hepb1_date_done
 description: Date hepb1 dose given
 priority: 1
-condition: "step11_hepb1_date == 'done_earlier'"
+condition: "step14_hepb1_date == 'done_earlier'"
 actions:
   - "isRelevant = true"
 ---
-name: step11_hepb2_date_done
+name: step14_hepb2_date_done
 description: Date hepb2 dose given
 priority: 1
-condition: "(step11_hepb2_date != '') && (step11_hepb2_date == 'done_earlier')"
+condition: "(step14_hepb2_date != '') && (step14_hepb2_date == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_hepb3_date_done
+name: step14_hepb3_date_done
 description: Date hepb3 dose given
 priority: 1
-condition: "(step11_hepb3_date != '') && (step11_hepb3_date  == 'done_earlier')"
+condition: "(step14_hepb3_date != '') && (step14_hepb3_date  == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_hepb_dose_notdone
+name: step14_hepb_dose_notdone
 description: hepb_dose_notdone
 priority: 1
-condition: "step11_hepb1_date == 'not_done' || step11_hepb3_date == 'not_done' || step11_hepb3_date == 'not_done'"
+condition: "step14_hepb1_date == 'not_done' || step14_hepb3_date == 'not_done' || step14_hepb3_date == 'not_done'"
 actions:
   - "isRelevant = true"
 ---
-name: step11_woman_immunised_hep_b_toaster
+name: step14_woman_immunised_hep_b_toaster
 description: woman_immunised_hep_b_toaster
 priority: 1
-condition: "step11_hepb3_date == 'done_earlier' || step11_hepb3_date == 'done_today' "
+condition: "step14_hepb3_date == 'done_earlier' || step14_hepb3_date == 'done_today' "
 actions:
   - "isRelevant = true"
 ---
-name: step11_flu_date
+name: step15_flu_date
 description: flu_date
 priority: 1
 condition: "global_flu_immun_status != '' && global_flu_immun_status != 'seasonal_flu_dose_given'"
 actions:
   - "isRelevant = true"
 ---
-name: step11_woman_immunised_flu_toaster
+name: step15_woman_immunised_flu_toaster
 description: woman_immunised_flu_toaster
 priority: 1
-condition: "step11_flu_date == 'done_earlier' || step11_flu_date == 'done_today' "
+condition: "step15_flu_date == 'done_earlier' || step15_flu_date == 'done_today' "
 actions:
   - "isRelevant = true"
 ---
@@ -650,10 +650,10 @@ condition: "global_pop_vita == true "
 actions:
   - "isRelevant = true"
 ---
-name: step11_flu_date_done
+name: step15_flu_date_done
 description: flu_date_done
 priority: 1
-condition: "step11_flu_date != '' && step11_flu_date == 'done_earlier'"
+condition: "step15_flu_date != '' && step15_flu_date == 'done_earlier'"
 actions:
   - "isRelevant = true"
 ---
@@ -678,24 +678,24 @@ condition: "(helper.compareDateWithDurationsAddedAgainstToday(step5_syphilis_ben
 actions:
   - "isRelevant = true"
 ---
-name: step10_itn_given_notdone
+name: step11_itn_given_notdone
 description: itn_given_notdone
 priority: 1
-condition: "step10_itn_given == 'not_done'"
+condition: "step11_itn_given == 'not_done'"
 actions:
   - "isRelevant = true"
 ---
-name: step11_anti_d2_date_done
+name: step13_anti_d2_date_done
 description: Date anti_d2_date_done given
 priority: 1
-condition: "(step11_anti_d2_date != '') && (step11_anti_d2_date == 'done_earlier')"
+condition: "(step13_anti_d2_date != '') && (step13_anti_d2_date == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---
-name: step11_anti_d1_date_done
+name: step13_anti_d1_date_done
 description: Date anti_d1_date_done given
 priority: 1
-condition: "(step11_anti_d1_date != '') && (step11_anti_d1_date == 'done_earlier')"
+condition: "(step13_anti_d1_date != '') && (step13_anti_d1_date == 'done_earlier')"
 actions:
   - "isRelevant = true"
 ---

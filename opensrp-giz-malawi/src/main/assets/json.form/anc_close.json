@@ -58,6 +58,7 @@
         "type": "spinner",
         "hint": "Reason?",
         "values": [
+          "In labour",
           "Live birth",
           "Stillbirth",
           "Miscarriage",
@@ -68,6 +69,19 @@
           "Lost to follow-up",
           "Wrong entry",
           "Other"
+        ],
+        "keys": [
+          "in_labour",
+          "live_birth",
+          "stillbirth",
+          "miscarriage",
+          "abortion",
+          "woman_died",
+          "moved_away",
+          "false_pregnancy",
+          "lost_to_follow_up",
+          "wrong_entry",
+          "other"
         ],
         "openmrs_choice_ids": {
           "Live birth": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -84,6 +98,53 @@
         "v_required": {
           "value": "true",
           "err": "Please select one option"
+        }
+      },
+      {
+        "key": "onset_labour_label",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "hint": "When did labour begin? (Onset of Labour)",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "onset_labour_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Onset labour date",
+        "min_date": "today-1y",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "onset_labour_time",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "time_picker",
+        "hint": "Onset labour time",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "anc_close_relevance_rules.yml"
+            }
+          }
         }
       },
       {
@@ -122,10 +183,9 @@
           "Home/Traditional Birth Authority(TBA)"
         ],
         "openmrs_choice_ids": {
-          "This Facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "In Transit(TR)": "",
-          "Home/Traditional Birth Authority(TBA)": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other Facility": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Health facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Home": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -174,10 +234,19 @@
           "Caesarian Section (CS)",
           "Other(Specify)"
         ],
+        "keys": [
+          "vaginal_birth",
+          "spontan_vertex",
+          "vacuum_extraction",
+          "breach",
+          "caesarian_section",
+          "other"
+        ],
         "openmrs_choice_ids": {
-          "Normal": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Forceps or Vacuum": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "C-section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "spontan_vertex": "1170AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "vacuum_extraction": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "caesarian_section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "false"
@@ -191,18 +260,17 @@
         }
       },
       {
-        "key": "delivery_mode_other",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "key": "delivery_mode_specify",
+        "openmrs_entity_parent": "161475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165435AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Provide details of other delivery mode",
+        "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "anc_close_relevance_rules.yml"
-            }
+          "step1:delivery_mode": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       },
@@ -326,130 +394,170 @@
             "openmrs_choice_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "abnormal_presentation",
+            "text": "Abnormal presentation",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "150862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "antepartum_haemorrhage",
+            "text": "Antepartum haemorrhage",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "cord_prolapse",
+            "text": "Cord prolapse",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "128420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Eclampsia",
+            "text": "Eclampsia",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "fetal_distress",
+            "text": "Fetal distress",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "haemorrhage",
+            "text": "Haemorrhage",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "138873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "Abnormal presentation",
             "text": "Abnormal presentation",
             "value": false,
             "openmrs_choice_id": "150862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Antepartum haemorrhage",
-            "text": "Antepartum haemorrhage",
-            "value": false,
-            "openmrs_choice_id": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Cord prolapse",
-            "text": "Cord prolapse",
-            "value": false,
-            "openmrs_choice_id": "128420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Eclampsia",
-            "text": "Eclampsia",
-            "value": false,
-            "openmrs_choice_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Fetal distress",
-            "text": "Fetal distress",
-            "value": false,
-            "openmrs_choice_id": ""
-          },
-          {
-            "key": "Haemorrhage",
-            "text": "Haemorrhage",
-            "value": false,
-            "openmrs_choice_id": ""
-          },
-          {
-            "key": "Obstructed/Prolonged Labour",
+            "key": "obstructed_prolonged_labour",
             "text": "Obstructed/Prolonged Labour",
             "value": false,
-            "openmrs_choice_id": ""
-          },
-          {
-            "key": "Perineal tear (2nd, 3rd, or 4th degree)",
-            "text": "Perineal tear (2nd, 3rd, or 4th degree)",
-            "value": false,
-            "openmrs_choice_id": ""
-          },
-          {
-            "key": "Placenta praevia",
-            "text": "Placenta praevia",
-            "value": false,
-            "openmrs_choice_id": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Placental abruption",
-            "text": "Placental abruption",
-            "value": false,
-            "openmrs_choice_id": "130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Postpartum haemorrhage",
-            "text": "Postpartum haemorrhage",
-            "value": false,
-            "openmrs_choice_id": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Pre-eclampsia",
-            "text": "Pre-eclampsia",
-            "value": false,
-            "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Obstructed labour",
-            "text": "Obstructed labour",
-            "value": false,
-            "openmrs_choice_id": "141596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Premature labour",
-            "text": "Premature labour",
-            "value": false,
-            "openmrs_choice_id": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "128420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "Perineal tear (2nd, 3rd or 4th degree)",
             "text": "Perineal tear (2nd, 3rd or 4th degree)",
             "value": false,
-            "openmrs_choice_id": "165247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Retained placenta",
+            "key": "placenta_praevia",
+            "text": "Placenta praevia",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "placental_abruption",
+            "text": "Placental abruption",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "preeclampsia",
+            "text": "Pre-eclampsia",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "premature_labour",
+            "text": "Premature labour",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "postpartum_haemorrhage",
+            "text": "Postpartum haemorrhage",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "premature_labour",
+            "text": "Premature labour",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "retained_placenta",
             "text": "Retained placenta",
             "value": false,
-            "openmrs_choice_id": ""
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Ruptured Uterus",
+            "key": "ruptured_uterus",
             "text": "Ruptured Uterus",
             "value": false,
-            "openmrs_choice_id": ""
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Sepsis",
+            "key": "sepsis",
             "text": "Sepsis",
             "value": false,
-            "openmrs_choice_id": ""
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "126721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
-            "key": "Severe Anaemia",
+            "key": "severe_anaemia",
             "text": "Severe Anaemia",
             "value": false,
-            "openmrs_choice_id": ""
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
-            "key": "Symphysiotomy",
+            "key": "symphysiotomy",
             "text": "Symphysiotomy",
             "value": false,
-            "openmrs_choice_id": ""
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160853AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "Other",
-            "text": "Other(Specify)",
+            "text": "Other",
             "value": false,
-            "openmrs_choice_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {

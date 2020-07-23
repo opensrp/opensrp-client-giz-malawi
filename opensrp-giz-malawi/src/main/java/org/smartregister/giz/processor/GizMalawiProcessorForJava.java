@@ -56,8 +56,6 @@ import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
-import org.smartregister.opd.utils.OpdDbConstants;
-import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.pnc.processor.PncMiniClientProcessorForJava;
 import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.repository.EventClientRepository;
@@ -68,6 +66,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -83,6 +82,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     private HashMap<MiniClientProcessorForJava, List<Event>> unsyncEventsPerProcessor = new HashMap<>();
     private AppExecutors appExecutors = new AppExecutors();
     private HashMap<String, DateTime> clientsForAlertUpdates = new HashMap<>();
+    private List<String> coreProcessedEvents = Arrays.asList(Constants.EventType.BITRH_REGISTRATION, Constants.EventType.UPDATE_BITRH_REGISTRATION,
+            Constants.EventType.NEW_WOMAN_REGISTRATION, OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
+            Constants.EventType.AEFI, Constants.EventType.ARCHIVE_CHILD_RECORD, ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER, ConstantsUtils.EventTypeUtils.CLOSE);
 
     private GizMalawiProcessorForJava(Context context) {
         super(context);
@@ -95,6 +97,13 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava, maternityMiniClientProcessorForJava, pncMiniClientProcessorForJava);
     }
 
+    public static GizMalawiProcessorForJava getInstance(Context context) {
+        if (instance == null) {
+            instance = new GizMalawiProcessorForJava(context);
+        }
+        return instance;
+    }
+
     public void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
         for (MiniClientProcessorForJava miniClientProcessorForJava : miniClientProcessorsForJava) {
             unsyncEventsPerProcessor.put(miniClientProcessorForJava, new ArrayList<Event>());
@@ -105,13 +114,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 processorMap.put(eventType, miniClientProcessorForJava);
             }
         }
-    }
-
-    public static GizMalawiProcessorForJava getInstance(Context context) {
-        if (instance == null) {
-            instance = new GizMalawiProcessorForJava(context);
-        }
-        return instance;
     }
 
     @Override
@@ -158,13 +160,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(GizConstants.EventType.REPORT_CREATION)) {
                     processReport(event);
                     CoreLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(eventClient.getEvent().getFormSubmissionId());
-                }
-                if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
-                        .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
-                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) ||
-                        eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) ||
-                        eventType.equals(OpdConstants.EventType.UPDATE_OPD_REGISTRATION) ||
-                        eventType.equals(Constants.EventType.AEFI)) {
+                } else if (coreProcessedEvents.contains(eventType)) {
 
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
                         Timber.e(new Exception(), "Cannot find client corresponding to %s with base-entity-id %s", OpdConstants.EventType.OPD_REGISTRATION, event.getBaseEntityId());
@@ -183,6 +179,24 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                     }
 
+                    if (eventType.equals(Constants.EventType.ARCHIVE_CHILD_RECORD) && eventClient.getClient() != null) {
+                        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                    }
+
+                    if (eventType.equals(ConstantsUtils.EventTypeUtils.CLOSE) && eventClient.getClient() != null) {
+                        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                        if (GizMalawiApplication.getInstance().context().getEventClientRepository().getEventsByBaseEntityIdAndEventType(event.getBaseEntityId(), ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER) == null)
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
+                        else
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                    }
+
+
+                    if (eventType.equals(ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER) && eventClient.getClient() != null) {
+                        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                    }
+
 
                     if (clientClassification == null) {
                         continue;
@@ -199,9 +213,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) && eventClient.getClient() != null) {
                             //TODO add a filter in register queries
-                            GizMalawiApplication.getInstance().registerTypeRepository().softDelete(GizConstants.RegisterType.MATERNITY,
-                                    event.getBaseEntityId(),
-                                    OpdUtils.convertDate(event.getEventDate().toLocalDate().toDate(), OpdDbConstants.DATE_FORMAT));
+                            //add logic to check close reason
+                            GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(event.getBaseEntityId(), GizConstants.RegisterType.OPD);
                         }
 
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
@@ -218,6 +232,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
             appExecutors.diskIO().execute(runnable);
         }
+
     }
 
     private void processReport(Event event) {

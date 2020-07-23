@@ -3,6 +3,7 @@ package org.smartregister.giz.presenter;
 import org.smartregister.child.contract.ChildRegisterFragmentContract;
 import org.smartregister.child.presenter.BaseChildRegisterFragmentPresenter;
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.Utils;
 import org.smartregister.giz.util.DBQueryHelper;
 
 public class ChildRegisterFragmentPresenter extends BaseChildRegisterFragmentPresenter {
@@ -14,8 +15,11 @@ public class ChildRegisterFragmentPresenter extends BaseChildRegisterFragmentPre
 
     @Override
     public String getMainCondition() {
-        return String.format(" %s is null ", Constants.KEY.DATE_REMOVED);
+        return String.format(" %s is null AND %s == 0 ",
+                Utils.metadata().getRegisterQueryProvider().getDemographicTable() + "." + Constants.KEY.DATE_REMOVED,
+                Utils.metadata().getRegisterQueryProvider().getDemographicTable() + "." + Constants.KEY.IS_CLOSED);
     }
+
 
     @Override
     public String getDefaultSortQuery() {
