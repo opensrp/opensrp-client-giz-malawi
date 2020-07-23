@@ -57,7 +57,10 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
 
     @Override
     public boolean removeAll(String baseEntityId) {
-        return false;
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        int rowsAffected = sqLiteDatabase.delete(GizConstants.TABLE_NAME.REGISTER_TYPE,
+                GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? ", new String[]{baseEntityId});
+        return rowsAffected > 0;
     }
 
     @Override

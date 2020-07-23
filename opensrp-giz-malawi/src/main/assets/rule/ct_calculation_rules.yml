@@ -167,12 +167,12 @@ condition: "true"
 actions:
   - 'calculation = (step10_deworm == "done" ? "Albendazole/mebendazole for deworming" : "")'
 ---
-name: step10_sp
+name: step11_sp
 description: sp
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = (step10_iptp_sp1 == "done" ? "Sulfadoxine-pyrimethamine (SP) for malaria prevention" : "") '
+  - 'calculation = (step11_iptp_sp1 == "done" ? "Sulfadoxine-pyrimethamine (SP) for malaria prevention" : "") '
 ---
 name: step9_calcium
 description: calcium
@@ -188,150 +188,150 @@ condition: "true"
 actions:
   - 'calculation = (step9_vita_supp == "done" ? "Vitamin A supplement" : "") '
 ---
-name: step10_iptp_sp1_dose_number
+name: step11_iptp_sp1_dose_number
 description: iptp_sp1_dose_number
 priority: 1
-condition: "step10_iptp_sp1 != '' && step10_iptp_sp1 == 'done'"
+condition: "step11_iptp_sp1 != '' && step11_iptp_sp1 == 'done'"
 actions:
   - "calculation = 1"
 ---
-name: step10_iptp_sp2_dose_number
+name: step11_iptp_sp2_dose_number
 description: iptp_sp2_dose_number
 priority: 1
-condition: "step10_iptp_sp2 != '' && step10_iptp_sp2 == 'done'"
+condition: "step11_iptp_sp2 != '' && step11_iptp_sp2 == 'done'"
 actions:
   - "calculation = 2"
 ---
-name: step10_iptp_sp3_dose_number
+name: step11_iptp_sp3_dose_number
 description: iptp_sp3_dose_number
 priority: 1
-condition: "step10_iptp_sp3 != '' && step10_iptp_sp3 == 'done'"
+condition: "step11_iptp_sp3 != '' && step11_iptp_sp3 == 'done'"
 actions:
   - "calculation = 3"
 ---
-name: step10_iptp_sp4_dose_number
+name: step11_iptp_sp4_dose_number
 description: iptp_sp4_dose_number
 priority: 1
-condition: "step10_iptp_sp4 != '' && step10_iptp_sp4 == 'done'"
+condition: "step11_iptp_sp4 != '' && step11_iptp_sp4 == 'done'"
 actions:
  - "calculation = 4"
 ---
-name: step10_iptp_sp5_dose_number
+name: step11_iptp_sp5_dose_number
 description: iptp_sp5_dose_number
 priority: 1
-condition: "step10_iptp_sp5 != '' && step10_iptp_sp5 == 'done'"
+condition: "step11_iptp_sp5 != '' && step11_iptp_sp5 == 'done'"
 actions:
  - "calculation = 5"
 ---
-name: step10_iptp_sp6_dose_number
+name: step11_iptp_sp6_dose_number
 description: iptp_sp6_dose_number
 priority: 1
-condition: "step10_iptp_sp6 != '' && step10_iptp_sp6 == 'done'"
+condition: "step11_iptp_sp6 != '' && step11_iptp_sp6 == 'done'"
 actions:
  - "calculation = 6"
 ---
-name: step11_tt1_date_done_date_today_hidden
+name: step12_tt1_date_done_date_today_hidden
 description: tt1_date_done_today
 priority: 1
-condition: "step11_tt1_date != '' && step11_tt1_date == 'done_today'"
+condition: "step12_tt1_date != '' && step12_tt1_date == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step11_tt1_dose_number
+name: step12_tt1_dose_number
 description: tt1_dose_number
 priority: 1
-condition: "step11_tt1_date != '' && step11_tt1_date != 'not_done'"
+condition: "step12_tt1_date != '' && step12_tt1_date != 'not_done'"
 actions:
   - "calculation = 1"
 ---
-name: step11_tt2_date_done_date_today_hidden
+name: step12_tt2_date_done_date_today_hidden
 description: tt2_date_done
 priority: 1
-condition: "step11_tt2_date != '' && step11_tt2_date == 'done_today'"
+condition: "step12_tt2_date != '' && step12_tt2_date == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step11_tt2_dose_number
+name: step12_tt2_dose_number
 description: tt2_dose_number
 priority: 1
-condition: "step11_tt2_date != '' && step11_tt2_date != 'not_done'"
+condition: "step12_tt2_date != '' && step12_tt2_date != 'not_done'"
 actions:
   - "calculation = 2"
 ---
-name: step11_tt3_date_done_date_today_hidden
+name: step12_tt3_date_done_date_today_hidden
 description: tt3_date_done_today
 priority: 1
-condition: "step11_tt3_date != '' && step11_tt3_date == 'done_today'"
+condition: "step12_tt3_date != '' && step12_tt3_date == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step11_tt3_dose_number
+name: step12_tt3_dose_number
 description: tt3_dose_number
 priority: 1
-condition: "step11_tt3_date != '' && step11_tt3_date != 'not_done'"
+condition: "step12_tt3_date != '' && step12_tt3_date != 'not_done'"
 actions:
   - "calculation = 3"
 ---
-name: step11_hepb1_date_done_date_today_hidden
+name: step14_hepb1_date_done_date_today_hidden
 description: hepb1_date_done_today
 priority: 1
-condition: "step11_hepb1_date != '' && step11_hepb1_date == 'done_today'"
+condition: "step14_hepb1_date != '' && step14_hepb1_date == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step11_hepb2_date_done_date_today_hidden
+name: step14_hepb2_date_done_date_today_hidden
 description: hepb2_date_done_today
 priority: 1
-condition: "step11_hepb2_date != '' && step11_hepb2_date == 'done_today'"
+condition: "step14_hepb2_date != '' && step14_hepb2_date == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step11_hepb3_date_done_date_today_hidden
+name: step14_hepb3_date_done_date_today_hidden
 description: hepb3_date_done_today
 priority: 1
-condition: "step11_hepb3_date != '' && step11_hepb3_date == 'done_today'"
+condition: "step14_hepb3_date != '' && step14_hepb3_date == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step11_hepb1_dose_number
+name: step14_hepb1_dose_number
 description: hepb1_dose_number
 priority: 1
-condition: "step11_hepb1_date != '' && step11_hepb1_date != 'not_done'"
+condition: "step14_hepb1_date != '' && step14_hepb1_date != 'not_done'"
 actions:
   - "calculation = 1"
 ---
-name: step11_hepb2_dose_number
+name: step14_hepb2_dose_number
 description: hepb2_dose_number
 priority: 1
-condition: "step11_hepb2_date != '' && step11_hepb2_date != 'not_done'"
+condition: "step14_hepb2_date != '' && step14_hepb2_date != 'not_done'"
 actions:
   - "calculation = 2"
 ---
-name: step11_hepb3_dose_number
+name: step14_hepb3_dose_number
 description: hepb3_dose_number
 priority: 1
-condition: "step11_hepb3_date != '' && step11_hepb3_date != 'not_done'"
+condition: "step14_hepb3_date != '' && step14_hepb3_date != 'not_done'"
 actions:
   - "calculation = 3"
 ---
-name: step11_flu_date_done_date_today_hidden
+name: step15_flu_date_done_date_today_hidden
 description: Date flu dose was given
 priority: 1
-condition: "step11_flu_date != '' && step11_flu_date == 'done_today'"
+condition: "step15_flu_date != '' && step15_flu_date == 'done_today'"
 actions:
   - "calculation = helper.getDateToday()"
 ---
-name: step10_anti_d1_dose_number
+name: step13_anti_d1_dose_number
 description: anti_d1_dose_number
 priority: 1
-condition: "step10_anti_d1_date != '' && (step10_anti_d1_date == 'done_today' || step10_anti_d1_date == 'done_earlier')"
+condition: "step13_anti_d1_date != '' && (step13_anti_d1_date == 'done_today' || step13_anti_d1_date == 'done_earlier')"
 actions:
  - "calculation = 1"
 ---
-name: step10_anti_d2_dose_number
+name: step13_anti_d2_dose_number
 description: anti_d2_dose_number
 priority: 1
-condition: "step10_anti_d2_date != '' && (step10_anti_d2_date == 'done_today' || step10_anti_d2_date == 'done_earlier')"
+condition: "step13_anti_d2_date != '' && (step13_anti_d2_date == 'done_today' || step13_anti_d2_date == 'done_earlier')"
 actions:
  - "calculation = 2"
 ---

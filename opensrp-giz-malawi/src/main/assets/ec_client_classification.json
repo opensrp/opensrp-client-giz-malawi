@@ -149,20 +149,11 @@
           },
           {
             "field": "eventType",
-            "field_value": "Maternity Close",
-            "closes_case": [
-              "ec_client"
-            ]
-          },
-          {
-            "field": "eventType",
             "field_value": "Maternity Outcome",
             "creates_case": [
               "maternity_outcome"
             ]
           },
-
-
           {
             "field": "eventType",
             "field_value": "PNC Registration",
@@ -203,7 +194,6 @@
               "pnc_visit_child_status"
             ]
           },
-
           {
             "field": "eventType",
             "field_value": "AEFI",
@@ -216,6 +206,21 @@
             "field_value": "Death",
             "creates_case": [
               "deceased"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "archive_child_record",
+            "closes_case": [
+              "ec_client",
+              "ec_child_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "anc_maternity_transfer",
+            "creates_case": [
+              "maternity_registration_details"
             ]
           }
         ]

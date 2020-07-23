@@ -1,1 +1,2 @@
-include ':opensrp-giz-malawi'
+include ':opensrp-giz-malawi', ':opensrp-pnc'
+project(":opensrp-pnc").projectDir = new File("../opensrp-client-pnc/opensrp-pnc")

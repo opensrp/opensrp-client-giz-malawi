@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import org.smartregister.anc.library.AncLibrary;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -42,17 +43,9 @@ public class GizOpdRegisterSwitcher implements OpdRegisterSwitcher {
 
                     @Override
                     public void run() {
-                        final Map<String, String> ancUserDetails = AncLibrary.getInstance()
-                                .getDetailsRepository()
-                                .getAllDetailsForClient(commonPersonObjectClient.getCaseId());
+                        final Map<String, String> ancUserDetails = PatientRepository.getWomanProfileDetails(commonPersonObjectClient.getCaseId());
                         ancUserDetails.putAll(commonPersonObjectClient.getColumnmaps());
-
-                        appExecutors.mainThread().execute(new Runnable() {
-                            @Override
-                            public void run() {
-                                Utils.navigateToProfile(context, (HashMap<String, String>) ancUserDetails);
-                            }
-                        });
+                        appExecutors.mainThread().execute(() -> Utils.navigateToProfile(context, (HashMap<String, String>) ancUserDetails));
 
                     }
                 });
