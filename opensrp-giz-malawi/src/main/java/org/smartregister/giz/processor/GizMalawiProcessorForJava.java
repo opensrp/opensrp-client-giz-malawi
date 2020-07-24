@@ -27,6 +27,7 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
@@ -211,11 +212,18 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
                         } else if (eventType.equals(PncConstants.EventTypeConstants.PNC_REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
-                        } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) && eventClient.getClient() != null) {
-                            //TODO add a filter in register queries
-                            //add logic to check close reason
-                            GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
-                            GizMalawiApplication.getInstance().registerTypeRepository().add(event.getBaseEntityId(), GizConstants.RegisterType.OPD);
+                        } else if ((eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) || eventType.equals(PncConstants.EventTypeConstants.PNC_CLOSE)) && eventClient.getClient() != null) {
+
+                            if (!event.getObs().isEmpty()) {
+                                Obs obs = event.getObs().get(0);
+                                if (!obs.getHumanReadableValues().isEmpty()) {
+                                    String humanReadableValue = (String) obs.getHumanReadableValues().get(0);
+                                    if (!"woman died".equalsIgnoreCase(humanReadableValue) && !"wrong entry".equalsIgnoreCase(humanReadableValue)) {
+                                        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                                        GizMalawiApplication.getInstance().registerTypeRepository().add(event.getBaseEntityId(), GizConstants.RegisterType.OPD);
+                                    }
+                                }
+                            }
                         }
 
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
