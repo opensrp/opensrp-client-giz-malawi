@@ -11,6 +11,7 @@ public class GizConstants {
     public static final String BHT_MID = "bht_mid";
     public static final String MOTHER_HIV_STATUS = "mother_hiv_status";
     public static final String BIRTH_REGISTRATION_NUMBER = "birth_registration_number";
+    public static final String REGISTER_TYPE = "register_type";
 
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";

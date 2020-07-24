@@ -1,6 +1,5 @@
 package org.smartregister.giz.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -13,14 +12,8 @@ import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
-import org.smartregister.maternity.MaternityLibrary;
-import org.smartregister.maternity.pojo.MaternityMetadata;
-import org.smartregister.maternity.utils.MaternityConstants;
-import org.smartregister.maternity.utils.MaternityUtils;
-
-import java.util.HashMap;
+import org.smartregister.giz.task.OpenMaternityProfileTask;
 
 import timber.log.Timber;
 
@@ -51,22 +44,12 @@ public class GizAncProfileActivity extends ProfileActivity {
                 Utils.removeStickyEvent(event);
                 hideProgressDialog();
                 if (event.getClosedNature() != null && ConstantsUtils.ClosedNature.TRANSFERRED.equals(event.getClosedNature())) {
-                    AlertDialog dialog = new AlertDialog.Builder(this, R.style.AppThemeAlertDialog)
+                    AlertDialog dialog = new AlertDialog.Builder(GizAncProfileActivity.this, R.style.AppThemeAlertDialog)
                             .setCancelable(true)
                             .setMessage(R.string.anc_migration_to_maternity_text)
                             .setNegativeButton(R.string.yes, (dialog1, which) -> {
-                                MaternityMetadata maternityMetadata = MaternityLibrary.getInstance().getMaternityConfiguration().getMaternityMetadata();
                                 String baseEntityId = getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
-                                HashMap<String, String> map = MaternityUtils.getMaternityClient(baseEntityId);
-                                CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(baseEntityId, map, "name");
-                                commonPersonObjectClient.setColumnmaps(map);
-                                if (maternityMetadata != null) {
-                                    Intent intent = new Intent(GizAncProfileActivity.this, maternityMetadata.getProfileActivity());
-                                    intent.putExtra(MaternityConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
-                                    startActivity(intent);
-                                    finish();
-                                }
-
+                                new OpenMaternityProfileTask(GizAncProfileActivity.this, baseEntityId).execute();
                             }).setPositiveButton(R.string.no, (dialog12, which) -> dialog12.dismiss()).create();
 
                     dialog.show();

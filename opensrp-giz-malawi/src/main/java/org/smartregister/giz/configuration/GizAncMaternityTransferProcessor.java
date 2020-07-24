@@ -1,7 +1,14 @@
 package org.smartregister.giz.configuration;
 
 
+import android.support.annotation.NonNull;
+
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.library.configuration.AncMaternityTransferProcessor;
 
 import java.util.ArrayList;
@@ -28,15 +35,31 @@ public class GizAncMaternityTransferProcessor extends AncMaternityTransferProces
 
     @NotNull
     protected String[] previousContactKeys() {
-        return new String[]{"gravida", "parity", "prev_preg_comps", "prev_preg_comps_other", "miscarriages_abortions", "occupation", "occupation_other", "religion_other", "religion", "marital_status", "educ_level"};
+        return new String[]{"gravida", "parity", "prev_preg_comps", "prev_preg_comps_other",
+                "miscarriages_abortions", "occupation", "occupation_other", "religion_other",
+                "religion", "marital_status", "educ_level","gest_age"};
     }
 
-    protected String updateValue(String key, String value) {
-        String newValue = value;
-        if (key.equals("gest_age")) {
-            newValue = value + " weeks";
+    @Override
+    protected void updateValue(@NonNull JSONObject object, @NonNull String value) {
+        try {
+            Object newValue = value;
+            String key = object.optString(JsonFormConstants.KEY);
+            String type = object.optString(JsonFormConstants.TYPE);
+
+            if (key.equals("gest_age")) {
+                newValue = value + " weeks";
+            }
+
+            if (JsonFormConstants.CHECK_BOX.equals(type) && !value.isEmpty()) {
+                JSONArray jsonArray = new JSONArray(value);
+                object.put(JsonFormConstants.VALUE, jsonArray);
+            } else {
+                object.put(JsonFormConstants.VALUE, newValue.toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return newValue;
     }
 
     protected List<String> getCloseFormFieldsList() {

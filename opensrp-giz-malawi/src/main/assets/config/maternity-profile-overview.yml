@@ -1,0 +1,88 @@
+---
+group:
+sub_group: pregnancy_data_&_medical_history
+fields:
+  - template: "Intake Time: {intake_time}"
+    relevance: "intake_time != ''"
+
+  - template: "Gravida: {gravidity}"
+    relevance: "gravidity != ''"
+
+  - template: "Para: {parity}"
+    relevance: "parity != ''"
+
+  - template: "Last Menstrual period: {lmp}"
+    relevance: "lmp != ''"
+
+  - template: "Gestation age in weeks: {ga_weeks_entered}"
+    relevance: "ga_weeks_entered != ''"
+
+  - template: "Gestation age in days: {ga_dys_entered}"
+    relevance: "ga_days_entered != ''"
+
+  - template: "When did labour begin? (Onset of Labour): {onset_labour}"
+    relevance: "onset_labour != ''"
+
+  - template: "Have there been any complications in previous pregnancies?: {previous_complications}"
+    relevance: "previous_complications != ''"
+
+  - template: "Specify: {previous_complications_other}"
+    relevance: "previous_complications_other != ''"
+
+  - template: "Previous Delivery Mode: {previous_delivery_mode}"
+    relevance: "previous_delivery_mode != ''"
+
+  - template: "Previous Pregnancy Outcomes: {previous_pregnancy_outcomes}"
+    relevance: "previous_pregnancy_outcomes != ''"
+
+  - template: "Family medical history: {family_history}"
+    relevance: "family_history != ''"
+
+  - template: "Specify: {family_history_other}"
+    relevance: "family_history_other != ''"
+
+  - template: "Gestation Week: {ga_calculated}"
+    relevance: "ga_calculated != ''"
+
+---
+sub_group: hiv_status_&_treatment
+fields:
+  - template: "Previous HIV Status: {hiv_status_previous}"
+    relevance: "hiv_status_previous != ''"
+
+  - template: "Current HIV Status: {hiv_status_current}"
+    relevance: "hiv_status_current != ''"
+
+  - template: "Is the woman on ART Treatment: {on_art_treatment}"
+    relevance: "on_art_treatment != ''"
+
+  - template: "ART Clinic Number: {art_clinic_number}"
+    relevance: "art_clinic_number != ''"
+
+  - template: "ART treatment start period: {hiv_treatment_srt}"
+    relevance: "hiv_treatment_srt != ''"
+
+  - template: "Why is the woman not on ART?: {not_art_reason}"
+    relevance: "not_art_reason != ''"
+
+  - template: "Reason why woman is not on ART: {not_art_reasons_other}"
+    relevance: "not_art_reasons_other != ''"
+
+
+---
+sub_group: demographic_information
+fields:
+  - template: "Highest level of school: {educ_level}"
+    relevance: "educ_level != ''"
+
+  - template: "Marital Status: {marital_status}"
+    relevance: "marital_status != ''"
+
+  - template: "Occupation: {occupation}"
+    relevance: "occupation != ''"
+
+  - template: "Other Occupation: {occupation_other}"
+    relevance: "occupation_other != ''"
+
+  - template: "Religion: {religion}"
+    relevance: "religion != ''"
