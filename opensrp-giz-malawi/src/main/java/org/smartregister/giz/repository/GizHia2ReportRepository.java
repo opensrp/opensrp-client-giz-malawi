@@ -51,9 +51,6 @@ public class GizHia2ReportRepository extends Hia2ReportRepository {
         }
     }
 
-    public static final String ADD_GROUPING_COLUMN =
-            "ALTER TABLE " + Table.hia2_report.name() + " " + "" + "" + "ADD COLUMN "
-                    + report_column.grouping.name() + " TEXT NOT NULL";
     @Override
     public void addReport(JSONObject jsonObject) {
         try {

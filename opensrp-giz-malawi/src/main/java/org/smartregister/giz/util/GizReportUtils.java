@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import org.joda.time.DateTime;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;

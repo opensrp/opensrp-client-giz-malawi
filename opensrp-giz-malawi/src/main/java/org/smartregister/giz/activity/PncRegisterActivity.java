@@ -148,7 +148,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity  implements Nav
             try {
                 RepeatingGroupGenerator repeatingGroupGenerator = new RepeatingGroupGenerator(json.optJSONObject("step4"),
                         "baby_alive_group",
-                        OutcomeColumnMap(),
+                        outcomeColumnMap(),
                         PncDbConstants.KEY.BASE_ENTITY_ID,
                         storedValues(entityId));
                 repeatingGroupGenerator
@@ -163,7 +163,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity  implements Nav
             try {
                 new ChildStatusRepeatingGroupGenerator(json.optJSONObject("step3"),
                         "child_status",
-                        VisitColumnMap(),
+                        visitColumnMap(),
                         PncDbConstants.KEY.BASE_ENTITY_ID,
                         storedValues(entityId)).init();
             } catch (JSONException e) {
@@ -185,7 +185,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity  implements Nav
     }
 
     @NonNull
-    public Map<String, String> OutcomeColumnMap() {
+    public Map<String, String> outcomeColumnMap() {
         HashMap<String, String> map = new HashMap<>();
         map.put("baby_first_name", "first_name");
         map.put("baby_last_name", "last_name");
@@ -195,7 +195,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity  implements Nav
     }
 
     @NonNull
-    public Map<String, String> VisitColumnMap() {
+    public Map<String, String> visitColumnMap() {
         HashMap<String, String> map = new HashMap<>();
         map.put("child_name", "first_name");
         map.put("open_vaccine_card", "base_entity_id");

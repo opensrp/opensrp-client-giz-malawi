@@ -95,7 +95,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
                 String secondaryNumber = Utils.getValue(childDetails, GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER, true);
                 jsonObject.put(JsonFormUtils.VALUE, secondaryNumber);
             } else if (jsonObject.has(JsonFormConstants.TREE)) {
-                processLocationTree(childDetails, nonEditableFields, jsonObject);
+                processLocationTree(childDetails, jsonObject);
             } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("mother_guardian_first_name")) {
                 String secondaryNumber = Utils.getValue(childDetails, GizConstants.KEY.MOTHER_FIRST_NAME, true);
                 jsonObject.put(JsonFormUtils.VALUE, secondaryNumber);
@@ -131,7 +131,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
         tagSyncMetadata(event);
     }
 
-    private static void processLocationTree(Map<String, String> childDetails, List<String> nonEditableFields, JSONObject jsonObject) throws JSONException {
+    private static void processLocationTree(Map<String, String> childDetails, JSONObject jsonObject) throws JSONException {
         updateHomeFacilityHierarchy(childDetails, jsonObject);
     }
 

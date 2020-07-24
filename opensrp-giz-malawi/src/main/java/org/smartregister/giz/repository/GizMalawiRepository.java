@@ -26,7 +26,7 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.maternity.repository.MaternityChildRepository;
-import org.smartregister.maternity.repository.MaternityOutcomeFormRepository;
+import org.smartregister.maternity.repository.MaternityPartialFormRepository;
 import org.smartregister.opd.repository.OpdDetailsRepository;
 import org.smartregister.opd.repository.OpdDiagnosisAndTreatmentFormRepository;
 import org.smartregister.opd.repository.OpdDiagnosisDetailRepository;
@@ -130,7 +130,7 @@ public class GizMalawiRepository extends Repository {
         }
 
         // Maternity
-        MaternityOutcomeFormRepository.createTable(database);
+        MaternityPartialFormRepository.createTable(database);
         MaternityChildRepository.createTable(database);
 
         // Pnc

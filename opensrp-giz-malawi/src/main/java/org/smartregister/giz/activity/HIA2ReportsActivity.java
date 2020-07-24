@@ -36,7 +36,6 @@ import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.ReportHia2Indicator;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
 import org.smartregister.giz.fragment.SendMonthlyDraftDialogFragment;
-import org.smartregister.giz.fragment.SentMonthlyFragment;
 import org.smartregister.giz.model.ReportGroupingModel;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.task.FetchEditedMonthlyTalliesTask;
