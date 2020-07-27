@@ -491,7 +491,7 @@
     <!-- END OF ANC INDICATOR LABELS-->
 
     <string name="str_page_info">Page {0} of {1}</string>
-    <string name="vaccine_schedule_update_wait_message">This might take some time... Kindly wait</string>
+    <string name="vaccine_schedule_update_wait_message"><![CDATA[This might take some time... Kindly wait]]></string>
     <string name="dismiss_lookup">Confirm</string>
     <string name="balance">Balance</string>
     <string name="new_balance">New balance</string>
@@ -594,4 +594,52 @@
 
     <string name="opd_report_grouping_title">OPD</string>
     <string name="maternity_report_grouping_title">Maternity</string>
+
+    <!-- Start PNC report labels -->
+    <string name="ME_PNC_Total_Live_Birth">Total Live Births</string>
+    <string name="ME_PNC_Checked_in_2days"><![CDATA[Mother Checked in <48 Hours]]></string>
+    <string name="ME_PNC_Checked_in_7days"><![CDATA[Mother Checked in Within 3-7 Days]]></string>
+    <string name="ME_PNC_Checked_in_42days"><![CDATA[Mother Checked in 8-42 Days]]></string>
+    <string name="ME_PNC_Checked_In_Twice_In_7days"> Mother Checked in 2x in 7 Days</string>
+    <string name="ME_PNC_Woman_Complications_None"> Mother No Complications</string>
+    <string name="ME_PNC_Woman_Complications_Sepsis"> Mother Sepsis</string>
+    <string name="ME_PNC_Woman_Complications_Anaemia"> Mother Anaemia</string>
+    <string name="ME_PNC_Woman_Complications_PPH"> Mother PPH</string>
+    <string name="ME_PNC_Woman_Complications_SPE"> Mother Eclampsia</string>
+    <string name="ME_PNC_Woman_Complications_BE"> Mother Breast Engorgement</string>
+    <string name="ME_PNC_Woman_Complications_Other"> Mother Other</string>
+    <string name="ME_PNC_Vit_a_yes">RHD MAT Vitamin A administration Vitamin A Given</string>
+    <string name="ME_PNC_Vit_a_no">RHD MAT Vitamin A administration Vitamin A Not Given</string>
+    <string name="ME_PNC_fp_counsel_yes"> Counseled on FP</string>
+    <string name="ME_PNC_fp_method_bilateral_tubal_ligation"> BTL</string>
+    <string name="ME_PNC_fp_method_intrauterine_contraceptive_device"> IUCD</string>
+    <string name="ME_PNC_HIV_Positive"> HIV +ve</string>
+    <string name="ME_PNC_HIV_Negative"> HIV -ve</string>
+    <string name="ME_PNC_HIV_ND"> Test Not Done</string>
+    <string name="ME_PNC_Baby_Complications_Well">Well</string>
+    <string name="ME_PNC_Baby_Complications_Asphyxia">Asphyxia</string>
+    <string name="ME_PNC_Baby_Complications_LBW">LBW/Prematurity</string>
+    <string name="ME_PNC_Baby_Status_Alive">Baby Alive</string>
+    <string name="ME_PNC_Baby_Status_Dead">Baby Died</string>
+    <string name="ME_PNC_Checked_in_2days">Baby Checked in <48 Hours</string>
+    <string name="ME_PNC_Checked_in_7days">Baby Checked in Within 3-7 Days</string>
+    <string name="ME_PNC_Checked_in_42days">Baby Checked in 8-42 Days</string>
+    <string name="ME_PNC_Checked_In_Twice_In_7days"> Baby Checked in 2x in 7 Days</string>
+    <string name="ME_PNC_Baby_Vaccines_bcg"> BCG</string>
+    <string name="ME_PNC_Baby_Vaccines_opv_0"> Polio 0</string>
+    <string name="ME_PNC_Baby_Danger_Signs_None"> Baby No Complications</string>
+    <string name="ME_PNC_Baby_Danger_Signs_Feed"> Baby Not Able to Feed</string>
+    <string name="ME_PNC_Baby_Danger_Signs_Fever"> Baby Fever</string>
+    <string name="ME_PNC_Baby_Danger_Signs_Hypothermia"> Baby Hypothermia</string>
+    <string name="ME_PNC_Baby_Danger_Signs_Convulsions"> Baby Convulsions</string>
+    <string name="ME_PNC_Baby_Danger_Signs_Lethargic"> Baby Lethargy</string>
+    <string name="ME_PNC_Baby_Danger_Signs_Chest"> Baby Chest In Drawing</string>
+    <string name="ME_PNC_Baby_Danger_Signs_Breaths"> Baby Fast Breathing</string>
+    <string name="ME_PNC_Baby_Danger_Signs_EyenCord"> Baby Eye/Cord Discharge</string>
+    <string name="ME_PNC_Baby_Danger_Signs_Jaundice"> Baby Jaundice</string>
+    <string name="ME_PNC_Baby_Care_Mgt_KMC"> Baby on KMC</string>
+    <string name="ME_PNC_Baby_Care_Mgt_Vit_K"> Baby Given TEO</string>
+    <string name="ME_PNC_Baby_Care_Mgt_TEO"> Baby Given Vitamin K </string>
+    <string name="ME_PNC_Baby_Nevirapine"> Total on Nevirapine</string>
+    <!-- End PNC report labels -->
 </resources>

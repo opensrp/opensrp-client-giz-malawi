@@ -1435,7 +1435,7 @@ indicators:
                      		when nvp_administration = 'No' THEN 'No_NVP'
                      		when nvp_administration = 'Yes' THEN 'NVP_Started'
                      		else 'Null'
-                     		END nvp, count(1)
+                     		END NVP, count(1)
                      from maternity_child WHERE  child_hiv_status = 'Exposed'
                      and '%s' = strftime('%Y-%m-%d', event_date)"
     isMultiResult: true
