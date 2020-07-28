@@ -22,6 +22,7 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +75,7 @@ import static org.smartregister.util.JsonFormUtils.VALUE;
 public class HIA2ReportsActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_GET_JSON = 3432;
-    public static final int MONTH_SUGGESTION_LIMIT = 3;
+    public static final int MONTH_SUGGESTION_LIMIT = 6;
     public static final String FORM_KEY_CONFIRM = "confirm";
     public static final DateFormat yyyyMMdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
@@ -160,6 +161,11 @@ public class HIA2ReportsActivity extends AppCompatActivity {
         groupingReportMap.put("anc", "ANC Monthly Facility Report");
         groupingReportMap.put("opd", "Malaria Health Facility Report");
         groupingReportMap.put("maternity", "Maternity Monthly Report");
+//        groupingReportMap.put("pnc", "Sample Monthly Report");
+    }
+
+    public ReportsSectionsPagerAdapter getmSectionsPagerAdapter() {
+        return mSectionsPagerAdapter;
     }
 
     @Override
@@ -390,10 +396,12 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                         reportHia2Indicators.add(reportHia2Indicator);
                     }
 
-                    GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, groupingReportMap.get(getReportGrouping()));
+
+                    DateTime dateSent = new DateTime();
+                    GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, groupingReportMap.get(getReportGrouping()), getReportGrouping(), dateSent);
 
                     for (MonthlyTally curTally : tallies) {
-                        curTally.setDateSent(Calendar.getInstance().getTime());
+                        curTally.setDateSent(dateSent.toDate());
                         monthlyTalliesRepository.save(curTally);
                     }
                 } else {
@@ -453,8 +461,15 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                         if (fragment != null) {
                             ((DraftMonthlyFragment) fragment).updateDraftsReportListView(monthlyTallies);
                         }
+
                     }
                 }), null);
+
+                try {
+                    mSectionsPagerAdapter.getSentMonthlyFragment().refreshData();
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
             }
         } catch (Exception e) {
             Timber.e(e);

@@ -1,0 +1,562 @@
+{
+  "fields": [
+    {
+      "key": "discharged_alive_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "1695AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Was the baby discharged alive?",
+      "label_text_style": "bold",
+      "v_required": {
+        "value": "true",
+        "err": "Field required"
+      },
+      "options": [
+        {
+          "key": "yes",
+          "text": "Yes",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "no",
+          "text": "No",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "is-rule-check": false,
+      "value": "{discharged_alive}"
+    },
+    {
+      "key": "birth_record_date_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "5599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "date_picker",
+      "hint": "Birth Record Date",
+      "max_date": "today",
+      "v_required": {
+        "value": "true",
+        "err": "Field required"
+      },
+      "is_visible": true
+    },
+    {
+      "key": "baby_first_name_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "person",
+      "openmrs_entity_id": "first_name",
+      "type": "edit_text",
+      "hint": "First name",
+      "v_required": {
+        "value": "true",
+        "err": "Field required"
+      },
+      "is_visible": true,
+      "value": "{first_name}"
+    },
+    {
+      "key": "baby_last_name_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "person",
+      "openmrs_entity_id": "last_name",
+      "type": "edit_text",
+      "hint": "Last name",
+      "v_required": {
+        "value": "true",
+        "err": "Field required"
+      },
+      "is_visible": true,
+      "value": "{last_name}"
+    },
+    {
+      "key": "baby_dob_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "person",
+      "openmrs_entity_id": "birthdate",
+      "type": "date_picker",
+      "hint": "Birth date",
+      "v_required": {
+        "value": "true",
+        "err": "Field required"
+      },
+      "is_visible": true,
+      "value": "{dob}"
+    },
+    {
+      "key": "baby_gender_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "person",
+      "openmrs_entity_id": "gender",
+      "type": "native_radio",
+      "label": "Child's gender",
+      "label_text_style": "bold",
+      "v_required": {
+        "value": "true",
+        "err": "Select at least one medical condition OR None"
+      },
+      "options": [
+        {
+          "key": "male",
+          "text": "Male",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "female",
+          "text": "Female",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1534AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "is_visible": true,
+      "value": "{gender}"
+    },
+    {
+      "key": "birth_weight_entered_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "edit_text",
+      "hint": "Birth weight (gm)",
+      "v_numeric": {
+        "value": "true",
+        "err": "Enter valid birth weight"
+      },
+      "v_required": {
+        "value": "true",
+        "err": "Enter valid birth weight"
+      },
+      "step": "step4",
+      "is-rule-check": true,
+      "is_visible": true
+    },
+    {
+      "key": "birth_weight_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "5916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "hidden",
+      "value": "{weight}"
+    },
+    {
+      "key": "birth_height_entered_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "1503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "Birth length (cm)",
+      "v_numeric": {
+        "value": "true",
+        "err": "Enter valid birth height"
+      },
+      "v_required": {
+        "value": "true",
+        "err": "Enter valid birth height"
+      },
+      "is_visible": true,
+      "value": "{height}"
+    },
+    {
+      "key": "apgar_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "1504AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "APGAR score",
+      "v_numeric": {
+        "value": "true",
+        "err": "Enter valid agpar"
+      },
+      "v_required": {
+        "value": "true",
+        "err": "Enter valid agpar"
+      },
+      "constraints": [
+        {
+          "type": "numeric",
+          "ex": "greaterThanEqualTo(., \"0\")",
+          "err": "agpar must be greater than or equal to 0"
+        },
+        {
+          "type": "numeric",
+          "ex": "lessThanEqualTo(., \"10\")",
+          "err": "agpar must be less than or equal to 10"
+        }
+      ],
+      "is-rule-check": false,
+      "value": "{apgar}"
+    },
+    {
+      "key": "baby_first_cry_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "native_radio",
+      "label": "Did the baby cry at birth?",
+      "label_text_style": "bold",
+      "v_required": {
+        "value": "true",
+        "err": "Select at least one medical condition OR None"
+      },
+      "options": [
+        {
+          "key": "yes",
+          "text": "Yes",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "no",
+          "text": "No",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "value": "{first_cry}"
+    },
+    {
+      "key": "baby_complications_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "164122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "Newborn care complications",
+      "v_required": {
+        "value": "true",
+        "err": "Select at least one medical condition OR None"
+      },
+      "exclusive": [
+        "none"
+      ],
+      "options": [
+        {
+          "key": "none",
+          "text": "None",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "premature",
+          "text": "Premature",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "asphyxia",
+          "text": "Asphyxia",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "121397AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "sepsis",
+          "text": "Sepsis",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "birth_defects",
+          "text": "Birth defects",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "119975AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "Other (Specify)",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "value": "{complications}"
+    },
+    {
+      "key": "baby_complications_other_",
+      "openmrs_entity_parent": "164122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "Specify",
+      "relevance": {
+        "step4:baby_complications_": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      },
+      "value": "{complications_other}"
+    },
+    {
+      "key": "baby_care_mgt_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "159839AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "Newborn Routine Care & Management",
+      "relevance": {
+        "step4:baby_complications_": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "none"
+              ]
+            }
+          ]
+        }
+      },
+      "options": [
+        {
+          "key": "kangaroo_mother_care",
+          "text": "Kangaroo Mother Care (KMC)",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "164173AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "antibiotics",
+          "text": "Antibiotics",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "tetracycline_eye_ointment",
+          "text": "Tetracycline Eye Ointment (TEO)",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1520AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "chlorhexidine",
+          "text": "Chlorhexidine (7.1%)",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "vitamin_k",
+          "text": "Vitamin K",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "86352AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "rescuscitation",
+          "text": "Rescuscitation",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "162131AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "referral",
+          "text": "Referral",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "Other (Specify)",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "value": "{care_mgt}"
+    },
+    {
+      "key": "baby_care_mgt_specify_",
+      "openmrs_entity_parent": "164122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "edit_text",
+      "hint": "Specify",
+      "relevance": {
+        "step4:baby_care_mgt_": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "other"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "key": "baby_referral_location_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Specify the location of the referral",
+      "label_text_style": "bold",
+      "v_required": {
+        "value": "true",
+        "err": "Select at least one medical condition OR None"
+      },
+      "relevance": {
+        "step4:baby_care_mgt_": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "referral"
+              ]
+            }
+          ]
+        }
+      },
+      "options": [
+        {
+          "key": "the_nursery",
+          "text": "The nursery",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        },
+        {
+          "key": "other_facility",
+          "text": "Other facility",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": ""
+        }
+      ],
+      "value": "{intervention_referral_location}"
+    },
+    {
+      "key": "bf_first_hour_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "161543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Breastfeeding initiated within 60 mins",
+      "label_text_style": "bold",
+      "relevance": {
+        "step4:discharged_alive_": {
+          "type": "string",
+          "ex": "equalTo(., \"yes\")"
+        }
+      },
+      "options": [
+        {
+          "key": "yes",
+          "text": "Yes",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "no",
+          "text": "No",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "value": "{bf_first_hour}"
+    },
+    {
+      "key": "child_hiv_status_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "5303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "check_box",
+      "label": "Child's HIV status",
+      "v_required": {
+        "value": "true",
+        "err": "Select at least one medical condition OR None"
+      },
+      "relevance": {
+        "step3:hiv_status_current_": {
+          "type": "string",
+          "ex": "equalTo(., \"[\"positive\",\"unknown\"]\")"
+        },
+        "step3:hiv_status_previous_": {
+          "type": "string",
+          "ex": "equalTo(., \"[\"positive\",\"unknown\"]\")"
+        }
+      },
+      "options": [
+        {
+          "key": "positive",
+          "text": "Positive",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "negative",
+          "text": "Negative",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "unknown",
+          "text": "Unknown",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "exposed",
+          "text": "Exposed",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "value": "{child_hiv_status}"
+    },
+    {
+      "key": "nvp_administration_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "80586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "NVP Administration Started",
+      "label_text_style": "bold",
+      "relevance": {
+        "step4:child_hiv_status_": {
+          "ex-checkbox": [
+            {
+              "or": [
+                "positive",
+                "exposed"
+              ]
+            }
+          ]
+        }
+      },
+      "v_required": {
+        "value": "true",
+        "err": "Select at least one medical condition OR None"
+      },
+      "options": [
+        {
+          "key": "yes",
+          "text": "Yes",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "no",
+          "text": "No",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "",
+          "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "value": "{nvp_administration}"
+    },
+    {
+      "key": "saved_child_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "",
+      "openmrs_entity_id": "",
+      "type": "hidden",
+      "value": "true"
+    }
+  ]
+}

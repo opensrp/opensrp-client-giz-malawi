@@ -2,6 +2,7 @@ package org.smartregister.giz.util;
 
 public class GizConstants {
 
+    public static final int HOW_BABY_OLD_IN_DAYS = 28;
     public static final String MOTHER_TDV_DOSES = "mother_tdv_doses";
     public static final String PROTECTED_AT_BIRTH = "protected_at_birth";
     public static final String REACTION_VACCINE = "Reaction_Vaccine";
@@ -10,6 +11,7 @@ public class GizConstants {
     public static final String BHT_MID = "bht_mid";
     public static final String MOTHER_HIV_STATUS = "mother_hiv_status";
     public static final String BIRTH_REGISTRATION_NUMBER = "birth_registration_number";
+    public static final String REGISTER_TYPE = "register_type";
 
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
@@ -78,6 +80,7 @@ public class GizConstants {
         public static final String CHILD_CLIENTS = "Child Clients";
         public static final String OPD_CLIENTS = "OPD Clients";
         public static final String MATERNITY_CLIENTS = "Maternity Clients";
+        public static final String PNC_CLIENTS = "PNC Clients";
         public static final String ANC = "ANC";
     }
 
@@ -100,6 +103,7 @@ public class GizConstants {
         public static final String UPDATE_CHILD_REGISTRATION = "Update Birth Registration";
         public static final String OUT_OF_CATCHMENT = "Out of Catchment";
 
+        public static final String REPORT_CREATION = "report_creation";
     }
 
     public static class JSON_FORM {
@@ -147,6 +151,7 @@ public class GizConstants {
         String OPD = "opd";
         String ALL_CLIENTS = "all_clients";
         String MATERNITY = "maternity";
+        String PNC = "pnc";
     }
 
     public interface MultiResultProcessor {

@@ -1,0 +1,107 @@
+---
+name: step1_pnc_first_visit_check
+description: Check if the first pnc was done within 0-48 hours
+priority: 1
+condition: "step1_pnc_visit_period > 2"
+actions:
+  - "isRelevant = true"
+---
+name: step1_visits_outside_facility_number
+description: visits_outside_facility_number
+priority: 1
+condition: "step1_visits_outside_facility == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_other_pnc_visit_date_group
+description: step1_other_pnc_visit_date_group
+priority: 1
+condition: "step1_visits_outside_facility == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_intervention_given_text
+description: intervention_given_text
+priority: 1
+condition: "step2_intervention_given == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_pnc_complications_other
+description: Provide details of other complications
+priority: 1
+condition: "step2_pnc_complications.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_status_csection
+description: status_csection
+priority: 1
+condition: "global_delivery_mode == 'caesarean_section_cs'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_lochia_status_other
+description: Provide details of other lochia status
+priority: 1
+condition: "step2_lochia_status == 'other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_uterus_status_other
+description: Provide details of other uterus status
+priority: 1
+condition: "step2_uterus_status == 'other'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_referred_out
+description: Was the patient referred to another Medical Center?
+priority: 1
+condition: "!step2_pnc_complications.contains('none')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_referred_out_specify
+description: referred_out_specify
+priority: 1
+condition: "step2_referred_out == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_vit_a_not_given_reason
+description: vit_a_not_given_reason
+priority: 1
+condition: "step2_vit_a == 'no'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_fp_method_other
+description: Provide details of other family planning method
+priority: 1
+condition: "step2_fp_method_other == 'other'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_baby_hiv_exposed
+description: baby_hiv_exposed
+priority: 1
+condition: "global_hiv_status_previous == 'positive' || global_hiv_status_current == 'positive'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_baby_hiv_treatment
+description: baby_hiv_treatment
+priority: 1
+condition: "step3_baby_hiv_exposed == 'yes' && step3_mother_baby_pairing == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step3_baby_care_mgt
+description: If there were complications, what care was provided to manage the complications?
+priority: 1
+condition: "global_baby_complications != 'none'"
+actions:
+  - "isRelevant = true"
+
+

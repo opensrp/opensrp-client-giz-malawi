@@ -145,7 +145,7 @@
             "openmrs_entity_id": ""
           },
           {
-            "key": "death",
+            "key": "aefi_death",
             "text": "Serious AEFI Death",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
@@ -199,6 +199,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "death",
+            "text": "Death",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162076AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "v_required": {

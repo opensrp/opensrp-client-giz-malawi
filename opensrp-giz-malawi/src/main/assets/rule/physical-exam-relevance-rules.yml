@@ -258,6 +258,13 @@ condition: "!step3_pelvic_exam_abnormal.isEmpty() && step3_pelvic_exam_abnormal.
 actions:
   - "isRelevant = true"
 ---
+name: step3_pelvic_exam_abnormal_other
+description: pelvic_exam_abnormal_other
+priority: 1
+condition: "!step3_pelvic_exam_abnormal.isEmpty() && step3_pelvic_exam_abnormal.contains('other')"
+actions:
+  - "isRelevant = true"
+---
 name: step5_presenting_part
 description: Presenting Part
 priority: 1
@@ -283,5 +290,12 @@ name: step4_fetal_movement_seen
 description: fetal_movement_seen
 priority: 1
 condition: "global_gest_age_openmrs != '' && global_gest_age_openmrs >= 20"
+actions:
+  - "isRelevant = true"
+---
+name: step2_prev_preeclampsia_diagnosis_date
+description: prev_preeclampsia_diagnosis_date
+priority: 1
+condition: "step2_prev_preeclampsia_diagnosis == 'yes'"
 actions:
   - "isRelevant = true"

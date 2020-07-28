@@ -1,0 +1,41 @@
+{
+  "fields": [
+    {
+      "key": "stillbirth_condition_",
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_entity_id": "159917AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "type": "native_radio",
+      "label": "Stillbirth condition",
+      "label_text_style": "bold",
+      "v_required": {
+        "value": "true",
+        "err": "Select at least one medical condition OR None"
+      },
+      "options": [
+        {
+          "key": "fresh",
+          "text": "Fresh",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "macerated",
+          "text": "Macerated",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        {
+          "key": "other",
+          "text": "Other",
+          "openmrs_entity_parent": "",
+          "openmrs_entity": "concept",
+          "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ],
+      "value": "{stillbirth_condition}"
+    }
+  ]
+}

@@ -137,6 +137,23 @@
         }
       },
       {
+        "key": "accordion_partner_hiv",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "text": "Partner HIV test",
+        "type": "expansion_panel",
+        "content_form": "tests_partner_hiv_sub_form",
+        "container": "anc_test",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "tests_expansion_panel_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "accordion_hepatitis_b",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -455,9 +472,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "text": "TB Screening",
-        "accordion_info_text": "In settings where the tuberculosis (TB) prevalence in the general population is 100/100,000 persons or higher or in settings with sub-populations that have very poor access to health care, or if the woman is HIV positive, TB screening is recommended.",
-        "accordion_info_title": "TB screening",
+        "text": "TB Test",
+        "accordion_info_text": "In settings where the tuberculosis (TB) prevalence in the general population is 100/100,000 persons or higher or in settings with sub-populations that have very poor access to health care, or if the woman is HIV positive, TB test is recommended.",
+        "accordion_info_title": "TB test",
         "type": "expansion_panel",
         "content_form": "tests_tb_screening_sub_form",
         "container": "anc_test",

@@ -1,0 +1,6 @@
+name: step2_parity
+description: parity should be less than gravity
+priority: 1
+condition: "true"
+actions:
+  - "constraint = (step3_previous_pregnancies - step3_miscarriages_abortions) + 1"

@@ -11,6 +11,10 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.ChildDbUtils;
@@ -23,11 +27,14 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.domain.MonthlyTally;
+import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
@@ -47,10 +54,11 @@ import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.service.intent.RecurringIntentService;
 import org.smartregister.immunization.service.intent.VaccineIntentService;
-import org.smartregister.maternity.processor.MaternityMiniClientProcessorForJava;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.pnc.processor.PncMiniClientProcessorForJava;
+import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.MiniClientProcessorForJava;
@@ -59,6 +67,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -74,15 +83,26 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     private HashMap<MiniClientProcessorForJava, List<Event>> unsyncEventsPerProcessor = new HashMap<>();
     private AppExecutors appExecutors = new AppExecutors();
     private HashMap<String, DateTime> clientsForAlertUpdates = new HashMap<>();
+    private List<String> coreProcessedEvents = Arrays.asList(Constants.EventType.BITRH_REGISTRATION, Constants.EventType.UPDATE_BITRH_REGISTRATION,
+            Constants.EventType.NEW_WOMAN_REGISTRATION, OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
+            Constants.EventType.AEFI, Constants.EventType.ARCHIVE_CHILD_RECORD, ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER, ConstantsUtils.EventTypeUtils.CLOSE);
 
     private GizMalawiProcessorForJava(Context context) {
         super(context);
 
         BaseAncClientProcessorForJava baseAncClientProcessorForJava = new BaseAncClientProcessorForJava(context);
         GizMaternityProcessorForJava maternityMiniClientProcessorForJava = new GizMaternityProcessorForJava(context);
+        PncMiniClientProcessorForJava pncMiniClientProcessorForJava = new PncMiniClientProcessorForJava(context);
         OpdMiniClientProcessorForJava opdMiniClientProcessorForJava = new OpdMiniClientProcessorForJava(context);
 
-        addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava, maternityMiniClientProcessorForJava);
+        addMiniProcessors(baseAncClientProcessorForJava, opdMiniClientProcessorForJava, maternityMiniClientProcessorForJava, pncMiniClientProcessorForJava);
+    }
+
+    public static GizMalawiProcessorForJava getInstance(Context context) {
+        if (instance == null) {
+            instance = new GizMalawiProcessorForJava(context);
+        }
+        return instance;
     }
 
     public void addMiniProcessors(MiniClientProcessorForJava... miniClientProcessorsForJava) {
@@ -95,13 +115,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 processorMap.put(eventType, miniClientProcessorForJava);
             }
         }
-    }
-
-    public static GizMalawiProcessorForJava getInstance(Context context) {
-        if (instance == null) {
-            instance = new GizMalawiProcessorForJava(context);
-        }
-        return instance;
     }
 
     @Override
@@ -142,12 +155,13 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(MoveToMyCatchmentUtils.MOVE_TO_CATCHMENT_EVENT)) {
                     unsyncEvents.add(event);
                 } else if (eventType.equals(Constants.EventType.DEATH)) {
-                    if (processDeathEvent(eventClient)) {
+                    if (processDeathEvent(eventClient, clientClassification)) {
                         unsyncEvents.add(event);
                     }
-                } else if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) || eventType
-                        .equals(Constants.EventType.UPDATE_BITRH_REGISTRATION) || eventType
-                        .equals(Constants.EventType.NEW_WOMAN_REGISTRATION) || eventType.equals(OpdConstants.EventType.OPD_REGISTRATION)) {
+                } else if (eventType.equals(GizConstants.EventType.REPORT_CREATION)) {
+                    processReport(event);
+                    CoreLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(eventClient.getEvent().getFormSubmissionId());
+                } else if (coreProcessedEvents.contains(eventType)) {
 
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
                         Timber.e(new Exception(), "Cannot find client corresponding to %s with base-entity-id %s", OpdConstants.EventType.OPD_REGISTRATION, event.getBaseEntityId());
@@ -166,20 +180,50 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                     }
 
+                    if (eventType.equals(Constants.EventType.ARCHIVE_CHILD_RECORD) && eventClient.getClient() != null) {
+                        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                    }
+
+                    if (eventType.equals(ConstantsUtils.EventTypeUtils.CLOSE) && eventClient.getClient() != null) {
+                        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                        if (GizMalawiApplication.getInstance().context().getEventClientRepository().getEventsByBaseEntityIdAndEventType(event.getBaseEntityId(), ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER) == null)
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
+                        else
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                    }
+
+
+                    if (eventType.equals(ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER) && eventClient.getClient() != null) {
+                        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                    }
+
 
                     if (clientClassification == null) {
                         continue;
                     }
 
-                    processBirthAndWomanRegistrationEvent(clientClassification, eventClient, event);
+                    processEventClient(clientClassification, eventClient, event);
                 } else if (processorMap.containsKey(eventType)) {
                     try {
                         if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
-                        } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) && eventClient.getClient() != null) {
-                            GizMalawiApplication.getInstance().registerTypeRepository().remove(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                        } else if (eventType.equals(PncConstants.EventTypeConstants.PNC_REGISTRATION) && eventClient.getClient() != null) {
+                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
+                        } else if ((eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) || eventType.equals(PncConstants.EventTypeConstants.PNC_CLOSE)) && eventClient.getClient() != null) {
+
+                            if (!event.getObs().isEmpty()) {
+                                Obs obs = event.getObs().get(0);
+                                if (!obs.getHumanReadableValues().isEmpty()) {
+                                    String humanReadableValue = (String) obs.getHumanReadableValues().get(0);
+                                    if (!"woman died".equalsIgnoreCase(humanReadableValue) && !"wrong entry".equalsIgnoreCase(humanReadableValue)) {
+                                        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                                        GizMalawiApplication.getInstance().registerTypeRepository().add(event.getBaseEntityId(), GizConstants.RegisterType.OPD);
+                                    }
+                                }
+                            }
                         }
 
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
@@ -196,6 +240,41 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
             appExecutors.diskIO().execute(runnable);
         }
+
+    }
+
+    private void processReport(Event event) {
+        try {
+            JSONObject jsonObject = new JSONObject(event.getDetails().get("reportJson"));
+            String reportMonth = jsonObject.optString("reportDate");
+            String reportGrouping = jsonObject.optString("grouping");
+            String providerId = jsonObject.optString("providerId");
+            String dateCreated = jsonObject.optString("dateCreated");
+            DateTime dateSent = new DateTime(dateCreated);
+            Date dReportMonth = MonthlyTalliesRepository.DF_YYYYMM.parse(reportMonth);
+
+            JSONArray jsonArray = jsonObject.optJSONArray("hia2Indicators");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject1 = jsonArray.optJSONObject(i);
+                String indicator = jsonObject1.optString("indicatorCode");
+                String value = jsonObject1.optString("value");
+                MonthlyTally monthlyTally = new MonthlyTally();
+                monthlyTally.setEdited(false);
+                monthlyTally.setGrouping(reportGrouping);
+                monthlyTally.setIndicator(indicator);
+                monthlyTally.setProviderId(providerId);
+                monthlyTally.setValue(value);
+                monthlyTally.setDateSent(dateSent.toDate());
+                monthlyTally.setCreatedAt(dateSent.toDate());
+                monthlyTally.setMonth(dReportMonth);
+                GizMalawiApplication.getInstance().monthlyTalliesRepository().save(monthlyTally);
+            }
+
+        } catch (JSONException e) {
+            Timber.e(e);
+        } catch (ParseException e) {
+            Timber.e(e);
+        }
     }
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
@@ -210,8 +289,13 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         clientsForAlertUpdates.clear();
     }
 
-    private boolean processDeathEvent(@NonNull EventClient eventClient) {
+    private boolean processDeathEvent(@NonNull EventClient eventClient, ClientClassification clientClassification) {
         if (eventClient.getEvent().getEntityType().equals(GizConstants.EntityType.CHILD)) {
+            try {
+                processEvent(eventClient.getEvent(), eventClient.getClient(), clientClassification);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
             return GizUtils.updateChildDeath(eventClient);
         }
 
@@ -229,14 +313,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private void processBirthAndWomanRegistrationEvent(@NonNull ClientClassification clientClassification, @NonNull EventClient eventClient, @NonNull Event event) {
+    private void processEventClient(@NonNull ClientClassification clientClassification, @NonNull EventClient eventClient, @NonNull Event event) {
         Client client = eventClient.getClient();
-        //iterate through the events
         if (client != null) {
             try {
                 processEvent(event, client, clientClassification);
-
-                scheduleUpdatingClientAlerts(client.getBaseEntityId(), client.getBirthdate());
             } catch (Exception e) {
                 Timber.e(e);
             }
@@ -671,20 +752,17 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
-        if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName)) {
-            if (GizMalawiApplication.getInstance().registerTypeRepository().findByRegisterType(entityId, GizConstants.RegisterType.CHILD)) {
-                String dobString = contentValues.getAsString(Constants.KEY.DOB);
-                if (StringUtils.isNotBlank(dobString)) {
-                    DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
-                    if (birthDateTime != null) {
-                        VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, GizConstants.RegisterType.CHILD);
-                        ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
-                    }
+        if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName) &&
+                GizMalawiApplication.getInstance().registerTypeRepository().findByRegisterType(entityId, GizConstants.RegisterType.CHILD)) {
+            String dobString = contentValues.getAsString(Constants.KEY.DOB);
+            if (StringUtils.isNotBlank(dobString)) {
+                DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
+                if (birthDateTime != null) {
+                    VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, GizConstants.RegisterType.CHILD);
+                    ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
                 }
             }
-
         }
-
         Timber.d("Finished updateFTSsearch table: %s", tableName);
     }
 

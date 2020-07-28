@@ -19,6 +19,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.smartregister.anc.library.event.PatientRemovedEvent;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -26,9 +28,12 @@ import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.giz.BuildConfig;
+import org.smartregister.giz.R;
+import org.smartregister.giz.activity.GizAncProfileActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.event.BaseEvent;
 import org.smartregister.giz.listener.OnLocationChangeListener;
+import org.smartregister.giz.task.OpenMaternityProfileTask;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.widget.GizTreeViewDialog;
 import org.smartregister.location.helper.LocationHelper;
@@ -254,5 +259,23 @@ public class GizUtils extends Utils {
 
     public static void updateSyncStatus(boolean isComplete) {
         GizMalawiApplication.getInstance().context().allSharedPreferences().savePreference("syncComplete", String.valueOf(isComplete));
+    }
+
+    public static void showAncMaternityNavigationDialog(@NonNull PatientRemovedEvent event, @NonNull Activity activity) {
+        if (event.getClosedNature() != null && ConstantsUtils.ClosedNature.TRANSFERRED.equals(event.getClosedNature())) {
+            AlertDialog dialog = new AlertDialog.Builder(activity, R.style.AppThemeAlertDialog)
+                    .setCancelable(true)
+                    .setMessage(R.string.anc_migration_to_maternity_text)
+                    .setNegativeButton(R.string.yes, (dialog1, which) -> {
+                        String baseEntityId = activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
+                        new OpenMaternityProfileTask(activity, baseEntityId).execute();
+                    }).setPositiveButton(R.string.no, (dialog12, which) -> dialog12.dismiss()).create();
+
+            dialog.show();
+        } else {
+            if (activity instanceof GizAncProfileActivity) {
+                activity.finish();
+            }
+        }
     }
 }

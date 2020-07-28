@@ -19,7 +19,7 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
             + GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " VARCHAR NOT NULL,"
             + GizConstants.Columns.RegisterType.REGISTER_TYPE + " VARCHAR NOT NULL, "
             + GizConstants.Columns.RegisterType.DATE_CREATED + " INTEGER NOT NULL, "
-            + GizConstants.Columns.RegisterType.DATE_REMOVED + " INTEGER NULL, "
+            + GizConstants.Columns.RegisterType.DATE_REMOVED + " VARCHAR NULL, "
             + "UNIQUE(" + GizConstants.Columns.RegisterType.BASE_ENTITY_ID + ", " + GizConstants.Columns.RegisterType.REGISTER_TYPE + ") ON CONFLICT REPLACE)";
 
     private static final String INDEX_BASE_ENTITY_ID = "CREATE INDEX " + GizConstants.TABLE_NAME.REGISTER_TYPE
@@ -46,8 +46,21 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
     }
 
     @Override
+    public boolean softDelete(String registerType, String baseEntityId, String dateRemoved) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(GizConstants.Columns.RegisterType.DATE_REMOVED, dateRemoved);
+        int rowsAffected = sqLiteDatabase.update(GizConstants.TABLE_NAME.REGISTER_TYPE, contentValues,
+                GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? and " + GizConstants.Columns.RegisterType.REGISTER_TYPE + " = ?", new String[]{baseEntityId, registerType});
+        return rowsAffected > 0;
+    }
+
+    @Override
     public boolean removeAll(String baseEntityId) {
-        return false;
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        int rowsAffected = sqLiteDatabase.delete(GizConstants.TABLE_NAME.REGISTER_TYPE,
+                GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? ", new String[]{baseEntityId});
+        return rowsAffected > 0;
     }
 
     @Override
@@ -68,7 +81,9 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
                 GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? and " + GizConstants.Columns.RegisterType.REGISTER_TYPE + " = ?",
                 new String[]{baseEntityId, registerType}, null, null, null);
         if (cursor != null) {
-            return cursor.getCount() > 0;
+            boolean isType = cursor.getCount() > 0;
+            cursor.close();
+            return isType;
         }
         return false;
     }

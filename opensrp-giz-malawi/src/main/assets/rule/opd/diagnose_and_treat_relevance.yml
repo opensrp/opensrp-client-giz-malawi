@@ -79,7 +79,7 @@ actions:
 name: step6_referral_location
 description: referral_location
 priority: 1
-condition: "step6_discharged_alive == 'yes'"
+condition: "step6_referral == 'yes'"
 actions:
   - "isRelevant = true"
 ---

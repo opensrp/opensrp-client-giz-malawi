@@ -15,6 +15,7 @@ import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.AssetHandler;
@@ -94,7 +95,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
                 String secondaryNumber = Utils.getValue(childDetails, GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER, true);
                 jsonObject.put(JsonFormUtils.VALUE, secondaryNumber);
             } else if (jsonObject.has(JsonFormConstants.TREE)) {
-                processLocationTree(childDetails, nonEditableFields, jsonObject);
+                processLocationTree(childDetails, jsonObject);
             } else if (jsonObject.getString(JsonFormUtils.KEY).equalsIgnoreCase("mother_guardian_first_name")) {
                 String secondaryNumber = Utils.getValue(childDetails, GizConstants.KEY.MOTHER_FIRST_NAME, true);
                 jsonObject.put(JsonFormUtils.VALUE, secondaryNumber);
@@ -126,7 +127,11 @@ public class GizJsonFormUtils extends JsonFormUtils {
         return prefix;
     }
 
-    private static void processLocationTree(Map<String, String> childDetails, List<String> nonEditableFields, JSONObject jsonObject) throws JSONException {
+    public static void tagEventSyncMetadata(Event event){
+        tagSyncMetadata(event);
+    }
+
+    private static void processLocationTree(Map<String, String> childDetails, JSONObject jsonObject) throws JSONException {
         updateHomeFacilityHierarchy(childDetails, jsonObject);
     }
 

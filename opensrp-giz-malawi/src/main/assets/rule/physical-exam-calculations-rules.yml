@@ -44,14 +44,14 @@ actions:
 name: step1_weight_gain_duration
 description: Todays date
 priority: 1
-condition: "global_contact_no > 1 && global_last_contact_date != ''"
+condition: "!Boolean.valueOf(global_is_first_contact) && global_last_contact_date != ''"
 actions:
   - "calculation = helper.getDifferenceDays(global_last_contact_date)"
 ---
 name: step1_weight_gain
 description: Average weight gain per week since last contact (in kg).
 priority: 1
-condition: "global_contact_no > 1 && step1_weight_gain_duration >= 7 "
+condition: "!Boolean.valueOf(global_is_first_contact) && step1_weight_gain_duration >= 7 "
 actions:
   - "calculation = ((step1_current_weight - global_previous_current_weight) / (step1_weight_gain_duration / 7))"
 ---
@@ -91,7 +91,7 @@ actions:
   - "calculation = 1"
 ---
 name: step2_preeclampsia
-description: preeclampsia
+description: preeclampsiapreeclampsia
 priority: 1
 condition: "((step2_urine_protein == '++' || step2_urine_protein == '+++' || step2_urine_protein == '++++')  && (!step2_symp_sev_preeclampsia.isEmpty() && step2_symp_sev_preeclampsia.contains('none')) && (step2_bp_systolic_repeat < 160 && step2_bp_diastolic_repeat < 110))"
 actions:
