@@ -40,6 +40,7 @@ public class OpenMaternityProfileTask extends AsyncTask<Void, Void, CommonPerson
         HashMap<String, String> map = MaternityUtils.getMaternityClient(baseEntityId);
         if (map != null) {
             map.put(GizConstants.REGISTER_TYPE, GizConstants.RegisterType.MATERNITY);
+            map.put("mmi_base_entity_id","dummy");
             CommonPersonObjectClient commonPersonObjectClient = new CommonPersonObjectClient(baseEntityId, map, "name");
             commonPersonObjectClient.setColumnmaps(map);
             return commonPersonObjectClient;

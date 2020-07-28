@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.google.common.reflect.TypeToken;
@@ -25,7 +26,9 @@ import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
+import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.R;
@@ -44,6 +47,7 @@ import org.smartregister.util.AssetHandler;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -266,10 +270,10 @@ public class GizUtils extends Utils {
             AlertDialog dialog = new AlertDialog.Builder(activity, R.style.AppThemeAlertDialog)
                     .setCancelable(true)
                     .setMessage(R.string.anc_migration_to_maternity_text)
-                    .setNegativeButton(R.string.yes, (dialog1, which) -> {
+                    .setNegativeButton("GO TO PROFILE", (dialog1, which) -> {
                         String baseEntityId = activity.getIntent().getStringExtra(ConstantsUtils.IntentKeyUtils.BASE_ENTITY_ID);
                         new OpenMaternityProfileTask(activity, baseEntityId).execute();
-                    }).setPositiveButton(R.string.no, (dialog12, which) -> dialog12.dismiss()).create();
+                    }).create();
 
             dialog.show();
         } else {
@@ -277,5 +281,48 @@ public class GizUtils extends Utils {
                 activity.finish();
             }
         }
+    }
+
+    public static HashMap<String,String> generateKeyValuesFromEvent(@NonNull Event
+                                                    event) {
+        HashMap<String, String> keyValues = new HashMap<>();
+        List<Obs> obs = event.getObs();
+
+        for (Obs observation : obs) {
+            String key = observation.getFormSubmissionField();
+
+            List<Object> humanReadableValues = observation.getHumanReadableValues();
+            if (humanReadableValues.size() > 0) {
+                String value = (String) humanReadableValues.get(0);
+
+                if (!TextUtils.isEmpty(value)) {
+
+                    if (humanReadableValues.size() > 1) {
+                        value = humanReadableValues.toString();
+                    }
+
+                    keyValues.put(key, value);
+                    continue;
+                }
+            }
+
+            List<Object> values = observation.getValues();
+            if (values.size() > 0) {
+                String value = (String) values.get(0);
+
+                if (!TextUtils.isEmpty(value)) {
+
+                    if (values.size() > 1) {
+                        value = values.toString();
+                    }
+
+                    keyValues.put(key, value);
+                    continue;
+                }
+            }
+
+        }
+
+        return keyValues;
     }
 }

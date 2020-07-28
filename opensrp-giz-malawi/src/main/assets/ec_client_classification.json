@@ -164,7 +164,7 @@
           },
           {
             "field": "eventType",
-            "field_value": "Update Pnc Registration",
+            "field_value": "Update PNC Registration",
             "creates_case": [
               "ec_client",
               "ec_mother_details"
@@ -172,7 +172,7 @@
           },
           {
             "field": "eventType",
-            "field_value": "Pnc Close",
+            "field_value": "PNC Close",
             "closes_case": [
               "ec_client"
             ]

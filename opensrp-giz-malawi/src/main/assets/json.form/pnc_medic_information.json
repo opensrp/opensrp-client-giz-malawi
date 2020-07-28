@@ -613,7 +613,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
-        "label": "How many does of TDV did the mother receive?",
+        "label": "How many doses of TDV did the mother receive?",
         "label_text_style": "bold",
         "v_required": {
           "value": "true",

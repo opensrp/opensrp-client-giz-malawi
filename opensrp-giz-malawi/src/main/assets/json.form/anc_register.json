@@ -470,7 +470,11 @@
             "min_date": "today-40w",
             "max_date": "today",
             "type": "date_picker",
-            "hint": "Visit date"
+            "hint": "Visit date",
+            "v_required": {
+              "value": true,
+              "err": "Please enter the date"
+            }
           }
         ],
         "relevance": {

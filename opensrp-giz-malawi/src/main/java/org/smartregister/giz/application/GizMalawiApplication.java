@@ -368,6 +368,9 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , GizPncFormActivity.class
                 , BasePncProfileActivity.class
                 , true);
+        pncMetadata.setLocationLevels(GizUtils.getLocationLevels());
+        pncMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
+        pncMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
         PncConfiguration pncConfiguration = new PncConfiguration
                 .Builder(GizPncRegisterQueryProvider.class)
                 .setPncMetadata(pncMetadata)

@@ -11,13 +11,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.child.ChildLibrary;
-import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.form.FormLocation;
+import org.smartregister.domain.tag.FormTag;
+import org.smartregister.giz.BuildConfig;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
 
@@ -127,7 +129,7 @@ public class GizJsonFormUtils extends JsonFormUtils {
         return prefix;
     }
 
-    public static void tagEventSyncMetadata(Event event){
+    public static void tagEventSyncMetadata(Event event) {
         tagSyncMetadata(event);
     }
 
@@ -193,5 +195,13 @@ public class GizJsonFormUtils extends JsonFormUtils {
         }
 
         return null;
+    }
+
+    public static FormTag getFormTag(AllSharedPreferences allSharedPreferences) {
+        FormTag formTag = new FormTag();
+        formTag.providerId = allSharedPreferences.fetchRegisteredANM();
+        formTag.appVersion = BuildConfig.VERSION_CODE;
+        formTag.databaseVersion = BuildConfig.DATABASE_VERSION;
+        return formTag;
     }
 }

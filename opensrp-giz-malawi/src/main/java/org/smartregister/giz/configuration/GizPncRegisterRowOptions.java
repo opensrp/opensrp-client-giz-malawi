@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -48,30 +49,32 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
             if ("1".equals(data.get(PncConstants.JsonFormKeyConstants.OUTCOME_SUBMITTED))) {
 
                 String deliveryDateStr = data.get(PncConstants.FormGlobalConstants.DELIVERY_DATE);
-                LocalDate deliveryDate = LocalDate.parse(deliveryDateStr, DateTimeFormat.forPattern("dd-MM-yyyy"));
-                VisitScheduler pncVisitScheduler = new PncVisitScheduler(deliveryDate, commonPersonObjectClient.getCaseId());
+                if (StringUtils.isNotBlank(deliveryDateStr)) {
+                    LocalDate deliveryDate = LocalDate.parse(deliveryDateStr, DateTimeFormat.forPattern("dd-MM-yyyy"));
+                    VisitScheduler pncVisitScheduler = new PncVisitScheduler(deliveryDate, commonPersonObjectClient.getCaseId());
 
-                if (pncVisitScheduler.getStatus() == VisitStatus.PNC_DUE) {
-                    button.setText(R.string.pnc_due);
-                    button.setTag(R.id.BUTTON_TYPE, R.string.pnc_due);
-                    button.setBackground(button.getContext().getResources().getDrawable(org.smartregister.anc.library.R.drawable.contact_due));
-                    button.setTextColor(button.getContext().getResources().getColor(R.color.vaccine_blue_bg_st));
-                } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_OVERDUE) {
-                    button.setText(R.string.pnc_due);
-                    button.setTag(R.id.BUTTON_TYPE, R.string.pnc_overdue);
-                    button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.pnc_circle_red));
-                    button.setBackgroundResource(R.drawable.pnc_overdue_bg);
-                } else if (pncVisitScheduler.getStatus() == VisitStatus.RECORD_PNC) {
-                    button.setText(R.string.record_pnc);
-                    button.setTag(R.id.BUTTON_TYPE, R.string.record_pnc);
-                } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_DONE_TODAY) {
-                    button.setText(R.string.pnc_done_today);
-                    button.setTag(R.id.BUTTON_TYPE, R.string.pnc_done_today);
-                    button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.dark_grey));
-                    button.setBackground(null);
-                } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_CLOSE) {
-                    button.setText(R.string.pnc_close);
-                    button.setTag(R.id.BUTTON_TYPE, R.string.pnc_close);
+                    if (pncVisitScheduler.getStatus() == VisitStatus.PNC_DUE) {
+                        button.setText(R.string.pnc_due);
+                        button.setTag(R.id.BUTTON_TYPE, R.string.pnc_due);
+                        button.setBackground(button.getContext().getResources().getDrawable(org.smartregister.anc.library.R.drawable.contact_due));
+                        button.setTextColor(button.getContext().getResources().getColor(R.color.vaccine_blue_bg_st));
+                    } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_OVERDUE) {
+                        button.setText(R.string.pnc_due);
+                        button.setTag(R.id.BUTTON_TYPE, R.string.pnc_overdue);
+                        button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.pnc_circle_red));
+                        button.setBackgroundResource(R.drawable.pnc_overdue_bg);
+                    } else if (pncVisitScheduler.getStatus() == VisitStatus.RECORD_PNC) {
+                        button.setText(R.string.record_pnc);
+                        button.setTag(R.id.BUTTON_TYPE, R.string.record_pnc);
+                    } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_DONE_TODAY) {
+                        button.setText(R.string.pnc_done_today);
+                        button.setTag(R.id.BUTTON_TYPE, R.string.pnc_done_today);
+                        button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.dark_grey));
+                        button.setBackground(null);
+                    } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_CLOSE) {
+                        button.setText(R.string.pnc_close);
+                        button.setTag(R.id.BUTTON_TYPE, R.string.pnc_close);
+                    }
                 }
             }
         }

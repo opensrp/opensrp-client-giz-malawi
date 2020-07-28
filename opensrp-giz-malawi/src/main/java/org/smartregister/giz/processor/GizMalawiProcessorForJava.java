@@ -57,8 +57,14 @@ import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.pnc.PncLibrary;
+import org.smartregister.pnc.pojo.PncChild;
+import org.smartregister.pnc.pojo.PncRegistrationDetails;
+import org.smartregister.pnc.pojo.PncStillBorn;
 import org.smartregister.pnc.processor.PncMiniClientProcessorForJava;
 import org.smartregister.pnc.utils.PncConstants;
+import org.smartregister.pnc.utils.PncDbConstants;
+import org.smartregister.pnc.utils.PncUtils;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.MiniClientProcessorForJava;
@@ -71,6 +77,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import timber.log.Timber;
@@ -161,6 +168,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(GizConstants.EventType.REPORT_CREATION)) {
                     processReport(event);
                     CoreLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(eventClient.getEvent().getFormSubmissionId());
+                } else if (eventType.equals(GizConstants.EventType.MATERNITY_PNC_TRANSFER)) {
+                    processMaternityPncTransfer(eventClient);
+                    CoreLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(eventClient.getEvent().getFormSubmissionId());
                 } else if (coreProcessedEvents.contains(eventType)) {
 
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() == null) {
@@ -243,7 +253,92 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     }
 
-    private void processReport(Event event) {
+    private void processMaternityPncTransfer(@NonNull EventClient eventClient) {
+        Event event = eventClient.getEvent();
+        HashMap<String, String> fieldsMap = GizUtils.generateKeyValuesFromEvent(event);
+        String babiesBornMap = fieldsMap.get(MaternityConstants.JSON_FORM_KEY.BABIES_BORN_MAP);
+        if (StringUtils.isNotBlank(babiesBornMap)) {
+            processBabiesBorn(babiesBornMap, event);
+        }
+
+        String stillBornMap = fieldsMap.get(MaternityConstants.JSON_FORM_KEY.BABIES_STILL_BORN_MAP);
+        if (StringUtils.isNotBlank(stillBornMap)) {
+            processStillBorn(stillBornMap, event);
+        }
+
+        fieldsMap.put(PncConstants.JsonFormKeyConstants.OUTCOME_SUBMITTED, "1");
+        PncRegistrationDetails pncDetails = new PncRegistrationDetails(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate(), fieldsMap);
+        pncDetails.setCreatedAt(new Date());
+
+        PncLibrary.getInstance().getPncRegistrationDetailsRepository().saveOrUpdate(pncDetails);
+
+        GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
+    }
+
+    //TODO make it available from PNC
+    private void processBabiesBorn(@android.support.annotation.Nullable String strBabiesBorn, @NonNull Event event) {
+        if (StringUtils.isNotBlank(strBabiesBorn)) {
+            try {
+                JSONObject jsonObject = new JSONObject(strBabiesBorn);
+                Iterator<String> repeatingGroupKeys = jsonObject.keys();
+                while (repeatingGroupKeys.hasNext()) {
+                    JSONObject jsonChildObject = jsonObject.optJSONObject(repeatingGroupKeys.next());
+                    PncChild pncChild = new PncChild();
+                    pncChild.setMotherBaseEntityId(event.getBaseEntityId());
+                    pncChild.setDischargedAlive(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.DISCHARGED_ALIVE));
+                    pncChild.setChildRegistered(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.CHILD_REGISTERED));
+                    pncChild.setBirthRecordDate(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BIRTH_RECORD));
+                    pncChild.setFirstName(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_FIRST_NAME));
+                    pncChild.setLastName(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_LAST_NAME));
+                    pncChild.setDob(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_DOB));
+                    pncChild.setGender(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_GENDER));
+                    pncChild.setWeightEntered(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BIRTH_WEIGHT_ENTERED));
+                    pncChild.setWeight(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BIRTH_WEIGHT));
+                    pncChild.setHeightEntered(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BIRTH_HEIGHT_ENTERED));
+                    pncChild.setApgar(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.APGAR));
+                    pncChild.setFirstCry(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_FIRST_CRY));
+                    pncChild.setComplications(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_COMPLICATIONS));
+                    pncChild.setComplicationsOther(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_COMPLICATIONS_OTHER));
+                    pncChild.setCareMgt(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_CARE_MGMT));
+                    pncChild.setCareMgtSpecify(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_CARE_MGMT_SPECIFY));
+                    pncChild.setRefLocation(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_REF_LOCATION));
+                    pncChild.setBfFirstHour(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BF_FIRST_HOUR));
+                    pncChild.setChildHivStatus(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.CHILD_HIV_STATUS));
+                    pncChild.setNvpAdministration(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.NVP_ADMINISTRATION));
+                    pncChild.setBaseEntityId(jsonChildObject.optString(PncDbConstants.Column.PncBaby.BASE_ENTITY_ID));
+                    pncChild.setEventDate(PncUtils.convertDate(event.getEventDate().toDate(), PncDbConstants.DATE_FORMAT));
+                    if (StringUtils.isNotBlank(pncChild.getBaseEntityId()) && StringUtils.isNotBlank(pncChild.getMotherBaseEntityId()))
+                        PncLibrary.getInstance().getPncChildRepository().saveOrUpdate(pncChild);
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+    }
+
+    //TODO make it available from PNC
+    private void processStillBorn(@android.support.annotation.Nullable String strStillBorn, @NonNull Event event) {
+        if (StringUtils.isNotBlank(strStillBorn)) {
+            try {
+                JSONObject jsonObject = new JSONObject(strStillBorn);
+                Iterator<String> repeatingGroupKeys = jsonObject.keys();
+                while (repeatingGroupKeys.hasNext()) {
+                    JSONObject jsonTestObject = jsonObject.optJSONObject(repeatingGroupKeys.next());
+                    PncStillBorn pncStillBorn = new PncStillBorn();
+                    pncStillBorn.setMotherBaseEntityId(event.getBaseEntityId());
+                    pncStillBorn.setStillBirthCondition(jsonTestObject.optString(PncConstants.JsonFormKeyConstants.STILL_BIRTH_CONDITION));
+                    pncStillBorn.setEventDate(PncUtils.convertDate(event.getEventDate().toDate(), PncDbConstants.DATE_FORMAT));
+                    PncLibrary.getInstance().getPncStillBornRepository().saveOrUpdate(pncStillBorn);
+                }
+            } catch (JSONException e) {
+                Timber.e(e);
+            }
+        }
+    }
+
+
+    private void processReport(@NonNull Event event) {
         try {
             JSONObject jsonObject = new JSONObject(event.getDetails().get("reportJson"));
             String reportMonth = jsonObject.optString("reportDate");
