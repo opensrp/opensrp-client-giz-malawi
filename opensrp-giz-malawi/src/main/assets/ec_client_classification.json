@@ -220,7 +220,15 @@
             "field": "eventType",
             "field_value": "anc_maternity_transfer",
             "creates_case": [
-              "maternity_registration_details"
+              "maternity_registration_details",
+              "maternity_medic_info"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Maternity Medic Information",
+            "creates_case": [
+              "maternity_medic_info"
             ]
           }
         ]

@@ -1,6 +1,7 @@
 package org.smartregister.giz.configuration;
 
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,7 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
         button.setTag(R.id.BUTTON_TYPE, R.string.start_pnc);
         button.setText(R.string.start_pnc);
         button.setBackgroundResource(R.drawable.pnc_outcome_bg);
+        button.setTypeface(null, Typeface.NORMAL);
 
         PncBaseDetails pncBaseDetails = new PncBaseDetails();
         pncBaseDetails.setBaseEntityId(commonPersonObjectClient.getCaseId());

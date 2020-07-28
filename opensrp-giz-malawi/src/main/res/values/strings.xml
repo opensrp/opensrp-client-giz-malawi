@@ -824,5 +824,5 @@
     <string name="opd_report_grouping_title">OPD</string>
     <string name="maternity_report_grouping_title">Maternity</string>
     <string name="pnc_report_grouping_title">PNC</string>
-    <string name="anc_migration_to_maternity_text">Go to Maternity Profile</string>
+    <string name="anc_migration_to_maternity_text">You will now be redirected to the maternity record for the woman</string>
 </resources>

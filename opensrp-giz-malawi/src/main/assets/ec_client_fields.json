@@ -1154,6 +1154,200 @@
       ]
     },
     {
+      "name": "maternity_medic_info",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "gravidity",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "parity",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "abortion_number",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "lmp",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "lmp_unknown",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "lmp_unknown"
+          }
+        },
+        {
+          "column_name": "gest_age",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "ga_weeks_entered",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ga_weeks_entered"
+          }
+        },
+        {
+          "column_name": "ga_days_entered",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ga_days_entered"
+          }
+        },
+        {
+          "column_name": "ga_calculated",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "ga_calculated"
+          }
+        },
+        {
+          "column_name": "onset_labour_date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "onset_labour_date"
+          }
+        },
+        {
+          "column_name": "onset_labour_time",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "onset_labour_time"
+          }
+        },
+        {
+          "column_name": "previous_delivery_mode",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "previous_pregnancy_outcomes",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "previous_complications",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "previous_complications_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "previous_complications_other"
+          }
+        },
+        {
+          "column_name": "surgeries",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "surgeries_other_gyn_proced",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "165264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "surgeries_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "health_conditions",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "health_conditions_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "family_history",
+          "type": "Event",
+          "save_format": "json_array",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "160592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "family_history_other",
+          "type": "Event",
+          "json_mapping": {
+            "field": "obs.fieldCode",
+            "concept": "family_history_other"
+          }
+        }
+      ]
+    },
+    {
       "name": "deceased",
       "columns": [
         {

@@ -86,20 +86,20 @@ public class MaternityRegisterFragment extends BaseMaternityRegisterFragment {
     }
 
     @Override
-    protected void performPatientAction(@NonNull CommonPersonObjectClient commonPersonObjectClient) {
+    protected void performPatientAction(@NonNull CommonPersonObjectClient commonPersonObjectClient, String formName) {
         Map<String, String> clientColumnMaps = commonPersonObjectClient.getColumnmaps();
 
         MaternityRegisterActivity maternityRegisterActivity = (MaternityRegisterActivity) getActivity();
 
         if (maternityRegisterActivity != null) {
             String entityTable = clientColumnMaps.get(MaternityConstants.IntentKey.ENTITY_TABLE);
-            String currentHivStatus = clientColumnMaps.get("hiv_status_current.name");
+            String currentHivStatus = clientColumnMaps.get("hiv_status_current");
 
             HashMap<String, String> injectableFormValues = new HashMap<>();
             injectableFormValues.put(MaternityConstants.JsonFormField.MOTHER_HIV_STATUS, currentHivStatus);
 
 
-            maternityRegisterActivity.startFormActivityFromFormName(MaternityConstants.Form.MATERNITY_OUTCOME, commonPersonObjectClient.getCaseId(), null, injectableFormValues, entityTable);
+            maternityRegisterActivity.startFormActivityFromFormName(formName, commonPersonObjectClient.getCaseId(), null, injectableFormValues, entityTable);
         }
     }
 

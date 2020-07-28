@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
+import org.smartregister.giz.activity.GizAncProfileActivity;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.maternity.MaternityLibrary;
 import org.smartregister.maternity.pojo.MaternityMetadata;
@@ -57,7 +58,9 @@ public class OpenMaternityProfileTask extends AsyncTask<Void, Void, CommonPerson
             Intent intent = new Intent(activity, maternityMetadata.getProfileActivity());
             intent.putExtra(MaternityConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
             activity.startActivity(intent);
-            activity.finish();
+            if (activity instanceof GizAncProfileActivity) {
+                activity.finish();
+            }
         }
     }
 }
