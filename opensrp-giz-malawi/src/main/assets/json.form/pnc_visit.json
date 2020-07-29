@@ -75,6 +75,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Did the woman receive PNC within 48 hours of delivery?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -106,6 +107,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Has the client had other visits outside this facility?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -139,6 +141,7 @@
         "reference_edit_text_hint": "#Total other visit",
         "repeating_group_label": "Other visit",
         "reference_edit_text": "Number of other visit",
+        "label_text_style": "bold",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -170,6 +173,7 @@
         "openmrs_entity_id": "",
         "type": "check_box",
         "label": "Postnatal complications",
+        "label_text_style": "bold",
         "exclusive": [
           "none"
         ],
@@ -215,6 +219,7 @@
         "openmrs_entity_id": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Specify",
+        "label_text_style": "bold",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -234,6 +239,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Status of C-section incision",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "intact",
@@ -279,6 +285,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Condition of episiotomy/tear, if present",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "intact",
@@ -317,6 +324,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Status of the lochia",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "normal",
@@ -370,6 +378,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Status of the uterus",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "involuted",
@@ -416,6 +425,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was an intervention given?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -455,6 +465,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was the woman referred?",
+        "label_text_style": "bold",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -495,50 +506,13 @@
         }
       },
       {
-        "key": "breastfeeding",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "native_radio",
-        "label": "Breastfeeding status",
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "pnc/pnc_visit_relevance_rules.yml"
-            }
-          }
-        },
-        "options": [
-          {
-            "key": "exclusive",
-            "text": "Exclusive",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "non_exclusive",
-            "text": "Non-Exclusive",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          },
-          {
-            "key": "not_breastfeeding",
-            "text": "Not Breastfeeding",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": ""
-          }
-        ]
-      },
-      {
         "key": "vit_a",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was Vitamin A given?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -563,6 +537,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Provide a reason for not giving Vitamin A",
+        "label_text_style": "bold",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -601,6 +576,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was counseling on family planning done?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -625,6 +601,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Family planning methods chosen",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "implants",
@@ -677,6 +654,78 @@
             }
           }
         }
+      },
+      {
+        "key": "itn_given",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "159855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Insecticide Treated Net (ITN) given",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "done",
+            "text": "Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "not_done",
+            "text": "Not Done",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "itn_given_notdone",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "165342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Reason",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "stock_out",
+            "text": "Stock out",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1754AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "already_given",
+            "text": "Already given",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "1267AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "itn_given_notdone_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165426AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "pnc/pnc_visit_relevance_rules.yml"
+            }
+          }
+        }
       }
     ]
   },
@@ -693,6 +742,13 @@
         "reference_edit_text": "Number of child status",
         "showGroupLabel": false,
         "value": [
+          {
+            "key": "child_relation_id",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "hidden"
+          },
           {
             "key": "child_name",
             "openmrs_entity_parent": "",
@@ -900,6 +956,7 @@
             "openmrs_entity_id": "",
             "type": "check_box",
             "label": "Danger signs and complications at visit",
+            "label_text_style": "bold",
             "exclusive": [
               "none"
             ],
@@ -1079,6 +1136,7 @@
             "openmrs_entity_id": "",
             "type": "check_box",
             "label": "Which HIV treatment is being given?",
+            "label_text_style": "bold",
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
@@ -1205,8 +1263,29 @@
                 "openmrs_entity_id": ""
               },
               {
+                "key": "vitamin_k",
+                "text": "Vitamin K",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "",
+                "openmrs_entity_id": ""
+              },
+              {
                 "key": "chlorhexidine",
                 "text": "Chlorhexidine (7.1%)",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "",
+                "openmrs_entity_id": ""
+              },
+              {
+                "key": "tetracycline_eye_ointment",
+                "text": "Tetracycline Eye Ointment (TEO)",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "",
+                "openmrs_entity_id": ""
+              },
+              {
+                "key": "antibiotics",
+                "text": "Antibiotics",
                 "openmrs_entity_parent": "",
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
