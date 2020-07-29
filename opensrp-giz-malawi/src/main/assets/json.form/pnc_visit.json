@@ -369,7 +369,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "native_radio",
-        "label": "Status of the lochia",
+        "label": "Status of the uterus",
         "options": [
           {
             "key": "involuted",

@@ -422,7 +422,11 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Please give an answer"
+        }
       },
       {
         "key": "babies_born",

@@ -14,12 +14,14 @@ import android.widget.Toast;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.Constants;
@@ -283,8 +285,8 @@ public class GizUtils extends Utils {
         }
     }
 
-    public static HashMap<String,String> generateKeyValuesFromEvent(@NonNull Event
-                                                    event) {
+    public static HashMap<String, String> generateKeyValuesFromEvent(@NonNull Event
+                                                                             event) {
         HashMap<String, String> keyValues = new HashMap<>();
         List<Obs> obs = event.getObs();
 
@@ -325,4 +327,32 @@ public class GizUtils extends Utils {
 
         return keyValues;
     }
+
+    public static JSONArray getMultiStepFormFields(JSONObject jsonForm) {
+        JSONArray fields = new JSONArray();
+        try {
+            if (jsonForm.has(JsonFormConstants.COUNT)) {
+                int stepCount = Integer.parseInt(jsonForm.getString(JsonFormConstants.COUNT));
+                for (int i = 0; i < stepCount; i++) {
+                    String stepName = JsonFormConstants.STEP + (i + 1);
+                    JSONObject step = jsonForm.optJSONObject(stepName);
+                    if (step != null) {
+                        JSONArray stepFields = step.optJSONArray(JsonFormConstants.FIELDS);
+                        if (stepFields != null) {
+                            for (int k = 0; k < stepFields.length(); k++) {
+                                JSONObject field = stepFields.optJSONObject(k);
+                                if (field != null) {
+                                    fields.put(field);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            Timber.e(e, " --> getMultiStepFormFields()");
+        }
+        return fields;
+    }
+
 }

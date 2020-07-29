@@ -40,7 +40,7 @@ public class GizPncRegisterQueryProvider extends PncRegisterQueryProviderContrac
     @NonNull
     @Override
     public String mainSelectWhereIDsIn() {
-        return "SELECT ec_client.id AS _id , ec_client.first_name , ec_client.last_name , '' AS middle_name , ec_client.gender , ec_client.dob , '' AS home_address, ec_client.relationalid , ec_client.opensrp_id AS register_id , ec_client.last_interacted_with, 'ec_client' as entity_table, register_type FROM ec_client INNER JOIN pnc_registration_details pnc_details ON ec_client.base_entity_id = pnc_details.base_entity_id " +
+        return "SELECT ec_client.id AS _id , ec_client.first_name , ec_client.last_name , '' AS middle_name , ec_client.gender , ec_client.dob , '' AS home_address, ec_client.relationalid , ec_client.opensrp_id AS register_id , ec_client.last_interacted_with, 'ec_client' as entity_table, register_type, pnc_details.outcome_submitted, pnc_details.hiv_status_current,pnc_details.delivery_date, pvi.created_at AS latest_visit_date FROM ec_client INNER JOIN pnc_registration_details pnc_details ON ec_client.base_entity_id = pnc_details.base_entity_id LEFT JOIN pnc_visit_info AS pvi ON pvi.parent_base_entity_id = pnc_details.base_entity_id  " +
                 " INNER JOIN client_register_type ON ec_client.base_entity_id = client_register_type.base_entity_id " +
                 " WHERE client_register_type.register_type = 'pnc' AND ec_client.is_closed = 0 AND ec_client.id IN (%s) " +
                 "ORDER BY ec_client.last_interacted_with DESC";

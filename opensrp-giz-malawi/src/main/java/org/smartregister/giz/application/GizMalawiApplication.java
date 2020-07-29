@@ -35,6 +35,7 @@ import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.GizAncProfileActivity;
 import org.smartregister.giz.activity.GizPncFormActivity;
+import org.smartregister.giz.activity.GizPncProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.configuration.GizAncMaternityTransferProcessor;
@@ -366,7 +367,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , PncConstants.EventTypeConstants.UPDATE_PNC_REGISTRATION
                 , PncConstants.CONFIG
                 , GizPncFormActivity.class
-                , BasePncProfileActivity.class
+                , GizPncProfileActivity.class
                 , true);
         pncMetadata.setLocationLevels(GizUtils.getLocationLevels());
         pncMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());

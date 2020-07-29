@@ -95,8 +95,8 @@
         "constraints": [
           {
             "type": "numeric",
-            "ex": "lessThan(., step1:gravidity)",
-            "err": "Para needs to be less than gravidity"
+            "ex": "lessThanEqualTo(., step1:gravidity)",
+            "err": "Para needs to be less than or equal to gravidity"
           }
         ]
       },

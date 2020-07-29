@@ -1,7 +1,6 @@
 package org.smartregister.giz.activity;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,9 +24,9 @@ import timber.log.Timber;
 public class GizPncProfileActivity extends BasePncProfileActivity {
 
     @Override
-    public void startFormActivityFromFormJson(@NonNull String entityId, @NonNull JSONObject jsonForm, @Nullable HashMap<String, String> intentData) {
-        generateRepeatingGrpFields(jsonForm, entityId);
-        super.startFormActivityFromFormJson(entityId, jsonForm, intentData);
+    public void startFormActivity(String entityId, @NonNull JSONObject form, @NonNull HashMap<String, String> intentData) {
+        generateRepeatingGrpFields(form, entityId);
+        super.startFormActivity(entityId, form, intentData);
     }
 
     public void generateRepeatingGrpFields(JSONObject json, String entityId) {

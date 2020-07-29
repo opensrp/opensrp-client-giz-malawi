@@ -35,6 +35,7 @@ import org.smartregister.opd.repository.OpdTreatmentDetailRepository;
 import org.smartregister.opd.repository.OpdVisitRepository;
 import org.smartregister.pnc.repository.PncChildRepository;
 import org.smartregister.pnc.repository.PncOtherVisitRepository;
+import org.smartregister.pnc.repository.PncPartialFormRepository;
 import org.smartregister.pnc.repository.PncRegistrationDetailsRepository;
 import org.smartregister.pnc.repository.PncStillBornRepository;
 import org.smartregister.pnc.repository.PncVisitChildStatusRepository;
@@ -140,6 +141,7 @@ public class GizMalawiRepository extends Repository {
         PncVisitChildStatusRepository.createTable(database);
         PncRegistrationDetailsRepository.createTable(database);
         PncOtherVisitRepository.createTable(database);
+        PncPartialFormRepository.createTable(database);
     }
 
 

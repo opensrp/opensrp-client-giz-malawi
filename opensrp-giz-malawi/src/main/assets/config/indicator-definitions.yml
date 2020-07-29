@@ -2334,6 +2334,7 @@ indicators:
 
   - key: "ME_PNC_Baby_Complications"
     description: "HIV status"
+
     indicatorQuery: "SELECT 'Well',count(*) FROM pnc_baby WHERE complications LIKE '%NONE%'  AND '%s' = strftime('%Y-%m-%d', DATETIME(ROUND(created_at / 1000), 'unixepoch'))
                      UNION SELECT 'Asphyxia',count(*) FROM pnc_baby WHERE complications LIKE '%Asphyxia%' AND '%s' = strftime('%Y-%m-%d', DATETIME(ROUND(created_at / 1000), 'unixepoch'))
                      UNION SELECT 'LBW',count(*) FROM pnc_baby WHERE complications LIKE '%Premature%' OR birth_weight_entered<2500 AND '%s' = strftime('%Y-%m-%d', DATETIME(ROUND(created_at / 1000), 'unixepoch'))"

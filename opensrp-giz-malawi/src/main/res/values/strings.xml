@@ -852,10 +852,6 @@
     <string name="ME_PNC_Baby_Complications_LBW">LBW/Prematurity</string>
     <string name="ME_PNC_Baby_Status_Alive">Baby Alive</string>
     <string name="ME_PNC_Baby_Status_Dead">Baby Died</string>
-    <string name="ME_PNC_Checked_in_2days">Baby Checked in <48 Hours</string>
-    <string name="ME_PNC_Checked_in_7days">Baby Checked in Within 3-7 Days</string>
-    <string name="ME_PNC_Checked_in_42days">Baby Checked in 8-42 Days</string>
-    <string name="ME_PNC_Checked_In_Twice_In_7days"> Baby Checked in 2x in 7 Days</string>
     <string name="ME_PNC_Baby_Vaccines_bcg"> BCG</string>
     <string name="ME_PNC_Baby_Vaccines_opv_0"> Polio 0</string>
     <string name="ME_PNC_Baby_Danger_Signs_None"> Baby No Complications</string>

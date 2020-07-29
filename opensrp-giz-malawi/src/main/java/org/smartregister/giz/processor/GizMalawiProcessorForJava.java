@@ -230,7 +230,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                                     String humanReadableValue = (String) obs.getHumanReadableValues().get(0);
                                     if (!"woman died".equalsIgnoreCase(humanReadableValue) && !"wrong entry".equalsIgnoreCase(humanReadableValue)) {
                                         GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
-                                        GizMalawiApplication.getInstance().registerTypeRepository().add(event.getBaseEntityId(), GizConstants.RegisterType.OPD);
+                                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                                     }
                                 }
                             }

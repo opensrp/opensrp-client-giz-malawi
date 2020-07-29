@@ -14,8 +14,8 @@ import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.ClientTransferProcessor;
-import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizJsonFormUtils;
+import org.smartregister.giz.util.GizUtils;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.maternity.utils.MaternityDbConstants;
 
@@ -45,16 +45,7 @@ public class GizMaternityPncTransferProcessor implements ClientTransferProcessor
         GizMalawiApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
 
         //update sync time & initiateEventProcessing
-        new AppExecutors().diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    initEventProcessing(maternityTransferEvent);
-                } catch (Exception e) {
-                    Timber.e(e);
-                }
-            }
-        });
+        initEventProcessing(maternityTransferEvent);
     }
 
     public void initEventProcessing(Event maternityTransferEvent) throws Exception {
@@ -124,7 +115,7 @@ public class GizMaternityPncTransferProcessor implements ClientTransferProcessor
                         }
                     }
 
-                    JSONArray outcomeFormFields = com.vijay.jsonwizard.utils.FormUtils.getMultiStepFormFields(maternityOutComeForm);
+                    JSONArray outcomeFormFields = GizUtils.getMultiStepFormFields(maternityOutComeForm);
                     List<String> closeFormFieldsList = getOutcomeFormFieldsList();
                     for (int i = 0; i < outcomeFormFields.length() && !closeFormFieldsList.isEmpty(); i++) {
                         JSONObject object = outcomeFormFields.optJSONObject(i);
