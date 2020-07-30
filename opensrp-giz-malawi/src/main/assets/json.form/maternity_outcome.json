@@ -926,6 +926,13 @@
               "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Unknown": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Exposed": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "maternity/outcome_relevance_rules.yml"
+                }
+              }
             }
           },
           {

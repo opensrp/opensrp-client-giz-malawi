@@ -75,6 +75,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Did the woman receive PNC within 48 hours of delivery?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -106,6 +107,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Has the client had other visits outside this facility?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -169,6 +171,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
         "label": "Postnatal complications",
         "exclusive": [
           "none"
@@ -176,35 +180,59 @@
         "options": [
           {
             "key": "none",
-            "text": "None"
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "sepsis",
-            "text": "Sepsis"
+            "text": "Sepsis",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "anaemia",
-            "text": "Anaemia"
+            "text": "Anaemia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "postpartum_haemorrhage",
-            "text": "Postpartum haemorrhage"
+            "text": "Postpartum haemorrhage",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "severe_pre_eclampsia",
-            "text": "Severe pre-eclampsia Defects"
+            "text": "Severe pre-eclampsia Defects",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "eclampsia",
-            "text": "Eclampsia"
+            "text": "Eclampsia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "breast_engorgement",
-            "text": "Breast engorgement"
+            "text": "Breast engorgement",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "other",
-            "text": "Other (Specify)"
+            "text": "Other (Specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           }
         ]
       },
@@ -234,6 +262,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Status of C-section incision",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "intact",
@@ -279,6 +308,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Condition of episiotomy/tear, if present",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "intact",
@@ -317,6 +347,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Status of the lochia",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "normal",
@@ -370,6 +401,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Status of the uterus",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "involuted",
@@ -416,6 +448,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was an intervention given?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -455,6 +488,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was the woman referred?",
+        "label_text_style": "bold",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -501,6 +535,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Breastfeeding status",
+        "label_text_style": "bold",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -539,6 +574,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was Vitamin A given?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -563,6 +599,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Provide a reason for not giving Vitamin A",
+        "label_text_style": "bold",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
@@ -601,6 +638,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was counseling on family planning done?",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "yes",
@@ -625,6 +663,7 @@
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Family planning methods chosen",
+        "label_text_style": "bold",
         "options": [
           {
             "key": "implants",
@@ -899,6 +938,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "check_box",
+            "label_text_style": "bold",
             "label": "Danger signs and complications at visit",
             "exclusive": [
               "none"
@@ -1078,6 +1118,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "check_box",
+            "label_text_style": "bold",
             "label": "Which HIV treatment is being given?",
             "relevance": {
               "rules-engine": {

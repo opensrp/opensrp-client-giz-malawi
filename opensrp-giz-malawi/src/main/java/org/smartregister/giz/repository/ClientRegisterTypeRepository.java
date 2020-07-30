@@ -63,6 +63,20 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
         return rowsAffected > 0;
     }
 
+
+    public boolean addUnique(String registerType, String baseEntityId) {
+        if (!hasRegisterType(baseEntityId)) {
+            SQLiteDatabase database = getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(GizConstants.Columns.RegisterType.BASE_ENTITY_ID, baseEntityId);
+            contentValues.put(GizConstants.Columns.RegisterType.REGISTER_TYPE, registerType);
+            contentValues.put(GizConstants.Columns.RegisterType.DATE_CREATED, new Date().getTime());
+            long result = database.insert(GizConstants.TABLE_NAME.REGISTER_TYPE, null, contentValues);
+            return result != -1;
+        }
+        return false;
+    }
+
     @Override
     public boolean add(String registerType, String baseEntityId) {
         SQLiteDatabase database = getWritableDatabase();
@@ -84,6 +98,20 @@ public class ClientRegisterTypeRepository extends BaseRepository implements Clie
             boolean isType = cursor.getCount() > 0;
             cursor.close();
             return isType;
+        }
+        return false;
+    }
+
+
+    public boolean hasRegisterType(String baseEntityId) {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(GizConstants.TABLE_NAME.REGISTER_TYPE, new String[]{GizConstants.Columns.RegisterType.BASE_ENTITY_ID},
+                GizConstants.Columns.RegisterType.BASE_ENTITY_ID + " = ? ",
+                new String[]{baseEntityId}, null, null, null);
+        if (cursor != null) {
+            boolean hasType = cursor.getCount() > 0;
+            cursor.close();
+            return hasType;
         }
         return false;
     }
