@@ -267,7 +267,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             processStillBorn(stillBornMap, event);
         }
 
-        fieldsMap.put(PncConstants.JsonFormKeyConstants.OUTCOME_SUBMITTED, "1");
         PncRegistrationDetails pncDetails = new PncRegistrationDetails(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate(), fieldsMap);
         pncDetails.setCreatedAt(new Date());
 

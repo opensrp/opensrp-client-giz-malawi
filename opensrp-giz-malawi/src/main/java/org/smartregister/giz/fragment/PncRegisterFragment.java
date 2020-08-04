@@ -98,7 +98,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
         if (pncRegisterActivity != null) {
             String entityTable = clientColumnMaps.get(PncConstants.IntentKey.ENTITY_TABLE);
-            String currentHivStatus = clientColumnMaps.get(PncRegistrationDetails.Property.hiv_status_current.name());
+            String currentHivStatus = clientColumnMaps.get("hiv_status_current");
 
             HashMap<String, String> injectableFormValues = new HashMap<>();
             injectableFormValues.put(PncConstants.JsonFormField.MOTHER_HIV_STATUS, currentHivStatus);

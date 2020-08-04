@@ -161,7 +161,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
         groupingReportMap.put("anc", "ANC Monthly Facility Report");
         groupingReportMap.put("opd", "Malaria Health Facility Report");
         groupingReportMap.put("maternity", "Maternity Monthly Report");
-//        groupingReportMap.put("pnc", "Sample Monthly Report");
+        groupingReportMap.put("pnc", "Post Natal Care Clinic -Facility Report");
     }
 
     public ReportsSectionsPagerAdapter getmSectionsPagerAdapter() {

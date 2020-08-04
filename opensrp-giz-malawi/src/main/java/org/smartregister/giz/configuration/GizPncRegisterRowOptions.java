@@ -10,10 +10,12 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
+import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.config.PncRegisterRowOptions;
 import org.smartregister.pnc.holder.PncRegisterViewHolder;
 import org.smartregister.pnc.scheduler.PncVisitScheduler;
 import org.smartregister.pnc.scheduler.VisitStatus;
+import org.smartregister.pnc.utils.ConfigurationInstancesHelper;
 import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.view.contract.SmartRegisterClient;
 
@@ -31,14 +33,14 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
         Button button = pncRegisterViewHolder.dueButton;
         button.setTag(R.id.BUTTON_TYPE, R.string.start_pnc);
         button.setText(R.string.start_pnc);
-        button.setBackgroundResource(R.drawable.pnc_outcome_bg);
+        button.setBackgroundResource(R.drawable.pnc_status_btn_bg);
 
-        if (client.getColumnmaps().get(PncConstants.JsonFormKeyConstants.OUTCOME_SUBMITTED) != null) {
+        if (client.getColumnmaps().get(PncConstants.JsonFormKeyConstants.PMI_BASE_ENTITY_ID) != null) {
 
             String deliveryDateStr = client.getColumnmaps().get(PncConstants.FormGlobalConstants.DELIVERY_DATE);
             if (StringUtils.isNotBlank(deliveryDateStr)) {
                 LocalDate deliveryDate = LocalDate.parse(deliveryDateStr, DateTimeFormat.forPattern("dd-MM-yyyy"));
-                PncVisitScheduler pncVisitScheduler = PncVisitScheduler.getInstance();
+                PncVisitScheduler pncVisitScheduler = ConfigurationInstancesHelper.newInstance(PncLibrary.getInstance().getPncConfiguration().getPncVisitScheduler());
                 pncVisitScheduler.setDeliveryDate(deliveryDate);
                 pncVisitScheduler.setLatestVisitDateInMills(client.getColumnmaps().get("latest_visit_date"));
 

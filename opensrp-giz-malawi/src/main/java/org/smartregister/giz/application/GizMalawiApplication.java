@@ -44,7 +44,7 @@ import org.smartregister.giz.configuration.GizMaternityRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizMaternityRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterRowOptions;
 import org.smartregister.giz.configuration.GizOpdRegisterSwitcher;
-import org.smartregister.giz.configuration.GizPncOutcomeFormProcessing;
+import org.smartregister.giz.configuration.GizPncMedicInfoFormProcessing;
 import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizPncRegisterRowOptions;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
@@ -94,7 +94,6 @@ import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.pnc.PncLibrary;
-import org.smartregister.pnc.activity.BasePncProfileActivity;
 import org.smartregister.pnc.config.PncConfiguration;
 import org.smartregister.pnc.pojo.PncMetadata;
 import org.smartregister.pnc.utils.PncConstants;
@@ -376,7 +375,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 .Builder(GizPncRegisterQueryProvider.class)
                 .setPncMetadata(pncMetadata)
                 .setPncRegisterRowOptions(GizPncRegisterRowOptions.class)
-                .addPncFormProcessingTask(PncConstants.EventTypeConstants.PNC_OUTCOME, GizPncOutcomeFormProcessing.class)
+                .addPncFormProcessingTask(PncConstants.EventTypeConstants.PNC_MEDIC_INFO, GizPncMedicInfoFormProcessing.class)
                 .build();
         PncLibrary.init(context, getRepository(), pncConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
     }

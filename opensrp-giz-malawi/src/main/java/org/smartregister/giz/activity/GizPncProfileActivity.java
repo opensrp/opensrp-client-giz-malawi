@@ -30,7 +30,7 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
     }
 
     public void generateRepeatingGrpFields(JSONObject json, String entityId) {
-        if (PncConstants.EventTypeConstants.PNC_OUTCOME.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
+        if (PncConstants.EventTypeConstants.PNC_MEDIC_INFO.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
             try {
                 RepeatingGroupGenerator repeatingGroupGenerator = new RepeatingGroupGenerator(json.optJSONObject("step4"),
                         "baby_alive_group",
