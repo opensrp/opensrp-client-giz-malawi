@@ -239,6 +239,12 @@
             android:screenOrientation="portrait"
             tools:replace="android:theme"
             android:theme="@style/ChildTheme.NoActionBar" />
+        <activity
+            android:name=".activity.GizMaternityProfileActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            tools:replace="android:theme"
+            android:theme="@style/ChildTheme.NoActionBar" />
         <!-- END OF MATERNITY ACTIVITIES -->
         <!-- PNC ACTIVITIES -->
         <activity

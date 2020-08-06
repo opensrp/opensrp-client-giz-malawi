@@ -11,6 +11,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizUtils;
 import org.smartregister.opd.configuration.OpdRegisterSwitcher;
 import org.smartregister.opd.utils.OpdConstants;
 
@@ -29,26 +30,11 @@ public class GizOpdRegisterSwitcher implements OpdRegisterSwitcher {
         if (registerType != null) {
             if (registerType.equalsIgnoreCase(GizConstants.RegisterType.ANC)) {
                 // Fetch the the ANC user details
-                openAncProfilePage(client, context);
+                GizUtils.openAncProfilePage(client, context);
             } else if (registerType.equalsIgnoreCase(GizConstants.RegisterType.CHILD)) {
                 ChildImmunizationActivity.launchActivity(context, client, new RegisterClickables());
             }
         }
-    }
-
-    private void openAncProfilePage(@NonNull final CommonPersonObjectClient commonPersonObjectClient, @NonNull final Context context) {
-        final AppExecutors appExecutors = new AppExecutors();
-        appExecutors.diskIO()
-                .execute(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        final Map<String, String> ancUserDetails = PatientRepository.getWomanProfileDetails(commonPersonObjectClient.getCaseId());
-                        ancUserDetails.putAll(commonPersonObjectClient.getColumnmaps());
-                        appExecutors.mainThread().execute(() -> Utils.navigateToProfile(context, (HashMap<String, String>) ancUserDetails));
-
-                    }
-                });
     }
 
     @Override
