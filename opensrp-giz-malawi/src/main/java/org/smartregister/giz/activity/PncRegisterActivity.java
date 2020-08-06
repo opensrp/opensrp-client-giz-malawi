@@ -98,7 +98,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity  implements Nav
 
                     showProgressDialog(R.string.saving_dialog_title);
                     presenter().saveForm(jsonString, registerParam);
-                } else if (encounterType.equals(PncConstants.EventTypeConstants.PNC_OUTCOME) || encounterType.equals(PncConstants.EventTypeConstants.PNC_VISIT)) {
+                } else if (encounterType.equals(PncConstants.EventTypeConstants.PNC_MEDIC_INFO) || encounterType.equals(PncConstants.EventTypeConstants.PNC_VISIT)) {
                     showProgressDialog(R.string.saving_dialog_title);
                     presenter().savePncForm(encounterType, data);
                 }
@@ -144,7 +144,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity  implements Nav
     }
 
     public void generateRepeatingGrpFields(JSONObject json, String entityId) {
-        if (PncConstants.EventTypeConstants.PNC_OUTCOME.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
+        if (PncConstants.EventTypeConstants.PNC_MEDIC_INFO.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
             try {
                 RepeatingGroupGenerator repeatingGroupGenerator = new RepeatingGroupGenerator(json.optJSONObject("step4"),
                         "baby_alive_group",

@@ -266,11 +266,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             processStillBorn(stillBornMap, event);
         }
 
-        fieldsMap.put(PncConstants.JsonFormKeyConstants.OUTCOME_SUBMITTED, "1");
         PncRegistrationDetails pncDetails = new PncRegistrationDetails(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate(), fieldsMap);
         pncDetails.setCreatedAt(new Date());
 
-        PncLibrary.getInstance().getPncRegistrationDetailsRepository().saveOrUpdate(pncDetails);
+        PncLibrary.getInstance().getPncMedicInfoRepository().saveOrUpdate(pncDetails);
 
         GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
@@ -289,8 +288,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     pncChild.setDischargedAlive(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.DISCHARGED_ALIVE));
                     pncChild.setChildRegistered(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.CHILD_REGISTERED));
                     pncChild.setBirthRecordDate(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BIRTH_RECORD));
-                    pncChild.setFirstName(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_FIRST_NAME));
-                    pncChild.setLastName(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_LAST_NAME));
+                    pncChild.setFirstName(jsonChildObject.optString(PncDbConstants.Column.PncBaby.BABY_FIRST_NAME));
+                    pncChild.setLastName(jsonChildObject.optString(PncDbConstants.Column.PncBaby.BABY_LAST_NAME));
                     pncChild.setDob(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_DOB));
                     pncChild.setGender(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BABY_GENDER));
                     pncChild.setWeightEntered(jsonChildObject.optString(PncConstants.JsonFormKeyConstants.BIRTH_WEIGHT_ENTERED));
