@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 
@@ -33,8 +34,8 @@ public class GizMaternityRegisterRowOptions implements MaternityRegisterRowOptio
             dueButton.setTextColor(dueButton.getContext().getResources().getColor(R.color.check_in_txt_dark_grey));
         } else {
             dueButton.setText(R.string.outcome);
-            dueButton.setBackgroundResource(R.drawable.opd_register_check_in_bg);
-            dueButton.setTextColor(dueButton.getContext().getResources().getColor(R.color.check_in_txt_dark_grey));
+            dueButton.setTextColor(ContextCompat.getColor(dueButton.getContext(), org.smartregister.pnc.R.color.due_color));
+            dueButton.setBackground(ContextCompat.getDrawable(dueButton.getContext(), org.smartregister.pnc.R.drawable.pnc_btn_due_bg));
         }
     }
 

@@ -14,20 +14,31 @@ import android.widget.ImageView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.MaternityRegisterActivity;
+import org.smartregister.giz.configuration.GizMaternityRegisterQueryProvider;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.maternity.MaternityLibrary;
 import org.smartregister.maternity.fragment.BaseMaternityRegisterFragment;
 import org.smartregister.maternity.pojo.MaternityMetadata;
 import org.smartregister.maternity.utils.MaternityConstants;
+import org.smartregister.opd.utils.ConfigurationInstancesHelper;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 31-03-2020.
  */
 
 public class MaternityRegisterFragment extends BaseMaternityRegisterFragment {
+
+    private GizMaternityRegisterQueryProvider maternityRegisterQueryProvider;
+
+    public MaternityRegisterFragment() {
+        super();
+        maternityRegisterQueryProvider = ((GizMaternityRegisterQueryProvider) ConfigurationInstancesHelper.newInstance(MaternityLibrary.getInstance().getMaternityConfiguration().getMaternityRegisterQueryProvider()));
+    }
 
     @Nullable
     @Override
@@ -112,6 +123,24 @@ public class MaternityRegisterFragment extends BaseMaternityRegisterFragment {
             Intent intent = new Intent(getActivity(), maternityMetadata.getProfileActivity());
             intent.putExtra(MaternityConstants.IntentKey.CLIENT_OBJECT, commonPersonObjectClient);
             startActivity(intent);
+        }
+    }
+
+
+    @Override
+    public void countExecute() {
+        try {
+            int totalCount = 0;
+            String sql = maternityRegisterQueryProvider.getCountExecuteQuery(mainCondition, filters);
+            Timber.i(sql);
+            totalCount += commonRepository().countSearchIds(sql);
+            clientAdapter.setTotalcount(totalCount);
+            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }

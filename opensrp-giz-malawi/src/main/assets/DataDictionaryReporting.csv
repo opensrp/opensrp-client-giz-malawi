@@ -450,3 +450,45 @@
 452,ME_Positive_Malaria_Cases,H: Positive malaria cases using mRDT (5+ years),E4LZP3KUbOG,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through RDT >5Yrs,opd
 453,ME_Positive_Malaria_Cases,I: Positive malaria cases using microscopy (<5 years),fCx1cSTnUUL,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through Microscopy <5Yrs,opd
 454,ME_Positive_Malaria_Cases,I: Positive malaria cases using microscopy(5+ years),fCx1cSTnUUL,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through Microscopy >5Yrs,opd
+455,ME_PNC_Baby_Care_Mgt_KMC,On KMC,mLyAd30qgI4,Tt7fU5lUhAU,RHD PNC Baby on KMC,pnc
+456,ME_PNC_Baby_Care_Mgt_TEO,Vitamin K given,OIVCj57flWc,Tt7fU5lUhAU,RHD PNC Baby Given Vitamin K ,pnc
+457,ME_PNC_Baby_Care_Mgt_Vit_K,Baby given TEO,Mwii8h4c2uC,Tt7fU5lUhAU,RHD PNC Baby Given TEO,pnc
+458,ME_PNC_Baby_Danger_Signs_Breaths,Fast Breathing,D6PpsB5P3fL,Tt7fU5lUhAU,RHD PNC Baby Fast Breathing,pnc
+459,ME_PNC_Baby_Danger_Signs_Chest,Chest in drawing,PsSIGk4JCAp,Tt7fU5lUhAU,RHD PNC Baby Chest In Drawing,pnc
+460,ME_PNC_Baby_Danger_Signs_Convulsions,Convulsions,OYc0KJJSavh,Tt7fU5lUhAU,RHD PNC Baby Convulsions,pnc
+461,ME_PNC_Baby_Danger_Signs_EyenCord,Eye/Cord Discharge,DaNydZHxar3,Tt7fU5lUhAU,RHD PNC Baby Eye/Cord Discharge,pnc
+462,ME_PNC_Baby_Danger_Signs_Feed,Not able to feed,kFgT8mdcQjA,Tt7fU5lUhAU,RHD PNC Baby Not Able to Feed,pnc
+463,ME_PNC_Baby_Danger_Signs_Fever,Fever,L3XKOQoukVq,Tt7fU5lUhAU,RHD PNC Baby Fever,pnc
+464,ME_PNC_Baby_Danger_Signs_Hypothermia,Hypothermia,wtuN1m0Kjn5,Tt7fU5lUhAU,RHD PNC Baby Hypothermia,pnc
+465,ME_PNC_Baby_Danger_Signs_Jaundice,Jaundice,uojP8TYbL7X,Tt7fU5lUhAU,RHD PNC Baby Jaundice,pnc
+466,ME_PNC_Baby_Danger_Signs_Lethargic,Lethargy,TKceP6JwglP,Tt7fU5lUhAU,RHD PNC Baby Lethargy,pnc
+467,ME_PNC_Baby_Danger_Signs_None,None,ZBNMGFDmQQw,Tt7fU5lUhAU,RHD PNC Baby No Complications,pnc
+468,ME_PNC_Baby_Nevirapine,Total on Nevirapine,OmHmawnO5Ng,Tt7fU5lUhAU,RHD PNC Total on Nevirapine,pnc
+469,ME_PNC_Baby_Status_Alive,Alive,W4gkowW7QTs,Tt7fU5lUhAU,RHD PNC Baby Alive,pnc
+470,ME_PNC_Baby_Status_Dead,Died,k9UyG5ktGgS,Tt7fU5lUhAU,RHD PNC Baby Died,pnc
+471,ME_PNC_Baby_Vaccines_bcg,BCG,kLmi0DXLHky,Tt7fU5lUhAU,RHD PNC BCG,pnc
+472,ME_PNC_Baby_Vaccines_opv_0,Polio 0,AzGc4TyeFKI,Tt7fU5lUhAU,RHD PNC Polio 0,pnc
+473,ME_PNC_Checked_in_2days,<48 hours or on discharge,f0IVxnte0OO,Tt7fU5lUhAU,RHD PNC # Baby Checked in <48 Hours,pnc
+474,ME_PNC_Checked_in_2days,<48hours on discharge,JSN2CbjKFt9,Tt7fU5lUhAU,RHD PNC # Mother Checked in <48 Hours,pnc
+475,ME_PNC_Checked_in_42days,8­-42 days,nJZsvYHkXQz,Tt7fU5lUhAU,RHD PNC # Baby Checked in 8-42 Days,pnc
+476,ME_PNC_Checked_in_42days,8-42 days,cLuLPg1YMSq,Tt7fU5lUhAU,RHD PNC # Mother Checked in 8-42 Days,pnc
+477,ME_PNC_Checked_in_7days,Within 3-7 days,e5rJUlQsTsP,Tt7fU5lUhAU,RHD PNC # Mother Checked in Within 3-7 Days,pnc
+478,ME_PNC_Checked_in_7days,Within 3­-7 days,jgDt2dm1QOS,Tt7fU5lUhAU,RHD PNC # Baby Checked in Within 3-7 Days,pnc
+479,ME_PNC_Checked_In_Twice_In_7days,Checked 2x in 7 days,IDxBzSLUZVn,Tt7fU5lUhAU,RHD PNC # Mother Checked in 2x in 7 Days,pnc
+480,ME_PNC_Checked_In_Twice_In_7days,Checked 2x in 7 days,uO5Xf2gVC9x,Tt7fU5lUhAU,RHD PNC # Baby Checked in 2x in 7 Days,pnc
+481,ME_PNC_fp_counsel_yes,Counselled on FP,Vm9NjpsXHpL,Tt7fU5lUhAU,RHD PNC Counseled on FP,pnc
+482,ME_PNC_fp_method_bilateral_tubal_ligation,BTL,oZECAevnT9d,Tt7fU5lUhAU,RHD PNC BTL,pnc
+483,ME_PNC_fp_method_intrauterine_contraceptive_device,IUCD,baBLHbjm5MP,Tt7fU5lUhAU,RHD PNC IUCD,pnc
+484,ME_PNC_HIV_ND,HIV Test Not Done,ZHsapjl6sPB,Tt7fU5lUhAU,RHD PNC Test Not Done,pnc
+485,ME_PNC_HIV_Negative,HIV Negative,wZD6QSyd62K,Tt7fU5lUhAU,RHD PNC HIV -ve,pnc
+486,ME_PNC_HIV_Positive,HIV Positive,elif3HHWci7,Tt7fU5lUhAU,RHD PNC HIV +ve,pnc
+487,ME_PNC_Total_Live_Birth,Total Live Birth Deliveries,K5J6MR8edvz,Tt7fU5lUhAU,RHD PNC Total Live Births,pnc
+488,ME_PNC_Vit_a_no,Total Did not Receive,REbkEp8YboK,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Not Given,pnc
+489,ME_PNC_Vit_a_yes,Total Received,B0MbTYjfUhd,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Given,pnc
+490,ME_PNC_Woman_Complications_Anaemia,Anaemia,fVzGijnVOrs,Tt7fU5lUhAU,RHD PNC Mother Anaemia,pnc
+491,ME_PNC_Woman_Complications_BE,Breast Engorgement,UcgSdalWMGa,Tt7fU5lUhAU,RHD PNC Mother Breast Engorgement,pnc
+492,ME_PNC_Woman_Complications_None,None,YHs48RajaU9,Tt7fU5lUhAU,RHD PNC Mother No Complications,pnc
+493,ME_PNC_Woman_Complications_Other,Other,h94ppnq7695,Tt7fU5lUhAU,RHD PNC Mother Other,pnc
+494,ME_PNC_Woman_Complications_PPH,PPH,blfZXfjQ5vZ,Tt7fU5lUhAU,RHD PNC Mother PPH,pnc
+495,ME_PNC_Woman_Complications_Sepsis,Sepsis,B0C73VHIXsm,Tt7fU5lUhAU,RHD PNC Mother Sepsis,pnc
+496,ME_PNC_Woman_Complications_SPE,Sever Pre/Eclampsia,sjpjF9WcIf2,Tt7fU5lUhAU,RHD PNC Mother Eclampsia,pnc

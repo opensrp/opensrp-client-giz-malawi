@@ -12,6 +12,8 @@ import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.giz.util.GizUtils;
 
+import java.util.HashMap;
+
 import timber.log.Timber;
 
 public class GizAncProfileActivity extends ProfileActivity {
@@ -47,4 +49,14 @@ public class GizAncProfileActivity extends ProfileActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        HashMap<String, String> detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+        if (detailMap.get("maternity_history") != null) {
+            finish();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

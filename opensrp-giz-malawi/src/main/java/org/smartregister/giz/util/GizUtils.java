@@ -23,10 +23,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
+import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -52,6 +54,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
@@ -355,4 +358,18 @@ public class GizUtils extends Utils {
         return fields;
     }
 
+    public static void openAncProfilePage(@NonNull final CommonPersonObjectClient commonPersonObjectClient, @NonNull final Context context) {
+        final AppExecutors appExecutors = new AppExecutors();
+        appExecutors.diskIO()
+                .execute(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        final Map<String, String> ancUserDetails = PatientRepository.getWomanProfileDetails(commonPersonObjectClient.getCaseId());
+                        ancUserDetails.putAll(commonPersonObjectClient.getColumnmaps());
+                        appExecutors.mainThread().execute(() -> org.smartregister.anc.library.util.Utils.navigateToProfile(context, (HashMap<String, String>) ancUserDetails));
+
+                    }
+                });
+    }
 }

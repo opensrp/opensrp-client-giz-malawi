@@ -34,6 +34,7 @@ import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.GizAncProfileActivity;
+import org.smartregister.giz.activity.GizMaternityProfileActivity;
 import org.smartregister.giz.activity.GizPncFormActivity;
 import org.smartregister.giz.activity.GizPncProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
@@ -56,6 +57,7 @@ import org.smartregister.giz.repository.ClientRegisterTypeRepository;
 import org.smartregister.giz.repository.DailyTalliesRepository;
 import org.smartregister.giz.repository.GizAncRegisterQueryProvider;
 import org.smartregister.giz.repository.GizChildRegisterQueryProvider;
+import org.smartregister.giz.repository.GizEventRepository;
 import org.smartregister.giz.repository.GizHia2ReportRepository;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
@@ -82,7 +84,6 @@ import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.maternity.MaternityLibrary;
 import org.smartregister.maternity.activity.BaseMaternityFormActivity;
-import org.smartregister.maternity.activity.BaseMaternityProfileActivity;
 import org.smartregister.maternity.configuration.MaternityConfiguration;
 import org.smartregister.maternity.pojo.MaternityMetadata;
 import org.smartregister.maternity.utils.MaternityConstants;
@@ -139,6 +140,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ECSyncHelper ecSyncHelper;
     private ClientRegisterTypeRepository registerTypeRepository;
     private ChildAlertUpdatedRepository childAlertUpdatedRepository;
+    private GizEventRepository gizEventRepository;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -344,7 +346,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , MaternityConstants.EventType.UPDATE_MATERNITY_REGISTRATION
                 , MaternityConstants.CONFIG
                 , BaseMaternityFormActivity.class
-                , BaseMaternityProfileActivity.class
+                , GizMaternityProfileActivity.class
                 , true);
         maternityMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
         maternityMetadata.setLocationLevels(GizUtils.getLocationLevels());
@@ -624,6 +626,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             this.childAlertUpdatedRepository = new ChildAlertUpdatedRepository();
         }
         return this.childAlertUpdatedRepository;
+    }
+
+    public GizEventRepository gizEventRepository() {
+        if (gizEventRepository == null) {
+            gizEventRepository = new GizEventRepository();
+        }
+        return gizEventRepository;
     }
 }
 

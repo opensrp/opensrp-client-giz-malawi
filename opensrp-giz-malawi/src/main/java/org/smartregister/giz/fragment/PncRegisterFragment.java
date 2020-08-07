@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.PncRegisterActivity;
+import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
 import org.smartregister.giz.view.NavDrawerActivity;
+import org.smartregister.opd.utils.ConfigurationInstancesHelper;
 import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.fragment.BasePncRegisterFragment;
 import org.smartregister.pnc.pojo.PncMetadata;
@@ -23,12 +25,20 @@ import org.smartregister.pnc.utils.PncConstants;
 import java.util.HashMap;
 import java.util.Map;
 
+import timber.log.Timber;
+
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-11-29
  */
 
 public class PncRegisterFragment extends BasePncRegisterFragment {
 
+    private GizPncRegisterQueryProvider pncRegisterQueryProvider;
+
+    public PncRegisterFragment() {
+        super();
+        pncRegisterQueryProvider = (GizPncRegisterQueryProvider) ConfigurationInstancesHelper.newInstance(PncLibrary.getInstance().getPncConfiguration().getPncRegisterQueryProvider());
+    }
 
     @Nullable
     @Override
@@ -110,5 +120,22 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         }
     }
 
+
+    @Override
+    public void countExecute() {
+        try {
+            int totalCount = 0;
+            String sql = pncRegisterQueryProvider.getCountExecuteQuery(mainCondition, filters);
+            Timber.i(sql);
+            totalCount += commonRepository().countSearchIds(sql);
+            clientAdapter.setTotalcount(totalCount);
+            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+
+            clientAdapter.setCurrentlimit(20);
+            clientAdapter.setCurrentoffset(0);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
 
 }

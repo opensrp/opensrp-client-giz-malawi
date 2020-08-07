@@ -179,15 +179,16 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     }
 
                     if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() != null) {
-                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
+                        GizMalawiApplication.getInstance().registerTypeRepository().addUnique(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                     }
 
-                    if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) && eventClient.getClient() != null) {
-                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.CHILD, event.getBaseEntityId());
+                    if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) && eventClient.getClient() != null &&
+                            (GizMalawiApplication.getInstance().context().getEventClientRepository().getEventsByBaseEntityIdAndEventType(event.getBaseEntityId(), Constants.EventType.ARCHIVE_CHILD_RECORD) == null)) {
+                        GizMalawiApplication.getInstance().registerTypeRepository().addUnique(GizConstants.RegisterType.CHILD, event.getBaseEntityId());
                     }
 
                     if (eventType.equals(Constants.EventType.NEW_WOMAN_REGISTRATION) && eventClient.getClient() != null) {
-                        GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
+                        GizMalawiApplication.getInstance().registerTypeRepository().addUnique(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                     }
 
                     if (eventType.equals(Constants.EventType.ARCHIVE_CHILD_RECORD) && eventClient.getClient() != null) {
@@ -196,7 +197,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                     if (eventType.equals(ConstantsUtils.EventTypeUtils.CLOSE) && eventClient.getClient() != null) {
                         GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
-                        if (GizMalawiApplication.getInstance().context().getEventClientRepository().getEventsByBaseEntityIdAndEventType(event.getBaseEntityId(), ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER) == null)
+                        if (!GizMalawiApplication.getInstance().gizEventRepository().hasEvent(event.getBaseEntityId(), ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER))
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                         else
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
@@ -217,11 +218,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (processorMap.containsKey(eventType)) {
                     try {
                         if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null) {
-                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
+                            GizMalawiApplication.getInstance().registerTypeRepository().addUnique(GizConstants.RegisterType.ANC, event.getBaseEntityId());
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_REGISTRATION) && eventClient.getClient() != null) {
-                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                            GizMalawiApplication.getInstance().registerTypeRepository().addUnique(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
                         } else if (eventType.equals(PncConstants.EventTypeConstants.PNC_REGISTRATION) && eventClient.getClient() != null) {
-                            GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
+                            GizMalawiApplication.getInstance().registerTypeRepository().addUnique(GizConstants.RegisterType.PNC, event.getBaseEntityId());
                         } else if ((eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE) || eventType.equals(PncConstants.EventTypeConstants.PNC_CLOSE)) && eventClient.getClient() != null) {
 
                             if (!event.getObs().isEmpty()) {

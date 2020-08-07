@@ -161,14 +161,14 @@
         ]
       },
       {
-        "key": "visit_date",
+        "key": "visit_id",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "hidden"
       },
       {
-        "key": "visit_id",
+        "key": "visit_date",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
@@ -186,6 +186,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Postnatal complications",
         "label_text_style": "bold",
         "exclusive": [
@@ -194,35 +195,59 @@
         "options": [
           {
             "key": "none",
-            "text": "None"
+            "text": "None",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "sepsis",
-            "text": "Sepsis"
+            "text": "Sepsis",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "anaemia",
-            "text": "Anaemia"
+            "text": "Anaemia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "postpartum_haemorrhage",
-            "text": "Postpartum haemorrhage"
+            "text": "Postpartum haemorrhage",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "severe_pre_eclampsia",
-            "text": "Severe pre-eclampsia Defects"
+            "text": "Severe pre-eclampsia Defects",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "eclampsia",
-            "text": "Eclampsia"
+            "text": "Eclampsia",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "breast_engorgement",
-            "text": "Breast engorgement"
+            "text": "Breast engorgement",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "other",
-            "text": "Other (Specify)"
+            "text": "Other (Specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           }
         ]
       },
@@ -757,13 +782,6 @@
         "showGroupLabel": false,
         "value": [
           {
-            "key": "child_relation_id",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "hidden"
-          },
-          {
             "key": "child_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -969,8 +987,8 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "check_box",
-            "label": "Danger signs and complications at visit",
             "label_text_style": "bold",
+            "label": "Danger signs and complications at visit",
             "exclusive": [
               "none"
             ],
@@ -1149,8 +1167,8 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "check_box",
-            "label": "Which HIV treatment is being given?",
             "label_text_style": "bold",
+            "label": "Which HIV treatment is being given?",
             "relevance": {
               "rules-engine": {
                 "ex-rules": {

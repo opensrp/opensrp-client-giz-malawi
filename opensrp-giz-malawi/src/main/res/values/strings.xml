@@ -318,6 +318,9 @@
     <string name="treated_at_time">TREATED\n%s</string>
     <string name="checked_in">Checked-In</string>
 
+    <string name="submit_and_close_pnc">SUBMIT</string>
+
+
 
     <!-- START OF INDICATOR LABELS. DO NOT CHANGE MANUALLY OR MIX WITH OTHER LABELS -->
     <!-- THIS IS AUTOMATICALLY GENERATED -->
@@ -782,7 +785,7 @@
     <string name="me_mat_care_tr">Care Tr</string>
     <string name="me_mat_care_mrp">Care MRP</string>
     <string name="me_mat_care_nasg">Care NASG</string>
-    <string name="me_mat_care_ropc">Care ROPC</string>
+    <string name="me_mat_care_ropc">Care ERP</string>
     <string name="me_mat_referred">Referred</string>
     <string name="me_mat_delivery_person_skilled">Delivery Person Skilled</string>
     <string name="me_mat_delivery_person_not_skilled">Delivery Person Not skilled</string>
