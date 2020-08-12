@@ -86,12 +86,6 @@
           "value": "true",
           "err": "Enter valid Para"
         },
-        "relevance": {
-          "step1:gravidity": {
-            "type": "numeric",
-            "ex": "greaterThan(., \"1\")"
-          }
-        },
         "constraints": [
           {
             "type": "numeric",
@@ -106,10 +100,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "check_box",
-        "hint": "Last menstrual period unknown checkbox",
+        "label": "Last menstrual period unknown checkbox",
         "label_text_style": "bold",
-        "text_color": "#000000",
-        "label": "",
         "options": [
           {
             "key": "lmp_unknown",
@@ -211,7 +203,8 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "label",
-        "hint": "When did labour begin? (Onset of Labour)"
+        "hint": "When did labour begin? (Onset of Labour)",
+        "label_text_style": "bold"
       },
       {
         "key": "onset_labour",
@@ -247,7 +240,6 @@
         "type": "check_box",
         "label": "Any past pregnancy problems?",
         "label_text_style": "bold",
-        "text_color": "#000000",
         "relevance": {
           "step1:parity": {
             "type": "numeric",
@@ -411,11 +403,10 @@
         "type": "check_box",
         "label": "Modes of delivery in past pregnancies",
         "label_text_style": "bold",
-        "text_color": "#000000",
         "relevance": {
           "step1:parity": {
             "type": "numeric",
-            "ex": "greaterThan(., \"1\")"
+            "ex": "greaterThan(., \"0\")"
           }
         },
         "v_required": {
@@ -423,12 +414,6 @@
           "err": "Select at least one delivery mode"
         },
         "options": [
-          {
-            "key": "vaginal_birth",
-            "text": "Vaginal Birth",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "162595AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
           {
             "key": "spontaneous_vertex",
             "text": "Spontaneous Vertex (SVD)",
@@ -465,13 +450,12 @@
         "key": "previous_pregnancy_outcomes",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Outcomes of previous pregnancies",
         "label_text_style": "bold",
-        "text_color": "#000000",
         "relevance": {
-          "step1:parity": {
+          "step1:gravidity": {
             "type": "numeric",
             "ex": "greaterThan(., \"1\")"
           }
@@ -485,7 +469,7 @@
             "key": "alive",
             "text": "Alive",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "stillbirth_fresh",
@@ -527,7 +511,6 @@
         "type": "check_box",
         "label": "Family medical history",
         "label_text_style": "bold",
-        "text_color": "#000000",
         "v_required": {
           "value": "true",
           "err": "Select at least one medical condition OR None"
@@ -701,14 +684,7 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "pnc/medic_relevance_rules.yml"
-            }
-          }
-        }
+        ]
       }
     ]
   },
@@ -925,7 +901,6 @@
         "type": "check_box",
         "label": "Obstetric complications",
         "label_text_style": "bold",
-        "text_color": "#000000",
         "v_required": {
           "value": "true",
           "err": "Field required"
@@ -1079,7 +1054,6 @@
         "type": "check_box",
         "label": "Obstetric care",
         "label_text_style": "bold",
-        "text_color": "#000000",
         "v_required": {
           "value": "true",
           "err": "Field required"
@@ -1515,17 +1489,9 @@
     "next": "step5",
     "fields": [
       {
-        "key": "baby_count_alive",
-        "type": "hidden",
+        "key": "neonatal_death",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "value": "0"
-      },
-      {
-        "key": "baby_not_discharged_alive",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Was there any neonatal death?",
@@ -1535,28 +1501,32 @@
             "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "Concept-Discharged",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
-            "openmrs_entity": "Concept-Deceased",
+            "openmrs_entity": "concept",
             "openmrs_entity_id": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
       {
-        "key": "baby_not_discharged_alive_count",
-        "type": "edit_text",
+        "key": "neonatal_death_count",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "Concept-Number of children alive",
+        "openmrs_entity": "",
         "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
         "hint": "Number of neonatal deaths",
         "v_numeric": {
           "value": "true",
-          "err": "Enter valid value"
+          "err": "Enter valid number"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter valid birth weight"
         },
         "constraints": [
           {
@@ -1565,12 +1535,8 @@
             "err": "count must be greater than or equal to 0"
           }
         ],
-        "v_required": {
-          "value": true,
-          "err": "Please enter number of neonatal deaths"
-        },
         "relevance": {
-          "step4:baby_not_discharged_alive": {
+          "step4:neonatal_death": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
@@ -1579,12 +1545,10 @@
       {
         "key": "surviving_child",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
+        "openmrs_entity": "concept",
         "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Are there  any surviving infants in this pregnancy?",
-        "label_info_text": "",
-        "label_info_title": "Are there  any surviving infants in this pregnancy?",
         "label_text_style": "bold",
         "options": [
           {
@@ -1601,10 +1565,31 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ],
-        "v_required": {
+        ]
+      },
+      {
+        "key": "surviving_child_count",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "surviving infants in this pregnancy",
+        "v_numeric": {
           "value": "true",
-          "err": "Please give an answer"
+          "err": "Enter valid number"
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "greaterThanEqualTo(., \"0\")",
+            "err": "count must be greater than or equal to 0"
+          }
+        ],
+        "relevance": {
+          "step4:surviving_child": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
         }
       },
       {
@@ -1616,6 +1601,7 @@
         "reference_edit_text_hint": "#Total baby born alive",
         "repeating_group_label": "Baby born alive",
         "reference_edit_text": "Number of babies born alive",
+        "label_text_style": "bold",
         "value": [
           {
             "key": "generated_grp",
@@ -1784,10 +1770,6 @@
               "value": "true",
               "err": "Enter valid agpar"
             },
-            "v_required": {
-              "value": "true",
-              "err": "Enter valid agpar"
-            },
             "constraints": [
               {
                 "type": "numeric",
@@ -1838,7 +1820,6 @@
             "type": "check_box",
             "label": "Newborn care complications",
             "label_text_style": "bold",
-            "text_color": "#000000",
             "v_required": {
               "value": "true",
               "err": "Select at least one medical condition OR None"
@@ -1912,7 +1893,6 @@
             "type": "check_box",
             "label": "Newborn Routine Care & Management",
             "label_text_style": "bold",
-            "text_color": "#000000",
             "relevance": {
               "step4:baby_complications": {
                 "ex-checkbox": [
@@ -2073,20 +2053,9 @@
             "type": "check_box",
             "label": "Child's HIV status",
             "label_text_style": "bold",
-            "text_color": "#000000",
             "v_required": {
               "value": "true",
               "err": "Select at least one medical condition OR None"
-            },
-            "relevance": {
-              "step3:hiv_status_previous": {
-                "type": "string",
-                "ex": "equalTo(., \"[\"positive\",\"unknown\"]\")"
-              },
-              "step3:hiv_status_current": {
-                "type": "string",
-                "ex": "equalTo(., \"[\"positive\",\"unknown\"]\")"
-              }
             },
             "options": [
               {
@@ -2125,8 +2094,14 @@
             "label_text_style": "bold",
             "relevance": {
               "step4:child_hiv_status": {
-                "type": "string",
-                "ex": "equalTo(., \"[\"positive\",\"exposed\"]\")"
+                "ex-checkbox": [
+                  {
+                    "or": [
+                      "positive",
+                      "exposed"
+                    ]
+                  }
+                ]
               }
             },
             "v_required": {
@@ -2150,106 +2125,7 @@
               }
             ]
           }
-        ],
-        "relevance": {
-          "step4:surviving_child": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
-        "key": "child_registered",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "label": "Are any of the babies registered in the Child health register?",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "Concept-Discharged",
-            "openmrs_entity_id": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "Concept-Deceased",
-            "openmrs_entity_id": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ],
-        "relevance": {
-          "step4:baby_count_alive": {
-            "type": "numeric",
-            "ex": "greaterThan(., \"0\")"
-          }
-        }
-      },
-      {
-        "key": "child_registered_count",
-        "type": "edit_text",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "hint": "How many children are registered?",
-        "v_numeric": {
-          "value": "true",
-          "err": "Enter valid value"
-        },
-        "constraints": [
-          {
-            "type": "numeric",
-            "ex": "greaterThanEqualTo(., \"0\")",
-            "err": "count must be greater than or equal to 0"
-          }
-        ],
-        "read_only": "true",
-        "relevance": {
-          "step4:child_registered": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        },
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "pnc/medic_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "child_not_registered",
-        "type": "hidden",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "pnc/medic_calculation_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "unregistered_child_note",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "toaster_notes",
-        "text": "Register the unregistered children in child health register and come back to add them to the PNC record",
-        "toaster_type": "problem",
-        "relevance": {
-          "step4:child_not_registered": {
-            "type": "numeric",
-            "ex": "greaterThan(., \"0\")"
-          }
-        }
+        ]
       }
     ]
   },
@@ -2257,29 +2133,31 @@
     "title": "Still Births",
     "fields": [
       {
-        "key": "any_stillbirth",
+        "key": "stillbirth",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "",
         "type": "native_radio",
         "label": "Were there any stillbirths?",
-        "label_info_text": "",
-        "label_info_title": "Were there any stillbirths?",
         "label_text_style": "bold",
+        "v_required": {
+          "value": "true",
+          "err": "Field required"
+        },
         "options": [
           {
             "key": "yes",
             "text": "Yes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
             "text": "No",
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
@@ -2292,6 +2170,17 @@
         "reference_edit_text_hint": "#Total baby stillborn",
         "repeating_group_label": "Baby stillborn",
         "reference_edit_text": "Number of babies stillborn",
+        "label_text_style": "bold",
+        "v_required": {
+          "value": "true",
+          "err": "Field required"
+        },
+        "relevance": {
+          "step5:stillbirth": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
         "value": [
           {
             "key": "stillbirth_condition",
@@ -2329,17 +2218,7 @@
               }
             ]
           }
-        ],
-        "v_required": {
-          "value": true,
-          "err": "Please enter number of neonatal deaths"
-        },
-        "relevance": {
-          "step5:any_stillbirth": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
+        ]
       }
     ]
   }
