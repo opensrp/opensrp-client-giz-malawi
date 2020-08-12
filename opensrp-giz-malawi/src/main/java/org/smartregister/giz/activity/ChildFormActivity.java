@@ -24,7 +24,7 @@ public class ChildFormActivity extends BaseChildFormActivity {
     @Override
     public String lookUpQuery(Map<String, String> entityMap, String tableName) {
         SmartRegisterQueryBuilder queryBuilder = new SmartRegisterQueryBuilder();
-        queryBuilder.SelectInitiateMainTable(tableName,
+        queryBuilder.selectInitiateMainTable(tableName,
                 new String[]{MotherLookUpUtils.RELATIONALID, MotherLookUpUtils.DETAILS, Constants.KEY.ZEIR_ID,
                         Constants.KEY.FIRST_NAME, Constants.KEY.LAST_NAME,Constants.KEY.DOB, Constants.KEY.BASE_ENTITY_ID}
 

@@ -2,11 +2,14 @@ package org.smartregister.giz.application;
 
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.repository.AllSharedPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.smartregister.anc.library.util.ConstantsUtils.PrefKeyUtils.POPULATION_CHARACTERISTICS;
 
 public class GizMalawiSyncConfiguration extends SyncConfiguration {
     @Override
@@ -64,6 +67,39 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
     @Override
     public String getTopAllowedLocationLevel() {
         return null;
+    }
+
+    @Override
+    public String getSettingsSyncFilterValue() {
+        AllSharedPreferences sharedPreferences = AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
+        String providerId = sharedPreferences.fetchRegisteredANM();
+        return sharedPreferences.fetchDefaultLocalityId(providerId);
+    }
+
+    @Override
+    public SyncFilter getSettingsSyncFilterParam() {
+        return SyncFilter.LOCATION_ID;
+    }
+
+
+    @Override
+    public boolean resolveSettings() {
+        return BuildConfig.RESOLVE_SETTINGS;
+    }
+
+    @Override
+    public boolean hasExtraSettingsSync() {
+        return BuildConfig.HAS_EXTRA_SETTINGS_SYNC_FILTER;
+    }
+
+    @Override
+    public List<String> getExtraSettingsParameters() {
+        AllSharedPreferences sharedPreferences = AncLibrary.getInstance().getContext().userService().getAllSharedPreferences();
+        String providerId = sharedPreferences.fetchRegisteredANM();
+        List<String> params = new ArrayList<>();
+        params.add("locations_id" + "=" + sharedPreferences.fetchDefaultLocalityId(providerId));
+        params.add("identifier" + "=" + POPULATION_CHARACTERISTICS);
+        return params;
     }
 }
 

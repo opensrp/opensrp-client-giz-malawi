@@ -18,6 +18,7 @@ import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.SyncStatus;
 import org.smartregister.domain.tag.FormTag;
+import org.smartregister.giz.util.GizJsonFormUtils;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.maternity.MaternityLibrary;
 import org.smartregister.maternity.configuration.MaternityOutcomeFormProcessingTask;
@@ -155,12 +156,12 @@ public class GizMaternityOutcomeFormProcessing extends MaternityOutcomeFormProce
 
         Event maternityOutcomeEvent = MaternityJsonFormUtils.createEvent(fieldsArray, jsonFormObject.getJSONObject(METADATA)
                 , formTag, baseEntityId, MaternityConstants.EventType.MATERNITY_OUTCOME, "");
-        MaternityJsonFormUtils.tagSyncMetadata(maternityOutcomeEvent);
+        GizJsonFormUtils.tagEventSyncMetadata(maternityOutcomeEvent);
         eventList.add(maternityOutcomeEvent);
 
         Event closeMaternityEvent = JsonFormUtils.createEvent(new JSONArray(), new JSONObject(),
                 formTag, baseEntityId, MaternityConstants.EventType.MATERNITY_CLOSE, "");
-        MaternityJsonFormUtils.tagSyncMetadata(closeMaternityEvent);
+        GizJsonFormUtils.tagEventSyncMetadata(closeMaternityEvent);
         closeMaternityEvent.addDetails(MaternityConstants.JSON_FORM_KEY.VISIT_END_DATE, MaternityUtils.convertDate(new Date(), MaternityConstants.DateFormat.YYYY_MM_DD_HH_MM_SS));
         eventList.add(closeMaternityEvent);
 

@@ -26,7 +26,6 @@ import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.domain.Response;
 import org.smartregister.giz.R;
 import org.smartregister.giz.adapter.ReportsSectionsPagerAdapter;
@@ -49,6 +48,7 @@ import org.smartregister.reporting.util.ViewUtils;
 import org.smartregister.reporting.view.ReportingProcessingSnackbar;
 import org.smartregister.repository.Hia2ReportRepository;
 import org.smartregister.service.HTTPAgent;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.Utils;
 
 import java.text.DateFormat;

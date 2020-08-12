@@ -85,8 +85,8 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getMotherDetailsTable() + "." + GizConstants.MOTHER_HIV_STATUS,
                 getChildDetailsTable() + "." + GizConstants.BIRTH_REGISTRATION_NUMBER,
                 getChildDetailsTable() + "." + GrowthMonitoringConstants.PMTCT_STATUS,
-                getChildDetailsTable() + "." + Constants.KEY.CHILD_HIV_STATUS,
-                getChildDetailsTable() + "." + Constants.KEY.CHILD_TREATMENT,
+                getChildDetailsTable() + "." + "child_hiv_status",
+                getChildDetailsTable() + "." + "child_treatment",
 
         };
     }

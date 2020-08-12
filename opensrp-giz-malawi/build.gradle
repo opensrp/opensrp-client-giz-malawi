@@ -41,11 +41,15 @@ android {
         buildConfigField "long", "BUILD_TIMESTAMP", System.currentTimeMillis() + "L"
         buildConfigField "boolean", "IS_SYNC_SETTINGS", "true"
         buildConfigField "long", "EVENT_VERSION", System.currentTimeMillis() + "L"
+        buildConfigField "boolean", "RESOLVE_SETTINGS", "false"
+        buildConfigField "boolean", "HAS_EXTRA_SETTINGS_SYNC_FILTER", "true"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
+                includeCompileClasspath = true
                 arguments = [eventBusIndex: 'org.smartregister.giz.GizMalawiEventBusIndex']
+
             }
         }
         vectorDrawables.useSupportLibrary = true
@@ -172,19 +176,10 @@ android {
     }
 
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES.txt'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/dependencies.txt'
-        exclude 'META-INF/LGPL2.1'
-        exclude 'LICENSE.txt'
-
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/NOTICE.md'
     }
+
 
 
     testOptions {
@@ -205,16 +200,15 @@ tasks.withType(Test) {
 dependencies {
     implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
-
-    implementation('org.smartregister:opensrp-client-opd:0.0.14-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-opd:0.0.14.2-SNAPSHOT@aar') {
         transitive = true
-//        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.3.3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.3.3-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -224,7 +218,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:2.0.3.28-LOCAL-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-anc:2.0.3.32-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -246,21 +240,21 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-//    implementation('org.smartregister:opensrp-client-core:1.9.3.1-SNAPSHOT@aar') {
-//        transitive = true
-//        exclude group: 'id.zelory', module:'compressor'
-//        exclude group: 'com.github.bmelnychuk', module: 'atv'
-//        exclude group: 'com.google.guava', module: 'guava'
-//        exclude group: 'com.android.support', module: 'appcompat-v7'
-//        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
-//        exclude group: 'com.android.support', module: 'recyclerview-v7'
-//        exclude group: 'com.android.support', module: 'support-media-compat'
-//        exclude group: 'com.android.support', module: 'cardview-v7'
-//        exclude group: 'com.android.support', module: 'support-v4'
-//        exclude group: 'com.android.support', module: 'design'
-//    }
+    api ('org.smartregister:opensrp-client-core:1.11.7-LOCAL-SNAPSHOT@aar') {
+        transitive = true
+        exclude group: 'id.zelory', module:'compressor'
+        exclude group: 'com.github.bmelnychuk', module: 'atv'
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'net.zetetic', module: 'android-database-sqlcipher'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'cardview-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+    }
 
-    implementation('org.smartregister:opensrp-client-maternity:0.0.4.5-LOCAL-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-maternity:0.0.4.9.4-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'

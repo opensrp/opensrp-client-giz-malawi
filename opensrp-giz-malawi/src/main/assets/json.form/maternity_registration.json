@@ -265,8 +265,8 @@
       {
         "key": "village",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1354AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "tree",
         "tree": [],
         "hint": "Village",
@@ -278,8 +278,8 @@
       {
         "key": "home_address",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "person_address",
+        "openmrs_entity_id": "address2",
         "type": "edit_text",
         "hint": "Home address",
         "v_required": {

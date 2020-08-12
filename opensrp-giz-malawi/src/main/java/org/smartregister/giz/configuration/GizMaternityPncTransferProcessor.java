@@ -3,6 +3,7 @@ package org.smartregister.giz.configuration;
 import android.support.annotation.NonNull;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.FormUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -59,7 +60,7 @@ public class GizMaternityPncTransferProcessor implements ClientTransferProcessor
     protected Event createMaternityPncTransferEvent(@NonNull JSONObject outcomeForm) {
         JSONObject jsonFormObject = populateTransferForm(outcomeForm);
         FormTag formTag = GizJsonFormUtils.getFormTag(Utils.getAllSharedPreferences());
-        Event event = GizJsonFormUtils.createEvent(com.vijay.jsonwizard.utils.FormUtils.getMultiStepFormFields(jsonFormObject),
+        Event event = GizJsonFormUtils.createEvent(FormUtils.getMultiStepFormFields(jsonFormObject),
                 jsonFormObject.optJSONObject(METADATA), formTag, getBaseEntityId(), jsonFormObject.optString(JsonFormConstants.ENCOUNTER_TYPE), "");
         GizJsonFormUtils.tagEventSyncMetadata(event);
         return event;
