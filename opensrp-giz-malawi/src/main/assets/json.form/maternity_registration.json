@@ -271,7 +271,7 @@
         "tree": [],
         "hint": "Village",
         "v_required": {
-          "value": false,
+          "value": true,
           "err": "Please enter the Woman's Village"
         }
       },

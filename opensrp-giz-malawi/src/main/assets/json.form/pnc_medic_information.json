@@ -1568,31 +1568,6 @@
         ]
       },
       {
-        "key": "surviving_child_count",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "164894AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "surviving infants in this pregnancy",
-        "v_numeric": {
-          "value": "true",
-          "err": "Enter valid number"
-        },
-        "constraints": [
-          {
-            "type": "numeric",
-            "ex": "greaterThanEqualTo(., \"0\")",
-            "err": "count must be greater than or equal to 0"
-          }
-        ],
-        "relevance": {
-          "step4:surviving_child": {
-            "type": "string",
-            "ex": "equalTo(., \"yes\")"
-          }
-        }
-      },
-      {
         "key": "baby_alive_group",
         "type": "repeating_group",
         "openmrs_entity_parent": "",
@@ -2050,7 +2025,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5303AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "type": "check_box",
+            "type": "native_radio",
             "label": "Child's HIV status",
             "label_text_style": "bold",
             "v_required": {
@@ -2125,7 +2100,17 @@
               }
             ]
           }
-        ]
+        ],
+        "relevance": {
+          "step4:surviving_child": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Field required"
+        }
       }
     ]
   },

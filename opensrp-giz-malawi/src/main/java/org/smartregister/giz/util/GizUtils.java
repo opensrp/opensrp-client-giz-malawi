@@ -29,7 +29,6 @@ import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
@@ -150,26 +149,25 @@ public class GizUtils extends Utils {
         return " ((( julianday('now') - julianday(" + dateColumn + "))/365.25) <" + age + ")";
     }
 
-    public static boolean updateChildDeath(@NonNull EventClient eventClient) {
+    public static boolean updateClientDeath(@NonNull EventClient eventClient) {
         Client client = eventClient.getClient();
         ContentValues values = new ContentValues();
-
-        if (client.getDeathdate() == null) {
-            Timber.e(new Exception(), "Death event for %s cannot be processed because deathdate is NULL : %s"
-                    , client.getFirstName() + " " + client.getLastName(), new Gson().toJson(eventClient));
-            return false;
+        if (client != null) {
+            if (client.getDeathdate() == null) {
+                Timber.e(new Exception(), "Death event for %s cannot be processed because deathdate is NULL : %s"
+                        , client.getFirstName() + " " + client.getLastName(), new Gson().toJson(eventClient));
+                return false;
+            }
+            values.put(Constants.KEY.DOD, Utils.convertDateFormat(client.getDeathdate()));
+            values.put(Constants.KEY.DATE_REMOVED, Utils.convertDateFormat(client.getDeathdate().toDate(), Utils.DB_DF));
+            AllCommonsRepository allCommonsRepository = GizMalawiApplication.getInstance().context().allCommonsRepositoryobjects(GizConstants.TABLE_NAME.ALL_CLIENTS);
+            if (allCommonsRepository != null) {
+                allCommonsRepository.update(GizConstants.TABLE_NAME.ALL_CLIENTS, values, client.getBaseEntityId());
+                allCommonsRepository.updateSearch(client.getBaseEntityId());
+            }
+            return true;
         }
-
-        values.put(Constants.KEY.DOD, Utils.convertDateFormat(client.getDeathdate()));
-        values.put(Constants.KEY.DATE_REMOVED, Utils.convertDateFormat(client.getDeathdate().toDate(), Utils.DB_DF));
-        String tableName = Utils.metadata().childRegister.tableName;
-        AllCommonsRepository allCommonsRepository = GizMalawiApplication.getInstance().context().allCommonsRepositoryobjects(tableName);
-        if (allCommonsRepository != null) {
-            allCommonsRepository.update(tableName, values, client.getBaseEntityId());
-            allCommonsRepository.updateSearch(client.getBaseEntityId());
-        }
-
-        return true;
+        return false;
     }
 
     @NonNull

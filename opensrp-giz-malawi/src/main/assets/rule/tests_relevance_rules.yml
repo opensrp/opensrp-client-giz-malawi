@@ -97,12 +97,33 @@ condition: "step2_hiv_test_partner_status != '' && (step2_hiv_test_partner_statu
 actions:
 - "isRelevant = true"
 ---
+name: step1_hiv_test_partner_date
+description: Partner HIV test date
+priority: 1
+condition: "(step1_hiv_test_partner_status != '' && step1_hiv_test_partner_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_hiv_test_partner_result
+description:  partner HIV result
+priority: 1
+condition: "step1_hiv_test_partner_status != '' && (step1_hiv_test_partner_status == 'done_today'  || step1_hiv_test_partner_status == 'done_earlier')"
+actions:
+  - "isRelevant = true"
+---
 name: step2_hiv_risk_toaster
 description: hiv_risk_toaster
 priority: 1
 condition: "step2_hiv_risk == 1"
 actions:
 - "isRelevant = true"
+---
+name: step1_hiv_risk_toaster
+description: hiv_risk_toaster
+priority: 1
+condition: "step1_hiv_risk == 1"
+actions:
+  - "isRelevant = true"
 ---
 name: step1_hepb_test_notdone
 description: Reason
@@ -878,6 +899,20 @@ name: step1_hb_test_status
 description: hb test status
 priority: 1
 condition: "Boolean.valueOf(global_is_first_contact) || (global_gest_age_openmrs != '' && global_gest_age_openmrs >= 28)"
+actions:
+  - "isRelevant = true"
+---
+name: step2_hb_test_status
+description: hb test status
+priority: 1
+condition: "(global_contact_no > 1) && (global_hb_test_status != '' && (global_hb_test_status == 'done_today' || global_hb_test_status == 'done_earlier'))"
+actions:
+  - "isRelevant = true"
+---
+name: step2_hb_test_status
+description: hb test status
+priority: 1
+condition: "!Boolean.valueOf(global_is_first_contact)"
 actions:
   - "isRelevant = true"
 ---

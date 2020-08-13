@@ -143,6 +143,9 @@
     <string name="please_wait_message">Please wait</string>
     <string name="reports">Reports</string>
 
+    <string name="repeating_group_not_generated_error_message">Please click the &#9989; button</string>
+
+
     <!-- In App Reporting -->
     <!-- Daily Tallies -->
     <string name="EPNT_M_label">Tetanus Protection at Birth Male Total</string>

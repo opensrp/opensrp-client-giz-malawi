@@ -32,7 +32,7 @@ android {
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 29
-        versionName "0.2.36"
+        versionName "0.2.37"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -200,7 +200,7 @@ tasks.withType(Test) {
 dependencies {
     implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
-    implementation('org.smartregister:opensrp-client-opd:0.0.14.2-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-opd:0.0.14.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
@@ -218,7 +218,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-anc:2.0.3.32-LOCAL-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-anc:2.0.3.42-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -254,7 +254,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'design'
     }
 
-    implementation('org.smartregister:opensrp-client-maternity:0.0.4.9.4-LOCAL-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-maternity:0.0.4.9.9-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'

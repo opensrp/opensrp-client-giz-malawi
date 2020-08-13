@@ -123,7 +123,11 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Field required!"
+        }
       },
       {
         "key": "visits_outside_facility_number",
@@ -139,7 +143,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "reference_edit_text_hint": "#Total other visit",
-        "repeating_group_label": "Other visit",
+        "repeating_group_label": "Previous visit",
         "reference_edit_text": "Number of other visit",
         "label_text_style": "bold",
         "relevance": {
@@ -156,9 +160,13 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
-            "hint": "Date of other visit"
+            "hint": "Date of previous visit"
           }
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Field is required"
+        }
       },
       {
         "key": "visit_id",
@@ -249,7 +257,11 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Provide choose the pnc complications"
+        }
       },
       {
         "key": "pnc_complications_other",
@@ -677,7 +689,13 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ]
+        ],
+        "relevance": {
+          "step2:fp_counsel": {
+            "type": "string",
+            "ex": "equalTo(., \"yes\")"
+          }
+        }
       },
       {
         "key": "fp_method_other",
@@ -749,7 +767,13 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ]
+        ],
+        "relevance": {
+          "step2:itn_given": {
+            "type": "string",
+            "ex": "equalTo(., \"not_done\")"
+          }
+        }
       },
       {
         "key": "itn_given_notdone_other",
@@ -808,7 +832,7 @@
             "calculation": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-file": "pnc/pnc_visit_calculation_rules.yml"
+                  "rules-dynamic": "pnc/pnc_visit_calculation_rules.yml"
                 }
               }
             }
@@ -836,7 +860,11 @@
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               }
-            ]
+            ],
+            "v_required": {
+              "value": "true",
+              "err": "Please choose current baby status"
+            }
           },
           {
             "key": "date_of_death_baby",
@@ -1058,7 +1086,9 @@
               "step3:baby_danger_signs": {
                 "ex-checkbox": [
                   {
-                    "or": ["other"]
+                    "or": [
+                      "other"
+                    ]
                   }
                 ]
               }
@@ -1076,7 +1106,9 @@
               "step3:baby_danger_signs": {
                 "ex-checkbox": [
                   {
-                    "not": ["none"]
+                    "not": [
+                      "none"
+                    ]
                   }
                 ]
               }
@@ -1172,7 +1204,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-file": "pnc/pnc_visit_relevance_rules.yml"
+                  "rules-dynamic": "pnc/pnc_visit_relevance_rules.yml"
                 }
               }
             },
@@ -1224,7 +1256,13 @@
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               }
-            ]
+            ],
+            "relevance": {
+              "step3:mother_baby_pairing": {
+                "type": "string",
+                "ex": "equalTo(., \"no\")"
+              }
+            }
           },
           {
             "key": "not_art_pairing_reason_other",
@@ -1282,7 +1320,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-file": "pnc/pnc_visit_relevance_rules.yml"
+                  "rules-dynamic": "pnc/pnc_visit_relevance_rules.yml"
                 }
               }
             },

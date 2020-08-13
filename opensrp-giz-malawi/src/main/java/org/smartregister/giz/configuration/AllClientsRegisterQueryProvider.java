@@ -52,7 +52,7 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
             return sqlQuery.replace("$latest_start_visit_date", oneDayAgo);
         } else {
             return "SELECT object_id FROM " +
-                    "(SELECT object_id, last_interacted_with FROM ec_client_search) " +
+                    "(SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL and is_closed == 0 ) " +
                     "ORDER BY last_interacted_with DESC";
         }
     }

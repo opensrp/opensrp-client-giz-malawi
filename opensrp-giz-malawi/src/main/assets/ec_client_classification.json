@@ -172,13 +172,6 @@
           },
           {
             "field": "eventType",
-            "field_value": "PNC Close",
-            "closes_case": [
-              "ec_client"
-            ]
-          },
-          {
-            "field": "eventType",
             "field_value": "PNC Medic Information",
             "creates_case": [
               "pnc_registration_details",

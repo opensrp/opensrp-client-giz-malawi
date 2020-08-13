@@ -74,7 +74,7 @@ public class GizUtilsTest {
         client.setDeathdate(new DateTime());
         EventClient eventClient = new EventClient(new Event(), client);
 
-        GizUtils.updateChildDeath(eventClient);
+        GizUtils.updateClientDeath(eventClient);
 
         Mockito.verify(allCommonsRepository).update((String) argumentCaptorUpdateChildTable.capture(), (ContentValues) argumentCaptorUpdateChildTable.capture(), (String) argumentCaptorUpdateChildTable.capture());
         Mockito.verify(allCommonsRepository).updateSearch((String) argumentCaptorUpdateChildFtsTable.capture());

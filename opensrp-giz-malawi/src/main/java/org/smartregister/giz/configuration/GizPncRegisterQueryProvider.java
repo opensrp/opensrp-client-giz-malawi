@@ -58,9 +58,10 @@ public class GizPncRegisterQueryProvider extends PncRegisterQueryProviderContrac
     @NonNull
     @Override
     public String mainSelectWhereIDsIn() {
-        return "SELECT ec_client.id AS _id , pmi.base_entity_id AS pmi_base_entity_id, ec_client.first_name , ec_client.last_name , '' AS middle_name , ec_client.gender , ec_client.dob , '' AS home_address, ec_client.relationalid , ec_client.opensrp_id AS register_id , ec_client.last_interacted_with, 'ec_client' as entity_table, register_type, pvi.created_at AS latest_visit_date, pmi.hiv_status_current, pmi.delivery_date FROM ec_client " +
+        return "SELECT ec_client.id AS _id , pmi.base_entity_id AS pmi_base_entity_id, ec_client.first_name , ec_client.last_name , '' AS middle_name , ec_client.gender , ec_client.dob , '' AS home_address, ec_client.relationalid , ec_client.opensrp_id AS register_id , ec_client.last_interacted_with, 'ec_client' as entity_table, register_type, pvi.created_at AS latest_visit_date, pmi.hiv_status_current, pmi.delivery_date , ppf.base_entity_id as ppf_id, ppf.form_type as ppf_form_type  FROM ec_client " +
                 " LEFT JOIN (select mother_base_entity_id,created_at from pnc_visit_info ORDER by created_at DESC limit 1) pvi on pvi.mother_base_entity_id = ec_client.base_entity_id " +
                 " LEFT JOIN pnc_medic_info AS pmi ON pmi.base_entity_id = ec_client.base_entity_id " +
+                " LEFT JOIN pnc_partial_form ppf ON ppf.base_entity_id = ec_client.base_entity_id " +
                 " INNER JOIN client_register_type ON ec_client.base_entity_id = client_register_type.base_entity_id " +
                 " WHERE client_register_type.register_type = 'pnc' AND ec_client.is_closed = 0 AND ec_client.id IN (%s) " +
                 "ORDER BY ec_client.last_interacted_with DESC";

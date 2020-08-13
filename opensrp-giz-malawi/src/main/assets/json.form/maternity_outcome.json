@@ -434,7 +434,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "reference_edit_text_hint": "#Total live births",
+        "reference_edit_text_hint": "#Total live births in this pregnancy",
         "repeating_group_label": "Baby Born Alive",
         "reference_edit_text": "Number of live births",
         "value": [
@@ -566,14 +566,22 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "edit_text",
-            "hint": "Birth Height(cm)",
+            "hint": "Birth length(cm)",
+            "v_min": {
+              "value": "40",
+              "err": "The child's birth length should be equal or greater than 40"
+            },
+            "v_max": {
+              "value": "55",
+              "err": "The child's birth length should be equal or less than 55"
+            },
             "v_numeric_integer": {
               "value": "true",
-              "err": "Enter a valid height"
+              "err": "Enter a valid length"
             },
             "v_required": {
               "value": "true",
-              "err": "Please enter the child's birth height"
+              "err": "Please enter the child's birth length"
             }
           },
           {
@@ -617,10 +625,6 @@
             "v_max": {
               "err": "The APGAR score should be 10 or less than 10",
               "value": "10"
-            },
-            "v_required": {
-              "value": "true",
-              "err": "Please enter the child's birth APGAR"
             }
           },
           {
@@ -666,7 +670,7 @@
               "value": "10"
             },
             "v_required": {
-              "value": "true",
+              "value": "false",
               "err": "Please enter the child's birth APGAR"
             }
           },
@@ -867,26 +871,6 @@
             }
           },
           {
-            "key": "newborn_survival_and_hiv_mgmt_label",
-            "type": "label",
-            "text": "Newborn Survival and HIV Management",
-            "has_bg": false,
-            "top_padding": "10dp",
-            "left_padding": "20dp",
-            "right_padding": "20dp",
-            "text_size": "14sp",
-            "text_color": "#000000",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "relevance": {
-              "step3:discharged_alive": {
-                "type": "string",
-                "ex": "equalTo(., \"Yes\")"
-              }
-            }
-          },
-          {
             "key": "bf_first_hour",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -916,16 +900,14 @@
             "type": "spinner",
             "hint": "HIV Status of the Child",
             "values": [
-              "Positive",
-              "Negative",
               "Unknown",
-              "Exposed"
+              "Exposed",
+              "Not Exposed"
             ],
             "openmrs_choice_ids": {
-              "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Unknown": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Exposed": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              "Exposed": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Not Exposed": ""
             },
             "relevance": {
               "rules-engine": {
@@ -961,7 +943,7 @@
         ],
         "v_required": {
           "value": true,
-          "err": "Please enter number a babies born"
+          "err": "Please enter number of babies born"
         },
         "relevance": {
           "step3:surviving_child": {
@@ -1023,12 +1005,10 @@
             "values": [
               "Fresh",
               "Macerated",
-              "Other"
             ],
             "openmrs_choice_ids": {
               "Fresh": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Macerated": "135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              "Macerated": "135436AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
             },
             "v_required": {
               "value": "true",

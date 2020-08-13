@@ -59,9 +59,9 @@ public class GizMaternityRegisterQueryProvider extends MaternityRegisterQueryPro
     @NonNull
     @Override
     public String mainSelectWhereIDsIn() {
-        return "SELECT ec_client.id AS _id , ec_client.first_name , ec_client.last_name , '' AS middle_name , ec_client.gender , ec_client.dob , '' AS home_address, mof.base_entity_id as mof_id , ec_client.relationalid , ec_client.opensrp_id AS register_id , ec_client.last_interacted_with, 'ec_client' as entity_table, maternity_details.ga_calculated, maternity_details.base_entity_id AS mmi_base_entity_id, register_type FROM ec_client LEFT JOIN maternity_medic_info maternity_details ON ec_client.base_entity_id = maternity_details.base_entity_id " +
+        return "SELECT ec_client.id AS _id , ec_client.first_name , ec_client.last_name , '' AS middle_name , ec_client.gender , ec_client.dob , '' AS home_address, mpf.base_entity_id as mpf_id, mpf.form_type as mpf_form_type , ec_client.relationalid , ec_client.opensrp_id AS register_id , ec_client.last_interacted_with, 'ec_client' as entity_table, maternity_details.ga_calculated, maternity_details.base_entity_id AS mmi_base_entity_id, register_type FROM ec_client LEFT JOIN maternity_medic_info maternity_details ON ec_client.base_entity_id = maternity_details.base_entity_id " +
                 " INNER JOIN client_register_type ON ec_client.base_entity_id = client_register_type.base_entity_id " +
-                " LEFT JOIN maternity_partial_form mof ON mof.base_entity_id = ec_client.base_entity_id " +
+                " LEFT JOIN maternity_partial_form mpf ON mpf.base_entity_id = ec_client.base_entity_id " +
                 " WHERE client_register_type.register_type = 'maternity' AND ec_client.is_closed = 0 AND ec_client.id IN (%s) " +
                 "ORDER BY ec_client.last_interacted_with DESC";
     }
