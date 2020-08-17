@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +48,12 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         if (view != null) {
-            /*
+
             SwitchCompat switchSelection = view.findViewById(R.id.switch_selection);
             if (switchSelection != null) {
-                switchSelection.setText(getDueOnlyText());
+                switchSelection.setText(R.string.due_only);
                 switchSelection.setOnClickListener(registerActionHandler);
-            }*/
+            }
 
             View topLeftLayout = view.findViewById(R.id.top_left_layout);
             topLeftLayout.setVisibility(View.VISIBLE);
@@ -88,6 +89,20 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
             pncRegisterActivity.startFormActivity(pncMetadata.getPncRegistrationFormName()
                     , null
                     , null);
+        }
+    }
+
+    @Override
+    public void setupViews(View view) {
+        super.setupViews(view);
+    }
+
+    @Override
+    protected void onViewClicked(View view) {
+        super.onViewClicked(view);
+
+        if (view.getId() == R.id.switch_selection) {
+            toggleFilterSelection(getActivity().findViewById(R.id.due_only_layout));
         }
     }
 
@@ -139,4 +154,8 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         }
     }
 
+    @Override
+    protected String getDueFilterQuery() {
+        return " ( ((ddNow between 2 and 8) and ddNow >= 5) || ((ddNow between 8 and 28) and ddNow > 18) || ((ddNow between 28 and 29) and ddNow > 36)) ";
+    }
 }

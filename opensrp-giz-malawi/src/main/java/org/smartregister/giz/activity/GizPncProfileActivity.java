@@ -32,7 +32,7 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
     public void generateRepeatingGrpFields(JSONObject json, String entityId) {
         if (PncConstants.EventTypeConstants.PNC_MEDIC_INFO.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
             try {
-                RepeatingGroupGenerator repeatingGroupGenerator = new RepeatingGroupGenerator(json.optJSONObject("step4"),
+                RepeatingGroupGenerator repeatingGroupGenerator = new RepeatingGroupGenerator(json.optJSONObject("step4"), "step4",
                         "baby_alive_group",
                         outcomeColumnMap(),
                         PncDbConstants.KEY.BASE_ENTITY_ID,
@@ -40,14 +40,16 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
                 repeatingGroupGenerator
                         .setFieldsWithoutSpecialViewValidation
                                 (new HashSet<>(
-                                        Arrays.asList("birth_weight_entered", "birth_height_entered", "birth_record_date", "baby_gender", "baby_first_name", "baby_last_name", "baby_dob")));
+                                        Arrays.asList("birth_weight_entered", "birth_height_entered",
+                                                "birth_record_date", "baby_gender", "baby_first_name",
+                                                "baby_last_name", "baby_dob")));
                 repeatingGroupGenerator.init();
             } catch (JSONException e) {
                 Timber.e(e);
             }
         } else if (PncConstants.EventTypeConstants.PNC_VISIT.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
             try {
-                new ChildStatusRepeatingGroupGenerator(json.optJSONObject("step3"),
+                new ChildStatusRepeatingGroupGenerator(json.optJSONObject("step3"), "step3",
                         "child_status",
                         visitColumnMap(),
                         PncDbConstants.KEY.BASE_ENTITY_ID,

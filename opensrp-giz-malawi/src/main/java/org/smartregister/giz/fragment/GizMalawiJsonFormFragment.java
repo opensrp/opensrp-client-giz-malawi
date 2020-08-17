@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
+import com.vijay.jsonwizard.interactors.JsonFormInteractor;
 import com.vijay.jsonwizard.presenters.JsonFormFragmentPresenter;
 import com.vijay.jsonwizard.utils.FormUtils;
 import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
@@ -79,7 +80,7 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
 
     @Override
     protected JsonFormFragmentPresenter createPresenter() {
-        return new JsonFormFragmentPresenter(this, ChildFormInteractor.getChildInteractorInstance());
+        return new JsonFormFragmentPresenter(this, JsonFormInteractor.getInstance());
     }
 
     public Context context() {

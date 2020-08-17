@@ -2,6 +2,7 @@ package org.smartregister.giz.activity;
 
 import android.os.Bundle;
 
+import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,7 +20,7 @@ import timber.log.Timber;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
  */
 
-public class GizJsonFormReportsActivity extends StockJsonFormActivity {
+public class GizJsonFormReportsActivity extends JsonFormActivity {
 
     private GizMalawiJsonFormFragment gizMalawiJsonFormFragment;
 
@@ -38,7 +39,7 @@ public class GizJsonFormReportsActivity extends StockJsonFormActivity {
     @Override
     public void writeValue(String stepName, String key, String value, String openMrsEntityParent, String openMrsEntity, String openMrsEntityId) throws JSONException {
         super.writeValue(stepName, key, value, openMrsEntityParent, openMrsEntity, openMrsEntityId);
-        refreshCalculateLogic(key, value);
+        //refreshCalculateLogic(key, value);
     }
 
     public boolean checkIfBalanceNegative() {

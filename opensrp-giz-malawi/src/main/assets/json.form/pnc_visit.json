@@ -1141,7 +1141,7 @@
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-file": "pnc/pnc_visit_relevance_rules.yml"
+                  "rules-dynamic": "pnc/pnc_visit_relevance_rules.yml"
                 }
               }
             },
@@ -1170,12 +1170,6 @@
             "type": "native_radio",
             "label": "Was the mother referred to the ART clinic for mother/infant pairing?",
             "label_text_style": "bold",
-            "relevance": {
-              "step3:baby_hiv_exposed": {
-                "type": "string",
-                "ex": "equalTo(., \"yes\")"
-              }
-            },
             "options": [
               {
                 "key": "yes",
@@ -1191,23 +1185,22 @@
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               }
-            ]
+            ],
+            "relevance": {
+              "step3:baby_hiv_exposed": {
+                "type": "string",
+                "ex": "equalTo(., \"yes\")"
+              }
+            }
           },
           {
             "key": "baby_hiv_treatment",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "type": "check_box",
+            "type": "native_radio",
             "label_text_style": "bold",
             "label": "Which HIV treatment is being given?",
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "pnc/pnc_visit_relevance_rules.yml"
-                }
-              }
-            },
             "exclusive": [
               "none"
             ],
@@ -1224,7 +1217,14 @@
                 "key": "cotrimoxazole_prophylaxis_therapy",
                 "text": "Cotrimoxazole Prophylaxis Therapy"
               }
-            ]
+            ],
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "pnc/pnc_visit_relevance_rules.yml"
+                }
+              }
+            }
           },
           {
             "key": "not_art_pairing_reason",

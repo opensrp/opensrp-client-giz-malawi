@@ -98,6 +98,8 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
         String providerId = sharedPreferences.fetchRegisteredANM();
         List<String> params = new ArrayList<>();
         params.add("locations_id" + "=" + sharedPreferences.fetchDefaultLocalityId(providerId));
+        params.add("serverVersion=0");
+
         params.add("identifier" + "=" + POPULATION_CHARACTERISTICS);
         return params;
     }

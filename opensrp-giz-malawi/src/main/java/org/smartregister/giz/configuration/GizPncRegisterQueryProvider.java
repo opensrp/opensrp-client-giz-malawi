@@ -2,7 +2,6 @@ package org.smartregister.giz.configuration;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
@@ -17,12 +16,13 @@ public class GizPncRegisterQueryProvider extends PncRegisterQueryProviderContrac
     @NonNull
     @Override
     public String getObjectIdsQuery(@Nullable String filters, @Nullable String mainCondition) {
-        if (TextUtils.isEmpty(filters)) {
+        if (StringUtils.isBlank(filters) && StringUtils.isBlank(mainCondition)) {
             return "SELECT object_id, last_interacted_with FROM ec_client_search INNER JOIN client_register_type ON ec_client_search.object_id = client_register_type.base_entity_id " +
                     "WHERE client_register_type.register_type = 'pnc' and ec_client_search.is_closed = 0 ORDER BY ec_client_search.last_interacted_with DESC";
         } else {
-            String sql = "SELECT object_id FROM ec_client_search INNER JOIN client_register_type ON ec_client_search.object_id = client_register_type.base_entity_id " +
-                    "WHERE client_register_type.register_type = 'pnc' and ec_client_search.is_closed = 0 AND ec_client_search.date_removed IS NULL AND ec_client_search.phrase MATCH '%s*'" +
+            String sql = "SELECT object_id,cast (((julianday('now' ,'localtime')- julianday((substr(pmi.delivery_date, 7) || \"-\" || substr(pmi.delivery_date,4,2) || \"-\" || substr(pmi.delivery_date, 1,2)), 'localtime'))) as INTEGER) as ddNow FROM ec_client_search INNER JOIN client_register_type ON ec_client_search.object_id = client_register_type.base_entity_id " +
+                    " LEFT JOIN pnc_medic_info pmi ON ec_client_search.object_id = pmi.base_entity_id " +
+                    getMainCondition(mainCondition) + getFilters(filters) +
                     "ORDER BY ec_client_search.last_interacted_with DESC";
             sql = sql.replace("%s", filters);
             return sql;
@@ -36,6 +36,22 @@ public class GizPncRegisterQueryProvider extends PncRegisterQueryProviderContrac
         return new String[]{
                 sqb.countQueryFts("ec_client", null, mainCondition, filters)
         };
+    }
+
+    public String getFilters(String filters) {
+        String filter = "";
+        if (StringUtils.isNotBlank(filters)) {
+            filter = " AND ec_client_search.phrase MATCH '%s*' ";
+        }
+        return filter;
+    }
+
+    public String getMainCondition(String mainCondition) {
+        String condition = "";
+        if (StringUtils.isNotBlank(mainCondition)) {
+            condition = " AND " + mainCondition;
+        }
+        return " WHERE client_register_type.register_type = 'pnc' and ec_client_search.is_closed = 0 AND ec_client_search.date_removed IS NULL " + condition;
     }
 
     public String getCountExecuteQuery(String tempMainCondition, String tempFilters) {

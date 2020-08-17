@@ -14,8 +14,8 @@ import java.util.Map;
 
 public class ChildStatusRepeatingGroupGenerator extends RepeatingGroupGenerator {
 
-    public ChildStatusRepeatingGroupGenerator(@NonNull JSONObject step, @NonNull String repeatingGroupKey, @NonNull Map<String, String> columnMap, @NonNull String uniqueKeyField, @NonNull List<HashMap<String, String>> storedValues) {
-        super(step, repeatingGroupKey, columnMap, uniqueKeyField, storedValues);
+    public ChildStatusRepeatingGroupGenerator(@NonNull JSONObject step, @NonNull String stepName, @NonNull String repeatingGroupKey, @NonNull Map<String, String> columnMap, @NonNull String uniqueKeyField, @NonNull List<HashMap<String, String>> storedValues) {
+        super(step, stepName, repeatingGroupKey, columnMap, uniqueKeyField, storedValues);
     }
 
     @Override

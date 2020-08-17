@@ -47,7 +47,7 @@ import timber.log.Timber;
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-11-29
  */
 
-public class PncRegisterActivity extends BasePncRegisterActivity  implements NavDrawerActivity, NavigationMenuContract {
+public class PncRegisterActivity extends BasePncRegisterActivity implements NavDrawerActivity, NavigationMenuContract {
 
     private NavigationMenu navigationMenu;
 
@@ -146,7 +146,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity  implements Nav
     public void generateRepeatingGrpFields(JSONObject json, String entityId) {
         if (PncConstants.EventTypeConstants.PNC_MEDIC_INFO.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
             try {
-                RepeatingGroupGenerator repeatingGroupGenerator = new RepeatingGroupGenerator(json.optJSONObject("step4"),
+                RepeatingGroupGenerator repeatingGroupGenerator = new RepeatingGroupGenerator(json.optJSONObject("step4"), "step4",
                         "baby_alive_group",
                         outcomeColumnMap(),
                         PncDbConstants.KEY.BASE_ENTITY_ID,
@@ -161,7 +161,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity  implements Nav
             }
         } else if (PncConstants.EventTypeConstants.PNC_VISIT.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
             try {
-                new ChildStatusRepeatingGroupGenerator(json.optJSONObject("step3"),
+                new ChildStatusRepeatingGroupGenerator(json.optJSONObject("step3"), "step3",
                         "child_status",
                         visitColumnMap(),
                         PncDbConstants.KEY.BASE_ENTITY_ID,

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +18,7 @@ import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizReportUtils;
+import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.util.FormUtils;
 
 import java.util.Collections;
@@ -120,9 +122,10 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
         JSONObject vRequired = new JSONObject();
         vRequired.put(JsonFormConstants.VALUE, "true");
         vRequired.put(JsonFormConstants.ERR, "Specify: " + label);
-        JSONObject vNumeric = new JSONObject();
-        vNumeric.put(JsonFormConstants.VALUE, "true");
-        vNumeric.put(JsonFormConstants.ERR, "Value should be numeric");
+
+        JSONObject vRegex = new JSONObject();
+        vRegex.put(JsonFormConstants.VALUE, "^[0-9]*$");//PS: dont use v_numeric
+        vRegex.put(JsonFormConstants.ERR, "Value should be numeric");
 
         String key = monthlyTally.getIndicator();
         if (monthlyTally.getGrouping() != null) {
@@ -142,8 +145,12 @@ public class StartDraftMonthlyFormTask extends AsyncTask<Void, Void, Intent> {
                             .contains(monthlyTally.getIndicatorCode()) && firstTimeEdit) {
                         jsonObject.put(JsonFormConstants.VALUE, "");
                     }*/
+//                            "v_regex": {
+//          "value": "([0][0-9]{9})|\\s*",
+//          "err": "Number must begin with 0 and must be a total of 10 digits in length"
+//        }
         jsonObject.put(JsonFormConstants.V_REQUIRED, vRequired);
-        jsonObject.put(JsonFormConstants.V_NUMERIC, vNumeric);
+        jsonObject.put(JsonFormConstants.V_REGEX, vRegex);
         jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_PARENT, "");
         jsonObject.put(JsonFormConstants.OPENMRS_ENTITY, "");
         jsonObject.put(JsonFormConstants.OPENMRS_ENTITY_ID, "");
