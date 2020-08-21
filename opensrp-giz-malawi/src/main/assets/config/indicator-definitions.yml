@@ -184,7 +184,7 @@ indicators:
     grouping: "child"
 
   - key: "ME_PAB_Static"
-    description: "ME_Recurring_Age_Static_label"
+    description: "ME PAB Static"
     indicatorQuery: "SELECT 'Target' pab,count(*)-1 UNION
                       SELECT
                         CASE
@@ -201,7 +201,6 @@ indicators:
                       GROUP By pab"
     isMultiResult: true
     expectedIndicators:
-      - "ME_PAB_Static_No"
       - "ME_PAB_Static_Yes"
       - "ME_PAB_Static_Target"
     grouping: "child"
@@ -224,9 +223,7 @@ indicators:
                       GROUP By pab"
     isMultiResult: true
     expectedIndicators:
-      - "ME_PAB_Outreach_No"
       - "ME_PAB_Outreach_Yes"
-      - "ME_PAB_Outreach_Target"
     grouping: "child"
 
   - key: "ME_HPV"
@@ -486,7 +483,7 @@ indicators:
     grouping: "child"
 
   - key: "ME_VitA_Age_Static"
-    description: "ME_Recurring_Age_Static_label"
+    description: "ME Vit A"
     indicatorQuery: "SELECT recur_type.name,
                        CASE
                             WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
@@ -548,7 +545,7 @@ indicators:
     grouping: "child"
 
   - key: "ME_Deworm_Age_Static"
-    description: "ME_Recurring_Age_Static_label"
+    description: "ME Deworm Age Static"
     indicatorQuery: "SELECT recur_type.type,
                        CASE
                             WHEN round(julianday('now')-julianday(ec_client.dob)) > 730.0 THEN 'Over_2'
@@ -1997,6 +1994,7 @@ indicators:
                       WHEN obstetric_complications LIKE '%Ruptured Uterus%' THEN 'RU'
                       WHEN obstetric_complications LIKE '%Retained placenta%' THEN 'RP'
                       WHEN obstetric_complications LIKE '%Fetal distress%' THEN 'FD'
+                      WHEN obstetric_complications LIKE '%Premature labour%' THEN 'PL'
                       ELSE 'Null'
                     END complications,count (*)
                     FROM maternity_outcome
@@ -2033,14 +2031,14 @@ indicators:
       - "ME_MAT_Complications_RU"
       - "ME_MAT_Complications_RP"
       - "ME_MAT_Complications_FD"
+      - "ME_MAT_Complications_PL"
       - "ME_MAT_Complications_Other"
       - "ME_MAT_Complications_None"
     grouping: "maternity"
 
   - key: "ME_MAT_Care"
     description: "Maternity obstetric care"
-    indicatorQuery: "SELECT 'None',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%None%' AND '%s' = strftime('%Y-%m-%d', date)
-                   UNION SELECT 'Ox',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Oxytocin%' AND '%s' = strftime('%Y-%m-%d', date)
+    indicatorQuery: "SELECT 'Ox',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Oxytocin%' AND '%s' = strftime('%Y-%m-%d', date)
                    UNION SELECT 'AC',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Anticonvulsants%' AND '%s' = strftime('%Y-%m-%d', date)
                    UNION SELECT 'Abx',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Antibiotics%' AND '%s' = strftime('%Y-%m-%d', date)
                    UNION SELECT 'Acs',count(*) FROM maternity_outcome WHERE (obstetric_care LIKE '%Antenatal corticosteroids (Dose 1)%' OR obstetric_care LIKE '%Antenatal corticosteroids (Dose 2)%') AND '%s' = strftime('%Y-%m-%d', date)
@@ -2052,7 +2050,6 @@ indicators:
 
     isMultiResult: true
     expectedIndicators:
-      - "ME_MAT_Care_None"
       - "ME_MAT_Care_Ox"
       - "ME_MAT_Care_AC"
       - "ME_MAT_Care_Abx"
@@ -2112,8 +2109,6 @@ indicators:
                    GROUP BY mother_status"
     isMultiResult: true
     expectedIndicators:
-      - "ME_MAT_Mother_Status_Alive"
-      - "ME_MAT_Mother_Status_BID"
       - "ME_MAT_Mother_Status_DBD"
     grouping: "maternity"
 
@@ -2182,8 +2177,7 @@ indicators:
                    UNION SELECT 'Prem',count(*) FROM maternity_child WHERE complications LIKE '%premature%' AND '%s' = strftime('%Y-%m-%d', event_date)
                    UNION SELECT 'Asphy',count(*) FROM maternity_child WHERE complications LIKE '%asphyxia%' AND '%s' = strftime('%Y-%m-%d', event_date)
                    UNION SELECT 'Sep',count(*) FROM maternity_child WHERE complications LIKE '%sepsis%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'Defects',count(*) FROM maternity_child WHERE complications LIKE '%birth defects%' AND '%s' = strftime('%Y-%m-%d', event_date)
-                   UNION SELECT 'Other',count(*) FROM maternity_child WHERE (complications_other IS NOT NULL OR complications ='') AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Other',count(*) FROM maternity_child WHERE (complications_other IS NOT NULL OR complications ='' OR complications LIKE '%birth defects%') AND '%s' = strftime('%Y-%m-%d', event_date)
                    UNION SELECT 'Low_Weight',count(*) from maternity_child WHERE Weight<'2500' AND '%s' = strftime('%Y-%m-%d', event_date)"
 
     isMultiResult: true
@@ -2192,7 +2186,6 @@ indicators:
       - "ME_MAT_Baby_Complications_Prem"
       - "ME_MAT_Baby_Complications_Asphy"
       - "ME_MAT_Baby_Complications_Sep"
-      - "ME_MAT_Baby_Complications_Defects"
       - "ME_MAT_Baby_Complications_Other"
       - "ME_MAT_Baby_Complications_Low_Weight"
     grouping: "maternity"
@@ -2236,7 +2229,7 @@ indicators:
 
   - key: "ME_MAT_ITN_Given"
     description: "Maternity ITN Given"
-    indicatorQuery: "SELECT count(*) from maternity_outcome WHERE itn_given = 'Yes' and '%s' = strftime('%Y-%m-%d', date)"
+    indicatorQuery: "SELECT count(*) from maternity_outcome WHERE itn_given = 'yes' and '%s' = strftime('%Y-%m-%d', date)"
     grouping: "maternity"
 
   - key: "ME_MAT_Child_HIV_Status_Unknown"
@@ -2309,13 +2302,42 @@ indicators:
       - "ME_PNC_Checked_in_7days"
       - "ME_PNC_Checked_in_42days"
     grouping: "pnc"
-    
+
+  - key: "ME_PNC_Baby_Checked_in"
+    description: "Mother Checked in"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN pnc_visit_period < '2' THEN '2days'
+                     WHEN pnc_visit_period < '7' THEN '7days'
+                     WHEN pnc_visit_period < '42' THEN '42days'
+                     ELSE 'MoreThan42'  END duration,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', visit_date)"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Baby_Checked_in_2days"
+      - "ME_PNC_Baby_Checked_in_7days"
+      - "ME_PNC_Baby_Checked_in_42days"
+    grouping: "pnc"
+
   - key: "ME_PNC_Checked_In_Twice_In_7days"
     description: "Mother Checked in 2x in 7 Days"
     indicatorQuery: "SELECT count(*) FROM (SELECT count(*) counter,visit_date
                      FROM pnc_visit_info
                      WHERE pnc_visit_period < '7'
                      GROUP BY mother_base_entity_id) a
+                     WHERE a.counter>=2
+                     AND '%s' = strftime('%Y-%m-%d', a.visit_date)"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Baby_Checked_In_Twice_In_7days"
+    description: "Mother Checked in 2x in 7 Days"
+    indicatorQuery: "SELECT count(*) FROM (SELECT count(*) counter,visit_date
+                     FROM pnc_visit_info a
+                     JOIN pnc_visit_child_status b
+                     ON a.visit_id=b.visit_id
+                     WHERE a.pnc_visit_period < '7'
+                     GROUP BY a.visit_id) a
                      WHERE a.counter>=2
                      AND '%s' = strftime('%Y-%m-%d', a.visit_date)"
     grouping: "pnc"
@@ -2448,13 +2470,6 @@ indicators:
                      WHERE baby_hiv_treatment LIKE '%nevirapine%'
                      AND '%s' =  strftime('%Y-%m-%d', visit_date)
                      "
-    grouping: "pnc"
-
-  - key: "ME_PNC_ITN"
-    description: "ITN given"
-    indicatorQuery: "SELECT count(*) counter FROM pnc_visit_info b
-                     WHERE itn_given='yes'
-                     AND '%s' =  strftime('%Y-%m-%d', visit_date)"
     grouping: "pnc"
 
   - key: "ME_PNC_MOTHER_DEAD"
