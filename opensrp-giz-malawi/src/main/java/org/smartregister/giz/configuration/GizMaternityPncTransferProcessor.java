@@ -82,8 +82,8 @@ public class GizMaternityPncTransferProcessor implements ClientTransferProcessor
         try {
             if (StringUtils.isNotBlank(baseEntityId)) {
                 return GizMalawiApplication.getInstance().eventClientRepository().rawQuery(GizMalawiApplication.getInstance().eventClientRepository().getReadableDatabase(),
-                        "select * from " + "maternity_medic_info " +
-                                " where " + MaternityDbConstants.Column.MaternityDetails.BASE_ENTITY_ID + " = '" + getBaseEntityId() + "' limit 1").get(0);
+                        "select * from " + "maternity_medic_info mmi left join maternity_registration_details mrd on mmi.base_entity_id = mrd.base_entity_id " +
+                                " where mmi." + MaternityDbConstants.Column.MaternityDetails.BASE_ENTITY_ID + " = '" + getBaseEntityId() + "' limit 1").get(0);
             }
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             Timber.e(e);

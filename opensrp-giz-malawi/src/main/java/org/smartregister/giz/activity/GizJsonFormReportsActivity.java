@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.GizMalawiJsonFormFragment;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.stock.activity.StockJsonFormActivity;
 
 import timber.log.Timber;
 

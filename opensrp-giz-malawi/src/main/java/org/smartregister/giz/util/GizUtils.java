@@ -3,9 +3,11 @@ package org.smartregister.giz.util;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -22,28 +24,36 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.repository.PatientRepository;
+import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.form.FormLocation;
+import org.smartregister.domain.tag.FormTag;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.GizAncProfileActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
 import org.smartregister.giz.event.BaseEvent;
 import org.smartregister.giz.listener.OnLocationChangeListener;
 import org.smartregister.giz.task.OpenMaternityProfileTask;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.widget.GizTreeViewDialog;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.pnc.PncLibrary;
+import org.smartregister.pnc.pojo.PncMetadata;
+import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.AssetHandler;
@@ -51,6 +61,8 @@ import org.smartregister.util.AssetHandler;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -371,4 +383,63 @@ public class GizUtils extends Utils {
                     }
                 });
     }
+
+    public static void openPncProfile(Context activity, String baseEntityId) {
+        final AppExecutors appExecutors = new AppExecutors();
+        appExecutors.diskIO().execute(() -> {
+            PncMetadata pncMetadata = PncLibrary.getInstance().getPncConfiguration().getPncMetadata();
+
+            GizPncRegisterQueryProvider pncRegisterQueryProvider = new GizPncRegisterQueryProvider();
+            String query = pncRegisterQueryProvider.mainSelectWhereIDsIn().replace("%s", "'" + baseEntityId + "'");
+            Cursor cursor = PncLibrary.getInstance().getRepository().getReadableDatabase().rawQuery(query, null);
+            cursor.moveToFirst();
+
+            CommonPersonObject personinlist = PncLibrary.getInstance().context().commonrepository("ec_client").readAllcommonforCursorAdapter(cursor);
+            CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(),
+                    personinlist.getDetails(), personinlist.getDetails().get("FWHOHFNAME"));
+            pClient.setColumnmaps(personinlist.getColumnmaps());
+
+            if (pncMetadata != null) {
+                Intent intent = new Intent(activity, pncMetadata.getProfileActivity());
+                intent.putExtra(PncConstants.IntentKey.CLIENT_OBJECT, pClient);
+                activity.startActivity(intent);
+            }
+        });
+    }
+
+    public static void createOpdTransferEvent(String eventType, String baseEntityId,
+                                              JSONArray fields) {
+        try {
+            FormTag formTag = GizJsonFormUtils.getFormTag(Utils.getAllSharedPreferences());
+
+            org.smartregister.clientandeventmodel.Event event = ANCJsonFormUtils.createEvent(fields,
+                    new JSONObject(), formTag, baseEntityId, eventType, "");
+
+            GizJsonFormUtils.tagEventSyncMetadata(event);
+
+            saveEvent(event, baseEntityId);
+
+            initiateEventProcessing(Collections.singletonList(event.getFormSubmissionId()));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private static void saveEvent(@NonNull org.smartregister.clientandeventmodel.Event event, @NonNull String baseEntityId) throws JSONException {
+        JSONObject eventJson = new JSONObject(GizJsonFormUtils.gson.toJson(event));
+        GizMalawiApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
+    }
+
+    public static void initiateEventProcessing(List<String> formSubmissionIds) throws Exception {
+        long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+        Date lastSyncDate = new Date(lastSyncTimeStamp);
+        GizMalawiApplication.getInstance().getClientProcessor()
+                .processClient(
+                        GizMalawiApplication.getInstance()
+                                .getEcSyncHelper()
+                                .getEvents(formSubmissionIds));
+
+        Utils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+    }
+
 }

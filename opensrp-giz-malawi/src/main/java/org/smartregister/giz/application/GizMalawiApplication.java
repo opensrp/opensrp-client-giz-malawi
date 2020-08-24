@@ -35,6 +35,7 @@ import org.smartregister.giz.activity.ChildProfileActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.GizAncProfileActivity;
 import org.smartregister.giz.activity.GizMaternityProfileActivity;
+import org.smartregister.giz.activity.GizOpdProfileActivity;
 import org.smartregister.giz.activity.GizPncFormActivity;
 import org.smartregister.giz.activity.GizPncProfileActivity;
 import org.smartregister.giz.activity.LoginActivity;
@@ -386,7 +387,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private void setupOPDLibrary() {
         OpdMetadata opdMetadata = new OpdMetadata(OpdConstants.JSON_FORM_KEY.NAME, OpdDbConstants.KEY.TABLE,
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
-                OpdConstants.CONFIG, OpdFormActivity.class, BaseOpdProfileActivity.class, true);
+                OpdConstants.CONFIG, OpdFormActivity.class, GizOpdProfileActivity.class, true);
 
         opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
         opdMetadata.setLookUpQueryForOpdClient(String.format("select id as _id, %s, %s, %s, %s, %s, %s, %s, national_id from " + OpdDbConstants.KEY.TABLE + " where [condition] ", OpdConstants.KEY.RELATIONALID, OpdConstants.KEY.FIRST_NAME,

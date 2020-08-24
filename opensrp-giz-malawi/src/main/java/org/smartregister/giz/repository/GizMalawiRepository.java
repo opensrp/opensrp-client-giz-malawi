@@ -140,7 +140,6 @@ public class GizMalawiRepository extends Repository {
         PncStillBornRepository.createTable(database);
         PncVisitInfoRepository.createTable(database);
         PncVisitChildStatusRepository.createTable(database);
-        PncRegistrationDetailsRepository.createTable(database);
         PncOtherVisitRepository.createTable(database);
         PncPartialFormRepository.createTable(database);
         PncMedicInfoRepository.createTable(database);

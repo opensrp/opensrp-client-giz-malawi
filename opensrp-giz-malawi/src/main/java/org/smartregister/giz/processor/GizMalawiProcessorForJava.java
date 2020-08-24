@@ -59,8 +59,8 @@ import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.pnc.PncLibrary;
+import org.smartregister.pnc.pojo.PncBaseDetails;
 import org.smartregister.pnc.pojo.PncChild;
-import org.smartregister.pnc.pojo.PncRegistrationDetails;
 import org.smartregister.pnc.pojo.PncStillBorn;
 import org.smartregister.pnc.processor.PncMiniClientProcessorForJava;
 import org.smartregister.pnc.utils.PncConstants;
@@ -83,6 +83,8 @@ import java.util.List;
 
 import timber.log.Timber;
 
+import static org.smartregister.util.Utils.getAllSharedPreferences;
+
 public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private static GizMalawiProcessorForJava instance;
@@ -93,7 +95,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     private HashMap<String, DateTime> clientsForAlertUpdates = new HashMap<>();
     private List<String> coreProcessedEvents = Arrays.asList(Constants.EventType.BITRH_REGISTRATION, Constants.EventType.UPDATE_BITRH_REGISTRATION,
             Constants.EventType.NEW_WOMAN_REGISTRATION, OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
-            Constants.EventType.AEFI, Constants.EventType.ARCHIVE_CHILD_RECORD, ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER, ConstantsUtils.EventTypeUtils.CLOSE);
+            Constants.EventType.AEFI, Constants.EventType.ARCHIVE_CHILD_RECORD, ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER,
+            ConstantsUtils.EventTypeUtils.CLOSE, GizConstants.EventType.OPD_CHILD_TRANSFER, GizConstants.EventType.OPD_MATERNITY_TRANSFER,
+            GizConstants.EventType.OPD_ANC_TRANSFER, GizConstants.EventType.OPD_PNC_TRANSFER);
 
     private GizMalawiProcessorForJava(Context context) {
         super(context);
@@ -170,7 +174,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     processReport(event);
                     CoreLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(eventClient.getEvent().getFormSubmissionId());
                 } else if (eventType.equals(GizConstants.EventType.MATERNITY_PNC_TRANSFER)) {
-                    processMaternityPncTransfer(eventClient);
+                    processMaternityPncTransfer(eventClient, clientClassification);
                     CoreLibrary.getInstance().context().getEventClientRepository().markEventAsProcessed(eventClient.getEvent().getFormSubmissionId());
                 } else if (coreProcessedEvents.contains(eventType)) {
 
@@ -216,6 +220,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
                     }
 
+                    opdTransferHandler(eventClient, eventType, clientClassification);
+
 
                     if (clientClassification == null) {
                         continue;
@@ -255,6 +261,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
             // Unsync events that are should not be in this device
             processUnsyncEvents(unsyncEvents);
+
             // Process alerts for clients
             Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
 
@@ -263,7 +270,34 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     }
 
-    private void processMaternityPncTransfer(@NonNull EventClient eventClient) {
+    public void opdTransferHandler(EventClient eventClient, String eventType, ClientClassification clientClassification) throws Exception {
+        Event event = eventClient.getEvent();
+        if (eventClient.getClient() != null) {
+            if (eventType.equals(GizConstants.EventType.OPD_ANC_TRANSFER)) {
+                GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
+            }
+
+            if (eventType.equals(GizConstants.EventType.OPD_CHILD_TRANSFER)) {
+                GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.CHILD, event.getBaseEntityId());
+            }
+
+            if (eventType.equals(GizConstants.EventType.OPD_MATERNITY_TRANSFER)) {
+                GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+            }
+
+            if (eventType.equals(GizConstants.EventType.OPD_PNC_TRANSFER)) {
+                GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
+            }
+
+            processEvent(event, eventClient.getClient(), clientClassification);
+        }
+    }
+
+    private void processMaternityPncTransfer(@NonNull EventClient eventClient, @NonNull ClientClassification clientClassification) throws Exception {
         Event event = eventClient.getEvent();
         HashMap<String, String> fieldsMap = GizUtils.generateKeyValuesFromEvent(event);
         String babiesBornMap = fieldsMap.get(MaternityConstants.JSON_FORM_KEY.BABIES_BORN_MAP);
@@ -276,14 +310,15 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             processStillBorn(stillBornMap, event);
         }
 
-        PncRegistrationDetails pncDetails = new PncRegistrationDetails(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate(), fieldsMap);
+        PncBaseDetails pncDetails = new PncBaseDetails(eventClient.getClient().getBaseEntityId(), event.getEventDate().toDate(), fieldsMap);
         pncDetails.setCreatedAt(new Date());
 
-        PncLibrary.getInstance().getPncRegistrationDetailsRepository().saveOrUpdate(pncDetails);
         PncLibrary.getInstance().getPncMedicInfoRepository().saveOrUpdate(pncDetails);
 
         GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
+
+        processEvent(event, eventClient.getClient(), clientClassification);
     }
 
     //TODO make it available from PNC

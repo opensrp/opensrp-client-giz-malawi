@@ -49,7 +49,8 @@
     "look_up": {
       "entity_id": "",
       "value": ""
-    }
+    },
+    "save_all_checkbox_obs_as_array": true
   },
   "step1": {
     "title": "Maternity Registration",
@@ -90,7 +91,7 @@
       {
         "key": "bht_mid",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "person_identifier",
+        "openmrs_entity": "person_attribute",
         "openmrs_entity_id": "bht_mid",
         "type": "edit_text",
         "hint": "Patient ID",
@@ -447,18 +448,17 @@
         "label": "Occupation",
         "hint": "Occupation",
         "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
         "options": [
           {
             "key": "student",
             "text": "Student",
-            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "159465AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "unemployed",
             "text": "Unemployed",
-            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "123801AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
@@ -477,7 +477,6 @@
           {
             "key": "business",
             "text": "Business",
-            "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           },

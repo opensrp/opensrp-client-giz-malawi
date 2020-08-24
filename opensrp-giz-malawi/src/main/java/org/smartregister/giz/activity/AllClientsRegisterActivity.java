@@ -10,6 +10,7 @@ import org.smartregister.view.fragment.BaseRegisterFragment;
  */
 
 public class AllClientsRegisterActivity extends OpdRegisterActivity {
+
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
         return new AllClientsRegisterFragment();

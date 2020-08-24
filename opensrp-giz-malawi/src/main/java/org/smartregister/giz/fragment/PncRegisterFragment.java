@@ -20,7 +20,6 @@ import org.smartregister.opd.utils.ConfigurationInstancesHelper;
 import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.fragment.BasePncRegisterFragment;
 import org.smartregister.pnc.pojo.PncMetadata;
-import org.smartregister.pnc.pojo.PncRegistrationDetails;
 import org.smartregister.pnc.repository.PncMedicInfoRepository;
 import org.smartregister.pnc.utils.PncConstants;
 

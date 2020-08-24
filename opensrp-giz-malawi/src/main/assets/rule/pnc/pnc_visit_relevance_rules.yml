@@ -79,7 +79,7 @@ actions:
 name: step2_fp_method_other
 description: Provide details of other family planning method
 priority: 1
-condition: "step2_fp_method_other == 'other'"
+condition: "step2_fp_method == 'other'"
 actions:
   - "isRelevant = true"
 ---
@@ -100,7 +100,7 @@ actions:
 name: step3_baby_care_mgt
 description: If there were complications, what care was provided to manage the complications?
 priority: 1
-condition: "global_baby_complications != 'none'"
+condition: "!step3_saved_baby_complications.contains('none')"
 actions:
   - "isRelevant = true"
 

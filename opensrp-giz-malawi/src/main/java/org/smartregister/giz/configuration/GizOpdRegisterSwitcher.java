@@ -1,5 +1,6 @@
 package org.smartregister.giz.configuration;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -9,6 +10,7 @@ import org.smartregister.anc.library.util.Utils;
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
+import org.smartregister.giz.task.OpenMaternityProfileTask;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
@@ -33,6 +35,10 @@ public class GizOpdRegisterSwitcher implements OpdRegisterSwitcher {
                 GizUtils.openAncProfilePage(client, context);
             } else if (registerType.equalsIgnoreCase(GizConstants.RegisterType.CHILD)) {
                 ChildImmunizationActivity.launchActivity(context, client, new RegisterClickables());
+            } else if (registerType.equalsIgnoreCase(GizConstants.RegisterType.PNC)) {
+                GizUtils.openPncProfile(context, client.getCaseId());
+            } else if (registerType.equalsIgnoreCase(GizConstants.RegisterType.MATERNITY)) {
+                new OpenMaternityProfileTask((Activity) context, client.getCaseId()).execute();
             }
         }
     }

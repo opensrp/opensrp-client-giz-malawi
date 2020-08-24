@@ -874,5 +874,6 @@
     <string name="ME_PNC_Baby_Care_Mgt_Vit_K"> Baby Given TEO</string>
     <string name="ME_PNC_Baby_Care_Mgt_TEO"> Baby Given Vitamin K </string>
     <string name="ME_PNC_Baby_Nevirapine"> Total on Nevirapine</string>
+    <string name="opd_enrol_client_message">Are you sure you want to enrol the client to the register?</string>
     <!-- End PNC report labels -->
 </resources>

@@ -165,11 +165,22 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements NavD
                         "child_status",
                         visitColumnMap(),
                         PncDbConstants.KEY.BASE_ENTITY_ID,
-                        storedValues(entityId)).init();
+                        storedPncBabyValues(entityId)).init();
             } catch (JSONException e) {
                 Timber.e(e);
             }
         }
+    }
+
+    @NonNull
+    public ArrayList<HashMap<String, String>> storedPncBabyValues(String entityId) {
+        return ChildLibrary.
+                getInstance()
+                .context()
+                .getEventClientRepository()
+                .rawQuery(ChildLibrary.getInstance().getRepository().getReadableDatabase(),
+                        "select pb.base_entity_id as base_entity_id, pb.baby_first_name as first_name, pb.baby_last_name as last_name, pb.dob as dob, pb.complications as complications from pnc_baby pb " +
+                                " where pb" + "." + Constants.KEY.MOTHER_BASE_ENTITY_ID + " = '" + entityId + "'");
     }
 
     @NonNull
@@ -199,6 +210,7 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements NavD
         HashMap<String, String> map = new HashMap<>();
         map.put("child_name", "first_name");
         map.put("open_vaccine_card", "base_entity_id");
+        map.put("saved_baby_complications", "complications");
         return map;
     }
 

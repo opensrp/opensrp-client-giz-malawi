@@ -220,6 +220,12 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/ChildTheme.NoActionBar" />
+        <activity
+            android:name=".activity.GizOpdProfileActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            tools:replace="android:theme"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <!-- END OF OPD ACTIVITIES -->
         <!-- MATERNITY ACTIVITIES -->
         <activity

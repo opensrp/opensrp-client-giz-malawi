@@ -17,6 +17,7 @@ import org.smartregister.pnc.scheduler.PncVisitScheduler;
 import org.smartregister.pnc.scheduler.VisitStatus;
 import org.smartregister.pnc.utils.ConfigurationInstancesHelper;
 import org.smartregister.pnc.utils.PncConstants;
+import org.smartregister.pnc.utils.PncDbConstants;
 import org.smartregister.view.contract.SmartRegisterClient;
 
 public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
@@ -43,7 +44,13 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
                 LocalDate deliveryDate = LocalDate.parse(deliveryDateStr, DateTimeFormat.forPattern("dd-MM-yyyy"));
                 PncVisitScheduler pncVisitScheduler = ConfigurationInstancesHelper.newInstance(PncLibrary.getInstance().getPncConfiguration().getPncVisitScheduler());
                 pncVisitScheduler.setDeliveryDate(deliveryDate);
-                pncVisitScheduler.setLatestVisitDateInMills(client.getColumnmaps().get("latest_visit_date"));
+                String strLatestVisitDate = client.getColumnmaps().get(PncDbConstants.Column.PncVisitInfo.LATEST_VISIT_DATE);
+                if (strLatestVisitDate != null) {
+                    LocalDate latestVisitDate = LocalDate.parse(client.getColumnmaps().get(PncDbConstants.Column.PncVisitInfo.LATEST_VISIT_DATE), DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"));
+                    pncVisitScheduler.setLatestVisitDateInMills(String.valueOf(latestVisitDate.toDate().getTime()));
+                } else {
+                    pncVisitScheduler.setLatestVisitDateInMills(null);
+                }
 
                 if (pncVisitScheduler.getStatus() == VisitStatus.PNC_DUE) {
                     button.setText(R.string.pnc_due);

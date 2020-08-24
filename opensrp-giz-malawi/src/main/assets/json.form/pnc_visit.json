@@ -160,6 +160,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "type": "date_picker",
+            "max_date": "today",
             "hint": "Date of previous visit"
           }
         ],
@@ -231,7 +232,7 @@
           },
           {
             "key": "severe_pre_eclampsia",
-            "text": "Severe pre-eclampsia Defects",
+            "text": "Severe pre-eclampsia",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": ""
@@ -783,10 +784,9 @@
         "type": "edit_text",
         "hint": "Specify",
         "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "pnc/pnc_visit_relevance_rules.yml"
-            }
+          "step2:itn_given_notdone": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
           }
         }
       }
@@ -805,6 +805,13 @@
         "reference_edit_text": "Number of child status",
         "showGroupLabel": false,
         "value": [
+          {
+            "key": "saved_baby_complications",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "hidden"
+          },
           {
             "key": "child_name",
             "openmrs_entity_parent": "",
@@ -836,6 +843,31 @@
                 }
               }
             }
+          },
+          {
+            "key": "baby_present",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "type": "native_radio",
+            "label": "Is the child present during the visit?",
+            "label_text_style": "bold",
+            "options": [
+              {
+                "key": "yes",
+                "text": "Yes",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "",
+                "openmrs_entity_id": ""
+              },
+              {
+                "key": "no",
+                "text": "No",
+                "openmrs_entity_parent": "",
+                "openmrs_entity": "",
+                "openmrs_entity_id": ""
+              }
+            ]
           },
           {
             "key": "baby_status",
@@ -1314,7 +1346,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "type": "native_radio",
+            "type": "check_box",
             "label": "Any newborn routine care & management still being done?",
             "label_text_style": "bold",
             "relevance": {
@@ -1328,42 +1360,36 @@
               {
                 "key": "kangaroo_mother_care",
                 "text": "Kangaroo Mother Care (KMC)",
-                "openmrs_entity_parent": "",
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               },
               {
                 "key": "vitamin_k",
                 "text": "Vitamin K",
-                "openmrs_entity_parent": "",
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               },
               {
                 "key": "chlorhexidine",
                 "text": "Chlorhexidine (7.1%)",
-                "openmrs_entity_parent": "",
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               },
               {
                 "key": "tetracycline_eye_ointment",
                 "text": "Tetracycline Eye Ointment (TEO)",
-                "openmrs_entity_parent": "",
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               },
               {
                 "key": "antibiotics",
                 "text": "Antibiotics",
-                "openmrs_entity_parent": "",
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               },
               {
                 "key": "other",
                 "text": "Other",
-                "openmrs_entity_parent": "",
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               }

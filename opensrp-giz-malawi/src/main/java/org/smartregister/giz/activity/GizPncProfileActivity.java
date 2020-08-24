@@ -53,11 +53,23 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
                         "child_status",
                         visitColumnMap(),
                         PncDbConstants.KEY.BASE_ENTITY_ID,
-                        storedValues(entityId)).init();
+                        storedPncBabyValues(entityId)).init();
             } catch (JSONException e) {
                 Timber.e(e);
             }
         }
+    }
+
+    @NonNull
+    public ArrayList<HashMap<String, String>> storedPncBabyValues(String entityId) {
+        return ChildLibrary.
+                getInstance()
+                .context()
+                .getEventClientRepository()
+                .rawQuery(ChildLibrary.getInstance().getRepository().getReadableDatabase(),
+                        "select pb.base_entity_id as base_entity_id, pb.baby_first_name as first_name, pb.baby_last_name as last_name, pb.dob as dob, pb.complications as complications from pnc_baby pb " +
+                                " inner join ec_client ec on pb.base_entity_id = ec.base_entity_id "+
+                                " where pb" + "." + Constants.KEY.MOTHER_BASE_ENTITY_ID + " = '" + entityId + "' and ec.date_removed is null");
     }
 
     @NonNull
@@ -69,7 +81,7 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
                 .getEventClientRepository()
                 .rawQuery(ChildLibrary.getInstance().getRepository().getReadableDatabase(),
                         childRegisterQueryProvider.mainRegisterQuery() +
-                                " where " + childRegisterQueryProvider.getChildDetailsTable() + "." + Constants.KEY.RELATIONAL_ID + " = '" + entityId + "'");
+                                " where " + childRegisterQueryProvider.getChildDetailsTable() + "." + Constants.KEY.RELATIONAL_ID + " = '" + entityId + "' and ec_client.date_removed is null");
     }
 
     @NonNull
@@ -87,6 +99,7 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("child_name", "first_name");
         map.put("open_vaccine_card", "base_entity_id");
+        map.put("saved_baby_complications", "complications");
         return map;
     }
 }

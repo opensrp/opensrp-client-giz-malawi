@@ -159,7 +159,8 @@
             "field_value": "PNC Registration",
             "creates_case": [
               "ec_client",
-              "ec_mother_details"
+              "ec_mother_details",
+              "pnc_registration_details"
             ]
           },
           {
@@ -167,7 +168,8 @@
             "field_value": "Update PNC Registration",
             "creates_case": [
               "ec_client",
-              "ec_mother_details"
+              "ec_mother_details",
+              "pnc_registration_details"
             ]
           },
           {
@@ -222,6 +224,41 @@
             "field_value": "Maternity Medic Information",
             "creates_case": [
               "maternity_medic_info"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "maternity_pnc_transfer",
+            "creates_case": [
+              "pnc_registration_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "opd_maternity_transfer",
+            "creates_case": [
+              "maternity_registration_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "opd_pnc_transfer",
+            "creates_case": [
+              "pnc_registration_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "opd_anc_transfer",
+            "creates_case": [
+              "ec_mother_details"
+            ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "opd_child_transfer",
+            "creates_case": [
+              "ec_child_details"
             ]
           }
         ]

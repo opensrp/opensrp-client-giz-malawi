@@ -105,6 +105,11 @@ public class GizConstants {
 
         public static final String REPORT_CREATION = "report_creation";
         public static final String MATERNITY_PNC_TRANSFER = "maternity_pnc_transfer";
+
+        public static final String OPD_PNC_TRANSFER = "opd_pnc_transfer";
+        public static final String OPD_MATERNITY_TRANSFER = "opd_maternity_transfer";
+        public static final String OPD_ANC_TRANSFER = "opd_anc_transfer";
+        public static final String OPD_CHILD_TRANSFER = "opd_child_transfer";
     }
 
     public static class JSON_FORM {

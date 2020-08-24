@@ -96,6 +96,12 @@
         "v_required": {
           "value": "true",
           "err": "Kindly select the woman's current HIV Status"
+        },
+        "relevance": {
+          "step1:hiv_status_previous": {
+            "type": "string",
+            "ex": "notEqualTo(., \"Positive\")"
+          }
         }
       },
       {
@@ -362,15 +368,22 @@
           "Spontan Vertex(SVD)",
           "Vacuum Extraction(VE)",
           "Breech (BR)",
-          "Caesar Section (CS)",
+          "Caesarean Section (CS)",
           "Other (Specify)"
         ],
+        "keys": [
+          "spontan_vertex",
+          "vacuum_extraction",
+          "breech",
+          "caesarean_section",
+          "other"
+        ],
         "openmrs_choice_ids": {
-          "Spontaneous Vertex (SVD)": "158865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Vacuum Extraction (VE)": "159260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Breech (BR)": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Caesarean Section (CS)": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Other (Specify)": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "spontan_vertex": "158865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "vacuum_extraction": "159260AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "breech": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "caesarean_section": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         "v_required": {
           "value": "true",
@@ -1004,7 +1017,7 @@
             "hint": "Stillbirth condition",
             "values": [
               "Fresh",
-              "Macerated",
+              "Macerated"
             ],
             "openmrs_choice_ids": {
               "Fresh": "159916AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -1042,12 +1055,12 @@
         "values": [
           "Alive",
           "Brought in Dead(BID)",
-          "Died Before Discharge(DBD"
+          "Died Before Discharge(DBD)"
         ],
         "keys": [
-          "Alive",
-          "Brought in Dead(BID)",
-          "Died Before Discharge(DBD"
+          "alive",
+          "brought_in_dead",
+          "died_before_discharge"
         ],
         "v_required": {
           "value": "true",
@@ -1058,7 +1071,7 @@
         "key": "obstetric_complications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "1541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Obstetric Complications",
         "label_text_style": "bold",
@@ -1069,89 +1082,129 @@
         "options": [
           {
             "key": "none",
-            "text": "None"
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "abnormal_presentation",
-            "text": "Abnormal presentation"
+            "text": "Abnormal presentation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "150862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "anterpartum_haemorrhage",
-            "text": "Antepartum haemorrhage"
+            "text": "Antepartum haemorrhage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "cord_prolapse",
-            "text": "Cord prolapse"
+            "text": "Cord prolapse",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "128420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "eclampsia",
-            "text": "Eclampsia"
+            "text": "Eclampsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "fetal_distress",
-            "text": "Fetal distress"
+            "text": "Fetal distress",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "haemorrhage",
-            "text": "Haemorrhage"
+            "text": "Haemorrhage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "138873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "obstructed_prolonged_labour",
-            "text": "Obstructed/Prolonged Labour"
+            "text": "Obstructed/Prolonged Labour",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "perineal_tear",
-            "text": "Perineal tear (2nd, 3rd, or 4th degree)"
+            "text": "Perineal tear (2nd, 3rd, or 4th degree)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "placenta_praevia",
-            "text": "Placenta praevia"
+            "text": "Placenta praevia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "placental_abruption",
-            "text": "Placental abruption"
+            "text": "Placental abruption",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "postpartum_haemorhage",
-            "text": "Postpartum Haemorhage"
+            "text": "Postpartum Haemorhage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "pre_eclampsia",
-            "text": "Pre-eclampsia"
+            "text": "Pre-eclampsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "premature_labour",
-            "text": "Premature labour"
+            "text": "Premature labour",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "retained_placenta",
-            "text": "Retained placenta"
+            "text": "Retained placenta",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "ruptured_uterus",
-            "text": "Ruptured Uterus"
+            "text": "Ruptured Uterus",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "sepsis",
-            "text": "Sepsis"
+            "text": "Sepsis",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "126721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "severe_anaemia",
-            "text": "Severe Anaemia"
+            "text": "Severe Anaemia",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "symphysiotomy",
-            "text": "Symphysiotomy"
+            "text": "Symphysiotomy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160853AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
-            "text": "Other (Specify)"
+            "text": "Other (Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
           "step5:mother_status": {
             "type": "string",
-            "ex": "equalTo(.,\"Alive\")"
+            "ex": "equalTo(.,\"alive\")"
           }
         }
       },
@@ -1178,7 +1231,7 @@
         "key": "obstetric_care",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "1669AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Current obstetric care",
         "label_text_style": "bold",
@@ -1189,59 +1242,83 @@
         "options": [
           {
             "key": "none",
-            "text": "None"
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "oxytocin",
-            "text": "Oxytocin"
+            "text": "Oxytocin",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "81369AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "anticonvulsants",
-            "text": "Anticonvulsants"
+            "text": "Anticonvulsants",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "antibiotics",
-            "text": "Antibiotics"
+            "text": "Antibiotics",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "antenatal_corticosteroids_dose_1",
-            "text": "Antenatal corticosteroids (Dose 1)"
+            "text": "Antenatal corticosteroids (Dose 1)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "antenatal_corticosteroids_dose_2",
-            "text": "Antenatal corticosteroids (Dose 2)"
+            "text": "Antenatal corticosteroids (Dose 2)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "blood_transfusion",
-            "text": "Blood transfusion"
+            "text": "Blood transfusion",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "mrp",
-            "text": "Manual removal of placenta (MRP)"
+            "text": "Manual removal of placenta (MRP)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "nasg",
-            "text": "Non-pneumatic anti shock garment (NASG)"
+            "text": "Non-pneumatic anti shock garment (NASG)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "rpoc",
-            "text": "Removal of retained products of conception (RPOC)"
+            "text": "Removal of retained products of conception (RPOC)",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
           },
           {
             "key": "misoprostol_cytotec",
-            "text": "Misoprostol/cytotec"
+            "text": "Misoprostol/cytotec",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "74185AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
-            "text": "Other (Specify)"
+            "text": "Other (Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
       {
         "key": "obstetric_care_other",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Specify",
         "relevance": {
@@ -1301,7 +1378,7 @@
         "relevance": {
           "step5:mother_status": {
             "type": "string",
-            "ex": "equalTo(., \"Alive\")"
+            "ex": "equalTo(., \"alive\")"
           }
         }
       },
@@ -1358,7 +1435,7 @@
         "relevance": {
           "step5:mother_status": {
             "type": "string",
-            "ex": "equalTo(., \"Alive\")"
+            "ex": "equalTo(., \"alive\")"
           }
         }
       }
