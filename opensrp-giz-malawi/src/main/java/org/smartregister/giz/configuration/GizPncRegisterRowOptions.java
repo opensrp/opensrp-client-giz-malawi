@@ -1,7 +1,9 @@
 package org.smartregister.giz.configuration;
 
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 
@@ -32,8 +34,9 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
     @Override
     public void populateClientRow(Cursor cursor, CommonPersonObjectClient client, SmartRegisterClient smartRegisterClient, PncRegisterViewHolder pncRegisterViewHolder) {
         Button button = pncRegisterViewHolder.dueButton;
-        button.setTag(R.id.BUTTON_TYPE, R.string.start_pnc);
-        button.setText(R.string.start_pnc);
+        button.setTag(R.id.BUTTON_TYPE, R.string.complete_pnc_registration);
+        button.setTypeface(null, Typeface.NORMAL);
+        button.setTextSize(TypedValue.COMPLEX_UNIT_PX, button.getResources().getDimension(R.dimen.text_size));
         button.setBackgroundResource(R.drawable.pnc_status_btn_bg);
         button.setTextColor(button.getContext().getResources().getColor(R.color.check_in_txt_dark_grey));
 
@@ -84,7 +87,7 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
             String formType = client.getColumnmaps().get("ppf_form_type");
             if ("PNC Medic Information".equals(formType)) {
                 if (client.getColumnmaps().get(PncConstants.JsonFormKeyConstants.PMI_BASE_ENTITY_ID) == null)
-                    button.setText(R.string.start_pnc);
+                    button.setText(R.string.complete_pnc_registration);
             }
             button.setBackgroundResource(R.drawable.diagnose_treat_bg);
             button.setTextColor(button.getContext().getResources().getColor(R.color.check_in_txt_dark_grey));

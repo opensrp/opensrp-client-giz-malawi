@@ -2,13 +2,11 @@ package org.smartregister.giz.activity;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
@@ -24,15 +22,12 @@ import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.activity.BaseOpdRegisterActivity;
 import org.smartregister.opd.contract.OpdRegisterActivityContract;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
-import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.pojo.RegisterParams;
 import org.smartregister.opd.presenter.BaseOpdRegisterActivityPresenter;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
-
-import java.util.HashMap;
 
 import timber.log.Timber;
 
@@ -63,7 +58,7 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     public void createDrawer() {
         navigationMenu = NavigationMenu.getInstance(this, null, null);
         if (navigationMenu != null) {
-            navigationMenu.getNavigationAdapter().setSelectedView(StringUtils.isNotBlank(navigationMenu.getNavigationAdapter().getSelectedView()) ? navigationMenu.getNavigationAdapter().getSelectedView() : GizConstants.DrawerMenu.ALL_CLIENTS);
+            navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.OPD_CLIENTS);
             navigationMenu.runRegisterCount();
         }
     }

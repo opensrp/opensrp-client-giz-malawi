@@ -29,7 +29,6 @@ import com.vijay.jsonwizard.widgets.DatePickerFactory;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.Context;
-import org.smartregister.child.interactor.ChildFormInteractor;
 import org.smartregister.child.provider.MotherLookUpSmartClientsProvider;
 import org.smartregister.child.util.MotherLookUpUtils;
 import org.smartregister.commonregistry.CommonPersonObject;

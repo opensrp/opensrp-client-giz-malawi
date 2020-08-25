@@ -806,7 +806,7 @@
     <string name="me_mat_delivery_mode_br">RHD MAT Delivery Mode Breech</string>
     <string name="me_mat_delivery_mode_cs">RHD MAT Delivery Mode Caesarian Section</string>
     <string name="me_mat_baby_complications_none">RHD MAT Newborn Complications None</string>
-    <string name="me_mat_baby_complications_low_weight"><![CDATA[RHD MAT Newborn Complications Weight less than 2500g]]></string>
+    <string name="me_mat_baby_complications_low_weight"><![CDATA[RHD MAT Newborn Complications Weight < 2500g]]></string>
     <string name="me_mat_baby_complications_prem">RHD MAT Newborn Complications Prematurity</string>
     <string name="me_mat_baby_complications_asphy">RHD MAT Newborn Complications Asphyxia</string>
     <string name="me_mat_baby_complications_sep">RHD MAT Newborn Complications Sepsis</string>
@@ -838,7 +838,7 @@
     <string name="me_pnc_total_live_birth">RHD PNC Total Live Births</string>
     <string name="me_pnc_mother_alive">RHD PNC Mother Alive</string>
     <string name="me_pnc_mother_dead">RHD PNC Mother Died</string>
-    <string name="me_pnc_checked_in_2days"><![CDATA[RHD PNC # Mother Checked in less than 48 Hours]]></string>
+    <string name="me_pnc_checked_in_2days"><![CDATA[RHD PNC # Mother Checked in < 8 Hours]]></string>
     <string name="me_pnc_checked_in_7days"><![CDATA[RHD PNC # Mother Checked in Within 3-7 Days]]></string>
     <string name="me_pnc_checked_in_42days"><![CDATA[RHD PNC # Mother Checked in 8-42 Days]]></string>
     <string name="me_pnc_checked_in_twice_in_7days">RHD PNC # Mother Checked in 2x in 7 Days</string>
@@ -862,7 +862,7 @@
     <string name="me_pnc_baby_complications_lbw">LBW/Prematurity</string>
     <string name="me_pnc_baby_alive">RHD PNC Baby Alive</string>
     <string name="me_pnc_baby_dead">RHD PNC Baby Died</string>
-    <string name="me_pnc_baby_checked_in_2days"><![CDATA[RHD PNC # Baby Checked in less than 48 Hours]]></string>
+    <string name="me_pnc_baby_checked_in_2days"><![CDATA[RHD PNC # Baby Checked in < 48 Hours]]></string>
     <string name="me_pnc_baby_checked_in_7days"><![CDATA[RHD PNC # Baby Checked in Within 3-7 Days]]></string>
     <string name="me_pnc_baby_checked_in_42days"><![CDATA[RHD PNC # Baby Checked in 8-42 Days]]></string>
     <string name="me_pnc_baby_checked_in_twice_in_7days">RHD PNC # Baby Checked in 2x in 7 Days</string>

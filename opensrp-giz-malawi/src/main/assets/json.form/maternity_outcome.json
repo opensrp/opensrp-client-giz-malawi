@@ -996,7 +996,11 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ]
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please answer the question"
+        }
       },
       {
         "key": "babies_stillborn",
