@@ -1,494 +1,509 @@
-2,ME_Vaccines_Age_pcv_3_Over_1_Outreach,CHD EPI PCV3 Childhood Vaccination Outreach Over 1,IQFC39nNHPX,zKLduwqZFnh,CHD EPI PCV3 Childhood Vaccination Outreach Over 1,child
-3,ME_Vaccines_Age_pcv_3_Over_1_Outreach,CHD EPI PCV3 Childhood Vaccination Outreach Under 1,IQFC39nNHPX,ipKITPnwlcP,CHD EPI PCV3 Childhood Vaccination Outreach Under 1,child
-4,ME_A_CHD_EPI_Immunization_sessions_cancelled_Outreach,CHD EPI Immunization sessions cancelled Outreach,QJBtQ8GfxXE,kVTGmhgf7wQ,CHD EPI Immunization sessions cancelled Outreach,child
-5,ME_A_CHD_EPI_Immunization_sessions_cancelled_Static,CHD EPI Immunization sessions cancelled Static,QJBtQ8GfxXE,yqszvXV2s8u,CHD EPI Immunization sessions cancelled Static,child
-6,ME_A_CHD_EPI_Immunization_sessions_planned_Outreach,CHD EPI Immunization sessions planned Outreach,Hig2nHtgfVr,kVTGmhgf7wQ,CHD EPI Immunization sessions planned Outreach,child
-7,ME_A_CHD_EPI_Immunization_sessions_planned_Static,CHD EPI Immunization sessions planned Static,Hig2nHtgfVr,yqszvXV2s8u,CHD EPI Immunization sessions planned Static,child
-8,ME_A_CHD_EPI_Reasons_for_cancellation,CHD EPI Reasons for cancellation,Er9t7hU2OQp,Tt7fU5lUhAU,CHD EPI Reasons for cancellation,child
-9,ME_AEFI_Bacterial_Abscesses_BCG,CHD EPI Minor AEFIs BCG Bacterial Abscesses,q9nBSuktrBk,HzynxoDR57N,CHD EPI Minor AEFIs BCG Bacterial Abscesses,child
-10,ME_AEFI_Bacterial_Abscesses_IPV,CHD EPI Minor AEFIs IPV Bacterial Abscesses,q9nBSuktrBk,Po5l0buP3Yy,CHD EPI Minor AEFIs IPV Bacterial Abscesses,child
-11,ME_AEFI_Bacterial_Abscesses_Malaria,CHD EPI Minor AEFIs MV Bacterial Abscesses,q9nBSuktrBk,SgyO6bt56Kj,CHD EPI Minor AEFIs MV Bacterial Abscesses,child
-12,ME_AEFI_Bacterial_Abscesses_Measles,CHD EPI Minor AEFIs Measles/MR Bacterial Abscesses,q9nBSuktrBk,JalBxgOJb6M,CHD EPI Minor AEFIs Measles/MR Bacterial Abscesses,child
-13,ME_AEFI_Bacterial_Abscesses_OPV,CHD EPI Minor AEFIs OPV Bacterial Abscesses,q9nBSuktrBk,BykWQ3ObDtd,CHD EPI Minor AEFIs OPV Bacterial Abscesses,child
-14,ME_AEFI_Bacterial_Abscesses_PCV,CHD EPI Minor AEFIs PCV Bacterial Abscesses,q9nBSuktrBk,UktdkHknJbW,CHD EPI Minor AEFIs PCV Bacterial Abscesses,child
-15,ME_AEFI_Bacterial_Abscesses_Penta,CHD EPI Minor AEFIs DPT-HepB-Hib Bacterial Abscesses,q9nBSuktrBk,hyJKBeiHRpa,CHD EPI Minor AEFIs DPT-HepB-Hib Bacterial Abscesses,child
-16,ME_AEFI_Bacterial_Abscesses_Rota,CHD EPI Minor AEFIs ROTA Bacterial Abscesses,q9nBSuktrBk,KnrMoNeitVN,CHD EPI Minor AEFIs ROTA Bacterial Abscesses,child
-17,ME_AEFI_Birth_defect_BCG,CHD EPI Serious AEFIs BCG Birth defect,EkWjeufJBZm,mZnpFHRXgM0,CHD EPI Serious AEFIs BCG Birth defect,child
-18,ME_AEFI_Birth_defect_IPV,CHD EPI Serious AEFIs IPV Birth defect,EkWjeufJBZm,I9sqzi0JRKb,CHD EPI Serious AEFIs IPV Birth defect,child
-19,ME_AEFI_Birth_defect_Malaria,CHD EPI Serious AEFIs MV Birth defect,EkWjeufJBZm,vr7q11Y5fo6,CHD EPI Serious AEFIs MV Birth defect,child
-20,ME_AEFI_Birth_defect_Measles,CHD EPI Serious AEFIs Measles/MR Birth defect,EkWjeufJBZm,atjmFUlHTeL,CHD EPI Serious AEFIs Measles/MR Birth defect,child
-21,ME_AEFI_Birth_defect_OPV,CHD EPI Serious AEFIs OPV Birth defect,EkWjeufJBZm,rwoQyevgGOz,CHD EPI Serious AEFIs OPV Birth defect,child
-22,ME_AEFI_Birth_defect_PCV,CHD EPI Serious AEFIs PCV Birth defect,EkWjeufJBZm,opFyRApeg6i,CHD EPI Serious AEFIs PCV Birth defect,child
-23,ME_AEFI_Birth_defect_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Birth defect,EkWjeufJBZm,uUR0ce3KsiX,CHD EPI Serious AEFIs DPT-HepB-Hib Birth defect,child
-24,ME_AEFI_Birth_defect_Rota,CHD EPI Serious AEFIs ROTA Birth defect,EkWjeufJBZm,FTMYsSKZrlx,CHD EPI Serious AEFIs ROTA Birth defect,child
-25,ME_AEFI_Death_BCG,CHD EPI Serious AEFIs BCG Death,EkWjeufJBZm,I5MHbE6gO5g,CHD EPI Serious AEFIs BCG Death,child
-26,ME_AEFI_Death_IPV,CHD EPI Serious AEFIs IPV Death,EkWjeufJBZm,kaWoFpjPa2w,CHD EPI Serious AEFIs IPV Death,child
-27,ME_AEFI_Death_Malaria,CHD EPI Serious AEFIs MV Death,EkWjeufJBZm,QmMH4sRtERh,CHD EPI Serious AEFIs MV Death,child
-28,ME_AEFI_Death_Measles,CHD EPI Serious AEFIs Measles/MR Death,EkWjeufJBZm,I2THvhSkzzc,CHD EPI Serious AEFIs Measles/MR Death,child
-29,ME_AEFI_Death_OPV,CHD EPI Serious AEFIs OPV Death,EkWjeufJBZm,ryVbsKdZvKq,CHD EPI Serious AEFIs OPV Death,child
-30,ME_AEFI_Death_PCV,CHD EPI Serious AEFIs PCV Death,EkWjeufJBZm,j25CKvyXL2w,CHD EPI Serious AEFIs PCV Death,child
-31,ME_AEFI_Death_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Death,EkWjeufJBZm,gZPbWP3yobl,CHD EPI Serious AEFIs DPT-HepB-Hib Death,child
-32,ME_AEFI_Death_Rota,CHD EPI Serious AEFIs ROTA Death,EkWjeufJBZm,cG3o9OE3Bmo,CHD EPI Serious AEFIs ROTA Death,child
-33,ME_AEFI_Encephalopathy_BCG,CHD EPI Serious AEFIs BCG Encephalopathy,EkWjeufJBZm,m44BfzYUKH3,CHD EPI Serious AEFIs BCG Encephalopathy,child
-34,ME_AEFI_Encephalopathy_IPV,CHD EPI Serious AEFIs IPV Encephalopathy,EkWjeufJBZm,PJf9ivWxgS5,CHD EPI Serious AEFIs IPV Encephalopathy,child
-35,ME_AEFI_Encephalopathy_Malaria,CHD EPI Serious AEFIs MV Encephalopathy,EkWjeufJBZm,QwqdNFvwMfu,CHD EPI Serious AEFIs MV Encephalopathy,child
-36,ME_AEFI_Encephalopathy_Measles,CHD EPI Serious AEFIs Measles/MR Encephalopathy,EkWjeufJBZm,pAjvpodvmYC,CHD EPI Serious AEFIs Measles/MR Encephalopathy,child
-37,ME_AEFI_Encephalopathy_OPV,CHD EPI Serious AEFIs OPV Encephalopathy,EkWjeufJBZm,sKyOKPADAAE,CHD EPI Serious AEFIs OPV Encephalopathy,child
-38,ME_AEFI_Encephalopathy_PCV,CHD EPI Serious AEFIs PCV Encephalopathy,EkWjeufJBZm,s0AUta6B7qh,CHD EPI Serious AEFIs PCV Encephalopathy,child
-39,ME_AEFI_Encephalopathy_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Encephalopathy,EkWjeufJBZm,jrxmweUAE7n,CHD EPI Serious AEFIs DPT-HepB-Hib Encephalopathy,child
-40,ME_AEFI_Encephalopathy_Rota,CHD EPI Serious AEFIs ROTA Encephalopathy,EkWjeufJBZm,EOyg85FPysK,CHD EPI Serious AEFIs ROTA Encephalopathy,child
-41,ME_AEFI_Fever_BCG,CHD EPI Serious AEFIs BCG High fever > 38 degrees celcius,EkWjeufJBZm,EPMQGfb3xGc,CHD EPI Serious AEFIs BCG High fever > 38 degrees celcius,child
-42,ME_AEFI_Fever_IPV,CHD EPI Serious AEFIs IPV High fever > 38 degrees celcius,EkWjeufJBZm,RpzT7ndYBqJ,CHD EPI Serious AEFIs IPV High fever > 38 degrees celcius,child
-43,ME_AEFI_Fever_Malaria,CHD EPI Serious AEFIs MV High fever > 38 degrees celcius,EkWjeufJBZm,qDv9NvuXish,CHD EPI Serious AEFIs MV High fever > 38 degrees celcius,child
-44,ME_AEFI_Fever_Measles,CHD EPI Serious AEFIs Measles/MR High fever > 38 degrees celcius,EkWjeufJBZm,RJDEwzn1NR0,CHD EPI Serious AEFIs Measles/MR High fever > 38 degrees celcius,child
-45,ME_AEFI_Fever_OPV,CHD EPI Serious AEFIs OPV High fever > 38 degrees celcius,EkWjeufJBZm,spbUeVnLNdY,CHD EPI Serious AEFIs OPV High fever > 38 degrees celcius,child
-46,ME_AEFI_Fever_PCV,CHD EPI Serious AEFIs PCV High fever > 38 degrees celcius,EkWjeufJBZm,D5cg0nkggEI,CHD EPI Serious AEFIs PCV High fever > 38 degrees celcius,child
-47,ME_AEFI_Fever_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib High fever > 38 degrees celcius,EkWjeufJBZm,wq0ZxHrbfEt,CHD EPI Serious AEFIs DPT-HepB-Hib High fever > 38 degrees celcius,child
-48,ME_AEFI_Fever_Rota,CHD EPI Serious AEFIs ROTA High fever > 38 degrees celcius,EkWjeufJBZm,OUw4MNHUzBL,CHD EPI Serious AEFIs ROTA High fever > 38 degrees celcius,child
-49,ME_AEFI_Lymphadenitis_BCG,CHD EPI Minor AEFIs BCG Lymphadenitis,q9nBSuktrBk,QVmaeFuE2Qr,CHD EPI Minor AEFIs BCG Lymphadenitis,child
-50,ME_AEFI_Lymphadenitis_IPV,CHD EPI Minor AEFIs IPV Lymphadenitis,q9nBSuktrBk,pjnaCzFceXv,CHD EPI Minor AEFIs IPV Lymphadenitis,child
-51,ME_AEFI_Lymphadenitis_Malaria,CHD EPI Minor AEFIs MV Lymphadenitis,q9nBSuktrBk,wdDdZdoSCpb,CHD EPI Minor AEFIs MV Lymphadenitis,child
-52,ME_AEFI_Lymphadenitis_Measles,CHD EPI Minor AEFIs Measles/MR Lymphadenitis,q9nBSuktrBk,Rzqii165pvS,CHD EPI Minor AEFIs Measles/MR Lymphadenitis,child
-53,ME_AEFI_Lymphadenitis_OPV,CHD EPI Minor AEFIs OPV Lymphadenitis,q9nBSuktrBk,KlUgOnNYiPt,CHD EPI Minor AEFIs OPV Lymphadenitis,child
-54,ME_AEFI_Lymphadenitis_PCV,CHD EPI Minor AEFIs PCV Lymphadenitis,q9nBSuktrBk,JRChBkWc3ok,CHD EPI Minor AEFIs PCV Lymphadenitis,child
-55,ME_AEFI_Lymphadenitis_Penta,CHD EPI Minor AEFIs DPT-HepB-Hib Lymphadenitis,q9nBSuktrBk,CXIL0in6O49,CHD EPI Minor AEFIs DPT-HepB-Hib Lymphadenitis,child
-56,ME_AEFI_Lymphadenitis_Rota,CHD EPI Minor AEFIs ROTA Lymphadenitis,q9nBSuktrBk,wYkmuupJzV8,CHD EPI Minor AEFIs ROTA Lymphadenitis,child
-57,ME_AEFI_Paralysis_BCG,CHD EPI Serious AEFIs BCG Paralysis,EkWjeufJBZm,EUXXhcTm18i,CHD EPI Serious AEFIs BCG Paralysis,child
-58,ME_AEFI_Paralysis_IPV,CHD EPI Serious AEFIs IPV Paralysis,EkWjeufJBZm,hJ7AN2yP9Gy,CHD EPI Serious AEFIs IPV Paralysis,child
-59,ME_AEFI_Paralysis_Malaria,CHD EPI Serious AEFIs MV Paralysis,EkWjeufJBZm,dKq8hPIWrhI,CHD EPI Serious AEFIs MV Paralysis,child
-60,ME_AEFI_Paralysis_Measles,CHD EPI Serious AEFIs Measles/MR Paralysis,EkWjeufJBZm,gkTXlnYFAJB,CHD EPI Serious AEFIs Measles/MR Paralysis,child
-61,ME_AEFI_Paralysis_OPV,CHD EPI Serious AEFIs OPV Paralysis,EkWjeufJBZm,VICC8Yaz7nK,CHD EPI Serious AEFIs OPV Paralysis,child
-62,ME_AEFI_Paralysis_PCV,CHD EPI Serious AEFIs PCV Paralysis,EkWjeufJBZm,TgWc3gfnLMN,CHD EPI Serious AEFIs PCV Paralysis,child
-63,ME_AEFI_Paralysis_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Paralysis,EkWjeufJBZm,BoC4q5Ox2yS,CHD EPI Serious AEFIs DPT-HepB-Hib Paralysis,child
-64,ME_AEFI_Paralysis_Rota,CHD EPI Serious AEFIs ROTA Paralysis,EkWjeufJBZm,ZnepR09oQqE,CHD EPI Serious AEFIs ROTA Paralysis,child
-65,ME_AEFI_Seizures_BCG,CHD EPI Serious AEFIs BCG Seizures,EkWjeufJBZm,uXjz3UiXhqI,CHD EPI Serious AEFIs BCG Seizures,child
-66,ME_AEFI_Seizures_IPV,CHD EPI Serious AEFIs IPV Seizures,EkWjeufJBZm,c4ui9JxN0V9,CHD EPI Serious AEFIs IPV Seizures,child
-67,ME_AEFI_Seizures_Malaria,CHD EPI Serious AEFIs MV Seizures,EkWjeufJBZm,dZYJB5tnp8R,CHD EPI Serious AEFIs MV Seizures,child
-68,ME_AEFI_Seizures_Measles,CHD EPI Serious AEFIs Measles/MR Seizures,EkWjeufJBZm,PGvrZxza7oi,CHD EPI Serious AEFIs Measles/MR Seizures,child
-69,ME_AEFI_Seizures_OPV,CHD EPI Serious AEFIs OPV Seizures,EkWjeufJBZm,KJ8YHlo7MRD,CHD EPI Serious AEFIs OPV Seizures,child
-70,ME_AEFI_Seizures_PCV,CHD EPI Serious AEFIs PCV Seizures,EkWjeufJBZm,JsEjaIhDDfd,CHD EPI Serious AEFIs PCV Seizures,child
-71,ME_AEFI_Seizures_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Seizures,EkWjeufJBZm,wzqyAQp1KCv,CHD EPI Serious AEFIs DPT-HepB-Hib Seizures,child
-72,ME_AEFI_Seizures_Rota,CHD EPI Serious AEFIs ROTA Seizures,EkWjeufJBZm,JYKpMjweyAQ,CHD EPI Serious AEFIs ROTA Seizures,child
-73,ME_AEFI_Sepsis_BCG,CHD EPI Minor AEFIs BCG Sepsis,q9nBSuktrBk,ePCJ4u243Gi,CHD EPI Minor AEFIs BCG Sepsis,child
-74,ME_AEFI_Sepsis_IPV,CHD EPI Minor AEFIs IPV Sepsis,q9nBSuktrBk,vQNAAInKPe3,CHD EPI Minor AEFIs IPV Sepsis,child
-75,ME_AEFI_Sepsis_Malaria,CHD EPI Minor AEFIs MV Sepsis,q9nBSuktrBk,l0ehds5KryF,CHD EPI Minor AEFIs MV Sepsis,child
-76,ME_AEFI_Sepsis_Measles,CHD EPI Minor AEFIs Measles/MR Sepsis,q9nBSuktrBk,bvS2ftaiHeY,CHD EPI Minor AEFIs Measles/MR Sepsis,child
-77,ME_AEFI_Sepsis_OPV,CHD EPI Minor AEFIs OPV Sepsis,q9nBSuktrBk,fia70ncKCuR,CHD EPI Minor AEFIs OPV Sepsis,child
-78,ME_AEFI_Sepsis_PCV,CHD EPI Minor AEFIs PCV Sepsis,q9nBSuktrBk,M7Gu7z76MB0,CHD EPI Minor AEFIs PCV Sepsis,child
-79,ME_AEFI_Sepsis_Penta,CHD EPI Minor AEFIs DPT-HepB-Hib Sepsis,q9nBSuktrBk,OuGbuaj1RO3,CHD EPI Minor AEFIs DPT-HepB-Hib Sepsis,child
-80,ME_AEFI_Sepsis_Rota,CHD EPI Minor AEFIs ROTA Sepsis,q9nBSuktrBk,z7KRKDOOKxk,CHD EPI Minor AEFIs ROTA Sepsis,child
-81,ME_AEFI_Severe_local_reaction_BCG,CHD EPI Minor AEFIs BCG Severe local reaction,q9nBSuktrBk,CcuTdCcGLzw,CHD EPI Minor AEFIs BCG Severe local reaction,child
-82,ME_AEFI_Severe_local_reaction_IPV,CHD EPI Minor AEFIs IPV Severe local reaction,q9nBSuktrBk,mGNBPZ9JcFw,CHD EPI Minor AEFIs IPV Severe local reaction,child
-83,ME_AEFI_Severe_local_reaction_Malaria,CHD EPI Minor AEFIs MV Severe local reaction,q9nBSuktrBk,DC1gDA0U6ZR,CHD EPI Minor AEFIs MV Severe local reaction,child
-84,ME_AEFI_Severe_local_reaction_Measles,CHD EPI Minor AEFIs Measles/MR Severe local reaction,q9nBSuktrBk,RcMbVtgcXIS,CHD EPI Minor AEFIs Measles/MR Severe local reaction,child
-85,ME_AEFI_Severe_local_reaction_OPV,CHD EPI Minor AEFIs OPV Severe local reaction,q9nBSuktrBk,mltd73Uwigx,CHD EPI Minor AEFIs OPV Severe local reaction,child
-86,ME_AEFI_Severe_local_reaction_PCV,CHD EPI Minor AEFIs PCV Severe local reaction,q9nBSuktrBk,GbNBwKROyDx,CHD EPI Minor AEFIs PCV Severe local reaction,child
-87,ME_AEFI_Severe_local_reaction_Penta,CHD EPI Minor AEFIs DPT-HepB-Hib Severe local reaction,q9nBSuktrBk,XkAixQCOMT0,CHD EPI Minor AEFIs DPT-HepB-Hib Severe local reaction,child
-88,ME_AEFI_Severe_local_reaction_Rota,CHD EPI Minor AEFIs ROTA Severe local reaction,q9nBSuktrBk,ul3BBk8XyxY,CHD EPI Minor AEFIs ROTA Severe local reaction,child
-89,ME_AEFI_Significant_disability_BCG,CHD EPI Serious AEFIs BCG Significant disability,EkWjeufJBZm,ifH5NLMRCSO,CHD EPI Serious AEFIs BCG Significant disability,child
-90,ME_AEFI_Significant_disability_IPV,CHD EPI Serious AEFIs IPV Significant disability,EkWjeufJBZm,ss4D3akmVqu,CHD EPI Serious AEFIs IPV Significant disability,child
-91,ME_AEFI_Significant_disability_Malaria,CHD EPI Serious AEFIs MV Significant disability,EkWjeufJBZm,ZXXvnfJEqvR,CHD EPI Serious AEFIs MV Significant disability,child
-92,ME_AEFI_Significant_disability_Measles,CHD EPI Serious AEFIs Measles/MR Significant disability,EkWjeufJBZm,fBkMYsRdIBB,CHD EPI Serious AEFIs Measles/MR Significant disability,child
-93,ME_AEFI_Significant_disability_OPV,CHD EPI Serious AEFIs OPV Significant disability,EkWjeufJBZm,BLtDfpoI9Wf,CHD EPI Serious AEFIs OPV Significant disability,child
-94,ME_AEFI_Significant_disability_PCV,CHD EPI Serious AEFIs PCV Significant disability,EkWjeufJBZm,sZ9tuvX0GC7,CHD EPI Serious AEFIs PCV Significant disability,child
-95,ME_AEFI_Significant_disability_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Significant disability,EkWjeufJBZm,SRJ00MpeweP,CHD EPI Serious AEFIs DPT-HepB-Hib Significant disability,child
-96,ME_AEFI_Toxic_shock_syndrome_BCG,CHD EPI Serious AEFIs BCG Toxic shock syndrome,EkWjeufJBZm,VEP6HzE6Cex,CHD EPI Serious AEFIs BCG Toxic shock syndrome,child
-97,ME_AEFI_Toxic_shock_syndrome_IPV,CHD EPI Serious AEFIs IPV Toxic shock syndrome,EkWjeufJBZm,uGHBRQTb2el,CHD EPI Serious AEFIs IPV Toxic shock syndrome,child
-98,ME_AEFI_Toxic_shock_syndrome_Malaria,CHD EPI Serious AEFIs MV Toxic shock syndrome,EkWjeufJBZm,PSvPIb2Yb7A,CHD EPI Serious AEFIs MV Toxic shock syndrome,child
-99,ME_AEFI_Toxic_shock_syndrome_Measles,CHD EPI Serious AEFIs Measles/MR Toxic shock syndrome,EkWjeufJBZm,RtjgtHQgg4k,CHD EPI Serious AEFIs Measles/MR Toxic shock syndrome,child
-100,ME_AEFI_Toxic_shock_syndrome_OPV,CHD EPI Serious AEFIs OPV Toxic shock syndrome,EkWjeufJBZm,PtS27aDPTsq,CHD EPI Serious AEFIs OPV Toxic shock syndrome,child
-101,ME_AEFI_Toxic_shock_syndrome_PCV,CHD EPI Serious AEFIs PCV Toxic shock syndrome,EkWjeufJBZm,uQ0NDg7rI3G,CHD EPI Serious AEFIs PCV Toxic shock syndrome,child
-102,ME_AEFI_Toxic_shock_syndrome_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Toxic shock syndrome,EkWjeufJBZm,pPz7JzZqqjS,CHD EPI Serious AEFIs DPT-HepB-Hib Toxic shock syndrome,child
-103,ME_AEFI_Toxic_shock_syndrome_Rota,CHD EPI Serious AEFIs ROTA Toxic shock syndrome,EkWjeufJBZm,PM6VGUl2fee,CHD EPI Serious AEFIs ROTA Toxic shock syndrome,child
-104,ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Bacterial_Abscesses,CHD EPI Minor AEFIs HPV Bacterial Abscesses,q9nBSuktrBk,L4jezmlN5D5,CHD EPI Minor AEFIs HPV Bacterial Abscesses,child
-105,ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Lymphadenitis,CHD EPI Minor AEFIs HPV Lymphadenitis,q9nBSuktrBk,Au6hRKvdBxY,CHD EPI Minor AEFIs HPV Lymphadenitis,child
-106,ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Sepsis,CHD EPI Minor AEFIs HPV Sepsis,q9nBSuktrBk,l8jI5wb39PR,CHD EPI Minor AEFIs HPV Sepsis,child
-107,ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Severe_local_reaction,CHD EPI Minor AEFIs HPV Severe local reaction,q9nBSuktrBk,MEoyDTEI9rq,CHD EPI Minor AEFIs HPV Severe local reaction,child
-108,ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Bacterial_Abscesses,CHD EPI Minor AEFIs TT/Td Bacterial Abscesses,q9nBSuktrBk,MWMaArdbJ2y,CHD EPI Minor AEFIs TT/Td Bacterial Abscesses,child
-109,ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Lymphadenitis,CHD EPI Minor AEFIs TT/Td Lymphadenitis,q9nBSuktrBk,xmzXYzpnem8,CHD EPI Minor AEFIs TT/Td Lymphadenitis,child
-110,ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Sepsis,CHD EPI Minor AEFIs TT/Td Sepsis,q9nBSuktrBk,XZnRHnFKXMp,CHD EPI Minor AEFIs TT/Td Sepsis,child
-111,ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Severe_local_reaction,CHD EPI Minor AEFIs TT/Td Severe local reaction,q9nBSuktrBk,rJfaTyqHdSh,CHD EPI Minor AEFIs TT/Td Severe local reaction,child
-112,ME_AEFI_TT_HPV_Serious AEFIs_TTTd_Toxic_shock_syndrome,CHD EPI Serious AEFIs TT/Td Toxic shock syndrome,EkWjeufJBZm,k4s9eb1boLy,CHD EPI Serious AEFIs TT/Td Toxic shock syndrome,child
-113,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Birth_defect,CHD EPI Serious AEFIs HPV Birth defect,EkWjeufJBZm,OC9VhkUCUQ4,CHD EPI Serious AEFIs HPV Birth defect,child
-114,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Death,CHD EPI Serious AEFIs HPV Death,EkWjeufJBZm,t8dBdgbtPoy,CHD EPI Serious AEFIs HPV Death,child
-115,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Encephalopathy,CHD EPI Serious AEFIs HPV Encephalopathy,EkWjeufJBZm,I9DkCyQNmj4,CHD EPI Serious AEFIs HPV Encephalopathy,child
-116,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_High fever,CHD EPI Serious AEFIs HPV High fever > 38 degrees celcius,EkWjeufJBZm,M7jQlKEkSqJ,CHD EPI Serious AEFIs HPV High fever > 38 degrees celcius,child
-117,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Paralysis,CHD EPI Serious AEFIs HPV Paralysis,EkWjeufJBZm,B0f32ZFn60o,CHD EPI Serious AEFIs HPV Paralysis,child
-118,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Seizures,CHD EPI Serious AEFIs HPV Seizures,EkWjeufJBZm,HOlQfcCymaL,CHD EPI Serious AEFIs HPV Seizures,child
-119,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Significant_disability,CHD EPI Serious AEFIs HPV Significant disability,EkWjeufJBZm,KoKTLhnFdWO,CHD EPI Serious AEFIs HPV Significant disability,child
-120,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Toxic_shock_syndrome,CHD EPI Serious AEFIs HPV Toxic shock syndrome,EkWjeufJBZm,XxEUgxNYpyz,CHD EPI Serious AEFIs HPV Toxic shock syndrome,child
-121,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Birth_defect,CHD EPI Serious AEFIs TT/Td Birth defect,EkWjeufJBZm,LWMz8aMKe3G,CHD EPI Serious AEFIs TT/Td Birth defect,child
-122,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Death,CHD EPI Serious AEFIs TT/Td Death,EkWjeufJBZm,zhf7SmRLOBt,CHD EPI Serious AEFIs TT/Td Death,child
-123,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Encephalopathy,CHD EPI Serious AEFIs TT/Td Encephalopathy,EkWjeufJBZm,GqIoLWljn2v,CHD EPI Serious AEFIs TT/Td Encephalopathy,child
-124,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_High fever,CHD EPI Serious AEFIs TT/Td High fever > 38 degrees celcius,EkWjeufJBZm,ZJCJQeKAIp7,CHD EPI Serious AEFIs TT/Td High fever > 38 degrees celcius,child
-125,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Paralysis,CHD EPI Serious AEFIs TT/Td Paralysis,EkWjeufJBZm,R5PTsj1f4na,CHD EPI Serious AEFIs TT/Td Paralysis,child
-126,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Seizures,CHD EPI Serious AEFIs TT/Td Seizures,EkWjeufJBZm,oPAsier4S0v,CHD EPI Serious AEFIs TT/Td Seizures,child
-127,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Significant_disability,CHD EPI Serious AEFIs TT/Td Significant disability,EkWjeufJBZm,BpPUhIEd0K0,CHD EPI Serious AEFIs TT/Td Significant disability,child
-128,ME_Deworm_Age_Outreach_Deworming_Over_1_Female,CHD EPI Number dewormed 12 - 23 Months Female Outreach,Ojz51mfHBQH,e6tut7p8b3U,CHD EPI Number dewormed 12 - 23 Months Female Outreach,child
-129,ME_Deworm_Age_Outreach_Deworming_Over_1_Male,CHD EPI Number dewormed 12 - 23 Months Male Outreach,Ojz51mfHBQH,XAPWPhdXPpN,CHD EPI Number dewormed 12 - 23 Months Male Outreach,child
-130,ME_Deworm_Age_Outreach_Deworming_Over_2_Female,CHD EPI Number dewormed 24 - 59 Months Female Outreach,Ojz51mfHBQH,mAcNlntVW6y,CHD EPI Number dewormed 24 - 59 Months Female Outreach,child
-131,ME_Deworm_Age_Outreach_Deworming_Over_2_Male,CHD EPI Number dewormed 24 - 59 Months Male Outreach,Ojz51mfHBQH,sNWb5qxiOkh,CHD EPI Number dewormed 24 - 59 Months Male Outreach,child
-132,ME_Fully_Immunized_Outreach_Over_1,Fully Immunized Children Count for over 1 (Outreach),NxggSy8gzqo,zKLduwqZFnh,CHD EPI Fully Immunized children Outreach Over 1,child
-133,ME_Fully_Immunized_Outreach_Under_1,Fully Immunized Children Count for under 1 (0-11months)(Static),NxggSy8gzqo,UHR4d8LgGou,CHD EPI Fully Immunized children Static Under 1,child
-134,ME_Fully_Immunized_Static_Monthly_Target,CHD EPI Fully Immunized monthly target,nY4VJl2RBVn,Tt7fU5lUhAU,CHD EPI Fully Immunized monthly target,child
-135,ME_Fully_Immunized_Static_Over_1,Fully Immunized Children Count for over 1(Static),NxggSy8gzqo,r2NJTUrJ2TL,CHD EPI Fully Immunized children Static Over 1,child
-136,ME_Fully_Immunized_Static_Under_1,Fully Immunized Children Count for under 1 (0-11months)(Outreach),NxggSy8gzqo,ipKITPnwlcP,CHD EPI Fully Immunized children Outreach Under 1,child
-137,ME_G_RECUR_Deworming_doses_discarded_C_Outreach,CHD EPI Deworming doses discarded (C) Outreach,kq7pOkPdZcG,kVTGmhgf7wQ,CHD EPI Deworming doses discarded (C) Outreach,child
-138,ME_G_RECUR_Deworming_doses_discarded_C_Static,CHD EPI Deworming doses discarded (C) Static,kq7pOkPdZcG,yqszvXV2s8u,CHD EPI Deworming doses discarded (C) Static,child
-139,ME_G_RECUR_Deworming_doses_received_A_Outreach,CHD EPI Deworming doses received (A) Outreach,CvZW3VhbteN,kVTGmhgf7wQ,CHD EPI Deworming doses received (A) Outreach,child
-140,ME_G_RECUR_Deworming_doses_received_A_Static,CHD EPI Deworming doses received (A) Static,CvZW3VhbteN,yqszvXV2s8u,CHD EPI Deworming doses received (A) Static,child
-141,ME_G_RECUR_Deworming_doses_used_B_Outreach,CHD EPI Deworming doses used (B) Outreach,rtqJjmGpCpl,kVTGmhgf7wQ,CHD EPI Deworming doses used (B) Outreach,child
-142,ME_G_RECUR_Deworming_doses_used_B_Static,CHD EPI Deworming doses used (B) Static,rtqJjmGpCpl,yqszvXV2s8u,CHD EPI Deworming doses used (B) Static,child
-143,ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_100_000_ius_Outreach,CHD EPI Vitamin A doses discarded (C) Vitamin A (100 000 ius) Outreach,xMnj50meZdW,kKablbVRnSR,CHD EPI Vitamin A doses discarded (C) Vitamin A (100 000 ius) Outreach,child
-144,ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_100_000_ius_Static,CHD EPI Vitamin A doses discarded (C) Vitamin A (100 000 ius) Static,xMnj50meZdW,IdHlwbYKUyO,CHD EPI Vitamin A doses discarded (C) Vitamin A (100 000 ius) Static,child
-145,ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_200_000_ius_Outreach,CHD EPI Vitamin A doses discarded (C) Vitamin A (200 000 ius) Outreach,xMnj50meZdW,iw1XlWo2KZZ,CHD EPI Vitamin A doses discarded (C) Vitamin A (200 000 ius) Outreach,child
-146,ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_200_000_ius_Static,CHD EPI Vitamin A doses discarded (C) Vitamin A (200 000 ius) Static,xMnj50meZdW,LAe0tPa2Mlx,CHD EPI Vitamin A doses discarded (C) Vitamin A (200 000 ius) Static,child
-147,ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_100_000_ius_Outreach,CHD EPI Vitamin A doses received (A) Vitamin A (100 000 ius) Outreach,n3CWVSFoAJI,kKablbVRnSR,CHD EPI Vitamin A doses received (A) Vitamin A (100 000 ius) Outreach,child
-148,ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_100_000_ius_Static,CHD EPI Vitamin A doses received (A) Vitamin A (100 000 ius) Static,n3CWVSFoAJI,IdHlwbYKUyO,CHD EPI Vitamin A doses received (A) Vitamin A (100 000 ius) Static,child
-149,ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_200_000_ius_Outreach,CHD EPI Vitamin A doses received (A) Vitamin A (200 000 ius) Outreach,n3CWVSFoAJI,iw1XlWo2KZZ,CHD EPI Vitamin A doses received (A) Vitamin A (200 000 ius) Outreach,child
-150,ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_200_000_ius_Static,CHD EPI Vitamin A doses received (A) Vitamin A (200 000 ius) Static,n3CWVSFoAJI,LAe0tPa2Mlx,CHD EPI Vitamin A doses received (A) Vitamin A (200 000 ius) Static,child
-151,ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_100_000_ius_Outreach,CHD EPI Vitamin A doses used (B) Vitamin A (100 000 ius) Outreach,qOHwwJSdDtF,kKablbVRnSR,CHD EPI Vitamin A doses used (B) Vitamin A (100 000 ius) Outreach,child
-152,ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_100_000_ius_Static,CHD EPI Vitamin A doses used (B) Vitamin A (100 000 ius) Static,qOHwwJSdDtF,IdHlwbYKUyO,CHD EPI Vitamin A doses used (B) Vitamin A (100 000 ius) Static,child
-153,ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_200_000_ius_Outreach,CHD EPI Vitamin A doses used (B) Vitamin A (200 000 ius) Outreach,qOHwwJSdDtF,iw1XlWo2KZZ,CHD EPI Vitamin A doses used (B) Vitamin A (200 000 ius) Outreach,child
-154,ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_200_000_ius_Static,CHD EPI Vitamin A doses used (B) Vitamin A (200 000 ius) Static,qOHwwJSdDtF,LAe0tPa2Mlx,CHD EPI Vitamin A doses used (B) Vitamin A (200 000 ius) Static,child
-155,ME_HPV_HPV_target,CHD EPI HPV monthly target,H9AA0aCgLLW,Tt7fU5lUhAU,CHD EPI HPV monthly target,child
-156,ME_HPV_HPV1_Outreach,CHD EPI HPV1 Childhood Vaccination Outreach,LVf1UKNhsTQ,ncuvhAmA87L,CHD EPI HPV1 Childhood Vaccination Outreach,child
-157,ME_HPV_HPV1_School,CHD EPI HPV1 Childhood Vaccination School,LVf1UKNhsTQ,xqbG4BkxGQf,CHD EPI HPV1 Childhood Vaccination School,child
-158,ME_HPV_HPV1_Static,CHD EPI HPV1 Childhood Vaccination Static,LVf1UKNhsTQ,bynRt3ic3AU,CHD EPI HPV1 Childhood Vaccination Static,child
-159,ME_HPV_HPV2_Outreach,CHD EPI HPV2 Childhood Vaccination Outreach,pU8U8rGHdz9,ncuvhAmA87L,CHD EPI HPV2 Childhood Vaccination Outreach,child
-160,ME_HPV_HPV2_School,CHD EPI HPV2 Childhood Vaccination School,pU8U8rGHdz9,xqbG4BkxGQf,CHD EPI HPV2 Childhood Vaccination School,child
-161,ME_HPV_HPV2_Static,CHD EPI HPV2 Childhood Vaccination Static,pU8U8rGHdz9,bynRt3ic3AU,CHD EPI HPV2 Childhood Vaccination Static,child
-162,ME_I_DS_Acute_Flaccid_Paralysis_AFP_cases_investigated,CHD EPI Acute Flaccid Paralysis (AFP) cases investigated default,k9D99xE8QFI,Tt7fU5lUhAU,CHD EPI Acute Flaccid Paralysis (AFP) cases investigated default,child
-163,ME_I_DS_Acute_Flaccid_Paralysis_AFP_cases_reported,CHD EPI Acute Flaccid Paralysis (AFP) cases reported default,kF0YpqmyhzM,Tt7fU5lUhAU,CHD EPI Acute Flaccid Paralysis (AFP) cases reported default,child
-164,ME_I_DS_Deaths_due_to_measles,CHD EPI Deaths due to measles default,RmONYUtfq0m,Tt7fU5lUhAU,CHD EPI Deaths due to measles default,child
-165,ME_I_DS_Neonatal_Tetanus_NNT_cases_investigated,CHD EPI Neonatal Tetanus (NNT) cases investigated default,xcE6eSWtFdI,Tt7fU5lUhAU,CHD EPI Neonatal Tetanus (NNT) cases investigated default,child
-166,ME_I_DS_Neonatal_Tetanus_NNT_cases_reported,CHD EPI Neonatal Tetanus (NNT) cases reported default,FS2x2osM8O8,Tt7fU5lUhAU,CHD EPI Neonatal Tetanus (NNT) cases reported default,child
-167,ME_I_DS_Suspected_measles_cases_investigated,CHD EPI Suspected measles cases investigated default,rQqO0bAzoFv,Tt7fU5lUhAU,CHD EPI Suspected measles cases investigated default,child
-168,ME_I_DS_Suspected_measles_cases_reported,CHD EPI Suspected measles cases reported default,BO5LhJdAGgU,Tt7fU5lUhAU,CHD EPI Suspected measles cases reported default,child
-169,ME_Overall_View_CHD_EPI_9_years_old_girls,CHD EPI 9 years old girls default,CIZ7Ey6tGI7,Tt7fU5lUhAU,CHD EPI 9 years old girls default,child
-170,ME_Overall_View_CHD_EPI_Annual_total_population,CHD EPI Annual total population default,FAUUU0mZbcL,Tt7fU5lUhAU,CHD EPI Annual total population default,child
-171,ME_Overall_View_CHD_EPI_Live_births,CHD EPI Live births default,fLG3TWakdSk,Tt7fU5lUhAU,CHD EPI Live births default,child
-172,ME_Overall_View_CHD_EPI_Pregnant_women,CHD EPI Pregnant women default,GxqYLY3iWcz,Tt7fU5lUhAU,CHD EPI Pregnant women default,child
-173,ME_Overall_View_CHD_EPI_Surviving_infants,CHD EPI Surviving infants default,p19DIsV5dS1,Tt7fU5lUhAU,CHD EPI Surviving infants default,child
-174,ME_PAB_Outreach_yes,Protected At Birth Count for under 1 (0-11months)(Outreach),ds8EuoyoTUK,H5xzz0m9zyd,CHD EPI Protection At Birth (PAB) Childhood Vaccination Outreach Under 1,child
-175,ME_PAB_Static_Target,Protected At Birth Target Count for under 1 (0-11months),TWRYEEWgPFo,Tt7fU5lUhAU,CHD EPI Children Protection At Birth (PAB) monthly target,child
-176,ME_PAB_Static_Yes,Protected At Birth Count for under 1 (0-11months)(Static),ds8EuoyoTUK,goHo0wV2Gx1,CHD EPI Protection At Birth (PAB) Childhood Vaccination Static Under 1,child
-177,ME_Postnatal_monthly_target_Postnatal_Mothers_Outreach,CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Outreach,Z0NHyXNToqQ,Q3z4PEAGJPk,CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Outreach,child
-178,ME_Postnatal_monthly_target_Postnatal_Mothers_Static,CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Static,Z0NHyXNToqQ,BazVKQ6ZpCq,CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Static,child
-179,ME_Postnatal_Postnatal_Mothers_Female_Outreach,CHD EPI Vitamin A suplemented Postnatal Mothers Female Outreach,QBgBWJAlOxW,xprBmf6aoxX,CHD EPI Vitamin A suplemented Postnatal Mothers Female Outreach,child
-180,ME_Postnatal_Postnatal_Mothers_Female_Static,CHD EPI Vitamin A suplemented Postnatal Mothers Female Static,QBgBWJAlOxW,xLZW9fzZMdq,CHD EPI Vitamin A suplemented Postnatal Mothers Female Static,child
-181,ME_Recur_Targets_Deworming_monthly_target_12_to_23_Months 1st_Dose_Outreach,CHD EPI Deworming monthly target 12 - 23 Months  (1st Dose) Outreach,j4CbL1w5OI8,sE59AYPpDzV,CHD EPI Deworming monthly target 12 - 23 Months  (1st Dose) Outreach,child
-182,ME_Recur_Targets_Deworming_monthly_target_12_to_23_Months 1st_Dose_Static,CHD EPI Deworming monthly target 12 - 23 Months  (1st Dose) Static,j4CbL1w5OI8,nB36VubTAWb,CHD EPI Deworming monthly target 12 - 23 Months  (1st Dose) Static,child
-183,ME_Recur_Targets_Deworming_monthly_target_24_to_59_Months 1st_Dose_Outreach,CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Outreach,j4CbL1w5OI8,yHjAeb2FeKo,CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Outreach,child
-184,ME_Recur_Targets_Deworming_monthly_target_24_to_59_Months 1st_Dose_Static,CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Static,j4CbL1w5OI8,hWep1DrZyg7,CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Static,child
-185,ME_Recur_Targets_Vitamin_A_monthly_target_12_to_59_Months 1st_Dose_Outreach,CHD EPI Vitamin A suplementation monthly target 12 - 59 Months (1st Dose) Outreach,Z0NHyXNToqQ,DelguUiaDgQ,CHD EPI Vitamin A suplementation monthly target 12 - 59 Months (1st Dose) Outreach,child
-186,ME_Recur_Targets_Vitamin_A_monthly_target_12_to_59_Months 1st_Dose_Static,CHD EPI Vitamin A suplementation monthly target 12 - 59 Months (1st Dose) Static,Z0NHyXNToqQ,CRLR2mJxlDh,CHD EPI Vitamin A suplementation monthly target 12 - 59 Months (1st Dose) Static,child
-187,ME_Recur_Targets_Vitamin_A_monthly_target_13_to_59_Months 2nd_Dose_Outreach,CHD EPI Vitamin A suplementation monthly target 13 - 59 Months (2nd Dose) Outreach,Z0NHyXNToqQ,UZ80iHM7Ta7,CHD EPI Vitamin A suplementation monthly target 13 - 59 Months (2nd Dose) Outreach,child
-188,ME_Recur_Targets_Vitamin_A_monthly_target_13_to_59_Months 2nd_Dose_Static,CHD EPI Vitamin A suplementation monthly target 13 - 59 Months (2nd Dose) Static,Z0NHyXNToqQ,kwL7tcT1Y2F,CHD EPI Vitamin A suplementation monthly target 13 - 59 Months (2nd Dose) Static,child
-189,ME_Recur_Targets_Vitamin_A_monthly_target_6_to_11_Months_Outreach,CHD EPI Vitamin A suplementation monthly target 6 - 11 Months Outreach,Z0NHyXNToqQ,s5nG0tOerwC,CHD EPI Vitamin A suplementation monthly target 6 - 11 Months Outreach,child
-190,ME_Recur_Targets_Vitamin_A_monthly_target_6_to_11_Months_Static,CHD EPI Vitamin A suplementation monthly target 6 - 11 Months Static,Z0NHyXNToqQ,cg6HUEGPtVn,CHD EPI Vitamin A suplementation monthly target 6 - 11 Months Static,child
-191,ME_Recurring_Age_Static_Deworming_Over_1_Female,CHD EPI Number dewormed 12 - 23 Months Female Static,Ojz51mfHBQH,sVUMSUwxQyj,CHD EPI Number dewormed 12 - 23 Months Female Static,child
-192,ME_Recurring_Age_Static_Deworming_Over_1_Male,CHD EPI Number dewormed 12 - 23 Months Male Static,Ojz51mfHBQH,mVBoBn7kcA3,CHD EPI Number dewormed 12 - 23 Months Male Static,child
-193,ME_Recurring_Age_Static_Deworming_Over_2_Female,CHD EPI Number dewormed 24 - 59 Months Female Static,Ojz51mfHBQH,OX3bT0qfrwH,CHD EPI Number dewormed 24 - 59 Months Female Static,child
-194,ME_Recurring_Age_Static_Deworming_Over_2_Male,CHD EPI Number dewormed 24 - 59 Months Male Static,Ojz51mfHBQH,p7xCFOF37EI,CHD EPI Number dewormed 24 - 59 Months Male Static,child
-195,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td1,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td1,GFK6GYOH1pe,sUJu7Rrwnqf,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td1,child
-196,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td2,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td2,GFK6GYOH1pe,ilp7FL283ki,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td2,child
-197,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td3,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td3,GFK6GYOH1pe,X3wL9Dv8IQ1,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td3,child
-198,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td4,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td4,GFK6GYOH1pe,ebDFxuz6EN3,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td4,child
-199,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td5,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td5,GFK6GYOH1pe,s9bOyev26fk,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td5,child
-200,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td1,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td1,GFK6GYOH1pe,FUyKlZuQ0op,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td1,child
-201,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td2,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td2,GFK6GYOH1pe,p1eVusA8ewZ,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td2,child
-202,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td3,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td3,GFK6GYOH1pe,hkiWKCld6Gb,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td3,child
-203,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td4,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td4,GFK6GYOH1pe,ddOrYP9LWcZ,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td4,child
-204,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td5,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td5,GFK6GYOH1pe,exF4t64yYbj,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td5,child
-205,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td1,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td1,ZvoyuiyUtgg,fyMUQSfro2z,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td1,child
-206,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td2,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td2,ZvoyuiyUtgg,oTvYHlcftAc,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td2,child
-207,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td3,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td3,ZvoyuiyUtgg,AGICAaiRdfh,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td3,child
-208,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td4,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td4,ZvoyuiyUtgg,pM2WJzwnYvn,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td4,child
-209,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td5,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td5,ZvoyuiyUtgg,Oy2BoTw63WF,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td5,child
-210,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td1,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td1,ZvoyuiyUtgg,VR8GxFVadjW,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td1,child
-211,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td2,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td2,ZvoyuiyUtgg,zjjR9qDJM3F,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td2,child
-212,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td3,CHD EPI Td for women of child bearing age (CBA)Non-pregnant women of CBA Static Td3,ZvoyuiyUtgg,sC2KvkQdJ9m,CHD EPI Td for women of child bearing age (CBA)Non-pregnant women of CBA Static Td3,child
-213,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td4,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td4,ZvoyuiyUtgg,cJXUKYuKghd,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td4,child
-214,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td5,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td5,ZvoyuiyUtgg,jf94UGJxXmC,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td5,child
-215,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td1,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td1,ZvoyuiyUtgg,v8UlsCp6RTi,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td1,child
-216,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td2,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td2,ZvoyuiyUtgg,zKvAzopOfMq,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td2,child
-217,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td3,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td3,ZvoyuiyUtgg,fgRdWjPgNhY,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td3,child
-218,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td4,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td4,ZvoyuiyUtgg,wu9dfmpb8R8,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td4,child
-219,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td5,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td5,ZvoyuiyUtgg,CW5V3g1rGup,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td5,child
-220,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td1,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td1,ZvoyuiyUtgg,Y0oKwoxLmfB,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td1,child
-221,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td2,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td2,ZvoyuiyUtgg,rX6HhzjkC63,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td2,child
-222,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td3,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td3,ZvoyuiyUtgg,ftfQcyXJfc9,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td3,child
-223,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td4,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td4,ZvoyuiyUtgg,ggMAma5by6E,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td4,child
-224,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td5,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td5,ZvoyuiyUtgg,KTII5gIVUpu,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td5,child
-225,ME_Vacc_Target_CHD_EPI_BCG_and_OPV_0_monthly_target,CHD EPI BCG and OPV 0 monthly target,hhK4Ph0ZtB6,Tt7fU5lUhAU,CHD EPI BCG and OPV 0 monthly target,child
-226,ME_Vacc_Target_CHD_EPI_DPTHepBHib_1_to_3_monthly_target_surviving_infants,CHD EPI DPT-HepB-Hib 1 - 3 monthly target surviving infants,yxUM9vxdmF6,Tt7fU5lUhAU,CHD EPI DPT-HepB-Hib 1 - 3 monthly target surviving infants,child
-227,ME_Vacc_Target_CHD_EPI_Malaria_Vaccine_4_monthly_target,CHD EPI Malaria Vaccine 4 monthly target (22 - 36 months),RpcTO1N2yQu,Tt7fU5lUhAU,CHD EPI Malaria Vaccine 4 monthly target (22 - 36 months),child
-228,ME_Vacc_Target_CHD_EPI_Malaria_Vaccines_monthly_target_Under_1,CHD EPI Malaria Vaccines (1-4) monthly target Under 1,gxGFvXiI39i,Tt7fU5lUhAU,CHD EPI Malaria Vaccines (1-4) monthly target Under 1,child
-229,ME_Vacc_Target_CHD_EPI_MR1_monthly_target_surviving_infant,CHD EPI MR1 monthly target surviving infant,rzkixPVm4Dv,Tt7fU5lUhAU,CHD EPI MR1 monthly target surviving infant,child
-230,ME_Vacc_Target_CHD_EPI_MR2_monthly_target_surviving_infants,CHD EPI MR2 monthly target surviving infants,nSF1a1Kjfou,Tt7fU5lUhAU,CHD EPI MR2 monthly target surviving infants,child
-231,ME_Vacc_Target_CHD_EPI_OPV_1_to_OPV_3_monthly_target_surviving_infants,CHD EPI OPV 1 - OPV 3 monthly target surviving infants,OxUdXmxVbG3,Tt7fU5lUhAU,CHD EPI OPV 1 - OPV 3 monthly target surviving infants,child
-232,ME_Vacc_Target_CHD_EPI_PCV1_to_PCV3_monthly_target_surviving_infants,CHD EPI PCV1 - PCV3 monthly target surviving infants,phZB9X9xSbs,Tt7fU5lUhAU,CHD EPI PCV1 - PCV3 monthly target surviving infants,child
-233,ME_Vacc_Target_CHD_EPI_ROTA_1_and_2_monthly_target,CHD EPI ROTA 1 and 2 monthly target,fcsaaUnmg5j,Tt7fU5lUhAU,CHD EPI ROTA 1 and 2 monthly target,child
-234,ME_Vaccines_Age_Outreach_bcg_Over_1,CHD EPI BCG Childhood Vaccination Outreach Over 1,s79kWckFPLs,zKLduwqZFnh,CHD EPI BCG Childhood Vaccination Outreach Over 1,child
-235,ME_Vaccines_Age_Outreach_bcg_Under_1,CHD EPI BCG Childhood Vaccination Outreach Under 1,s79kWckFPLs,ipKITPnwlcP,CHD EPI BCG Childhood Vaccination Outreach Under 1,child
-236,ME_Vaccines_Age_Outreach_ipv_Over_1,CHD EPI IPV Childhood Vaccination Outreach Over 1,aoEFV2GYFdr,zKLduwqZFnh,CHD EPI IPV Childhood Vaccination Outreach Over 1,child
-237,ME_Vaccines_Age_Outreach_ipv_Under_1,CHD EPI IPV Childhood Vaccination Outreach Under 1,aoEFV2GYFdr,ipKITPnwlcP,CHD EPI IPV Childhood Vaccination Outreach Under 1,child
-238,ME_Vaccines_Age_Outreach_mr_1_Over_1,CHD EPI MR1 Childhood Vaccination Outreach Over 1,noxYd7tOSon,zKLduwqZFnh,CHD EPI MR1 Childhood Vaccination Outreach Over 1,child
-239,ME_Vaccines_Age_Outreach_mr_1_Under_1,CHD EPI MR1 Childhood Vaccination Outreach Under 1,noxYd7tOSon,ipKITPnwlcP,CHD EPI MR1 Childhood Vaccination Outreach Under 1,child
-240,ME_Vaccines_Age_Outreach_mr_2_Over_1,CHD EPI MR2 Childhood Vaccination Outreach Over 1,i78OLuiaUDY,zKLduwqZFnh,CHD EPI MR2 Childhood Vaccination Outreach Over 1,child
-241,ME_Vaccines_Age_Outreach_mv_1_Under_1,CHD EPI Malaria Vaccine 1 Childhood Vaccination Outreach Under 1,a3DjUocUyEa,H5xzz0m9zyd,CHD EPI Malaria Vaccine 1 Childhood Vaccination Outreach Under 1,child
-242,ME_Vaccines_Age_Outreach_mv_2_Under_1,CHD EPI Malaria Vaccine 2 Childhood Vaccination Outreach Under 1,qcbczRGg4Gm,H5xzz0m9zyd,CHD EPI Malaria Vaccine 2 Childhood Vaccination Outreach Under 1,child
-243,ME_Vaccines_Age_Outreach_mv_3_Under_1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Outreach Under 1,MqhI0ToAbRd,H5xzz0m9zyd,CHD EPI Malaria Vaccine 3 Childhood Vaccination Outreach Under 1,child
-244,ME_Vaccines_Age_Outreach_mv_4_Over_1,CHD EPI Malaria Vaccine 4 Childhood Vaccination Outreach > 24-27 Months,BcipDoKGMNu,heiO5lIn7Cs,CHD EPI Malaria Vaccine 4 Childhood Vaccination Outreach > 24-27 Months,child
-245,ME_Vaccines_Age_Outreach_opv_0_Under_1,CHD EPI OPV 0 Childhood Vaccination Outreach,pVdb1wcTMyw,H5xzz0m9zyd,CHD EPI OPV 0 Childhood Vaccination Outreach,child
-246,ME_Vaccines_Age_Outreach_opv_1_Over_1,CHD EPI OPV1 Childhood Vaccination Outreach Over 1,hftsrvq65Ia,zKLduwqZFnh,CHD EPI OPV1 Childhood Vaccination Outreach Over 1,child
-247,ME_Vaccines_Age_Outreach_opv_1_Under_1,CHD EPI OPV1 Childhood Vaccination Outreach Under 1,hftsrvq65Ia,ipKITPnwlcP,CHD EPI OPV1 Childhood Vaccination Outreach Under 1,child
-248,ME_Vaccines_Age_Outreach_opv_2_Over_1,CHD EPI OPV2 Childhood Vaccination Outreach Over 1,cC69GTz2OSm,zKLduwqZFnh,CHD EPI OPV2 Childhood Vaccination Outreach Over 1,child
-249,ME_Vaccines_Age_Outreach_opv_2_Under_1,CHD EPI OPV2 Childhood Vaccination Outreach Under 1,cC69GTz2OSm,ipKITPnwlcP,CHD EPI OPV2 Childhood Vaccination Outreach Under 1,child
-250,ME_Vaccines_Age_Outreach_opv_3_Over_1,CHD EPI OPV3 Childhood Vaccination Outreach Over 1,CrELJNRN6Ok,zKLduwqZFnh,CHD EPI OPV3 Childhood Vaccination Outreach Over 1,child
-251,ME_Vaccines_Age_Outreach_opv_3_Under_1,CHD EPI OPV3 Childhood Vaccination Outreach Under 1,CrELJNRN6Ok,ipKITPnwlcP,CHD EPI OPV3 Childhood Vaccination Outreach Under 1,child
-252,ME_Vaccines_Age_Outreach_pcv_1_Over_1,CHD EPI PCV1 Childhood Vaccination Outreach Over 1,TOdUoVRc7n0,zKLduwqZFnh,CHD EPI PCV1 Childhood Vaccination Outreach Over 1,child
-253,ME_Vaccines_Age_Outreach_pcv_1_Under_1,CHD EPI PCV1 Childhood Vaccination Outreach Under 1,TOdUoVRc7n0,ipKITPnwlcP,CHD EPI PCV1 Childhood Vaccination Outreach Under 1,child
-254,ME_Vaccines_Age_Outreach_pcv_2_Over_1,CHD EPI PCV2 Childhood Vaccination Outreach Over 1,iV9Ijd0qjPU,zKLduwqZFnh,CHD EPI PCV2 Childhood Vaccination Outreach Over 1,child
-255,ME_Vaccines_Age_Outreach_pcv_2_Under_1,CHD EPI PCV2 Childhood Vaccination Outreach Under 1,iV9Ijd0qjPU,ipKITPnwlcP,CHD EPI PCV2 Childhood Vaccination Outreach Under 1,child
-256,ME_Vaccines_Age_Outreach_penta_1_Over_1,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Over 1,bUpxQhmf8ZK,zKLduwqZFnh,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Over 1,child
-257,ME_Vaccines_Age_Outreach_penta_1_Under_1,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Under 1,bUpxQhmf8ZK,ipKITPnwlcP,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Under 1,child
-258,ME_Vaccines_Age_Outreach_penta_2_Over_1,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Over 1,oVS5H2KNyxb,zKLduwqZFnh,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Over 1,child
-259,ME_Vaccines_Age_Outreach_penta_2_Under_1,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Under 1,oVS5H2KNyxb,ipKITPnwlcP,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Under 1,child
-260,ME_Vaccines_Age_Outreach_penta_3_Over_1,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Over 1,cq3o6581c85,zKLduwqZFnh,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Over 1,child
-261,ME_Vaccines_Age_Outreach_penta_3_Under_1,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Under 1,cq3o6581c85,ipKITPnwlcP,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Under 1,child
-262,ME_Vaccines_Age_Outreach_rota_1_Under_1,CHD EPI ROTA 1 Childhood Vaccination Outreach Under 1,DzCqBNtgw2C,H5xzz0m9zyd,CHD EPI ROTA 1 Childhood Vaccination Outreach Under 1,child
-263,ME_Vaccines_Age_Outreach_rota_2_Under_1,CHD EPI ROTA 2 Childhood Vaccination Outreach Under 1,kBNHszeOCpn,H5xzz0m9zyd,CHD EPI ROTA 2 Childhood Vaccination Outreach Under 1,child
-264,ME_Vaccines_Age_Static_bcg_Over_1,CHD EPI BCG Childhood Vaccination Static Over 1,s79kWckFPLs,r2NJTUrJ2TL,CHD EPI BCG Childhood Vaccination Static Over 1,child
-265,ME_Vaccines_Age_Static_bcg_Under_1,CHD EPI BCG Childhood Vaccination Static Under 1,s79kWckFPLs,UHR4d8LgGou,CHD EPI BCG Childhood Vaccination Static Under 1,child
-266,ME_Vaccines_Age_Static_ipv_Over_1,CHD EPI IPV Childhood Vaccination Static Over 1,aoEFV2GYFdr,r2NJTUrJ2TL,CHD EPI IPV Childhood Vaccination Static Over 1,child
-267,ME_Vaccines_Age_Static_ipv_Under_1,CHD EPI IPV Childhood Vaccination Static Under 1,aoEFV2GYFdr,UHR4d8LgGou,CHD EPI IPV Childhood Vaccination Static Under 1,child
-268,ME_Vaccines_Age_Static_mr_1_Over_1,CHD EPI MR1 Childhood Vaccination Static Over 1,noxYd7tOSon,r2NJTUrJ2TL,CHD EPI MR1 Childhood Vaccination Static Over 1,child
-269,ME_Vaccines_Age_Static_mr_1_Under_1,CHD EPI MR1 Childhood Vaccination Static Under 1,noxYd7tOSon,UHR4d8LgGou,CHD EPI MR1 Childhood Vaccination Static Under 1,child
-270,ME_Vaccines_Age_Static_mr_2_Over_1,CHD EPI MR2 Childhood Vaccination Static Over 1,i78OLuiaUDY,r2NJTUrJ2TL,CHD EPI MR2 Childhood Vaccination Static Over 1,child
-271,ME_Vaccines_Age_Static_mv_1_Under_1,CHD EPI Malaria Vaccine 1 Childhood Vaccination Static Under 1,a3DjUocUyEa,goHo0wV2Gx1,CHD EPI Malaria Vaccine 1 Childhood Vaccination Static Under 1,child
-272,ME_Vaccines_Age_Static_mv_2_Under_1,CHD EPI Malaria Vaccine 2 Childhood Vaccination Static Under 1,qcbczRGg4Gm,goHo0wV2Gx1,CHD EPI Malaria Vaccine 2 Childhood Vaccination Static Under 1,child
-273,ME_Vaccines_Age_Static_mv_3_Under_1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Static Under 1,MqhI0ToAbRd,goHo0wV2Gx1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Static Under 1,child
-274,ME_Vaccines_Age_Static_mv_4_Over_1,CHD EPI Malaria Vaccine 4 Childhood Vaccination Static > 24-27 Months,BcipDoKGMNu,k4MfKNU5WDq,CHD EPI Malaria Vaccine 4 Childhood Vaccination Static > 24-27 Months,child
-275,ME_Vaccines_Age_Static_opv_0_Under_1,CHD EPI OPV 0 Childhood Vaccination Static Under 1,pVdb1wcTMyw,goHo0wV2Gx1,CHD EPI OPV 0 Childhood Vaccination Static Under 1,child
-276,ME_Vaccines_Age_Static_opv_1_Over_1,CHD EPI OPV1 Childhood Vaccination Static Over 1,hftsrvq65Ia,r2NJTUrJ2TL,CHD EPI OPV1 Childhood Vaccination Static Over 1,child
-277,ME_Vaccines_Age_Static_opv_1_Under_1,CHD EPI OPV1 Childhood Vaccination Static Under 1,hftsrvq65Ia,UHR4d8LgGou,CHD EPI OPV1 Childhood Vaccination Static Under 1,child
-278,ME_Vaccines_Age_Static_opv_2_Over_1,CHD EPI OPV2 Childhood Vaccination Static Over 1,cC69GTz2OSm,r2NJTUrJ2TL,CHD EPI OPV2 Childhood Vaccination Static Over 1,child
-279,ME_Vaccines_Age_Static_opv_2_Under_1,CHD EPI OPV2 Childhood Vaccination Static Under 1,cC69GTz2OSm,UHR4d8LgGou,CHD EPI OPV2 Childhood Vaccination Static Under 1,child
-280,ME_Vaccines_Age_Static_opv_3_Over_1,CHD EPI OPV3 Childhood Vaccination Static Over 1,CrELJNRN6Ok,r2NJTUrJ2TL,CHD EPI OPV3 Childhood Vaccination Static Over 1,child
-281,ME_Vaccines_Age_Static_opv_3_Under_1,CHD EPI OPV3 Childhood Vaccination Static Under 1,CrELJNRN6Ok,UHR4d8LgGou,CHD EPI OPV3 Childhood Vaccination Static Under 1,child
-282,ME_Vaccines_Age_Static_pcv_1_Over_1,CHD EPI PCV1 Childhood Vaccination Static Over 1,TOdUoVRc7n0,r2NJTUrJ2TL,CHD EPI PCV1 Childhood Vaccination Static Over 1,child
-283,ME_Vaccines_Age_Static_pcv_1_Under_1,CHD EPI PCV1 Childhood Vaccination Static Under 1,TOdUoVRc7n0,UHR4d8LgGou,CHD EPI PCV1 Childhood Vaccination Static Under 1,child
-284,ME_Vaccines_Age_Static_pcv_2_Over_1,CHD EPI PCV2 Childhood Vaccination Static Over 1,iV9Ijd0qjPU,r2NJTUrJ2TL,CHD EPI PCV2 Childhood Vaccination Static Over 1,child
-285,ME_Vaccines_Age_Static_pcv_2_Under_1,CHD EPI PCV2 Childhood Vaccination Static Under 1,iV9Ijd0qjPU,UHR4d8LgGou,CHD EPI PCV2 Childhood Vaccination Static Under 1,child
-286,ME_Vaccines_Age_Static_pcv_3_Over_1,CHD EPI PCV3 Childhood Vaccination Static Over 1,IQFC39nNHPX,r2NJTUrJ2TL,CHD EPI PCV3 Childhood Vaccination Static Over 1,child
-287,ME_Vaccines_Age_Static_pcv_3_Under_1,CHD EPI PCV3 Childhood Vaccination Static Under 1,IQFC39nNHPX,UHR4d8LgGou,CHD EPI PCV3 Childhood Vaccination Static Under 1,child
-288,ME_Vaccines_Age_Static_penta_1_Over_1,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Over 1,bUpxQhmf8ZK,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Over 1,child
-289,ME_Vaccines_Age_Static_penta_1_Under_1,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Under 1,bUpxQhmf8ZK,UHR4d8LgGou,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Under 1,child
-290,ME_Vaccines_Age_Static_penta_2_Over_1,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Over 1,oVS5H2KNyxb,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Over 1,child
-291,ME_Vaccines_Age_Static_penta_2_Under_1,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Under 1,oVS5H2KNyxb,UHR4d8LgGou,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Under 1,child
-292,ME_Vaccines_Age_Static_penta_3_Over_1,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Over 1,cq3o6581c85,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Over 1,child
-293,ME_Vaccines_Age_Static_penta_3_Under_1,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Under 1,cq3o6581c85,UHR4d8LgGou,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Under 1,child
-294,ME_Vaccines_Age_Static_rota_1_Under_1,CHD EPI ROTA 1 Childhood Vaccination Static Under 1,DzCqBNtgw2C,goHo0wV2Gx1,CHD EPI ROTA 1 Childhood Vaccination Static Under 1,child
-295,ME_Vaccines_Age_Static_rota_2_Under_1,CHD EPI ROTA 2 Childhood Vaccination Static Under 1,kBNHszeOCpn,goHo0wV2Gx1,CHD EPI ROTA 2 Childhood Vaccination Static Under 1,child
-296,ME_WASTAGE_CHD_EPI_BCG_doses_used_and_wasted_A_Outreach,CHD EPI BCG doses used and wasted (A) - Outreach,mbWu21JCSjl,kVTGmhgf7wQ,CHD EPI BCG doses used and wasted (A) - Outreach,child
-297,ME_WASTAGE_CHD_EPI_BCG_doses_used_and_wasted_A_Static,CHD EPI BCG doses used and wasted (A) - Static,mbWu21JCSjl,yqszvXV2s8u,CHD EPI BCG doses used and wasted (A) - Static,child
-298,ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_discarded_B_Outreach,CHD EPI DPT-HepB-Hib doses discarded (B) - Outreach,e7PwzVUCN3H,kVTGmhgf7wQ,CHD EPI DPT-HepB-Hib doses discarded (B) - Outreach,child
-299,ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_discarded_B_Static,CHD EPI DPT-HepB-Hib doses discarded (B) - Static,e7PwzVUCN3H,yqszvXV2s8u,CHD EPI DPT-HepB-Hib doses discarded (B) - Static,child
-300,ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_used_A_Outreach,CHD EPI DPT-HepB-Hib doses used (A - Outreach,I8dr5TvUAwP,kVTGmhgf7wQ,CHD EPI DPT-HepB-Hib doses used (A - Outreach,child
-301,ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_used_A_Static,CHD EPI DPT-HepB-Hib doses used (A) - Static,I8dr5TvUAwP,yqszvXV2s8u,CHD EPI DPT-HepB-Hib doses used (A) - Static,child
-302,ME_WASTAGE_CHD_EPI_HPV_doses_discarded_B_Outreach,CHD EPI HPV doses discarded (B) - Outreach,Y5K4MbjF0wX,kVTGmhgf7wQ,CHD EPI HPV doses discarded (B) - Outreach,child
-303,ME_WASTAGE_CHD_EPI_HPV_doses_discarded_B_Static,CHD EPI HPV doses discarded (B) - Static,Y5K4MbjF0wX,yqszvXV2s8u,CHD EPI HPV doses discarded (B) - Static,child
-304,ME_WASTAGE_CHD_EPI_HPV_doses_used_A_Outreach,CHD EPI HPV doses used (A) - Outreach,n7rIea6EPyy,kVTGmhgf7wQ,CHD EPI HPV doses used (A) - Outreach,child
-305,ME_WASTAGE_CHD_EPI_HPV_doses_used_A_Static,CHD EPI HPV doses used (A) - Static,n7rIea6EPyy,yqszvXV2s8u,CHD EPI HPV doses used (A) - Static,child
-306,ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_discarded_B_Outreach,CHD EPI Malaria Vaccine doses discarded (B) - Outreach,qsgQxHQOBHa,kVTGmhgf7wQ,CHD EPI Malaria Vaccine doses discarded (B) - Outreach,child
-307,ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_discarded_B_Static,CHD EPI Malaria Vaccine doses discarded (B) - Static,qsgQxHQOBHa,yqszvXV2s8u,CHD EPI Malaria Vaccine doses discarded (B) - Static,child
-308,ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_used_A_Outreach,CHD EPI Malaria Vaccine doses used (A) - Outreach,w9TeerQ0fM4,kVTGmhgf7wQ,CHD EPI Malaria Vaccine doses used (A) - Outreach,child
-309,ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_used_A_Static,CHD EPI Malaria Vaccine doses used (A) - Static,w9TeerQ0fM4,yqszvXV2s8u,CHD EPI Malaria Vaccine doses used (A) - Static,child
-310,ME_WASTAGE_CHD_EPI_MR_doses_used_and_wasted_A_Outreach,CHD EPI MR doses used and wasted (A) - Outreach,RBgvlB5UwNu,kVTGmhgf7wQ,CHD EPI MR doses used and wasted (A) - Outreach,child
-311,ME_WASTAGE_CHD_EPI_MR_doses_used_and_wasted_A_Static,CHD EPI MR doses used and wasted (A) - Static,RBgvlB5UwNu,yqszvXV2s8u,CHD EPI MR doses used and wasted (A) - Static,child
-312,ME_WASTAGE_CHD_EPI_OPV_doses_used_and_wasted_A_Outreach,CHD EPI OPV doses used and wasted (A - Outreach,fWIuCM5jG37,kVTGmhgf7wQ,CHD EPI OPV doses used and wasted (A - Outreach,child
-313,ME_WASTAGE_CHD_EPI_OPV_doses_used_and_wasted_A_Static,CHD EPI OPV doses used and wasted (A) - Static,fWIuCM5jG37,yqszvXV2s8u,CHD EPI OPV doses used and wasted (A) - Static,child
-314,ME_WASTAGE_CHD_EPI_PCV_doses_discarded_B_Outreach,CHD EPI PCV doses used (A) - Outreach,y5XiQQ1fQux,kVTGmhgf7wQ,CHD EPI PCV doses used (A) - Outreach,child
-315,ME_WASTAGE_CHD_EPI_PCV_doses_discarded_B_Static,CHD EPI PCV doses discarded (B) - Static,luKOKmbulRH,yqszvXV2s8u,CHD EPI PCV doses discarded (B) - Static,child
-316,ME_WASTAGE_CHD_EPI_PCV_doses_used_A_Outreach,CHD EPI PCV doses used (A) - Outreach,y5XiQQ1fQux,kVTGmhgf7wQ,CHD EPI PCV doses used (A) - Outreach,child
-317,ME_WASTAGE_CHD_EPI_PCV_doses_used_A_Static,CHD EPI PCV doses used (A) - Static,y5XiQQ1fQux,yqszvXV2s8u,CHD EPI PCV doses used (A) - Static,child
-318,ME_WASTAGE_CHD_EPI_ROTA_doses_discarded_B_Outreach,CHD EPI ROTA doses discarded (B) - Outreach,j6kXgziwjSE,kVTGmhgf7wQ,CHD EPI ROTA doses discarded (B) - Outreach,child
-319,ME_WASTAGE_CHD_EPI_ROTA_doses_discarded_B_Static,CHD EPI ROTA doses discarded (B) - Static,j6kXgziwjSE,yqszvXV2s8u,CHD EPI ROTA doses discarded (B) - Static,child
-320,ME_WASTAGE_CHD_EPI_ROTA_doses_used_A_Outreach,CHD EPI ROTA doses used (A) - Outreach,m9TzcUzQ84r,kVTGmhgf7wQ,CHD EPI ROTA doses used (A) - Outreach,child
-321,ME_WASTAGE_CHD_EPI_ROTA_doses_used_A_Static,CHD EPI ROTA doses used (A) - Static,m9TzcUzQ84r,yqszvXV2s8u,CHD EPI ROTA doses used (A) - Static,child
-322,ME_WASTAGE_CHD_EPI_Td_doses_discarded_B_Outreach,CHD EPI Td doses discarded (B - Outreach,KfG1kd1zFzz,kVTGmhgf7wQ,CHD EPI Td doses discarded (B - Outreach,child
-323,ME_WASTAGE_CHD_EPI_Td_doses_discarded_B_Static,CHD EPI Td doses discarded (B) - Static,KfG1kd1zFzz,yqszvXV2s8u,CHD EPI Td doses discarded (B) - Static,child
-324,ME_WASTAGE_CHD_EPI_Td_doses_used_A_Outreach,CHD EPI Td doses used (A - Outreach,q9pGVAO68Gr,kVTGmhgf7wQ,CHD EPI Td doses used (A - Outreach,child
-325,ME_WASTAGE_CHD_EPI_Td_doses_used_A_Static,CHD EPI Td doses used (A) - Static,q9pGVAO68Gr,yqszvXV2s8u,CHD EPI Td doses used (A) - Static,child
-327,ME_Albendazole_doses_One_dose,Albendazole doses 1 dose,MXHcqC6ruW6,Tt7fU5lUhAU,RHD ANC Albendazole 1,anc
-328,ME_ART_Status_Final_Visit_Not_On_ART,ART status Final Visit (Not on ART),jEFHH54Zr4C,Y416M7Sz8eZ,RHD ANC Final ART Status of mother Not on ART,anc
-329,ME_ART_Status_Final_Visit_On_ART_Before_ANC,ART status Final Visit ( On ART before ANC),jEFHH54Zr4C,DqSyuOT5XSd,RHD ANC Final ART Status of mother On ART Before ANC,anc
-330,ME_ART_Status_Final_Visit_Start_ART_0_27_Weeks,ART status Final Visit (Start ART 0-27 weeks),jEFHH54Zr4C,mHUeH2KKajo,RHD ANC Final ART Status of mother Start ART 0-27 weeks,anc
-331,ME_ART_Status_Final_Visit_Start_ART_28_plus_Weeks,ART status Final Visit (Start ART 28+ weeks),jEFHH54Zr4C,jCWx8luh4FJ,RHD ANC Final ART Status of mother Start ART 28+ weeks,anc
-332,ME_ART_Status_First_Visit_Not_On_ART,ART status first visit (Not on ART),fKcDMJPqgIk,Y416M7Sz8eZ,RHD ANC 1st Visit ART Status of mother Not on ART,anc
-333,ME_ART_Status_First_Visit_On_ART_Before_ANC,ART status first visit( On ART before ANC),fKcDMJPqgIk,DqSyuOT5XSd,RHD ANC 1st Visit ART Status of mother On ART Before ANC,anc
-334,ME_ART_Status_First_Visit_Start_ART_0_27_Weeks,ART status first visit (Start ART 0-27 weeks),fKcDMJPqgIk,mHUeH2KKajo,RHD ANC 1st Visit ART Status of mother Start ART 0-27 weeks,anc
-335,ME_ART_Status_First_Visit_Start_ART_28_plus_Weeks,ART status first visit (Start ART 28+ weeks),fKcDMJPqgIk,jCWx8luh4FJ,RHD ANC 1st Visit ART Status of mother Start ART 28+ weeks,anc
-336,ME_CPT_out_of_HIV_positive,On CPT out of HIV+,Mvo7Ah1xx61,Tt7fU5lUhAU,RHD ANC CPT Women on CPT,anc
-337,ME_FeFo_More_Than_120,FeFo tablets 120+ tabs,Rczpg2vCvat,Tt7fU5lUhAU,RHD ANC Fe-Fo Tablets 120+,anc
-338,ME_Hb_g_dl_less_than_7,Hb (g/dl) <7,AmkTUKYrM31,Tt7fU5lUhAU,RHD ANC HB (G/dl) <7,anc
-339,ME_Hb_g_over_dl_greater_than_and_equal_to_7,Hb (g/dl) >= 7,QUDJ8U1O0Yl,Tt7fU5lUhAU,RHD ANC HB (G/dl) >= 7,anc
-340,ME_Hb_g_over_dl_ND,Hb (g/dl) ND,AbDFS7NVOc9,Tt7fU5lUhAU,RHD ANC HB (G/dl) ND,anc
-341,ME_HIV_Status_Final_New_Negative,HIV status Final (New negative),qG10jihknty,Tt7fU5lUhAU,RHD ANC HIV Test Result New Negative,anc
-342,ME_HIV_Status_Final_New_Positive,HIV status Final (New positive),Xr6Xa1ZnJqy,Tt7fU5lUhAU,RHD ANC HIV Test Result New Positive,anc
-343,ME_HIV_Status_Final_Not_Done,HIV status Final (Not done),iYKNoPBnrJl,Tt7fU5lUhAU,RHD ANC HIV Test Result Not Done,anc
-344,ME_HIV_Status_Final_Prev_Negative,HIV status Final (Prev. negative),CRhkHMKt3Ps,Tt7fU5lUhAU,RHD ANC HIV Test Result Previous Negative,anc
-345,ME_HIV_Status_Final_Prev_Positive,HIV status Final( Prev. positive),hbFsoMQNkwe,Tt7fU5lUhAU,RHD ANC HIV Test Result Previous Positive,anc
-346,ME_HIV_Status_First_Visit_New_Negative,HIV status first visit (New negative),nh9VegOdCIt,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit New Negative,anc
-347,ME_HIV_Status_First_Visit_New_Positive,HIV status first visit (New positive),PwDJPETFRej,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit New Positive,anc
-348,ME_HIV_Status_First_Visit_Not_Done,HIV status first visit (Not done),rkkM59tCAjG,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit Not Done,anc
-349,ME_HIV_Status_First_Visit_Prev_Negative,HIV status first visit (Prev. negative),tnFn3i2VC1R,Tt7fU5lUhAU,RHD ANC HIV Status 1st Visit Previous Negative,anc
-350,ME_HIV_Status_First_Visit_Prev_Positive,HIV status first visit( Prev. positive),QrqDZ718WEz,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit Previous Positive,anc
-351,ME_ITN_Bed_Nets_Given,ITN (bed nets) given,gLN6hOgR6ra,Tt7fU5lUhAU,RHD ANC ITN (Bed nets) given Received ITN,anc
-352,ME_Number_Of_Women_Registered,Number of women registered,zAvhV81SCLV,Tt7fU5lUhAU,RHD ANC New Women Registered,anc
-353,ME_NVP_syrup_given,NVP syrup given,XXKhfvXpgmF,Tt7fU5lUhAU,RHD ANC NVP Syrup Given Received NVP,anc
-354,ME_Pregnancy_Tests_Done_In_The_First_Trimester,Pregnancy tests Done in the first trimester,ouOeJELRncp,Tt7fU5lUhAU,RHD ANC Pregnancy Test Done in 1st Trimester,anc
-355,ME_SP_Doses_0_Dose,SP doses 0 dose,BVtd4r4Xnhe,TOdlPOIXhQZ,RHD ANC SP Doses 0 doses,anc
-356,ME_SP_Doses_1_Dose,SP doses 1 dose,BVtd4r4Xnhe,L02BzdmOqKP,RHD ANC SP Doses 1*3 doses,anc
-357,ME_SP_Doses_2_Dose,SP doses 2 doses,BVtd4r4Xnhe,eo6j7NLIHXt,RHD ANC SP Doses 2*3 doses,anc
-358,ME_SP_Doses_3_plus_Dose,SP doses 3+,BVtd4r4Xnhe,dIeAAGB2RDm,RHD ANC SP Doses >= 3 doses,anc
-359,ME_Syphilis_Status_Negative,Syphilis status Negative,xHSyFJc8jKX,Tt7fU5lUhAU,RHD ANC Syphilis Status Negative,anc
-360,ME_Syphilis_Status_Not_Done,Syphilis status Not done,KvqX3BwgvlU,Tt7fU5lUhAU,RHD ANC Syphilis Status Unknown,anc
-361,ME_Syphilis_Status_Positive,Syphilis status Positive,H1hggbKQpZH,Tt7fU5lUhAU,RHD ANC Syphilis Status Positive,anc
-362,ME_Total_Number_With_TDV_doses_2_plus,Total number of women TTV doses 2+,WCpjbJAYTfE,Tt7fU5lUhAU,RHD ANC TTV Doses 2+,anc
-363,ME_Total_Visits_Per_Woman_1_Visits,Total Visits per woman with 1 visit,SVC5nKhvcQr,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 1 Visit,anc
-364,ME_Total_Visits_Per_Woman_2_Visits,Total Visits per woman with 2 visits,ZgDrKbIPkgE,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 2 Visits,anc
-365,ME_Total_Visits_Per_Woman_3_Visits,Total Visits per woman with 3 visits,Jtrq0pYsqT0,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 3 Visits,anc
-366,ME_Total_Visits_Per_Woman_4_Visits,Total Visits per woman with 4 visits,Jpkh8pokAY7,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 4 Visits,anc
-367,ME_Total_Visits_Per_Woman_5_plus_Visits,Total Visits per woman with 5+ visits,EUvtRZSLh2F,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 5+ Visits,anc
-368,ME_Week_Of_First_ANC_Visit_0_12_weeks,Week of first ANC Visit(0-12 weeks),EVt2iC6Tn34,Tt7fU5lUhAU,RHD ANC Week of first ANC Visit Week 0-12,anc
-369,ME_With_Preeclampsia,With (Pre-) Eclampsia,sNlbaVoobzq,Tt7fU5lUhAU,RHD ANC (Pre-) Eclampsia Yes,anc
-370,ME_MAT_ITN_Given,ITN given,NNFGzJD43R9,Tt7fU5lUhAU,RHD MAT Routine Care ITN Given,maternity
-371,ME_ART_Not_On_ART,Start during Labour (Lab ART),MoximPvXuj6,hPVDsUM32VS,RHD MAT ART Mother Start During Labor,maternity
-372,ME_ART_Start_Before_Pregnancy,Not on ART (incl. HIV–),MoximPvXuj6,GoX45uTUUCH,RHD MAT ART Mother Not on ART,maternity
-373,ME_ART_Start_First_Trimester,Start before pregnancy (Prev. ART,MoximPvXuj6,xmKtsiRYAXz,RHD MAT ART Mother Start Before Pregnancy,maternity
-374,ME_ART_Start_Labour,Start in 3rd trimester (28+w ART),MoximPvXuj6,UyOtLy9DhPs,RHD MAT ART Mother Start In 3rd Trimester,maternity
-375,ME_ART_Start_Third_Trimester,Start in 1st or 2nd trim. (0-27w ART),MoximPvXuj6,jMqmEmzruFg,RHD MAT ART Mother Start In 1st or 2nd Trimester,maternity
-376,ME_HIV_Current_New_Negative,HIV test result New negative,MD0Gp8MzkHf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Negative,maternity
-377,ME_HIV_Current_New_Positive,HIV test result New positive,xRrJWogiEMf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Positive,maternity
-378,ME_HIV_Current_Not_Done,HIV test result Not done,U3FydV1M1RQ,Tt7fU5lUhAU,RHD MAT HIV Test Results Not Done,maternity
-379,ME_HIV_Previous,HIV test result Previous positive,a3DzFDGAQAi,Tt7fU5lUhAU,RHD MAT HIV Test Results Previous Positive,maternity
-380,ME_MAT_Babies_Multiple,Twins/Triplets,jZ5TP3UpaiQ,W3Angorx03z,RHD MAT Number of Babies (still and live) Twins/Triplets,maternity
-381,ME_MAT_Babies_Single,Singletons,jZ5TP3UpaiQ,PJEmG4BbHTf,RHD MAT Number of Babies (still and live) Singletons,maternity
-382,ME_MAT_Baby_Care_Antibiotics,Antibiotics,mWeTHZCPNT0,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Antibiotics,maternity
-383,ME_MAT_Baby_Care_CHL,Chlorohexidine given,YvNy8rie5j7,Tt7fU5lUhAU,RHD MAT Routine Care Chlorohexidine Given,maternity
-384,ME_MAT_Baby_Care_Other_Mgt,Other,qYKuaHC8Gnk,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Other,maternity
-385,ME_MAT_Baby_Care_Resuscitation,Resuscitation,zE0WLBSHx1e,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Rescucitations,maternity
-386,ME_MAT_Baby_Care_TEO,Tetracycline ointment given,YGJbvAkqBgI,Tt7fU5lUhAU,RHD MAT Tetracycline Eye Oitment Given,maternity
-387,ME_MAT_Baby_Care_VitK,Vitamin K given,zAcW94iEdXU,Tt7fU5lUhAU,RHD MAT Routine Care Vitamin K Given,maternity
-388,ME_MAT_Baby_CareME_MAT_Baby_Care_KMC,Kangaroo mother care (KMC),zANGFtNoUEt,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Kangaroo Mother Care,maternity
-389,ME_MAT_Baby_Complications_Asphy,Asphyxia,vcEWpcFjEuU,Tt7fU5lUhAU,RHD MAT Newborn Complications Asphyxia,maternity
-390,ME_MAT_Baby_Complications_Low_Weight,Weight less 2500g,gkgM1TgE5oF,Tt7fU5lUhAU,RHD MAT Newborn Complications Weight < 2500g,maternity
-391,ME_MAT_Baby_Complications_None,Newborns with no complications,SytVoNgDYlf,Tt7fU5lUhAU,RHD MAT Newborn Complications None,maternity
-392,ME_MAT_Baby_Complications_Other,Other newborn complications,Z9Q4qIjoePS,Tt7fU5lUhAU,RHD MAT Newborn Complications Other,maternity
-393,ME_MAT_Baby_Complications_Prem,Prematurity,UXTZkim1Npv,Tt7fU5lUhAU,RHD MAT Newborn Complications Prematurity,maternity
-394,ME_MAT_Baby_Complications_Sep,Sepsis,bPvw8ZdBgRe,Tt7fU5lUhAU,RHD MAT Newborn Complications Sepsis,maternity
-395,ME_MAT_BF_First_Hour,Started Breastfeeding within 60 minutes,bjLZY1FqdDJ,Tt7fU5lUhAU,RHD MAT Breastfeeding Initiated,maternity
-396,ME_MAT_Care_Abx,Antibiotics (Abx),gXjGJoC7gDs,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics,maternity
-397,ME_MAT_Care_AC,Anticonvulsants (AC),n7XnfWv0tHo,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Anticonvulsive,maternity
-398,ME_MAT_Care_Acs,Antenatal corticosteroids (Acs),b4WuKkuuR0W,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antenatal corticosteroids (Acs),maternity
-399,ME_MAT_Care_MRP,Manual Removal of Placenta (MRP),BbmxEK5AYaL,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Manual Rem Placenta,maternity
-400,ME_MAT_Care_NASG,Non pneumatic Anti-Shock Garment (NASG),Tx8IDGqV3rt,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Non pneumatic Anti-Shock Garment (NASG),maternity
-401,ME_MAT_Care_Ox,Oxytocin (Ox),FhNg0SdUMe8,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Oxytocin,maternity
-402,ME_MAT_Care_ROPC,Evacuation of Retained Products (ERP),p1OuCSVe4Gk,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics Evacuation of Retained Products (ERP),maternity
-403,ME_MAT_Care_Tr,Blood Transfusion (Tr),vyIPU3KOFF6,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Blood Transfusion,maternity
-404,ME_MAT_Child_HIV_Status_Exposed_No_NVP,Alive exposed no NVP,EeywK6AHQdK,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp No NVP,maternity
-405,ME_MAT_Child_HIV_Status_Exposed_NVP_Started,Alive exp. NVP started,iBBnHx1Uf50,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp NVP Started,maternity
-406,ME_MAT_Child_HIV_Status_Not_Exposed,Alive not HIV exposed,q7NoDcfaciO,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive not HIV Exp,maternity
-407,ME_MAT_Child_HIV_Status_Unknown,Alive unknown exp,kaYz6eqxqQH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive unknown Exp,maternity
-408,ME_MAT_Complications_APH,Number of mothers  Ante partum. haem. (APH),RS3PtRniRns,DfPxMVfjndd,RHD MAT Obstetric  Complications Ante Partum Heam,maternity
-409,ME_MAT_Complications_ECL,Number of mothers  (pre) Eclampsia (Ecl),RS3PtRniRns,JPgETYeD4qF,RHD MAT Obstetric  Complications (Pre-) Eclampsia,maternity
-410,ME_MAT_Complications_FD,Number of mothers  Foetal distress (FD),RS3PtRniRns,PEpIz3uFJ4a,RHD MAT Obstetric  Complications Foetal distress (FD),maternity
-411,ME_MAT_Complications_None,Number of mothers with no complications,RS3PtRniRns,XvMqbLpCTt8,RHD MAT Obstetric  Complications None,maternity
-412,ME_MAT_Complications_OPL,Number of mothers  Obstructed/Prolonged labour (OPL),RS3PtRniRns,Ht1Pz8Kn2k3,RHD MAT Obstetric  Complications Obstr/Prol Labor,maternity
-413,ME_MAT_Complications_Other,Number of mothers  Others (Oth),RS3PtRniRns,R2qiSvs4zGK,RHD MAT Obstetric  Complications Others,maternity
-414,ME_MAT_Complications_PL,Number of mothers  Premature labour (PL),RS3PtRniRns,ezMtOgig3e6,RHD MAT Obstetric  Complications Premature labour (pl),maternity
-415,ME_MAT_Complications_PPH,Number of mothers  Post-partum haem. (PPH),RS3PtRniRns,ZGX8SK5P435,RHD MAT Obstetric  Complications Post Partum Heam,maternity
-416,ME_MAT_Complications_RP,Number of mothers  Retained placenta (Rp),RS3PtRniRns,qffHiXEve5i,RHD MAT Obstetric  Complications Retained placenta (RP),maternity
-417,ME_MAT_Complications_RU,Number of mothers  Ruptured Uterus (RU),RS3PtRniRns,VrBgkdWJor3,RHD MAT Obstetric  Complications Raptured Uterus,maternity
-418,ME_MAT_Complications_SEP,Number of mothers  Sepsis (Sep),RS3PtRniRns,N6Kp9pEEqSI,RHD MAT Obstetric  Complications Sepsis,maternity
-419,ME_MAT_Delivery_Mode_BR,Breech,UdxIE19B603,Tt7fU5lUhAU,RHD MAT Delivery  Mode Breech,maternity
-420,ME_MAT_Delivery_Mode_CS,Caesarean section,FYDa4NcJNrq,Tt7fU5lUhAU,RHD MAT Delivery  Mode Caesarian Section,maternity
-421,ME_MAT_Delivery_Mode_SVD,Spontaneous vertex,GwzEUK12Pqh,Tt7fU5lUhAU,RHD MAT Delivery  Mode Spontaneous Vagina,maternity
-422,ME_MAT_Delivery_Mode_VE,Vacuum extraction,LLrXje6xH8D,Tt7fU5lUhAU,RHD MAT Delivery  Mode Vacuum Extraction,maternity
-423,ME_MAT_Delivery_Person_Not_skilled,Unskilled birth attendant (PA/WA/HSA/Other/None),mHcrkMgxARq,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery PA/WA/HSA,maternity
-424,ME_MAT_Delivery_Person_Skilled,Skilled birth attendant (MD/CO/MA/Nurse/MW),R9CHUW81m9o,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery MO/CO/MA/Nurse/MW,maternity
-425,ME_MAT_Delivery_Place_Home,Home / TBA,hPhTbuLFnx4,Tt7fU5lUhAU,RHD MAT Delivery Place Home/TBA,maternity
-426,ME_MAT_Delivery_Place_Other,Other facility,iGYCZRe52Vy,Tt7fU5lUhAU,RHD MAT Delivery Place Other Facility,maternity
-427,ME_MAT_Delivery_Place_This,This facility,YIP4fvYcGYQ,Tt7fU5lUhAU,RHD MAT Delivery Place This Facility,maternity
-428,ME_MAT_Delivery_Place_TR,In transit (BBA),KOu770F7YOQ,Tt7fU5lUhAU,RHD MAT Delivery In Transit (BBA),maternity
-429,ME_MAT_Mother_Status_DBD,Mother died before discharge (DBD),WjHvEHMCyKo,Tt7fU5lUhAU,RHD MAT Maternal Deaths,maternity
-430,ME_MAT_Neonatal_Death,Neonatal death,jz793Wzon1W,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Neonatal Death,maternity
-431,ME_MAT_Referred,Yes,l2GWTPGK4QP,Tt7fU5lUhAU,RHD MAT Referred Out Yes,maternity
-432,ME_MAT_Stillbirth_Fresh,Fresh stillbirth,YLydKJIyGFF,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Still/Fresh,maternity
-433,ME_MAT_Stillbirth_Macerated,Macerated stillbirth,EJ0qYm1FrcH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Stillbirth Macerated,maternity
-434,ME_MAT_Vitamin_A,Yes,B0MbTYjfUhd,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Given,maternity
-435,ME_Anti_Malaria_Treatment_Confirmed_Over_5,D: Confirmed cases receiving first-line anti malarial medication (5+ years),ie9Vtnde6in,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
-436,ME_Anti_Malaria_Treatment_Confirmed_Over_5,E: Confirmed cases receiving second-line anti malarial medication (ASAQ) (5+ years),BOAUQVmPxf3,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
-437,ME_Anti_Malaria_Treatment_Confirmed_Under_5,D: Confirmed cases receiving first-line anti malarial medication  (< 5 years),ie9Vtnde6in,pE37AYgl7bx,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) <5Yrs,opd
-438,ME_Anti_Malaria_Treatment_Confirmed_Under_5,E: Confirmed cases receiving second-line anti malarial medication (ASAQ)  (< 5 years),BOAUQVmPxf3,pE37AYgl7bx,NMCP OPD Confirmed cases receiving second-line anti malarial medication (ASAQ) <5Yrs,opd
-439,ME_Anti_Malaria_Treatment_Presumed_Over_5,E: Presumed malaria cases receiving first-line anti malarial medication (5+ years),oHAvOrxnkDm,V8ASMfxytS4,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) >5Yrs,opd
-440,ME_Anti_Malaria_Treatment_Presumed_Over_5,F: Presumed malaria cases receiving second-line anti malarial medication(ASAQ)(5+ years),nRGVy7VlKO9,V8ASMfxytS4,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) >5Yrs,opd
-441,ME_Anti_Malaria_Treatment_Presumed_Under_5,E: Presumed malaria cases receiving first-line anti malarial medication  (< 5 years),oHAvOrxnkDm,pE37AYgl7bx,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) <5Yrs,opd
-442,ME_Anti_Malaria_Treatment_Presumed_Under_5,F: Presumed malaria cases receiving second-line anti malarial medication(ASAQ),nRGVy7VlKO9,pE37AYgl7bx,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) <5Yrs,opd
-443,ME_Malaria_Cases_Confirmed,A: Confirmed malaria cases (< 5 years),aSmSrrByuaa,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases <5Yrs ,opd
-444,ME_Malaria_Cases_Confirmed,A: Confirmed malaria cases (5+ years),aSmSrrByuaa,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases >5Yrs ,opd
-445,ME_Malaria_Cases_Presumed,B: Presumed malaria cases (clinically diagnosed without test ) (< 5 years),b7NiKuhEqI6,pE37AYgl7bx,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) <5Yrs,opd
-446,ME_Malaria_Cases_Presumed,B: Presumed malaria cases (clinically diagnosed without test ) (5+ years),b7NiKuhEqI6,V8ASMfxytS4,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) >5Yrs,opd
-447,ME_Malaria_Test,F: Suspected malaria cases tested using mRDT  (< 5 years),Ycfd6ROuM7h,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT <5Yrs,opd
-448,ME_Malaria_Test,F: Suspected malaria cases tested using mRDT  (5+ years),Ycfd6ROuM7h,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT >5Yrs,opd
-449,ME_Malaria_Test,G: Suspected malaria cases tested using microscopy(< 5 years),xACp6CWblnY,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy <5Yrs,opd
-450,ME_Malaria_Test,G: Suspected malaria cases tested using microscopy(5+ 5 years),xACp6CWblnY,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy >5Yrs,opd
-451,ME_Positive_Malaria_Cases,H: Positive malaria cases using mRDT (<5 years),E4LZP3KUbOG,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through RDT <5Yrs,opd
-452,ME_Positive_Malaria_Cases,H: Positive malaria cases using mRDT (5+ years),E4LZP3KUbOG,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through RDT >5Yrs,opd
-453,ME_Positive_Malaria_Cases,I: Positive malaria cases using microscopy (<5 years),fCx1cSTnUUL,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through Microscopy <5Yrs,opd
-454,ME_Positive_Malaria_Cases,I: Positive malaria cases using microscopy(5+ years),fCx1cSTnUUL,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through Microscopy >5Yrs,opd
-455,ME_PNC_Baby_Care_Mgt_KMC,On KMC,mLyAd30qgI4,Tt7fU5lUhAU,RHD PNC Baby on KMC,pnc
-456,ME_PNC_Baby_Care_Mgt_TEO,Vitamin K given,OIVCj57flWc,Tt7fU5lUhAU,RHD PNC Baby Given Vitamin K ,pnc
-457,ME_PNC_Baby_Care_Mgt_Vit_K,Baby given TEO,Mwii8h4c2uC,Tt7fU5lUhAU,RHD PNC Baby Given TEO,pnc
-458,ME_PNC_Baby_Danger_Signs_Breaths,Fast Breathing,D6PpsB5P3fL,Tt7fU5lUhAU,RHD PNC Baby Fast Breathing,pnc
-459,ME_PNC_Baby_Danger_Signs_Chest,Chest in drawing,PsSIGk4JCAp,Tt7fU5lUhAU,RHD PNC Baby Chest In Drawing,pnc
-460,ME_PNC_Baby_Danger_Signs_Convulsions,Convulsions,OYc0KJJSavh,Tt7fU5lUhAU,RHD PNC Baby Convulsions,pnc
-461,ME_PNC_Baby_Danger_Signs_EyenCord,Eye/Cord Discharge,DaNydZHxar3,Tt7fU5lUhAU,RHD PNC Baby Eye/Cord Discharge,pnc
-462,ME_PNC_Baby_Danger_Signs_Feed,Not able to feed,kFgT8mdcQjA,Tt7fU5lUhAU,RHD PNC Baby Not Able to Feed,pnc
-463,ME_PNC_Baby_Danger_Signs_Fever,Fever,L3XKOQoukVq,Tt7fU5lUhAU,RHD PNC Baby Fever,pnc
-464,ME_PNC_Baby_Danger_Signs_Hypothermia,Hypothermia,wtuN1m0Kjn5,Tt7fU5lUhAU,RHD PNC Baby Hypothermia,pnc
-465,ME_PNC_Baby_Danger_Signs_Jaundice,Jaundice,uojP8TYbL7X,Tt7fU5lUhAU,RHD PNC Baby Jaundice,pnc
-466,ME_PNC_Baby_Danger_Signs_Lethargic,Lethargy,TKceP6JwglP,Tt7fU5lUhAU,RHD PNC Baby Lethargy,pnc
-467,ME_PNC_Baby_Danger_Signs_None,None,ZBNMGFDmQQw,Tt7fU5lUhAU,RHD PNC Baby No Complications,pnc
-468,ME_PNC_Baby_Nevirapine,Total on Nevirapine,OmHmawnO5Ng,Tt7fU5lUhAU,RHD PNC Total on Nevirapine,pnc
-469,ME_PNC_Baby_Status_Alive,Alive,W4gkowW7QTs,Tt7fU5lUhAU,RHD PNC Baby Alive,pnc
-470,ME_PNC_Baby_Status_Dead,Died,k9UyG5ktGgS,Tt7fU5lUhAU,RHD PNC Baby Died,pnc
-471,ME_PNC_Baby_Vaccines_bcg,BCG,kLmi0DXLHky,Tt7fU5lUhAU,RHD PNC BCG,pnc
-472,ME_PNC_Baby_Vaccines_opv_0,Polio 0,AzGc4TyeFKI,Tt7fU5lUhAU,RHD PNC Polio 0,pnc
-473,ME_PNC_Checked_in_2days,<48 hours or on discharge,f0IVxnte0OO,Tt7fU5lUhAU,RHD PNC # Baby Checked in <48 Hours,pnc
-474,ME_PNC_Checked_in_2days,<48hours on discharge,JSN2CbjKFt9,Tt7fU5lUhAU,RHD PNC # Mother Checked in <48 Hours,pnc
-475,ME_PNC_Checked_in_42days,8­-42 days,nJZsvYHkXQz,Tt7fU5lUhAU,RHD PNC # Baby Checked in 8-42 Days,pnc
-476,ME_PNC_Checked_in_42days,8-42 days,cLuLPg1YMSq,Tt7fU5lUhAU,RHD PNC # Mother Checked in 8-42 Days,pnc
-477,ME_PNC_Checked_in_7days,Within 3-7 days,e5rJUlQsTsP,Tt7fU5lUhAU,RHD PNC # Mother Checked in Within 3-7 Days,pnc
-478,ME_PNC_Checked_in_7days,Within 3­-7 days,jgDt2dm1QOS,Tt7fU5lUhAU,RHD PNC # Baby Checked in Within 3-7 Days,pnc
-479,ME_PNC_Checked_In_Twice_In_7days,Checked 2x in 7 days,IDxBzSLUZVn,Tt7fU5lUhAU,RHD PNC # Mother Checked in 2x in 7 Days,pnc
-480,ME_PNC_Checked_In_Twice_In_7days,Checked 2x in 7 days,uO5Xf2gVC9x,Tt7fU5lUhAU,RHD PNC # Baby Checked in 2x in 7 Days,pnc
-481,ME_PNC_fp_counsel_yes,Counselled on FP,Vm9NjpsXHpL,Tt7fU5lUhAU,RHD PNC Counseled on FP,pnc
-482,ME_PNC_fp_method_bilateral_tubal_ligation,BTL,oZECAevnT9d,Tt7fU5lUhAU,RHD PNC BTL,pnc
-483,ME_PNC_fp_method_intrauterine_contraceptive_device,IUCD,baBLHbjm5MP,Tt7fU5lUhAU,RHD PNC IUCD,pnc
-484,ME_PNC_HIV_ND,HIV Test Not Done,ZHsapjl6sPB,Tt7fU5lUhAU,RHD PNC Test Not Done,pnc
-485,ME_PNC_HIV_Negative,HIV Negative,wZD6QSyd62K,Tt7fU5lUhAU,RHD PNC HIV -ve,pnc
-486,ME_PNC_HIV_Positive,HIV Positive,elif3HHWci7,Tt7fU5lUhAU,RHD PNC HIV +ve,pnc
-487,ME_PNC_Total_Live_Birth,Total Live Birth Deliveries,K5J6MR8edvz,Tt7fU5lUhAU,RHD PNC Total Live Births,pnc
-488,ME_PNC_Vit_a_no,Total Did not Receive,REbkEp8YboK,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Not Given,pnc
-489,ME_PNC_Vit_a_yes,Total Received,B0MbTYjfUhd,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Given,pnc
-490,ME_PNC_Woman_Complications_Anaemia,Anaemia,fVzGijnVOrs,Tt7fU5lUhAU,RHD PNC Mother Anaemia,pnc
-491,ME_PNC_Woman_Complications_BE,Breast Engorgement,UcgSdalWMGa,Tt7fU5lUhAU,RHD PNC Mother Breast Engorgement,pnc
-492,ME_PNC_Woman_Complications_None,None,YHs48RajaU9,Tt7fU5lUhAU,RHD PNC Mother No Complications,pnc
-493,ME_PNC_Woman_Complications_Other,Other,h94ppnq7695,Tt7fU5lUhAU,RHD PNC Mother Other,pnc
-494,ME_PNC_Woman_Complications_PPH,PPH,blfZXfjQ5vZ,Tt7fU5lUhAU,RHD PNC Mother PPH,pnc
-495,ME_PNC_Woman_Complications_Sepsis,Sepsis,B0C73VHIXsm,Tt7fU5lUhAU,RHD PNC Mother Sepsis,pnc
-496,ME_PNC_Woman_Complications_SPE,Sever Pre/Eclampsia,sjpjF9WcIf2,Tt7fU5lUhAU,RHD PNC Mother Eclampsia,pnc
+2,ME_A_CHD_EPI_Immunization_sessions_cancelled_Outreach,CHD EPI Immunization sessions cancelled Outreach,QJBtQ8GfxXE,kVTGmhgf7wQ,CHD EPI Immunization sessions cancelled Outreach,child
+3,ME_A_CHD_EPI_Immunization_sessions_cancelled_Static,CHD EPI Immunization sessions cancelled Static,QJBtQ8GfxXE,yqszvXV2s8u,CHD EPI Immunization sessions cancelled Static,child
+4,ME_A_CHD_EPI_Immunization_sessions_planned_Outreach,CHD EPI Immunization sessions planned Outreach,Hig2nHtgfVr,kVTGmhgf7wQ,CHD EPI Immunization sessions planned Outreach,child
+5,ME_A_CHD_EPI_Immunization_sessions_planned_Static,CHD EPI Immunization sessions planned Static,Hig2nHtgfVr,yqszvXV2s8u,CHD EPI Immunization sessions planned Static,child
+6,ME_A_CHD_EPI_Reasons_for_cancellation,CHD EPI Reasons for cancellation,Er9t7hU2OQp,Tt7fU5lUhAU,CHD EPI Reasons for cancellation,child
+7,ME_AEFI_Bacterial_Abscesses_BCG,CHD EPI Minor AEFIs BCG Bacterial Abscesses,q9nBSuktrBk,HzynxoDR57N,CHD EPI Minor AEFIs BCG Bacterial Abscesses,child
+8,ME_AEFI_Bacterial_Abscesses_IPV,CHD EPI Minor AEFIs IPV Bacterial Abscesses,q9nBSuktrBk,Po5l0buP3Yy,CHD EPI Minor AEFIs IPV Bacterial Abscesses,child
+9,ME_AEFI_Bacterial_Abscesses_Malaria,CHD EPI Minor AEFIs MV Bacterial Abscesses,q9nBSuktrBk,SgyO6bt56Kj,CHD EPI Minor AEFIs MV Bacterial Abscesses,child
+10,ME_AEFI_Bacterial_Abscesses_Measles,CHD EPI Minor AEFIs Measles/MR Bacterial Abscesses,q9nBSuktrBk,JalBxgOJb6M,CHD EPI Minor AEFIs Measles/MR Bacterial Abscesses,child
+11,ME_AEFI_Bacterial_Abscesses_OPV,CHD EPI Minor AEFIs OPV Bacterial Abscesses,q9nBSuktrBk,BykWQ3ObDtd,CHD EPI Minor AEFIs OPV Bacterial Abscesses,child
+12,ME_AEFI_Bacterial_Abscesses_PCV,CHD EPI Minor AEFIs PCV Bacterial Abscesses,q9nBSuktrBk,UktdkHknJbW,CHD EPI Minor AEFIs PCV Bacterial Abscesses,child
+13,ME_AEFI_Bacterial_Abscesses_Penta,CHD EPI Minor AEFIs DPT-HepB-Hib Bacterial Abscesses,q9nBSuktrBk,hyJKBeiHRpa,CHD EPI Minor AEFIs DPT-HepB-Hib Bacterial Abscesses,child
+14,ME_AEFI_Bacterial_Abscesses_Rota,CHD EPI Minor AEFIs ROTA Bacterial Abscesses,q9nBSuktrBk,KnrMoNeitVN,CHD EPI Minor AEFIs ROTA Bacterial Abscesses,child
+15,ME_AEFI_Birth_defect_BCG,CHD EPI Serious AEFIs BCG Birth defect,EkWjeufJBZm,mZnpFHRXgM0,CHD EPI Serious AEFIs BCG Birth defect,child
+16,ME_AEFI_Birth_defect_IPV,CHD EPI Serious AEFIs IPV Birth defect,EkWjeufJBZm,I9sqzi0JRKb,CHD EPI Serious AEFIs IPV Birth defect,child
+17,ME_AEFI_Birth_defect_Malaria,CHD EPI Serious AEFIs MV Birth defect,EkWjeufJBZm,vr7q11Y5fo6,CHD EPI Serious AEFIs MV Birth defect,child
+18,ME_AEFI_Birth_defect_Measles,CHD EPI Serious AEFIs Measles/MR Birth defect,EkWjeufJBZm,atjmFUlHTeL,CHD EPI Serious AEFIs Measles/MR Birth defect,child
+19,ME_AEFI_Birth_defect_OPV,CHD EPI Serious AEFIs OPV Birth defect,EkWjeufJBZm,rwoQyevgGOz,CHD EPI Serious AEFIs OPV Birth defect,child
+20,ME_AEFI_Birth_defect_PCV,CHD EPI Serious AEFIs PCV Birth defect,EkWjeufJBZm,opFyRApeg6i,CHD EPI Serious AEFIs PCV Birth defect,child
+21,ME_AEFI_Birth_defect_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Birth defect,EkWjeufJBZm,uUR0ce3KsiX,CHD EPI Serious AEFIs DPT-HepB-Hib Birth defect,child
+22,ME_AEFI_Birth_defect_Rota,CHD EPI Serious AEFIs ROTA Birth defect,EkWjeufJBZm,FTMYsSKZrlx,CHD EPI Serious AEFIs ROTA Birth defect,child
+23,ME_AEFI_Death_BCG,CHD EPI Serious AEFIs BCG Death,EkWjeufJBZm,I5MHbE6gO5g,CHD EPI Serious AEFIs BCG Death,child
+24,ME_AEFI_Death_IPV,CHD EPI Serious AEFIs IPV Death,EkWjeufJBZm,kaWoFpjPa2w,CHD EPI Serious AEFIs IPV Death,child
+25,ME_AEFI_Death_Malaria,CHD EPI Serious AEFIs MV Death,EkWjeufJBZm,QmMH4sRtERh,CHD EPI Serious AEFIs MV Death,child
+26,ME_AEFI_Death_Measles,CHD EPI Serious AEFIs Measles/MR Death,EkWjeufJBZm,I2THvhSkzzc,CHD EPI Serious AEFIs Measles/MR Death,child
+27,ME_AEFI_Death_OPV,CHD EPI Serious AEFIs OPV Death,EkWjeufJBZm,ryVbsKdZvKq,CHD EPI Serious AEFIs OPV Death,child
+28,ME_AEFI_Death_PCV,CHD EPI Serious AEFIs PCV Death,EkWjeufJBZm,j25CKvyXL2w,CHD EPI Serious AEFIs PCV Death,child
+29,ME_AEFI_Death_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Death,EkWjeufJBZm,gZPbWP3yobl,CHD EPI Serious AEFIs DPT-HepB-Hib Death,child
+30,ME_AEFI_Death_Rota,CHD EPI Serious AEFIs ROTA Death,EkWjeufJBZm,cG3o9OE3Bmo,CHD EPI Serious AEFIs ROTA Death,child
+31,ME_AEFI_Encephalopathy_BCG,CHD EPI Serious AEFIs BCG Encephalopathy,EkWjeufJBZm,m44BfzYUKH3,CHD EPI Serious AEFIs BCG Encephalopathy,child
+32,ME_AEFI_Encephalopathy_IPV,CHD EPI Serious AEFIs IPV Encephalopathy,EkWjeufJBZm,PJf9ivWxgS5,CHD EPI Serious AEFIs IPV Encephalopathy,child
+33,ME_AEFI_Encephalopathy_Malaria,CHD EPI Serious AEFIs MV Encephalopathy,EkWjeufJBZm,QwqdNFvwMfu,CHD EPI Serious AEFIs MV Encephalopathy,child
+34,ME_AEFI_Encephalopathy_Measles,CHD EPI Serious AEFIs Measles/MR Encephalopathy,EkWjeufJBZm,pAjvpodvmYC,CHD EPI Serious AEFIs Measles/MR Encephalopathy,child
+35,ME_AEFI_Encephalopathy_OPV,CHD EPI Serious AEFIs OPV Encephalopathy,EkWjeufJBZm,sKyOKPADAAE,CHD EPI Serious AEFIs OPV Encephalopathy,child
+36,ME_AEFI_Encephalopathy_PCV,CHD EPI Serious AEFIs PCV Encephalopathy,EkWjeufJBZm,s0AUta6B7qh,CHD EPI Serious AEFIs PCV Encephalopathy,child
+37,ME_AEFI_Encephalopathy_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Encephalopathy,EkWjeufJBZm,jrxmweUAE7n,CHD EPI Serious AEFIs DPT-HepB-Hib Encephalopathy,child
+38,ME_AEFI_Encephalopathy_Rota,CHD EPI Serious AEFIs ROTA Encephalopathy,EkWjeufJBZm,EOyg85FPysK,CHD EPI Serious AEFIs ROTA Encephalopathy,child
+39,ME_AEFI_Fever_BCG,CHD EPI Serious AEFIs BCG High fever > 38 degrees celcius,EkWjeufJBZm,EPMQGfb3xGc,CHD EPI Serious AEFIs BCG High fever > 38 degrees celcius,child
+40,ME_AEFI_Fever_IPV,CHD EPI Serious AEFIs IPV High fever > 38 degrees celcius,EkWjeufJBZm,RpzT7ndYBqJ,CHD EPI Serious AEFIs IPV High fever > 38 degrees celcius,child
+41,ME_AEFI_Fever_Malaria,CHD EPI Serious AEFIs MV High fever > 38 degrees celcius,EkWjeufJBZm,qDv9NvuXish,CHD EPI Serious AEFIs MV High fever > 38 degrees celcius,child
+42,ME_AEFI_Fever_Measles,CHD EPI Serious AEFIs Measles/MR High fever > 38 degrees celcius,EkWjeufJBZm,RJDEwzn1NR0,CHD EPI Serious AEFIs Measles/MR High fever > 38 degrees celcius,child
+43,ME_AEFI_Fever_OPV,CHD EPI Serious AEFIs OPV High fever > 38 degrees celcius,EkWjeufJBZm,spbUeVnLNdY,CHD EPI Serious AEFIs OPV High fever > 38 degrees celcius,child
+44,ME_AEFI_Fever_PCV,CHD EPI Serious AEFIs PCV High fever > 38 degrees celcius,EkWjeufJBZm,D5cg0nkggEI,CHD EPI Serious AEFIs PCV High fever > 38 degrees celcius,child
+45,ME_AEFI_Fever_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib High fever > 38 degrees celcius,EkWjeufJBZm,wq0ZxHrbfEt,CHD EPI Serious AEFIs DPT-HepB-Hib High fever > 38 degrees celcius,child
+46,ME_AEFI_Fever_Rota,CHD EPI Serious AEFIs ROTA High fever > 38 degrees celcius,EkWjeufJBZm,OUw4MNHUzBL,CHD EPI Serious AEFIs ROTA High fever > 38 degrees celcius,child
+47,ME_AEFI_Lymphadenitis_BCG,CHD EPI Minor AEFIs BCG Lymphadenitis,q9nBSuktrBk,QVmaeFuE2Qr,CHD EPI Minor AEFIs BCG Lymphadenitis,child
+48,ME_AEFI_Lymphadenitis_IPV,CHD EPI Minor AEFIs IPV Lymphadenitis,q9nBSuktrBk,pjnaCzFceXv,CHD EPI Minor AEFIs IPV Lymphadenitis,child
+49,ME_AEFI_Lymphadenitis_Malaria,CHD EPI Minor AEFIs MV Lymphadenitis,q9nBSuktrBk,wdDdZdoSCpb,CHD EPI Minor AEFIs MV Lymphadenitis,child
+50,ME_AEFI_Lymphadenitis_Measles,CHD EPI Minor AEFIs Measles/MR Lymphadenitis,q9nBSuktrBk,Rzqii165pvS,CHD EPI Minor AEFIs Measles/MR Lymphadenitis,child
+51,ME_AEFI_Lymphadenitis_OPV,CHD EPI Minor AEFIs OPV Lymphadenitis,q9nBSuktrBk,KlUgOnNYiPt,CHD EPI Minor AEFIs OPV Lymphadenitis,child
+52,ME_AEFI_Lymphadenitis_PCV,CHD EPI Minor AEFIs PCV Lymphadenitis,q9nBSuktrBk,JRChBkWc3ok,CHD EPI Minor AEFIs PCV Lymphadenitis,child
+53,ME_AEFI_Lymphadenitis_Penta,CHD EPI Minor AEFIs DPT-HepB-Hib Lymphadenitis,q9nBSuktrBk,CXIL0in6O49,CHD EPI Minor AEFIs DPT-HepB-Hib Lymphadenitis,child
+54,ME_AEFI_Lymphadenitis_Rota,CHD EPI Minor AEFIs ROTA Lymphadenitis,q9nBSuktrBk,wYkmuupJzV8,CHD EPI Minor AEFIs ROTA Lymphadenitis,child
+55,ME_AEFI_Paralysis_BCG,CHD EPI Serious AEFIs BCG Paralysis,EkWjeufJBZm,EUXXhcTm18i,CHD EPI Serious AEFIs BCG Paralysis,child
+56,ME_AEFI_Paralysis_IPV,CHD EPI Serious AEFIs IPV Paralysis,EkWjeufJBZm,hJ7AN2yP9Gy,CHD EPI Serious AEFIs IPV Paralysis,child
+57,ME_AEFI_Paralysis_Malaria,CHD EPI Serious AEFIs MV Paralysis,EkWjeufJBZm,dKq8hPIWrhI,CHD EPI Serious AEFIs MV Paralysis,child
+58,ME_AEFI_Paralysis_Measles,CHD EPI Serious AEFIs Measles/MR Paralysis,EkWjeufJBZm,gkTXlnYFAJB,CHD EPI Serious AEFIs Measles/MR Paralysis,child
+59,ME_AEFI_Paralysis_OPV,CHD EPI Serious AEFIs OPV Paralysis,EkWjeufJBZm,VICC8Yaz7nK,CHD EPI Serious AEFIs OPV Paralysis,child
+60,ME_AEFI_Paralysis_PCV,CHD EPI Serious AEFIs PCV Paralysis,EkWjeufJBZm,TgWc3gfnLMN,CHD EPI Serious AEFIs PCV Paralysis,child
+61,ME_AEFI_Paralysis_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Paralysis,EkWjeufJBZm,BoC4q5Ox2yS,CHD EPI Serious AEFIs DPT-HepB-Hib Paralysis,child
+62,ME_AEFI_Paralysis_Rota,CHD EPI Serious AEFIs ROTA Paralysis,EkWjeufJBZm,ZnepR09oQqE,CHD EPI Serious AEFIs ROTA Paralysis,child
+63,ME_AEFI_Seizures_BCG,CHD EPI Serious AEFIs BCG Seizures,EkWjeufJBZm,uXjz3UiXhqI,CHD EPI Serious AEFIs BCG Seizures,child
+64,ME_AEFI_Seizures_IPV,CHD EPI Serious AEFIs IPV Seizures,EkWjeufJBZm,c4ui9JxN0V9,CHD EPI Serious AEFIs IPV Seizures,child
+65,ME_AEFI_Seizures_Malaria,CHD EPI Serious AEFIs MV Seizures,EkWjeufJBZm,dZYJB5tnp8R,CHD EPI Serious AEFIs MV Seizures,child
+66,ME_AEFI_Seizures_Measles,CHD EPI Serious AEFIs Measles/MR Seizures,EkWjeufJBZm,PGvrZxza7oi,CHD EPI Serious AEFIs Measles/MR Seizures,child
+67,ME_AEFI_Seizures_OPV,CHD EPI Serious AEFIs OPV Seizures,EkWjeufJBZm,KJ8YHlo7MRD,CHD EPI Serious AEFIs OPV Seizures,child
+68,ME_AEFI_Seizures_PCV,CHD EPI Serious AEFIs PCV Seizures,EkWjeufJBZm,JsEjaIhDDfd,CHD EPI Serious AEFIs PCV Seizures,child
+69,ME_AEFI_Seizures_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Seizures,EkWjeufJBZm,wzqyAQp1KCv,CHD EPI Serious AEFIs DPT-HepB-Hib Seizures,child
+70,ME_AEFI_Seizures_Rota,CHD EPI Serious AEFIs ROTA Seizures,EkWjeufJBZm,JYKpMjweyAQ,CHD EPI Serious AEFIs ROTA Seizures,child
+71,ME_AEFI_Sepsis_BCG,CHD EPI Minor AEFIs BCG Sepsis,q9nBSuktrBk,ePCJ4u243Gi,CHD EPI Minor AEFIs BCG Sepsis,child
+72,ME_AEFI_Sepsis_IPV,CHD EPI Minor AEFIs IPV Sepsis,q9nBSuktrBk,vQNAAInKPe3,CHD EPI Minor AEFIs IPV Sepsis,child
+73,ME_AEFI_Sepsis_Malaria,CHD EPI Minor AEFIs MV Sepsis,q9nBSuktrBk,l0ehds5KryF,CHD EPI Minor AEFIs MV Sepsis,child
+74,ME_AEFI_Sepsis_Measles,CHD EPI Minor AEFIs Measles/MR Sepsis,q9nBSuktrBk,bvS2ftaiHeY,CHD EPI Minor AEFIs Measles/MR Sepsis,child
+75,ME_AEFI_Sepsis_OPV,CHD EPI Minor AEFIs OPV Sepsis,q9nBSuktrBk,fia70ncKCuR,CHD EPI Minor AEFIs OPV Sepsis,child
+76,ME_AEFI_Sepsis_PCV,CHD EPI Minor AEFIs PCV Sepsis,q9nBSuktrBk,M7Gu7z76MB0,CHD EPI Minor AEFIs PCV Sepsis,child
+77,ME_AEFI_Sepsis_Penta,CHD EPI Minor AEFIs DPT-HepB-Hib Sepsis,q9nBSuktrBk,OuGbuaj1RO3,CHD EPI Minor AEFIs DPT-HepB-Hib Sepsis,child
+78,ME_AEFI_Sepsis_Rota,CHD EPI Minor AEFIs ROTA Sepsis,q9nBSuktrBk,z7KRKDOOKxk,CHD EPI Minor AEFIs ROTA Sepsis,child
+79,ME_AEFI_Severe_local_reaction_BCG,CHD EPI Minor AEFIs BCG Severe local reaction,q9nBSuktrBk,CcuTdCcGLzw,CHD EPI Minor AEFIs BCG Severe local reaction,child
+80,ME_AEFI_Severe_local_reaction_IPV,CHD EPI Minor AEFIs IPV Severe local reaction,q9nBSuktrBk,mGNBPZ9JcFw,CHD EPI Minor AEFIs IPV Severe local reaction,child
+81,ME_AEFI_Severe_local_reaction_Malaria,CHD EPI Minor AEFIs MV Severe local reaction,q9nBSuktrBk,DC1gDA0U6ZR,CHD EPI Minor AEFIs MV Severe local reaction,child
+82,ME_AEFI_Severe_local_reaction_Measles,CHD EPI Minor AEFIs Measles/MR Severe local reaction,q9nBSuktrBk,RcMbVtgcXIS,CHD EPI Minor AEFIs Measles/MR Severe local reaction,child
+83,ME_AEFI_Severe_local_reaction_OPV,CHD EPI Minor AEFIs OPV Severe local reaction,q9nBSuktrBk,mltd73Uwigx,CHD EPI Minor AEFIs OPV Severe local reaction,child
+84,ME_AEFI_Severe_local_reaction_PCV,CHD EPI Minor AEFIs PCV Severe local reaction,q9nBSuktrBk,GbNBwKROyDx,CHD EPI Minor AEFIs PCV Severe local reaction,child
+85,ME_AEFI_Severe_local_reaction_Penta,CHD EPI Minor AEFIs DPT-HepB-Hib Severe local reaction,q9nBSuktrBk,XkAixQCOMT0,CHD EPI Minor AEFIs DPT-HepB-Hib Severe local reaction,child
+86,ME_AEFI_Severe_local_reaction_Rota,CHD EPI Minor AEFIs ROTA Severe local reaction,q9nBSuktrBk,ul3BBk8XyxY,CHD EPI Minor AEFIs ROTA Severe local reaction,child
+87,ME_AEFI_Significant_disability_BCG,CHD EPI Serious AEFIs BCG Significant disability,EkWjeufJBZm,ifH5NLMRCSO,CHD EPI Serious AEFIs BCG Significant disability,child
+88,ME_AEFI_Significant_disability_IPV,CHD EPI Serious AEFIs IPV Significant disability,EkWjeufJBZm,ss4D3akmVqu,CHD EPI Serious AEFIs IPV Significant disability,child
+89,ME_AEFI_Significant_disability_Malaria,CHD EPI Serious AEFIs MV Significant disability,EkWjeufJBZm,ZXXvnfJEqvR,CHD EPI Serious AEFIs MV Significant disability,child
+90,ME_AEFI_Significant_disability_Measles,CHD EPI Serious AEFIs Measles/MR Significant disability,EkWjeufJBZm,fBkMYsRdIBB,CHD EPI Serious AEFIs Measles/MR Significant disability,child
+91,ME_AEFI_Significant_disability_OPV,CHD EPI Serious AEFIs OPV Significant disability,EkWjeufJBZm,BLtDfpoI9Wf,CHD EPI Serious AEFIs OPV Significant disability,child
+92,ME_AEFI_Significant_disability_PCV,CHD EPI Serious AEFIs PCV Significant disability,EkWjeufJBZm,sZ9tuvX0GC7,CHD EPI Serious AEFIs PCV Significant disability,child
+93,ME_AEFI_Significant_disability_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Significant disability,EkWjeufJBZm,SRJ00MpeweP,CHD EPI Serious AEFIs DPT-HepB-Hib Significant disability,child
+94,ME_AEFI_Significant_disability_Rota,CHD EPI Serious AEFIs ROTA Significant disability,EkWjeufJBZm,oAztQdp2DfA,CHD EPI Serious AEFIs ROTA Significant disability,child
+95,ME_AEFI_Toxic_shock_syndrome_BCG,CHD EPI Serious AEFIs BCG Toxic shock syndrome,EkWjeufJBZm,VEP6HzE6Cex,CHD EPI Serious AEFIs BCG Toxic shock syndrome,child
+96,ME_AEFI_Toxic_shock_syndrome_IPV,CHD EPI Serious AEFIs IPV Toxic shock syndrome,EkWjeufJBZm,uGHBRQTb2el,CHD EPI Serious AEFIs IPV Toxic shock syndrome,child
+97,ME_AEFI_Toxic_shock_syndrome_Malaria,CHD EPI Serious AEFIs MV Toxic shock syndrome,EkWjeufJBZm,PSvPIb2Yb7A,CHD EPI Serious AEFIs MV Toxic shock syndrome,child
+98,ME_AEFI_Toxic_shock_syndrome_Measles,CHD EPI Serious AEFIs Measles/MR Toxic shock syndrome,EkWjeufJBZm,RtjgtHQgg4k,CHD EPI Serious AEFIs Measles/MR Toxic shock syndrome,child
+99,ME_AEFI_Toxic_shock_syndrome_OPV,CHD EPI Serious AEFIs OPV Toxic shock syndrome,EkWjeufJBZm,PtS27aDPTsq,CHD EPI Serious AEFIs OPV Toxic shock syndrome,child
+100,ME_AEFI_Toxic_shock_syndrome_PCV,CHD EPI Serious AEFIs PCV Toxic shock syndrome,EkWjeufJBZm,uQ0NDg7rI3G,CHD EPI Serious AEFIs PCV Toxic shock syndrome,child
+101,ME_AEFI_Toxic_shock_syndrome_Penta,CHD EPI Serious AEFIs DPT-HepB-Hib Toxic shock syndrome,EkWjeufJBZm,pPz7JzZqqjS,CHD EPI Serious AEFIs DPT-HepB-Hib Toxic shock syndrome,child
+102,ME_AEFI_Toxic_shock_syndrome_Rota,CHD EPI Serious AEFIs ROTA Toxic shock syndrome,EkWjeufJBZm,PM6VGUl2fee,CHD EPI Serious AEFIs ROTA Toxic shock syndrome,child
+103,ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Bacterial_Abscesses,CHD EPI Minor AEFIs HPV Bacterial Abscesses,q9nBSuktrBk,L4jezmlN5D5,CHD EPI Minor AEFIs HPV Bacterial Abscesses,child
+104,ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Lymphadenitis,CHD EPI Minor AEFIs HPV Lymphadenitis,q9nBSuktrBk,Au6hRKvdBxY,CHD EPI Minor AEFIs HPV Lymphadenitis,child
+105,ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Sepsis,CHD EPI Minor AEFIs HPV Sepsis,q9nBSuktrBk,l8jI5wb39PR,CHD EPI Minor AEFIs HPV Sepsis,child
+106,ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Severe_local_reaction,CHD EPI Minor AEFIs HPV Severe local reaction,q9nBSuktrBk,MEoyDTEI9rq,CHD EPI Minor AEFIs HPV Severe local reaction,child
+107,ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Bacterial_Abscesses,CHD EPI Minor AEFIs TT/Td Bacterial Abscesses,q9nBSuktrBk,MWMaArdbJ2y,CHD EPI Minor AEFIs TT/Td Bacterial Abscesses,child
+108,ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Lymphadenitis,CHD EPI Minor AEFIs TT/Td Lymphadenitis,q9nBSuktrBk,xmzXYzpnem8,CHD EPI Minor AEFIs TT/Td Lymphadenitis,child
+109,ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Sepsis,CHD EPI Minor AEFIs TT/Td Sepsis,q9nBSuktrBk,XZnRHnFKXMp,CHD EPI Minor AEFIs TT/Td Sepsis,child
+110,ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Severe_local_reaction,CHD EPI Minor AEFIs TT/Td Severe local reaction,q9nBSuktrBk,rJfaTyqHdSh,CHD EPI Minor AEFIs TT/Td Severe local reaction,child
+111,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Birth_defect,CHD EPI Serious AEFIs HPV Birth defect,EkWjeufJBZm,OC9VhkUCUQ4,CHD EPI Serious AEFIs HPV Birth defect,child
+112,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Death,CHD EPI Serious AEFIs HPV Death,EkWjeufJBZm,t8dBdgbtPoy,CHD EPI Serious AEFIs HPV Death,child
+113,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Encephalopathy,CHD EPI Serious AEFIs HPV Encephalopathy,EkWjeufJBZm,I9DkCyQNmj4,CHD EPI Serious AEFIs HPV Encephalopathy,child
+114,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_High_fever,CHD EPI Serious AEFIs HPV High fever > 38 degrees celcius,EkWjeufJBZm,M7jQlKEkSqJ,CHD EPI Serious AEFIs HPV High fever > 38 degrees celcius,child
+115,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Paralysis,CHD EPI Serious AEFIs HPV Paralysis,EkWjeufJBZm,B0f32ZFn60o,CHD EPI Serious AEFIs HPV Paralysis,child
+116,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Seizures,CHD EPI Serious AEFIs HPV Seizures,EkWjeufJBZm,HOlQfcCymaL,CHD EPI Serious AEFIs HPV Seizures,child
+117,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Significant_disability,CHD EPI Serious AEFIs HPV Significant disability,EkWjeufJBZm,KoKTLhnFdWO,CHD EPI Serious AEFIs HPV Significant disability,child
+118,ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Toxic_shock_syndrome,CHD EPI Serious AEFIs HPV Toxic shock syndrome,EkWjeufJBZm,XxEUgxNYpyz,CHD EPI Serious AEFIs HPV Toxic shock syndrome,child
+119,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Birth_defect,CHD EPI Serious AEFIs TT/Td Birth defect,EkWjeufJBZm,LWMz8aMKe3G,CHD EPI Serious AEFIs TT/Td Birth defect,child
+120,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Death,CHD EPI Serious AEFIs TT/Td Death,EkWjeufJBZm,zhf7SmRLOBt,CHD EPI Serious AEFIs TT/Td Death,child
+121,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Encephalopathy,CHD EPI Serious AEFIs TT/Td Encephalopathy,EkWjeufJBZm,GqIoLWljn2v,CHD EPI Serious AEFIs TT/Td Encephalopathy,child
+122,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_High_fever,CHD EPI Serious AEFIs TT/Td High fever > 38 degrees celcius,EkWjeufJBZm,ZJCJQeKAIp7,CHD EPI Serious AEFIs TT/Td High fever > 38 degrees celcius,child
+123,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Paralysis,CHD EPI Serious AEFIs TT/Td Paralysis,EkWjeufJBZm,R5PTsj1f4na,CHD EPI Serious AEFIs TT/Td Paralysis,child
+124,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Seizures,CHD EPI Serious AEFIs TT/Td Seizures,EkWjeufJBZm,oPAsier4S0v,CHD EPI Serious AEFIs TT/Td Seizures,child
+125,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Significant_disability,CHD EPI Serious AEFIs TT/Td Significant disability,EkWjeufJBZm,BpPUhIEd0K0,CHD EPI Serious AEFIs TT/Td Significant disability,child
+126,ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Toxic_shock_syndrome,CHD EPI Serious AEFIs TT/Td Toxic shock syndrome,EkWjeufJBZm,k4s9eb1boLy,CHD EPI Serious AEFIs TT/Td Toxic shock syndrome,child
+127,ME_Deworm_Age_Outreach_Deworming_Over_1_Female,CHD EPI Number dewormed 12 - 23 Months Female Outreach,Ojz51mfHBQH,e6tut7p8b3U,CHD EPI Number dewormed 12 - 23 Months Female Outreach,child
+128,ME_Deworm_Age_Outreach_Deworming_Over_1_Male,CHD EPI Number dewormed 12 - 23 Months Male Outreach,Ojz51mfHBQH,XAPWPhdXPpN,CHD EPI Number dewormed 12 - 23 Months Male Outreach,child
+129,ME_Deworm_Age_Outreach_Deworming_Over_2_Female,CHD EPI Number dewormed 24 - 59 Months Female Outreach,Ojz51mfHBQH,mAcNlntVW6y,CHD EPI Number dewormed 24 - 59 Months Female Outreach,child
+130,ME_Deworm_Age_Outreach_Deworming_Over_2_Male,CHD EPI Number dewormed 24 - 59 Months Male Outreach,Ojz51mfHBQH,sNWb5qxiOkh,CHD EPI Number dewormed 24 - 59 Months Male Outreach,child
+131,ME_Deworm_Age_Static_Deworming_Over_1_Female,CHD EPI Number dewormed 12 - 23 Months Female Static,Ojz51mfHBQH,sVUMSUwxQyj,CHD EPI Number dewormed 12 - 23 Months Female Static,child
+132,ME_Deworm_Age_Static_Deworming_Over_1_Male,CHD EPI Number dewormed 12 - 23 Months Male Static,Ojz51mfHBQH,mVBoBn7kcA3,CHD EPI Number dewormed 12 - 23 Months Male Static,child
+133,ME_Fully_Immunized_Outreach_Over_1,CHD EPI Fully Immunized children Outreach Over 1,NxggSy8gzqo,zKLduwqZFnh,CHD EPI Fully Immunized children Outreach Over 1,child
+134,ME_Fully_Immunized_Outreach_Under_1,CHD EPI Fully Immunized children Static Under 1,NxggSy8gzqo,UHR4d8LgGou,CHD EPI Fully Immunized children Static Under 1,child
+135,ME_Fully_Immunized_Static_Monthly_Target,CHD EPI Fully Immunized monthly target,nY4VJl2RBVn,Tt7fU5lUhAU,CHD EPI Fully Immunized monthly target,child
+136,ME_Fully_Immunized_Static_Over_1,CHD EPI Fully Immunized children Static Over 1,NxggSy8gzqo,r2NJTUrJ2TL,CHD EPI Fully Immunized children Static Over 1,child
+137,ME_Fully_Immunized_Static_Under_1,CHD EPI Fully Immunized children Outreach Under 1,NxggSy8gzqo,ipKITPnwlcP,CHD EPI Fully Immunized children Outreach Under 1,child
+138,ME_G_RECUR_Deworming_doses_discarded_C_Outreach,CHD EPI Deworming doses discarded (C) Outreach,kq7pOkPdZcG,kVTGmhgf7wQ,CHD EPI Deworming doses discarded (C) Outreach,child
+139,ME_G_RECUR_Deworming_doses_discarded_C_Static,CHD EPI Deworming doses discarded (C) Static,kq7pOkPdZcG,yqszvXV2s8u,CHD EPI Deworming doses discarded (C) Static,child
+140,ME_G_RECUR_Deworming_doses_received_A_Outreach,CHD EPI Deworming doses received (A) Outreach,CvZW3VhbteN,kVTGmhgf7wQ,CHD EPI Deworming doses received (A) Outreach,child
+141,ME_G_RECUR_Deworming_doses_received_A_Static,CHD EPI Deworming doses received (A) Static,CvZW3VhbteN,yqszvXV2s8u,CHD EPI Deworming doses received (A) Static,child
+142,ME_G_RECUR_Deworming_doses_used_B_Outreach,CHD EPI Deworming doses used (B) Outreach,rtqJjmGpCpl,kVTGmhgf7wQ,CHD EPI Deworming doses used (B) Outreach,child
+143,ME_G_RECUR_Deworming_doses_used_B_Static,CHD EPI Deworming doses used (B) Static,rtqJjmGpCpl,yqszvXV2s8u,CHD EPI Deworming doses used (B) Static,child
+144,ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_100_000_ius_Outreach,CHD EPI Vitamin A doses discarded (C) Vitamin A (100 000 ius) Outreach,xMnj50meZdW,kKablbVRnSR,CHD EPI Vitamin A doses discarded (C) Vitamin A (100 000 ius) Outreach,child
+145,ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_100_000_ius_Static,CHD EPI Vitamin A doses discarded (C) Vitamin A (100 000 ius) Static,xMnj50meZdW,IdHlwbYKUyO,CHD EPI Vitamin A doses discarded (C) Vitamin A (100 000 ius) Static,child
+146,ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_200_000_ius_Outreach,CHD EPI Vitamin A doses discarded (C) Vitamin A (200 000 ius) Outreach,xMnj50meZdW,iw1XlWo2KZZ,CHD EPI Vitamin A doses discarded (C) Vitamin A (200 000 ius) Outreach,child
+147,ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_200_000_ius_Static,CHD EPI Vitamin A doses discarded (C) Vitamin A (200 000 ius) Static,xMnj50meZdW,LAe0tPa2Mlx,CHD EPI Vitamin A doses discarded (C) Vitamin A (200 000 ius) Static,child
+148,ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_100_000_ius_Outreach,CHD EPI Vitamin A doses received (A) Vitamin A (100 000 ius) Outreach,n3CWVSFoAJI,kKablbVRnSR,CHD EPI Vitamin A doses received (A) Vitamin A (100 000 ius) Outreach,child
+149,ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_100_000_ius_Static,CHD EPI Vitamin A doses received (A) Vitamin A (100 000 ius) Static,n3CWVSFoAJI,IdHlwbYKUyO,CHD EPI Vitamin A doses received (A) Vitamin A (100 000 ius) Static,child
+150,ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_200_000_ius_Outreach,CHD EPI Vitamin A doses received (A) Vitamin A (200 000 ius) Outreach,n3CWVSFoAJI,iw1XlWo2KZZ,CHD EPI Vitamin A doses received (A) Vitamin A (200 000 ius) Outreach,child
+151,ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_200_000_ius_Static,CHD EPI Vitamin A doses received (A) Vitamin A (200 000 ius) Static,n3CWVSFoAJI,LAe0tPa2Mlx,CHD EPI Vitamin A doses received (A) Vitamin A (200 000 ius) Static,child
+152,ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_100_000_ius_Outreach,CHD EPI Vitamin A doses used (B) Vitamin A (100 000 ius) Outreach,qOHwwJSdDtF,kKablbVRnSR,CHD EPI Vitamin A doses used (B) Vitamin A (100 000 ius) Outreach,child
+153,ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_100_000_ius_Static,CHD EPI Vitamin A doses used (B) Vitamin A (100 000 ius) Static,qOHwwJSdDtF,IdHlwbYKUyO,CHD EPI Vitamin A doses used (B) Vitamin A (100 000 ius) Static,child
+154,ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_200_000_ius_Outreach,CHD EPI Vitamin A doses used (B) Vitamin A (200 000 ius) Outreach,qOHwwJSdDtF,iw1XlWo2KZZ,CHD EPI Vitamin A doses used (B) Vitamin A (200 000 ius) Outreach,child
+155,ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_200_000_ius_Static,CHD EPI Vitamin A doses used (B) Vitamin A (200 000 ius) Static,qOHwwJSdDtF,LAe0tPa2Mlx,CHD EPI Vitamin A doses used (B) Vitamin A (200 000 ius) Static,child
+156,ME_HPV_HPV_target ,CHD EPI HPV monthly target,H9AA0aCgLLW,Tt7fU5lUhAU,CHD EPI HPV monthly target,child
+157,ME_HPV_HPV1_Outreach,CHD EPI HPV1 Childhood Vaccination Outreach,LVf1UKNhsTQ,ncuvhAmA87L,CHD EPI HPV1 Childhood Vaccination Outreach,child
+158,ME_HPV_HPV1_School,CHD EPI HPV1 Childhood Vaccination School,LVf1UKNhsTQ,xqbG4BkxGQf,CHD EPI HPV1 Childhood Vaccination School,child
+159,ME_HPV_HPV1_Static,CHD EPI HPV1 Childhood Vaccination Static,LVf1UKNhsTQ,bynRt3ic3AU,CHD EPI HPV1 Childhood Vaccination Static,child
+160,ME_HPV_HPV2_Outreach,CHD EPI HPV2 Childhood Vaccination Outreach,pU8U8rGHdz9,ncuvhAmA87L,CHD EPI HPV2 Childhood Vaccination Outreach,child
+161,ME_HPV_HPV2_School,CHD EPI HPV2 Childhood Vaccination School,pU8U8rGHdz9,xqbG4BkxGQf,CHD EPI HPV2 Childhood Vaccination School,child
+162,ME_HPV_HPV2_Static,CHD EPI HPV2 Childhood Vaccination Static,pU8U8rGHdz9,bynRt3ic3AU,CHD EPI HPV2 Childhood Vaccination Static,child
+163,ME_I_DS_Acute_Flaccid_Paralysis_AFP_cases_investigated,CHD EPI Acute Flaccid Paralysis (AFP) cases investigated default,k9D99xE8QFI,Tt7fU5lUhAU,CHD EPI Acute Flaccid Paralysis (AFP) cases investigated default,child
+164,ME_I_DS_Acute_Flaccid_Paralysis_AFP_cases_reported,CHD EPI Acute Flaccid Paralysis (AFP) cases reported default,kF0YpqmyhzM,Tt7fU5lUhAU,CHD EPI Acute Flaccid Paralysis (AFP) cases reported default,child
+165,ME_I_DS_Deaths_due_to_measles,CHD EPI Deaths due to measles default,RmONYUtfq0m,Tt7fU5lUhAU,CHD EPI Deaths due to measles default,child
+166,ME_I_DS_Neonatal_Tetanus_NNT_cases_investigated,CHD EPI Neonatal Tetanus (NNT) cases investigated default,xcE6eSWtFdI,Tt7fU5lUhAU,CHD EPI Neonatal Tetanus (NNT) cases investigated default,child
+167,ME_I_DS_Neonatal_Tetanus_NNT_cases_reported,CHD EPI Neonatal Tetanus (NNT) cases reported default,FS2x2osM8O8,Tt7fU5lUhAU,CHD EPI Neonatal Tetanus (NNT) cases reported default,child
+168,ME_I_DS_Suspected_measles_cases_investigated,CHD EPI Suspected measles cases investigated default,rQqO0bAzoFv,Tt7fU5lUhAU,CHD EPI Suspected measles cases investigated default,child
+169,ME_I_DS_Suspected_measles_cases_reported,CHD EPI Suspected measles cases reported default,BO5LhJdAGgU,Tt7fU5lUhAU,CHD EPI Suspected measles cases reported default,child
+170,ME_Overall_View_CHD_EPI_9_years_old_girls,CHD EPI 9 years old girls default,CIZ7Ey6tGI7,Tt7fU5lUhAU,CHD EPI 9 years old girls default,child
+171,ME_Overall_View_CHD_EPI_Annual_total_population,CHD EPI Annual total population default,FAUUU0mZbcL,Tt7fU5lUhAU,CHD EPI Annual total population default,child
+172,ME_Overall_View_CHD_EPI_Live_births,CHD EPI Live births default,fLG3TWakdSk,Tt7fU5lUhAU,CHD EPI Live births default,child
+173,ME_Overall_View_CHD_EPI_Pregnant_women,CHD EPI Pregnant women default,GxqYLY3iWcz,Tt7fU5lUhAU,CHD EPI Pregnant women default,child
+174,ME_Overall_View_CHD_EPI_Surviving_infants,CHD EPI Surviving infants default,p19DIsV5dS1,Tt7fU5lUhAU,CHD EPI Surviving infants default,child
+175,ME_PAB_Outreach_Yes,CHD EPI Protection At Birth (PAB) Childhood Vaccination Outreach Under 1,ds8EuoyoTUK,H5xzz0m9zyd,CHD EPI Protection At Birth (PAB) Childhood Vaccination Outreach Under 1,child
+176,ME_PAB_Static_Target,CHD EPI Children Protection At Birth (PAB) monthly target,TWRYEEWgPFo,Tt7fU5lUhAU,CHD EPI Children Protection At Birth (PAB) monthly target,child
+177,ME_PAB_Static_Yes,CHD EPI Protection At Birth (PAB) Childhood Vaccination Static Under 1,ds8EuoyoTUK,goHo0wV2Gx1,CHD EPI Protection At Birth (PAB) Childhood Vaccination Static Under 1,child
+178,ME_Postnatal_monthly_target_Postnatal_Mothers_Outreach,CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Outreach,Z0NHyXNToqQ,Q3z4PEAGJPk,CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Outreach,child
+179,ME_Postnatal_monthly_target_Postnatal_Mothers_Static,CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Static,Z0NHyXNToqQ,BazVKQ6ZpCq,CHD EPI Vitamin A suplementation monthly target Postnatal Mothers Static,child
+180,ME_Postnatal_Postnatal_Mothers_Female_Outreach,CHD EPI Vitamin A suplemented Postnatal Mothers Female Outreach,QBgBWJAlOxW,xprBmf6aoxX,CHD EPI Vitamin A suplemented Postnatal Mothers Female Outreach,child
+181,ME_Postnatal_Postnatal_Mothers_Female_Static,CHD EPI Vitamin A suplemented Postnatal Mothers Female Static,QBgBWJAlOxW,xLZW9fzZMdq,CHD EPI Vitamin A suplemented Postnatal Mothers Female Static,child
+182,ME_Recur_Targets_Deworming_monthly_target_12_to_23_Months_1st_Dose_Outreach,CHD EPI Deworming monthly target 12 - 23 Months  (1st Dose) Outreach,j4CbL1w5OI8,sE59AYPpDzV,CHD EPI Deworming monthly target 12 - 23 Months  (1st Dose) Outreach,child
+183,ME_Recur_Targets_Deworming_monthly_target_12_to_23_Months_1st_Dose_Static,CHD EPI Deworming monthly target 12 - 23 Months  (1st Dose) Static,j4CbL1w5OI8,nB36VubTAWb,CHD EPI Deworming monthly target 12 - 23 Months  (1st Dose) Static,child
+184,ME_Recur_Targets_Deworming_monthly_target_24_to_59_Months 1st_Dose_Outreach,CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Outreach,j4CbL1w5OI8,yHjAeb2FeKo,CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Outreach,child
+185,ME_Recur_Targets_Deworming_monthly_target_24_to_59_Months 1st_Dose_Static,CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Static,j4CbL1w5OI8,hWep1DrZyg7,CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Static,child
+186,ME_Recur_Targets_Vitamin_A_monthly_target_12_to_59_Months 1st_Dose_Outreach,CHD EPI Vitamin A suplementation monthly target 12 - 59 Months (1st Dose) Outreach,Z0NHyXNToqQ,DelguUiaDgQ,CHD EPI Vitamin A suplementation monthly target 12 - 59 Months (1st Dose) Outreach,child
+187,ME_Recur_Targets_Vitamin_A_monthly_target_12_to_59_Months 1st_Dose_Static,CHD EPI Vitamin A suplementation monthly target 12 - 59 Months (1st Dose) Static,Z0NHyXNToqQ,CRLR2mJxlDh,CHD EPI Vitamin A suplementation monthly target 12 - 59 Months (1st Dose) Static,child
+188,ME_Recur_Targets_Vitamin_A_monthly_target_13_to_59_Months 2nd_Dose_Outreach,CHD EPI Vitamin A suplementation monthly target 13 - 59 Months (2nd Dose) Outreach,Z0NHyXNToqQ,UZ80iHM7Ta7,CHD EPI Vitamin A suplementation monthly target 13 - 59 Months (2nd Dose) Outreach,child
+189,ME_Recur_Targets_Vitamin_A_monthly_target_13_to_59_Months 2nd_Dose_Static,CHD EPI Vitamin A suplementation monthly target 13 - 59 Months (2nd Dose) Static,Z0NHyXNToqQ,kwL7tcT1Y2F,CHD EPI Vitamin A suplementation monthly target 13 - 59 Months (2nd Dose) Static,child
+190,ME_Recur_Targets_Vitamin_A_monthly_target_6_to_11_Months_Outreach,CHD EPI Vitamin A suplementation monthly target 6 - 11 Months Outreach,Z0NHyXNToqQ,s5nG0tOerwC,CHD EPI Vitamin A suplementation monthly target 6 - 11 Months Outreach,child
+191,ME_Recur_Targets_Vitamin_A_monthly_target_6_to_11_Months_Static,CHD EPI Vitamin A suplementation monthly target 6 - 11 Months Static,Z0NHyXNToqQ,cg6HUEGPtVn,CHD EPI Vitamin A suplementation monthly target 6 - 11 Months Static,child
+192,ME_Recurring_Age_Static_Deworming_Over_2_Female,CHD EPI Number dewormed 24 - 59 Months Female Static,Ojz51mfHBQH,OX3bT0qfrwH,CHD EPI Number dewormed 24 - 59 Months Female Static,child
+193,ME_Recurring_Age_Static_Deworming_Over_2_Male,CHD EPI Number dewormed 24 - 59 Months Male Static,Ojz51mfHBQH,p7xCFOF37EI,CHD EPI Number dewormed 24 - 59 Months Male Static,child
+194,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td1,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td1,GFK6GYOH1pe,sUJu7Rrwnqf,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td1,child
+195,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td2,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td2,GFK6GYOH1pe,ilp7FL283ki,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td2,child
+196,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td3,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td3,GFK6GYOH1pe,X3wL9Dv8IQ1,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td3,child
+197,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td4,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td4,GFK6GYOH1pe,ebDFxuz6EN3,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td4,child
+198,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td5,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td5,GFK6GYOH1pe,s9bOyev26fk,CHD EPI Td for women of child bearing age (CBA) monthly target Non-pregnant women of CBA Td5,child
+199,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td1,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td1,GFK6GYOH1pe,FUyKlZuQ0op,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td1,child
+200,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td2,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td2,GFK6GYOH1pe,p1eVusA8ewZ,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td2,child
+201,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td3,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td3,GFK6GYOH1pe,hkiWKCld6Gb,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td3,child
+202,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td4,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td4,GFK6GYOH1pe,ddOrYP9LWcZ,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td4,child
+203,ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td5,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td5,GFK6GYOH1pe,exF4t64yYbj,CHD EPI Td for women of child bearing age (CBA) monthly target Pregnant women Td5,child
+204,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td1,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td1,ZvoyuiyUtgg,fyMUQSfro2z,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td1,child
+205,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td2,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td2,ZvoyuiyUtgg,oTvYHlcftAc,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td2,child
+206,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td3,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td3,ZvoyuiyUtgg,AGICAaiRdfh,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td3,child
+207,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td4,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td4,ZvoyuiyUtgg,pM2WJzwnYvn,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td4,child
+208,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td5,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td5,ZvoyuiyUtgg,Oy2BoTw63WF,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Outreach Td5,child
+209,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td1,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td1,ZvoyuiyUtgg,VR8GxFVadjW,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td1,child
+210,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td2,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td2,ZvoyuiyUtgg,zjjR9qDJM3F,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td2,child
+211,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td3,CHD EPI Td for women of child bearing age (CBA)Non-pregnant women of CBA Static Td3,ZvoyuiyUtgg,sC2KvkQdJ9m,CHD EPI Td for women of child bearing age (CBA)Non-pregnant women of CBA Static Td3,child
+212,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td4,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td4,ZvoyuiyUtgg,cJXUKYuKghd,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td4,child
+213,ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td5,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td5,ZvoyuiyUtgg,jf94UGJxXmC,CHD EPI Td for women of child bearing age (CBA) Non-pregnant women of CBA Static Td5,child
+214,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td1,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td1,ZvoyuiyUtgg,v8UlsCp6RTi,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td1,child
+215,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td2,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td2,ZvoyuiyUtgg,zKvAzopOfMq,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td2,child
+216,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td3,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td3,ZvoyuiyUtgg,fgRdWjPgNhY,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td3,child
+217,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td4,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td4,ZvoyuiyUtgg,wu9dfmpb8R8,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td4,child
+218,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td5,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td5,ZvoyuiyUtgg,CW5V3g1rGup,CHD EPI Td for women of child bearing age (CBA) Pregnant women Outreach Td5,child
+219,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td1,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td1,ZvoyuiyUtgg,Y0oKwoxLmfB,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td1,child
+220,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td2,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td2,ZvoyuiyUtgg,rX6HhzjkC63,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td2,child
+221,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td3,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td3,ZvoyuiyUtgg,ftfQcyXJfc9,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td3,child
+222,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td4,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td4,ZvoyuiyUtgg,ggMAma5by6E,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td4,child
+223,ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td5,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td5,ZvoyuiyUtgg,KTII5gIVUpu,CHD EPI Td for women of child bearing age (CBA) Pregnant women Static Td5,child
+224,ME_Vacc_Target_CHD_EPI_BCG_and_OPV_0_monthly_target,CHD EPI BCG and OPV 0 monthly target,hhK4Ph0ZtB6,Tt7fU5lUhAU,CHD EPI BCG and OPV 0 monthly target,child
+225,ME_Vacc_Target_CHD_EPI_DPTHepBHib_1_to_3_monthly_target_surviving_infants,CHD EPI DPT-HepB-Hib 1 - 3 monthly target surviving infants,yxUM9vxdmF6,Tt7fU5lUhAU,CHD EPI DPT-HepB-Hib 1 - 3 monthly target surviving infants,child
+226,ME_Vacc_Target_CHD_EPI_Malaria_Vaccine_4_monthly_target,CHD EPI Malaria Vaccine 4 monthly target (22 - 36 months),RpcTO1N2yQu,Tt7fU5lUhAU,CHD EPI Malaria Vaccine 4 monthly target (22 - 36 months),child
+227,ME_Vacc_Target_CHD_EPI_Malaria_Vaccines_monthly_target_Under_1,CHD EPI Malaria Vaccines (1-4) monthly target Under 1,gxGFvXiI39i,Tt7fU5lUhAU,CHD EPI Malaria Vaccines (1-4) monthly target Under 1,child
+228,ME_Vacc_Target_CHD_EPI_MR1_monthly_target_surviving_infant,CHD EPI MR1 monthly target surviving infant,rzkixPVm4Dv,Tt7fU5lUhAU,CHD EPI MR1 monthly target surviving infant,child
+229,ME_Vacc_Target_CHD_EPI_MR2_monthly_target_surviving_infants,CHD EPI MR2 monthly target surviving infants,nSF1a1Kjfou,Tt7fU5lUhAU,CHD EPI MR2 monthly target surviving infants,child
+230,ME_Vacc_Target_CHD_EPI_OPV_1_to_OPV_3_monthly_target_surviving_infants,CHD EPI OPV 1 - OPV 3 monthly target surviving infants,OxUdXmxVbG3,Tt7fU5lUhAU,CHD EPI OPV 1 - OPV 3 monthly target surviving infants,child
+231,ME_Vacc_Target_CHD_EPI_PCV1_to_PCV3_monthly_target_surviving_infants,CHD EPI PCV1 - PCV3 monthly target surviving infants,phZB9X9xSbs,Tt7fU5lUhAU,CHD EPI PCV1 - PCV3 monthly target surviving infants,child
+232,ME_Vacc_Target_CHD_EPI_ROTA_1_and_2_monthly_target,CHD EPI ROTA 1 and 2 monthly target,fcsaaUnmg5j,Tt7fU5lUhAU,CHD EPI ROTA 1 and 2 monthly target,child
+233,ME_Vaccines_Age_Outreach_bcg_Over_1,CHD EPI BCG Childhood Vaccination Outreach Over 1,s79kWckFPLs,zKLduwqZFnh,CHD EPI BCG Childhood Vaccination Outreach Over 1,child
+234,ME_Vaccines_Age_Outreach_bcg_Under_1,CHD EPI BCG Childhood Vaccination Outreach Under 1,s79kWckFPLs,ipKITPnwlcP,CHD EPI BCG Childhood Vaccination Outreach Under 1,child
+235,ME_Vaccines_Age_Outreach_ipv_Over_1,CHD EPI IPV Childhood Vaccination Outreach Over 1,aoEFV2GYFdr,zKLduwqZFnh,CHD EPI IPV Childhood Vaccination Outreach Over 1,child
+236,ME_Vaccines_Age_Outreach_ipv_Under_1,CHD EPI IPV Childhood Vaccination Outreach Under 1,aoEFV2GYFdr,ipKITPnwlcP,CHD EPI IPV Childhood Vaccination Outreach Under 1,child
+237,ME_Vaccines_Age_Outreach_mr_1_Over_1,CHD EPI MR1 Childhood Vaccination Outreach Over 1,noxYd7tOSon,zKLduwqZFnh,CHD EPI MR1 Childhood Vaccination Outreach Over 1,child
+238,ME_Vaccines_Age_Outreach_mr_1_Under_1,CHD EPI MR1 Childhood Vaccination Outreach Under 1,noxYd7tOSon,ipKITPnwlcP,CHD EPI MR1 Childhood Vaccination Outreach Under 1,child
+239,ME_Vaccines_Age_Outreach_mr_2_Over_1,CHD EPI MR2 Childhood Vaccination Outreach Over 1,i78OLuiaUDY,zKLduwqZFnh,CHD EPI MR2 Childhood Vaccination Outreach Over 1,child
+240,ME_Vaccines_Age_Outreach_mv_1_Under_1,CHD EPI Malaria Vaccine 1 Childhood Vaccination Outreach Under 1,a3DjUocUyEa,H5xzz0m9zyd,CHD EPI Malaria Vaccine 1 Childhood Vaccination Outreach Under 1,child
+241,ME_Vaccines_Age_Outreach_mv_2_Under_1,CHD EPI Malaria Vaccine 2 Childhood Vaccination Outreach Under 1,qcbczRGg4Gm,H5xzz0m9zyd,CHD EPI Malaria Vaccine 2 Childhood Vaccination Outreach Under 1,child
+242,ME_Vaccines_Age_Outreach_mv_3_Under_1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Outreach Under 1,MqhI0ToAbRd,H5xzz0m9zyd,CHD EPI Malaria Vaccine 3 Childhood Vaccination Outreach Under 1,child
+243,ME_Vaccines_Age_Outreach_mv_4_Over_1,CHD EPI Malaria Vaccine 4 Childhood Vaccination Outreach > 24-27 Months,BcipDoKGMNu,heiO5lIn7Cs,CHD EPI Malaria Vaccine 4 Childhood Vaccination Outreach > 24-27 Months,child
+244,ME_Vaccines_Age_Outreach_opv_0_Under_1,CHD EPI OPV 0 Childhood Vaccination Outreach,pVdb1wcTMyw,H5xzz0m9zyd,CHD EPI OPV 0 Childhood Vaccination Outreach,child
+245,ME_Vaccines_Age_Outreach_opv_1_Over_1,CHD EPI OPV1 Childhood Vaccination Outreach Over 1,hftsrvq65Ia,zKLduwqZFnh,CHD EPI OPV1 Childhood Vaccination Outreach Over 1,child
+246,ME_Vaccines_Age_Outreach_opv_1_Under_1,CHD EPI OPV1 Childhood Vaccination Outreach Under 1,hftsrvq65Ia,ipKITPnwlcP,CHD EPI OPV1 Childhood Vaccination Outreach Under 1,child
+247,ME_Vaccines_Age_Outreach_opv_2_Over_1,CHD EPI OPV2 Childhood Vaccination Outreach Over 1,cC69GTz2OSm,zKLduwqZFnh,CHD EPI OPV2 Childhood Vaccination Outreach Over 1,child
+248,ME_Vaccines_Age_Outreach_opv_2_Under_1,CHD EPI OPV2 Childhood Vaccination Outreach Under 1,cC69GTz2OSm,ipKITPnwlcP,CHD EPI OPV2 Childhood Vaccination Outreach Under 1,child
+249,ME_Vaccines_Age_Outreach_opv_3_Over_1,CHD EPI OPV3 Childhood Vaccination Outreach Over 1,CrELJNRN6Ok,zKLduwqZFnh,CHD EPI OPV3 Childhood Vaccination Outreach Over 1,child
+250,ME_Vaccines_Age_Outreach_opv_3_Under_1,CHD EPI OPV3 Childhood Vaccination Outreach Under 1,CrELJNRN6Ok,ipKITPnwlcP,CHD EPI OPV3 Childhood Vaccination Outreach Under 1,child
+251,ME_Vaccines_Age_Outreach_pcv_1_Over_1,CHD EPI PCV1 Childhood Vaccination Outreach Over 1,TOdUoVRc7n0,zKLduwqZFnh,CHD EPI PCV1 Childhood Vaccination Outreach Over 1,child
+252,ME_Vaccines_Age_Outreach_pcv_1_Under_1,CHD EPI PCV1 Childhood Vaccination Outreach Under 1,TOdUoVRc7n0,ipKITPnwlcP,CHD EPI PCV1 Childhood Vaccination Outreach Under 1,child
+253,ME_Vaccines_Age_Outreach_pcv_2_Over_1,CHD EPI PCV2 Childhood Vaccination Outreach Over 1,iV9Ijd0qjPU,zKLduwqZFnh,CHD EPI PCV2 Childhood Vaccination Outreach Over 1,child
+254,ME_Vaccines_Age_Outreach_pcv_2_Under_1,CHD EPI PCV2 Childhood Vaccination Outreach Under 1,iV9Ijd0qjPU,ipKITPnwlcP,CHD EPI PCV2 Childhood Vaccination Outreach Under 1,child
+255,ME_Vaccines_Age_Outreach_pcv_3_Over_1,CHD EPI PCV3 Childhood Vaccination Outreach Over 1,IQFC39nNHPX,zKLduwqZFnh,CHD EPI PCV3 Childhood Vaccination Outreach Over 1,child
+256,ME_Vaccines_Age_Outreach_pcv_3_Under_1,CHD EPI PCV3 Childhood Vaccination Outreach Under 1,IQFC39nNHPX,ipKITPnwlcP,CHD EPI PCV3 Childhood Vaccination Outreach Under 1,child
+257,ME_Vaccines_Age_Outreach_penta_1_Over_1,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Over 1,bUpxQhmf8ZK,zKLduwqZFnh,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Over 1,child
+258,ME_Vaccines_Age_Outreach_penta_1_Under_1,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Under 1,bUpxQhmf8ZK,ipKITPnwlcP,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Outreach Under 1,child
+259,ME_Vaccines_Age_Outreach_penta_2_Over_1,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Over 1,oVS5H2KNyxb,zKLduwqZFnh,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Over 1,child
+260,ME_Vaccines_Age_Outreach_penta_2_Under_1,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Under 1,oVS5H2KNyxb,ipKITPnwlcP,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Outreach Under 1,child
+261,ME_Vaccines_Age_Outreach_penta_3_Over_1,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Over 1,cq3o6581c85,zKLduwqZFnh,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Over 1,child
+262,ME_Vaccines_Age_Outreach_penta_3_Under_1,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Under 1,cq3o6581c85,ipKITPnwlcP,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Outreach Under 1,child
+263,ME_Vaccines_Age_Outreach_rota_1_Under_1,CHD EPI ROTA 1 Childhood Vaccination Outreach Under 1,DzCqBNtgw2C,H5xzz0m9zyd,CHD EPI ROTA 1 Childhood Vaccination Outreach Under 1,child
+264,ME_Vaccines_Age_Outreach_rota_2_Under_1,CHD EPI ROTA 2 Childhood Vaccination Outreach Under 1,kBNHszeOCpn,H5xzz0m9zyd,CHD EPI ROTA 2 Childhood Vaccination Outreach Under 1,child
+265,ME_Vaccines_Age_Static_bcg_Over_1,CHD EPI BCG Childhood Vaccination Static Over 1,s79kWckFPLs,r2NJTUrJ2TL,CHD EPI BCG Childhood Vaccination Static Over 1,child
+266,ME_Vaccines_Age_Static_bcg_Under_1,CHD EPI BCG Childhood Vaccination Static Under 1,s79kWckFPLs,UHR4d8LgGou,CHD EPI BCG Childhood Vaccination Static Under 1,child
+267,ME_Vaccines_Age_Static_ipv_Over_1,CHD EPI IPV Childhood Vaccination Static Over 1,aoEFV2GYFdr,r2NJTUrJ2TL,CHD EPI IPV Childhood Vaccination Static Over 1,child
+268,ME_Vaccines_Age_Static_ipv_Under_1,CHD EPI IPV Childhood Vaccination Static Under 1,aoEFV2GYFdr,UHR4d8LgGou,CHD EPI IPV Childhood Vaccination Static Under 1,child
+269,ME_Vaccines_Age_Static_mr_1_Over_1,CHD EPI MR1 Childhood Vaccination Static Over 1,noxYd7tOSon,r2NJTUrJ2TL,CHD EPI MR1 Childhood Vaccination Static Over 1,child
+270,ME_Vaccines_Age_Static_mr_1_Under_1,CHD EPI MR1 Childhood Vaccination Static Under 1,noxYd7tOSon,UHR4d8LgGou,CHD EPI MR1 Childhood Vaccination Static Under 1,child
+271,ME_Vaccines_Age_Static_mr_2_Over_1,CHD EPI MR2 Childhood Vaccination Static Over 1,i78OLuiaUDY,r2NJTUrJ2TL,CHD EPI MR2 Childhood Vaccination Static Over 1,child
+272,ME_Vaccines_Age_Static_mv_1_Under_1,CHD EPI Malaria Vaccine 1 Childhood Vaccination Static Under 1,a3DjUocUyEa,goHo0wV2Gx1,CHD EPI Malaria Vaccine 1 Childhood Vaccination Static Under 1,child
+273,ME_Vaccines_Age_Static_mv_2_Under_1,CHD EPI Malaria Vaccine 2 Childhood Vaccination Static Under 1,qcbczRGg4Gm,goHo0wV2Gx1,CHD EPI Malaria Vaccine 2 Childhood Vaccination Static Under 1,child
+274,ME_Vaccines_Age_Static_mv_3_Under_1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Static Under 1,MqhI0ToAbRd,goHo0wV2Gx1,CHD EPI Malaria Vaccine 3 Childhood Vaccination Static Under 1,child
+275,ME_Vaccines_Age_Static_mv_4_Over_1,CHD EPI Malaria Vaccine 4 Childhood Vaccination Static > 24-27 Months,BcipDoKGMNu,k4MfKNU5WDq,CHD EPI Malaria Vaccine 4 Childhood Vaccination Static > 24-27 Months,child
+276,ME_Vaccines_Age_Static_opv_0_Under_1,CHD EPI OPV 0 Childhood Vaccination Static Under 1 ,pVdb1wcTMyw,goHo0wV2Gx1,CHD EPI OPV 0 Childhood Vaccination Static Under 1 ,child
+277,ME_Vaccines_Age_Static_opv_1_Over_1,CHD EPI OPV1 Childhood Vaccination Static Over 1,hftsrvq65Ia,r2NJTUrJ2TL,CHD EPI OPV1 Childhood Vaccination Static Over 1,child
+278,ME_Vaccines_Age_Static_opv_1_Under_1,CHD EPI OPV1 Childhood Vaccination Static Under 1,hftsrvq65Ia,UHR4d8LgGou,CHD EPI OPV1 Childhood Vaccination Static Under 1,child
+279,ME_Vaccines_Age_Static_opv_2_Over_1,CHD EPI OPV2 Childhood Vaccination Static Over 1,cC69GTz2OSm,r2NJTUrJ2TL,CHD EPI OPV2 Childhood Vaccination Static Over 1,child
+280,ME_Vaccines_Age_Static_opv_2_Under_1,CHD EPI OPV2 Childhood Vaccination Static Under 1,cC69GTz2OSm,UHR4d8LgGou,CHD EPI OPV2 Childhood Vaccination Static Under 1,child
+281,ME_Vaccines_Age_Static_opv_3_Over_1,CHD EPI OPV3 Childhood Vaccination Static Over 1,CrELJNRN6Ok,r2NJTUrJ2TL,CHD EPI OPV3 Childhood Vaccination Static Over 1,child
+282,ME_Vaccines_Age_Static_opv_3_Under_1,CHD EPI OPV3 Childhood Vaccination Static Under 1,CrELJNRN6Ok,UHR4d8LgGou,CHD EPI OPV3 Childhood Vaccination Static Under 1,child
+283,ME_Vaccines_Age_Static_pcv_1_Over_1,CHD EPI PCV1 Childhood Vaccination Static Over 1,TOdUoVRc7n0,r2NJTUrJ2TL,CHD EPI PCV1 Childhood Vaccination Static Over 1,child
+284,ME_Vaccines_Age_Static_pcv_1_Under_1,CHD EPI PCV1 Childhood Vaccination Static Under 1,TOdUoVRc7n0,UHR4d8LgGou,CHD EPI PCV1 Childhood Vaccination Static Under 1,child
+285,ME_Vaccines_Age_Static_pcv_2_Over_1,CHD EPI PCV2 Childhood Vaccination Static Over 1,iV9Ijd0qjPU,r2NJTUrJ2TL,CHD EPI PCV2 Childhood Vaccination Static Over 1,child
+286,ME_Vaccines_Age_Static_pcv_2_Under_1,CHD EPI PCV2 Childhood Vaccination Static Under 1,iV9Ijd0qjPU,UHR4d8LgGou,CHD EPI PCV2 Childhood Vaccination Static Under 1,child
+287,ME_Vaccines_Age_Static_pcv_3_Over_1,CHD EPI PCV3 Childhood Vaccination Static Over 1,IQFC39nNHPX,r2NJTUrJ2TL,CHD EPI PCV3 Childhood Vaccination Static Over 1,child
+288,ME_Vaccines_Age_Static_pcv_3_Under_1,CHD EPI PCV3 Childhood Vaccination Static Under 1,IQFC39nNHPX,UHR4d8LgGou,CHD EPI PCV3 Childhood Vaccination Static Under 1,child
+289,ME_Vaccines_Age_Static_penta_1_Over_1,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Over 1,bUpxQhmf8ZK,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Over 1,child
+290,ME_Vaccines_Age_Static_penta_1_Under_1,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Under 1,bUpxQhmf8ZK,UHR4d8LgGou,CHD EPI DPT-HepB-Hib1 Childhood Vaccination Static Under 1,child
+291,ME_Vaccines_Age_Static_penta_2_Over_1,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Over 1,oVS5H2KNyxb,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Over 1,child
+292,ME_Vaccines_Age_Static_penta_2_Under_1,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Under 1,oVS5H2KNyxb,UHR4d8LgGou,CHD EPI DPT-HepB-Hib2 Childhood Vaccination Static Under 1,child
+293,ME_Vaccines_Age_Static_penta_3_Over_1,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Over 1,cq3o6581c85,r2NJTUrJ2TL,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Over 1,child
+294,ME_Vaccines_Age_Static_penta_3_Under_1,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Under 1,cq3o6581c85,UHR4d8LgGou,CHD EPI DPT-HepB-Hib3 Childhood Vaccination Static Under 1,child
+295,ME_Vaccines_Age_Static_rota_1_Under_1,CHD EPI ROTA 1 Childhood Vaccination Static Under 1,DzCqBNtgw2C,goHo0wV2Gx1,CHD EPI ROTA 1 Childhood Vaccination Static Under 1,child
+296,ME_Vaccines_Age_Static_rota_2_Under_1,CHD EPI ROTA 2 Childhood Vaccination Static Under 1,kBNHszeOCpn,goHo0wV2Gx1,CHD EPI ROTA 2 Childhood Vaccination Static Under 1,child
+297,ME_VitA_Age_Outreach_Vit_A_1_Over_1_Female,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,QBgBWJAlOxW,gB0W63Kq6AZ,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Outreach,child
+298,ME_VitA_Age_Outreach_Vit_A_1_Over_1_Male,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Outreach,QBgBWJAlOxW,rumJgZkdY47,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Outreach,child
+299,ME_VitA_Age_Outreach_Vit_A_1_Under_1_Female,CHD EPI Vitamin A suplemented 6 - 11 Months Female Outreach,QBgBWJAlOxW,GC3TdzwM8OA,CHD EPI Vitamin A suplemented 6 - 11 Months Female Outreach,child
+300,ME_VitA_Age_Outreach_Vit_A_1_Under_1_Male,CHD EPI Vitamin A suplemented 6 - 11 Months Male Outreach,QBgBWJAlOxW,fuvlp9uqcPd,CHD EPI Vitamin A suplemented 6 - 11 Months Male Outreach,child
+301,ME_VitA_Age_Outreach_Vit_A_2_Over_1_Female,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Female Outreach,QBgBWJAlOxW,hGXCz93cOZz,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Female Outreach,child
+302,ME_VitA_Age_Outreach_Vit_A_2_Over_1_Male,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Outreach,QBgBWJAlOxW,tsqT0XhqObc,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Outreach,child
+303,ME_VitA_Age_Static_Vit_A_1_Over_1_Female,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,QBgBWJAlOxW,FpdeEDs8TIP,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Female Static,child
+304,ME_VitA_Age_Static_Vit_A_1_Over_1_Male,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Static,QBgBWJAlOxW,KgiMiWs1E8P,CHD EPI Vitamin A suplemented 12 - 59 Months (1st Dose) Male Static,child
+305,ME_VitA_Age_Static_Vit_A_1_Under_1_Female,CHD EPI Vitamin A suplemented 6 - 11 Months Female Static,QBgBWJAlOxW,TEIykBA5pf5,CHD EPI Vitamin A suplemented 6 - 11 Months Female Static,child
+306,ME_VitA_Age_Static_Vit_A_1_Under_1_Male,CHD EPI Vitamin A suplemented 6 - 11 Months Male Static,QBgBWJAlOxW,xZ6voDw6RH5,CHD EPI Vitamin A suplemented 6 - 11 Months Male Static,child
+307,ME_VitA_Age_Static_Vit_A_2_Over_1_Female,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Female Static,QBgBWJAlOxW,UWrsmTpB3fF,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Female Static,child
+308,ME_VitA_Age_Static_Vit_A_2_Over_1_Male,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Static,QBgBWJAlOxW,PRPdhssSeW6,CHD EPI Vitamin A suplemented 13 - 59 Months (2nd Dose) Male Static,child
+309,ME_WASTAGE_CHD_EPI_BCG_doses_used_and_wasted_A_Outreach,CHD EPI BCG doses used and wasted (A) - Outreach,mbWu21JCSjl,kVTGmhgf7wQ,CHD EPI BCG doses used and wasted (A) - Outreach,child
+310,ME_WASTAGE_CHD_EPI_BCG_doses_used_and_wasted_A_Static,CHD EPI BCG doses used and wasted (A) - Static,mbWu21JCSjl,yqszvXV2s8u,CHD EPI BCG doses used and wasted (A) - Static,child
+311,ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_discarded_B_Outreach,CHD EPI DPT-HepB-Hib doses discarded (B) - Outreach,e7PwzVUCN3H,kVTGmhgf7wQ,CHD EPI DPT-HepB-Hib doses discarded (B) - Outreach,child
+312,ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_discarded_B_Static,CHD EPI DPT-HepB-Hib doses discarded (B) - Static,e7PwzVUCN3H,yqszvXV2s8u,CHD EPI DPT-HepB-Hib doses discarded (B) - Static,child
+313,ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_used_A_Outreach,CHD EPI DPT-HepB-Hib doses used (A - Outreach,I8dr5TvUAwP,kVTGmhgf7wQ,CHD EPI DPT-HepB-Hib doses used (A - Outreach,child
+314,ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_used_A_Static,CHD EPI DPT-HepB-Hib doses used (A) - Static,I8dr5TvUAwP,yqszvXV2s8u,CHD EPI DPT-HepB-Hib doses used (A) - Static,child
+315,ME_WASTAGE_CHD_EPI_HPV_doses_discarded_B_Outreach,CHD EPI HPV doses discarded (B) - Outreach,Y5K4MbjF0wX,kVTGmhgf7wQ,CHD EPI HPV doses discarded (B) - Outreach,child
+316,ME_WASTAGE_CHD_EPI_HPV_doses_discarded_B_Static,CHD EPI HPV doses discarded (B) - Static,Y5K4MbjF0wX,yqszvXV2s8u,CHD EPI HPV doses discarded (B) - Static,child
+317,ME_WASTAGE_CHD_EPI_HPV_doses_used_A_Outreach,CHD EPI HPV doses used (A) - Outreach,n7rIea6EPyy,kVTGmhgf7wQ,CHD EPI HPV doses used (A) - Outreach,child
+318,ME_WASTAGE_CHD_EPI_HPV_doses_used_A_Static,CHD EPI HPV doses used (A) - Static,n7rIea6EPyy,yqszvXV2s8u,CHD EPI HPV doses used (A) - Static,child
+319,ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_discarded_B_Outreach,CHD EPI Malaria Vaccine doses discarded (B) - Outreach,qsgQxHQOBHa,kVTGmhgf7wQ,CHD EPI Malaria Vaccine doses discarded (B) - Outreach,child
+320,ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_discarded_B_Static,CHD EPI Malaria Vaccine doses discarded (B) - Static,qsgQxHQOBHa,yqszvXV2s8u,CHD EPI Malaria Vaccine doses discarded (B) - Static,child
+321,ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_used_A_Outreach,CHD EPI Malaria Vaccine doses used (A) - Outreach,w9TeerQ0fM4,kVTGmhgf7wQ,CHD EPI Malaria Vaccine doses used (A) - Outreach,child
+322,ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_used_A_Static,CHD EPI Malaria Vaccine doses used (A) - Static,w9TeerQ0fM4,yqszvXV2s8u,CHD EPI Malaria Vaccine doses used (A) - Static,child
+323,ME_WASTAGE_CHD_EPI_MR_doses_used_and_wasted_A_Outreach,CHD EPI MR doses used and wasted (A) - Outreach,RBgvlB5UwNu,kVTGmhgf7wQ,CHD EPI MR doses used and wasted (A) - Outreach,child
+324,ME_WASTAGE_CHD_EPI_MR_doses_used_and_wasted_A_Static,CHD EPI MR doses used and wasted (A) - Static,RBgvlB5UwNu,yqszvXV2s8u,CHD EPI MR doses used and wasted (A) - Static,child
+325,ME_WASTAGE_CHD_EPI_OPV_doses_used_and_wasted_A_Outreach,CHD EPI OPV doses used and wasted (A - Outreach,fWIuCM5jG37,kVTGmhgf7wQ,CHD EPI OPV doses used and wasted (A - Outreach,child
+326,ME_WASTAGE_CHD_EPI_OPV_doses_used_and_wasted_A_Static,CHD EPI OPV doses used and wasted (A) - Static,fWIuCM5jG37,yqszvXV2s8u,CHD EPI OPV doses used and wasted (A) - Static,child
+327,ME_WASTAGE_CHD_EPI_PCV_doses_discarded_B_Outreach,CHD EPI PCV doses discarded (B) - Outreach,y5XiQQ1fQux,kVTGmhgf7wQ,CHD EPI PCV doses discarded (B) - Outreach,child
+328,ME_WASTAGE_CHD_EPI_PCV_doses_discarded_B_Static,CHD EPI PCV doses discarded (B) - Static,luKOKmbulRH,yqszvXV2s8u,CHD EPI PCV doses discarded (B) - Static,child
+329,ME_WASTAGE_CHD_EPI_PCV_doses_used_A_Outreach,CHD EPI PCV doses used (A) - Outreach,y5XiQQ1fQux,kVTGmhgf7wQ,CHD EPI PCV doses used (A) - Outreach,child
+330,ME_WASTAGE_CHD_EPI_PCV_doses_used_A_Static,CHD EPI PCV doses used (A) - Static,y5XiQQ1fQux,yqszvXV2s8u,CHD EPI PCV doses used (A) - Static,child
+331,ME_WASTAGE_CHD_EPI_ROTA_doses_discarded_B_Outreach,CHD EPI ROTA doses discarded (B) - Outreach,j6kXgziwjSE,kVTGmhgf7wQ,CHD EPI ROTA doses discarded (B) - Outreach,child
+332,ME_WASTAGE_CHD_EPI_ROTA_doses_discarded_B_Static,CHD EPI ROTA doses discarded (B) - Static,j6kXgziwjSE,yqszvXV2s8u,CHD EPI ROTA doses discarded (B) - Static,child
+333,ME_WASTAGE_CHD_EPI_ROTA_doses_used_A_Outreach,CHD EPI ROTA doses used (A) - Outreach,m9TzcUzQ84r,kVTGmhgf7wQ,CHD EPI ROTA doses used (A) - Outreach,child
+334,ME_WASTAGE_CHD_EPI_ROTA_doses_used_A_Static,CHD EPI ROTA doses used (A) - Static,m9TzcUzQ84r,yqszvXV2s8u,CHD EPI ROTA doses used (A) - Static,child
+335,ME_WASTAGE_CHD_EPI_Td_doses_discarded_B_Outreach,CHD EPI Td doses discarded (B - Outreach,KfG1kd1zFzz,kVTGmhgf7wQ,CHD EPI Td doses discarded (B - Outreach,child
+336,ME_WASTAGE_CHD_EPI_Td_doses_discarded_B_Static,CHD EPI Td doses discarded (B) - Static,KfG1kd1zFzz,yqszvXV2s8u,CHD EPI Td doses discarded (B) - Static,child
+337,ME_WASTAGE_CHD_EPI_Td_doses_used_A_Outreach,CHD EPI Td doses used (A - Outreach,q9pGVAO68Gr,kVTGmhgf7wQ,CHD EPI Td doses used (A - Outreach,child
+338,ME_WASTAGE_CHD_EPI_Td_doses_used_A_Static,CHD EPI Td doses used (A) - Static,q9pGVAO68Gr,yqszvXV2s8u,CHD EPI Td doses used (A) - Static,child
+339,ME_Albendazole_doses_One_dose,RHD ANC Albendazole 1,MXHcqC6ruW6,Tt7fU5lUhAU,RHD ANC Albendazole 1,anc
+340,ME_ART_Status_Final_Visit_Not_On_ART,RHD ANC Final ART Status of mother Not on ART,jEFHH54Zr4C,Y416M7Sz8eZ,RHD ANC Final ART Status of mother Not on ART,anc
+341,ME_ART_Status_Final_Visit_On_ART_Before_ANC,RHD ANC Final ART Status of mother On ART Before ANC,jEFHH54Zr4C,DqSyuOT5XSd,RHD ANC Final ART Status of mother On ART Before ANC,anc
+342,ME_ART_Status_Final_Visit_Start_ART_0_27_Weeks,RHD ANC Final ART Status of mother Start ART 0-27 weeks,jEFHH54Zr4C,mHUeH2KKajo,RHD ANC Final ART Status of mother Start ART 0-27 weeks,anc
+343,ME_ART_Status_Final_Visit_Start_ART_28_plus_Weeks,RHD ANC Final ART Status of mother Start ART 28+ weeks,jEFHH54Zr4C,jCWx8luh4FJ,RHD ANC Final ART Status of mother Start ART 28+ weeks,anc
+344,ME_ART_Status_First_Visit_Not_On_ART,RHD ANC 1st Visit ART Status of mother Not on ART,fKcDMJPqgIk,Y416M7Sz8eZ,RHD ANC 1st Visit ART Status of mother Not on ART,anc
+345,ME_ART_Status_First_Visit_On_ART_Before_ANC,RHD ANC 1st Visit ART Status of mother On ART Before ANC,fKcDMJPqgIk,DqSyuOT5XSd,RHD ANC 1st Visit ART Status of mother On ART Before ANC,anc
+346,ME_ART_Status_First_Visit_Start_ART_0_27_Weeks,RHD ANC 1st Visit ART Status of mother Start ART 0-27 weeks,fKcDMJPqgIk,mHUeH2KKajo,RHD ANC 1st Visit ART Status of mother Start ART 0-27 weeks,anc
+347,ME_ART_Status_First_Visit_Start_ART_28_plus_Weeks,RHD ANC 1st Visit ART Status of mother Start ART 28+ weeks,fKcDMJPqgIk,jCWx8luh4FJ,RHD ANC 1st Visit ART Status of mother Start ART 28+ weeks,anc
+348,ME_CPT_out_of_HIV_positive,RHD ANC CPT Women on CPT,Mvo7Ah1xx61,Tt7fU5lUhAU,RHD ANC CPT Women on CPT,anc
+349,ME_FeFo_More_Than_120,RHD ANC Fe-Fo Tablets 120+,Rczpg2vCvat,Tt7fU5lUhAU,RHD ANC Fe-Fo Tablets 120+,anc
+350,ME_Hb_g_dl_less_than_7,RHD ANC HB (G/dl) <7,AmkTUKYrM31,Tt7fU5lUhAU,RHD ANC HB (G/dl) <7,anc
+351,ME_Hb_g_over_dl_greater_than_and_equal_to_7,RHD ANC HB (G/dl) ?7,QUDJ8U1O0Yl,Tt7fU5lUhAU,RHD ANC HB (G/dl) ?7,anc
+352,ME_Hb_g_over_dl_ND,RHD ANC HB (G/dl) ND,AbDFS7NVOc9,Tt7fU5lUhAU,RHD ANC HB (G/dl) ND,anc
+353,ME_HIV_Status_Final_New_Negative,RHD ANC HIV Test Result New Negative,qG10jihknty,Tt7fU5lUhAU,RHD ANC HIV Test Result New Negative,anc
+354,ME_HIV_Status_Final_New_Positive,RHD ANC HIV Test Result New Positive,Xr6Xa1ZnJqy,Tt7fU5lUhAU,RHD ANC HIV Test Result New Positive,anc
+355,ME_HIV_Status_Final_Not_Done,RHD ANC HIV Test Result Not Done,iYKNoPBnrJl,Tt7fU5lUhAU,RHD ANC HIV Test Result Not Done,anc
+356,ME_HIV_Status_Final_Prev_Negative,RHD ANC HIV Test Result Previous Negative,CRhkHMKt3Ps,Tt7fU5lUhAU,RHD ANC HIV Test Result Previous Negative,anc
+357,ME_HIV_Status_Final_Prev_Positive,RHD ANC HIV Test Result Previous Positive,hbFsoMQNkwe,Tt7fU5lUhAU,RHD ANC HIV Test Result Previous Positive,anc
+358,ME_HIV_Status_First_Visit_New_Negative,RHD ANC  HIV Status 1st Visit New Negative,nh9VegOdCIt,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit New Negative,anc
+359,ME_HIV_Status_First_Visit_New_Positive,RHD ANC  HIV Status 1st Visit New Positive,PwDJPETFRej,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit New Positive,anc
+360,ME_HIV_Status_First_Visit_Not_Done,RHD ANC  HIV Status 1st Visit Not Done,rkkM59tCAjG,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit Not Done,anc
+361,ME_HIV_Status_First_Visit_Prev_Negative,RHD ANC HIV Status 1st Visit Previous Negative,tnFn3i2VC1R,Tt7fU5lUhAU,RHD ANC HIV Status 1st Visit Previous Negative,anc
+362,ME_HIV_Status_First_Visit_Prev_Positive,RHD ANC  HIV Status 1st Visit Previous Positive,QrqDZ718WEz,Tt7fU5lUhAU,RHD ANC  HIV Status 1st Visit Previous Positive,anc
+363,ME_ITN_Bed_Nets_Given,RHD ANC ITN (Bed nets) given Received ITN,gLN6hOgR6ra,Tt7fU5lUhAU,RHD ANC ITN (Bed nets) given Received ITN,anc
+364,ME_Number_Of_Women_Registered,RHD ANC New Women Registered,zAvhV81SCLV,Tt7fU5lUhAU,RHD ANC New Women Registered,anc
+365,ME_NVP_syrup_given,RHD ANC NVP Syrup Given Received NVP,XXKhfvXpgmF,Tt7fU5lUhAU,RHD ANC NVP Syrup Given Received NVP,anc
+366,ME_Pregnancy_Tests_Done_In_The_First_Trimester,RHD ANC Pregnancy Test Done in 1st Trimester,ouOeJELRncp,Tt7fU5lUhAU,RHD ANC Pregnancy Test Done in 1st Trimester,anc
+367,ME_SP_Doses_0_Dose,RHD ANC SP Doses 0 doses,BVtd4r4Xnhe,TOdlPOIXhQZ,RHD ANC SP Doses 0 doses,anc
+368,ME_SP_Doses_1_Dose,RHD ANC SP Doses 1*3 doses,BVtd4r4Xnhe,L02BzdmOqKP,RHD ANC SP Doses 1*3 doses,anc
+369,ME_SP_Doses_2_Dose,RHD ANC SP Doses 2*3 doses,BVtd4r4Xnhe,eo6j7NLIHXt,RHD ANC SP Doses 2*3 doses,anc
+370,ME_SP_Doses_3_plus_Dose,RHD ANC SP Doses >= 3 doses,BVtd4r4Xnhe,dIeAAGB2RDm,RHD ANC SP Doses >= 3 doses,anc
+371,ME_Syphilis_Status_Negative,RHD ANC Syphilis Status Negative,xHSyFJc8jKX,Tt7fU5lUhAU,RHD ANC Syphilis Status Negative,anc
+372,ME_Syphilis_Status_Not_Done,RHD ANC Syphilis Status Unknown,KvqX3BwgvlU,Tt7fU5lUhAU,RHD ANC Syphilis Status Unknown,anc
+373,ME_Syphilis_Status_Positive,RHD ANC Syphilis Status Positive,H1hggbKQpZH,Tt7fU5lUhAU,RHD ANC Syphilis Status Positive,anc
+374,ME_Total_Number_With_TDV_doses_2_plus,RHD ANC TTV Doses 2+,WCpjbJAYTfE,Tt7fU5lUhAU,RHD ANC TTV Doses 2+,anc
+375,ME_Total_Visits_Per_Woman_1_Visits,RHD ANC Visits per Woman Total with 1 Visit,SVC5nKhvcQr,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 1 Visit,anc
+376,ME_Total_Visits_Per_Woman_2_Visits,RHD ANC Visits per Woman Total with 2 Visits,ZgDrKbIPkgE,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 2 Visits,anc
+377,ME_Total_Visits_Per_Woman_3_Visits,RHD ANC Visits per Woman Total with 3 Visits,Jtrq0pYsqT0,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 3 Visits,anc
+378,ME_Total_Visits_Per_Woman_4_Visits,RHD ANC Visits per Woman Total with 4 Visits,Jpkh8pokAY7,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 4 Visits,anc
+379,ME_Total_Visits_Per_Woman_5_plus_Visits,RHD ANC Visits per Woman Total with 5+ Visits,EUvtRZSLh2F,Tt7fU5lUhAU,RHD ANC Visits per Woman Total with 5+ Visits,anc
+380,ME_Week_Of_First_ANC_Visit_0_12_weeks,RHD ANC Week of first ANC Visit Week 0-12,EVt2iC6Tn34,Tt7fU5lUhAU,RHD ANC Week of first ANC Visit Week 0-12,anc
+381,ME_With_Preeclampsia,RHD ANC (Pre-) Eclampsia Yes,sNlbaVoobzq,Tt7fU5lUhAU,RHD ANC (Pre-) Eclampsia Yes,anc
+382,ME_Anti_Malaria_Treatment_Confirmed_Over_5,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,BOAUQVmPxf3,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (ASAQ) >5Yrs,opd
+383,ME_Anti_Malaria_Treatment_Confirmed_Over_5,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,ie9Vtnde6in,V8ASMfxytS4,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) >5Yrs,opd
+384,ME_Anti_Malaria_Treatment_Confirmed_Under_5,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) <5Yrs,ie9Vtnde6in,pE37AYgl7bx,NMCP OPD Confirmed cases receiving first-line anti malarial medication (LA) <5Yrs,opd
+385,ME_Anti_Malaria_Treatment_Confirmed_Under_5,NMCP OPD Confirmed cases receiving second-line anti malarial medication (ASAQ) <5Yrs,BOAUQVmPxf3,pE37AYgl7bx,NMCP OPD Confirmed cases receiving second-line anti malarial medication (ASAQ) <5Yrs,opd
+386,ME_Anti_Malaria_Treatment_Presumed_Over_5,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) >5Yrs,oHAvOrxnkDm,V8ASMfxytS4,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) >5Yrs,opd
+387,ME_Anti_Malaria_Treatment_Presumed_Over_5,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) >5Yrs,nRGVy7VlKO9,V8ASMfxytS4,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) >5Yrs,opd
+388,ME_Anti_Malaria_Treatment_Presumed_Under_5,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) <5Yrs,oHAvOrxnkDm,pE37AYgl7bx,NMCP OPD Presumed malaria cases receiving first-line anti malarial medication(LA) <5Yrs,opd
+389,ME_Anti_Malaria_Treatment_Presumed_Under_5,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) <5Yrs,nRGVy7VlKO9,pE37AYgl7bx,NMCP OPD Presumed malaria cases receiving second-line anti malarial medication(ASAQ) <5Yrs,opd
+390,ME_Malaria_Cases_Confirmed,NMCP OPD Confirmed Malaria Cases <5Yrs,aSmSrrByuaa,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases <5Yrs,opd
+391,ME_Malaria_Cases_Confirmed,NMCP OPD Confirmed Malaria Cases >5Yrs,aSmSrrByuaa,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases >5Yrs,opd
+392,ME_Malaria_Cases_Presumed,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) <5Yrs,b7NiKuhEqI6,pE37AYgl7bx,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) <5Yrs,opd
+393,ME_Malaria_Cases_Presumed,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) >5Yrs,b7NiKuhEqI6,V8ASMfxytS4,NMCP OPD Presumed Malaria Cases (Clinically Diagnosed) >5Yrs,opd
+394,ME_Malaria_Test,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT <5Yrs,Ycfd6ROuM7h,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT <5Yrs,opd
+395,ME_Malaria_Test,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT >5Yrs,Ycfd6ROuM7h,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested For Malaria Through RDT >5Yrs,opd
+396,ME_Malaria_Test,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy <5Yrs,xACp6CWblnY,pE37AYgl7bx,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy <5Yrs,opd
+397,ME_Malaria_Test,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy >5Yrs,xACp6CWblnY,V8ASMfxytS4,NMCP OPD Suspected Malaria Cases Tested for Malaria Using Microscopy >5Yrs,opd
+398,ME_Positive_Malaria_Cases,NMCP OPD Confirmed Malaria Cases Through Microscopy <5Yrs,fCx1cSTnUUL,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through Microscopy <5Yrs,opd
+399,ME_Positive_Malaria_Cases,NMCP OPD Confirmed Malaria Cases Through Microscopy >5Yrs,fCx1cSTnUUL,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through Microscopy >5Yrs,opd
+400,ME_Positive_Malaria_Cases,NMCP OPD Confirmed Malaria Cases Through RDT <5Yrs,E4LZP3KUbOG,pE37AYgl7bx,NMCP OPD Confirmed Malaria Cases Through RDT <5Yrs,opd
+401,ME_Positive_Malaria_Cases,NMCP OPD Confirmed Malaria Cases Through RDT >5Yrs,E4LZP3KUbOG,V8ASMfxytS4,NMCP OPD Confirmed Malaria Cases Through RDT >5Yrs,opd
+402,ME_ART_Not_On_ART,RHD MAT ART Mother Not on ART,MoximPvXuj6,GoX45uTUUCH,RHD MAT ART Mother Not on ART,maternity
+403,ME_ART_Start_Before_Pregnancy,RHD MAT ART Mother Start Before Pregnancy,MoximPvXuj6,xmKtsiRYAXz,RHD MAT ART Mother Start Before Pregnancy,maternity
+404,ME_ART_Start_First_Trimester,RHD MAT ART Mother Start In 1st or 2nd Trimester,MoximPvXuj6,jMqmEmzruFg,RHD MAT ART Mother Start In 1st or 2nd Trimester,maternity
+405,ME_ART_Start_Labour,RHD MAT ART Mother Start During Labor,MoximPvXuj6,hPVDsUM32VS,RHD MAT ART Mother Start During Labor,maternity
+406,ME_ART_Start_Third_Trimester,RHD MAT ART Mother Start In 3rd Trimester,MoximPvXuj6,UyOtLy9DhPs,RHD MAT ART Mother Start In 3rd Trimester,maternity
+407,ME_HIV_Current_New_Negative,RHD MAT HIV Test Results New Negative,MD0Gp8MzkHf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Negative,maternity
+408,ME_HIV_Current_New_Positive,RHD MAT HIV Test Results New Positive,xRrJWogiEMf,Tt7fU5lUhAU,RHD MAT HIV Test Results New Positive,maternity
+409,ME_HIV_Current_Not_Done,RHD MAT HIV Test Results Not Done,U3FydV1M1RQ,Tt7fU5lUhAU,RHD MAT HIV Test Results Not Done,maternity
+410,ME_HIV_Previous,RHD MAT HIV Test Results Previous Positive,a3DzFDGAQAi,Tt7fU5lUhAU,RHD MAT HIV Test Results Previous Positive,maternity
+411,ME_MAT_Babies_Multiple,RHD MAT Number of Babies (still and live) Twins/Triplets,jZ5TP3UpaiQ,W3Angorx03z,RHD MAT Number of Babies (still and live) Twins/Triplets,maternity
+412,ME_MAT_Babies_Single,RHD MAT Number of Babies (still and live) Singletons,jZ5TP3UpaiQ,PJEmG4BbHTf,RHD MAT Number of Babies (still and live) Singletons,maternity
+413,ME_MAT_Baby_Care_Antibiotics,RHD MAT Newborn Complication Management Antibiotics,mWeTHZCPNT0,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Antibiotics,maternity
+414,ME_MAT_Baby_Care_CHL,RHD MAT Routine Care Chlorohexidine Given,YvNy8rie5j7,Tt7fU5lUhAU,RHD MAT Routine Care Chlorohexidine Given,maternity
+415,ME_MAT_Baby_Care_KMC,RHD MAT Newborn Complication Management Kangaroo Mother Care,zANGFtNoUEt,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Kangaroo Mother Care,maternity
+416,ME_MAT_Baby_Care_Other_Mgt,RHD MAT Newborn Complication Management Other,qYKuaHC8Gnk,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Other,maternity
+417,ME_MAT_Baby_Care_Rescuscitation,RHD MAT Newborn Complication Management Rescucitations,zE0WLBSHx1e,Tt7fU5lUhAU,RHD MAT Newborn Complication Management Rescucitations,maternity
+418,ME_MAT_Baby_Care_TEO,RHD MAT Tetracycline Eye Oitment Given,YGJbvAkqBgI,Tt7fU5lUhAU,RHD MAT Tetracycline Eye Oitment Given,maternity
+419,ME_MAT_Baby_Care_VitK,RHD MAT Routine Care Vitamin K Given,zAcW94iEdXU,Tt7fU5lUhAU,RHD MAT Routine Care Vitamin K Given,maternity
+420,ME_MAT_Baby_Complications_Asphy,RHD MAT Newborn Complications Asphyxia,vcEWpcFjEuU,Tt7fU5lUhAU,RHD MAT Newborn Complications Asphyxia,maternity
+421,"ME_MAT_Baby_Complications_Low_Weight""",RHD MAT Newborn Complications Weight < 2500g,gkgM1TgE5oF,Tt7fU5lUhAU,RHD MAT Newborn Complications Weight < 2500g,maternity
+422,ME_MAT_Baby_Complications_None,RHD MAT Newborn Complications None,SytVoNgDYlf,Tt7fU5lUhAU,RHD MAT Newborn Complications None,maternity
+423,"ME_MAT_Baby_Complications_Other""",RHD MAT Newborn Complications Other,Z9Q4qIjoePS,Tt7fU5lUhAU,RHD MAT Newborn Complications Other,maternity
+424,ME_MAT_Baby_Complications_Prem,RHD MAT Newborn Complications Prematurity,UXTZkim1Npv,Tt7fU5lUhAU,RHD MAT Newborn Complications Prematurity,maternity
+425,ME_MAT_Baby_Complications_Sep,RHD MAT Newborn Complications Sepsis,bPvw8ZdBgRe,Tt7fU5lUhAU,RHD MAT Newborn Complications Sepsis,maternity
+426,ME_MAT_BF_First_Hour,RHD MAT Breastfeeding Initiated,bjLZY1FqdDJ,Tt7fU5lUhAU,RHD MAT Breastfeeding Initiated,maternity
+427,ME_MAT_Care_Abx,RHD MAT Emergency Obstetric Care Antibiotics,gXjGJoC7gDs,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics,maternity
+428,ME_MAT_Care_AC,RHD MAT Emergency Obstetric Care Anticonvulsive,n7XnfWv0tHo,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Anticonvulsive,maternity
+429,ME_MAT_Care_Acs,RHD MAT Emergency Obstetric Care Antenatal corticosteroids (Acs),b4WuKkuuR0W,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antenatal corticosteroids (Acs),maternity
+430,ME_MAT_Care_MRP,RHD MAT Emergency Obstetric Care Manual Rem Placenta,BbmxEK5AYaL,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Manual Rem Placenta,maternity
+431,ME_MAT_Care_NASG,RHD MAT Emergency Obstetric Care Non pneumatic Anti-Shock Garment (NASG),Tx8IDGqV3rt,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Non pneumatic Anti-Shock Garment (NASG),maternity
+432,ME_MAT_Care_Ox,RHD MAT Emergency Obstetric Care Oxytocin,FhNg0SdUMe8,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Oxytocin,maternity
+433,ME_MAT_Care_ROPC,RHD MAT Emergency Obstetric Care Antibiotics Evacuation of Retained Products (ERP),p1OuCSVe4Gk,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Antibiotics Evacuation of Retained Products (ERP),maternity
+434,ME_MAT_Care_Tr,RHD MAT Emergency Obstetric Care Blood Transfusion,vyIPU3KOFF6,Tt7fU5lUhAU,RHD MAT Emergency Obstetric Care Blood Transfusion,maternity
+435,ME_MAT_Child_HIV_Status_Exposed_No_NVP,RHD MAT Newborn Survival/PMTCT Alive Exp No NVP,EeywK6AHQdK,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp No NVP,maternity
+436,ME_MAT_Child_HIV_Status_Exposed_NVP_Started,RHD MAT Newborn Survival/PMTCT Alive Exp NVP Started,iBBnHx1Uf50,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Exp NVP Started,maternity
+437,ME_MAT_Child_HIV_Status_Not_Exposed,RHD MAT Newborn Survival/PMTCT Alive not HIV Exp,q7NoDcfaciO,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive not HIV Exp,maternity
+438,ME_MAT_Child_HIV_Status_Unknown,RHD MAT Newborn Survival/PMTCT Alive unknown Exp,kaYz6eqxqQH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive unknown Exp,maternity
+439,ME_MAT_Complications_APH,RHD MAT Obstetric  Complications Ante Partum Heam,RS3PtRniRns,DfPxMVfjndd,RHD MAT Obstetric  Complications Ante Partum Heam,maternity
+440,ME_MAT_Complications_ECL,RHD MAT Obstetric  Complications (Pre-) Eclampsia,RS3PtRniRns,JPgETYeD4qF,RHD MAT Obstetric  Complications (Pre-) Eclampsia,maternity
+441,ME_MAT_Complications_FD,RHD MAT Obstetric  Complications Foetal distress (FD),RS3PtRniRns,PEpIz3uFJ4a,RHD MAT Obstetric  Complications Foetal distress (FD),maternity
+442,ME_MAT_Complications_None,RHD MAT Obstetric  Complications None,RS3PtRniRns,XvMqbLpCTt8,RHD MAT Obstetric  Complications None,maternity
+443,ME_MAT_Complications_OPL,RHD MAT Obstetric  Complications Obstr/Prol Labor,RS3PtRniRns,Ht1Pz8Kn2k3,RHD MAT Obstetric  Complications Obstr/Prol Labor,maternity
+444,ME_MAT_Complications_Other,RHD MAT Obstetric  Complications Others,RS3PtRniRns,R2qiSvs4zGK,RHD MAT Obstetric  Complications Others,maternity
+445,ME_MAT_Complications_PL,RHD MAT Obstetric  Complications Premature labour (pl),RS3PtRniRns,ezMtOgig3e6,RHD MAT Obstetric  Complications Premature labour (pl),maternity
+446,ME_MAT_Complications_PPH,RHD MAT Obstetric  Complications Post Partum Heam,RS3PtRniRns,ZGX8SK5P435,RHD MAT Obstetric  Complications Post Partum Heam,maternity
+447,ME_MAT_Complications_RP,RHD MAT Obstetric  Complications Retained placenta (RP),RS3PtRniRns,qffHiXEve5i,RHD MAT Obstetric  Complications Retained placenta (RP),maternity
+448,ME_MAT_Complications_RU,RHD MAT Obstetric  Complications Raptured Uterus,RS3PtRniRns,VrBgkdWJor3,RHD MAT Obstetric  Complications Raptured Uterus,maternity
+449,ME_MAT_Complications_SEP,RHD MAT Obstetric  Complications Sepsis,RS3PtRniRns,N6Kp9pEEqSI,RHD MAT Obstetric  Complications Sepsis,maternity
+450,ME_MAT_Delivery_Mode_BR,RHD MAT Delivery  Mode Breech,UdxIE19B603,Tt7fU5lUhAU,RHD MAT Delivery  Mode Breech,maternity
+451,ME_MAT_Delivery_Mode_CS,RHD MAT Delivery  Mode Caesarian Section,FYDa4NcJNrq,Tt7fU5lUhAU,RHD MAT Delivery  Mode Caesarian Section,maternity
+452,ME_MAT_Delivery_Mode_SVD,RHD MAT Delivery  Mode Spontaneous Vagina,GwzEUK12Pqh,Tt7fU5lUhAU,RHD MAT Delivery  Mode Spontaneous Vagina,maternity
+453,ME_MAT_Delivery_Mode_VE,RHD MAT Delivery  Mode Vacuum Extraction,LLrXje6xH8D,Tt7fU5lUhAU,RHD MAT Delivery  Mode Vacuum Extraction,maternity
+454,ME_MAT_Delivery_Person_Not_skilled,RHD MAT Staff conducting Delivery PA/WA/HSA,mHcrkMgxARq,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery PA/WA/HSA,maternity
+455,ME_MAT_Delivery_Person_Skilled,RHD MAT Staff conducting Delivery MO/CO/MA/Nurse/MW,R9CHUW81m9o,Tt7fU5lUhAU,RHD MAT Staff conducting Delivery MO/CO/MA/Nurse/MW,maternity
+456,ME_MAT_Delivery_Place_Home,RHD MAT Delivery Place Home/TBA,hPhTbuLFnx4,Tt7fU5lUhAU,RHD MAT Delivery Place Home/TBA,maternity
+457,ME_MAT_Delivery_Place_Other,RHD MAT Delivery Place Other Facility,iGYCZRe52Vy,Tt7fU5lUhAU,RHD MAT Delivery Place Other Facility,maternity
+458,ME_MAT_Delivery_Place_This,RHD MAT Delivery Place This Facility,YIP4fvYcGYQ,Tt7fU5lUhAU,RHD MAT Delivery Place This Facility,maternity
+459,ME_MAT_Delivery_Place_TR,RHD MAT Delivery In Transit (BBA),KOu770F7YOQ,Tt7fU5lUhAU,RHD MAT Delivery In Transit (BBA),maternity
+460,ME_MAT_ITN_Given,RHD MAT Routine Care ITN Given,NNFGzJD43R9,Tt7fU5lUhAU,RHD MAT Routine Care ITN Given,maternity
+461,ME_MAT_Mother_Status_DBD,RHD MAT Maternal Deaths,WjHvEHMCyKo,Tt7fU5lUhAU,RHD MAT Maternal Deaths,maternity
+462,ME_MAT_Neonatal_Death,RHD MAT Newborn Survival/PMTCT Alive Neonatal Death,jz793Wzon1W,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Neonatal Death,maternity
+463,ME_MAT_Referred,RHD MAT Referred Out Yes,l2GWTPGK4QP,Tt7fU5lUhAU,RHD MAT Referred Out Yes,maternity
+464,ME_MAT_Stillbirth_Fresh,RHD MAT Newborn Survival/PMTCT Alive Still/Fresh,YLydKJIyGFF,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Alive Still/Fresh,maternity
+465,ME_MAT_Stillbirth_Macerated,RHD MAT Newborn Survival/PMTCT Stillbirth Macerated,EJ0qYm1FrcH,Tt7fU5lUhAU,RHD MAT Newborn Survival/PMTCT Stillbirth Macerated,maternity
+466,ME_MAT_Vitamin_A,RHD MAT Vitamin A administration Vitamin A Given,B0MbTYjfUhd,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Given,maternity
+467,ME_PNC_BABY_ALIVE,RHD PNC Baby Alive,W4gkowW7QTs,Tt7fU5lUhAU,RHD PNC Baby Alive,pnc
+468,ME_PNC_Baby_Care_Mgt_KMC,RHD PNC Baby on KMC,mLyAd30qgI4,Tt7fU5lUhAU,RHD PNC Baby on KMC,pnc
+469,ME_PNC_Baby_Care_Mgt_TEO,RHD PNC Baby Given Vitamin K,OIVCj57flWc,Tt7fU5lUhAU,RHD PNC Baby Given Vitamin K,pnc
+470,ME_PNC_Baby_Care_Mgt_Vit_K,RHD PNC Baby Given TEO,Mwii8h4c2uC,Tt7fU5lUhAU,RHD PNC Baby Given TEO,pnc
+471,ME_PNC_Baby_Checked_in_2days,RHD PNC # Baby Checked in <48 Hours,f0IVxnte0OO,Tt7fU5lUhAU,RHD PNC # Baby Checked in <48 Hours,pnc
+472,ME_PNC_Baby_Checked_in_42days,RHD PNC # Baby Checked in 8-42 Days,nJZsvYHkXQz,Tt7fU5lUhAU,RHD PNC # Baby Checked in 8-42 Days,pnc
+473,ME_PNC_Baby_Checked_in_7days,RHD PNC # Baby Checked in Within 3-7 Days,jgDt2dm1QOS,Tt7fU5lUhAU,RHD PNC # Baby Checked in Within 3-7 Days,pnc
+474,ME_PNC_Baby_Checked_In_Twice_In_7days,RHD PNC # Baby Checked in 2x in 7 Days,uO5Xf2gVC9x,Tt7fU5lUhAU,RHD PNC # Baby Checked in 2x in 7 Days,pnc
+475,ME_PNC_Baby_Danger_Signs_Breaths,RHD PNC Baby Fast Breathing,D6PpsB5P3fL,Tt7fU5lUhAU,RHD PNC Baby Fast Breathing,pnc
+476,ME_PNC_Baby_Danger_Signs_Chest,RHD PNC Baby Chest In Drawing,PsSIGk4JCAp,Tt7fU5lUhAU,RHD PNC Baby Chest In Drawing,pnc
+477,ME_PNC_Baby_Danger_Signs_Convulsions,RHD PNC Baby Convulsions,OYc0KJJSavh,Tt7fU5lUhAU,RHD PNC Baby Convulsions,pnc
+478,ME_PNC_Baby_Danger_Signs_EyenCord,RHD PNC Baby Eye/Cord Discharge,DaNydZHxar3,Tt7fU5lUhAU,RHD PNC Baby Eye/Cord Discharge,pnc
+479,ME_PNC_Baby_Danger_Signs_Feed,RHD PNC Baby Not Able to Feed,kFgT8mdcQjA,Tt7fU5lUhAU,RHD PNC Baby Not Able to Feed,pnc
+480,ME_PNC_Baby_Danger_Signs_Fever,RHD PNC Baby Fever,L3XKOQoukVq,Tt7fU5lUhAU,RHD PNC Baby Fever,pnc
+481,ME_PNC_Baby_Danger_Signs_Hypothermia,RHD PNC Baby Hypothermia,wtuN1m0Kjn5,Tt7fU5lUhAU,RHD PNC Baby Hypothermia,pnc
+482,ME_PNC_Baby_Danger_Signs_Jaundice,RHD PNC Baby Jaundice,uojP8TYbL7X,Tt7fU5lUhAU,RHD PNC Baby Jaundice,pnc
+483,ME_PNC_Baby_Danger_Signs_Lethargic,RHD PNC Baby Lethargy,TKceP6JwglP,Tt7fU5lUhAU,RHD PNC Baby Lethargy,pnc
+484,ME_PNC_Baby_Danger_Signs_None,RHD PNC Baby No Complications,ZBNMGFDmQQw,Tt7fU5lUhAU,RHD PNC Baby No Complications,pnc
+485,ME_PNC_BABY_DEAD,RHD PNC Baby Died,k9UyG5ktGgS,Tt7fU5lUhAU,RHD PNC Baby Died,pnc
+486,ME_PNC_Baby_Nevirapine,RHD PNC Total on Nevirapine,OmHmawnO5Ng,Tt7fU5lUhAU,RHD PNC Total on Nevirapine,pnc
+487,ME_PNC_Baby_Vaccines_bcg,RHD PNC BCG,kLmi0DXLHky,Tt7fU5lUhAU,RHD PNC BCG,pnc
+488,ME_PNC_Baby_Vaccines_opv_0,RHD PNC Polio 0,AzGc4TyeFKI,Tt7fU5lUhAU,RHD PNC Polio 0,pnc
+489,ME_PNC_Checked_in_2days,RHD PNC # Mother Checked in <48 Hours,JSN2CbjKFt9,Tt7fU5lUhAU,RHD PNC # Mother Checked in <48 Hours,pnc
+490,ME_PNC_Checked_in_42days,RHD PNC # Mother Checked in 8-42 Days,cLuLPg1YMSq,Tt7fU5lUhAU,RHD PNC # Mother Checked in 8-42 Days,pnc
+491,ME_PNC_Checked_in_7days,RHD PNC # Mother Checked in Within 3-7 Days,e5rJUlQsTsP,Tt7fU5lUhAU,RHD PNC # Mother Checked in Within 3-7 Days,pnc
+492,ME_PNC_Checked_In_Twice_In_7days,RHD PNC # Mother Checked in 2x in 7 Days,IDxBzSLUZVn,Tt7fU5lUhAU,RHD PNC # Mother Checked in 2x in 7 Days,pnc
+493,ME_PNC_fp_counsel_yes,RHD PNC Counseled on FP,Vm9NjpsXHpL,Tt7fU5lUhAU,RHD PNC Counseled on FP,pnc
+494,ME_PNC_fp_method_bilateral_tubal_ligation,RHD PNC BTL,oZECAevnT9d,Tt7fU5lUhAU,RHD PNC BTL,pnc
+495,ME_PNC_fp_method_intrauterine_contraceptive_device,RHD PNC IUCD,baBLHbjm5MP,Tt7fU5lUhAU,RHD PNC IUCD,pnc
+496,ME_PNC_HIV_ND,RHD PNC Test Not Done,ZHsapjl6sPB,Tt7fU5lUhAU,RHD PNC Test Not Done,pnc
+497,ME_PNC_HIV_Negative,RHD PNC HIV -ve,wZD6QSyd62K,Tt7fU5lUhAU,RHD PNC HIV -ve,pnc
+498,ME_PNC_HIV_Positive,RHD PNC HIV +ve,elif3HHWci7,Tt7fU5lUhAU,RHD PNC HIV +ve,pnc
+499,ME_PNC_MOTHER_ALIVE,RHD PNC Mother Alive,Mhob9MvpDaH,Tt7fU5lUhAU,RHD PNC Mother Alive,pnc
+500,ME_PNC_MOTHER_DEAD,RHD PNC Mother Died,F5A3jkyu3py,Tt7fU5lUhAU,RHD PNC Mother Died,pnc
+501,ME_PNC_Total_Live_Birth,RHD PNC Total Live Births,K5J6MR8edvz,Tt7fU5lUhAU,RHD PNC Total Live Births,pnc
+502,ME_PNC_Vit_a_no,RHD MAT Vitamin A administration Vitamin A Not Given,REbkEp8YboK,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Not Given,pnc
+503,ME_PNC_Vit_a_yes,RHD MAT Vitamin A administration Vitamin A Given,B0MbTYjfUhd,Tt7fU5lUhAU,RHD MAT Vitamin A administration Vitamin A Given,pnc
+504,ME_PNC_Woman_Complications_Anaemia,RHD PNC Mother Anaemia,fVzGijnVOrs,Tt7fU5lUhAU,RHD PNC Mother Anaemia,pnc
+505,ME_PNC_Woman_Complications_BE,RHD PNC Mother Breast Engorgement,UcgSdalWMGa,Tt7fU5lUhAU,RHD PNC Mother Breast Engorgement,pnc
+506,ME_PNC_Woman_Complications_None,RHD PNC Mother No Complications,YHs48RajaU9,Tt7fU5lUhAU,RHD PNC Mother No Complications,pnc
+507,ME_PNC_Woman_Complications_Other,RHD PNC Mother Other,h94ppnq7695,Tt7fU5lUhAU,RHD PNC Mother Other,pnc
+508,ME_PNC_Woman_Complications_PPH,RHD PNC Mother PPH,blfZXfjQ5vZ,Tt7fU5lUhAU,RHD PNC Mother PPH,pnc
+509,ME_PNC_Woman_Complications_Sepsis,RHD PNC Mother Sepsis,B0C73VHIXsm,Tt7fU5lUhAU,RHD PNC Mother Sepsis,pnc
+510,ME_PNC_Woman_Complications_SPE,RHD PNC Mother Eclampsia,sjpjF9WcIf2,Tt7fU5lUhAU,RHD PNC Mother Eclampsia,pnc
