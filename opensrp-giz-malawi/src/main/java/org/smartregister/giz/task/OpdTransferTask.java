@@ -32,7 +32,7 @@ public class OpdTransferTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        GizUtils.createOpdTransferEvent(eventType, baseEntityId, new JSONArray());
+        GizUtils.createOpdTransferEvent(eventType, baseEntityId);
         return null;
     }
 

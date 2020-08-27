@@ -100,7 +100,7 @@ actions:
 name: step3_baby_care_mgt
 description: If there were complications, what care was provided to manage the complications?
 priority: 1
-condition: "!step3_saved_baby_complications.contains('none')"
+condition: "!step3_baby_danger_signs.isEmpty() && !step3_baby_danger_signs.contains('none')"
 actions:
   - "isRelevant = true"
 

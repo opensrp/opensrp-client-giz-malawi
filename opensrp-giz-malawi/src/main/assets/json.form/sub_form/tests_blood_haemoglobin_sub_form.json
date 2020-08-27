@@ -326,11 +326,11 @@
       }
     },
     {
+      "key": "anaemic",
+      "type": "hidden",
       "openmrs_entity_parent": "",
       "openmrs_entity": "concept",
       "openmrs_entity_id": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-      "key": "anaemic",
-      "type": "hidden",
       "calculation": {
         "rules-engine": {
           "ex-rules": {

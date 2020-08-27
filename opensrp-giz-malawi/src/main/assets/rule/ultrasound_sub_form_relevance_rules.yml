@@ -79,14 +79,14 @@ actions:
 name: step1_ultrasound_done_early_toaster
 description: Early ultrasound done!
 priority: 1
-condition: "((step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier') && step1_ultrasound_gest_age_wks < 24)"
+condition: "((step1_ultrasound == 'done_today' || step1_ultrasound == 'done_earlier') && global_ultrasound_gest_age_wks < 24)"
 actions:
   - "isRelevant = true"
 ---
 name: step2_ultrasound_done_early_toaster
 description: Early ultrasound done!
 priority: 1
-condition: "((step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && step2_ultrasound_gest_age_wks < 24)"
+condition: "((step2_ultrasound == 'done_today' || step2_ultrasound == 'done_earlier') && global_ultrasound_gest_age_wks < 24)"
 actions:
   - "isRelevant = true"
 ---

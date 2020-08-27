@@ -83,8 +83,6 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static org.smartregister.util.Utils.getAllSharedPreferences;
-
 public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private static GizMalawiProcessorForJava instance;

@@ -66,11 +66,13 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getDemographicTable() + "." + Constants.KEY.BASE_ENTITY_ID,
                 getDemographicTable() + "." + Constants.KEY.FIRST_NAME,
                 getDemographicTable() + "." + Constants.KEY.LAST_NAME,
+                getDemographicTable() + "." + "middle_name",
                 "mother" + "." + Constants.KEY.FIRST_NAME + " as mother_first_name",
                 "mother" + "." + Constants.KEY.LAST_NAME + " as mother_last_name",
                 getDemographicTable() + "." + Constants.KEY.DOB,
                 getDemographicTable() + "." + Constants.KEY.DOD,
                 "mother" + "." + Constants.KEY.DOB + " as mother_dob",
+                getMotherDetailsTable() + "." + Constants.KEY.NRC_NUMBER + " as nrc_number",
                 getMotherDetailsTable() + "." + Constants.KEY.NRC_NUMBER + " as mother_nrc_number",
                 getDemographicTable() + "." + Constants.KEY.CLIENT_REG_DATE,
                 getDemographicTable() + "." + Constants.KEY.LAST_INTERACTED_WITH,
@@ -87,8 +89,8 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getChildDetailsTable() + "." + GrowthMonitoringConstants.PMTCT_STATUS,
                 getChildDetailsTable() + "." + "child_hiv_status",
                 getChildDetailsTable() + "." + "child_treatment",
-
-        };
+                getMotherDetailsTable() + ".second_phone_number as second_phone_number",
+                getMotherDetailsTable() + ".alt_phone_number as mother_guardian_number" };
     }
 
 }

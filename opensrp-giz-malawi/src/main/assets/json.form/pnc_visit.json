@@ -142,7 +142,7 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "reference_edit_text_hint": "#Total other visit",
+        "reference_edit_text_hint": "#Total previous visit",
         "repeating_group_label": "Previous visit",
         "reference_edit_text": "Number of other visit",
         "label_text_style": "bold",
@@ -806,13 +806,6 @@
         "showGroupLabel": false,
         "value": [
           {
-            "key": "saved_baby_complications",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "hidden"
-          },
-          {
             "key": "child_name",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
@@ -903,8 +896,22 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
+            "type": "date_picker",
+            "hint": "Date the child died.",
+            "relevance": {
+              "step3:baby_status": {
+                "type": "string",
+                "ex": "equalTo(., \"dead\")"
+              }
+            }
+          },
+          {
+            "key": "time_of_death_baby",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
             "type": "time_picker",
-            "hint": "When did the death occur?",
+            "hint": "Time the child died.",
             "relevance": {
               "step3:baby_status": {
                 "type": "string",
@@ -1025,7 +1032,13 @@
                 "openmrs_entity": "",
                 "openmrs_entity_id": ""
               }
-            ]
+            ],
+            "relevance": {
+              "step3:baby_status": {
+                "type": "string",
+                "ex": "equalTo(., \"alive\")"
+              }
+            }
           },
           {
             "key": "not_breastfeeding_reason",
@@ -1105,7 +1118,13 @@
                 "key": "other",
                 "text": "Other (Specify)"
               }
-            ]
+            ],
+            "relevance": {
+              "step3:baby_status": {
+                "type": "string",
+                "ex": "equalTo(., \"alive\")"
+              }
+            }
           },
           {
             "key": "baby_danger_signs_other",
@@ -1356,7 +1375,16 @@
                 }
               }
             },
+            "exclusive": [
+              "none"
+            ],
             "options": [
+              {
+                "key": "none",
+                "text": "None",
+                "openmrs_entity": "",
+                "openmrs_entity_id": ""
+              },
               {
                 "key": "kangaroo_mother_care",
                 "text": "Kangaroo Mother Care (KMC)",

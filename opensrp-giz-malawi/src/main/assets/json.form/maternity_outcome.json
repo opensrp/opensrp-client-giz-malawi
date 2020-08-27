@@ -400,7 +400,7 @@
         "relevance": {
           "step2:delivery_mode": {
             "type": "string",
-            "ex": "equalTo(., \"Other (Specify)\")"
+            "ex": "equalTo(., \"other\")"
           }
         }
       }
@@ -796,7 +796,14 @@
             "label_text_style": "bold",
             "label": "Newborn Care & Management",
             "combine_checkbox_option_values": "true",
+            "exclusive": [
+              "none"
+            ],
             "options": [
+              {
+                "key": "none",
+                "text": "None"
+              },
               {
                 "key": "kmc",
                 "text": "Kangaroo Mother Care(KMC)"
@@ -1206,9 +1213,10 @@
           }
         ],
         "relevance": {
-          "step5:mother_status": {
-            "type": "string",
-            "ex": "equalTo(.,\"alive\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/outcome_relevance_rules.yml"
+            }
           }
         }
       },

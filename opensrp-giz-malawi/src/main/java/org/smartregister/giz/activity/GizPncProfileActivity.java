@@ -2,6 +2,9 @@ package org.smartregister.giz.activity;
 
 import android.support.annotation.NonNull;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+import com.vijay.jsonwizard.utils.FormUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.child.ChildLibrary;
@@ -49,11 +52,24 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
             }
         } else if (PncConstants.EventTypeConstants.PNC_VISIT.equals(json.optString(PncConstants.JsonFormKeyConstants.ENCOUNTER_TYPE))) {
             try {
-                new ChildStatusRepeatingGroupGenerator(json.optJSONObject("step3"), "step3",
-                        "child_status",
-                        visitColumnMap(),
-                        PncDbConstants.KEY.BASE_ENTITY_ID,
-                        storedPncBabyValues(entityId)).init();
+                JSONObject stepJsonObject = json.optJSONObject("step3");
+                ArrayList<HashMap<String, String>> storedPncBabyValues = storedPncBabyValues(entityId);
+
+                if (storedPncBabyValues.isEmpty()) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put(JsonFormConstants.KEY, "notice");
+                    jsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.TOASTER_NOTES);
+                    jsonObject.put(JsonFormConstants.TOASTER_TYPE, JsonFormConstants.TOASTER_WARNING);
+                    jsonObject.put(JsonFormConstants.TEXT, "There was no child associated with the current record");
+                    stepJsonObject.optJSONArray(JsonFormConstants.FIELDS).put(jsonObject);
+                    FormUtils.getFieldJSONObject(stepJsonObject.optJSONArray(JsonFormConstants.FIELDS), "child_status").put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
+                } else {
+                    new ChildStatusRepeatingGroupGenerator(json.optJSONObject("step3"), "step3",
+                            "child_status",
+                            visitColumnMap(),
+                            PncDbConstants.KEY.BASE_ENTITY_ID,
+                            storedPncBabyValues(entityId)).init();
+                }
             } catch (JSONException e) {
                 Timber.e(e);
             }
@@ -67,8 +83,8 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
                 .context()
                 .getEventClientRepository()
                 .rawQuery(ChildLibrary.getInstance().getRepository().getReadableDatabase(),
-                        "select pb.base_entity_id as base_entity_id, pb.baby_first_name as first_name, pb.baby_last_name as last_name, pb.dob as dob, pb.complications as complications from pnc_baby pb " +
-                                " inner join ec_client ec on pb.base_entity_id = ec.base_entity_id "+
+                        "select pb.base_entity_id as base_entity_id, pb.baby_first_name as first_name, pb.baby_last_name as last_name, pb.dob as dob from pnc_baby pb " +
+                                " inner join ec_client ec on pb.base_entity_id = ec.base_entity_id " +
                                 " where pb" + "." + Constants.KEY.MOTHER_BASE_ENTITY_ID + " = '" + entityId + "' and ec.date_removed is null");
     }
 
@@ -99,7 +115,6 @@ public class GizPncProfileActivity extends BasePncProfileActivity {
         HashMap<String, String> map = new HashMap<>();
         map.put("child_name", "first_name");
         map.put("open_vaccine_card", "base_entity_id");
-        map.put("saved_baby_complications", "complications");
         return map;
     }
 }

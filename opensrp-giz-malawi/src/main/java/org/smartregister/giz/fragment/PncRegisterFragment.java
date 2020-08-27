@@ -155,6 +155,6 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
     @Override
     protected String getDueFilterQuery() {
-        return " ( ((ddNow between 2 and 8) and ddNow >= 5) || ((ddNow between 8 and 28) and ddNow > 18) || ((ddNow between 28 and 29) and ddNow > 36)) ";
+        return " ( ((ddNow between 2 and 8) and ddNow >= 3) || ((ddNow between 8 and 28) and ddNow > 7) || ((ddNow between 28 and 29) and ddNow > 28))";
     }
 }

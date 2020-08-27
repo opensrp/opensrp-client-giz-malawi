@@ -41,20 +41,6 @@ public class GizJsonFormReportsActivity extends JsonFormActivity {
         //refreshCalculateLogic(key, value);
     }
 
-    public boolean checkIfBalanceNegative() {
-        boolean balanceCheck = true;
-        String balanceString = gizMalawiJsonFormFragment.getRelevantTextViewString(getString(R.string.balance));
-
-        if (balanceString.contains(getString(R.string.new_balance)) && StringUtils.isNumeric(balanceString)) {
-            int balance = Integer.parseInt(balanceString.replace(getString(R.string.new_balance), "").trim());
-            if (balance < 0) {
-                balanceCheck = false;
-            }
-        }
-
-        return balanceCheck;
-    }
-
     public boolean checkIfAtLeastOneServiceGiven() {
         JSONObject object = getStep("step1");
         try {

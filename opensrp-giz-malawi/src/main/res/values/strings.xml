@@ -883,5 +883,7 @@
     <string name="me_pnc_baby_care_mgt_teo">RHD PNC Baby Given Vitamin K </string>
     <string name="me_pnc_baby_nevirapine">RHD PNC Total on Nevirapine</string>
     <string name="opd_enrol_client_message">Are you sure you want to enrol the client to the register?</string>
+    <string name="opd_register_other_clients">Register Other Clients</string>
+    <string name="opd_register_child_under_5">Register Child Under 5</string>
     <!-- End PNC report labels -->
 </resources>

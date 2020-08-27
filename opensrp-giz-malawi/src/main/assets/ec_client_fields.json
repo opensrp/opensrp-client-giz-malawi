@@ -282,7 +282,7 @@
           "column_name": "nrc_number",
           "type": "Client",
           "json_mapping": {
-            "field": "attributes.NRC_Number"
+            "field": "attributes.nrc_number"
           }
         },
         {
@@ -291,6 +291,13 @@
           "json_mapping": {
             "field": "obs.fieldCode",
             "concept": "159635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        {
+          "column_name": "second_phone_number",
+          "type": "Client",
+          "json_mapping": {
+            "field": "attributes.second_phone_number"
           }
         },
         {

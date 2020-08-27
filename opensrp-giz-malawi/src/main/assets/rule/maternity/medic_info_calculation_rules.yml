@@ -1,0 +1,20 @@
+name: step1_gest_age
+description: The mothers gestation age
+priority: 1
+condition: "step1_lmp != ''"
+actions:
+  - "calculation = helper.getWeeksAndDaysFromDays(helper.getDifferenceDays(helper.getSecondaryValue(step1_lmp)))"
+---
+name: step1_ga_calculated
+description: The mothers ga age
+priority: 1
+condition: "true"
+actions:
+  - "calculation = (step1_lmp != '' ? step1_gest_age : (step1_ga_weeks_entered + ' weeks ' + step1_ga_days_entered + ' days'))"
+---
+name: step1_gravidity_sub_parity
+description: graviditySubparity
+priority: 1
+condition: "step1_gravidity != '' && step1_parity != ''"
+actions:
+  - "calculation = (step1_gravidity - step1_parity)"

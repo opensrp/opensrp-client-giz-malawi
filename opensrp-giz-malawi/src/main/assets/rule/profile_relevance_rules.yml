@@ -177,7 +177,7 @@ actions:
 name: step8_hiv_risk_counselling_toaster
 description: Hiv Risk counselling
 priority: 1
-condition: "(step8_hiv_risk == 1)"
+condition: "(step8_hiv_risk == 1) || step8_partner_hiv_status == 'positive'"
 actions:
   - "isRelevant = true"
 ---

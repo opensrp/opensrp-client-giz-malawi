@@ -55,28 +55,29 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
                     pncVisitScheduler.setLatestVisitDateInMills(null);
                 }
 
-                if (pncVisitScheduler.getStatus() == VisitStatus.PNC_DUE) {
+                VisitStatus visitStatus = pncVisitScheduler.getStatus();
+                if (visitStatus == VisitStatus.PNC_DUE) {
                     button.setText(R.string.pnc_due);
                     button.setTag(R.id.BUTTON_TYPE, R.string.pnc_due);
                     button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.due_color));
                     button.setBackground(ContextCompat.getDrawable(button.getContext(), R.drawable.pnc_btn_due_bg));
-                } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_OVERDUE) {
+                } else if (visitStatus== VisitStatus.PNC_OVERDUE) {
                     button.setText(R.string.pnc_due);
                     button.setTag(R.id.BUTTON_TYPE, R.string.pnc_overdue);
                     button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.white));
                     button.setBackgroundColor(ContextCompat.getColor(button.getContext(), R.color.overdue_color));
-                } else if (pncVisitScheduler.getStatus() == VisitStatus.RECORD_PNC) {
+                } else if (visitStatus == VisitStatus.RECORD_PNC) {
                     button.setText(R.string.record_pnc);
                     button.setTag(R.id.BUTTON_TYPE, R.string.record_pnc);
                     button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.due_color));
                     button.setBackground(ContextCompat.getDrawable(button.getContext(), R.drawable.pnc_btn_due_bg));
 
-                } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_DONE_TODAY) {
+                } else if (visitStatus == VisitStatus.PNC_DONE_TODAY) {
                     button.setText(R.string.pnc_done_today);
                     button.setTag(R.id.BUTTON_TYPE, R.string.pnc_done_today);
                     button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.dark_grey));
                     button.setBackground(ContextCompat.getDrawable(button.getContext(), R.drawable.pnc_btn_done_today));
-                } else if (pncVisitScheduler.getStatus() == VisitStatus.PNC_CLOSE) {
+                } else if (visitStatus == VisitStatus.PNC_CLOSE) {
                     button.setText(R.string.pnc_close);
                     button.setTag(R.id.BUTTON_TYPE, R.string.pnc_close);
                 }

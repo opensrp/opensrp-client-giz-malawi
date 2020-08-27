@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
+import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavDrawerActivity;
@@ -91,14 +95,28 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
 
     @Override
     protected void startRegistration() {
-        OpdRegisterActivity opdRegisterActivity = (OpdRegisterActivity) getActivity();
-        OpdMetadata opdMetadata = OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata();
+        PopupMenu popupMenu = new PopupMenu(getActivity(), getActivity().findViewById(R.id.top_right_layout), Gravity.START | Gravity.BOTTOM);
+        popupMenu.inflate(R.menu.menu_opd_register_client);
+        popupMenu.show();
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+            int itemId = menuItem.getItemId();
+            if (itemId == R.id.opd_menu_register_other_clients) {
+                OpdRegisterActivity opdRegisterActivity = (OpdRegisterActivity) getActivity();
+                OpdMetadata opdMetadata = OpdLibrary.getInstance().getOpdConfiguration().getOpdMetadata();
 
-        if (opdMetadata != null && opdRegisterActivity != null) {
-            opdRegisterActivity.startFormActivity(opdMetadata.getOpdRegistrationFormName()
-                    , null
-                    , null);
-        }
+                if (opdMetadata != null && opdRegisterActivity != null) {
+                    opdRegisterActivity.startFormActivity(opdMetadata.getOpdRegistrationFormName()
+                            , null
+                            , null);
+                }
+            } else if (itemId == R.id.opd_menu_register_child_under_five) {
+                Intent intent = new Intent(getActivity(), ChildRegisterActivity.class);
+                intent.putExtra("from_opd", true);
+                startActivity(intent);
+                getActivity().finish();
+            }
+            return false;
+        });
     }
 
     @Override

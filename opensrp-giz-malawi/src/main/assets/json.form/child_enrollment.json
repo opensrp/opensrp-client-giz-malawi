@@ -450,6 +450,11 @@
           "Negative",
           "Unknown"
         ],
+        "keys": [
+          "Positive",
+          "Negative",
+          "Unknown"
+        ],
         "openmrs_choice_ids": {
           "Positive": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Negative": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -464,6 +469,12 @@
         "type": "spinner",
         "hint": "HIV Status of the Child",
         "values": [
+          "Positive",
+          "Negative",
+          "Unknown",
+          "Exposed"
+        ],
+        "keys": [
           "Positive",
           "Negative",
           "Unknown",

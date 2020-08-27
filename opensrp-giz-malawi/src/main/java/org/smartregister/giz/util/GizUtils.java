@@ -24,11 +24,11 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.event.PatientRemovedEvent;
 import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
+import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -51,16 +51,20 @@ import org.smartregister.giz.task.OpenMaternityProfileTask;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.widget.GizTreeViewDialog;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.opd.OpdLibrary;
+import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.pojo.PncMetadata;
 import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.repository.EventClientRepository;
 import org.smartregister.util.AssetHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -407,12 +411,24 @@ public class GizUtils extends Utils {
         });
     }
 
-    public static void createOpdTransferEvent(String eventType, String baseEntityId,
-                                              JSONArray fields) {
+    public static void createOpdTransferEvent(@NonNull String eventType, @NonNull String baseEntityId) {
         try {
             FormTag formTag = GizJsonFormUtils.getFormTag(Utils.getAllSharedPreferences());
+            JSONArray jsonArrayFields = new JSONArray();
+            if (GizConstants.EventType.OPD_ANC_TRANSFER.equals(eventType)) {
+                String nextContactDate = Utils.convertDateFormat(Calendar.getInstance().getTime(), Utils.DB_DF);
 
-            org.smartregister.clientandeventmodel.Event event = ANCJsonFormUtils.createEvent(fields,
+                EventClientRepository db = OpdLibrary.getInstance().eventClientRepository();
+
+                JSONObject client = db.getClientByBaseEntityId(baseEntityId);
+
+                JSONObject attributes = client.getJSONObject(OpdConstants.JSON_FORM_KEY.ATTRIBUTES);
+                attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT, "1");
+                attributes.put(DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE, nextContactDate);
+
+                db.addorUpdateClient(baseEntityId, client);
+            }
+            org.smartregister.clientandeventmodel.Event event = ANCJsonFormUtils.createEvent(jsonArrayFields,
                     new JSONObject(), formTag, baseEntityId, eventType, "");
 
             GizJsonFormUtils.tagEventSyncMetadata(event);

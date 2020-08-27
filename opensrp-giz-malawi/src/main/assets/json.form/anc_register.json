@@ -348,7 +348,7 @@
         "entity_id": "",
         "v_regex": {
           "value": "[A-Za-z\\s\\.\\-]*",
-          "err": "Please enter a valid VHT name"
+          "err": "Please enter a valid alternate contact"
         }
       },
       {

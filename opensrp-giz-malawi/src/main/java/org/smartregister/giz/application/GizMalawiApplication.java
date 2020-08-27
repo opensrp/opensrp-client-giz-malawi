@@ -63,6 +63,7 @@ import org.smartregister.giz.repository.GizHia2ReportRepository;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
 import org.smartregister.giz.util.GizUtils;
@@ -90,7 +91,6 @@ import org.smartregister.maternity.pojo.MaternityMetadata;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.maternity.utils.MaternityDbConstants;
 import org.smartregister.opd.OpdLibrary;
-import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.configuration.OpdConfiguration;
 import org.smartregister.opd.pojo.OpdMetadata;
 import org.smartregister.opd.utils.OpdConstants;
@@ -142,6 +142,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ClientRegisterTypeRepository registerTypeRepository;
     private ChildAlertUpdatedRepository childAlertUpdatedRepository;
     private GizEventRepository gizEventRepository;
+    private AppExecutors appExecutors;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -312,7 +313,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         activityConfiguration.setLandingPageActivityClass(AllClientsRegisterActivity.class);
         activityConfiguration.setProfileActivityClass(GizAncProfileActivity.class);
-//        activityConfiguration.setMainContactActivityClass(GizAncContactActivity.class);
         AncMetadata ancMetadata = new AncMetadata();
         ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
         ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
@@ -635,6 +635,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             gizEventRepository = new GizEventRepository();
         }
         return gizEventRepository;
+    }
+
+    public AppExecutors getAppExecutors() {
+        if (appExecutors == null) {
+            appExecutors = new AppExecutors();
+        }
+        return appExecutors;
     }
 }
 

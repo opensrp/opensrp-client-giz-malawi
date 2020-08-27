@@ -65,10 +65,18 @@ public class GizAncProfileActivity extends ProfileActivity {
             String formMetadata = ANCJsonFormUtils.getAutoPopulatedJsonEditRegisterFormString(this, event.getWomanClient());
             try {
                 JSONObject form = new JSONObject(formMetadata);
-                JSONObject jsonObject = ANCJsonFormUtils.getFieldJSONObject(FormUtils.getMultiStepFormFields(form), ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS);
-                if (jsonObject != null) {
-                    jsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
+                JSONObject previousVisitJsonObject = ANCJsonFormUtils.getFieldJSONObject(FormUtils.getMultiStepFormFields(form), ConstantsUtils.JsonFormKeyUtils.PREVIOUS_VISITS);
+                if (previousVisitJsonObject != null) {
+                    previousVisitJsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
                 }
+
+                JSONObject previousAncDonejsonObject = ANCJsonFormUtils.getFieldJSONObject(FormUtils.getMultiStepFormFields(form), "prev_anc_done");
+                if (previousAncDonejsonObject != null) {
+                    previousAncDonejsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
+                }
+
+                //create
+
                 ANCJsonFormUtils.startFormForEdit(this, ANCJsonFormUtils.REQUEST_CODE_GET_JSON, form.toString());
             } catch (Exception e) {
                 Timber.e(e, " --> startFormForEdit");

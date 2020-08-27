@@ -202,7 +202,7 @@ condition: "(step3_anaemic == 1)"
 actions:
   - "isRelevant = true"
 ---
-name: step4_toaster30
+name: step5_toaster30
 description: Note displaying that preeclampsia risk
 priority: 1
 condition: "(step5_preeclampsia_risk == 1)"
@@ -269,13 +269,6 @@ name: step5_presenting_part
 description: Presenting Part
 priority: 1
 condition: "(global_gest_age_openmrs != '' && global_gest_age_openmrs >= 36)"
-actions:
-  - "isRelevant = true"
----
-name: step5_toaster30
-description: Toaster 30
-priority: 1
-condition: "global_gest_age_openmrs != '' && (global_gest_age_openmrs >= 20 && (global_sfh_gest_age != global_gest_age_openmrs))"
 actions:
   - "isRelevant = true"
 ---

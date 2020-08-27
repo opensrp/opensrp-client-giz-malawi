@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/opd_menu_register_child_under_five"
+        android:title="@string/opd_register_child_under_5"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/opd_menu_register_other_clients"
+        android:title="@string/opd_register_other_clients"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+</menu>

@@ -423,10 +423,10 @@
         }
       },
       {
+        "key": "hiv_risk",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "key": "hiv_risk",
         "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
@@ -1243,11 +1243,11 @@
         }
       },
       {
+        "key": "previous_pregnancies",
+        "type": "hidden",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "key": "previous_pregnancies",
-        "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {
@@ -3043,6 +3043,30 @@
         }
       },
       {
+        "key": "medications_other",
+        "openmrs_entity_parent": "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify",
+        "edit_type": "edit_text",
+        "v_required": {
+          "value": false,
+          "err": "Please specify the Other medications"
+        },
+        "relevance": {
+          "step6:medications": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
         "key": "total_fefo_tablets_given",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -3161,30 +3185,6 @@
             "ex-rules": {
               "rules-file": "profile_calculation_rules.yml"
             }
-          }
-        }
-      },
-      {
-        "key": "medications_other",
-        "openmrs_entity_parent": "159367AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Specify",
-        "edit_type": "edit_text",
-        "v_required": {
-          "value": false,
-          "err": "Please specify the Other medications"
-        },
-        "relevance": {
-          "step6:medications": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
           }
         }
       }
@@ -3569,11 +3569,11 @@
         }
       },
       {
+        "key": "hiv_risk",
+        "type": "hidden",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "key": "hiv_risk",
-        "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {
@@ -3685,11 +3685,11 @@
         }
       },
       {
+        "key": "hiv_risk",
+        "type": "hidden",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165257AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "key": "hiv_risk",
-        "type": "hidden",
         "label_text_style": "bold",
         "text_color": "#FF0000",
         "v_required": {

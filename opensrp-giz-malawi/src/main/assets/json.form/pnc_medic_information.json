@@ -2034,18 +2034,6 @@
             },
             "options": [
               {
-                "key": "positive",
-                "text": "Positive",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-              },
-              {
-                "key": "negative",
-                "text": "Negative",
-                "openmrs_entity": "concept",
-                "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-              },
-              {
                 "key": "unknown",
                 "text": "Unknown",
                 "openmrs_entity": "concept",
@@ -2056,6 +2044,12 @@
                 "text": "Exposed",
                 "openmrs_entity": "concept",
                 "openmrs_entity_id": "822AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+              },
+              {
+                "key": "not_exposed",
+                "text": "Not exposed",
+                "openmrs_entity": "",
+                "openmrs_entity_id": ""
               }
             ]
           },

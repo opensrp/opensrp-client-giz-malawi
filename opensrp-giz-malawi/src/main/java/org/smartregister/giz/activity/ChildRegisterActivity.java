@@ -14,10 +14,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
-import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.model.BaseChildRegisterModel;
-import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.contract.NavigationMenuContract;
@@ -51,6 +50,12 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if from opd
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.getBoolean("from_opd", false)) {
+            startRegistration();
+        }
     }
 
     @Override

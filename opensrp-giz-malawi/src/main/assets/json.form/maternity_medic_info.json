@@ -101,6 +101,20 @@
         ]
       },
       {
+        "key": "gravidity_sub_parity",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/medic_info_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "abortion_number",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -116,7 +130,14 @@
             "type": "numeric",
             "ex": "greaterThan(., \"1\")"
           }
-        }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:gravidity_sub_parity)",
+            "err": "Abortion number should be less than gravidity - parity"
+          }
+        ]
       },
       {
         "key": "lmp",
@@ -396,7 +417,8 @@
           "err": "Select at least one complication"
         },
         "exclusive": [
-          "none"
+          "none",
+          "dont_know"
         ],
         "options": [
           {
@@ -627,7 +649,13 @@
             "openmrs_entity": "concept",
             "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
-        ]
+        ],
+        "relevance": {
+          "step1:gravidity": {
+            "type": "numeric",
+            "ex": "greaterThan(., \"1\")"
+          }
+        }
       },
       {
         "key": "previous_complications_other",
@@ -658,7 +686,8 @@
         "label_text_style": "bold",
         "combine_checkbox_option_values": "true",
         "exclusive": [
-          "none"
+          "none",
+          "dont_know"
         ],
         "options": [
           {
@@ -783,7 +812,8 @@
         "label_text_style": "bold",
         "combine_checkbox_option_values": "true",
         "exclusive": [
-          "none"
+          "none",
+          "dont_know"
         ],
         "options": [
           {
