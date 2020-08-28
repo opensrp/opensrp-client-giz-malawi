@@ -112,10 +112,10 @@ public class ReportRegisterActivity extends BaseActivity {
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
         super.onSyncInProgress(fetchStatus);
-        toggleReportSyncButton(fetchStatus);
+        toggleReportSyncButton();
     }
 
-    private void toggleReportSyncButton(FetchStatus fetchStatus) {
+    private void toggleReportSyncButton() {
         if (reportSyncBtn != null) {
             reportSyncBtn.setVisibility(View.GONE);
         }
@@ -125,8 +125,7 @@ public class ReportRegisterActivity extends BaseActivity {
     @Override
     public void onSyncComplete(FetchStatus fetchStatus) {
         super.onSyncComplete(fetchStatus);
-        toggleReportSyncButton(fetchStatus);
-
+        toggleReportSyncButton();
     }
 
 
