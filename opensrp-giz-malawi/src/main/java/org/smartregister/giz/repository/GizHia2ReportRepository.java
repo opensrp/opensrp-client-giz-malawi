@@ -14,7 +14,7 @@ import timber.log.Timber;
 
 public class GizHia2ReportRepository extends Hia2ReportRepository {
 
-    public enum report_column implements Column {
+    public enum ReportColumn implements Column {
         creator(ColumnAttribute.Type.text, false, false),
         dateCreated(ColumnAttribute.Type.date, false, true),
         editor(ColumnAttribute.Type.text, false, false),
@@ -42,7 +42,7 @@ public class GizHia2ReportRepository extends Hia2ReportRepository {
 
         private ColumnAttribute column;
 
-        report_column(ColumnAttribute.Type type, boolean pk, boolean index) {
+        ReportColumn(ColumnAttribute.Type type, boolean pk, boolean index) {
             this.column = new ColumnAttribute(type, pk, index);
         }
 
@@ -56,42 +56,42 @@ public class GizHia2ReportRepository extends Hia2ReportRepository {
         try {
 
             ContentValues values = new ContentValues();
-            values.put(report_column.json.name(), jsonObject.toString());
-            values.put(report_column.reportType.name(),
-                    jsonObject.has(report_column.reportType.name()) ? jsonObject.getString(
-                            report_column.reportType.name()) : "");
-            values.put(report_column.updatedAt.name(), dateFormat.format(new Date()));
-            values.put(report_column.reportDate.name(),
-                    jsonObject.optString(report_column.reportDate.name()
+            values.put(ReportColumn.json.name(), jsonObject.toString());
+            values.put(ReportColumn.reportType.name(),
+                    jsonObject.has(ReportColumn.reportType.name()) ? jsonObject.getString(
+                            ReportColumn.reportType.name()) : "");
+            values.put(ReportColumn.updatedAt.name(), dateFormat.format(new Date()));
+            values.put(ReportColumn.reportDate.name(),
+                    jsonObject.optString(ReportColumn.reportDate.name()
                     ));
-            values.put(report_column.providerId.name(),
-                    jsonObject.optString(report_column.providerId.name()
+            values.put(ReportColumn.providerId.name(),
+                    jsonObject.optString(ReportColumn.providerId.name()
                     ));
-            values.put(report_column.dateCreated.name(),
-                    jsonObject.optString(report_column.dateCreated.name()
+            values.put(ReportColumn.dateCreated.name(),
+                    jsonObject.optString(ReportColumn.dateCreated.name()
                     ));
-            values.put(report_column.grouping.name(),
-                    jsonObject.optString(report_column.grouping.name()
+            values.put(ReportColumn.grouping.name(),
+                    jsonObject.optString(ReportColumn.grouping.name()
                     ));
 
-            values.put(report_column.syncStatus.name(), BaseRepository.TYPE_Unsynced);
+            values.put(ReportColumn.syncStatus.name(), BaseRepository.TYPE_Unsynced);
             //update existing event if eventid present
-            if (jsonObject.has(report_column.formSubmissionId.name())
-                    && jsonObject.getString(report_column.formSubmissionId.name()) != null) {
+            if (jsonObject.has(ReportColumn.formSubmissionId.name())
+                    && jsonObject.getString(ReportColumn.formSubmissionId.name()) != null) {
                 //sanity check
                 if (checkIfExistsByFormSubmissionId(Table.hia2_report,
-                        jsonObject.getString(report_column
+                        jsonObject.getString(ReportColumn
                                 .formSubmissionId
                                 .name()))) {
                     getWritableDatabase().update(Table.hia2_report.name(),
                             values,
-                            report_column.formSubmissionId.name() + "=?",
+                            ReportColumn.formSubmissionId.name() + "=?",
                             new String[]{jsonObject.getString(
-                                    report_column.formSubmissionId.name())});
+                                    ReportColumn.formSubmissionId.name())});
                 } else {
                     //that odd case
-                    values.put(report_column.formSubmissionId.name(),
-                            jsonObject.getString(report_column.formSubmissionId.name()));
+                    values.put(ReportColumn.formSubmissionId.name(),
+                            jsonObject.getString(ReportColumn.formSubmissionId.name()));
 
                     getWritableDatabase().insert(Table.hia2_report.name(), null, values);
 

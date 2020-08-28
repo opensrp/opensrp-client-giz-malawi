@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
-import org.json.JSONArray;
 import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizUtils;
 

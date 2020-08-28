@@ -20,7 +20,7 @@ public class GizPncRegisterQueryProvider extends PncRegisterQueryProviderContrac
             return "SELECT object_id, last_interacted_with FROM ec_client_search INNER JOIN client_register_type ON ec_client_search.object_id = client_register_type.base_entity_id " +
                     "WHERE client_register_type.register_type = 'pnc' and ec_client_search.is_closed = 0 ORDER BY ec_client_search.last_interacted_with DESC";
         } else {
-            String sql = "SELECT object_id,cast (((julianday('now' ,'localtime')- julianday((substr(pmi.delivery_date, 7) || \"-\" || substr(pmi.delivery_date,4,2) || \"-\" || substr(pmi.delivery_date, 1,2)), 'localtime'))) as INTEGER) as ddNow FROM ec_client_search INNER JOIN client_register_type ON ec_client_search.object_id = client_register_type.base_entity_id " +
+            String sql = "SELECT object_id, cast (((julianday('now' ,'localtime')- julianday((substr(pmi.delivery_date, 7) || \"-\" || substr(pmi.delivery_date,4,2) || \"-\" || substr(pmi.delivery_date, 1,2)), 'localtime'))) as INTEGER) as ddNow,(SELECT MAX(pvi.visit_date)  FROM pnc_visit_info AS pvi WHERE pvi.mother_base_entity_id = object_id) AS latest_visit_date  FROM ec_client_search INNER JOIN client_register_type ON ec_client_search.object_id = client_register_type.base_entity_id " +
                     " LEFT JOIN pnc_medic_info pmi ON ec_client_search.object_id = pmi.base_entity_id " +
                     getMainCondition(mainCondition) + getFilters(filters) +
                     "ORDER BY ec_client_search.last_interacted_with DESC";

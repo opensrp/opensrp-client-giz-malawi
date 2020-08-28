@@ -39,6 +39,7 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
         button.setTextSize(TypedValue.COMPLEX_UNIT_PX, button.getResources().getDimension(R.dimen.text_size));
         button.setBackgroundResource(R.drawable.pnc_status_btn_bg);
         button.setTextColor(button.getContext().getResources().getColor(R.color.check_in_txt_dark_grey));
+        button.setText(R.string.complete_pnc_registration);
 
         if (client.getColumnmaps().get(PncConstants.JsonFormKeyConstants.PMI_BASE_ENTITY_ID) != null) {
 
@@ -61,7 +62,7 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
                     button.setTag(R.id.BUTTON_TYPE, R.string.pnc_due);
                     button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.due_color));
                     button.setBackground(ContextCompat.getDrawable(button.getContext(), R.drawable.pnc_btn_due_bg));
-                } else if (visitStatus== VisitStatus.PNC_OVERDUE) {
+                } else if (visitStatus == VisitStatus.PNC_OVERDUE) {
                     button.setText(R.string.pnc_due);
                     button.setTag(R.id.BUTTON_TYPE, R.string.pnc_overdue);
                     button.setTextColor(ContextCompat.getColor(button.getContext(), R.color.white));
@@ -86,13 +87,12 @@ public class GizPncRegisterRowOptions implements PncRegisterRowOptions {
 
         if (client.getColumnmaps().get("ppf_id") != null) {
             String formType = client.getColumnmaps().get("ppf_form_type");
-            if ("PNC Medic Information".equals(formType)) {
-                if (client.getColumnmaps().get(PncConstants.JsonFormKeyConstants.PMI_BASE_ENTITY_ID) == null)
-                    button.setText(R.string.complete_pnc_registration);
-            }
+            if ("PNC Medic Information".equals(formType) && (client.getColumnmaps().get(PncConstants.JsonFormKeyConstants.PMI_BASE_ENTITY_ID) == null))
+                button.setText(R.string.complete_pnc_registration);
             button.setBackgroundResource(R.drawable.diagnose_treat_bg);
             button.setTextColor(button.getContext().getResources().getColor(R.color.check_in_txt_dark_grey));
         }
+
     }
 
     @Override

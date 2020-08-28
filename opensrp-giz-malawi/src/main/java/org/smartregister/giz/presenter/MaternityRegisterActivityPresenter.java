@@ -26,8 +26,6 @@ import java.util.List;
  */
 public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterActivityPresenter {
 
-    private String maternityBaseEntityId;
-
     public MaternityRegisterActivityPresenter(@NonNull MaternityRegisterActivityContract.View view, @NonNull MaternityRegisterActivityContract.Model model) {
         super(view, model);
     }
@@ -70,7 +68,6 @@ public class MaternityRegisterActivityPresenter extends BaseMaternityRegisterAct
 
     @Override
     public void saveOutcomeForm(@NonNull String eventType, @Nullable Intent data) {
-        maternityBaseEntityId = MaternityUtils.getIntentValue(data, MaternityConstants.IntentKey.BASE_ENTITY_ID);
         super.saveOutcomeForm(eventType, data);
     }
 

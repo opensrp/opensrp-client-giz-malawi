@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +17,6 @@ import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizReportUtils;
-import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.util.FormUtils;
 
 import java.util.Collections;

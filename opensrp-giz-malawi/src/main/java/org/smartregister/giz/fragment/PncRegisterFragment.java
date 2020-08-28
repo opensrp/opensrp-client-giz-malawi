@@ -155,6 +155,13 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
     @Override
     protected String getDueFilterQuery() {
-        return " ( ((ddNow between 2 and 8) and ddNow >= 3) || ((ddNow between 8 and 28) and ddNow > 7) || ((ddNow between 28 and 29) and ddNow > 28))";
+        return " ( ((ddNow between 0 and 2) and ddNow >= 0 and (((cast((julianday('now' ,'localtime') - julianday(strftime('%Y-%m-%d',latest_visit_date), 'localtime')) as INTEGER)+ddNow) not BETWEEN 0 and 2) or latest_visit_date is null)) " +
+                "|| " +
+                "((ddNow between 8 and 28) and ddNow >= 8  and (((cast((julianday('now' ,'localtime') - julianday(strftime('%Y-%m-%d',latest_visit_date), 'localtime')) as INTEGER)+ddNow) not BETWEEN 8 and 28) or latest_visit_date is null)) " +
+                "|| " +
+                "((ddNow between 3 and 8) and ddNow >= 3  and (((cast((julianday('now' ,'localtime') - julianday(strftime('%Y-%m-%d',latest_visit_date), 'localtime')) as INTEGER)+ddNow) not BETWEEN 3 and 8) or latest_visit_date is null)) " +
+                " ||" +
+                " ((ddNow between 29 and 60) and ddNow >= 29  and (((cast((julianday('now' ,'localtime') - julianday(strftime('%Y-%m-%d',latest_visit_date), 'localtime')) as INTEGER) + ddNow) not BETWEEN 29 and 60)) or latest_visit_date is null)) " +
+                "and (latest_visit_date is null or (strftime('%Y-%m-%d',latest_visit_date) != strftime('%Y-%m-%d','now')))  ";
     }
 }

@@ -37,7 +37,6 @@ import org.smartregister.pnc.repository.PncChildRepository;
 import org.smartregister.pnc.repository.PncMedicInfoRepository;
 import org.smartregister.pnc.repository.PncOtherVisitRepository;
 import org.smartregister.pnc.repository.PncPartialFormRepository;
-import org.smartregister.pnc.repository.PncRegistrationDetailsRepository;
 import org.smartregister.pnc.repository.PncStillBornRepository;
 import org.smartregister.pnc.repository.PncVisitChildStatusRepository;
 import org.smartregister.pnc.repository.PncVisitInfoRepository;
@@ -112,7 +111,7 @@ public class GizMalawiRepository extends Repository {
         GizMonthlyTalliesRepository.createTable(database);
         HIA2IndicatorsRepository.createTable(database);
 
-        EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, GizHia2ReportRepository.report_column.values());
+        EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, GizHia2ReportRepository.ReportColumn.values());
 
         runLegacyUpgrades(database);
 

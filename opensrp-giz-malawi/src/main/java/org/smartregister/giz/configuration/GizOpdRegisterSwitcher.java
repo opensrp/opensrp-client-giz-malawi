@@ -4,21 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import org.smartregister.anc.library.AncLibrary;
-import org.smartregister.anc.library.repository.PatientRepository;
-import org.smartregister.anc.library.util.Utils;
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.task.OpenMaternityProfileTask;
-import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.opd.configuration.OpdRegisterSwitcher;
 import org.smartregister.opd.utils.OpdConstants;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-11-20
