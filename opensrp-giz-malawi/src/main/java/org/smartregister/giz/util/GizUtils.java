@@ -21,7 +21,7 @@ import org.json.JSONException;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
-import org.smartregister.domain.db.Client;
+import org.smartregister.domain.Client;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.giz.BuildConfig;
@@ -155,7 +155,7 @@ public class GizUtils extends Utils {
     }
 
     @NonNull
-    public static Locale getLocale(Context context){
+    public static Locale getLocale(Context context) {
         if (context == null) {
             return Locale.getDefault();
         } else {

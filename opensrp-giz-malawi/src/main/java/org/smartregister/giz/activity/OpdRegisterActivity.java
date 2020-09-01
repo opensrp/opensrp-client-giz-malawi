@@ -29,6 +29,8 @@ import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.Map;
+
 import timber.log.Timber;
 
 /**
@@ -142,6 +144,10 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         startActivityForResult(intent, OpdJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
+    @Override
+    public void startFormActivity(String formName, String entityId, Map<String, String> metaData) {
+     //Do nothing
+    }
 
     @Override
     public void switchToBaseFragment() {

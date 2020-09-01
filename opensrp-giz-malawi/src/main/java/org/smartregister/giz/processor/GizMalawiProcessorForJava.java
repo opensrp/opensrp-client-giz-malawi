@@ -19,8 +19,8 @@ import org.smartregister.child.util.MoveToMyCatchmentUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
-import org.smartregister.domain.db.Client;
-import org.smartregister.domain.db.Event;
+import org.smartregister.domain.Client;
+import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
@@ -152,15 +152,15 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         continue;
                     }
 
-                    if(eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() != null){
+                    if (eventType.equals(OpdConstants.EventType.OPD_REGISTRATION) && eventClient.getClient() != null) {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                     }
 
-                    if(eventType.equals(Constants.EventType.BITRH_REGISTRATION) && eventClient.getClient() != null){
+                    if (eventType.equals(Constants.EventType.BITRH_REGISTRATION) && eventClient.getClient() != null) {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.CHILD, event.getBaseEntityId());
                     }
 
-                    if(eventType.equals(Constants.EventType.NEW_WOMAN_REGISTRATION) && eventClient.getClient() != null){
+                    if (eventType.equals(Constants.EventType.NEW_WOMAN_REGISTRATION) && eventClient.getClient() != null) {
                         GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                     }
 
@@ -172,7 +172,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     processBirthAndWomanRegistrationEvent(clientClassification, eventClient, event);
                 } else if (processorMap.containsKey(eventType)) {
                     try {
-                        if(eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null){
+                        if (eventType.equals(ConstantsUtils.EventTypeUtils.REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
                         }
                         processEventUsingMiniprocessor(clientClassification, eventClient, eventType);
@@ -192,7 +192,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
 
-        for (String baseEntityId: clientsForAlertUpdates.keySet()) {
+        for (String baseEntityId : clientsForAlertUpdates.keySet()) {
             DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
             if (birthDateTime != null) {
                 VaccineSchedule.updateOfflineAlerts(baseEntityId, birthDateTime, "child");
@@ -218,7 +218,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
         for (MiniClientProcessorForJava miniClientProcessorForJava : unsyncEventsPerProcessor.keySet()) {
             List<Event> processorUnsyncEvents = unsyncEventsPerProcessor.get(miniClientProcessorForJava);
-            miniClientProcessorForJava.unSync(processorUnsyncEvents);
+            miniClientProcessorForJava.unSync(null); //TO DO   - reinstate after migration of org.smartregister.anc.library
         }
     }
 
@@ -245,7 +245,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 unsyncEventsPerProcessor.put(miniClientProcessorForJava, processorUnsyncEvents);
             }
 
-            miniClientProcessorForJava.processEventClient(eventClient, processorUnsyncEvents, clientClassification);
+            miniClientProcessorForJava.processEventClient(eventClient, null, clientClassification); //TO DO   - reinstate after migration of org.smartregister.anc.library
         }
     }
 

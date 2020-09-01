@@ -32,6 +32,7 @@ import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
 import java.lang.ref.WeakReference;
+import java.util.Map;
 
 public class ChildRegisterActivity extends BaseChildRegisterActivity implements NavDrawerActivity, NavigationMenuContract {
 
@@ -177,6 +178,10 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
+    @Override
+    public void startFormActivity(String formName, String entityId, Map<String, String> metaData) {
+        //Do nothing
+    }
 
     @Override
     public void finishActivity() {

@@ -85,7 +85,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
         if (opdMetadata != null && opdRegisterActivity != null) {
             opdRegisterActivity.startFormActivity(opdMetadata.getOpdRegistrationFormName()
                     , null
-                    , null);
+                    , "");
         }
     }
 

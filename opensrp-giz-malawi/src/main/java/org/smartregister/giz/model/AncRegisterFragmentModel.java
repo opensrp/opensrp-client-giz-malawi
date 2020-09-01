@@ -10,7 +10,7 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
     @Override
     public String countSelect(String tableName, String mainCondition) {
         SmartRegisterQueryBuilder countQueryBuilder = new SmartRegisterQueryBuilder();
-        countQueryBuilder.SelectInitiateMainTableCounts(tableName);
+        countQueryBuilder.selectInitiateMainTableCounts(tableName);
         countQueryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable()
                 + " on " + AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable() + ".base_entity_id = "
                 + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + ".base_entity_id "
@@ -31,7 +31,7 @@ public class AncRegisterFragmentModel extends RegisterFragmentModel {
                 AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.YELLOW_FLAG_COUNT, AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.CONTACT_STATUS,
                 AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT, AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.NEXT_CONTACT_DATE,
                 AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + "." + DBConstantsUtils.KeyUtils.LAST_CONTACT_RECORD_DATE};
-        queryBuilder.SelectInitiateMainTable(tableName, columns);
+        queryBuilder.selectInitiateMainTable(tableName, columns);
         queryBuilder.customJoin(" join " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable()
                 + " on "+AncLibrary.getInstance().getRegisterQueryProvider().getDemographicTable()+".base_entity_id = " + AncLibrary.getInstance().getRegisterQueryProvider().getDetailsTable() + ".base_entity_id" +
                 " inner join client_register_type on ec_client.id=client_register_type.base_entity_id");

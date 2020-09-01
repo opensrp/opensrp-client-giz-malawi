@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
 import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
@@ -164,8 +163,8 @@ public class GizMalawiRepository extends Repository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        String pass = GizMalawiApplication.getInstance().getPassword();
-        if (StringUtils.isNotBlank(pass)) {
+        byte[] pass = GizMalawiApplication.getInstance().getPassword();
+        if (pass != null && pass.length > 0) {
             return getReadableDatabase(pass);
         } else {
             throw new IllegalStateException("Password is blank");
@@ -174,8 +173,8 @@ public class GizMalawiRepository extends Repository {
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        String pass = GizMalawiApplication.getInstance().getPassword();
-        if (StringUtils.isNotBlank(pass)) {
+        byte[] pass = GizMalawiApplication.getInstance().getPassword();
+        if (pass != null && pass.length > 0) {
             return getWritableDatabase(pass);
         } else {
             throw new IllegalStateException("Password is blank");
@@ -333,7 +332,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
 
         } catch (Exception e) {
-            Timber.e(e,"upgradeToVersion7");
+            Timber.e(e, "upgradeToVersion7");
         }
     }
 
@@ -380,7 +379,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
         } catch (Exception e) {
-            Timber.e(e,"upgradeToVersion7VaccineRecurringServiceRecordChange");
+            Timber.e(e, "upgradeToVersion7VaccineRecurringServiceRecordChange");
         }
     }
 

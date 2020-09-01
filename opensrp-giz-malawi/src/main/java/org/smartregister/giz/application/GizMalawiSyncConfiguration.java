@@ -3,7 +3,11 @@ package org.smartregister.giz.application;
 import org.smartregister.SyncConfiguration;
 import org.smartregister.SyncFilter;
 import org.smartregister.giz.BuildConfig;
+import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.repository.AllSharedPreferences;
+import org.smartregister.view.activity.BaseLoginActivity;
+
+import java.util.List;
 
 public class GizMalawiSyncConfiguration extends SyncConfiguration {
     @Override
@@ -51,6 +55,31 @@ public class GizMalawiSyncConfiguration extends SyncConfiguration {
     @Override
     public boolean updateClientDetailsTable() {
         return true;
+    }
+
+    @Override
+    public List<String> getSynchronizedLocationTags() {
+        return null;
+    }
+
+    @Override
+    public String getTopAllowedLocationLevel() {
+        return null;
+    }
+
+    @Override
+    public String getOauthClientId() {
+        return BuildConfig.OAUTH_CLIENT_ID;
+    }
+
+    @Override
+    public String getOauthClientSecret() {
+        return BuildConfig.OAUTH_CLIENT_SECRET;
+    }
+
+    @Override
+    public Class<? extends BaseLoginActivity> getAuthenticationActivity() {
+        return LoginActivity.class;
     }
 }
 
