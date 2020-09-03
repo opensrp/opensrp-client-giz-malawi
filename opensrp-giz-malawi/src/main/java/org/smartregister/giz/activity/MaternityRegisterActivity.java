@@ -14,7 +14,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.giz.R;
 import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.fragment.GizMeFragment;
-import org.smartregister.giz.fragment.MaternityRegisterFragment;
+import org.smartregister.giz.fragment.GizMaternityRegisterFragment;
 import org.smartregister.giz.presenter.MaternityRegisterActivityPresenter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavDrawerActivity;
@@ -54,7 +54,7 @@ public class MaternityRegisterActivity extends BaseMaternityRegisterActivity imp
 
     @Override
     protected BaseRegisterFragment getRegisterFragment() {
-        return new MaternityRegisterFragment();
+        return new GizMaternityRegisterFragment();
     }
 
     public void createDrawer() {

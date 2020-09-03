@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.smartregister.giz.domain.ClientRegisterType;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.repository.BaseRepository;
 

@@ -1,5 +1,7 @@
 package org.smartregister.giz.repository;
 
+import org.smartregister.giz.domain.ClientRegisterType;
+
 import java.util.List;
 
 interface ClientRegisterTypeDao {

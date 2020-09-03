@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -32,7 +31,6 @@ import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
-import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
@@ -215,7 +213,9 @@ public class GizUtils extends Utils {
         return selectedLocation;
     }
 
-    public static void showLocations(@Nullable Activity context, @NonNull OnLocationChangeListener onLocationChangeListener, @Nullable NavigationMenu navigationMenu) {
+    public static void showLocations(@Nullable Activity context,
+                                     @NonNull OnLocationChangeListener onLocationChangeListener,
+                                     @Nullable NavigationMenu navigationMenu) {
         try {
             ArrayList<String> allLevels = getLocationLevels();
             ArrayList<String> healthFacilities = getHealthFacilityLevels();
@@ -303,50 +303,38 @@ public class GizUtils extends Utils {
         }
     }
 
-    public static HashMap<String, String> generateKeyValuesFromEvent(@NonNull Event
-                                                                             event) {
+
+    public static HashMap<String, String> generateKeyValuesFromEvent(@NonNull Event event) {
         HashMap<String, String> keyValues = new HashMap<>();
         List<Obs> obs = event.getObs();
-
         for (Obs observation : obs) {
             String key = observation.getFormSubmissionField();
-
             List<Object> humanReadableValues = observation.getHumanReadableValues();
             if (humanReadableValues.size() > 0) {
                 String value = (String) humanReadableValues.get(0);
-
                 if (!TextUtils.isEmpty(value)) {
-
                     if (humanReadableValues.size() > 1) {
                         value = humanReadableValues.toString();
                     }
-
                     keyValues.put(key, value);
                     continue;
                 }
             }
-
             List<Object> values = observation.getValues();
             if (values.size() > 0) {
                 String value = (String) values.get(0);
-
                 if (!TextUtils.isEmpty(value)) {
-
                     if (values.size() > 1) {
                         value = values.toString();
                     }
-
                     keyValues.put(key, value);
-                    continue;
                 }
             }
-
         }
-
         return keyValues;
     }
 
-    public static JSONArray getMultiStepFormFields(JSONObject jsonForm) {
+    public static JSONArray getMultiStepFormFields(@NonNull JSONObject jsonForm) {
         JSONArray fields = new JSONArray();
         try {
             if (jsonForm.has(JsonFormConstants.COUNT)) {
@@ -383,30 +371,29 @@ public class GizUtils extends Utils {
                         final Map<String, String> ancUserDetails = PatientRepository.getWomanProfileDetails(commonPersonObjectClient.getCaseId());
                         ancUserDetails.putAll(commonPersonObjectClient.getColumnmaps());
                         appExecutors.mainThread().execute(() -> org.smartregister.anc.library.util.Utils.navigateToProfile(context, (HashMap<String, String>) ancUserDetails));
-
                     }
                 });
     }
 
-    public static void openPncProfile(Context activity, String baseEntityId) {
-        final AppExecutors appExecutors = new AppExecutors();
-        appExecutors.diskIO().execute(() -> {
+    public static void openPncProfile(@NonNull Context activity, @NonNull String baseEntityId) {
+        GizMalawiApplication.getInstance().getAppExecutors().diskIO().execute(() -> {
             PncMetadata pncMetadata = PncLibrary.getInstance().getPncConfiguration().getPncMetadata();
 
             GizPncRegisterQueryProvider pncRegisterQueryProvider = new GizPncRegisterQueryProvider();
             String query = pncRegisterQueryProvider.mainSelectWhereIDsIn().replace("%s", "'" + baseEntityId + "'");
-            Cursor cursor = PncLibrary.getInstance().getRepository().getReadableDatabase().rawQuery(query, null);
-            cursor.moveToFirst();
+            HashMap<String, String> detailsFromQueryProvider = PncLibrary.getInstance()
+                    .getPncRepository()
+                    .getPncDetailsFromQueryProvider(query);
+            if (detailsFromQueryProvider != null) {
+                CommonPersonObjectClient pClient = new CommonPersonObjectClient(baseEntityId,
+                        detailsFromQueryProvider, "");
+                pClient.setColumnmaps(detailsFromQueryProvider);
 
-            CommonPersonObject personinlist = PncLibrary.getInstance().context().commonrepository("ec_client").readAllcommonforCursorAdapter(cursor);
-            CommonPersonObjectClient pClient = new CommonPersonObjectClient(personinlist.getCaseId(),
-                    personinlist.getDetails(), personinlist.getDetails().get("FWHOHFNAME"));
-            pClient.setColumnmaps(personinlist.getColumnmaps());
-
-            if (pncMetadata != null) {
-                Intent intent = new Intent(activity, pncMetadata.getProfileActivity());
-                intent.putExtra(PncConstants.IntentKey.CLIENT_OBJECT, pClient);
-                activity.startActivity(intent);
+                if (pncMetadata != null) {
+                    Intent intent = new Intent(activity, pncMetadata.getProfileActivity());
+                    intent.putExtra(PncConstants.IntentKey.CLIENT_OBJECT, pClient);
+                    activity.startActivity(intent);
+                }
             }
         });
     }
@@ -446,7 +433,7 @@ public class GizUtils extends Utils {
         GizMalawiApplication.getInstance().getEcSyncHelper().addEvent(baseEntityId, eventJson);
     }
 
-    public static void initiateEventProcessing(List<String> formSubmissionIds) throws Exception {
+    public static void initiateEventProcessing(@NonNull List<String> formSubmissionIds) throws Exception {
         long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
         GizMalawiApplication.getInstance().getClientProcessor()

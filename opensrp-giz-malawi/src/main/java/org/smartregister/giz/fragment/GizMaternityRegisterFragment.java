@@ -31,11 +31,11 @@ import timber.log.Timber;
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 31-03-2020.
  */
 
-public class MaternityRegisterFragment extends BaseMaternityRegisterFragment {
+public class GizMaternityRegisterFragment extends BaseMaternityRegisterFragment {
 
     private GizMaternityRegisterQueryProvider maternityRegisterQueryProvider;
 
-    public MaternityRegisterFragment() {
+    public GizMaternityRegisterFragment() {
         super();
         maternityRegisterQueryProvider = ((GizMaternityRegisterQueryProvider) ConfigurationInstancesHelper.newInstance(MaternityLibrary.getInstance().getMaternityConfiguration().getMaternityRegisterQueryProvider()));
     }

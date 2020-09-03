@@ -59,14 +59,14 @@ public class DraftMonthlyFragment extends ReportFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View fragmentview = inflater.inflate(R.layout.sent_monthly_fragment, container, false);
+        final View fragmentView = inflater.inflate(R.layout.sent_monthly_fragment, container, false);
 
-        listView = fragmentview.findViewById(R.id.list);
-        noDraftsView = fragmentview.findViewById(R.id.empty_view);
-        startNewReportEnabled = fragmentview.findViewById(R.id.start_new_report_enabled);
-        startNewReportDisabled = fragmentview.findViewById(R.id.start_new_report_disabled);
+        listView = fragmentView.findViewById(R.id.list);
+        noDraftsView = fragmentView.findViewById(R.id.empty_view);
+        startNewReportEnabled = fragmentView.findViewById(R.id.start_new_report_enabled);
+        startNewReportDisabled = fragmentView.findViewById(R.id.start_new_report_disabled);
 
-        return fragmentview;
+        return fragmentView;
     }
 
     @Override

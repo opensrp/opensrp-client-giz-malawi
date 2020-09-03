@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.text.TextUtils;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +27,6 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
-import org.smartregister.domain.db.Obs;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
 import org.smartregister.domain.jsonmapping.Column;
@@ -184,15 +182,15 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         } else if (eventType.equals(PncConstants.EventTypeConstants.PNC_REGISTRATION) && eventClient.getClient() != null) {
                             GizMalawiApplication.getInstance().registerTypeRepository().addUnique(GizConstants.RegisterType.PNC, event.getBaseEntityId());
                         } else if (eventType.equals(MaternityConstants.EventType.MATERNITY_CLOSE)) {
-                            HashMap<String, String> keyValues = generateKeyValuesFromEvent(event);
-                            String closeReason = keyValues.get("maternity_close_reason");
+                            HashMap<String, String> keyValues = GizUtils.generateKeyValuesFromEvent(event);
+                            String closeReason = keyValues.get(MaternityConstants.JSON_FORM_KEY.MATERNITY_CLOSE_REASON);
                             if (StringUtils.isNotBlank(closeReason) && !("woman_died".equalsIgnoreCase(closeReason) || "wrong_entry".equalsIgnoreCase(closeReason))) {
                                 GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
                                 GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
                             }
                         } else if (eventType.equals(PncConstants.EventTypeConstants.PNC_CLOSE)) {
-                            HashMap<String, String> keyValues = generateKeyValuesFromEvent(event);
-                            String closeReason = keyValues.get("pnc_close_reason");
+                            HashMap<String, String> keyValues = GizUtils.generateKeyValuesFromEvent(event);
+                            String closeReason = keyValues.get(PncConstants.JsonFormKeyConstants.PNC_CLOSE_REASON);
                             if (StringUtils.isNotBlank(closeReason) && !("woman_died".equalsIgnoreCase(closeReason) || "wrong_entry".equalsIgnoreCase(closeReason))) {
                                 GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
                                 GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.OPD, event.getBaseEntityId());
@@ -230,7 +228,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         } else if (eventType.equals(ConstantsUtils.EventTypeUtils.CLOSE) && eventClient.getClient() != null) {
             GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
             if (!GizMalawiApplication.getInstance().gizEventRepository().hasEvent(event.getBaseEntityId(), ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER)) {
-                HashMap<String, String> keyValues = generateKeyValuesFromEvent(event);
+                HashMap<String, String> keyValues = GizUtils.generateKeyValuesFromEvent(event);
                 String closeReason = keyValues.get("anc_close_reason");
                 if (StringUtils.isNotBlank(closeReason) && !("woman_died".equalsIgnoreCase(closeReason) || "in_labour".equalsIgnoreCase(closeReason) || "wrong_entry".equalsIgnoreCase(closeReason))) {
                     GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
@@ -251,29 +249,29 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    public void opdTransferHandler(EventClient eventClient, String eventType, ClientClassification clientClassification) throws Exception {
+    public void opdTransferHandler(@NonNull EventClient eventClient,
+                                   @NonNull String eventType,
+                                   @NonNull ClientClassification clientClassification) throws Exception {
         Event event = eventClient.getEvent();
         if (eventClient.getClient() != null) {
-            if (eventType.equals(GizConstants.EventType.OPD_ANC_TRANSFER)) {
-                GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
-                GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
+            switch (eventType) {
+                case GizConstants.EventType.OPD_ANC_TRANSFER:
+                    GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                    GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.ANC, event.getBaseEntityId());
+                    break;
+                case GizConstants.EventType.OPD_CHILD_TRANSFER:
+                    GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                    GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.CHILD, event.getBaseEntityId());
+                    break;
+                case GizConstants.EventType.OPD_MATERNITY_TRANSFER:
+                    GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                    GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
+                    break;
+                case GizConstants.EventType.OPD_PNC_TRANSFER:
+                    GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
+                    GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
+                    break;
             }
-
-            if (eventType.equals(GizConstants.EventType.OPD_CHILD_TRANSFER)) {
-                GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
-                GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.CHILD, event.getBaseEntityId());
-            }
-
-            if (eventType.equals(GizConstants.EventType.OPD_MATERNITY_TRANSFER)) {
-                GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
-                GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.MATERNITY, event.getBaseEntityId());
-            }
-
-            if (eventType.equals(GizConstants.EventType.OPD_PNC_TRANSFER)) {
-                GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
-                GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
-            }
-
             processEvent(event, eventClient.getClient(), clientClassification);
         }
     }
@@ -893,35 +891,5 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         if (!clientsForAlertUpdates.containsKey(baseEntityId)) {
             clientsForAlertUpdates.put(baseEntityId, dateTime);
         }
-    }
-
-    private HashMap<String, String> generateKeyValuesFromEvent(@NonNull Event event) {
-        HashMap<String, String> keyValues = new HashMap<>();
-        List<Obs> obs = event.getObs();
-        for (Obs observation : obs) {
-            String key = observation.getFormSubmissionField();
-            List<Object> humanReadableValues = observation.getHumanReadableValues();
-            if (humanReadableValues.size() > 0) {
-                String value = (String) humanReadableValues.get(0);
-                if (!TextUtils.isEmpty(value)) {
-                    if (humanReadableValues.size() > 1) {
-                        value = humanReadableValues.toString();
-                    }
-                    keyValues.put(key, value);
-                    continue;
-                }
-            }
-            List<Object> values = observation.getValues();
-            if (values.size() > 0) {
-                String value = (String) values.get(0);
-                if (!TextUtils.isEmpty(value)) {
-                    if (values.size() > 1) {
-                        value = values.toString();
-                    }
-                    keyValues.put(key, value);
-                }
-            }
-        }
-        return keyValues;
     }
 }

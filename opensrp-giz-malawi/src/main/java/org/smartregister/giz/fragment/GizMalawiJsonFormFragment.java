@@ -1,6 +1,5 @@
 package org.smartregister.giz.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,7 +25,6 @@ import com.vijay.jsonwizard.viewstates.JsonFormFragmentViewState;
 import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.child.provider.MotherLookUpSmartClientsProvider;
 import org.smartregister.child.util.MotherLookUpUtils;
@@ -35,7 +32,6 @@ import org.smartregister.commonregistry.CommonPersonObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.event.Listener;
 import org.smartregister.giz.R;
-import org.smartregister.giz.activity.GizJsonFormReportsActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.util.Utils;
@@ -354,62 +350,4 @@ public class GizMalawiJsonFormFragment extends JsonFormFragment {
             }
         }
     };
-
-    public String getRelevantTextViewString(String currentKey) {
-        String toreturn = "";
-        if (getMainView() != null) {
-            int childCount = getMainView().getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                View view = getMainView().getChildAt(i);
-                if (view instanceof TextView) {
-                    TextView textView = (TextView) view;
-                    String key = (String) textView.getTag(R.id.key);
-                    if (key.equals(currentKey)) {
-                        toreturn = textView.getText().toString();
-                    }
-                }
-            }
-        }
-        return toreturn;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean fillFormCheck = true;
-
-        if (item.getItemId() == R.id.action_save) {
-            JSONObject object = getStep("step1");
-            try {
-                if (object.getString(GizConstants.KEY.TITLE).contains("Record out of catchment area service")) {
-                    fillFormCheck = ((GizJsonFormReportsActivity) getActivity()).checkIfAtLeastOneServiceGiven();
-                }
-            } catch (Exception e) {
-                Timber.e(e);
-            }
-        }
-
-        if (fillFormCheck) {
-            return super.onOptionsItemSelected(item);
-        } else {
-            String errorMessage = getString(R.string.fill_form_error_msg);
-
-            final Snackbar snackbar = Snackbar
-                    .make(getMainView(), errorMessage, Snackbar.LENGTH_LONG);
-            snackbar.setAction(R.string.close, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    snackbar.dismiss();
-                }
-            });
-
-            // Changing message text color
-            snackbar.setActionTextColor(Color.WHITE);
-            View sbView = snackbar.getView();
-            TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.WHITE);
-
-            snackbar.show();
-            return true;
-        }
-    }
 }

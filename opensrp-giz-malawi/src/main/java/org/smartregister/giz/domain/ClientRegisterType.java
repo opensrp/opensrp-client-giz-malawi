@@ -1,4 +1,4 @@
-package org.smartregister.giz.repository;
+package org.smartregister.giz.domain;
 
 import java.util.Date;
 

@@ -3,6 +3,7 @@ package org.smartregister.giz.processor;
 import android.content.ContentValues;
 import android.content.Context;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,13 +17,17 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.child.util.ChildDbUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.domain.db.Client;
 import org.smartregister.domain.db.Event;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.repository.ClientRegisterTypeRepository;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.growthmonitoring.domain.Height;
 import org.smartregister.growthmonitoring.domain.Weight;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
@@ -33,11 +38,12 @@ import org.smartregister.immunization.domain.ServiceType;
 import org.smartregister.immunization.domain.VaccineSchedule;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
+import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.Arrays;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({GizMalawiApplication.class, Utils.class, VaccineSchedule.class, ServiceSchedule.class, ChildDbUtils.class})
+@PrepareForTest({Utils.class, VaccineSchedule.class, ServiceSchedule.class, ChildDbUtils.class})
 public class GizMalawiProcessorForJavaTest {
 
     @Mock
@@ -90,8 +96,7 @@ public class GizMalawiProcessorForJavaTest {
 
     @Test
     public void processHeightWithValidEventClientAndTableShouldReturnTrue() throws Exception {
-        PowerMockito.mockStatic(GizMalawiApplication.class);
-        PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", gizMalawiApplication);
         PowerMockito.when(gizMalawiApplication.heightRepository()).thenReturn(heightRepository);
         Mockito.when(processorForJava.processCaseModel(ArgumentMatchers.any(EventClient.class), ArgumentMatchers.any(Table.class))).thenReturn(contentValues);
         Mockito.when(contentValues.size()).thenReturn(7);
@@ -141,8 +146,7 @@ public class GizMalawiProcessorForJavaTest {
 
     @Test
     public void processServiceWithNameNotHavingITNShouldReturnTrue() throws Exception {
-        PowerMockito.mockStatic(GizMalawiApplication.class);
-        PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", gizMalawiApplication);
         PowerMockito.when(gizMalawiApplication.recurringServiceTypeRepository()).thenReturn(recurringServiceTypeRepository);
         PowerMockito.when(gizMalawiApplication.recurringServiceRecordRepository()).thenReturn(recurringServiceRecordRepository);
         ServiceType serviceTypeDeworming2 = new ServiceType();
@@ -223,8 +227,7 @@ public class GizMalawiProcessorForJavaTest {
 
     @Test
     public void processWeightWithValidEventClientAndTableShouldReturnTrue() throws Exception {
-        PowerMockito.mockStatic(GizMalawiApplication.class);
-        PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", gizMalawiApplication);
         PowerMockito.when(gizMalawiApplication.weightRepository()).thenReturn(weightRepository);
         Mockito.when(processorForJava.processCaseModel(ArgumentMatchers.any(EventClient.class), ArgumentMatchers.any(Table.class))).thenReturn(contentValues);
         Mockito.when(contentValues.size()).thenReturn(7);
@@ -258,4 +261,52 @@ public class GizMalawiProcessorForJavaTest {
         Assert.assertTrue(result);
     }
 
+    @Test
+    public void processGizCoreEvents() {
+    }
+
+    @Test
+    public void testOpdTransferHandlerShouldUpdateRegisterType() throws Exception {
+
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", gizMalawiApplication);
+
+        String baseEntityId = "324-sdr32423-234";
+        Event event = new Event();
+        event.setBaseEntityId(baseEntityId);
+        Client client = new Client(baseEntityId);
+        ClientClassification clientClassification = new ClientClassification();
+
+        ClientRegisterTypeRepository clientRegisterTypeRepositoryMock = Mockito.mock(ClientRegisterTypeRepository.class);
+        Mockito.doReturn(clientRegisterTypeRepositoryMock).when(gizMalawiApplication).registerTypeRepository();
+
+        event.setEventType(GizConstants.EventType.OPD_ANC_TRANSFER);
+        processorForJava.opdTransferHandler(new EventClient(event, client), GizConstants.EventType.OPD_ANC_TRANSFER, clientClassification);
+        Mockito.verify(clientRegisterTypeRepositoryMock).add(Mockito.eq(GizConstants.RegisterType.ANC), Mockito.eq(baseEntityId));
+
+        event.setEventType(GizConstants.EventType.OPD_CHILD_TRANSFER);
+        processorForJava.opdTransferHandler(new EventClient(event, client), GizConstants.EventType.OPD_CHILD_TRANSFER, clientClassification);
+        Mockito.verify(clientRegisterTypeRepositoryMock).add(Mockito.eq(GizConstants.RegisterType.CHILD), Mockito.eq(baseEntityId));
+
+        event.setEventType(GizConstants.EventType.OPD_MATERNITY_TRANSFER);
+        processorForJava.opdTransferHandler(new EventClient(event, client), GizConstants.EventType.OPD_MATERNITY_TRANSFER, clientClassification);
+        Mockito.verify(clientRegisterTypeRepositoryMock).add(Mockito.eq(GizConstants.RegisterType.MATERNITY), Mockito.eq(baseEntityId));
+
+        event.setEventType(GizConstants.EventType.OPD_PNC_TRANSFER);
+        processorForJava.opdTransferHandler(new EventClient(event, client), GizConstants.EventType.OPD_PNC_TRANSFER, clientClassification);
+        Mockito.verify(clientRegisterTypeRepositoryMock).add(Mockito.eq(GizConstants.RegisterType.PNC), Mockito.eq(baseEntityId));
+
+        Mockito.verify(clientRegisterTypeRepositoryMock, Mockito.times(4)).removeAll(Mockito.eq(baseEntityId));
+
+        Mockito.verify(processorForJava, Mockito.times(4)).processEvent(Mockito.eq(event),
+                Mockito.eq(client), Mockito.eq(clientClassification));
+    }
+
+    @Test
+    public void updateFTSsearch() {
+    }
+
+    @After
+    public void tearDown() {
+        ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", null);
+    }
 }
