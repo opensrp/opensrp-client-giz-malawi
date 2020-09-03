@@ -1159,7 +1159,7 @@
           "column_name": "occupation_other",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "occupation_other"
           }
         },
@@ -1175,7 +1175,7 @@
           "column_name": "religion_other",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "religion_other"
           }
         }
@@ -1220,7 +1220,7 @@
           "column_name": "occupation_other",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "occupation_other"
           }
         },
@@ -1236,7 +1236,7 @@
           "column_name": "religion_other",
           "type": "Event",
           "json_mapping": {
-            "field": "obs.fieldCode",
+            "field": "obs.formSubmissionField",
             "concept": "religion_other"
           }
         }

@@ -25,6 +25,11 @@ public class AdvancedSearchModel extends BaseChildAdvancedSearchModel {
     }
 
     @Override
+    public String[] getColumns() {
+        return new String[0];
+    }
+
+    @Override
     public AdvancedMatrixCursor createMatrixCursor(Response<String> response) {
 
         String[] columns = new String[]{GizConstants.KEY.ID_LOWER_CASE, GizConstants.KEY.RELATIONALID,

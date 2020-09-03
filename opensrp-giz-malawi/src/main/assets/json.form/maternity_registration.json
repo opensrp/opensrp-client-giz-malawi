@@ -497,14 +497,10 @@
         "hint": "Specify",
         "edit_type": "name",
         "relevance": {
-          "step2:occupation": {
-            "ex-checkbox": [
-              {
-                "or": [
-                  "other"
-                ]
-              }
-            ]
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/registration_relevance_rules.yml"
+            }
           }
         },
         "v_required": {
