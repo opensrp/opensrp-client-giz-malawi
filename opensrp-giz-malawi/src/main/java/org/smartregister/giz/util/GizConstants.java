@@ -61,7 +61,7 @@ public class GizConstants {
         public static final String LASTNAME = "lastName";
         public static final String ATTRIBUTES = "attributes";
         public static final int FIVE_YEAR = 5;
-        public static final String OPD_REGISTRATION = "Opd Registration" ;
+        public static final String OPD_REGISTRATION = "Opd Registration";
         public static String SITE_CHARACTERISTICS = "site_characteristics";
 
         public static final String FIELDS = "fields";
@@ -175,6 +175,17 @@ public class GizConstants {
 
     public interface File {
         String INDICATOR_CONFIG_FILE = "config/indicator-definitions.yml";
+    }
+
+    public interface ReportKeys {
+        String REPORT_JSON = "reportJson";
+        String REPORT_DATE = "reportDate";
+        String GROUPING = "grouping";
+        String PROVIDER_ID = "providerId";
+        String DATE_CREATED = "dateCreated";
+        String HIA2_INDICATORS = "hia2Indicators";
+        String VALUE = "value";
+        String INDICATOR_CODE = "indicatorCode";
     }
 
 }

@@ -148,7 +148,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
-                    processVaccinationEvent(vaccineTable, eventClient, event, eventType);
+                    processVaccinationEvent(vaccineTable, eventClient);
                 } else if (eventType.equals(WeightIntentService.EVENT_TYPE) || eventType
                         .equals(WeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     processWeightEvent(weightTable, heightTable, eventClient, eventType);
@@ -271,6 +271,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     GizMalawiApplication.getInstance().registerTypeRepository().removeAll(event.getBaseEntityId());
                     GizMalawiApplication.getInstance().registerTypeRepository().add(GizConstants.RegisterType.PNC, event.getBaseEntityId());
                     break;
+                default:
+                    break;
             }
             processEvent(event, eventClient.getClient(), clientClassification);
         }
@@ -364,29 +366,33 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private void processReport(@NonNull Event event) {
         try {
-            JSONObject jsonObject = new JSONObject(event.getDetails().get("reportJson"));
-            String reportMonth = jsonObject.optString("reportDate");
-            String reportGrouping = jsonObject.optString("grouping");
-            String providerId = jsonObject.optString("providerId");
-            String dateCreated = jsonObject.optString("dateCreated");
-            DateTime dateSent = new DateTime(dateCreated);
-            Date dReportMonth = MonthlyTalliesRepository.DF_YYYYMM.parse(reportMonth);
-
-            JSONArray jsonArray = jsonObject.optJSONArray("hia2Indicators");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject1 = jsonArray.optJSONObject(i);
-                String indicator = jsonObject1.optString("indicatorCode");
-                String value = jsonObject1.optString("value");
-                MonthlyTally monthlyTally = new MonthlyTally();
-                monthlyTally.setEdited(false);
-                monthlyTally.setGrouping(reportGrouping);
-                monthlyTally.setIndicator(indicator);
-                monthlyTally.setProviderId(providerId);
-                monthlyTally.setValue(value);
-                monthlyTally.setDateSent(dateSent.toDate());
-                monthlyTally.setCreatedAt(dateSent.toDate());
-                monthlyTally.setMonth(dReportMonth);
-                GizMalawiApplication.getInstance().monthlyTalliesRepository().save(monthlyTally);
+            String reportJson = event.getDetails().get(GizConstants.ReportKeys.REPORT_JSON);
+            if (StringUtils.isNotBlank(reportJson)) {
+                JSONObject reportJsonObject = new JSONObject(reportJson);
+                String reportMonth = reportJsonObject.optString(GizConstants.ReportKeys.REPORT_DATE);
+                String reportGrouping = reportJsonObject.optString(GizConstants.ReportKeys.GROUPING);
+                String providerId = reportJsonObject.optString(GizConstants.ReportKeys.PROVIDER_ID);
+                String dateCreated = reportJsonObject.optString(GizConstants.ReportKeys.DATE_CREATED);
+                DateTime dateSent = new DateTime(dateCreated);
+                Date dReportMonth = MonthlyTalliesRepository.DF_YYYYMM.parse(reportMonth);
+                JSONArray hia2Indicators = reportJsonObject.optJSONArray(GizConstants.ReportKeys.HIA2_INDICATORS);
+                if (hia2Indicators != null) {
+                    for (int i = 0; i < hia2Indicators.length(); i++) {
+                        JSONObject jsonObject1 = hia2Indicators.optJSONObject(i);
+                        String indicator = jsonObject1.optString(GizConstants.ReportKeys.INDICATOR_CODE);
+                        String value = jsonObject1.optString(GizConstants.ReportKeys.VALUE);
+                        MonthlyTally monthlyTally = new MonthlyTally();
+                        monthlyTally.setEdited(false);
+                        monthlyTally.setGrouping(reportGrouping);
+                        monthlyTally.setIndicator(indicator);
+                        monthlyTally.setProviderId(providerId);
+                        monthlyTally.setValue(value);
+                        monthlyTally.setDateSent(dateSent.toDate());
+                        monthlyTally.setCreatedAt(dateSent.toDate());
+                        monthlyTally.setMonth(dReportMonth);
+                        GizMalawiApplication.getInstance().monthlyTalliesRepository().save(monthlyTally);
+                    }
+                }
             }
 
         } catch (JSONException e) {
@@ -394,6 +400,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         } catch (ParseException e) {
             Timber.e(e);
         }
+
     }
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
@@ -469,29 +476,29 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 eventType.equals(HeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
     }
 
-    private void processVaccinationEvent(Table vaccineTable, EventClient eventClient, Event event, String eventType) throws Exception {
-        if (vaccineTable == null) {
-            return;
+    private void processVaccinationEvent(Table vaccineTable, EventClient eventClient) throws Exception {
+        if (vaccineTable != null) {
+
+            Client client = eventClient.getClient();
+            Event event = eventClient.getEvent();
+            if (!childExists(client.getBaseEntityId())) {
+                List<String> createCase = new ArrayList<>();
+                createCase.add(GizConstants.TABLE_NAME.ALL_CLIENTS);
+                processCaseModel(event, client, createCase);
+            }
+
+            processVaccine(eventClient, vaccineTable,
+                    VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT.equals(event.getEventType()));
+
+            scheduleUpdatingClientAlerts(client.getBaseEntityId(), client.getBirthdate());
         }
-
-        Client client = eventClient.getClient();
-        if (!childExists(client.getBaseEntityId())) {
-            List<String> createCase = new ArrayList<>();
-            createCase.add(Utils.metadata().childRegister.tableName);
-            processCaseModel(event, client, createCase);
-        }
-
-        processVaccine(eventClient, vaccineTable,
-                eventType.equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
-
-        scheduleUpdatingClientAlerts(client.getBaseEntityId(), client.getBirthdate());
     }
 
     private boolean childExists(String entityId) {
         return GizMalawiApplication.getInstance().eventClientRepository().checkIfExists(EventClientRepository.Table.client, entityId);
     }
 
-    private Boolean processVaccine(@Nullable EventClient vaccine, @Nullable Table vaccineTable, boolean outOfCatchment) throws Exception {
+    private Boolean processVaccine(@Nullable EventClient vaccine, @Nullable Table vaccineTable, boolean outOfCatchment) {
         try {
             if (vaccine == null || vaccine.getEvent() == null) {
                 return false;
@@ -868,18 +875,25 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             allCommonsRepository.updateSearch(entityId);
         }
 
-        if (contentValues != null && GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName) &&
-                GizMalawiApplication.getInstance().registerTypeRepository().findByRegisterType(entityId, GizConstants.RegisterType.CHILD)) {
+        boolean isInRegister = GizMalawiApplication.getInstance().registerTypeRepository().findByRegisterType(entityId, GizConstants.RegisterType.CHILD);
+
+        if (contentValues != null &&
+                GizConstants.TABLE_NAME.ALL_CLIENTS.equals(tableName) &&
+                isInRegister) {
             String dobString = contentValues.getAsString(Constants.KEY.DOB);
             if (StringUtils.isNotBlank(dobString)) {
                 DateTime birthDateTime = Utils.dobStringToDateTime(dobString);
                 if (birthDateTime != null) {
-                    VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, GizConstants.RegisterType.CHILD);
-                    ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
+                    updateOfflineAlerts(entityId, birthDateTime);
                 }
             }
         }
         Timber.d("Finished updateFTSsearch table: %s", tableName);
+    }
+
+    protected void updateOfflineAlerts(@NonNull String entityId, @NonNull DateTime birthDateTime) {
+        VaccineSchedule.updateOfflineAlerts(entityId, birthDateTime, GizConstants.RegisterType.CHILD);
+        ServiceSchedule.updateOfflineAlerts(entityId, birthDateTime);
     }
 
     @Override
