@@ -49,6 +49,6 @@ public class GizMalawiRepositoryTest extends BaseRobolectricTest {
         gizMalawiRepository.onCreate(database);
 
         // TODO: Investigate this counter
-        Mockito.verify(database, Mockito.times(41)).execSQL(Mockito.contains("CREATE TABLE"));
+        Mockito.verify(database, Mockito.times(50)).execSQL(Mockito.contains("CREATE TABLE"));
     }
 }

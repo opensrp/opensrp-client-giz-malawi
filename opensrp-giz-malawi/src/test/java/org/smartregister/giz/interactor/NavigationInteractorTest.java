@@ -47,7 +47,7 @@ public class NavigationInteractorTest {
         Cursor cursor = Mockito.mock(Cursor.class);
         PowerMockito.when(cursor.moveToFirst()).thenReturn(true);
         PowerMockito.when(cursor.getInt(0)).thenReturn(1);
-        PowerMockito.when(commonRepository.rawCustomQueryForAdapter("select count(*) from ec_client inner join client_register_type on ec_client.id=client_register_type.base_entity_id  where ec_client.date_removed is null AND register_type IN ('child')  AND ( dod is NULL OR dod = '' ) ;")).thenReturn(cursor);
+        PowerMockito.when(commonRepository.rawCustomQueryForAdapter(Mockito.anyString())).thenReturn(cursor);
         PowerMockito.when(GizMalawiApplication.getInstance()).thenReturn(gizMalawiApplication);
         int result = Whitebox.invokeMethod(navigationInteractor, "getCount", GizConstants.RegisterType.CHILD);
         Assert.assertEquals(1, result);
