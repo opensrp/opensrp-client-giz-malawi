@@ -408,8 +408,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         for (String baseEntityId : stringDateTimeHashMap.keySet()) {
             DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
             if (birthDateTime != null) {
-                VaccineSchedule.updateOfflineAlerts(baseEntityId, birthDateTime, "child");
-                ServiceSchedule.updateOfflineAlerts(baseEntityId, birthDateTime);
+                updateOfflineAlerts(baseEntityId, birthDateTime);
             }
         }
         clientsForAlertUpdates.clear();
