@@ -1,6 +1,5 @@
 package org.smartregister.giz.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -90,9 +89,7 @@ public class GizMaternityProfileVisitsFragment extends MaternityProfileVisitsFra
             BaseMaternityProfileActivity activity = (BaseMaternityProfileActivity) getActivity();
             CommonPersonObjectClient commonPersonObjectClient = (CommonPersonObjectClient) activity.getIntent()
                     .getSerializableExtra(MaternityConstants.IntentKey.CLIENT_OBJECT);
-            commonPersonObjectClient.getColumnmaps();
-            Intent intent = activity.getIntent();
-            intent.putExtra(GizConstants.IS_FROM_MATERNITY, true);
+            commonPersonObjectClient.getColumnmaps().put(GizConstants.IS_FROM_MATERNITY, "true");
             GizUtils.openAncProfilePage(commonPersonObjectClient, activity);
         }
     }

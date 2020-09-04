@@ -15,7 +15,7 @@ public class ReportGroupingModel {
 
     private ArrayList<ReportGrouping> groupings = new ArrayList<>();
     private Context context;
-    
+
     public ReportGroupingModel(@NonNull Context context) {
         this.context = context;
     }
@@ -28,7 +28,6 @@ public class ReportGroupingModel {
             groupings.add(new ReportGrouping(context.getString(R.string.maternity_report_grouping_title), "maternity"));
             groupings.add(new ReportGrouping(context.getString(R.string.opd_report_grouping_title), "opd"));
             groupings.add(new ReportGrouping(context.getString(R.string.pnc_report_grouping_title), "pnc"));
-
         }
 
         return groupings;

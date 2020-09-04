@@ -19,6 +19,8 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 
+import java.util.HashMap;
+
 import timber.log.Timber;
 
 public class GizAncProfileActivity extends ProfileActivity {
@@ -108,10 +110,14 @@ public class GizAncProfileActivity extends ProfileActivity {
     }
 
     private boolean isFromMaternity() {
-        if (getIntent() != null)
-            return getIntent().getBooleanExtra(GizConstants.IS_FROM_MATERNITY, false);
-        else
-            return false;
-
+        if (getIntent() != null) {
+            try {
+                HashMap<String, String> detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
+                return detailMap.containsKey(GizConstants.IS_FROM_MATERNITY);
+            } catch (NullPointerException e) {
+                Timber.e(e);
+            }
+        }
+        return false;
     }
 }
