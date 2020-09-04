@@ -1239,6 +1239,13 @@
             "field": "obs.formSubmissionField",
             "concept": "religion_other"
           }
+        },
+        {
+          "column_name": "date",
+          "type": "Event",
+          "json_mapping": {
+            "field": "eventDate"
+          }
         }
       ]
     },

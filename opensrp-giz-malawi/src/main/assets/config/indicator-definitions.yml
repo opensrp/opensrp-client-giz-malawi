@@ -2352,8 +2352,8 @@ indicators:
                      GROUP BY vit"
     isMultiResult: true
     expectedIndicators:
-     - "ME_PNC_Vit_a_yes"
-     - "ME_PNC_Vit_a_no"
+      - "ME_PNC_Vit_a_yes"
+      - "ME_PNC_Vit_a_no"
     grouping: "pnc"
 
   - key: "ME_PNC_fp_counsel"
@@ -2468,20 +2468,20 @@ indicators:
     indicatorQuery: "SELECT count(*) counter FROM pnc_visit_child_status a
                      INNER JOIN pnc_visit_info b ON a.visit_id=b.visit_id
                      WHERE baby_hiv_treatment LIKE '%nevirapine%'
-                     AND '%s' =  strftime('%Y-%m-%d', visit_date)
-                     "
+                     AND '%s' =  strftime('%Y-%m-%d', visit_date)"
     grouping: "pnc"
 
   - key: "ME_PNC_MOTHER_DEAD"
     description: "Final Status of Mother Dead"
     indicatorQuery: "SELECT count(*) FROM pnc_registration_details a
-                      JOIN ec_client b ON a.base_entity_id=b.base_entity_id
-                     WHERE '%s' =  strftime('%Y-%m-%d',substr(b.dod, 7, 4)||'-'||substr(b.dod, 4,2)||'-'||substr(b.dod, 1,2));"
+                      JOIN ec_client b ON a.base_entity_id = b.base_entity_id
+                     WHERE c.dod IS NOT NULL AND '%s' =  strftime('%Y-%m-%d',substr(b.dod, 7, 4)||'-'||substr(b.dod, 4,2)||'-'||substr(b.dod, 1,2))"
     grouping: "pnc"
 
   - key: "ME_PNC_MOTHER_ALIVE"
     description: "Final Status of Mother ALive"
-    indicatorQuery: "SELECT count(*) FROM pnc_registration_details a
-                      JOIN ec_client b ON a.base_entity_id=b.base_entity_id
-                     WHERE '%s' IS NOT NULL;"
+    indicatorQuery: "select count(*) from pnc_registration_details a
+                    JOIN ec_client c ON  a.base_entity_id = c.base_entity_id
+                    AND c.dod IS NULL
+                    AND '%s' =  strftime('%Y-%m-%d', a.date)"
     grouping: "pnc"

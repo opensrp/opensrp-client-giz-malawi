@@ -246,7 +246,7 @@
         "options": [
           {
             "key": "red",
-            "text": "Red: 0 - 11.5cm",
+            "text": "Red: < 18cm",
             "value": false,
             "openmrs_entity_id": "127778AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "openmrs_entity_parent": "160908AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -254,7 +254,7 @@
           },
           {
             "key": "yellow",
-            "text": "Yellow: 11.5 - 12.5 cm",
+            "text": "Yellow: 18cm - 21cm",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160910AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -262,7 +262,7 @@
           },
           {
             "key": "green",
-            "text": "Green : 12.5 - 26.5 cm",
+            "text": "Green : > 21cm",
             "value": false,
             "openmrs_entity": "concept",
             "openmrs_entity_id": "160909AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

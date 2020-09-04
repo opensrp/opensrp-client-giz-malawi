@@ -15,9 +15,12 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
+import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.giz.BaseRobolectricTest;
 import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizConstants;
+
+import java.util.HashMap;
 
 public class GizAncProfileActivityTest extends BaseRobolectricTest {
 
@@ -25,8 +28,10 @@ public class GizAncProfileActivityTest extends BaseRobolectricTest {
 
     @Before
     public void setUp() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(GizConstants.IS_FROM_MATERNITY, "true");
         Intent intent = new Intent();
-        intent.putExtra(GizConstants.IS_FROM_MATERNITY, true);
+        intent.putExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP, map);
         gizAncProfileActivity = Mockito.spy(Robolectric
                 .buildActivity(GizAncProfileActivity.class, intent)
                 .create()
