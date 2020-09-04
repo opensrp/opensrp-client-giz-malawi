@@ -58,7 +58,6 @@ import org.smartregister.view.activity.DrishtiApplication;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
 
@@ -260,21 +259,6 @@ public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
         Assert.assertEquals(Utils.getDate("2019-09-27 09:45:44"), resultWeightObj.getDate());
         Assert.assertEquals(Utils.getDate("2019-09-27 09:45:44"), resultWeightObj.getCreatedAt());
         Assert.assertTrue(result);
-    }
-
-    @Test
-    public void processVaccinationEvent() {
-        List<EventClient> eventClients = new ArrayList<>();
-        String baseEntityId = "324-sdr32423-234";
-        Client client = new Client(baseEntityId);
-
-        Event eventVaccination = new Event();
-        eventVaccination.setEventType(VaccineIntentService.EVENT_TYPE);
-        eventClients.add(new EventClient(eventVaccination, client));
-
-
-        ClientClassification clientClassification = new ClientClassification();
-        // processorForJava.processClient();
     }
 
     @Test

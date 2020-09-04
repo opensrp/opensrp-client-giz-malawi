@@ -16,9 +16,8 @@ import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.Utils;
 import org.smartregister.giz.R;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
-
-import java.util.HashMap;
 
 import timber.log.Timber;
 
@@ -70,9 +69,9 @@ public class GizAncProfileActivity extends ProfileActivity {
                     previousVisitJsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
                 }
 
-                JSONObject previousAncDonejsonObject = ANCJsonFormUtils.getFieldJSONObject(FormUtils.getMultiStepFormFields(form), "prev_anc_done");
-                if (previousAncDonejsonObject != null) {
-                    previousAncDonejsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
+                JSONObject previousAncDoneJsonObject = ANCJsonFormUtils.getFieldJSONObject(FormUtils.getMultiStepFormFields(form), "prev_anc_done");
+                if (previousAncDoneJsonObject != null) {
+                    previousAncDoneJsonObject.put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
                 }
 
                 //create
@@ -109,12 +108,10 @@ public class GizAncProfileActivity extends ProfileActivity {
     }
 
     private boolean isFromMaternity() {
-        try {
-            HashMap<String, String> detailMap = (HashMap<String, String>) getIntent().getSerializableExtra(ConstantsUtils.IntentKeyUtils.CLIENT_MAP);
-            return (detailMap.get("maternity_history") != null);
-        } catch (Exception e) {
-            Timber.e(e);
+        if (getIntent() != null)
+            return getIntent().getBooleanExtra(GizConstants.IS_FROM_MATERNITY, false);
+        else
             return false;
-        }
+
     }
 }

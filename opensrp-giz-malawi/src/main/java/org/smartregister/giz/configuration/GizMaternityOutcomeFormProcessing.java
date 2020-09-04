@@ -212,7 +212,7 @@ public class GizMaternityOutcomeFormProcessing extends MaternityOutcomeFormProce
         tempForm.put(JsonFormConstants.STEP1, tempStep);
         String height = "";
         String weight = "";
-        for (Map.Entry<String, HashMap<String, String>> entrySet : buildRepeatingGroupBorn.entrySet()) {
+        for (Map.Entry<String, HashMap<String, String>> entrySet : getBuildRepeatingGroupBorn().entrySet()) {
             HashMap<String, String> details = entrySet.getValue();
             if (client.getBaseEntityId().equals(details.get(MaternityDbConstants.Column.MaternityChild.BASE_ENTITY_ID))) {
                 height = details.get("birth_height_entered");

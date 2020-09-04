@@ -15,7 +15,6 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.task.OpdTransferTask;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
-import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.util.Utils;
 
@@ -28,12 +27,13 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(org.smartregister.opd.R.menu.menu_opd_profile_activity, menu);
 
-        MenuItem closeMenu = menu.findItem(org.smartregister.opd.R.id.opd_menu_item_close_client);
-        if (closeMenu != null && OpdConstants.RegisterType.OPD.equalsIgnoreCase(getRegisterType())) {
-            closeMenu.setEnabled(true);
+        if (GizConstants.RegisterType.OPD.equalsIgnoreCase(getRegisterType())) {
+            MenuItem closeMenu = menu.findItem(org.smartregister.opd.R.id.opd_menu_item_close_client);
+            if (closeMenu != null) {
+                closeMenu.setEnabled(true);
+            }
+            buildAllClientsMenu(menu);
         }
-
-        buildAllClientsMenu(menu);
 
         return true;
     }
@@ -43,10 +43,6 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity {
         super.onOptionsItemSelected(item);
 
         int id = item.getItemId();
-
-//        if (id == R.id.opd_menu_item_enrol_child) {
-//            showOpdTransferDialog(GizConstants.EventType.OPD_CHILD_TRANSFER);
-//        }
         if (id == R.id.opd_menu_item_enrol_anc) {
             showOpdTransferDialog(GizConstants.EventType.OPD_ANC_TRANSFER);
         } else if (id == R.id.opd_menu_item_enrol_pnc) {
@@ -73,31 +69,26 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity {
     }
 
     public void buildAllClientsMenu(@NonNull Menu menu) {
-        if (GizConstants.RegisterType.OPD.equalsIgnoreCase(getRegisterType())) {
-            CommonPersonObjectClient client = getClient();
-            Map<String, String> detailsMap = client.getDetails();
-            String dob = detailsMap.get(OpdDbConstants.Column.Client.DOB);
-            String gender = detailsMap.get(OpdDbConstants.Column.Client.GENDER);
-            if (StringUtils.isNotBlank(dob)) {
-                DateTime age = Utils.dobStringToDateTime(dob);
-                if (age != null) {
-                    int years = Years.yearsBetween(age.toLocalDate(), new DateTime().toLocalDate()).getYears();
-//                    if (years <= 5) {
-//                        MenuItem childMenuItem = menu.findItem(R.id.opd_menu_item_enrol_child);
-//                        childMenuItem.setVisible(true);
-//                    }
-                    if (years >= 10 && StringUtils.isNotBlank(gender) && gender.toLowerCase().startsWith("f")) {
-                        MenuItem maternityMenuItem = menu.findItem(R.id.opd_menu_item_enrol_maternity);
-                        maternityMenuItem.setVisible(true);
+        CommonPersonObjectClient client = getClient();
+        Map<String, String> detailsMap = client.getDetails();
+        String dob = detailsMap.get(OpdDbConstants.Column.Client.DOB);
+        String gender = detailsMap.get(OpdDbConstants.Column.Client.GENDER);
+        if (StringUtils.isNotBlank(dob)) {
+            DateTime age = Utils.dobStringToDateTime(dob);
+            if (age != null) {
+                int years = Years.yearsBetween(age.toLocalDate(), new DateTime().toLocalDate()).getYears();
+                if (years >= 10 && StringUtils.isNotBlank(gender) && gender.toLowerCase().startsWith("f")) {
+                    MenuItem maternityMenuItem = menu.findItem(R.id.opd_menu_item_enrol_maternity);
+                    maternityMenuItem.setVisible(true);
 
-                        MenuItem ancMenuItem = menu.findItem(R.id.opd_menu_item_enrol_anc);
-                        ancMenuItem.setVisible(true);
+                    MenuItem ancMenuItem = menu.findItem(R.id.opd_menu_item_enrol_anc);
+                    ancMenuItem.setVisible(true);
 
-                        MenuItem pncMenuItem = menu.findItem(R.id.opd_menu_item_enrol_pnc);
-                        pncMenuItem.setVisible(true);
-                    }
+                    MenuItem pncMenuItem = menu.findItem(R.id.opd_menu_item_enrol_pnc);
+                    pncMenuItem.setVisible(true);
                 }
             }
         }
+
     }
 }
