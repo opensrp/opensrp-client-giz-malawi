@@ -611,7 +611,7 @@
             "key": "severe_anaemia",
             "text": "Severe Anaemia",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "symphysiotomy",
@@ -700,7 +700,7 @@
             "key": "dont_know",
             "text": "Don't know",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "dilation_and_curettage",
@@ -741,7 +741,7 @@
           {
             "key": "repair_of_obstetic_fistula",
             "text": "Repair of Obstetic Fistula",
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
@@ -826,7 +826,7 @@
             "key": "dont_know",
             "text": "Don't know",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "autoimmune_disease",
@@ -880,7 +880,7 @@
             "key": "asthma",
             "text": "Asthma",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "121375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "puerperal_psychosis",
@@ -996,18 +996,18 @@
             "key": "fistula_repair",
             "text": "Fistula repair",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": ""
+            "openmrs_entity_id": "159919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "leg_deformity",
             "text": "Leg Deformity",
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {
             "key": "spinal_deformity",
             "text": "Spinal Deformity",
-            "openmrs_entity": "concept",
+            "openmrs_entity": "",
             "openmrs_entity_id": ""
           },
           {

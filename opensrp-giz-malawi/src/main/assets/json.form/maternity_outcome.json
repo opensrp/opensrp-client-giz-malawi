@@ -230,7 +230,14 @@
           "1_tdv_received",
           "none",
           "unknown"
-        ]
+        ],
+        "openmrs_choice_ids": {
+          "5_tdv_doses_received": "164134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "2_4_tdv_doses_received_in_the_past": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "1_tdv_received": "165226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "none": "165227AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "unknown": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
       },
       {
         "key": "protected_at_birth",
