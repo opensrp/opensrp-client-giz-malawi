@@ -2475,7 +2475,7 @@ indicators:
     description: "Final Status of Mother Dead"
     indicatorQuery: "SELECT count(*) FROM pnc_registration_details a
                       JOIN ec_client b ON a.base_entity_id = b.base_entity_id
-                     WHERE c.dod IS NOT NULL AND '%s' =  strftime('%Y-%m-%d',substr(b.dod, 7, 4)||'-'||substr(b.dod, 4,2)||'-'||substr(b.dod, 1,2))"
+                     WHERE b.dod IS NOT NULL AND '%s' =  strftime('%Y-%m-%d',substr(b.dod, 7, 4)||'-'||substr(b.dod, 4,2)||'-'||substr(b.dod, 1,2))"
     grouping: "pnc"
 
   - key: "ME_PNC_MOTHER_ALIVE"
