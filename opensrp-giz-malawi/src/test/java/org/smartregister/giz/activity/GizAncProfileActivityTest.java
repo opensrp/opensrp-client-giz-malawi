@@ -1,7 +1,7 @@
 package org.smartregister.giz.activity;
 
 import android.content.Intent;
-import android.support.v7.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;

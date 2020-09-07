@@ -1,6 +1,6 @@
 package org.smartregister.giz.configuration;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.pnc.config.PncMedicInfoFormProcessing;

@@ -2,8 +2,8 @@ package org.smartregister.giz.processor;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -303,7 +303,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     //TODO make it available from PNC
-    private void processBabiesBorn(@android.support.annotation.Nullable String strBabiesBorn, @NonNull Event event) {
+    private void processBabiesBorn(@androidx.annotation.Nullable String strBabiesBorn, @NonNull Event event) {
         if (StringUtils.isNotBlank(strBabiesBorn)) {
             try {
                 JSONObject jsonObject = new JSONObject(strBabiesBorn);
@@ -344,7 +344,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     //TODO make it available from PNC
-    private void processStillBorn(@android.support.annotation.Nullable String strStillBorn, @NonNull Event event) {
+    private void processStillBorn(@androidx.annotation.Nullable String strStillBorn, @NonNull Event event) {
         if (StringUtils.isNotBlank(strStillBorn)) {
             try {
                 JSONObject jsonObject = new JSONObject(strStillBorn);

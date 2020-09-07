@@ -2,8 +2,8 @@ package org.smartregister.giz.presenter;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.FetchStatus;

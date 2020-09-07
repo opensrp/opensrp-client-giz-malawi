@@ -1,7 +1,7 @@
 package org.smartregister.giz.fragment;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import org.smartregister.giz.activity.HIA2ReportsActivity;
 
