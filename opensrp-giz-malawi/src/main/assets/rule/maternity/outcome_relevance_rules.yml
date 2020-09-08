@@ -1,0 +1,35 @@
+---
+name: step1_on_art_treatment
+description: on_art_treatment
+priority: 1
+condition: "(step1_hiv_status_previous == 'Positive') || (step1_hiv_status_current == 'Positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_baby_intervention_referral_location
+description: baby_intervention_referral_location
+priority: 1
+condition: "!step3_baby_care_mgt.isEmpty() && step3_baby_care_mgt.contains('referral')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_child_hiv_status
+description: child_hiv_status
+priority: 1
+condition: "(step1_hiv_status_current != '' && step1_hiv_status_current == 'Positive') || (step1_hiv_status_current == '' && step1_hiv_status_previous == 'Positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_nvp_administration
+description: nvp_administration
+priority: 1
+condition: "(step3_child_hiv_status == 'Exposed') || (step3_child_hiv_status == 'Positive')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_obstetric_complications
+description: obstetric_complications
+priority: 1
+condition: "(step5_mother_status == 'alive' || step5_mother_status == 'died_before_discharge')"
+actions:
+  - "isRelevant = true"

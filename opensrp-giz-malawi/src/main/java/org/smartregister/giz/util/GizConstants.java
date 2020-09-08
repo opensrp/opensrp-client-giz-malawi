@@ -2,9 +2,17 @@ package org.smartregister.giz.util;
 
 public class GizConstants {
 
+    public static final int HOW_BABY_OLD_IN_DAYS = 28;
     public static final String MOTHER_TDV_DOSES = "mother_tdv_doses";
     public static final String PROTECTED_AT_BIRTH = "protected_at_birth";
     public static final String REACTION_VACCINE = "Reaction_Vaccine";
+    public static final String FORM_CONFIG_LOCATION = "json.form/json.form.config.json";
+    public static final String NATIONAL_ID = "national_id";
+    public static final String BHT_MID = "bht_mid";
+    public static final String MOTHER_HIV_STATUS = "mother_hiv_status";
+    public static final String BIRTH_REGISTRATION_NUMBER = "birth_registration_number";
+    public static final String REGISTER_TYPE = "register_type";
+    public static final String IS_FROM_MATERNITY = "isFromMaternity";
 
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
@@ -54,7 +62,7 @@ public class GizConstants {
         public static final String LASTNAME = "lastName";
         public static final String ATTRIBUTES = "attributes";
         public static final int FIVE_YEAR = 5;
-        public static final String OPD_REGISTRATION = "Opd Registration" ;
+        public static final String OPD_REGISTRATION = "Opd Registration";
         public static String SITE_CHARACTERISTICS = "site_characteristics";
 
         public static final String FIELDS = "fields";
@@ -62,6 +70,8 @@ public class GizConstants {
         public static final String IS_VACCINE_GROUP = "is_vaccine_group";
         public static final String OPTIONS = "options";
 
+        public static String HIDDEN_FIELDS = "hidden_fields";
+        public static String DISABLED_FIELDS = "disabled_fields";
     }
 
     public static final class DrawerMenu {
@@ -69,6 +79,9 @@ public class GizConstants {
         public static final String ALL_CLIENTS = "All Clients";
         public static final String ANC_CLIENTS = "ANC Clients";
         public static final String CHILD_CLIENTS = "Child Clients";
+        public static final String OPD_CLIENTS = "OPD Clients";
+        public static final String MATERNITY_CLIENTS = "Maternity Clients";
+        public static final String PNC_CLIENTS = "PNC Clients";
         public static final String ANC = "ANC";
     }
 
@@ -91,6 +104,13 @@ public class GizConstants {
         public static final String UPDATE_CHILD_REGISTRATION = "Update Birth Registration";
         public static final String OUT_OF_CATCHMENT = "Out of Catchment";
 
+        public static final String REPORT_CREATION = "report_creation";
+        public static final String MATERNITY_PNC_TRANSFER = "maternity_pnc_transfer";
+
+        public static final String OPD_PNC_TRANSFER = "opd_pnc_transfer";
+        public static final String OPD_MATERNITY_TRANSFER = "opd_maternity_transfer";
+        public static final String OPD_ANC_TRANSFER = "opd_anc_transfer";
+        public static final String OPD_CHILD_TRANSFER = "opd_child_transfer";
     }
 
     public static class JSON_FORM {
@@ -108,6 +128,7 @@ public class GizConstants {
         public static final String CHILD = "ec_client";
         public static final String ALL_CLIENTS = "ec_client";
         public static final String REGISTER_TYPE = "client_register_type";
+        public static final String CHILD_UPDATED_ALERTS = "child_updated_alerts";
     }
 
     public interface Columns {
@@ -135,6 +156,9 @@ public class GizConstants {
         String ANC = "anc";
         String CHILD = "child";
         String OPD = "opd";
+        String ALL_CLIENTS = "all_clients";
+        String MATERNITY = "maternity";
+        String PNC = "pnc";
     }
 
     public interface MultiResultProcessor {
@@ -152,6 +176,17 @@ public class GizConstants {
 
     public interface File {
         String INDICATOR_CONFIG_FILE = "config/indicator-definitions.yml";
+    }
+
+    public interface ReportKeys {
+        String REPORT_JSON = "reportJson";
+        String REPORT_DATE = "reportDate";
+        String GROUPING = "grouping";
+        String PROVIDER_ID = "providerId";
+        String DATE_CREATED = "dateCreated";
+        String HIA2_INDICATORS = "hia2Indicators";
+        String VALUE = "value";
+        String INDICATOR_CODE = "indicatorCode";
     }
 
 }

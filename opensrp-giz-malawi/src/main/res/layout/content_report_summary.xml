@@ -32,12 +32,16 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
             android:id="@+id/indicator_canvas"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_grey_borders"
             android:orientation="vertical"/>
+        </HorizontalScrollView>
 
     </LinearLayout>
 </ScrollView>

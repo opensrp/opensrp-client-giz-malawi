@@ -1,5 +1,6 @@
 package org.smartregister.giz.util;
 
+import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -34,7 +35,7 @@ public class GizReportUtilsTest extends BaseRobolectricTest {
 
         Mockito.doNothing().when(hia2ReportRepository).addReport(Mockito.any(JSONObject.class));
 
-        GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, reportType);
+        GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, reportType,"child",new DateTime());
         ArgumentCaptor<JSONObject> jsonObjectArgumentCaptor = ArgumentCaptor.forClass(JSONObject.class);
         Mockito.verify(hia2ReportRepository).addReport(jsonObjectArgumentCaptor.capture());
 

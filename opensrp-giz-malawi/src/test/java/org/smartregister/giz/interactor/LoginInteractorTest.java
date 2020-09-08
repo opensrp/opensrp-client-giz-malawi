@@ -49,7 +49,6 @@ public class LoginInteractorTest extends BaseRobolectricTest {
         assertEquals(SyncServiceJob.TAG, methodCalls.get(5).get(0));
         assertEquals(PullUniqueIdsServiceJob.TAG, methodCalls.get(6).get(0));
         assertEquals(ImageUploadServiceJob.TAG, methodCalls.get(7).get(0));
-        assertEquals(15L, methodCalls.get(7).get(1));
         assertEquals(RecurringIndicatorGeneratingJob.TAG, methodCalls.get(8).get(0));
     }
 

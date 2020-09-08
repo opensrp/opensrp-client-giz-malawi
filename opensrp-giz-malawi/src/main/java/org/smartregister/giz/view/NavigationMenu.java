@@ -96,7 +96,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
             setParentView(activity, parentView);
             toolbar = myToolbar;
             parentView = myParentView;
-            mPresenter = new NavigationPresenter(this);
+            WeakReference<NavigationContract.View> weakReference = new WeakReference(this);
+            mPresenter = new NavigationPresenter(weakReference.get());
             prepareViews(activity);
             registerDrawer(activity);
         } catch (Exception e) {
@@ -301,9 +302,12 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             syncProgressBar.setVisibility(View.VISIBLE);
             ivSync.setVisibility(View.INVISIBLE);
+            GizUtils.updateSyncStatus(false);
+
         } else {
             syncProgressBar.setVisibility(View.INVISIBLE);
             ivSync.setVisibility(View.VISIBLE);
+            GizUtils.updateSyncStatus(true);
         }
     }
 
@@ -353,6 +357,19 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     public void onSyncStart() {
         // set the sync icon to be a rotating menu
         refreshSyncProgressSpinner();
+
+        try {
+            String alertUpdateExecutionTime = GizMalawiApplication.getInstance().context().allSharedPreferences().getPreference("alert_update_execution_time");
+            int fiveHours = 60 * 5;
+            if (StringUtils.isBlank(alertUpdateExecutionTime) || GizUtils.timeBetweenLastExecutionAndNow(fiveHours, alertUpdateExecutionTime)) {
+                GizMalawiApplication.getInstance().alertUpdatedRepository().deleteAll();
+                GizMalawiApplication.getInstance().context().allSharedPreferences().savePreference("alert_update_execution_time", String.valueOf(System.currentTimeMillis()));
+            }
+            Timber.d("updated alert");
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+
     }
 
     @Override

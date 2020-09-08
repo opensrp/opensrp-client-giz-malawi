@@ -1,0 +1,35 @@
+---
+name: step3_ga_weeks_entered
+description: ga_weeks_entered
+priority: 1
+condition: "!step3_lmp_unknown.isEmpty() && step3_lmp_unknown.contains('lmp_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_ga_days_entered
+description: ga_days_entered
+priority: 1
+condition: "!step3_lmp_unknown.isEmpty() && step3_lmp_unknown.contains('lmp_unknown')"
+actions:
+  - "isRelevant = true"
+---
+name: step3_lmp
+description: lmp
+priority: 1
+condition: "step3_lmp_unknown.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step3_gest_age
+description: gest_age
+priority: 1
+condition: "step3_lmp_unknown.isEmpty() && step3_lmp != ''"
+actions:
+  - "isRelevant = true"
+---
+name: step2_occupation_other
+description: occupation_other
+priority: 1
+condition: "step2_occupation.contains('other')"
+actions:
+  - "isRelevant = true"

@@ -16,6 +16,12 @@ import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
+import timber.log.Timber;
 
 public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     @Override
@@ -28,7 +34,7 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LocationSwitcherToolbar myToolbar  = (LocationSwitcherToolbar) this.getToolbar();
+        LocationSwitcherToolbar myToolbar = (LocationSwitcherToolbar) this.getToolbar();
 
         if (myToolbar != null) {
             myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -67,6 +73,7 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
         bundle.putString(Constants.INTENT_KEY.LOCATION_ID,
                 Utils.context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID));
         bundle.putSerializable(Constants.INTENT_KEY.EXTRA_CHILD_DETAILS, childDetails);
+        bundle.putSerializable(Constants.INTENT_KEY.BASE_ENTITY_ID, childDetails.getCaseId());
         bundle.putSerializable(Constants.INTENT_KEY.EXTRA_REGISTER_CLICKABLES, registerClickables);
         intent.putExtras(bundle);
 
@@ -116,5 +123,22 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null) return;
+    }
+
+    @Override
+    public void updateScheduleDate() {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
+                calendar.set(Calendar.HOUR_OF_DAY, 1);
+                long hoursSince1AM = (System.currentTimeMillis() - calendar.getTimeInMillis()) / TimeUnit.HOURS.toMillis(1);
+                if (VaccineSchedulesUpdateJob.isLastTimeRunLongerThan(hoursSince1AM) && !GizMalawiApplication.getInstance().alertUpdatedRepository().findOne(childDetails.entityId())) {
+                    super.updateScheduleDate();
+                    GizMalawiApplication.getInstance().alertUpdatedRepository().saveOrUpdate(childDetails.entityId());
+                }
+            }
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

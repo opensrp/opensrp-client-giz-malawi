@@ -58,7 +58,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
                         getFlexValue(BuildConfig.IMAGE_UPLOAD_MINUTES));
 
         RecurringIndicatorGeneratingJob.scheduleJob(RecurringIndicatorGeneratingJob.TAG,
-                TimeUnit.MINUTES.toMinutes(org.smartregister.reporting.BuildConfig.REPORT_INDICATOR_GENERATION_MINUTES), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
+                TimeUnit.HOURS.toMinutes(6), getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
 
         // Schedule vaccine schedules update after midnight
         GizVaccineUpdateJob.scheduleEverydayAt(GizVaccineUpdateJob.TAG, 1, 7);

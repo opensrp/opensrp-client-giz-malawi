@@ -1,31 +1,98 @@
 ---
-name: step1_diagnostic_test_result_spinner
-description: diagnostic_test_result_spinner
+name: step1_pregnancy_status
+description: opd_client_pregnancy_status
 priority: 1
-condition: "step1_diagnostic_test == 'Pregnancy Test' || step1_diagnostic_test == 'Malaria test'
-|| step1_diagnostic_test == 'HIV test' || step1_diagnostic_test == 'Syphilis test'
-|| step1_diagnostic_test == 'Hep B test' || step1_diagnostic_test == 'Hep C test'
- || step1_diagnostic_test == 'TB Screening' || step1_diagnostic_test == 'Midstream urine Gram-staining'"
+condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 )"
 actions:
   - "isRelevant = true"
 ---
-name: step1_diagnostic_test_result_specify
-description: diagnostic_test_result_specify
+name: step1_lmp
+description: opd_lmp
 priority: 1
-condition: "step1_diagnostic_test == 'Ultra sound'"
+condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 ) && (step1_lmp_unknown.isEmpty())"
 actions:
   - "isRelevant = true"
 ---
-name: step1_diagnostic_test_result_glucose
-description: diagnostic_test_result_glucose
+name: step1_lmp_unknown
+description: opd_lmp_unknown
 priority: 1
-condition: "step1_diagnostic_test.startsWith('Blood Glucose test')"
+condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 )"
 actions:
   - "isRelevant = true"
 ---
-name: step1_diagnostic_test_result_spinner_blood_type
-description: diagnostic_test_result_spinner_blood_type
+name: step1_lmp_duration
+description: lmp duration
 priority: 1
-condition: "step1_diagnostic_test == 'Blood Type test'"
+condition: "!step1_lmp.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step2_hiv_tested_date
+description: hiv_tested_date
+priority: 1
+condition: "step2_medical_conditions.contains('hiv')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_hiv_prev_status
+description: hiv_prev_status
+priority: 1
+condition: "step2_medical_conditions.contains('hiv')"
+actions:
+  - "isRelevant = true"
+---
+name: step2_hiv_prev_pos_art
+description: hiv_prev_pos_art
+priority: 1
+condition: "step2_hiv_prev_status == 'positive'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_medical_conditions_duration
+description: medical_conditions_duration
+priority: 1
+condition: "!step2_medical_conditions.isEmpty() && !step2_medical_conditions.contains('None')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_medicine
+description: medicine
+priority: 1
+condition: "!step5_treatment_type.isEmpty() && step5_treatment_type.contains('medicine')"
+actions:
+  - "isRelevant = true"
+---
+name: step6_discharged_home
+description: discharged_home
+priority: 1
+condition: "step6_discharged_alive == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step6_referral
+description: referral
+priority: 1
+condition: "step6_discharged_alive == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step6_referral_location
+description: referral_location
+priority: 1
+condition: "step6_referral == 'yes'"
+actions:
+  - "isRelevant = true"
+---
+name: step2_medical_conditions_specify
+description: medical_conditions_specify
+priority: 1
+condition: "!step2_medical_conditions.isEmpty() && step2_medical_conditions.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step5_treatment_type_specify
+description: treatment_type_specify
+priority: 1
+condition: "!step5_treatment_type.isEmpty() &&  step5_treatment_type.contains('other')"
 actions:
   - "isRelevant = true"

@@ -1,107 +1,131 @@
 indicators:
-  - key: "ME_Child_Total"
-    description: "ME_Child_Total_label"
-    indicatorQuery: "select count(*) from ec_client child WHERE '%s' = strftime('%Y-%m-%d', child.date)"
-    grouping: "child"
-
-  - key: "ME_PAB_Gender"
-    description: "ME_PAB_Gender_label"
-    indicatorQuery: "SELECT ec_client.gender, count(*) from ec_details
-                     INNER JOIN ec_client
-                     ON ec_details.base_entity_id = ec_client.base_entity_id
-                     WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                     AND ec_details.key = 'protected_at_birth'
-                     AND ec_client.dob >= date('now','-2 years')
-                     group by ec_client.gender"
+  - key: "ME_Overall_View"
+    description: "ME Immunisations"
+    indicatorQuery: "SELECT 'CHD EPI Annual total population' indicator,count(*)-1 counter UNION
+                     SELECT 'CHD EPI Live births' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Pregnant women' ,count(*)-1 UNION
+                     SELECT 'CHD EPI 9 years old girls' ,count(*)-1"
     isMultiResult: true
-    expectedIndicators: ["ME_PAB_Gender_Female", "ME_PAB_Gender_Male"]
+    expectedIndicators:
+      - "ME_Overall_View_CHD_EPI_Annual_total_population"
+      - "ME_Overall_View_CHD_EPI_Live_births"
+      - "ME_Overall_View_CHD_EPI_Surviving_infants"
+      - "ME_Overall_View_CHD_EPI_Pregnant_women"
+      - "ME_Overall_View_CHD_EPI_9_years_old_girls"
     grouping: "child"
 
-  - key: "ME_PAB_Age"
-    description: "ME_PAB_Age_label"
-    indicatorQuery: "select
-                         CASE
-                         WHEN round(julianday('now') - julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
-                         WHEN round(julianday('now') - julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
-                         ELSE 'Null'
-                         END age, count(*) counter
-                     FROM ec_details
-                     INNER JOIN ec_client
-                     ON ec_details.base_entity_id = ec_client.base_entity_id
-                       WHERE ec_details.key = 'protected_at_birth' AND '%s' = strftime('%Y-%m-%d', ec_client.date)
-                       AND ec_client.dob >= date('now','-2 years')
-                     group by age
-                     UNION
-                       Select 'Total', count(distinct ec_client.base_entity_id) from ec_details
-                       JOIN ec_client
-                                          ON ec_details.base_entity_id = ec_client.base_entity_id
-                       WHERE ec_details.key = 'protected_at_birth' AND '%s' = strftime('%Y-%m-%d', ec_client.date)
-                       AND ec_client.dob >= date('now','-2 years')
-                     ORDER BY counter"
+  - key: "ME_A"
+    description: "ME Immunisation Sessions"
+    indicatorQuery: "SELECT 'CHD EPI Immunization sessions planned Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Immunization sessions cancelled Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Immunization sessions planned Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Immunization sessions cancelled Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Reasons for cancellation' ,count(*)-1"
     isMultiResult: true
-    expectedIndicators: ["ME_PAB_Age_Over_1", "ME_PAB_Age_Under_1", "ME_PAB_Age_Total"]
+    expectedIndicators:
+      - "ME_A_CHD_EPI_Immunization_sessions_planned_Static"
+      - "ME_A_CHD_EPI_Immunization_sessions_cancelled_Static"
+      - "ME_A_CHD_EPI_Immunization_sessions_planned_Outreach"
+      - "ME_A_CHD_EPI_Immunization_sessions_cancelled_Outreach"
+      - "ME_A_CHD_EPI_Reasons_for_cancellation"
     grouping: "child"
 
-  - key: "ME_Vaccines_Gender"
-    description: "ME_Vaccines_Gender_label"
-    indicatorQuery: "SELECT vaccines.name, ec_client.gender, count(*) from vaccines
+  - key: "ME_Vacc_Target"
+    description: "ME Vaccines targets"
+    indicatorQuery: "
+                     SELECT 'CHD EPI BCG and OPV 0 monthly target' ,count(*)-1 UNION
+                     SELECT 'CHD EPI MR1 monthly target surviving infant' ,count(*)-1 UNION
+                     SELECT 'CHD EPI MR2 monthly target surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI OPV 1 to OPV 3 monthly target surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPTHepBHib 1 to 3 monthly target surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV1 to PCV3 monthly target surviving infants' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA 1 and 2 monthly target' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccines monthly target Under 1' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine 4 monthly target' ,count(*)-1 UNION
+                     SELECT 'Protected At Birth Target Count for under 1' ,count(*)-1
+                     "
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Vacc_Target_CHD_EPI_BCG_and_OPV_0_monthly_target"
+      - "ME_Vacc_Target_CHD_EPI_MR1_monthly_target_surviving_infant"
+      - "ME_Vacc_Target_CHD_EPI_MR2_monthly_target_surviving_infants"
+      - "ME_Vacc_Target_CHD_EPI_OPV_1_to_OPV_3_monthly_target_surviving_infants"
+      - "ME_Vacc_Target_CHD_EPI_DPTHepBHib_1_to_3_monthly_target_surviving_infants"
+      - "ME_Vacc_Target_CHD_EPI_PCV1_to_PCV3_monthly_target_surviving_infants"
+      - "ME_Vacc_Target_CHD_EPI_ROTA_1_and_2_monthly_target"
+      - "ME_Vacc_Target_CHD_EPI_Malaria_Vaccines_monthly_target_Under_1"
+      - "ME_Vacc_Target_CHD_EPI_Malaria_Vaccine_4_monthly_target"
+      - "ME_Vacc_Target_Protected_At_Birth_Target_Count_for_under_1"
+    grouping: "child"
+
+  - key: "ME_Vaccines_Age_Static"
+    description: "ME_Vaccines_Age_Static_label"
+    indicatorQuery: "SELECT vaccines.name,
+                       CASE
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                          ELSE 'Null'
+                          END age, count(*)
+                      FROM vaccines
                       INNER JOIN ec_client
                       ON vaccines.base_entity_id = ec_client.base_entity_id
                       WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                      AND ec_client.dob >= date('now', '-2 years')
-                      GROUP BY vaccines.name, ec_client.gender"
+                      AND vaccines.child_location_id = vaccines.location_id OR vaccines.child_location_id IS NULL
+                      AND ec_client.dob >= date('now', '-5 years')
+                      AND '%s' = date(vaccines.date/1000, 'unixepoch', 'localtime')
+                       AND ec_client.is_closed !=1
+                      GROUP BY vaccines.name, age"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Vaccines_Gender_bcg_Female"
-      - "ME_Vaccines_Gender_bcg_Male"
-      - "ME_Vaccines_Gender_hepb_Female"
-      - "ME_Vaccines_Gender_hepb_Male"
-      - "ME_Vaccines_Gender_opv_0_Male"
-      - "ME_Vaccines_Gender_opv_0_Female"
-      - "ME_Vaccines_Gender_opv_1_Male"
-      - "ME_Vaccines_Gender_opv_1_Female"
-      - "ME_Vaccines_Gender_opv_2_Male"
-      - "ME_Vaccines_Gender_opv_2_Female"
-      - "ME_Vaccines_Gender_opv_3_Male"
-      - "ME_Vaccines_Gender_opv_3_Female"
-      - "ME_Vaccines_Gender_penta_1_Male"
-      - "ME_Vaccines_Gender_penta_1_Female"
-      - "ME_Vaccines_Gender_penta_2_Male"
-      - "ME_Vaccines_Gender_penta_2_Female"
-      - "ME_Vaccines_Gender_penta_3_Male"
-      - "ME_Vaccines_Gender_penta_3_Female"
-      - "ME_Vaccines_Gender_pcv_1_Male"
-      - "ME_Vaccines_Gender_pcv_1_Female"
-      - "ME_Vaccines_Gender_pcv_2_Male"
-      - "ME_Vaccines_Gender_pcv_2_Female"
-      - "ME_Vaccines_Gender_pcv_3_Male"
-      - "ME_Vaccines_Gender_pcv_3_Female"
-      - "ME_Vaccines_Gender_rota_1_Male"
-      - "ME_Vaccines_Gender_rota_1_Female"
-      - "ME_Vaccines_Gender_rota_2_Male"
-      - "ME_Vaccines_Gender_rota_2_Female"
-      - "ME_Vaccines_Gender_mv_1_Male"
-      - "ME_Vaccines_Gender_mv_1_Female"
-      - "ME_Vaccines_Gender_mv_2_Male"
-      - "ME_Vaccines_Gender_mv_2_Female"
-      - "ME_Vaccines_Gender_mv_3_Male"
-      - "ME_Vaccines_Gender_mv_3_Female"
-      - "ME_Vaccines_Gender_mv_4_Male"
-      - "ME_Vaccines_Gender_mv_4_Female"
-      - "ME_Vaccines_Gender_measles_1_/_mr_1_Male"
-      - "ME_Vaccines_Gender_measles_1_/_mr_1_Female"
-      - "ME_Vaccines_Gender_measles_2_/_mr_2_Male"
-      - "ME_Vaccines_Gender_measles_2_/_mr_2_Female"
-      - "ME_Vaccines_Gender_ipv_Male"
-      - "ME_Vaccines_Gender_ipv_Female"
+      - "ME_Vaccines_Age_Static_bcg_Over_1"
+      - "ME_Vaccines_Age_Static_bcg_Under_1"
+      - "ME_Vaccines_Age_Static_opv_0_Over_1"
+      - "ME_Vaccines_Age_Static_opv_0_Under_1"
+      - "ME_Vaccines_Age_Static_opv_1_Over_1"
+      - "ME_Vaccines_Age_Static_opv_1_Under_1"
+      - "ME_Vaccines_Age_Static_opv_2_Over_1"
+      - "ME_Vaccines_Age_Static_opv_2_Under_1"
+      - "ME_Vaccines_Age_Static_opv_3_Over_1"
+      - "ME_Vaccines_Age_Static_opv_3_Under_1"
+      - "ME_Vaccines_Age_Static_penta_1_Over_1"
+      - "ME_Vaccines_Age_Static_penta_1_Under_1"
+      - "ME_Vaccines_Age_Static_penta_2_Over_1"
+      - "ME_Vaccines_Age_Static_penta_2_Under_1"
+      - "ME_Vaccines_Age_Static_penta_3_Over_1"
+      - "ME_Vaccines_Age_Static_penta_3_Under_1"
+      - "ME_Vaccines_Age_Static_pcv_1_Over_1"
+      - "ME_Vaccines_Age_Static_pcv_1_Under_1"
+      - "ME_Vaccines_Age_Static_pcv_2_Over_1"
+      - "ME_Vaccines_Age_Static_pcv_2_Under_1"
+      - "ME_Vaccines_Age_Static_pcv_3_Over_1"
+      - "ME_Vaccines_Age_Static_pcv_3_Under_1"
+      - "ME_Vaccines_Age_Static_rota_1_Over_1"
+      - "ME_Vaccines_Age_Static_rota_1_Under_1"
+      - "ME_Vaccines_Age_Static_rota_2_Over_1"
+      - "ME_Vaccines_Age_Static_rota_2_Under_1"
+      - "ME_Vaccines_Age_Static_mv_1_Over_1"
+      - "ME_Vaccines_Age_Static_mv_1_Under_1"
+      - "ME_Vaccines_Age_Static_mv_2_Over_1"
+      - "ME_Vaccines_Age_Static_mv_2_Under_1"
+      - "ME_Vaccines_Age_Static_mv_3_Over_1"
+      - "ME_Vaccines_Age_Static_mv_3_Under_1"
+      - "ME_Vaccines_Age_Static_mv_4_Over_1"
+      - "ME_Vaccines_Age_Static_mv_4_Under_1"
+      - "ME_Vaccines_Age_Static_mr_1_Over_1"
+      - "ME_Vaccines_Age_Static_mr_1_Under_1"
+      - "ME_Vaccines_Age_Static_mr_2_Over_1"
+      - "ME_Vaccines_Age_Static_mr_2_Under_1"
+      - "ME_Vaccines_Age_Static_ipv_Over_1"
+      - "ME_Vaccines_Age_Static_ipv_Under_1"
     grouping: "child"
 
-  - key: "ME_Vaccines_Age"
-    description: "ME_Vaccines_Age_label"
+  - key: "ME_Vaccines_Age_Outreach"
+    description: "ME_Vaccines_Age_Outreach_label"
     indicatorQuery: "SELECT vaccines.name,
                        CASE
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
+                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                           ELSE 'Null'
                           END age, count(*) counter
@@ -110,460 +134,2354 @@ indicators:
                       ON vaccines.base_entity_id = ec_client.base_entity_id
                       WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                      AND ec_client.dob >= date('now', '-2 years')
+                      AND vaccines.child_location_id = vaccines.location_id OR vaccines.child_location_id IS NOT NULL
+                      AND ec_client.dob >= date('now', '-5 years')
+                      AND '%s' = date(vaccines.date/1000, 'unixepoch', 'localtime')
+                      AND ec_client.is_closed !=1
                       GROUP BY vaccines.name, age"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Vaccines_Age_bcg_Over_1"
-      - "ME_Vaccines_Age_bcg_Under_1"
-      - "ME_Vaccines_Age_opv_0_Over_1"
-      - "ME_Vaccines_Age_opv_0_Under_1"
-      - "ME_Vaccines_Age_opv_1_Over_1"
-      - "ME_Vaccines_Age_opv_1_Under_1"
-      - "ME_Vaccines_Age_opv_2_Over_1"
-      - "ME_Vaccines_Age_opv_2_Under_1"
-      - "ME_Vaccines_Age_opv_3_Over_1"
-      - "ME_Vaccines_Age_opv_3_Under_1"
-      - "ME_Vaccines_Age_penta_1_Over_1"
-      - "ME_Vaccines_Age_penta_1_Under_1"
-      - "ME_Vaccines_Age_penta_2_Over_1"
-      - "ME_Vaccines_Age_penta_2_Under_1"
-      - "ME_Vaccines_Age_penta_3_Over_1"
-      - "ME_Vaccines_Age_penta_3_Under_1"
-      - "ME_Vaccines_Age_pcv_1_Over_1"
-      - "ME_Vaccines_Age_pcv_1_Under_1"
-      - "ME_Vaccines_Age_pcv_2_Over_1"
-      - "ME_Vaccines_Age_pcv_2_Under_1"
-      - "ME_Vaccines_Age_rota_1_Over_1"
-      - "ME_Vaccines_Age_rota_1_Under_1"
-      - "ME_Vaccines_Age_rota_2_Over_1"
-      - "ME_Vaccines_Age_rota_2_Under_1"
-      - "ME_Vaccines_Age_mv_1_Over_1"
-      - "ME_Vaccines_Age_mv_1_Under_1"
-      - "ME_Vaccines_Age_mv_2_Over_1"
-      - "ME_Vaccines_Age_mv_2_Under_1"
-      - "ME_Vaccines_Age_mv_3_Over_1"
-      - "ME_Vaccines_Age_mv_3_Under_1"
-      - "ME_Vaccines_Age_measles_1_/_mr_1_Over_1"
-      - "ME_Vaccines_Age_measles_1_/_mr_1_Under_1"
-      - "ME_Vaccines_Age_ipv_Over_1"
-      - "ME_Vaccines_Age_ipv_Under_1"
+      - "ME_Vaccines_Age_Outreach_bcg_Over_1"
+      - "ME_Vaccines_Age_Outreach_bcg_Under_1"
+      - "ME_Vaccines_Age_Outreach_opv_0_Over_1"
+      - "ME_Vaccines_Age_Outreach_opv_0_Under_1"
+      - "ME_Vaccines_Age_Outreach_opv_1_Over_1"
+      - "ME_Vaccines_Age_Outreach_opv_1_Under_1"
+      - "ME_Vaccines_Age_Outreach_opv_2_Over_1"
+      - "ME_Vaccines_Age_Outreach_opv_2_Under_1"
+      - "ME_Vaccines_Age_Outreach_opv_3_Over_1"
+      - "ME_Vaccines_Age_Outreach_opv_3_Under_1"
+      - "ME_Vaccines_Age_Outreach_penta_1_Over_1"
+      - "ME_Vaccines_Age_Outreach_penta_1_Under_1"
+      - "ME_Vaccines_Age_Outreach_penta_2_Over_1"
+      - "ME_Vaccines_Age_Outreach_penta_2_Under_1"
+      - "ME_Vaccines_Age_Outreach_penta_3_Over_1"
+      - "ME_Vaccines_Age_Outreach_penta_3_Under_1"
+      - "ME_Vaccines_Age_Outreach_pcv_1_Over_1"
+      - "ME_Vaccines_Age_Outreach_pcv_1_Under_1"
+      - "ME_Vaccines_Age_Outreach_pcv_2_Over_1"
+      - "ME_Vaccines_Age_Outreach_pcv_2_Under_1"
+      - "ME_Vaccines_Age_Outreach_pcv_3_Over_1"
+      - "ME_Vaccines_Age_Outreach_pcv_3_Under_1"
+      - "ME_Vaccines_Age_Outreach_rota_1_Over_1"
+      - "ME_Vaccines_Age_Outreach_rota_1_Under_1"
+      - "ME_Vaccines_Age_Outreach_rota_2_Over_1"
+      - "ME_Vaccines_Age_Outreach_rota_2_Under_1"
+      - "ME_Vaccines_Age_Outreach_mv_1_Over_1"
+      - "ME_Vaccines_Age_Outreach_mv_1_Under_1"
+      - "ME_Vaccines_Age_Outreach_mv_2_Over_1"
+      - "ME_Vaccines_Age_Outreach_mv_2_Under_1"
+      - "ME_Vaccines_Age_Outreach_mv_3_Over_1"
+      - "ME_Vaccines_Age_Outreach_mv_3_Under_1"
+      - "ME_Vaccines_Age_Outreach_mv_4_Over_1"
+      - "ME_Vaccines_Age_Outreach_mv_4_Under_1"
+      - "ME_Vaccines_Age_Outreach_mr_1_Over_1"
+      - "ME_Vaccines_Age_Outreach_mr_1_Under_1"
+      - "ME_Vaccines_Age_Outreach_mr_2_Over_1"
+      - "ME_Vaccines_Age_Outreach_mr_2_Under_1"
+      - "ME_Vaccines_Age_Outreach_ipv_Over_1"
+      - "ME_Vaccines_Age_Outreach_ipv_Under_1"
     grouping: "child"
 
-  - key: "ME_Vaccines_Under2"
-    description: "ME_Vaccines_Under2_label"
-    indicatorQuery: "SELECT vaccines.name, count(*) counter
-                     FROM vaccines
-                     INNER JOIN ec_client
-                     ON vaccines.base_entity_id = ec_client.base_entity_id
-                     WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                     AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                     AND ec_client.dob >= date('now', '-2 years')
-                     GROUP BY vaccines.name"
+  - key: "ME_PAB_Static"
+    description: "ME PAB Static"
+    indicatorQuery: "SELECT 'Target' pab,count(*)-1 UNION
+                      SELECT
+                        CASE
+                          WHEN d.protected_at_birth='Yes' THEN 'Yes'
+                          ELSE 'No'
+                        END pab, count(*)
+                      FROM ec_child_details c
+                      JOIN ec_mother_details d ON c.relational_id=d.base_entity_id
+                      JOIN ec_client e ON c.base_entity_id=e.base_entity_id
+                      WHERE round(julianday('now')-julianday(e.dob)) < 365.0
+                      AND '%s' = strftime('%Y-%m-%d', d.date)
+                      AND  (e.child_location_id=e.location_id OR e.child_location_id IS NULL)
+                      AND e.is_closed !=1
+                      GROUP By pab"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Vaccines_Under2_bcg"
-      - "ME_Vaccines_Under2_opv_0"
-      - "ME_Vaccines_Under2_opv_1"
-      - "ME_Vaccines_Under2_opv_2"
-      - "ME_Vaccines_Under2_opv_3"
-      - "ME_Vaccines_Under2_penta_1"
-      - "ME_Vaccines_Under2_penta_2"
-      - "ME_Vaccines_Under2_penta_3"
-      - "ME_Vaccines_Under2_pcv_1"
-      - "ME_Vaccines_Under2_pcv_2"
-      - "ME_Vaccines_Under2_rota_1"
-      - "ME_Vaccines_Under2_rota_2"
-      - "ME_Vaccines_Under2_mv_1"
-      - "ME_Vaccines_Under2_mv_2"
-      - "ME_Vaccines_Under2_mv_3"
-      - "ME_Vaccines_Under2_measles_1_/_mr_1"
+      - "ME_PAB_Static_Yes"
+      - "ME_PAB_Static_Target"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Under2_Gender"
-    description: "ME_Child_HIV_Under2_label"
-    indicatorQuery: "SELECT 'HIV ' || d.value ,ec_client.gender,count(*) counter
-                     FROM ec_details d
-                     JOIN ec_client
-                     ON d.base_entity_id=ec_client.base_entity_id
-                     WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                     AND round(julianday('now')-julianday(ec_client.dob)) < 730.0
-                     group by d.value,ec_client.gender
-                     HAVING d.key IN ('child_hiv_status', NULL);"
-    isMultiResult: true
-    grouping: "child"
-
-  - key: "ME_Child_HIV_Status_Under2_Gender"
-    description: "ME_Child_HIV_Status_Under2_Gender_label"
-    indicatorQuery: "SELECT case
-                      WHEN ec_details.value IS NULL THEN 'HIV Unknown'
-                      ELSE 'HIV ' || ec_details.value
-                      END as hiv_status, ec_client.gender, count(*) counter
-                      FROM ec_details
-                      JOIN ec_client
-                      ON ec_details.base_entity_id = ec_client.base_entity_id
-                      WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                      AND ec_client.dob >= date('now', '-2 years')
-                      AND ec_details.key = 'child_hiv_status'
-                     group by ec_details.value, ec_client.gender "
+  - key: "ME_PAB_Outreach"
+    description: "PAB Outreach"
+    indicatorQuery: "SELECT 'Target' pab,count(*)-1 UNION
+                      SELECT
+                        CASE
+                          WHEN d.protected_at_birth='Yes' THEN 'Yes'
+                          ELSE 'No'
+                        END pab, count(*)
+                      FROM ec_child_details c
+                      JOIN ec_mother_details d ON c.relational_id=d.base_entity_id
+                      JOIN ec_client e ON c.base_entity_id=e.base_entity_id
+                      WHERE round(julianday('now')-julianday(e.dob)) < 365.0
+                      AND '%s' = strftime('%Y-%m-%d', d.date)
+                      AND (e.child_location_id <> e.location_id OR e.child_location_id IS NOT NULL)
+                      AND e.is_closed !=1
+                      GROUP By pab"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Child_HIV_Status_Under2_Gender_HIV Exposed_Female"
-      - "ME_Child_HIV_Status_Under2_Gender_HIV Exposed_Male"
-      - "ME_Child_HIV_Status_Under2_Gender_HIV Negative_Female"
-      - "ME_Child_HIV_Status_Under2_Gender_HIV Negative_Male"
-      - "ME_Child_HIV_Status_Under2_Gender_HIV Positive_Female"
-      - "ME_Child_HIV_Status_Under2_Gender_HIV Positive_Male"
-      - "ME_Child_HIV_Status_Under2_Gender_HIV Unknown_Female"
-      - "ME_Child_HIV_Status_Under2_Gender_HIV Unknown_Male"
+      - "ME_PAB_Outreach_Yes"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Status_Over2_Gender"
-    description: "ME_Child_HIV_Status_Over2_Gender_label"
-    indicatorQuery: "SELECT case
-                       WHEN ec_details.value IS NULL THEN 'HIV Unknown'
-                       ELSE 'HIV ' || ec_details.value
-                       END as hiv_status, ec_client.gender, count(*) counter
-                      FROM ec_details
-                      JOIN ec_client
-                      ON ec_details.base_entity_id = ec_client.base_entity_id
-                      WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                      AND ec_client.dob < date('now', '-2 years')
-                      AND ec_client.dob >= date('now', '-5 years')
-                      AND ec_details.key = 'child_hiv_status'
-                      group by ec_details.value, ec_client.gender"
+  - key: "ME_HPV"
+    description: "HPV indicators"
+    indicatorQuery: "SELECT 'HPV target' item,count(*)-1 counter UNION
+                     SELECT 'HPV1 Static',count(*)-1 UNION
+                     SELECT 'HPV1 Outreach',count(*)-1 UNION
+                     SELECT 'HPV1 School',count(*)-1 UNION
+                     SELECT 'HPV2 Static',count(*)-1 UNION
+                     SELECT 'HPV2 Outreach',count(*)-1 UNION
+                     SELECT 'HPV2 School',count(*)-1"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Child_HIV_Status_Over2_Gender_HIV Exposed_Female"
-      - "ME_Child_HIV_Status_Over2_Gender_HIV Exposed_Male"
-      - "ME_Child_HIV_Status_Over2_Gender_HIV Negative_Female"
-      - "ME_Child_HIV_Status_Over2_Gender_HIV Negative_Male"
-      - "ME_Child_HIV_Status_Over2_Gender_HIV Positive_Female"
-      - "ME_Child_HIV_Status_Over2_Gender_HIV Positive_Male"
-      - "ME_Child_HIV_Status_Over2_Gender_HIV Unknown_Female"
-      - "ME_Child_HIV_Status_Over2_Gender_HIV Unknown_Male"
+      - "ME_HPV_HPV_target"
+      - "ME_HPV_HPV1_Static"
+      - "ME_HPV_HPV1_Outreach"
+      - "ME_HPV_HPV1_School"
+      - "ME_HPV_HPV2_Static"
+      - "ME_HPV_HPV2_Outreach"
+      - "ME_HPV_HPV2_School"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Treatment_Under2_Gender"
-    description: "Me_Child_HIV_Treatment_Under2_Gender_label"
-    indicatorQuery: "SELECT ec_details.value, ec_client.gender, count(*) counter
-                      FROM ec_details
-                      JOIN ec_client
-                      ON ec_details.base_entity_id = ec_client.base_entity_id
-                      WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                      AND ec_client.dob >= date('now', '-2 years')
-                      AND ec_details.key = 'child_treatment'
-                      AND ec_details.value IS NOT NULL
-                      GROUP BY ec_details.value,ec_client.gender"
+  - key: "ME_Fully_Immunized_Static"
+    description: "Fully Immunized"
+    indicatorQuery: "SELECT age,count(*) from (select
+                     CASE
+                           WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
+                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                           ELSE 'Null'
+                           END age,count(*)
+                     from vaccines
+                     join ec_client
+                     on vaccines.base_entity_id = ec_client.base_entity_id
+                     where '%s' = date(vaccines.date/1000, 'unixepoch', 'localtime')
+                     AND ec_client.is_closed !=1
+                     and (vaccines.child_location_id=vaccines.location_id OR vaccines.child_location_id IS NULL)
+                     group by vaccines.base_entity_id,age
+                     having sum(case when name = 'bcg' then 1 else 0 end) > 0
+                     and sum(case when name = 'ipv' then 1 else 0 end) > 0
+                     and sum(case when name = 'mr_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'opv_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'opv_3' then 1 else 0 end) > 0
+                     and sum(case when name = 'pcv_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_2' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_3' then 1 else 0 end) > 0
+                     and sum(case when name = 'rota_1' then 1 else 0 end) > 0)
+                     UNION SELECT 'Monthly_Target' ,count(*)-1"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Child_HIV_Treatment_Under2_Gender_ART_Female"
-      - "ME_Child_HIV_Treatment_Under2_Gender_ART_Male"
-      - "ME_Child_HIV_Treatment_Under2_Gender_CPT_Female"
-      - "ME_Child_HIV_Treatment_Under2_Gender_CPT_Male"
+      - "ME_Fully_Immunized_Static_Monthly_Target"
+      - "ME_Fully_Immunized_Static_Over_1"
+      - "ME_Fully_Immunized_Static_Under_1"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Treatment_Over2_Gender"
-    description: "ME_Child_HIV_Treatment_Over2_Gender_label"
-    indicatorQuery: "SELECT ec_details.value, ec_client.gender, count(*) counter
-                      FROM ec_details
-                      JOIN ec_client
-                      ON ec_details.base_entity_id = ec_client.base_entity_id
-                      WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                      AND ec_client.dob < date('now', '-2 years')
-                      AND ec_client.dob >= date('now', '-5 years')
-                      AND ec_details.key = 'child_treatment'
-                      AND ec_details.value IS NOT NULL
-                      GROUP BY ec_details.value,ec_client.gender"
+  - key: "ME_Fully_Immunized_Outreach"
+    description: "Fully Immunized"
+    indicatorQuery: "SELECT age,count(*) from (select
+                     CASE
+                           WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
+                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                           ELSE 'Null'
+                           END age,count(*)
+                     from vaccines
+                     join ec_client
+                     on vaccines.base_entity_id = ec_client.base_entity_id
+                     where '%s' = strftime('%Y-%m-%d', ec_client.date)
+                     and vaccines.child_location_id <> vaccines.location_id OR vaccines.child_location_id IS NOT NULL
+                     group by vaccines.base_entity_id,age
+                     having sum(case when name = 'bcg' then 1 else 0 end) > 0
+                     and sum(case when name = 'ipv' then 1 else 0 end) > 0
+                     and sum(case when name = 'mr_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'opv_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'opv_3' then 1 else 0 end) > 0
+                     and sum(case when name = 'pcv_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_1' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_2' then 1 else 0 end) > 0
+                     and sum(case when name = 'penta_3' then 1 else 0 end) > 0
+                     and sum(case when name = 'rota_1' then 1 else 0 end) > 0)"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Child_HIV_Treatment_Over2_Gender_ART_Female"
-      - "ME_Child_HIV_Treatment_Over2_Gender_ART_Male"
-      - "ME_Child_HIV_Treatment_Over2_Gender_CPT_Female"
-      - "ME_Child_HIV_Treatment_Over2_Gender_CPT_Male"
+      - "ME_Fully_Immunized_Outreach_Over_1"
+      - "ME_Fully_Immunized_Outreach_Under_1"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Status_Over2"
-    description: "ME_Child_HIV_Status_Over2_label"
-    indicatorQuery: "SELECT case
-                      WHEN ec_details.value IS NULL THEN 'HIV Unknown'
-                      ELSE 'HIV ' || ec_details.value
-                      END as hiv_status, count(*) counter
-                     FROM ec_details
-                     JOIN ec_client
-                     ON ec_details.base_entity_id = ec_client.base_entity_id
-                     WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                     AND ec_client.dob < date('now', '-2 years')
-                     AND ec_client.dob >= date('now', '-5 years')
-                     AND ec_details.key = 'child_hiv_status'
-                     group by ec_details.value"
+  - key: "ME_Tetanus_Diphtheria_Vaccinations"
+    description: "Tetanus Diphtheria Vaccinations"
+    indicatorQuery: "SELECT 'Monthly target Pregnant women Td1' ,count(*)-1 counter UNION
+                     SELECT 'Monthly target Pregnant women Td2' ,count(*)-1 UNION
+                     SELECT 'Monthly target Pregnant women Td3' ,count(*)-1 UNION
+                     SELECT 'Monthly target Pregnant women Td4' ,count(*)-1 UNION
+                     SELECT 'Monthly target Pregnant women Td5' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Static Td1' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Static Td2' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Static Td3' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Static Td4' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Static Td5' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Outreach Td1' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Outreach Td2' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Outreach Td3' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Outreach Td4' ,count(*)-1 UNION
+                     SELECT 'Pregnant women Outreach Td5' ,count(*)-1 UNION
+                     SELECT 'Monthly target Non Pregnant women Td1' ,count(*)-1 UNION
+                     SELECT 'Monthly target Non Pregnant women Td2' ,count(*)-1 UNION
+                     SELECT 'Monthly target Non Pregnant women Td3' ,count(*)-1 UNION
+                     SELECT 'Monthly target Non Pregnant women Td4' ,count(*)-1 UNION
+                     SELECT 'Monthly target Non Pregnant women Td5' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Static Td1' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Static Td2' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Static Td3' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Static Td4' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Static Td5' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Outreach Td1' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Outreach Td2' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Outreach Td3' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Outreach Td4' ,count(*)-1 UNION
+                     SELECT 'Non Pregnant women Outreach Td5' ,count(*)-1
+                      "
     isMultiResult: true
     expectedIndicators:
-      - "ME_Child_HIV_Status_Over2_HIV Unknown"
-      - "ME_Child_HIV_Status_Over2_HIV Positive"
-      - "ME_Child_HIV_Status_Over2_HIV Exposed"
-      - "ME_Child_HIV_Status_Over2_HIV Negative"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td1"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td2"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td3"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td4"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Pregnant_women_Td5"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td1"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td2"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td3"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td4"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Static_Td5"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td1"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td2"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td3"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td4"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Pregnant_women_Outreach_Td5"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td1"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td2"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td3"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td4"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Monthly_target_Non_Pregnant_women_Td5"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td1"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td2"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td3"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td4"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Static_Td5"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td1"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td2"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td3"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td4"
+      - "ME_Tetanus_Diphtheria_Vaccinations_Non_Pregnant_women_Outreach_Td5"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Status_Under2"
-    description: "ME_Child_HIV_Status_Under2_label"
-    indicatorQuery: "SELECT case
-                      WHEN ec_details.value IS NULL THEN 'HIV Unknown'
-                      ELSE 'HIV ' || ec_details.value
-                      END as hiv_status, count(*) counter
-                     FROM ec_details
-                     JOIN ec_client
-                     ON ec_details.base_entity_id = ec_client.base_entity_id
-                     WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                     AND ec_client.dob >= date('now', '-2 years')
-                     AND ec_details.key = 'child_hiv_status'
-                     group by ec_details.value"
+  - key: "ME_WASTAGE"
+    description: "ME_Vaccines_Age_Static_label"
+    indicatorQuery: "SELECT 'CHD EPI BCG doses used and wasted A Static' item,count(*)-1 counter UNION
+                     SELECT 'CHD EPI BCG doses used and wasted A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI OPV doses used and wasted A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI OPV doses used and wasted A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI MR doses used and wasted A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI MR doses used and wasted A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPT HepB Hib doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPT HepB Hib doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPT HepB Hib doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI DPT HepB Hib doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI PCV doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI ROTA doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Malaria Vaccine doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI Td doses discarded B Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI HPV doses used A Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI HPV doses used A Outreach' ,count(*)-1 UNION
+                     SELECT 'CHD EPI HPV doses discarded B Static' ,count(*)-1 UNION
+                     SELECT 'CHD EPI HPV doses discarded B Outreach' ,count(*)-1"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Child_HIV_Status_Under2_HIV Unknown"
-      - "ME_Child_HIV_Status_Under2_HIV Positive"
-      - "ME_Child_HIV_Status_Under2_HIV Exposed"
-      - "ME_Child_HIV_Status_Under2_HIV Negative"
+      - "ME_WASTAGE_CHD_EPI_BCG_doses_used_and_wasted_A_Static"
+      - "ME_WASTAGE_CHD_EPI_BCG_doses_used_and_wasted_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_OPV_doses_used_and_wasted_A_Static"
+      - "ME_WASTAGE_CHD_EPI_OPV_doses_used_and_wasted_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_MR_doses_used_and_wasted_A_Static"
+      - "ME_WASTAGE_CHD_EPI_MR_doses_used_and_wasted_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_used_A_Static"
+      - "ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_used_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_discarded_B_Static"
+      - "ME_WASTAGE_CHD_EPI_DPT_HepB_Hib_doses_discarded_B_Outreach"
+      - "ME_WASTAGE_CHD_EPI_PCV_doses_used_A_Static"
+      - "ME_WASTAGE_CHD_EPI_PCV_doses_used_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_PCV_doses_discarded_B_Static"
+      - "ME_WASTAGE_CHD_EPI_PCV_doses_discarded_B_Outreach"
+      - "ME_WASTAGE_CHD_EPI_ROTA_doses_used_A_Static"
+      - "ME_WASTAGE_CHD_EPI_ROTA_doses_used_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_ROTA_doses_discarded_B_Static"
+      - "ME_WASTAGE_CHD_EPI_ROTA_doses_discarded_B_Outreach"
+      - "ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_used_A_Static"
+      - "ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_used_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_discarded_B_Static"
+      - "ME_WASTAGE_CHD_EPI_Malaria_Vaccine_doses_discarded_B_Outreach"
+      - "ME_WASTAGE_CHD_EPI_Td_doses_used_A_Static"
+      - "ME_WASTAGE_CHD_EPI_Td_doses_used_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_Td_doses_discarded_B_Static"
+      - "ME_WASTAGE_CHD_EPI_Td_doses_discarded_B_Outreach"
+      - "ME_WASTAGE_CHD_EPI_HPV_doses_used_A_Static"
+      - "ME_WASTAGE_CHD_EPI_HPV_doses_used_A_Outreach"
+      - "ME_WASTAGE_CHD_EPI_HPV_doses_discarded_B_Static"
+      - "ME_WASTAGE_CHD_EPI_HPV_doses_discarded_B_Outreach"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Treatment_Over2"
-    description: "ME_Child_HIV_Treatment_Over2_label"
-    indicatorQuery: "SELECT ec_details.value, count(*) counter
-                      FROM ec_details
-                      JOIN ec_client
-                      ON ec_details.base_entity_id = ec_client.base_entity_id
-                      WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                      AND ec_client.dob < date('now', '-2 years')
-                      AND ec_client.dob >= date('now', '-5 years')
-                      AND ec_details.key = 'child_treatment'
-                      AND ec_details.value IS NOT NULL
-                      GROUP BY ec_details.value"
+  - key: "ME_Postnatal"
+    description: "ME_Vaccines_Age_Static_label"
+    indicatorQuery: "SELECT 'monthly target Postnatal Mothers Static' item,count(*)-1 counter UNION
+                     SELECT 'monthly target Postnatal Mothers Outreach' ,count(*)-1 UNION
+                     SELECT 'Postnatal Mothers Female Static' ,count(*)-1 UNION
+                     SELECT 'Postnatal Mothers Female Outreach' ,count(*)-1"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Child_HIV_Treatment_Over2_ART"
-      - "ME_Child_HIV_Treatment_Over2_CPT"
+      - "ME_Postnatal_Postnatal_Mothers_Female_Outreach"
+      - "ME_Postnatal_Postnatal_Mothers_Female_Static"
+      - "ME_Postnatal_monthly_target_Postnatal_Mothers_Outreach"
+      - "ME_Postnatal_monthly_target_Postnatal_Mothers_Static"
     grouping: "child"
 
-  - key: "ME_Child_HIV_Treatment_Under2"
-    description: "ME_Child_HIV_Treatment_Under2_label"
-    indicatorQuery: "SELECT ec_details.value, count(*) counter
-                      FROM ec_details
-                      JOIN ec_client
-                      ON ec_details.base_entity_id = ec_client.base_entity_id
-                      WHERE '%s' = strftime('%Y-%m-%d', ec_client.date)
-                      AND ec_client.dob >= date('now', '-2 years')
-                      AND ec_details.key = 'child_treatment'
-                      AND ec_details.value IS NOT NULL
-                      GROUP BY ec_details.value"
+  - key: "ME_Recur_Targets"
+    description: "ME_Vaccines_Age_Static_label"
+    indicatorQuery: "SELECT 'Vitamin A monthly target 6 to 11 Months Static' item,count(*)-1 counter UNION
+              SELECT 'Vitamin A monthly target 6 to 11 Months Outreach',count(*)-1 UNION
+              SELECT 'Vitamin A monthly target 12 to 59 Months 1st Dose Static',count(*)-1 UNION
+              SELECT 'Vitamin A monthly target 12 to 59 Months 1st Dose Outreach',count(*)-1 UNION
+              SELECT 'Vitamin A monthly target 13 to 59 Months 2nd Dose Static',count(*)-1 UNION
+              SELECT 'Vitamin A monthly target 13 to 59 Months 2nd Dose Outreach',count(*)-1 UNION
+              SELECT 'Deworming monthly target 12 to 23 Months 1st Dose Static',count(*)-1 UNION
+              SELECT 'Deworming monthly target 12 to 23 Months 1st Dose Outreach',count(*)-1 UNION
+              SELECT 'Deworming monthly target 24 to 59 Months 1st Dose Static',count(*)-1 UNION
+              SELECT 'Deworming monthly target 24 to 59 Months 1st Dose Outreach',count(*)-1"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Child_HIV_Treatment_Under2_ART"
-      - "ME_Child_HIV_Treatment_Under2_CPT"
+      - "ME_Recur_Targets_Vitamin_A_monthly_target_6_to_11_Months_Static"
+      - "ME_Recur_Targets_Vitamin_A_monthly_target_6_to_11_Months_Outreach"
+      - "ME_Recur_Targets_Vitamin_A_monthly_target_12_to_59_Months_1st_Dose_Static"
+      - "ME_Recur_Targets_Vitamin_A_monthly_target_12_to_59_Months_1st_Dose_Outreach"
+      - "ME_Recur_Targets_Vitamin_A_monthly_target_13_to_59_Months_2nd_Dose_Static"
+      - "ME_Recur_Targets_Vitamin_A_monthly_target_13_to_59_Months_2nd_Dose_Outreach"
+      - "ME_Recur_Targets_Deworming_monthly_target_12_to_23_Months_1st_Dose_Static"
+      - "ME_Recur_Targets_Deworming_monthly_target_12_to_23_Months_1st_Dose_Outreach"
+      - "ME_Recur_Targets_Deworming_monthly_target_24_to_59_Months_1st_Dose_Static"
+      - "ME_Recur_Targets_Deworming_monthly_target_24_to_59_Months_1st_Dose_Outreach"
     grouping: "child"
 
-  - key: "ME_Weight_Over2"
-    description: "ME_Weight_Over2_label"
+  - key: "ME_VitA_Age_Static"
+    description: "ME Vit A"
+    indicatorQuery: "SELECT recur_type.name,
+                       CASE
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                            ELSE 'Null'
+                            END age, ec_client.gender, count(*) counter
+                       FROM recurring_service_records recur
+                       INNER JOIN ec_client
+                       ON recur.base_entity_id = ec_client.base_entity_id
+                       JOIN recurring_service_types recur_type
+                       ON recur_type._id = recur.recurring_service_id
+                       WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND ec_client.dob >= date('now', '-5 years')
+                       AND (recur.child_location_id=recur.location_id OR recur.child_location_id IS NULL)
+                       AND recur_type.name IN ('Vit_A_1', 'Vit_A_2')
+                       AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
+                       AND ec_client.is_closed !=1
+                       GROUP BY recur_type.name, age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_VitA_Age_Static_Vit_A_1_Under_1_Male"
+      - "ME_VitA_Age_Static_Vit_A_1_Under_1_Female"
+      - "ME_VitA_Age_Static_Vit_A_1_Over_1_Male"
+      - "ME_VitA_Age_Static_Vit_A_1_Over_1_Female"
+      - "ME_VitA_Age_Static_Vit_A_2_Over_1_Male"
+      - "ME_VitA_Age_Static_Vit_A_2_Over_1_Female"
+    grouping: "child"
+
+  - key: "ME_VitA_Age_Outreach"
+    description: "Vitamin A recurring counters for Outreach"
+    indicatorQuery: "SELECT recur_type.name,
+                       CASE
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                            ELSE 'Null'
+                            END age, ec_client.gender, count(*) counter
+                       FROM recurring_service_records recur
+                       INNER JOIN ec_client
+                       ON recur.base_entity_id = ec_client.base_entity_id
+                       JOIN recurring_service_types recur_type
+                       ON recur_type._id = recur.recurring_service_id
+                       WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND ec_client.dob >= date('now', '-5 years')
+                       AND (recur.child_location_id <> recur.location_id OR recur.child_location_id IS NOT NULL)
+                       AND recur_type.name IN ('Vit_A_1', 'Vit_A_2')
+                       AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
+                       AND ec_client.is_closed !=1
+                       GROUP BY recur_type.name, age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_VitA_Age_Outreach_Vit_A_1_Under_1_Male"
+      - "ME_VitA_Age_Outreach_Vit_A_1_Under_1_Female"
+      - "ME_VitA_Age_Outreach_Vit_A_1_Over_1_Male"
+      - "ME_VitA_Age_Outreach_Vit_A_1_Over_1_Female"
+      - "ME_VitA_Age_Outreach_Vit_A_2_Over_1_Male"
+      - "ME_VitA_Age_Outreach_Vit_A_2_Over_1_Female"
+    grouping: "child"
+
+  - key: "ME_Deworm_Age_Static"
+    description: "ME Deworm Age Static"
+    indicatorQuery: "SELECT recur_type.type,
+                       CASE
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 730.0 THEN 'Over_2'
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                            ELSE 'Over_1'
+                            END age, ec_client.gender, count(*) counter
+                       FROM recurring_service_records recur
+                       INNER JOIN ec_client
+                       ON recur.base_entity_id = ec_client.base_entity_id
+                       JOIN recurring_service_types recur_type
+                       ON recur_type._id = recur.recurring_service_id
+                       WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND ec_client.dob >= date('now', '-5 years')
+                       AND recur.child_location_id=recur.location_id OR recur.child_location_id IS NULL
+                       AND recur_type.name IN ('Deworming_1','Deworming_2')
+                       AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
+                       AND ec_client.is_closed !=1
+                       GROUP BY recur_type.type, age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Deworm_Age_Static_Deworming_Over_1_Male"
+      - "ME_Deworm_Age_Static_Deworming_Over_1_Female"
+      - "ME_Deworm_Age_Static_Deworming_Over_2_Male"
+      - "ME_Deworm_Age_Static_Deworming_Over_2_Female"
+    grouping: "child"
+
+  - key: "ME_Deworm_Age_Outreach"
+    description: "Deworm recurring counters for Outreach"
+    indicatorQuery: "SELECT recur_type.type,
+                       CASE
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 730.0 THEN 'Over_2'
+                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                            ELSE 'Over_1'
+                            END age, ec_client.gender, count(*) counter
+                       FROM recurring_service_records recur
+                       INNER JOIN ec_client
+                       ON recur.base_entity_id = ec_client.base_entity_id
+                       JOIN recurring_service_types recur_type
+                       ON recur_type._id = recur.recurring_service_id
+                       WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
+                       AND ec_client.dob >= date('now', '-5 years')
+                       AND recur.child_location_id <> recur.location_id OR recur.child_location_id IS NOT NULL
+                       AND recur_type.name IN ('Deworming_1','Deworming_2')
+                       AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
+                       AND ec_client.is_closed !=1
+                       GROUP BY recur_type.type, age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Deworm_Age_Outreach_Deworming_Over_1_Male"
+      - "ME_Deworm_Age_Outreach_Deworming_Over_1_Female"
+      - "ME_Deworm_Age_Outreach_Deworming_Over_2_Male"
+      - "ME_Deworm_Age_Outreach_Deworming_Over_2_Female"
+    grouping: "child"
+
+  - key: "ME_G_RECUR"
+    description: "ME_Vaccines_Age_Static_label"
+    indicatorQuery: "SELECT 'Vitamin A doses received A Vitamin A 100 000 ius, Static' items,count(*)-1 counter UNION
+                     SELECT 'Vitamin A doses received A Vitamin A 100 000 ius, Outreach',count(*)-1 UNION
+                     SELECT 'Vitamin A doses used B Vitamin A 100 000 ius, Static',count(*)-1 UNION
+                     SELECT 'Vitamin A doses used B Vitamin A 100 000 ius, Outreach',count(*)-1 UNION
+                     SELECT 'Vitamin A doses discarded C Vitamin A 100 000 ius Static',count(*)-1 UNION
+                     SELECT 'Vitamin A doses discarded C Vitamin A 100 000 ius Outreach',count(*)-1 UNION
+                     SELECT 'Vitamin A doses received A Vitamin A 200 000 ius Static',count(*)-1 UNION
+                     SELECT 'Vitamin A doses received A Vitamin A 200 000 ius Outreach',count(*)-1 UNION
+                     SELECT 'Vitamin A doses used B Vitamin A 200 000 ius Static',count(*)-1 UNION
+                     SELECT 'Vitamin A doses used B Vitamin A 200 000 ius Outreach',count(*)-1 UNION
+                     SELECT 'Vitamin A doses discarded C Vitamin A 200 000 ius Static',count(*)-1 UNION
+                     SELECT 'Vitamin A doses discarded C Vitamin A 200 000 ius Outreach',count(*)-1 UNION
+                     SELECT 'Deworming doses received A Static',count(*)-1 UNION
+                     SELECT 'Deworming doses received A Outreach',count(*)-1 UNION
+                     SELECT 'Deworming doses used B Static',count(*)-1 UNION
+                     SELECT 'Deworming doses used B Outreach',count(*)-1 UNION
+                     SELECT 'Deworming doses discarded C Static',count(*)-1 UNION
+                     SELECT 'Deworming doses discarded C Outreach',count(*)-1"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_100_000_ius_Static"
+      - "ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_100_000_ius_Outreach"
+      - "ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_100_000_ius_Static"
+      - "ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_100_000_ius_Outreach"
+      - "ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_100_000_ius_Static"
+      - "ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_100_000_ius_Outreach"
+      - "ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_200_000_ius_Static"
+      - "ME_G_RECUR_Vitamin_A_doses_received_A_Vitamin_A_200_000_ius_Outreach"
+      - "ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_200_000_ius_Static"
+      - "ME_G_RECUR_Vitamin_A_doses_used_B_Vitamin_A_200_000_ius_Outreach"
+      - "ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_200_000_ius_Static"
+      - "ME_G_RECUR_Vitamin_A_doses_discarded_C_Vitamin_A_200_000_ius_Outreach"
+      - "ME_G_RECUR_Deworming_doses_received_A_Static"
+      - "ME_G_RECUR_Deworming_doses_received_A_Outreach"
+      - "ME_G_RECUR_Deworming_doses_used_B_Static"
+      - "ME_G_RECUR_Deworming_doses_used_B_Outreach"
+      - "ME_G_RECUR_Deworming_doses_discarded_C_Static"
+      - "ME_G_RECUR_Deworming_doses_discarded_C_Outreach"
+    grouping: "child"
+
+  - key: "ME_I_DS"
+    description: "Section I Disease Surveillance"
+    indicatorQuery: "SELECT 'Suspected measles cases reported' ,count(*)-1 counter UNION
+                     SELECT 'Suspected measles cases investigated' ,count(*)-1 UNION
+                     SELECT 'Deaths due to measles' ,count(*)-1 UNION
+                     SELECT 'Acute Flaccid Paralysis AFP cases reported' ,count(*)-1 UNION
+                     SELECT 'Acute Flaccid Paralysis AFP cases investigated' ,count(*)-1 UNION
+                     SELECT 'Neonatal Tetanus NNT cases reported' ,count(*)-1 UNION
+                     SELECT 'Neonatal Tetanus NNT cases investigated' ,count(*)-1"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_I_DS_Suspected_measles_cases_reported"
+      - "ME_I_DS_Suspected_measles_cases_investigated"
+      - "ME_I_DS_Deaths_due_to_measles"
+      - "ME_I_DS_Acute_Flaccid_Paralysis_AFP_cases_reported"
+      - "ME_I_DS_Acute_Flaccid_Paralysis_AFP_cases_investigated"
+      - "ME_I_DS_Neonatal_Tetanus_NNT_cases_reported"
+      - "ME_I_DS_Neonatal_Tetanus_NNT_cases_investigated"
+    grouping: "child"
+
+  - key: "ME_AEFI_Bacterial_Abscesses"
+    description: "AEFI Bacterial Abscesses"
     indicatorQuery: "SELECT
                      CASE
-                     WHEN weights.z_score > -2 AND weights.z_score < 2 THEN 'Normal'
-                     WHEN weights.z_score <= -2 THEN 'Underweight'
-                     WHEN weights.z_score >= 2 THEN 'Overweight'
-                     ELSE 'Severe'
-                     END AS waz_score, count(*)
-                      FROM weights
-                     INNER JOIN ec_client
-                     ON weights.base_entity_id = ec_client.base_entity_id
-                      WHERE weights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND weights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
-                      AND ec_client.dob < date('now', '-2 years')
-                     AND ec_client.dob >= date('now', '-5 years')
-                     AND weights.z_score <= 3
-                     AND weights.z_score >= -3
-                     GROUP  BY waz_score"
-    expectedIndicators:
-      - "ME_Weight_Over2_Normal"
-      - "ME_Weight_Over2_Overweight"
-      - "ME_Weight_Over2_Underweight"
-    grouping: "child"
-
-  - key: "ME_Weight_Over2_Gender"
-    description: "ME_Weight_Over2_Gender_label"
-    indicatorQuery: "SELECT
-                      CASE
-                      WHEN weights.z_score > -2 AND weights.z_score < 2 THEN 'Normal'
-                      WHEN weights.z_score <= -2 THEN 'Underweight'
-                      WHEN weights.z_score >= 2 THEN 'Overweight'
-                      ELSE 'Severe'
-                      END AS waz_score, ec_client.gender, count(*)
-                       FROM weights
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
                       INNER JOIN ec_client
-                      ON weights.base_entity_id = ec_client.base_entity_id
-                       WHERE weights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                       AND weights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
-                       AND ec_client.dob < date('now', '-2 years')
-                      AND ec_client.dob >= date('now', '-5 years')
-                      AND weights.z_score <= 3
-                      AND weights.z_score >= -3
-                      GROUP  BY waz_score, ec_client.gender"
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%AEFI Bacteria abscesses%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
     expectedIndicators:
-      - "ME_Weight_Over2_Gender_Normal_Female"
-      - "ME_Weight_Over2_Gender_Normal_Male"
-      - "ME_Weight_Over2_Gender_Overweight_Female"
-      - "ME_Weight_Over2_Gender_Overweight_Male"
-      - "ME_Weight_Over2_Gender_Underweight_Female"
-      - "ME_Weight_Over2_Gender_Underweight_Male"
+      - "ME_AEFI_Bacterial_Abscesses_BCG"
+      - "ME_AEFI_Bacterial_Abscesses_OPV"
+      - "ME_AEFI_Bacterial_Abscesses_IPV"
+      - "ME_AEFI_Bacterial_Abscesses_Penta"
+      - "ME_AEFI_Bacterial_Abscesses_PCV"
+      - "ME_AEFI_Bacterial_Abscesses_Rota"
+      - "ME_AEFI_Bacterial_Abscesses_Measles"
+      - "ME_AEFI_Bacterial_Abscesses_Malaria"
     grouping: "child"
 
-  - key: "ME_Weight_Under2_Age"
-    description: "ME_Weight_Under2_Age_label"
+  - key: "ME_AEFI_Severe_local_reaction"
+    description: "AEFI Severe local reaction"
     indicatorQuery: "SELECT
                      CASE
-                     WHEN weights.z_score > -2 AND weights.z_score < 2 THEN 'Normal'
-                     WHEN weights.z_score <= -2 THEN 'Underweight'
-                     WHEN weights.z_score >= 2 THEN 'Overweight'
-                     ELSE 'Severe'
-                     END AS waz_score,
-                     CASE
-                     WHEN round(julianday('now') - julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
-                     WHEN round(julianday('now') - julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
-                     ELSE 'Null'
-                     END age, count(*)
-                     FROM weights
-                     INNER JOIN ec_client
-                     ON weights.base_entity_id = ec_client.base_entity_id
-                     WHERE weights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                     AND weights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
-                     AND ec_client.dob >= date('now', '-2 years')
-                     AND weights.z_score <= 3
-                     AND weights.z_score >= -3
-                     GROUP  BY waz_score, age"
-    expectedIndicators:
-      - "ME_Weight_Under2_Age_Normal_Under_1"
-      - "ME_Weight_Under2_Age_Normal_Over_1"
-      - "ME_Weight_Under2_Age_Overweight_Under_1"
-      - "ME_Weight_Under2_Age_Overweight_Over_1"
-      - "ME_Weight_Under2_Age_Underweight_Under_1"
-    grouping: "child"
-
-  - key: "ME_Weight_Under2_Age_Gender"
-    description: "ME_Weight_Under2_Age_Gender_label"
-    indicatorQuery: "SELECT
-                      CASE
-                      WHEN weights.z_score > -2 AND weights.z_score < 2 THEN 'Normal'
-                      WHEN weights.z_score <= -2 THEN 'Underweight'
-                      WHEN weights.z_score >= 2 THEN 'Overweight'
-                      ELSE 'Severe'
-                      END AS waz_score,
-                      CASE
-                      WHEN round(julianday('now') - julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
-                      WHEN round(julianday('now') - julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
-                      ELSE 'Null'
-                      END age, ec_client.gender, count(*)
-                      FROM weights
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
                       INNER JOIN ec_client
-                      ON weights.base_entity_id = ec_client.base_entity_id
-                      WHERE weights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND weights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
-                      AND ec_client.dob >= date('now', '-2 years')
-                      AND weights.z_score <= 3
-                      AND weights.z_score >= -3
-                      GROUP  BY waz_score, age, ec_client.gender"
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Severe local reaction%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
     expectedIndicators:
-      - "ME_Weight_Under2_Age_Gender_Normal_Over_1_Female"
-      - "ME_Weight_Under2_Age_Gender_Normal_Over_1_Male"
-      - "ME_Weight_Under2_Age_Gender_Normal_Under_1_Female"
-      - "ME_Weight_Under2_Age_Gender_Normal_Under_1_Male"
-      - "ME_Weight_Under2_Age_Gender_Overweight_Over_1_Female"
-      - "ME_Weight_Under2_Age_Gender_Overweight_Over_1_Male"
-      - "ME_Weight_Under2_Age_Gender_Overweight_Under_1_Female"
-      - "ME_Weight_Under2_Age_Gender_Overweight_Under_1_Male"
-      - "ME_Weight_Under2_Age_Gender_Underweight_Over_1_Female"
-      - "ME_Weight_Under2_Age_Gender_Underweight_Over_1_Male"
-      - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Female"
-      - "ME_Weight_Under2_Age_Gender_Underweight_Under_1_Male"
+      - "ME_AEFI_Severe_local_reaction_BCG"
+      - "ME_AEFI_Severe_local_reaction_OPV"
+      - "ME_AEFI_Severe_local_reaction_IPV"
+      - "ME_AEFI_Severe_local_reaction_Penta"
+      - "ME_AEFI_Severe_local_reaction_PCV"
+      - "ME_AEFI_Severe_local_reaction_Rota"
+      - "ME_AEFI_Severe_local_reaction_Measles"
+      - "ME_AEFI_Severe_local_reaction_Malaria"
     grouping: "child"
 
-  - key: "ME_Height_Over2_Gender"
-    description: "ME_Height_Over2_Gender_label"
+  - key: "ME_AEFI_Lymphadenitis"
+    description: "AEFI Lymphadenitis"
     indicatorQuery: "SELECT
-                  CASE
-                  WHEN heights.z_score > 3 OR heights.z_score < -3 THEN 'Severe'
-                  WHEN heights.z_score > -2 AND heights.z_score < 2 THEN 'Normal'
-                  WHEN heights.z_score <= -2 || heights.z_score >= 2 THEN 'Stunted'
-                  ELSE ''
-                  END AS haz_score, ec_client.gender, count(*)
-                   FROM heights
-                  INNER JOIN ec_client
-                  ON heights.base_entity_id = ec_client.base_entity_id
-                   WHERE heights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                   AND heights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
-                   AND ec_client.dob < date('now', '-2 years')
-                  AND ec_client.dob >= date('now', '-5 years')
-                  GROUP  BY haz_score, ec_client.gender"
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Lymphadenitis%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
     expectedIndicators:
-      - "ME_Height_Over2_Gender_Normal_Female"
-      - "ME_Height_Over2_Gender_Normal_Male"
-      - "ME_Height_Over2_Gender_Stunted_Female"
-      - "ME_Height_Over2_Gender_Stunted_Male"
+      - "ME_AEFI_Lymphadenitis_BCG"
+      - "ME_AEFI_Lymphadenitis_OPV"
+      - "ME_AEFI_Lymphadenitis_IPV"
+      - "ME_AEFI_Lymphadenitis_Penta"
+      - "ME_AEFI_Lymphadenitis_PCV"
+      - "ME_AEFI_Lymphadenitis_Rota"
+      - "ME_AEFI_Lymphadenitis_Measles"
+      - "ME_AEFI_Lymphadenitis_Malaria"
     grouping: "child"
 
-  - key: "ME_Height_Under2_Age"
-    description: "ME_Height_Under2_Age_label"
+  - key: "ME_AEFI_Sepsis"
+    description: "AEFI Sepsis"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Sepsis%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Sepsis_BCG"
+      - "ME_AEFI_Sepsis_OPV"
+      - "ME_AEFI_Sepsis_IPV"
+      - "ME_AEFI_Sepsis_Penta"
+      - "ME_AEFI_Sepsis_PCV"
+      - "ME_AEFI_Sepsis_Rota"
+      - "ME_AEFI_Sepsis_Measles"
+      - "ME_AEFI_Sepsis_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_Fever"
+    description: "AEFI High fever > 38 degrees celcius"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%fever%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Fever_BCG"
+      - "ME_AEFI_Fever_OPV"
+      - "ME_AEFI_Fever_IPV"
+      - "ME_AEFI_Fever_Penta"
+      - "ME_AEFI_Fever_PCV"
+      - "ME_AEFI_Fever_Rota"
+      - "ME_AEFI_Fever_Measles"
+      - "ME_AEFI_Fever_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_Death"
+    description: "AEFI Death"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Death%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Death_BCG"
+      - "ME_AEFI_Death_OPV"
+      - "ME_AEFI_Death_IPV"
+      - "ME_AEFI_Death_Penta"
+      - "ME_AEFI_Death_PCV"
+      - "ME_AEFI_Death_Rota"
+      - "ME_AEFI_Death_Measles"
+      - "ME_AEFI_Death_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_Encephalopathy"
+    description: "AEFI Encephalopathy"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Encephalopathy%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Encephalopathy_BCG"
+      - "ME_AEFI_Encephalopathy_OPV"
+      - "ME_AEFI_Encephalopathy_IPV"
+      - "ME_AEFI_Encephalopathy_Penta"
+      - "ME_AEFI_Encephalopathy_PCV"
+      - "ME_AEFI_Encephalopathy_Rota"
+      - "ME_AEFI_Encephalopathy_Measles"
+      - "ME_AEFI_Encephalopathy_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_Seizures"
+    description: "AEFI Seizures"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Seizures%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY a.reaction_vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Seizures_BCG"
+      - "ME_AEFI_Seizures_OPV"
+      - "ME_AEFI_Seizures_IPV"
+      - "ME_AEFI_Seizures_Penta"
+      - "ME_AEFI_Seizures_PCV"
+      - "ME_AEFI_Seizures_Rota"
+      - "ME_AEFI_Seizures_Measles"
+      - "ME_AEFI_Seizures_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_Paralysis"
+    description: "AEFI Paralysis"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Paralysis%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Paralysis_BCG"
+      - "ME_AEFI_Paralysis_OPV"
+      - "ME_AEFI_Paralysis_IPV"
+      - "ME_AEFI_Paralysis_Penta"
+      - "ME_AEFI_Paralysis_PCV"
+      - "ME_AEFI_Paralysis_Rota"
+      - "ME_AEFI_Paralysis_Measles"
+      - "ME_AEFI_Paralysis_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_Significant_disability"
+    description: "AEFI Significant disability"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Significant disability%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Significant_disability_BCG"
+      - "ME_AEFI_Significant_disability_OPV"
+      - "ME_AEFI_Significant_disability_IPV"
+      - "ME_AEFI_Significant_disability_Penta"
+      - "ME_AEFI_Significant_disability_PCV"
+      - "ME_AEFI_Significant_disability_Rota"
+      - "ME_AEFI_Significant_disability_Measles"
+      - "ME_AEFI_Significant_disability_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_Birth_defect"
+    description: "AEFI Birth defect"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Birth_defect%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Birth_defect_BCG"
+      - "ME_AEFI_Birth_defect_OPV"
+      - "ME_AEFI_Birth_defect_IPV"
+      - "ME_AEFI_Birth_defect_Penta"
+      - "ME_AEFI_Birth_defect_PCV"
+      - "ME_AEFI_Birth_defect_Rota"
+      - "ME_AEFI_Birth_defect_Measles"
+      - "ME_AEFI_Birth_defect_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_Toxic_shock_syndrome"
+    description: "AEFI Toxic shock syndrome"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN a.reaction_vaccine LIKE '%BCG%' THEN 'BCG'
+                      WHEN a.reaction_vaccine LIKE '%OPV%' THEN 'OPV'
+                      WHEN a.reaction_vaccine LIKE '%IPV%' THEN 'IPV'
+                      WHEN a.reaction_vaccine LIKE '%Penta%' THEN 'Penta'
+                      WHEN a.reaction_vaccine LIKE '%PCV%' THEN 'PCV'
+                      WHEN a.reaction_vaccine LIKE '%ROTA%' THEN 'Rota'
+                      WHEN a.reaction_vaccine LIKE '%Measles%' OR a.reaction_vaccine LIKE '%MR%' THEN 'Measles'
+                      WHEN a.reaction_vaccine LIKE '%Malaria%' THEN 'Malaria'
+                      ELSE 'Other'
+                      END vaccine,count(*)
+                      FROM aefi a
+                      INNER JOIN ec_client
+                      ON a.base_entity_id = ec_client.base_entity_id
+                      WHERE a.reaction LIKE '%Toxic%'
+                      AND '%s' = strftime('%Y-%m-%d', a.date)
+                      AND ec_client.is_closed !=1
+                      GROUP BY vaccine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_Toxic_shock_syndrome_BCG"
+      - "ME_AEFI_Toxic_shock_syndrome_OPV"
+      - "ME_AEFI_Toxic_shock_syndrome_IPV"
+      - "ME_AEFI_Toxic_shock_syndrome_Penta"
+      - "ME_AEFI_Toxic_shock_syndrome_PCV"
+      - "ME_AEFI_Toxic_shock_syndrome_Rota"
+      - "ME_AEFI_Toxic_shock_syndrome_Measles"
+      - "ME_AEFI_Toxic_shock_syndrome_Malaria"
+    grouping: "child"
+
+  - key: "ME_AEFI_TT_HPV"
+    description: "AEFI Toxic shock syndrome"
+    indicatorQuery: "SELECT 'Minor AEFIs TTTd Bacterial Abscesses',count(*)-1 counter UNION
+                        SELECT 'Minor AEFIs TTTd Severe local reaction',count(*)-1 UNION
+                        SELECT 'Minor AEFIs TTTd Lymphadenitis',count(*)-1 UNION
+                        SELECT 'Minor AEFIs TTTd Sepsis',count(*)-1 UNION
+                        SELECT 'Serious AEFIs TTTd High fever',count(*)-1 UNION
+                        SELECT 'Serious AEFIs TTTd Death',count(*)-1 UNION
+                        SELECT 'Serious AEFIs TTTd Encephalopathy',count(*)-1 UNION
+                        SELECT 'Serious AEFIs TTTd Seizures',count(*)-1 UNION
+                        SELECT 'Serious AEFIs TTTd Paralysis',count(*)-1 UNION
+                        SELECT 'Serious AEFIs TTTd Significant disability',count(*)-1 UNION
+                        SELECT 'Serious AEFIs TTTd Birth defect',count(*)-1 UNION
+                        SELECT 'Serious AEFIs TTTd Toxic shock syndrome',count(*)-1 UNION
+                        SELECT 'Minor AEFIs HPV Bacterial Abscesses',count(*)-1 UNION
+                        SELECT 'Minor AEFIs HPV Severe local reaction',count(*)-1 UNION
+                        SELECT 'Minor AEFIs HPV Lymphadenitis',count(*)-1 UNION
+                        SELECT 'Minor AEFIs HPV Sepsis',count(*)-1 UNION
+                        SELECT 'Serious AEFIs HPV High fever',count(*)-1 UNION
+                        SELECT 'Serious AEFIs HPV Death',count(*)-1 UNION
+                        SELECT 'Serious AEFIs HPV Encephalopathy',count(*)-1 UNION
+                        SELECT 'Serious AEFIs HPV Seizures',count(*)-1 UNION
+                        SELECT 'Serious AEFIs HPV Paralysis',count(*)-1 UNION
+                        SELECT 'Serious AEFIs HPV Significant disability',count(*)-1 UNION
+                        SELECT 'Serious AEFIs HPV Birth defect',count(*)-1 UNION
+                        SELECT 'Serious AEFIs HPV Toxic shock syndrome',count(*)-1 "
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Bacterial_Abscesses"
+      - "ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Severe_local_reaction"
+      - "ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Lymphadenitis"
+      - "ME_AEFI_TT_HPV_Minor_AEFIs_TTTd_Sepsis"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_High_fever"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Death"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Encephalopathy"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Seizures"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Paralysis"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Significant_disability"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Birth_defect"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_TTTd_Toxic_shock_syndrome"
+      - "ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Bacterial_Abscesses"
+      - "ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Severe_local_reaction"
+      - "ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Lymphadenitis"
+      - "ME_AEFI_TT_HPV_Minor_AEFIs_HPV_Sepsis"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_HPV_High_fever"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Death"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Encephalopathy"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Seizures"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Paralysis"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Significant_disability"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Birth_defect"
+      - "ME_AEFI_TT_HPV_Serious_AEFIs_HPV_Toxic_shock_syndrome"
+    grouping: "child"
+
+
+  # ANC Indicators
+  - key: "ME_Number_Of_Women_Registered"
+    description: "Number of women registered"
+    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
+                   where previous_contact.contact_no = '1' group by base_entity_id
+                   having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
+    grouping: "anc"
+
+  - key: "ME_Pregnancy_Tests_Done_In_The_First_Trimester"
+    description: "Pregnancy tests Done In the first trimester"
+    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
+                   where previous_contact.contact_no = '1' group by base_entity_id
+                   having sum(case when key = 'pregnancy_test_first_trimester' and value = 'yes' then 1 else 0 end) > 0
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
+    grouping: "anc"
+
+  - key: "ME_Pregnancy_Tests_Done_After_The_First_Trimester"
+    description: "Pregnancy tests Done AFTER the first trimester"
+    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'pregnancy_test_first_trimester' and value = 'no' then 1 else 0 end) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
+    grouping: "anc"
+
+  - key: "ME_Week_Of_First_ANC_Visit_0_12_weeks"
+    description: "Week of First ANC Visit (0-12 weeks)"
+    indicatorQuery: "select count(1) from (select previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks from previous_contact
+                 join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
+                 where eddNowDiffInWks <= 12 and previous_contact.contact_no = '1' group by previous_contact.base_entity_id
+                 having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
+    grouping: "anc"
+
+  - key: "ME_Week_Of_First_ANC_Visit_13_plus_weeks"
+    description: "Week of First ANC Visit (13+ weeks)"
+    indicatorQuery: "select count(1) from (select previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks from previous_contact
+                 join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
+                 where eddNowDiffInWks > 12 and previous_contact.contact_no = '1' group by previous_contact.base_entity_id
+                 having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_First_Visit_Prev_Negative"
+    description: "HIV status first visit (Prev. negative)"
+    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'health_conditions' and instr(value, 'hiv') = 0 then 1 else 0 end) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_First_Visit_Prev_Positive"
+    description: "HIV status first visit (Prev. positive)"
+    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_First_Visit_New_Negative"
+    description: "HIV status first visit (New negative)"
+    indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'hiv_test_result' and value = 'negative' then 1 else 0 end ) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_First_Visit_New_Positive"
+    description: "HIV status first visit (New positive)"
+    indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_First_Visit_Not_Done"
+    description: "HIV status first visit (Not done)"
+    indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0
+                 or sum(case when key = 'hiv_test_status' then 1 else 0 end ) = 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  - key: "ME_ART_Status_First_Visit_Not_On_ART"
+    description: "ART status first visit (Not on ART)"
+    indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
+                 and sum(case when key = 'medications' and instr(value, 'arvs') = 0 then 1 else 0 end ) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  - key: "ME_ART_Status_First_Visit_On_ART_Before_ANC"
+    description: "ART status first visit( On ART before ANC)"
+    indicatorQuery: "select count(1) from (SELECT base_entity_id FROM  previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
+                 and sum(case when key = 'medications' and instr(value, 'arvs') > 0 then 1 else 0 end ) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  - key: "ME_ART_Status_First_Visit_Start_ART_0_27_Weeks"
+    description: "ART status First Visit (Start ART 0-27 weeks)"
+    indicatorQuery: "select count(1) from (SELECT previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks from previous_contact
+                 join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
+                 where eddNowDiffInWks <= 27 and previous_contact.contact_no = '1' group by previous_contact.base_entity_id
+                 having sum(case when key = 'art_medication' and value = 'done' > 0 then 1 else 0 end ) > 0
+                 and (sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+                      or  sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0)
+                 and sum(case when key = 'medications' and instr(value, 'arvs') = 0 then 1 else 0 end ) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  - key: "ME_ART_Status_First_Visit_Start_ART_28_plus_Weeks"
+    description: "ART status first visit (Start ART 28+ weeks)"
+    indicatorQuery: "select count(1) from (SELECT previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks from previous_contact
+                   join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
+                   where eddNowDiffInWks > 27 and previous_contact.contact_no = '1' group by previous_contact.base_entity_id
+                   having sum(case when key = 'art_medication' and value = 'done' > 0 then 1 else 0 end ) > 0
+                   and (sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+                        or  sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0)
+                   and sum(case when key = 'medications' and instr(value, 'arvs') = 0 then 1 else 0 end ) > 0
+                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    grouping: "anc"
+
+  ##Booking Cohort
+  - key: "ME_HIV_Status_Final_Prev_Negative"
+    description: "HIV status Final (Prev negative)"
+    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'health_conditions' and instr(value, 'hiv') = 0 then 1 else 0 end) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_Final_Prev_Positive"
+    description: "HIV status Final (Prev positive)"
+    indicatorQuery: "select count(1) from (select base_entity_id from previous_contact
+                 where previous_contact.contact_no = '1' group by base_entity_id
+                 having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
+                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_Final_New_Negative"
+    description: "HIV status Final (New negative)"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                     where z.contact_no = '1' group by z.base_entity_id
+                     having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                     ) a
+                     JOIN
+                     ( SELECT y.base_entity_id
+                       FROM previous_contact y
+                       JOIN ec_mother_details x
+                       ON y.base_entity_id=x.base_entity_id
+                       GROUP BY y.base_entity_id
+                       HAVING sum(case when key = 'hiv_test_result' and value = 'negative' then 1 else 0 end ) > 0
+                       AND
+                       sum(case when key = 'hiv_test_date' and abs(julianday(x.edd)-julianday(strftime('%Y-%m-%d',substr(y.value, 7, 4)||'-'||substr(y.value, 4,2)||'-'||substr(y.value, 1,2))))/7 <=6
+                        Then 1 else 0 end ) > 0
+                        AND max(contact_no)) b
+                     ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_Final_New_Positive"
+    description: "HIV status Final (New positive)"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                    where z.contact_no = '1' group by z.base_entity_id
+                    having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                    ) a
+                    JOIN
+                    ( SELECT y.base_entity_id
+                      FROM previous_contact y
+                      JOIN ec_mother_details x
+                      ON y.base_entity_id=x.base_entity_id
+                      GROUP BY y.base_entity_id
+                      HAVING sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+                      AND
+                      sum(case when key = 'hiv_test_date' and abs(julianday(x.edd)-julianday(strftime('%Y-%m-%d',substr(y.value, 7, 4)||'-'||substr(y.value, 4,2)||'-'||substr(y.value, 1,2))))/7 <=6
+                       then 1 else 0 end ) > 0
+                      AND max(contact_no)) b
+                    ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_HIV_Status_Final_Not_Done"
+    description: "HIV status Final (Not done)"
+    indicatorQuery: "select * from (select z.base_entity_id from previous_contact z
+                                         where z.contact_no = '1' group by z.base_entity_id
+                                         having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                                         ) a
+                                         JOIN
+                                         ( SELECT y.base_entity_id,strftime('%Y-%m-%d',substr(y.value, 7, 4)||'-'||substr(y.value, 4,2)||'-'||substr(y.value, 1,2))
+                                           FROM previous_contact y
+                                           JOIN ec_mother_details x
+                                           ON y.base_entity_id=x.base_entity_id
+                                           GROUP BY y.base_entity_id
+                     					   having (sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0
+                                        or sum(case when key = 'hiv_test_status' then 1 else 0 end ) = 0)
+                     					AND
+                                          sum(case when key = 'contact_date' and abs(julianday(x.edd)-julianday(strftime('%Y-%m-%d',substr(y.value, 7, 4)||'-'||substr(y.value, 4,2)||'-'||substr(y.value, 1,2))))/7 <=6
+                                          then 1 else 0 end ) > 0
+                                          AND max(contact_no)) b
+                                         ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_ART_Status_Final_Visit_Not_On_ART"
+    description: "ART status Final Visit (Not on ART)"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                      where z.contact_no = '1' group by z.base_entity_id
+                      having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                      ) a
+                      JOIN
+                      ( SELECT y.base_entity_id
+                       FROM previous_contact y
+                       JOIN ec_mother_details x
+                       ON y.base_entity_id=x.base_entity_id
+                       GROUP BY y.base_entity_id
+                       HAVING sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+                       AND (sum(case when key = 'art_medication' and value = 'not_done'  then 1 else 0 end ) > 0
+                       or sum(case when key = 'art_medication' then 1 else 0 end ) = 0)
+                       AND max(contact_no)) b
+                      ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_ART_Status_Final_Visit_On_ART_Before_ANC"
+    description: "ART status Final Visit ( On ART before ANC)"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+              where z.contact_no = '1' group by z.base_entity_id
+              having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+              ) a
+              JOIN
+              ( select y.base_entity_id from previous_contact y
+              group by y.base_entity_id
+              having sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0
+              and sum(case when key = 'medications' and instr(value, 'arvs') > 0 then 1 else 0 end ) > 0
+              and ((sum(case when y.key = 'art_start_date' and y.value <= strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+              or sum(case when y.key = 'art_date_before' and y.value='yes' then 1 else 0 end) > 0))
+              AND max(contact_no)
+              ) b
+              ON a.base_entity_id = b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_ART_Status_Final_Visit_Start_ART_0_27_Weeks"
+    description: "ART status Final Visit (Start ART 0-27 weeks)"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                    where z.contact_no = '1' group by z.base_entity_id
+                    having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                    ) a
+                    JOIN
+                    ( SELECT y.base_entity_id from previous_contact y
+                      JOIN ec_mother_details x
+                      ON y.base_entity_id=x.base_entity_id
+                      JOIN (select base_entity_id,min(contact_no) contact_no from previous_contact
+                      WHERE key = 'art_medication'
+                      GROUP BY base_entity_id) D
+                      ON y.base_entity_id=D.base_entity_id
+                      WHERE y.contact_no=D.contact_no
+                      GROUP by y.base_entity_id
+                      HAVING sum(case when key = 'art_medication' and value = 'done' then 1 else 0 end ) > 0
+                      AND sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+                      AND sum(case when key = 'contact_date' and (julianday(x.edd)-julianday(strftime('%Y-%m-%d',substr(y.value, 7, 4)||'-'||substr(y.value, 4,2)||'-'||substr(y.value, 1,2))))/7 <=13 then 1 else 0 end)>0
+                    ) b
+                    ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_ART_Status_Final_Visit_Start_ART_28_plus_Weeks"
+    description: "ART status Final Visit (Start ART 28+ weeks)"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                        where z.contact_no = '1' group by z.base_entity_id
+                        having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                        ) a
+                        JOIN
+                        ( SELECT y.base_entity_id from previous_contact y
+                          JOIN ec_mother_details x
+                          ON y.base_entity_id=x.base_entity_id
+                          JOIN (select base_entity_id,min(contact_no) contact_no from previous_contact
+                          WHERE key = 'art_medication'
+                          GROUP BY base_entity_id) D
+                          ON y.base_entity_id=D.base_entity_id
+                          WHERE y.contact_no=D.contact_no
+                          GROUP by y.base_entity_id
+                          HAVING sum(case when key = 'art_medication' and value = 'done' then 1 else 0 end ) > 0
+                          AND sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+                          AND sum(case when key = 'contact_date' and (julianday(x.edd)-julianday(strftime('%Y-%m-%d',substr(y.value, 7, 4)||'-'||substr(y.value, 4,2)||'-'||substr(y.value, 1,2))))/7 >13 then 1 else 0 end)>0
+                        ) b
+                        ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_CPT_out_of_HIV_positive"
+    description: "On CPT out of HIV+"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                          where z.contact_no = '1' group by z.base_entity_id
+                          having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                          ) a
+                          JOIN
+                          ( select y.base_entity_id from previous_contact y
+                          group by y.base_entity_id
+                          having sum(case when key = 'cpt_medication' and value = 'done' then 1 else 0 end ) > 0
+                          and sum(case when key = 'hiv_positive' and value = '1' then 1 else 0 end ) > 0
+                         ) b
+                          ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Not_on_CPT"
+    description: "Not on CPT"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                  where z.contact_no = '1' group by z.base_entity_id
+                  having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                  ) a
+                  JOIN
+                  ( select y.base_entity_id from previous_contact y
+                  group by y.base_entity_id
+                  having sum(case when key = 'cpt_medication' and value = 'not_done' then 1 else 0 end ) > 0
+                  and sum(case when key = 'hiv_positive' and value = '1' then 1 else 0 end ) > 0
+                 ) b
+                  ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_NVP_syrup_given"
+    description: "NVP syrup given"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum(case when key = 'nvp_medication' and value = 'done' then 1 else 0 end ) > 0
+                   and sum(case when key = 'hiv_positive' and value = '1' then 1 else 0 end ) > 0
+                  ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_NVP_syrup_not_given"
+    description: "NVP syrup not given"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                  where z.contact_no = '1' group by z.base_entity_id
+                  having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                  ) a
+                  JOIN
+                  ( select y.base_entity_id from previous_contact y
+                  group by y.base_entity_id
+                  having sum(case when key = 'nvp_medication' and value = 'not_done' then 1 else 0 end ) > 0
+                  and sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
+                  or sum(case when key = 'nvp_medication' then 1 else 0 end ) = 0
+                  ) b
+                 ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Total_Visits_Per_Woman"
+    description: "Total visits per woman"
+    indicatorQuery: "SELECT
+                   CASE WHEN a.maxcontact='1' THEN '1_Visits'
+                   WHEN a.maxcontact='2' THEN '2_Visits'
+                   WHEN a.maxcontact='3' THEN '3_Visits'
+                   WHEN a.maxcontact='4' THEN '4_Visits'
+                   ELSE '5_plus_Visits'
+                   END maxim,count(*)
+                   FROM
+                    (SELECT y.base_entity_id, max(y.contact_no) maxcontact FROM previous_contact y
+                    WHERE y.base_entity_id IN (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1'
+                   group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)
+                   GROUP BY y.base_entity_id) a
+                   GROUP BY maxim"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Total_Visits_Per_Woman_1_Visits"
+      - "ME_Total_Visits_Per_Woman_2_Visits"
+      - "ME_Total_Visits_Per_Woman_3_Visits"
+      - "ME_Total_Visits_Per_Woman_4_Visits"
+      - "ME_Total_Visits_Per_Woman_5_plus_Visits"
+    grouping: "anc"
+
+  - key: "ME_With_Preeclampsia"
+    description: "With preeclampsia"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                    where z.contact_no = '1' group by z.base_entity_id
+                    having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                    ) a
+                    JOIN
+                    ( select y.base_entity_id from previous_contact y
+                     group by y.base_entity_id
+                    having sum(case when y.key = 'severe_preeclampsia' and value  = '1' then 1 else 0 end) > 0
+                    or sum(case when y.key = 'preeclampsia' and value  = '1' then 1 else 0 end) > 0
+                    ) b
+                     ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_With_No_Preeclampsia"
+    description: "With no pre eclampsia"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having (sum(case when key = 'severe_preeclampsia' and value = '0' then 1 else 0 end) > 0
+                   and sum(case when key = 'preeclampsia' and value = '0' then 1 else 0 end) > 0)
+                   OR(sum(case when key = 'preeclampsia' then 1 else 0 end ) = 0 AND sum(case when key = 'severe_preeclampsia' then 1 else 0 end ) = 0 )
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Total_Number_With_TDV_doses_less_than_2"
+    description: "Total number with TDV doses < 2"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                    where z.contact_no = '1' group by z.base_entity_id
+                    having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                    ) a
+                    JOIN
+                    ( select y.base_entity_id from previous_contact y
+                    group by y.base_entity_id
+                    having sum (case when key = 'tt_immun_status' and (value = 'tdv_not_received' or value = '1_received' or value = 'unknown' or value = 'ttcv_not_received') then 1 else 0 end) > 0
+                    AND sum(case when key = 'tt2_date_done' then 1 else 0 end ) = 0
+                    ) b
+                    ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Total_Number_With_TDV_doses_2_plus"
+    description: "Total number with TDV doses  2+"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                  group by y.base_entity_id
+                  having sum (case when key = 'tt_immun_status' and (value = '2-4_doses' or value = '5_tdv_doses_received' or value = '3_doses') then 1 else 0 end) > 0
+                  or sum(case when key = 'tt2_date_done' then 1 else 0 end ) >0
+                  ) b
+                  ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_SP_Doses_0_Dose"
+    description: "SP doses 0 dose"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                    where z.contact_no = '1' group by z.base_entity_id
+                    having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                    ) a
+                    JOIN
+                    ( select y.base_entity_id from previous_contact y
+                    group by y.base_entity_id
+                    having sum (case when key = 'iptp_sp1' and value = 'not_done' then 1 else 0 end) > 0
+                    or sum (case when key = 'iptp_sp1' then 1 else 0 end) = 0
+                    ) b
+                    ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_SP_Doses_1_Dose"
+    description: "SP doses 1 dose"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                    JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum (case when key = 'iptp_sp1' and value = 'done' then 1 else 0 end) > 0
+                   and ( sum (case when key = 'iptp_sp2' then 1 else 0 end) = 0 OR sum (case when key = 'iptp_sp2' and value = 'not_done' then 1 else 0 end) > 0)
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_SP_Doses_2_Dose"
+    description: "SP doses 2 dose"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                    JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum (case when key = 'iptp_sp2' and value = 'done' then 1 else 0 end) > 0
+                   and ( sum (case when key = 'iptp_sp3' then 1 else 0 end) = 0 OR sum (case when key = 'iptp_sp3' and value = 'not_done' then 1 else 0 end) > 0)
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_SP_Doses_3_plus_Dose"
+    description: "SP doses 3+ dose"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                    JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum (case when key = 'iptp_sp3' and value = 'done' then 1 else 0 end) > 0
+                    ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Albendazole_doses_None"
+    description: "Albendazole doses None"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                     group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                    JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum(case when key = 'deworm' and value = 'not done' then 1 else 0 end ) > 0
+                     or sum(case when key = 'deworm' then 1 else 0 end) = 0
+                     ) b
+                     ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Albendazole_doses_One_dose"
+    description: "Albendazole doses 1 dose"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                     group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                    JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum(case when key = 'deworm' and value = 'done' then 1 else 0 end ) > 0
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_ITN_Bed_Nets_Given"
+    description: "ITN (bed nets) given"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                    JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum (case when key = 'itn_given' and value = 'done' then 1 else 0 end) > 0
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_ITN_Bed_Nets_Not_Given"
+    description: "ITN (bed nets) not given"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                    JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                    having sum (case when key = 'itn_given' and value = 'not_done' then 1 else 0 end) > 0
+                    or sum (case when key = 'itn_given' then 1 else 0 end) = 0
+                    ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Hb_g_dl_less_than_7"
+    description: "Hb (g/dl)  < 7"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                  where z.contact_no = '1' group by z.base_entity_id
+                  having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                  ) a
+                   JOIN
+                  ( select y.base_entity_id from previous_contact y
+                  group by y.base_entity_id
+                   having sum(case when key = 'hb_result' and cast(value as integer) < 7 then 1 else 0 end) > 0
+                   ) b
+                  ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Hb_g_over_dl_greater_than_and_equal_to_7"
+    description: "Hb (g/dl) >= 7"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum(case when key = 'hb_result' and cast(value as integer) >= 7 then 1 else 0 end) > 0
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Hb_g_over_dl_ND"
+    description: "Hb (g/dl) ND"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum( case when key = 'hb_test_status' and value = 'not_done' then 1 else 0 end) > 0
+                   or sum( case when key = 'hb_test_status' then 1 else 0 end) = 0
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Syphilis_Status_Negative"
+    description: "Syphilis status Negative"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum(case when key = 'syphilis_positive' and value = '0' then 1 else 0 end ) > 0
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Syphilis_Status_Positive"
+    description: "Syphilis status Positive"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum(case when key = 'syphilis_positive' and value = '1' then 1 else 0 end ) > 0
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_Syphilis_Status_Not_Done"
+    description: "Syphilis status Not Done"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   group by y.base_entity_id
+                   having sum(case when key = 'syph_test_status' and value = 'not_done' then 1 else 0 end ) > 0
+                   or sum(case when key = 'syph_test_status' then 1 else 0 end ) = 0
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_FeFo_More_Than_120"
+    description: "FeFo Tablets given more than 120"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   where y.key IN( 'fefo_tablets_number_anaemia','fefo_tablets_number','total_fefo_tablets_given')
+                   group by y.base_entity_id
+                   having sum(value)>= 120
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  - key: "ME_FeFo_Less_Than_120"
+    description: "FeFo Tablets given less than 120"
+    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
+                   where z.contact_no = '1' group by z.base_entity_id
+                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
+                   ) a
+                   JOIN
+                   ( select y.base_entity_id from previous_contact y
+                   where y.key IN( 'fefo_tablets_number_anaemia','fefo_tablets_number','total_fefo_tablets_given')
+                   group by y.base_entity_id
+                   having sum(value) < 120
+                   ) b
+                   ON a.base_entity_id=b.base_entity_id"
+    grouping: "anc"
+
+  ##OPD Reports
+  - key: "ME_Malaria_Cases_Confirmed"
+    description: "Malaria cases"
     indicatorQuery: "SELECT
                       CASE
-                      WHEN heights.z_score > -2 AND heights.z_score < 2 THEN 'Normal'
-                      WHEN heights.z_score < -3 OR heights.z_score > 3 THEN 'Severe'
-                      WHEN heights.z_score <= -2 OR heights.z_score >= 2 THEN 'Stunted'
-                      ELSE ''
-                      END AS haz_score,
-                      CASE
-                      WHEN round(julianday('now') - julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
-                      WHEN round(julianday('now') - julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
-                      ELSE 'Null'
+                          WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                          WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                          ELSE 'Null'
                       END age, count(*)
-                      FROM heights
+                      FROM opd_diagnosis_detail b
                       INNER JOIN ec_client
-                      ON heights.base_entity_id = ec_client.base_entity_id
-                      WHERE heights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                      AND heights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
-                      AND ec_client.dob >= date('now', '-2 years')
-                      GROUP  BY haz_score, age"
+                      ON b.base_entity_id = ec_client.base_entity_id
+                      WHERE b.code in ('code_32aCo','code_32bCo')
+                      and '%s' = strftime('%Y-%m-%d', b.created_at)
+                      GROUP  BY age"
+    isMultiResult: true
     expectedIndicators:
-      - "ME_Height_Under2_Age_Normal_Under_1"
-      - "ME_Height_Under2_Age_Normal_Over_1"
-      - "ME_Height_Under2_Age_Severe_Under_1"
-      - "ME_Height_Under2_Age_Severe_Over_1"
-      - "ME_Height_Under2_Age_Stunted_Under_1"
-    grouping: "child"
+      - "ME_Malaria_Cases_Confirmed_Over_5"
+      - "ME_Malaria_Cases_Confirmed_Under_5"
+    grouping: "opd"
 
-  - key: "ME_Height_Under2_Age_Gender"
-    description: "ME_Height_Under2_Age_Gender_label"
+  - key: "ME_Malaria_Cases_Presumed"
+    description: "Malaria cases"
+    indicatorQuery: "SELECT
+                      CASE
+                          WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                          WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                          ELSE 'Null'
+                      END age, count(*)
+                      FROM opd_diagnosis_detail b
+                      INNER JOIN ec_client
+                      ON b.base_entity_id = ec_client.base_entity_id
+                      WHERE b.code in ('code_32aPr','code_32bPr')
+                      AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%Malaria%')
+                      AND '%s' = strftime('%Y-%m-%d', b.created_at)
+                      GROUP  BY age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Malaria_Cases_Presumed_Over_5"
+      - "ME_Malaria_Cases_Presumed_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Total_Malaria_Cases"
+    description: "Malaria total cases"
+    indicatorQuery: "SELECT
+                      CASE
+                          WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                          WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                          ELSE 'Null'
+                      END age, count(*)
+                      FROM opd_diagnosis_detail b
+                      INNER JOIN ec_client
+                      ON b.base_entity_id = ec_client.base_entity_id
+                      WHERE b.code in ('code_32aCo','code_32bCo','code_32aPr','code_32bPr')
+                      AND '%s' = strftime('%Y-%m-%d', b.created_at)
+                      GROUP BY age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Total_Malaria_Cases_Over_5"
+      - "ME_Total_Malaria_Cases_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Anti_Malaria_Treatment"
+    description: "Malaria anti malarial treatment"
+    indicatorQuery: "SELECT b.type,
+                      CASE
+                          WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                          WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                          ELSE 'Null'
+                      END age, count(*)
+                      FROM opd_diagnosis_detail b
+                      INNER JOIN ec_client
+                      ON b.base_entity_id = ec_client.base_entity_id
+                      WHERE b.code in ('code_32aCo','code_32bCo')
+                      AND '%s' = strftime('%Y-%m-%d', b.created_at)
+                      GROUP BY age,b.type"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Anti_Malaria_Treatment_Presumed_Over_5"
+      - "ME_Anti_Malaria_Treatment_Presumed_Under_5"
+      - "ME_Anti_Malaria_Treatment_Confirmed_Over_5"
+      - "ME_Anti_Malaria_Treatment_Confirmed_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Malaria_Test"
+    description: "Malaria tests"
+    indicatorQuery: "SELECT
+                   CASE
+                      WHEN b.test_type='malaria mrdt' THEN 'mRDT'
+                      WHEN b.test_type='malaria microscopy' THEN 'Microscopy'
+                   ELSE 'Null' END malaria_test,
+                   CASE
+                      WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                      WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                   ELSE 'Null' END age,
+                   count(*)
+                   FROM opd_test_conducted b
+                   INNER JOIN ec_client
+                   ON b.base_entity_id = ec_client.base_entity_id
+                   WHERE b.test_type in ('malaria mrdt','malaria microscopy')
+                   AND '%s' = strftime('%Y-%m-%d', b.created_at)
+                   GROUP  BY age,malaria_test"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Malaria_Test_mRDT_Over_5"
+      - "ME_Malaria_Test_mRDT_Under_5"
+      - "ME_Malaria_Test_Microscopy_Over_5"
+      - "ME_Malaria_Test_Microscopy_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Positive_Malaria_Cases"
+    description: "Positive malaria cases"
+    indicatorQuery: "SELECT
+                   CASE
+                      WHEN b.test_type='malaria mrdt' THEN 'mRDT'
+                      WHEN b.test_type='Malaria - Microscopy' THEN 'Microscopy'
+                   ELSE 'Null' END malaria_test,
+                   CASE
+                      WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                      WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                   ELSE 'Null' END age, count(*)
+                   FROM opd_test_conducted b
+                   INNER JOIN ec_client
+                   ON b.base_entity_id = ec_client.base_entity_id
+                   WHERE b.test_type in ('malaria mrdt','malaria microscopy')
+                   AND b.result='Positive'
+                   AND '%s' = strftime('%Y-%m-%d', b.created_at)
+                   GROUP  BY age,malaria_test,b.result"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Positive_Malaria_Cases_mRDT_Over_5"
+      - "ME_Positive_Malaria_Cases_mRDT_Under_5"
+      - "ME_Positive_Malaria_Cases_Microscopy_Over_5"
+      - "ME_Positive_Malaria_Cases_Microscopy_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Total_Suspected_Malaria"
+    description: "Total suspected malaria cases"
+    indicatorQuery: "SELECT count(*) FROM (SELECT b.base_entity_id,b.visit_id
+                   FROM opd_diagnosis_detail b
+                      WHERE b.code in ('code_32aPr','code_32bPr')
+                          AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%malaria%')
+                          AND '%s' = strftime('%Y-%m-%d', b.created_at)
+                      UNION
+                   SELECT d.base_entity_id, d.visit_id
+                   FROM opd_test_conducted d
+                      WHERE d.test_type in ('malaria mrdt','malaria microscopy')
+                      AND '%s' = strftime('%Y-%m-%d', d.created_at)
+                   )"
+    grouping: "opd"
+
+  ##Maternity
+  - key: "ME_HIV_Previous"
+    description: "Maternity HIV previous positive"
+    indicatorQuery: "SELECT count(1)
+                   FROM maternity_outcome
+                   WHERE hiv_status_previous='Positive'
+                   AND '%s' = strftime('%Y-%m-%d', date)"
+    grouping: "maternity"
+
+  - key: "ME_HIV_Current"
+    description: "Maternity HIV current"
+    indicatorQuery: "SELECT
+                   CASE
+                      WHEN hiv_status_current='Negative' THEN 'New_Negative'
+                      WHEN hiv_status_current ='Positive' THEN 'New_Positive'
+                      ELSE 'Not_Done'
+                   END descr,count (*)
+                   FROM maternity_outcome
+                   WHERE '%s' = strftime('%Y-%m-%d', date)
+                   GROUP BY descr"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_HIV_Current_New_Negative"
+      - "ME_HIV_Current_New_Positive"
+      - "ME_HIV_Current_Not_Done"
+    grouping: "maternity"
+
+  - key: "ME_ART_Start"
+    description: "Maternity ART start period"
+    indicatorQuery: "SELECT
+                   CASE
+                      WHEN hiv_treatment_start='On ART before pregnancy' THEN 'Before_Pregnancy'
+                      WHEN hiv_treatment_start='1st or 2nd Trimester (0-27 weeks)' THEN 'First_Trimester'
+                      WHEN hiv_treatment_start='3rd Trimester (28+)' THEN 'Third_Trimester'
+                      WHEN hiv_treatment_start='During Labour' THEN 'Labour'
+                      ELSE 'Not_On_ART'
+                   END treatment,count (*)
+                   FROM maternity_outcome
+                   WHERE '%s' = strftime('%Y-%m-%d', date)
+                   GROUP BY hiv_treatment_start"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_ART_Start_Before_Pregnancy"
+      - "ME_ART_Start_First_Trimester"
+      - "ME_ART_Start_Third_Trimester"
+      - "ME_ART_Start_Labour"
+      - "ME_ART_Not_On_ART"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Complications"
+    description: "Maternity obstetric complications"
+    indicatorQuery: "SELECT * FROM (
+                   SELECT
+                   CASE
+                      WHEN obstetric_complications LIKE '%None%' THEN 'None'
+                      WHEN obstetric_complications LIKE '%Antepartum haemorrhage%' THEN 'APH'
+                      WHEN obstetric_complications LIKE '%Postpartum Haemorhage%' THEN 'PPH'
+                      WHEN obstetric_complications LIKE '%Obstructed/Prolonged Labour%' THEN 'OPL'
+                      WHEN obstetric_complications LIKE '%Pre-eclampsia%' OR '%Eclampsia%' THEN 'ECL'
+                      WHEN obstetric_complications LIKE '%Sepsis%' THEN 'SEP'
+                      WHEN obstetric_complications LIKE '%Ruptured Uterus%' THEN 'RU'
+                      WHEN obstetric_complications LIKE '%Retained placenta%' THEN 'RP'
+                      WHEN obstetric_complications LIKE '%Fetal distress%' THEN 'FD'
+                      WHEN obstetric_complications LIKE '%Premature labour%' THEN 'PL'
+                      ELSE 'Null'
+                    END complications,count (*)
+                    FROM maternity_outcome
+                    WHERE '%s' = strftime('%Y-%m-%d', date)
+                    GROUP BY complications
+                    UNION
+                    SELECT
+                    CASE
+                    WHEN obstetric_complications LIKE '%Abnormal presentation%' THEN 'Other'
+                    WHEN obstetric_complications LIKE '%Cord prolapse%' THEN 'Other'
+                    WHEN obstetric_complications LIKE '%Haemorrhage%' THEN 'Other'
+                    WHEN obstetric_complications LIKE '%Perineal tear (2nd, 3rd, or 4th degree)%' THEN 'Other'
+                    WHEN obstetric_complications LIKE '%Placenta praevia%' THEN 'Other'
+                    WHEN obstetric_complications LIKE '%Placental abruption%' THEN 'Other'
+                    WHEN obstetric_complications LIKE '%Premature labour%' THEN 'Other'
+                    WHEN obstetric_complications LIKE '%Severe Anaemia%' THEN 'Other'
+                    WHEN obstetric_complications LIKE '%Symphysiotomy%' THEN 'Other'
+                    WHEN obstetric_complications ='' THEN 'Other'
+                    ELSE 'Null'
+                    END complications,count (*)
+                    FROM maternity_outcome
+                    WHERE '%s' = strftime('%Y-%m-%d', date)
+                    GROUP BY complications
+                    ) a
+                    WHERE complications !='Null'
+                    GROUP BY a.complications"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Complications_APH"
+      - "ME_MAT_Complications_PPH"
+      - "ME_MAT_Complications_OPL"
+      - "ME_MAT_Complications_ECL"
+      - "ME_MAT_Complications_SEP"
+      - "ME_MAT_Complications_RU"
+      - "ME_MAT_Complications_RP"
+      - "ME_MAT_Complications_FD"
+      - "ME_MAT_Complications_PL"
+      - "ME_MAT_Complications_Other"
+      - "ME_MAT_Complications_None"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Care"
+    description: "Maternity obstetric care"
+    indicatorQuery: "SELECT 'Ox',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Oxytocin%' AND '%s' = strftime('%Y-%m-%d', date)
+                   UNION SELECT 'AC',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Anticonvulsants%' AND '%s' = strftime('%Y-%m-%d', date)
+                   UNION SELECT 'Abx',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Antibiotics%' AND '%s' = strftime('%Y-%m-%d', date)
+                   UNION SELECT 'Acs',count(*) FROM maternity_outcome WHERE (obstetric_care LIKE '%Antenatal corticosteroids (Dose 1)%' OR obstetric_care LIKE '%Antenatal corticosteroids (Dose 2)%') AND '%s' = strftime('%Y-%m-%d', date)
+                   UNION SELECT 'Tr',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Blood transfusion%' AND '%s' = strftime('%Y-%m-%d', date)
+                   UNION SELECT 'MRP',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Manual removal of placenta (MRP)%' AND '%s' = strftime('%Y-%m-%d', date)
+                   UNION SELECT 'NASG',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Non-pneumatic anti shock garment (NASG)%' AND '%s' = strftime('%Y-%m-%d', date)
+                   UNION SELECT 'ROPC',count(*) FROM maternity_outcome WHERE obstetric_care LIKE '%Removal of retained products of conception (RPOC)%' AND '%s' = strftime('%Y-%m-%d', date)
+                   "
+
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Care_Ox"
+      - "ME_MAT_Care_AC"
+      - "ME_MAT_Care_Abx"
+      - "ME_MAT_Care_Acs"
+      - "ME_MAT_Care_Tr"
+      - "ME_MAT_Care_MRP"
+      - "ME_MAT_Care_NASG"
+      - "ME_MAT_Care_ROPC"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Referred"
+    description: "Maternity Referred out"
+    indicatorQuery: "SELECT count(1)
+                   FROM maternity_outcome
+                   WHERE referred_out='Yes'
+                   AND '%s' = strftime('%Y-%m-%d', date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Delivery_Person"
+    description: "Maternity staff conducting delivery"
+    indicatorQuery: "SELECT
+                   CASE
+                      WHEN delivery_person LIKE '%Medical Doctor (MD)%' THEN 'Skilled'
+                      WHEN delivery_person LIKE '%Clinical Officer (CO)%' THEN 'Skilled'
+                      WHEN delivery_person LIKE '%Medical Assistant (MA)%' THEN 'Skilled'
+                      WHEN delivery_person LIKE '%Nurse Midwife%' THEN 'Skilled'
+                      ELSE 'Not_skilled'
+                      END delivery_person,count (*)
+                   FROM maternity_outcome
+                   WHERE '%s' = strftime('%Y-%m-%d', date)
+                   GROUP BY delivery_person"
+
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Delivery_Person_Skilled"
+      - "ME_MAT_Delivery_Person_Not_skilled"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Vitamin_A"
+    description: "Maternity vitamin A given"
+    indicatorQuery: "SELECT count(1)
+                   FROM maternity_outcome
+                   WHERE vit_a='Yes'
+                   AND '%s' = strftime('%Y-%m-%d', date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Mother_Status"
+    description: "Maternity Mother Status"
+    indicatorQuery: "SELECT
+                   CASE WHEN mother_status='Alive' THEN 'Alive'
+                      WHEN mother_status='Brought In Dead (BID)' THEN 'BID'
+                      WHEN mother_status='Died Before Discharge(DBD)' THEN 'DBD'
+                      ELSE 'Null'
+                   END status,count(1)
+                   FROM maternity_outcome
+                   WHERE '%s' = strftime('%Y-%m-%d', date)
+                   GROUP BY mother_status"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Mother_Status_DBD"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Babies"
+    description: "Maternity Babies "
+    indicatorQuery: "SELECT
+                   CASE
+                      WHEN a.counter>1 THEN 'Multiple'
+                      ELSE 'Single'
+                      END birth,sum(a.counter)
+                   FROM (SELECT count(*) counter from maternity_child
+                   WHERE '%s' = strftime('%Y-%m-%d', event_date)
+                   GROUP BY mother_base_entity_id) a
+                   GROUP BY birth"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Babies_Multiple"
+      - "ME_MAT_Babies_Single"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Delivery_Place"
+    description: "Maternity delivery place "
+    indicatorQuery: "SELECT
+                   CASE
+                      WHEN delivery_place='In Transit (TR)' THEN 'TR'
+                      WHEN delivery_place='This Facility' THEN 'Facility'
+                      WHEN delivery_place='Other Facility' THEN 'Other'
+                      WHEN delivery_place='Home/Traditional Birth Authority (TBA)' THEN 'Home'
+                      ELSE 'Null'
+                    END delivery_place,count(*)
+                    FROM maternity_outcome
+                    WHERE '%s' = strftime('%Y-%m-%d', date)
+                    GROUP BY delivery_place"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Delivery_Place_This"
+      - "ME_MAT_Delivery_Place_TR"
+      - "ME_MAT_Delivery_Place_Other"
+      - "ME_MAT_Delivery_Place_Home"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Delivery_Mode"
+    description: "Maternity delivery mode "
+    indicatorQuery: "SELECT
+                   CASE
+                      WHEN delivery_mode='Spontaneous Vertex (SVD)' THEN 'SVD'
+                      WHEN delivery_mode='Vacuum Extraction (VE)' THEN 'VE'
+                      WHEN delivery_mode='Breech (BR)' THEN 'BR'
+                      WHEN delivery_mode='Caesarean Section (CS)' THEN 'CS'
+                      ELSE 'Null'
+                      END delivery_mode  ,count(*)
+                   FROM maternity_outcome
+                   WHERE '%s' = strftime('%Y-%m-%d', date)
+                   GROUP BY delivery_mode"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Delivery_Mode_SVD"
+      - "ME_MAT_Delivery_Mode_VE"
+      - "ME_MAT_Delivery_Mode_BR"
+      - "ME_MAT_Delivery_Mode_CS"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Baby_Complications"
+    description: "Maternity baby complications"
+    indicatorQuery: "SELECT 'None',count(*) FROM maternity_child WHERE complications LIKE '%none%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Prem',count(*) FROM maternity_child WHERE complications LIKE '%premature%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Asphy',count(*) FROM maternity_child WHERE complications LIKE '%asphyxia%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Sep',count(*) FROM maternity_child WHERE complications LIKE '%sepsis%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Other',count(*) FROM maternity_child WHERE (complications_other IS NOT NULL OR complications ='' OR complications LIKE '%birth defects%') AND '%s' = strftime('%Y-%m-%d', event_date)
+                   UNION SELECT 'Low_Weight',count(*) from maternity_child WHERE Weight<'2500' AND '%s' = strftime('%Y-%m-%d', event_date)"
+
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Baby_Complications_None"
+      - "ME_MAT_Baby_Complications_Prem"
+      - "ME_MAT_Baby_Complications_Asphy"
+      - "ME_MAT_Baby_Complications_Sep"
+      - "ME_MAT_Baby_Complications_Other"
+      - "ME_MAT_Baby_Complications_Low_Weight"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Baby_Care"
+    description: "Maternity baby care"
+    indicatorQuery: "SELECT 'KMC',count(*) FROM maternity_child WHERE care_mgt LIKE '%kmc%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                 UNION SELECT 'TEO',count(*) FROM maternity_child WHERE care_mgt LIKE '%tetracycline_eye_ointment(TEO)%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                 UNION SELECT 'CHL',count(*) FROM maternity_child WHERE care_mgt LIKE '%chlorhexidine%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                 UNION SELECT 'Other_Mgt',count(*) FROM maternity_child WHERE (care_mgt NOT LIKE '%kmc%' OR
+                      care_mgt NOT LIKE '%tetracycline_eye_ointment(TEO)%' OR care_mgt NOT LIKE '%rescuscitation%' OR care_mgt IS NULL) AND '%s' = strftime('%Y-%m-%d', event_date)"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Baby_Care_KMC"
+      - "ME_MAT_Baby_Care_TEO"
+      - "ME_MAT_Baby_Care_CHL"
+      - "ME_MAT_Baby_Care_Other_Mgt"
+    grouping: "maternity"
+
+  - key: "ME_MAT_BF_First_Hour"
+    description: "Maternity bf first hour"
+    indicatorQuery: "SELECT count(1)
+                   FROM maternity_child
+                   WHERE bf_first_hour ='Yes'
+                   AND '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Stillbirth"
+    description: "Maternity still birth"
+    indicatorQuery: "SELECT stillbirth_condition,count(*) from maternity_child WHERE stillbirth_condition IN('Macerated','Fresh') and '%s' = strftime('%Y-%m-%d', event_date) GROUP BY stillbirth_condition"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Stillbirth_Macerated"
+      - "ME_MAT_Stillbirth_Fresh"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Neonatal_Death"
+    description: "Maternity Neonatal deaths"
+    indicatorQuery: "SELECT count(*) from maternity_child WHERE discharged_alive = 'No' and '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_ITN_Given"
+    description: "Maternity ITN Given"
+    indicatorQuery: "SELECT count(*) from maternity_outcome WHERE itn_given = 'yes' and '%s' = strftime('%Y-%m-%d', date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Child_HIV_Status_Unknown"
+    description: "Maternity Child HIV Status Unknown"
+    indicatorQuery: "SELECT count(*) from maternity_child WHERE child_hiv_status = 'Unknown' and '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Child_HIV_Status_Not_Exposed"
+    description: "Maternity Child HIV Status Not Exposed"
+    indicatorQuery: "SELECT count(*) from maternity_child WHERE child_hiv_status <> 'Exposed' and '%s' = strftime('%Y-%m-%d', event_date)"
+    grouping: "maternity"
+
+  - key: "ME_MAT_Child_HIV_Status_Exposed"
+    description: "Maternity Child HIV Status Exposed"
+    indicatorQuery: "SELECT
+                          case
+                          when nvp_administration = 'No' THEN 'No_NVP'
+                          when nvp_administration = 'Yes' THEN 'NVP_Started'
+                          else 'Null'
+                          END NVP, count(1)
+                   from maternity_child WHERE  child_hiv_status = 'Exposed'
+                   and '%s' = strftime('%Y-%m-%d', event_date)"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_MAT_Child_HIV_Status_Exposed_No_NVP"
+      - "ME_MAT_Child_HIV_Status_Exposed_NVP_Started"
+    grouping: "maternity"
+
+  ##PNC
+  - key: "ME_PNC_Total_Live_Birth"
+    description: "Total Live Birth Deliveries"
+    indicatorQuery: "SELECT COUNT(DISTINCT mother_base_entity_id) deliveries from pnc_baby
+                     WHERE '%s' = strftime('%Y-%m-%d',substr(birth_record_date, 7, 4)||'-'||substr(birth_record_date, 4,2)||'-'||substr(birth_record_date, 1,2))"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Woman_Complications"
+    description: "PNC complications"
+    indicatorQuery: "SELECT 'None' complication,count(*) FROM pnc_visit_info WHERE pnc_complications IS NULL AND pnc_complications_other IS NULL AND '%s' = strftime('%Y-%m-%d', visit_date)
+                     UNION SELECT 'Sepsis',count(*) FROM pnc_visit_info WHERE pnc_complications LIKE '%Sepsis%' AND '%s' = strftime('%Y-%m-%d', visit_date)
+                     UNION SELECT 'Anaemia',count(*) FROM pnc_visit_info WHERE pnc_complications LIKE '%Anaemia%' AND '%s' = strftime('%Y-%m-%d', visit_date)
+                     UNION SELECT 'PPH',count(*) FROM pnc_visit_info WHERE pnc_complications LIKE '%Postpartum haemorrhage%' AND '%s' = strftime('%Y-%m-%d', visit_date)
+                     UNION SELECT CASE WHEN pnc_complications LIKE '%Severe pre-eclampsia%' THEN 'SPE' WHEN pnc_complications LIKE '%Eclampsia%' THEN 'SPE' END,count(*) FROM pnc_visit_info WHERE '%s' = strftime('%Y-%m-%d', visit_date)
+                     UNION SELECT 'Eclampsia',count(*) FROM pnc_visit_info WHERE pnc_complications LIKE '%Eclampsia%' AND '%s' = strftime('%Y-%m-%d', visit_date)
+                     UNION SELECT 'BE',count(*) FROM pnc_visit_info WHERE pnc_complications LIKE '%Breast engorgement%' AND '%s' = strftime('%Y-%m-%d', visit_date)
+                     UNION SELECT 'Other',count(*) FROM pnc_visit_info WHERE pnc_complications_other IS NOT NULL AND '%s' = strftime('%Y-%m-%d', visit_date)"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Woman_Complications_None"
+      - "ME_PNC_Woman_Complications_Sepsis"
+      - "ME_PNC_Woman_Complications_Anaemia"
+      - "ME_PNC_Woman_Complications_PPH"
+      - "ME_PNC_Woman_Complications_SPE"
+      - "ME_PNC_Woman_Complications_BE"
+      - "ME_PNC_Woman_Complications_Other"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Checked_in"
+    description: "Mother Checked in"
     indicatorQuery: "SELECT
                      CASE
-                     WHEN heights.z_score > -2 AND heights.z_score < 2 THEN 'Normal'
-                     WHEN heights.z_score < -3 OR heights.z_score > 3 THEN 'Severe'
-                     WHEN heights.z_score <= -2 OR heights.z_score >= 2 THEN 'Stunted'
-                     ELSE ''
-                     END AS haz_score,
-                     CASE
-                     WHEN round(julianday('now') - julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
-                     WHEN round(julianday('now') - julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
-                     ELSE 'Null'
-                     END age, ec_client.gender, count(*)
-                     FROM heights
-                     INNER JOIN ec_client
-                     ON heights.base_entity_id = ec_client.base_entity_id
-                     WHERE heights.date >= round((julianday(strftime('%Y-%m-%d', '%s')) - 2440587.5) * 86400.0 * 1000)
-                     AND heights.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day')) - 2440587.5) * 86400.0 * 1000)
-                     AND ec_client.dob >= date('now', '-2 years')
-                     GROUP  BY haz_score, age, ec_client.gender"
+                     WHEN pnc_visit_period < '2' THEN '2days'
+                     WHEN pnc_visit_period < '7' THEN '7days'
+                     WHEN pnc_visit_period < '42' THEN '42days'
+                     ELSE 'MoreThan42'  END duration,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', visit_date)"
+    isMultiResult: true
     expectedIndicators:
-      - "ME_Height_Under2_Age_Gender_Normal_Over_1_Female"
-      - "ME_Height_Under2_Age_Gender_Normal_Over_1_Male"
-      - "ME_Height_Under2_Age_Gender_Normal_Under_1_Female"
-      - "ME_Height_Under2_Age_Gender_Normal_Under_1_Male"
-      - "ME_Height_Under2_Age_Gender_Severe_Over_1_Female"
-      - "ME_Height_Under2_Age_Gender_Severe_Over_1_Male"
-      - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Female"
-      - "ME_Height_Under2_Age_Gender_Stunted_Under_1_Male"
-    grouping: "child"
+      - "ME_PNC_Checked_in_2days"
+      - "ME_PNC_Checked_in_7days"
+      - "ME_PNC_Checked_in_42days"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Baby_Checked_in"
+    description: "Mother Checked in"
+    indicatorQuery: "SELECT
+                     CASE
+                     WHEN pnc_visit_period < '2' THEN '2days'
+                     WHEN pnc_visit_period < '7' THEN '7days'
+                     WHEN pnc_visit_period < '42' THEN '42days'
+                     ELSE 'MoreThan42'  END duration,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', visit_date)"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Baby_Checked_in_2days"
+      - "ME_PNC_Baby_Checked_in_7days"
+      - "ME_PNC_Baby_Checked_in_42days"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Checked_In_Twice_In_7days"
+    description: "Mother Checked in 2x in 7 Days"
+    indicatorQuery: "SELECT count(*) FROM (SELECT count(*) counter,visit_date
+                     FROM pnc_visit_info
+                     WHERE pnc_visit_period < '7'
+                     GROUP BY mother_base_entity_id) a
+                     WHERE a.counter>=2
+                     AND '%s' = strftime('%Y-%m-%d', a.visit_date)"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Baby_Checked_In_Twice_In_7days"
+    description: "Mother Checked in 2x in 7 Days"
+    indicatorQuery: "SELECT count(*) FROM (SELECT count(*) counter,visit_date
+                     FROM pnc_visit_info a
+                     JOIN pnc_visit_child_status b
+                     ON a.visit_id=b.visit_id
+                     WHERE a.pnc_visit_period < '7'
+                     GROUP BY a.visit_id) a
+                     WHERE a.counter>=2
+                     AND '%s' = strftime('%Y-%m-%d', a.visit_date)"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Vit_a"
+    description: "Vitamin A doses"
+    indicatorQuery: "SELECT
+                     CASE WHEN vit_a='yes' THEN 'yes'
+                     ELSE 'no' END vit,count(*) counter
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', visit_date)
+                     GROUP BY vit"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Vit_a_yes"
+      - "ME_PNC_Vit_a_no"
+    grouping: "pnc"
+
+  - key: "ME_PNC_fp_counsel"
+    description: "Immediate Family Planning"
+    indicatorQuery: "SELECT fp_counsel,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', visit_date)
+                     AND fp_counsel='yes'
+                     GROUP BY fp_counsel"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_fp_counsel_yes"
+    grouping: "pnc"
+
+  - key: "ME_PNC_fp_method"
+    description: "Immediate Family Planning"
+    indicatorQuery: "SELECT fp_method,count(*)
+                     FROM pnc_visit_info
+                     WHERE '%s' = strftime('%Y-%m-%d', visit_date)
+                     GROUP BY fp_method"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_fp_method_bilateral_tubal_ligation"
+      - "ME_PNC_fp_method_intrauterine_contraceptive_device"
+    grouping: "pnc"
+
+  - key: "ME_PNC_HIV"
+    description: "HIV status"
+    indicatorQuery: "SELECT
+                     CASE WHEN hiv_status_current='positive' THEN 'Positive'
+                     WHEN hiv_status_current='negative' THEN 'Negative'
+                     ELSE 'ND' END hiv_status,count(*)
+                     FROM pnc_medic_info
+                     WHERE '%s' = strftime('%Y-%m-%d', event_date)
+                     GROUP BY hiv_status_current"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_HIV_Positive"
+      - "ME_PNC_HIV_Negative"
+      - "ME_PNC_HIV_ND"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Baby_Complications"
+    description: "HIV status"
+
+    indicatorQuery: "SELECT 'Well',count(*) FROM pnc_baby WHERE complications LIKE '%none%'  AND '%s' = strftime('%Y-%m-%d',event_date)
+                     UNION SELECT 'Asphyxia',count(*) FROM pnc_baby WHERE complications LIKE '%Asphyxia%' AND '%s' = strftime('%Y-%m-%d', event_date)
+                     UNION SELECT 'LBW',count(*) FROM pnc_baby WHERE (complications LIKE '%Premature%' OR birth_weight_entered<2500) AND '%s' = strftime('%Y-%m-%d', event_date)"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Baby_Complications_Well"
+      - "ME_PNC_Baby_Complications_Asphyxia"
+      - "ME_PNC_Baby_Complications_LBW"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Baby_Vaccines"
+    description: "Baby Vaccines"
+    indicatorQuery: "SELECT a.name,count(1) counter from vaccines a
+                     JOIN pnc_baby b
+                     ON a.base_entity_id=b.base_entity_id
+                     WHERE a.name IN ('opv_0','bcg')
+                     AND '%s' = strftime('%Y-%m-%d', event_date)
+                     GROUP BY a.base_entity_id,a.name"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Baby_Vaccines_opv_0"
+      - "ME_PNC_Baby_Vaccines_bcg"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Baby_Danger_Signs"
+    description: "Baby danger signs"
+    indicatorQuery: "SELECT 'None' sign,count(*) FROM pnc_visit_child_status a LEFT JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE a.baby_danger_signs LIKE '%none%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Feed',count(*) FROM pnc_visit_child_status a LEFT JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE a.baby_danger_signs LIKE '%not _able_to_feed%' AND '%s' = strftime('%Y-%m-%d', b.visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Fever',count(*) FROM pnc_visit_child_status a LEFT JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE a.baby_danger_signs LIKE '%fever%' AND '%s' = strftime('%Y-%m-%d', b.visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Hypothermia',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE baby_danger_signs LIKE '%hypothermia%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Convulsions',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE baby_danger_signs LIKE '%convulsions%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Lethargic',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE baby_danger_signs LIKE '%lethargic%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Chest',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE baby_danger_signs LIKE '%chest in-drawing%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Breaths',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE baby_danger_signs LIKE '%fast_breathing%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'EyenCord',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id  WHERE (baby_danger_signs LIKE '%eye_discharge%' OR baby_danger_signs LIKE '%signs_of_cord_infection%') AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Jaundice',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE baby_danger_signs LIKE '%jaundice%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     "
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Baby_Danger_Signs_None"
+      - "ME_PNC_Baby_Danger_Signs_Feed"
+      - "ME_PNC_Baby_Danger_Signs_Fever"
+      - "ME_PNC_Baby_Danger_Signs_Hypothermia"
+      - "ME_PNC_Baby_Danger_Signs_Convulsions"
+      - "ME_PNC_Baby_Danger_Signs_Lethargic"
+      - "ME_PNC_Baby_Danger_Signs_Chest"
+      - "ME_PNC_Baby_Danger_Signs_Breaths"
+      - "ME_PNC_Baby_Danger_Signs_EyenCord"
+      - "ME_PNC_Baby_Danger_Signs_Jaundice"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Baby_Care_Mgt"
+    description: "Baby Care Management"
+    indicatorQuery: "SELECT 'KMC' sign,count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id WHERE baby_care_mgt LIKE '%kangaroo%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'Vit_K',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id  WHERE baby_danger_signs LIKE '%vitamin_k%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     UNION SELECT 'TEO',count(*) FROM pnc_visit_child_status a JOIN pnc_visit_info b ON a.visit_id=b.visit_id  WHERE baby_danger_signs LIKE '%tetracycline_eye_ointment%' AND '%s' = strftime('%Y-%m-%d', visit_date) GROUP BY a.base_entity_id,b.visit_date
+                     "
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_PNC_Baby_Care_Mgt_KMC"
+      - "ME_PNC_Baby_Care_Mgt_Vit_K"
+      - "ME_PNC_Baby_Care_Mgt_TEO"
+    grouping: "pnc"
+
+  - key: "ME_PNC_Baby_Nevirapine"
+    description: "Total on Nevirapine"
+    indicatorQuery: "SELECT count(*) counter FROM pnc_visit_child_status a
+                     INNER JOIN pnc_visit_info b ON a.visit_id=b.visit_id
+                     WHERE baby_hiv_treatment LIKE '%nevirapine%'
+                     AND '%s' =  strftime('%Y-%m-%d', visit_date)"
+    grouping: "pnc"
+
+  - key: "ME_PNC_MOTHER_DEAD"
+    description: "Final Status of Mother Dead"
+    indicatorQuery: "SELECT count(*) FROM pnc_registration_details a
+                      JOIN ec_client b ON a.base_entity_id = b.base_entity_id
+                     WHERE b.dod IS NOT NULL AND '%s' =  strftime('%Y-%m-%d',substr(b.dod, 7, 4)||'-'||substr(b.dod, 4,2)||'-'||substr(b.dod, 1,2))"
+    grouping: "pnc"
+
+  - key: "ME_PNC_MOTHER_ALIVE"
+    description: "Final Status of Mother ALive"
+    indicatorQuery: "select count(*) from pnc_registration_details a
+                    JOIN ec_client c ON  a.base_entity_id = c.base_entity_id
+                    AND c.dod IS NULL
+                    AND '%s' =  strftime('%Y-%m-%d', a.date)"
+    grouping: "pnc"

@@ -22,14 +22,15 @@ import com.vijay.jsonwizard.constants.JsonFormConstants;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.domain.Response;
 import org.smartregister.giz.R;
 import org.smartregister.giz.adapter.ReportsSectionsPagerAdapter;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.ReportHia2Indicator;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
@@ -47,6 +48,7 @@ import org.smartregister.reporting.util.ViewUtils;
 import org.smartregister.reporting.view.ReportingProcessingSnackbar;
 import org.smartregister.repository.Hia2ReportRepository;
 import org.smartregister.service.HTTPAgent;
+import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.Utils;
 
 import java.text.DateFormat;
@@ -73,11 +75,9 @@ import static org.smartregister.util.JsonFormUtils.VALUE;
 public class HIA2ReportsActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_GET_JSON = 3432;
-    public static final int MONTH_SUGGESTION_LIMIT = 3;
+    public static final int MONTH_SUGGESTION_LIMIT = 6;
     public static final String FORM_KEY_CONFIRM = "confirm";
     public static final DateFormat yyyyMMdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-
-    public static final String REPORT_NAME = "HIA2";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -98,7 +98,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
 
     private ReportingProcessingSnackbar reportingProcessingSnackbar;
     private ArrayList<FragmentRefreshListener> fragmentRefreshListeners = new ArrayList<>();
-
+    private HashMap<String, String> groupingReportMap = new HashMap<>();
     @Nullable
     private String reportGrouping;
 
@@ -107,6 +107,8 @@ public class HIA2ReportsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hia2_reports);
         tabLayout = findViewById(R.id.tabs);
+
+        initGroupingReportMap();
 
         ImageView backBtnImg = findViewById(R.id.back_button);
         if (backBtnImg != null) {
@@ -135,7 +137,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
 
             String humanReadableTitle = null;
 
-            for (ReportGroupingModel.ReportGrouping reportGroupingObj: registerModels) {
+            for (ReportGroupingModel.ReportGrouping reportGroupingObj : registerModels) {
                 if (reportGrouping.equals(reportGroupingObj.getGrouping())) {
                     humanReadableTitle = reportGroupingObj.getDisplayName();
                 }
@@ -145,9 +147,25 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                 titleTv.setText(humanReadableTitle + " " + getString(R.string.reports));
             }
         }
+        ImageView reportSyncBtn = findViewById(R.id.report_sync_btn);
+        if (reportSyncBtn != null) {
+            reportSyncBtn.setVisibility(View.GONE);
+        }
 
         // Update Draft Monthly Title
         refreshDraftMonthlyTitle();
+    }
+
+    private void initGroupingReportMap() {
+        groupingReportMap.put("child", "EPI Vaccination Performance and Disease Surveillance (NEW)");
+        groupingReportMap.put("anc", "ANC Monthly Facility Report");
+        groupingReportMap.put("opd", "Malaria Health Facility Report");
+        groupingReportMap.put("maternity", "Maternity Monthly Report");
+        groupingReportMap.put("pnc", "Post Natal Care Clinic -Facility Report");
+    }
+
+    public ReportsSectionsPagerAdapter getmSectionsPagerAdapter() {
+        return mSectionsPagerAdapter;
     }
 
     @Override
@@ -306,7 +324,7 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                                             monthlyTallies == null ? 0 : monthlyTallies.size()));
                                 }
                             }
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             Timber.e(e);
                         }
                     }
@@ -353,6 +371,8 @@ public class HIA2ReportsActivity extends AppCompatActivity {
             if (month != null) {
                 List<MonthlyTally> tallies = monthlyTalliesRepository
                         .find(MonthlyTalliesRepository.DF_YYYYMM.format(month), reportGrouping);
+
+                HashMap<String, Hia2Indicator> hia2IndicatorHashMap = GizMalawiApplication.getInstance().hIA2IndicatorsRepository().findAllByGrouping(getReportGrouping());
                 if (tallies != null) {
                     List<ReportHia2Indicator> reportHia2Indicators = new ArrayList<>();
                     for (MonthlyTally curTally : tallies) {
@@ -362,13 +382,26 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                                 , "Immunization"
                                 , curTally.getValue());
 
+                        Hia2Indicator hia2Indicator = hia2IndicatorHashMap.get(reportHia2Indicator.getIndicatorCode());
+                        if (hia2Indicator != null) {
+                            reportHia2Indicator.setDhisId(hia2Indicator.getDhisId());
+                            reportHia2Indicator.setCategoryOptionCombo(hia2Indicator.getCategoryOptionCombo());
+                        } else {
+                            // This enables the server to skip this indicator tally and not crash
+                            // when it tries to compare NULL to "unknown" and throws an NPE
+                            // The server is equipped to handle unknowns and ignore them
+                            reportHia2Indicator.setDhisId("unknown");
+                        }
+
                         reportHia2Indicators.add(reportHia2Indicator);
                     }
 
-                    GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, REPORT_NAME);
+
+                    DateTime dateSent = new DateTime();
+                    GizReportUtils.createReportAndSaveReport(reportHia2Indicators, month, groupingReportMap.get(getReportGrouping()), getReportGrouping(), dateSent);
 
                     for (MonthlyTally curTally : tallies) {
-                        curTally.setDateSent(Calendar.getInstance().getTime());
+                        curTally.setDateSent(dateSent.toDate());
                         monthlyTalliesRepository.save(curTally);
                     }
                 } else {
@@ -428,8 +461,15 @@ public class HIA2ReportsActivity extends AppCompatActivity {
                         if (fragment != null) {
                             ((DraftMonthlyFragment) fragment).updateDraftsReportListView(monthlyTallies);
                         }
+
                     }
                 }), null);
+
+                try {
+                    mSectionsPagerAdapter.getSentMonthlyFragment().refreshData();
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
             }
         } catch (Exception e) {
             Timber.e(e);

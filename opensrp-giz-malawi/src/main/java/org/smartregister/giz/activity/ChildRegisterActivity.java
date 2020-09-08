@@ -14,7 +14,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
-import org.smartregister.child.enums.LocationHierarchy;
 import org.smartregister.child.model.BaseChildRegisterModel;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.JsonFormUtils;
@@ -51,6 +50,12 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if from opd
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.getBoolean("from_opd", false)) {
+            startRegistration();
+        }
     }
 
     @Override
@@ -110,7 +115,8 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
     }
 
     private void createDrawer() {
-        navigationMenu = NavigationMenu.getInstance(this, null, null);
+        WeakReference<ChildRegisterActivity> childRegisterActivityWeakReference = new WeakReference<>(this);
+        navigationMenu = NavigationMenu.getInstance(childRegisterActivityWeakReference.get(), null, null);
         navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.CHILD_CLIENTS);
         navigationMenu.runRegisterCount();
     }
@@ -164,7 +170,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         Intent intent = new Intent(this, Utils.metadata().childFormActivity);
         if (jsonForm.has(GizConstants.KEY.ENCOUNTER_TYPE) && jsonForm.optString(GizConstants.KEY.ENCOUNTER_TYPE).equals(
                 GizConstants.KEY.BIRTH_REGISTRATION)) {
-            JsonFormUtils.addChildRegLocHierarchyQuestions(jsonForm, GizConstants.KEY.REGISTRATION_HOME_ADDRESS, LocationHierarchy.ENTIRE_TREE);
+            JsonFormUtils.addChildRegLocHierarchyQuestions(jsonForm);
         }
         intent.putExtra(Constants.INTENT_KEY.JSON, jsonForm.toString());
 

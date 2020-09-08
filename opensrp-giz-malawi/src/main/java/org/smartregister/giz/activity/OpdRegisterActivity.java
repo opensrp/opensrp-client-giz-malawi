@@ -54,11 +54,10 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
         return new OpdRegisterFragment();
     }
 
-
     public void createDrawer() {
         navigationMenu = NavigationMenu.getInstance(this, null, null);
         if (navigationMenu != null) {
-            navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.ALL_CLIENTS);
+            navigationMenu.getNavigationAdapter().setSelectedView(GizConstants.DrawerMenu.OPD_CLIENTS);
             navigationMenu.runRegisterCount();
         }
     }

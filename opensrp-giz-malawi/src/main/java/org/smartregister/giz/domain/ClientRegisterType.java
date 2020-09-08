@@ -1,8 +1,8 @@
-package org.smartregister.giz.repository;
+package org.smartregister.giz.domain;
 
 import java.util.Date;
 
-class ClientRegisterType {
+public class ClientRegisterType {
     private String baseEntityId;
     private String registerType;
     private Date dateCreated;

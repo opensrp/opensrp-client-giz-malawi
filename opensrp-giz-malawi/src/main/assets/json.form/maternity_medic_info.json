@@ -1,0 +1,1042 @@
+{
+  "count": "2",
+  "encounter_type": "Maternity Medic Information",
+  "entity_id": "",
+  "relational_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Past Obstetrical/Medical/Surgical History",
+    "next": "step2",
+    "fields": [
+      {
+        "key": "gravidity",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5624AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Gravida",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter valid Gravida"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter valid Gravida"
+        }
+      },
+      {
+        "key": "parity",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1053AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Para",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter valid Para"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter valid Para"
+        },
+        "relevance": {
+          "step1:gravidity": {
+            "type": "numeric",
+            "ex": "greaterThan(., \"1\")"
+          }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThan(., step1:gravidity)",
+            "err": "Para needs to be less than gravidity"
+          }
+        ]
+      },
+      {
+        "key": "gravidity_sub_parity",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/medic_info_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "abortion_number",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1823AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Abortions",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter valid number"
+        },
+        "relevance": {
+          "step1:gravidity": {
+            "type": "numeric",
+            "ex": "greaterThan(., \"1\")"
+          }
+        },
+        "constraints": [
+          {
+            "type": "numeric",
+            "ex": "lessThanEqualTo(., step1:gravidity_sub_parity)",
+            "err": "Abortion number should be less than gravidity - parity"
+          }
+        ]
+      },
+      {
+        "key": "lmp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Last menstrual period",
+        "expanded": false,
+        "duration": {
+          "label": ""
+        },
+        "min_date": "today-280d",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/medic_info_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "lmp_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Last menstrual period unknown checkbox",
+        "label": "",
+        "options": [
+          {
+            "key": "lmp_unknown",
+            "text": "Last menstrual period unknown?",
+            "value": "false"
+          }
+        ]
+      },
+      {
+        "key": "gest_age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165220AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "readonly": true,
+        "value": "",
+        "hint": "The Calculated Gestation age",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/medic_info_calculation_rules.yml"
+            }
+          }
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/medic_info_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ga_weeks_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Gestation age in Weeks",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid no for Gestation age in Weeks"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Enter a valid no for Gestation age in Weeks"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/medic_info_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ga_days_entered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Gestation age in days",
+        "v_numeric": {
+          "value": "true",
+          "err": "Enter a valid no for Gestation age in days"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/medic_info_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "ga_calculated",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden",
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "maternity/medic_info_calculation_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "onset_labour_label",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "label",
+        "hint": "When did labour begin? (Onset of Labour)"
+      },
+      {
+        "key": "onset_labour_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "date_picker",
+        "hint": "Onset of Labour date",
+        "expanded": false,
+        "duration": {
+          "label": "Start of Labour"
+        },
+        "min_date": "today-3m",
+        "max_date": "today"
+      },
+      {
+        "key": "onset_labour_time",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "time_picker",
+        "hint": "Time",
+        "expanded": false,
+        "duration": {
+          "label": "Onset labour time"
+        }
+      },
+      {
+        "key": "previous_delivery_mode",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Modes of delivery in past pregnancies",
+        "label_text_style": "bold",
+        "relevance": {
+          "step1:parity": {
+            "type": "numeric",
+            "ex": "greaterThan(., \"0\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Select at least one delivery mode"
+        },
+        "options": [
+          {
+            "key": "spontaneous_vertex",
+            "text": "Spontaneous Vertex (SVD)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "158865AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "vacuum_extraction",
+            "text": "Vacuum Extraction (VE)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159902AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "breech",
+            "text": "Breech (BR)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1172AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "caesarean_section",
+            "text": "Caesarean Section (CS)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "previous_pregnancy_outcomes",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Outcomes of past pregnancies",
+        "label_text_style": "bold",
+        "relevance": {
+          "step1:gravidity": {
+            "type": "numeric",
+            "ex": "greaterThan(., \"1\")"
+          }
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Select at least one outcome for past pregnancy(s)"
+        },
+        "options": [
+          {
+            "key": "alive",
+            "text": "Alive",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "151849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "stillbirth_fresh",
+            "text": "Stillbirth-Fresh",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "141596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "stillbirth_macerated",
+            "text": "Stillbirth-Macerated",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "150862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "abortions",
+            "text": "Abortions",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "neonatal_death",
+            "text": "Neonatal Death",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "154223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      }
+    ]
+  },
+  "step2": {
+    "title": "Past Medical History",
+    "fields": [
+      {
+        "key": "previous_complications",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1430AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Any past pregnancy problems?",
+        "combine_checkbox_option_values": "true",
+        "label_text_style": "bold",
+        "v_required": {
+          "value": "true",
+          "err": "Select at least one complication"
+        },
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "dont_know",
+            "text": "Don't know",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "pre_eclampsia",
+            "text": "Pre-eclampsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "eclampsia",
+            "text": "Eclampsia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "convulsions",
+            "text": "Convulsions",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113054AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "gestational_diabetes",
+            "text": "Gestational Diabetes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1449AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "tobacco_use",
+            "text": "Tobacco use",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159084AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "alcohol_use",
+            "text": "Alcohol use",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "143098AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "substance_use",
+            "text": "Substance use",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "Heavy_bleeding",
+            "text": "Heavy bleeding (during or after delivery)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "baby_died_within_24",
+            "text": "Baby died within 24 hours of birth",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "macrosomia",
+            "text": "Macrosomia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140951AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "forceps_or_vacuum_delivery",
+            "text": "Forceps or vacuum delivery",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "third_or_4th",
+            "text": "3rd or 4th degree tear",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "124858AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "rectovaginal_fistula",
+            "text": "Rectovaginal fistula",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "bleeding_during_pregnancy",
+            "text": "Bleeding during pregnancy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "abortions",
+            "text": "Abortions",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "50AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "abnormal_presentation",
+            "text": "Abnormal Presentation",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "150862AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "antepartum_haemorrhage",
+            "text": "Antepartum haemorrhage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "cord_prolapse",
+            "text": "Cord prolapse",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "128420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "fetal_distress",
+            "text": "Fetal distress",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118256AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "haemorrhage",
+            "text": "Haemorrhage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "138873AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "obstructed_prolonged_labour",
+            "text": "Obstructed/Prolonged Labour",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "128420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "perineal_tear",
+            "text": "Perineal tear (2nd, 3rd, or 4th degree)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165247AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "placenta_praevia",
+            "text": "Placenta praevia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "114127AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "placental_abruption",
+            "text": "Placental abruption",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "postpartum_haemorhage",
+            "text": "Postpartum Haemorhage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "premature_labour",
+            "text": "Premature labour",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129214AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "retained_placenta",
+            "text": "Retained placenta",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "ruptured_uterus",
+            "text": "Ruptured Uterus",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "113195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sepsis",
+            "text": "Sepsis",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "126721AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "severe_anaemia",
+            "text": "Severe Anaemia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162044AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "symphysiotomy",
+            "text": "Symphysiotomy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160853AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "blood_transfusion",
+            "text": "Blood Transfusion",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1063AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "laparotomy",
+            "text": "Laparotomy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "ruptured_ectopic_pregnancy",
+            "text": "Ruptured Ectopic Pregnancy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "vesico_vaginal_fistulay",
+            "text": "Vesico-vaginal fistula",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "49AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other(Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "step1:gravidity": {
+            "type": "numeric",
+            "ex": "greaterThan(., \"1\")"
+          }
+        }
+      },
+      {
+        "key": "previous_complications_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify",
+        "relevance": {
+          "step2:previous_complications": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "surgeries",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1651AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Any surgeries?",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "dont_know",
+            "text": "Don't know",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "dilation_and_curettage",
+            "text": "Dilation and curettage",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1637AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "removal_of_ovarian_cysts",
+            "text": "Removal of ovarian cysts",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165262AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "removal_of_ovary",
+            "text": "Removal of ovary (oophorectomy)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "161844AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "removal_of_the_tube",
+            "text": "Removal of the tube (salpingectomy)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "161835AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "partial_removal_of_the_cervix",
+            "text": "Partial removal of the cervix (cervical cone)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162811AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other_gynecological_procedures",
+            "text": "Other gynecological procedures (specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165263AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "repair_of_obstetic_fistula",
+            "text": "Repair of Obstetic Fistula",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "caesarian_section",
+            "text": "Caesarian Section",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1171AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "raptured_ectopic_pregnancy",
+            "text": "Raptured Ectopic Pregnancy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other_surgeries",
+            "text": "Other surgeries (specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "surgeries_other_gyn_proced",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "165264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other gynecological procedures",
+        "relevance": {
+          "step2:surgeries": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other_gynecological_procedures"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "surgeries_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Other surgeries",
+        "relevance": {
+          "step2:surgeries": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other_surgeries"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "health_conditions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Any chronic or past health conditions?",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
+        "exclusive": [
+          "none",
+          "dont_know"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "dont_know",
+            "text": "Don't know",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "autoimmune_disease",
+            "text": "Autoimmune disease",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "blood_disorder",
+            "text": "Blood disorder (e.g. sickle cell anemia, thalassemia)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "cancer",
+            "text": "Cancer",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "151286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "diabetes",
+            "text": "Diabetes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "epilepsy",
+            "text": "Epilepsy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv",
+            "text": "HIV",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hypertension",
+            "text": "Hypertension",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "kidney_disease",
+            "text": "Kidney disease",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "asthma",
+            "text": "Asthma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "121375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "puerperal_psychosis",
+            "text": "Puerperal Psychosis",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "129318AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "depression",
+            "text": "Depression",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "health_conditions_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify",
+        "relevance": {
+          "step2:health_conditions": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "key": "family_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Family medical history",
+        "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
+        "v_required": {
+          "value": "true",
+          "err": "Select at least one medical condition OR None"
+        },
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "key": "none",
+            "text": "None",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "asthma",
+            "text": "Asthma",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "121375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "autoimmune_disease",
+            "text": "Autoimmune disease",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "148117AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "sickle_cell_anemia",
+            "text": "Sickle Cell anemia",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "depression",
+            "text": "Depression",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119537AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hypertension",
+            "text": "Hypertension",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "diabetes",
+            "text": "Diabetes",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "epilepsy",
+            "text": "Epilepsy",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "155AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "renal_disease",
+            "text": "Renal Disease",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "6033AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "fistula_repair",
+            "text": "Fistula repair",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159919AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "leg_deformity",
+            "text": "Leg Deformity",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "spinal_deformity",
+            "text": "Spinal Deformity",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other",
+            "text": "Other(Specify)",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ]
+      },
+      {
+        "key": "family_history_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "edit_text",
+        "hint": "Specify",
+        "relevance": {
+          "step2:family_history": {
+            "ex-checkbox": [
+              {
+                "or": [
+                  "other"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

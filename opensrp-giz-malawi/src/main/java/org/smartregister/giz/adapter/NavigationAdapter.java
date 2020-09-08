@@ -16,25 +16,30 @@ import org.smartregister.giz.listener.NavigationListener;
 import org.smartregister.giz.model.NavigationOption;
 import org.smartregister.giz.util.GizConstants;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Locale;
 
 public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.MyViewHolder> {
 
     private List<NavigationOption> navigationOptionList;
-    private String selectedView = GizConstants.DrawerMenu.ALL_FAMILIES;
+    private String selectedView = GizConstants.DrawerMenu.ALL_CLIENTS;
     private View.OnClickListener onClickListener;
-    private Context context;
+    private Activity context;
 
     public NavigationAdapter(List<NavigationOption> navigationOptions, Activity context) {
         this.navigationOptionList = navigationOptions;
-        this.context = context;
-        this.onClickListener = new NavigationListener(context, this);
+        this.context = new WeakReference<>(context).get();
+        this.onClickListener = new NavigationListener(this.context, this);
     }
 
     public void setSelectedView(String selectedView) {
         this.selectedView = selectedView;
         this.notifyDataSetChanged();
+    }
+
+    public String getSelectedView() {
+        return selectedView;
     }
 
     @NonNull

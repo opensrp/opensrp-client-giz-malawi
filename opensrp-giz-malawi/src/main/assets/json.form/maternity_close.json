@@ -1,0 +1,258 @@
+{
+  "count": "1",
+  "encounter_type": "Maternity Close",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Maternity Close",
+    "fields": [
+      {
+        "key": "maternity_close_reason",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165245AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "Reason for closing the Maternity record",
+        "values": [
+          "Woman died",
+          "Lost to follow-up",
+          "Moved away",
+          "Wrong entry",
+          "Other"
+        ],
+        "keys": [
+          "woman_died",
+          "lost_to_follow_up",
+          "moved_away",
+          "wrong_entry",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "Woman died": "160034AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Lost to follow-up": "5240AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Moved away": "160415AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Wrong entry": "165246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the place of delivery"
+        }
+      },
+      {
+        "key": "date_of_death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1543AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "When did the death occur?",
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the date of death"
+        },
+        "relevance": {
+          "step1:maternity_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"woman_died\")"
+          }
+        }
+      },
+      {
+        "key": "place_of death",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "Place of death?",
+        "values": [
+          "Community",
+          "This Facility",
+          "In Transit (TR)",
+          "Other Facility",
+          "Home/Traditional Birth Authority (TBA)",
+          "Other"
+        ],
+        "keys": [
+          "community",
+          "this_facility",
+          "in_transit",
+          "other_facility",
+          "home/traditional_birth_Authority",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "This Facility": "159372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "In Transit (TR)": "1601AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other Facility": "1588AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Home/Traditional Birth Authority (TBA)": "1536AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the place of death"
+        },
+        "relevance": {
+          "step1:maternity_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"woman_died\")"
+          }
+        }
+      },
+      {
+        "key": "death_cause",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1599AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "spinner",
+        "hint": "Cause of death?",
+        "values": [
+          "Unknown",
+          "Abortion-related complications",
+          "Obstructed labour",
+          "Pre-eclampsia",
+          "Eclampsia",
+          "Antepartum haemorrhage",
+          "Postpartum haemorrhage",
+          "Placental abruption",
+          "Infection",
+          "Prolonged Labour",
+          "Ruptured uterus",
+          "Puerperal sepsis",
+          "Ruptured Ectopic Pregnancy",
+          "Anaemia",
+          "HIV/Aids",
+          "Other (specify)"
+        ],
+        "keys": [
+          "unknown",
+          "abortion_related_complications",
+          "obstructed_labour",
+          "pre_eclampsia",
+          "eclampsia",
+          "antepartum_haemorrhage",
+          "postpartum_haemorrhage",
+          "placental_abruption",
+          "infection",
+          "prolonged_labour",
+          "ruptured_uterus",
+          "puerperal_sepsis",
+          "ruptured_ectopic_pregnancy",
+          "anaemia",
+          "hiv/aids",
+          "other"
+        ],
+        "openmrs_choice_ids": {
+          "Unknown":  "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Abortion-related complications": "122299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Obstructed labour":  "141596AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Pre-eclampsia": "129251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Eclampsia": "118744AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Antepartum haemorrhage": "228AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Postpartum haemorrhage": "230AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Placental abruption": "130108AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Infection": "130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Prolonged Labour": "113602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Ruptured uterus": "113195AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Puerperal sepsis": "130AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Ruptured Ectopic Pregnancy": "127246AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Anaemia": "121629AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "HIV/Aids": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "Other (specify)": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "v_required": {
+          "value": "true",
+          "err": "Please enter the cause of death"
+        },
+        "relevance": {
+          "step1:maternity_close_reason": {
+            "type": "string",
+            "ex": "equalTo(., \"woman_died\")"
+          }
+        }
+      },
+      {
+        "key": "death_cause_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Specify the other cause of death",
+        "relevance": {
+          "step1:death_cause": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      },
+      {
+        "key": "death_follow_up",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "spinner",
+        "hint": "Was the follow-up of death conducted by health workers?",
+        "values": [
+          "Yes",
+          "No"
+        ],
+        "openmrs_choice_ids": {
+          "Yes": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "No": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "relevance": {
+          "step1:death_cause": {
+            "type": "string",
+            "ex": "equalTo(., \"other\")"
+          }
+        }
+      }
+    ]
+  }
+}

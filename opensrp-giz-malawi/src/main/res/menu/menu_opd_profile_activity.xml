@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/opd_menu_item_enrol_child"
+        android:visible="false"
+        android:title="Enrol Child Register"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/opd_menu_item_enrol_anc"
+        android:title="Enrol ANC Register"
+        android:visible="false"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/opd_menu_item_enrol_maternity"
+        android:visible="false"
+        android:title="Enrol Maternity Register"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/opd_menu_item_enrol_pnc"
+        android:visible="false"
+        android:title="Enrol PNC Register"
+        app:showAsAction="collapseActionView"
+        tools:ignore="HardcodedText" />
+    <item
+        android:id="@+id/opd_menu_item_close_client"
+        android:enabled="false"
+        android:title="@string/opd_close"
+        app:showAsAction="never"
+        tools:ignore="HardcodedText" />
+</menu>

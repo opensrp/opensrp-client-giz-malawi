@@ -18,6 +18,8 @@ public class ReportsSectionsPagerAdapter extends FragmentPagerAdapter {
 
     private HIA2ReportsActivity hia2ReportsActivity;
 
+    private SentMonthlyFragment sentMonthlyFragment;
+
     public ReportsSectionsPagerAdapter(HIA2ReportsActivity hia2ReportsActivity, FragmentManager fm) {
         super(fm);
         this.hia2ReportsActivity = hia2ReportsActivity;
@@ -33,11 +35,18 @@ public class ReportsSectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return DraftMonthlyFragment.newInstance(hia2ReportsActivity.getReportGrouping());
             case 2:
-                return SentMonthlyFragment.newInstance(hia2ReportsActivity.getReportGrouping());
+                return getSentMonthlyFragment();
             default:
                 break;
         }
         return null;
+    }
+
+    public SentMonthlyFragment getSentMonthlyFragment(){
+        if(sentMonthlyFragment == null){
+            sentMonthlyFragment = SentMonthlyFragment.newInstance(hia2ReportsActivity.getReportGrouping());
+        }
+        return sentMonthlyFragment;
     }
 
     @Override

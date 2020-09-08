@@ -1,0 +1,128 @@
+---
+group:
+subGroup: pregnancy_data_&_medical_history
+relevance: "pmi_base_entity_id != null"
+fields:
+
+  - template: "Gravida: {gravidity}"
+    relevance: "gravidity != ''"
+    isRedFont: "gravidity >= 5"
+
+  - template: "Para: {parity}"
+    relevance: "parity != ''"
+    isRedFont: "parity >= 5"
+
+  - template: "Last menstrual period date: {lmp_unknown} {lmp}"
+    relevance: "lmp_unknown != '' || lmp != ''"
+
+  - template: "Gestation age: {gest_age} "
+    relevance: "gest_age != ''"
+
+  - template: "Onset of Labour: {onset_labour}{onset_labour_time}"
+    relevance: "onset_labour != '' || onset_labour_time != ''"
+
+  - template: "Any past pregnancy problems?: {previous_complications}"
+    relevance: "previous_complications != ''"
+
+  - template: "Any past pregnancy problems(Other)?: {previous_complications_other}"
+    relevance: "previous_complications_other != ''"
+
+  - template: "Family medical history: {family_history}"
+    relevance: "family_history != ''"
+
+  - template: "Family medical history (Other): {family_history_other}"
+    relevance: "family_history_other != ''"
+
+  - template: "How many does of TDV did the mother receive?: {mother_tdv_doses}"
+    relevance: "mother_tdv_doses != ''"
+
+  - template: "Children Protected at birth (PAB): {protected_at_birth}"
+    relevance: "protected_at_birth != ''"
+
+---
+subGroup: delivery_&_outcome_details
+relevance: "pmi_base_entity_id != null"
+fields:
+
+  - template: "Date of delivery: {delivery_date}"
+    relevance: "delivery_date != ''"
+
+  - template: "Place of delivery: {delivery_place}"
+    relevance: "delivery_place != ''"
+
+  - template: "Staff conducting the delivery: {delivery_person}"
+    relevance: "delivery_person != ''"
+
+  - template: "Staff conducting the delivery (Other): {delivery_person_other}"
+    relevance: "delivery_person_other != ''"
+
+  - template: "Mode of delivery: {delivery_mode}"
+    relevance: "delivery_mode != ''"
+
+  - template: "Mode of delivery (Other): {delivery_mode_other}"
+    relevance: "delivery_mode_other != ''"
+
+  - template: "Obstetric complications: {obstretic_complications}"
+    relevance: "obstretic_complications != ''"
+    isRedFont: "obstretic_complications != 'None'"
+
+  - template: "Obstetric complications (Other): {obstretic_complications_other}"
+    relevance: "obstretic_complications_other != ''"
+
+  - template: "Obstetric care: {obstretic_care}"
+    relevance: "obstretic_care != ''"
+
+  - template: "Obstetric care (Other): {obstretic_care_other}"
+    relevance: "obstretic_care_other != ''"
+
+  - template: "Referred out: {referred_out}"
+    relevance: "referred_out != ''"
+
+  - template: "Vitamin A: {vit_a}"
+    relevance: "vit_a != ''"
+
+  - template: "Discharges status: {discharge_status}"
+    relevance: "discharge_status != ''"
+
+---
+subGroup: hiv_status_&_treatment
+relevance: "pmi_base_entity_id != null"
+fields:
+
+  - template: "HIV status at registration: {hiv_status}"
+    relevance: "hiv_status != ''"
+    isRedFont: "hiv_status == 'positive'"
+
+  - template: "Is the woman on ART treatment?: {on_art_treatment}"
+    relevance: "on_art_treatment != ''"
+
+---
+subGroup: demographic_information
+fields:
+  - template: "Highest level of school: {educ_level}"
+    relevance: "educ_level != ''"
+
+  - template: "Marital Status: {marital_status}"
+    relevance: "marital_status != ''"
+
+  - template: "Occupation: {occupation}"
+    relevance: "occupation != ''"
+
+  - template: "Other Occupation: {occupation_other}"
+    relevance: "occupation_other != ''"
+
+  - template: "Religion: {religion}"
+    relevance: "religion != ''"
+
+  - template: "Other Religion: {religion_other}"
+    relevance: "religion_other != ''"
+---
+subGroup: livebirths
+
+---
+subGroup: stillbirths
+fields:
+
+  - template: "Number of babies stillborn: {baby_count_stillborn}"
+    relevance: "baby_count_stillborn != ''"
+    isRedFont: "baby_count_stillborn > 0"

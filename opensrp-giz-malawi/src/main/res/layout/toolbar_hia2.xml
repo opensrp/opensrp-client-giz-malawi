@@ -37,9 +37,9 @@
                 android:id="@+id/sync_progress_bar"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:visibility="gone"
                 android:layout_centerInParent="true"
-                android:indeterminate="true" />
+                android:indeterminate="true"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -50,10 +50,18 @@
             <org.smartregister.view.customcontrols.CustomFontTextView
                 android:id="@+id/title"
                 style="@style/CustomFontTextViewStyle.NavBar.Black"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 android:text="@string/reports" />
+
+            <ImageView
+                android:id="@+id/report_sync_btn"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_action_sync" />
 
             <View
                 android:id="@+id/separator_v"
@@ -61,8 +69,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="right|center_vertical"
                 android:background="@drawable/vertical_separator_male"
-                android:visibility="invisible"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                android:visibility="invisible" />
         </FrameLayout>
     </org.smartregister.child.toolbar.LocationSwitcherToolbar>
 

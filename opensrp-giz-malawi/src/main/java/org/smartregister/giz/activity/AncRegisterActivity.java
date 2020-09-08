@@ -3,11 +3,15 @@ package org.smartregister.giz.activity;
 import android.support.v4.app.Fragment;
 
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
+import org.smartregister.anc.library.event.PatientRemovedEvent;
+import org.smartregister.anc.library.util.Utils;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.contract.NavigationMenuContract;
 import org.smartregister.giz.fragment.AncRegisterFragment;
 import org.smartregister.giz.fragment.GizMeFragment;
 import org.smartregister.giz.presenter.GizAncRegisterPresenter;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.view.activity.BaseRegisterActivity;
@@ -110,5 +114,15 @@ public class AncRegisterActivity extends BaseHomeRegisterActivity implements Nav
     @Override
     public NavigationMenu getNavigationMenu() {
         return navigationMenu;
+    }
+
+    @Override
+    public void removePatientHandler(PatientRemovedEvent event) {
+        if (event != null) {
+            Utils.removeStickyEvent(event);
+            refreshList(FetchStatus.fetched);
+            hideProgressDialog();
+            GizUtils.showAncMaternityNavigationDialog(event, AncRegisterActivity.this);
+        }
     }
 }

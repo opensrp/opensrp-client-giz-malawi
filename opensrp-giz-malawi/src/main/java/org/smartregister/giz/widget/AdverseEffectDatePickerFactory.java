@@ -13,14 +13,16 @@ import com.vijay.jsonwizard.widgets.DatePickerFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.child.widgets.ChildDatePickerFactory;
 import org.smartregister.giz.fragment.GizChildFormFragment;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import timber.log.Timber;
 
 
-public class AdverseEffectDatePickerFactory extends DatePickerFactory implements GizChildFormFragment.OnReactionVaccineSelected {
+public class AdverseEffectDatePickerFactory extends ChildDatePickerFactory implements GizChildFormFragment.OnReactionVaccineSelected {
 
     private GizChildFormFragment formFragment;
     private TextView txtDuration;
@@ -29,7 +31,7 @@ public class AdverseEffectDatePickerFactory extends DatePickerFactory implements
 
     @Override
     protected List<View> attachJson(String stepName, Context context, JsonFormFragment formFragment, JSONObject jsonObject, boolean popup, CommonListener listener) {
-        this.formFragment = (GizChildFormFragment) formFragment;
+        this.formFragment = new WeakReference<>((GizChildFormFragment) formFragment).get();
         this.formFragment.setOnReactionVaccineSelected(this);
         return super.attachJson(stepName, context, formFragment, jsonObject, popup, listener);
     }
@@ -37,8 +39,8 @@ public class AdverseEffectDatePickerFactory extends DatePickerFactory implements
     @Override
     protected DatePickerDialog createDateDialog(Context context, TextView duration, MaterialEditText editText, JSONObject jsonObject) throws JSONException {
         DatePickerDialog datePickerDialog = super.createDateDialog(context, duration, editText, jsonObject);
-        txtDuration = duration;
-        this.edtText = editText;
+        this.txtDuration = new WeakReference<>(duration).get();
+        this.edtText = new WeakReference<>(editText).get();
         this.jsonObject = jsonObject;
         return datePickerDialog;
     }

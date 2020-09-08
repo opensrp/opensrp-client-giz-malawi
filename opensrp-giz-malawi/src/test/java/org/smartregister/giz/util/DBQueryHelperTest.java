@@ -56,7 +56,7 @@ public class DBQueryHelperTest {
         PowerMockito.when(ChildLibrary.getInstance()).thenReturn(childLibrary);
 
         ChildMetadata metadata = new ChildMetadata(ChildFormActivity.class, ChildProfileActivity.class,
-                ChildImmunizationActivity.class, true, new GizChildRegisterQueryProvider());
+                ChildImmunizationActivity.class, null,true, new GizChildRegisterQueryProvider());
         metadata.updateChildRegister(GizConstants.JSON_FORM.CHILD_ENROLLMENT, GizConstants.TABLE_NAME.ALL_CLIENTS,
                 GizConstants.TABLE_NAME.ALL_CLIENTS, GizConstants.EventType.CHILD_REGISTRATION,
                 GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.EventType.OUT_OF_CATCHMENT, GizConstants.CONFIGURATION.CHILD_REGISTER,

@@ -7,10 +7,10 @@ import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
-import org.smartregister.anc.library.repository.ContactTasksRepositoryHelper;
-import org.smartregister.anc.library.repository.PartialContactRepositoryHelper;
-import org.smartregister.anc.library.repository.PatientRepositoryHelper;
-import org.smartregister.anc.library.repository.PreviousContactRepositoryHelper;
+import org.smartregister.anc.library.repository.ContactTasksRepository;
+import org.smartregister.anc.library.repository.PartialContactRepository;
+import org.smartregister.anc.library.repository.PreviousContactRepository;
+import org.smartregister.child.util.ChildDbMigrations;
 import org.smartregister.child.util.Utils;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.domain.db.Column;
@@ -25,18 +25,26 @@ import org.smartregister.immunization.repository.RecurringServiceRecordRepositor
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
-import org.smartregister.opd.repository.OpdCheckInRepository;
+import org.smartregister.maternity.repository.MaternityChildRepository;
+import org.smartregister.maternity.repository.MaternityPartialFormRepository;
 import org.smartregister.opd.repository.OpdDetailsRepository;
 import org.smartregister.opd.repository.OpdDiagnosisAndTreatmentFormRepository;
-import org.smartregister.opd.repository.OpdDiagnosisRepository;
-import org.smartregister.opd.repository.OpdServiceDetailRepository;
+import org.smartregister.opd.repository.OpdDiagnosisDetailRepository;
 import org.smartregister.opd.repository.OpdTestConductedRepository;
-import org.smartregister.opd.repository.OpdTreatmentRepository;
+import org.smartregister.opd.repository.OpdTreatmentDetailRepository;
 import org.smartregister.opd.repository.OpdVisitRepository;
+import org.smartregister.pnc.repository.PncChildRepository;
+import org.smartregister.pnc.repository.PncMedicInfoRepository;
+import org.smartregister.pnc.repository.PncOtherVisitRepository;
+import org.smartregister.pnc.repository.PncPartialFormRepository;
+import org.smartregister.pnc.repository.PncStillBornRepository;
+import org.smartregister.pnc.repository.PncVisitChildStatusRepository;
+import org.smartregister.pnc.repository.PncVisitInfoRepository;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
 import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.reporting.repository.IndicatorRepository;
+import org.smartregister.reporting.util.ReportingUtils;
 import org.smartregister.repository.AlertRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Hia2ReportRepository;
@@ -46,6 +54,8 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -77,9 +87,9 @@ public class GizMalawiRepository extends Repository {
         ConfigurableViewsRepository.createTable(database);
         UniqueIdRepository.createTable(database);
 
-        PartialContactRepositoryHelper.createTable(database);
-        PreviousContactRepositoryHelper.createTable(database);
-        ContactTasksRepositoryHelper.createTable(database);
+        PartialContactRepository.createTable(database);
+        PreviousContactRepository.createTable(database);
+        ContactTasksRepository.createTable(database);
 
         SettingsRepository.onUpgrade(database);
         WeightRepository.createTable(database);
@@ -87,26 +97,25 @@ public class GizMalawiRepository extends Repository {
         VaccineRepository.createTable(database);
 
         OpdVisitRepository.createTable(database);
-        OpdCheckInRepository.createTable(database);
         OpdDetailsRepository.createTable(database);
         OpdDiagnosisAndTreatmentFormRepository.createTable(database);
-        OpdDiagnosisRepository.createTable(database);
-        OpdTreatmentRepository.createTable(database);
+        OpdDiagnosisDetailRepository.createTable(database);
+        OpdTreatmentDetailRepository.createTable(database);
         OpdTestConductedRepository.createTable(database);
-        OpdServiceDetailRepository.createTable(database);
         ClientRegisterTypeRepository.createTable(database);
-
+        ChildAlertUpdatedRepository.createTable(database);
         //reporting
         IndicatorRepository.createTable(database);
         IndicatorQueryRepository.createTable(database);
         DailyIndicatorCountRepository.createTable(database);
-        MonthlyTalliesRepository.createTable(database);
+        GizMonthlyTalliesRepository.createTable(database);
+        HIA2IndicatorsRepository.createTable(database);
 
-        EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, Hia2ReportRepository.report_column.values());
+        EventClientRepository.createTable(database, Hia2ReportRepository.Table.hia2_report, GizHia2ReportRepository.ReportColumn.values());
 
         runLegacyUpgrades(database);
 
-        onUpgrade(database, 8, BuildConfig.DATABASE_VERSION);
+        onUpgrade(database, 10, BuildConfig.DATABASE_VERSION);
 
         // initialize from yml file
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
@@ -120,6 +129,19 @@ public class GizMalawiRepository extends Repository {
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         }
+
+        // Maternity
+        MaternityPartialFormRepository.createTable(database);
+        MaternityChildRepository.createTable(database);
+
+        // Pnc
+        PncChildRepository.createTable(database);
+        PncStillBornRepository.createTable(database);
+        PncVisitInfoRepository.createTable(database);
+        PncVisitChildStatusRepository.createTable(database);
+        PncOtherVisitRepository.createTable(database);
+        PncPartialFormRepository.createTable(database);
+        PncMedicInfoRepository.createTable(database);
     }
 
 
@@ -151,15 +173,32 @@ public class GizMalawiRepository extends Repository {
                 case 8:
                     upgradeToVersion8AddServiceGroupColumn(db);
                     break;
+                case 9:
+                    ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
+                    break;
+                case 10:
+                case 11:
+                    upgradeToVersion11CreateHia2IndicatorsRepository(db);
+                    break;
+
                 default:
                     break;
             }
             upgradeTo++;
         }
 
-        PatientRepositoryHelper.performMigrations(db);
-        DailyIndicatorCountRepository.performMigrations(db);
+        ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
+
+//        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
+
+    }
+
+    private void upgradeToVersion11CreateHia2IndicatorsRepository(SQLiteDatabase db) {
+        if (!ReportingUtils.isTableExists(db, HIA2IndicatorsRepository.TABLE_NAME)) {
+            HIA2IndicatorsRepository.createTable(db);
+        }
+        dumpHIA2IndicatorsCSV(db);
     }
 
     @Override
@@ -333,7 +372,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_HIA2_STATUS_COL);
 
         } catch (Exception e) {
-            Timber.e(e,"upgradeToVersion7");
+            Timber.e(e, "upgradeToVersion7");
         }
     }
 
@@ -380,7 +419,7 @@ public class GizMalawiRepository extends Repository {
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
             db.execSQL(RecurringServiceRecordRepository.UPDATE_TABLE_ADD_TEAM_COL);
         } catch (Exception e) {
-            Timber.e(e,"upgradeToVersion7VaccineRecurringServiceRecordChange");
+            Timber.e(e, "upgradeToVersion7VaccineRecurringServiceRecordChange");
         }
     }
 
@@ -429,6 +468,17 @@ public class GizMalawiRepository extends Repository {
             int savedVersion = Integer.parseInt(savedAppVersion);
             return (BuildConfig.VERSION_CODE > savedVersion);
         }
+    }
+
+
+    private void dumpHIA2IndicatorsCSV(SQLiteDatabase db) {
+        List<Map<String, String>> csvData = Utils.populateTableFromCSV(
+                context,
+                HIA2IndicatorsRepository.INDICATORS_CSV_FILE,
+                HIA2IndicatorsRepository.CSV_COLUMN_MAPPING);
+        HIA2IndicatorsRepository hIA2IndicatorsRepository = GizMalawiApplication.getInstance()
+                .hIA2IndicatorsRepository();
+        hIA2IndicatorsRepository.save(db, csvData);
     }
 
 
