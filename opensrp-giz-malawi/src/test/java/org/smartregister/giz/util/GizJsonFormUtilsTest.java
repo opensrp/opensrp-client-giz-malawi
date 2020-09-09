@@ -19,8 +19,8 @@ import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.activity.BaseChildFormActivity;
 import org.smartregister.child.domain.ChildMetadata;
 import org.smartregister.child.domain.ChildMetadata.ChildRegister;
+import org.smartregister.child.util.ChildJsonFormUtils;
 import org.smartregister.child.util.Constants;
-import org.smartregister.child.util.JsonFormUtils;
 import org.smartregister.domain.Photo;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.util.FormUtils;
@@ -105,26 +105,26 @@ public class GizJsonFormUtilsTest {
         List<String> nonEditableFields = new ArrayList<>();
         String result = GizJsonFormUtils.getMetadataForEditForm(context, childDetails, nonEditableFields);
         JSONObject jsonResultObject = new JSONObject(result);
-        JSONObject stepOne = jsonResultObject.getJSONObject(JsonFormUtils.STEP1);
-        JSONArray stepOneFields = stepOne.optJSONArray(org.smartregister.util.JsonFormUtils.FIELDS);
+        JSONObject stepOne = jsonResultObject.getJSONObject(ChildJsonFormUtils.STEP1);
+        JSONArray stepOneFields = stepOne.optJSONArray(ChildJsonFormUtils.FIELDS);
 
-        Assert.assertEquals("first", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.FIRST_NAME));
+        Assert.assertEquals("first", ChildJsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.FIRST_NAME));
 
-        Assert.assertEquals("last", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.LAST_NAME));
+        Assert.assertEquals("last", ChildJsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.LAST_NAME));
 
-        Assert.assertEquals("30-06-2010", JsonFormUtils.getFieldValue(stepOneFields, Constants.JSON_FORM_KEY.DATE_BIRTH));
+        Assert.assertEquals("30-06-2010", ChildJsonFormUtils.getFieldValue(stepOneFields, Constants.JSON_FORM_KEY.DATE_BIRTH));
 
-        Assert.assertEquals("Middle", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MIDDLE_NAME));
+        Assert.assertEquals("Middle", ChildJsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MIDDLE_NAME));
 
-        Assert.assertEquals("baseEntityId", jsonResultObject.optString(JsonFormUtils.ENTITY_ID));
+        Assert.assertEquals("baseEntityId", jsonResultObject.optString(ChildJsonFormUtils.ENTITY_ID));
 
         Assert.assertEquals("relationalId", jsonResultObject.optString(Constants.KEY.RELATIONAL_ID));
 
-        Assert.assertEquals("Malawi", jsonResultObject.optString(JsonFormUtils.CURRENT_ZEIR_ID));
+        Assert.assertEquals("Malawi", jsonResultObject.optString(ChildJsonFormUtils.CURRENT_ZEIR_ID));
 
-        Assert.assertEquals("Nrc Number", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MOTHER_NRC_NUMBER));
+        Assert.assertEquals("Nrc Number", ChildJsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MOTHER_NRC_NUMBER));
 
-        Assert.assertEquals("0232453923", JsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER));
+        Assert.assertEquals("0232453923", ChildJsonFormUtils.getFieldValue(stepOneFields, GizConstants.KEY.MOTHER_SECOND_PHONE_NUMBER));
     }
 
 }

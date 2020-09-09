@@ -3,10 +3,11 @@ package org.smartregister.giz.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.util.Pair;
+
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -477,14 +478,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return repository;
     }
 
-    public String getPassword() {
-        if (password == null) {
-            String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
-            password = getContext().userService().getGroupId(username);
-        }
-        return password;
-    }
-
     public Context getContext() {
         return context;
     }
@@ -515,13 +508,15 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     @Override
     public void onTimeChanged() {
-        context.userService().forceRemoteLogin();
+        String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+        context.userService().forceRemoteLogin(username);
         logoutCurrentUser();
     }
 
     @Override
     public void onTimeZoneChanged() {
-        context.userService().forceRemoteLogin();
+        String username = getContext().userService().getAllSharedPreferences().fetchRegisteredANM();
+        context.userService().forceRemoteLogin(username);
         logoutCurrentUser();
     }
 

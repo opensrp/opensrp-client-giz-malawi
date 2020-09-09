@@ -106,7 +106,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
                 if (opdMetadata != null && opdRegisterActivity != null) {
                     opdRegisterActivity.startFormActivity(opdMetadata.getOpdRegistrationFormName()
                             , null
-                            , null);
+                            , "");
                 }
             } else if (itemId == R.id.opd_menu_register_child_under_five) {
                 Intent intent = new Intent(getActivity(), ChildRegisterActivity.class);

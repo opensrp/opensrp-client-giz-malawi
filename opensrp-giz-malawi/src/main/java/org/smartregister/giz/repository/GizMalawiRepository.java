@@ -1,11 +1,11 @@
 package org.smartregister.giz.repository;
 
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
@@ -203,8 +203,8 @@ public class GizMalawiRepository extends Repository {
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        String pass = GizMalawiApplication.getInstance().getPassword();
-        if (StringUtils.isNotBlank(pass)) {
+        byte[] pass = GizMalawiApplication.getInstance().getPassword();
+        if (pass != null && pass.length > 0) {
             return getReadableDatabase(pass);
         } else {
             throw new IllegalStateException("Password is blank");
@@ -213,8 +213,8 @@ public class GizMalawiRepository extends Repository {
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        String pass = GizMalawiApplication.getInstance().getPassword();
-        if (StringUtils.isNotBlank(pass)) {
+        byte[] pass = GizMalawiApplication.getInstance().getPassword();
+        if (pass != null && pass.length > 0) {
             return getWritableDatabase(pass);
         } else {
             throw new IllegalStateException("Password is blank");

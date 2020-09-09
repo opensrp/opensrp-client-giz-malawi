@@ -20,6 +20,7 @@ import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavigationMenu;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ReportRegisterActivity extends BaseActivity {
 
@@ -95,8 +96,8 @@ public class ReportRegisterActivity extends BaseActivity {
     }
 
     @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String s) {
-        // Nothing to happen here
+    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> triple, String s) {
+        //do nothing
     }
 
     @Override

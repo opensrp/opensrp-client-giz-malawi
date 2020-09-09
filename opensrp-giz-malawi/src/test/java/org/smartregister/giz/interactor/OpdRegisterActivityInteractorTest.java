@@ -135,7 +135,7 @@ public class OpdRegisterActivityInteractorTest {
         client.setLastName("Doe");
         client.addIdentifier(OpdJsonFormUtils.ZEIR_ID, "342");
 
-        org.smartregister.domain.db.Client clientDomain = new org.smartregister.domain.db.Client("234");
+        org.smartregister.domain.Client clientDomain = new org.smartregister.domain.Client("234");
         clientDomain.setBirthdate(new DateTime());
         clientDomain.setGender("M");
         clientDomain.setFirstName("John");
@@ -150,7 +150,7 @@ public class OpdRegisterActivityInteractorTest {
         event.setFormSubmissionId("46rt34543rew");
         event.setLocationId("location");
 
-        org.smartregister.domain.db.Event eventDomain = new org.smartregister.domain.db.Event();
+        org.smartregister.domain.Event eventDomain = new org.smartregister.domain.Event();
         eventDomain.setBaseEntityId("234");
         eventDomain.setChildLocationId("childLoc");
         eventDomain.setEventType("Opd Registration");

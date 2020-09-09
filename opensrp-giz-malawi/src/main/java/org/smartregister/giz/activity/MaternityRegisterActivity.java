@@ -31,6 +31,8 @@ import org.smartregister.maternity.utils.MaternityJsonFormUtils;
 import org.smartregister.maternity.utils.MaternityUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
 
+import java.util.Map;
+
 import timber.log.Timber;
 
 /**
@@ -69,6 +71,11 @@ public class MaternityRegisterActivity extends BaseMaternityRegisterActivity imp
     protected void onResumption() {
         super.onResumption();
         createDrawer();
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        //do nothing
     }
 
     @Override

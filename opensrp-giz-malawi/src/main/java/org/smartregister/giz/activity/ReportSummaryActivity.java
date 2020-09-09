@@ -2,11 +2,12 @@ package org.smartregister.giz.activity;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.child.activity.BaseActivity;
@@ -16,6 +17,8 @@ import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.Tally;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.view.IndicatorCategoryView;
+import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.domain.IndicatorTally;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.io.Serializable;
@@ -24,8 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import org.smartregister.reporting.ReportingLibrary;
-import org.smartregister.reporting.domain.IndicatorTally;
+import java.util.Map;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-07-11
@@ -67,7 +69,7 @@ public class ReportSummaryActivity extends BaseActivity {
             Serializable tallyDaySerializable = extras.getSerializable(EXTRA_DAY);
             reportGrouping = extras.getString(EXTRA_REPORT_GROUPING);
 
-            if (talliesSerializable != null && talliesSerializable instanceof  ArrayList) {
+            if (talliesSerializable != null && talliesSerializable instanceof ArrayList) {
                 ArrayList<MonthlyTally> tallies = (ArrayList<MonthlyTally>) talliesSerializable;
                 setTallies(tallies, false);
             }
@@ -189,8 +191,8 @@ public class ReportSummaryActivity extends BaseActivity {
     }
 
     @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-        // Nothing to do
+    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> triple, String s) {
+        //do nothing
     }
 
     @Override

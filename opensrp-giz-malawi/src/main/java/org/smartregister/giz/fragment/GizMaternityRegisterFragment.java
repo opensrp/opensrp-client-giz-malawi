@@ -92,7 +92,7 @@ public class GizMaternityRegisterFragment extends BaseMaternityRegisterFragment 
         if (maternityMetadata != null && maternityRegisterActivity != null) {
             maternityRegisterActivity.startFormActivity(maternityMetadata.getMaternityRegistrationFormName()
                     , null
-                    , null);
+                    , "");
         }
     }
 

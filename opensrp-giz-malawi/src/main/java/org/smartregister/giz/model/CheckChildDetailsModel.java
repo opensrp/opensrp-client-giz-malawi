@@ -4,7 +4,7 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
-import org.smartregister.child.util.JsonFormUtils;
+import org.smartregister.child.util.ChildJsonFormUtils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizJsonFormUtils;
@@ -105,7 +105,7 @@ public class CheckChildDetailsModel {
                 }
             }
 
-            zeirId = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.IDENTIFIERS), JsonFormUtils.ZEIR_ID);
+            zeirId = GizJsonFormUtils.getJsonString(GizJsonFormUtils.getJsonObject(child, GizConstants.KEY.IDENTIFIERS), ChildJsonFormUtils.ZEIR_ID);
             if (StringUtils.isNotBlank(zeirId)) {
                 zeirId = zeirId.replace("-", "");
             }

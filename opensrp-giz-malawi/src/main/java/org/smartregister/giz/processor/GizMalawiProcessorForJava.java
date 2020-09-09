@@ -19,13 +19,13 @@ import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.ChildDbUtils;
 import org.smartregister.child.util.Constants;
-import org.smartregister.child.util.JsonFormUtils;
+import org.smartregister.child.util.ChildJsonFormUtils;
 import org.smartregister.child.util.MoveToMyCatchmentUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.clientandeventmodel.DateUtil;
 import org.smartregister.commonregistry.AllCommonsRepository;
-import org.smartregister.domain.db.Client;
-import org.smartregister.domain.db.Event;
+import org.smartregister.domain.Client;
+import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.ClientField;
@@ -157,7 +157,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         continue;
                     }
                     processService(eventClient, serviceTable);
-                } else if (eventType.equals(JsonFormUtils.BCG_SCAR_EVENT)) {
+                } else if (eventType.equals(ChildJsonFormUtils.BCG_SCAR_EVENT)) {
                     processBCGScarEvent(eventClient);
                 } else if (eventType.equals(MoveToMyCatchmentUtils.MOVE_TO_CATCHMENT_EVENT)) {
                     unsyncEvents.add(event);

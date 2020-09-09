@@ -82,6 +82,11 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements NavD
     }
 
     @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        //Do nothing
+    }
+
+    @Override
     protected void onActivityResultExtended(int requestCode, int resultCode, Intent data) {
         //TODO: Continue fixing pnc outcome form from here
         // After filling in the form, we need to process it, create event(s) and process the event(s) (probably)

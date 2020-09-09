@@ -87,7 +87,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         if (pncMetadata != null && pncRegisterActivity != null) {
             pncRegisterActivity.startFormActivity(pncMetadata.getPncRegistrationFormName()
                     , null
-                    , null);
+                    , "");
         }
     }
 

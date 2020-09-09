@@ -30,7 +30,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.child.util.JsonFormUtils.METADATA;
+import static org.smartregister.child.util.ChildJsonFormUtils.METADATA;
 
 public class GizMaternityPncTransferProcessor implements ClientTransferProcessor {
 
