@@ -128,7 +128,7 @@ actions:
 name: step1_accordion_blood_haemoglobin
 description: hb_test_status
 priority: 1
-condition: "Boolean.valueOf(global_is_first_contact) || global_gest_age_openmrs >= 28"
+condition: "Boolean.valueOf(global_is_first_contact) && global_gest_age_openmrs >= 28"
 actions:
   - "isRelevant = true"
 ---
