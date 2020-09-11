@@ -517,8 +517,8 @@
     <string name="me_deworm_age_static_deworming_over_1_female"><![CDATA[CHD EPI Number dewormed 12 - 23 Months Female Static]]></string>
     <string name="me_deworm_age_outreach_deworming_over_1_male"><![CDATA[CHD EPI Number dewormed 12 - 23 Months Male Outreach]]></string>
     <string name="me_deworm_age_outreach_deworming_over_1_female"><![CDATA[CHD EPI Number dewormed 12 - 23 Months Female Outreach]]></string>
-    <string name="me_recurring_age_static_deworming_over_2_male"><![CDATA[CHD EPI Number dewormed 24 - 59 Months Male Static]]></string>
-    <string name="me_recurring_age_static_deworming_over_2_female"><![CDATA[CHD EPI Number dewormed 24 - 59 Months Female Static]]></string>
+    <string name="me_deworm_age_static_deworming_over_2_male"><![CDATA[CHD EPI Number dewormed 24 - 59 Months Male Static]]></string>
+    <string name="me_deworm_age_static_deworming_over_2_female"><![CDATA[CHD EPI Number dewormed 24 - 59 Months Female Static]]></string>
     <string name="me_deworm_age_outreach_deworming_over_2_male"><![CDATA[CHD EPI Number dewormed 24 - 59 Months Male Outreach]]></string>
     <string name="me_deworm_age_outreach_deworming_over_2_female"><![CDATA[CHD EPI Number dewormed 24 - 59 Months Female Outreach]]></string>
     <string name="me_recur_targets_deworming_monthly_target_24_to_59_months_1st_dose_static"><![CDATA[CHD EPI Deworming monthly target 24 - 59 Months  (1st Dose) Static]]></string>
