@@ -445,4 +445,18 @@ public class GizUtils extends Utils {
         Utils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
     }
 
+    public static String convertWeightToKgs(@Nullable String birthWeightEntered) {
+        String weight = birthWeightEntered;
+        if (StringUtils.isNotBlank(birthWeightEntered)) {
+            try {
+                int weightNum = Integer.parseInt(weight);
+                double weightDouble = weightNum / 1000.0;
+                weight = String.valueOf(weightDouble);
+            } catch (IllegalArgumentException e) {
+                Timber.e(e);
+            }
+        }
+        return weight;
+    }
+
 }

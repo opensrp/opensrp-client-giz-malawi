@@ -22,6 +22,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.AssetHandler;
 import org.smartregister.util.FormUtils;
+import org.smartregister.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class GizJsonFormUtils extends ChildJsonFormUtils {
             JSONObject birthRegistrationForm = FormUtils.getInstance(context)
                     .getFormJson(Utils.metadata().childRegister.formName);
             updateRegistrationEventType(birthRegistrationForm);
-           ChildJsonFormUtils.addRegistrationFormLocationHierarchyQuestions(birthRegistrationForm);
+            ChildJsonFormUtils.addRegistrationFormLocationHierarchyQuestions(birthRegistrationForm);
 
             if (birthRegistrationForm != null) {
                 birthRegistrationForm.put(ChildJsonFormUtils.ENTITY_ID, childDetails.get(Constants.KEY.BASE_ENTITY_ID));
@@ -106,7 +107,7 @@ public class GizJsonFormUtils extends ChildJsonFormUtils {
                 jsonObject.put(ChildJsonFormUtils.VALUE, secondaryNumber);
             } else if (jsonObject.getString(ChildJsonFormUtils.KEY).equalsIgnoreCase("Sex")) {
                 jsonObject.put(ChildJsonFormUtils.VALUE,
-                        childDetails.get(ChildJsonFormUtils.GENDER));
+                        StringUtil.humanize(childDetails.get(ChildJsonFormUtils.GENDER)));
             } else {
                 jsonObject.put(ChildJsonFormUtils.VALUE,
                         childDetails.get(jsonObject.optString(ChildJsonFormUtils.KEY)));

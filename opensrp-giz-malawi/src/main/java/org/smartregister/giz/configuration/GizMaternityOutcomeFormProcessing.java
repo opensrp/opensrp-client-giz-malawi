@@ -1,6 +1,7 @@
 package org.smartregister.giz.configuration;
 
 import android.content.Intent;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -216,7 +217,7 @@ public class GizMaternityOutcomeFormProcessing extends MaternityOutcomeFormProce
             HashMap<String, String> details = entrySet.getValue();
             if (client.getBaseEntityId().equals(details.get(MaternityDbConstants.Column.MaternityChild.BASE_ENTITY_ID))) {
                 height = details.get("birth_height_entered");
-                weight = details.get("birth_weight_entered");
+                weight = GizUtils.convertWeightToKgs(details.get("birth_weight_entered"));
                 break;
             }
         }

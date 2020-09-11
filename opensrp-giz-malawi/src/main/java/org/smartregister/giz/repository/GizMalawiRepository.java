@@ -115,7 +115,7 @@ public class GizMalawiRepository extends Repository {
 
         runLegacyUpgrades(database);
 
-        onUpgrade(database, 10, BuildConfig.DATABASE_VERSION);
+        onUpgrade(database, 11, BuildConfig.DATABASE_VERSION);
 
         // initialize from yml file
         ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
@@ -179,8 +179,9 @@ public class GizMalawiRepository extends Repository {
                 case 10:
                 case 11:
                     upgradeToVersion11CreateHia2IndicatorsRepository(db);
+                case 12:
+                    EventClientRepository.createAdditionalColumns(db);
                     break;
-
                 default:
                     break;
             }
@@ -191,14 +192,13 @@ public class GizMalawiRepository extends Repository {
 
 //        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
-
+        dumpHIA2IndicatorsCSV(db);
     }
 
     private void upgradeToVersion11CreateHia2IndicatorsRepository(SQLiteDatabase db) {
         if (!ReportingUtils.isTableExists(db, HIA2IndicatorsRepository.TABLE_NAME)) {
             HIA2IndicatorsRepository.createTable(db);
         }
-        dumpHIA2IndicatorsCSV(db);
     }
 
     @Override
