@@ -486,7 +486,7 @@ indicators:
                        AND recur_type.name IN ('Vit_A_1', 'Vit_A_2')
                        AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
                        AND ec_client.is_closed !=1
-                       GROUP BY recur_type.name, age"
+                       GROUP BY type,age,gender"
     isMultiResult: true
     expectedIndicators:
       - "ME_VitA_Age_Static_Vit_A_1_Under_1_Male"
@@ -517,7 +517,7 @@ indicators:
                        AND recur_type.name IN ('Vit_A_1', 'Vit_A_2')
                        AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
                        AND ec_client.is_closed !=1
-                       GROUP BY recur_type.name, age"
+                       GROUP BY type,age,gender"
     isMultiResult: true
     expectedIndicators:
       - "ME_VitA_Age_Outreach_Vit_A_1_Under_1_Male"
@@ -548,7 +548,7 @@ indicators:
                        AND recur_type.name IN ('Deworming_1','Deworming_2')
                        AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
                        AND ec_client.is_closed !=1
-                       GROUP BY recur_type.type, age"
+                       GROUP BY type,age,gender"
     isMultiResult: true
     expectedIndicators:
       - "ME_Deworm_Age_Static_Deworming_Over_1_Male"
@@ -577,7 +577,7 @@ indicators:
                        AND recur_type.name IN ('Deworming_1','Deworming_2')
                        AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
                        AND ec_client.is_closed !=1
-                       GROUP BY recur_type.type, age"
+                       GROUP BY type,age,gender"
     isMultiResult: true
     expectedIndicators:
       - "ME_Deworm_Age_Outreach_Deworming_Over_1_Male"
