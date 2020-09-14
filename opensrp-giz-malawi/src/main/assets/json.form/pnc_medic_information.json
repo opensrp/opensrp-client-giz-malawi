@@ -240,6 +240,7 @@
         "type": "check_box",
         "label": "Any past pregnancy problems?",
         "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
         "relevance": {
           "step1:parity": {
             "type": "numeric",
@@ -402,6 +403,7 @@
         "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Modes of delivery in past pregnancies",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "bold",
         "relevance": {
           "step1:parity": {
@@ -454,6 +456,7 @@
         "type": "check_box",
         "label": "Outcomes of previous pregnancies",
         "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
         "relevance": {
           "step1:gravidity": {
             "type": "numeric",
@@ -510,6 +513,7 @@
         "openmrs_entity_id": "160592AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Family medical history",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "bold",
         "v_required": {
           "value": "true",
@@ -901,6 +905,7 @@
         "type": "check_box",
         "label": "Obstetric complications",
         "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
         "v_required": {
           "value": "true",
           "err": "Field required"
@@ -1054,6 +1059,7 @@
         "type": "check_box",
         "label": "Obstetric care",
         "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
         "v_required": {
           "value": "true",
           "err": "Field required"
@@ -1794,6 +1800,7 @@
             "openmrs_entity_id": "164122AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "type": "check_box",
             "label": "Newborn care complications",
+            "combine_checkbox_option_values": "true",
             "label_text_style": "bold",
             "v_required": {
               "value": "true",
@@ -1868,6 +1875,7 @@
             "type": "check_box",
             "label": "Newborn Routine Care & Management",
             "label_text_style": "bold",
+            "combine_checkbox_option_values": "true",
             "relevance": {
               "step4:baby_complications": {
                 "ex-checkbox": [

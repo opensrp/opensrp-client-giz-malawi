@@ -1062,6 +1062,7 @@
             "type": "check_box",
             "label_text_style": "bold",
             "label": "Danger signs and complications at visit",
+            "combine_checkbox_option_values": "true",
             "exclusive": [
               "none"
             ],
@@ -1368,6 +1369,7 @@
             "type": "check_box",
             "label": "Any newborn routine care & management still being done?",
             "label_text_style": "bold",
+            "combine_checkbox_option_values": "true",
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
