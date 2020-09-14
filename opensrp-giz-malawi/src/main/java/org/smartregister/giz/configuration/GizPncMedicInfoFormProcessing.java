@@ -1,7 +1,5 @@
 package org.smartregister.giz.configuration;
 
-import android.content.Intent;
-
 import androidx.annotation.NonNull;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -15,17 +13,13 @@ import org.smartregister.child.util.Constants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.SyncStatus;
-import org.smartregister.domain.tag.FormTag;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.maternity.utils.MaternityDbConstants;
 import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.config.PncMedicInfoFormProcessing;
 import org.smartregister.pnc.pojo.PncEventClient;
-import org.smartregister.pnc.utils.PncConstants;
-import org.smartregister.pnc.utils.PncDbConstants;
 import org.smartregister.pnc.utils.PncJsonFormUtils;
-import org.smartregister.pnc.utils.PncUtils;
 import org.smartregister.util.Utils;
 
 import java.util.ArrayList;
@@ -36,76 +30,11 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.pnc.utils.PncJsonFormUtils.METADATA;
-import static org.smartregister.util.JsonFormUtils.gson;
-
 public class GizPncMedicInfoFormProcessing extends PncMedicInfoFormProcessing {
 
     private ChildRegisterInteractor interactor;
 
     private HashMap<String, HashMap<String, String>> buildRepeatingGroupBorn;
-
-    public List<Event> processPncMedicInfoForm(@NonNull String jsonString, @NonNull Intent data) throws JSONException {
-        List<Event> eventList = new ArrayList<>();
-
-        JSONObject jsonFormObject = new JSONObject(jsonString);
-
-        String baseEntityId = PncUtils.getIntentValue(data, PncConstants.IntentKey.BASE_ENTITY_ID);
-
-        JSONArray fieldsArray = PncUtils.generateFieldsFromJsonForm(jsonFormObject);
-
-        String steps = jsonFormObject.optString(JsonFormConstants.COUNT);
-
-        int numOfSteps = Integer.parseInt(steps);
-
-        for (int j = 0; j < numOfSteps; j++) {
-
-            JSONObject step = jsonFormObject.optJSONObject(JsonFormConstants.STEP.concat(String.valueOf(j + 1)));
-
-            String title = step.optString(JsonFormConstants.STEP_TITLE);
-
-            if (PncConstants.JsonFormStepNameConstants.LIVE_BIRTHS.equals(title)) {
-                HashMap<String, HashMap<String, String>> buildRepeatingGroupBorn = PncUtils.buildRepeatingGroup(step, PncConstants.JsonFormKeyConstants.LIVE_BIRTHS);
-
-                if (!buildRepeatingGroupBorn.isEmpty()) {
-                    String[] ids = PncUtils.generateNIds(buildRepeatingGroupBorn.size());
-                    int count = 0;
-                    for (Map.Entry<String, HashMap<String, String>> entrySet : buildRepeatingGroupBorn.entrySet()) {
-                        entrySet.getValue().put(PncDbConstants.Column.PncBaby.BASE_ENTITY_ID, ids[count]);
-                        count++;
-                    }
-
-                    createChild(jsonFormObject, baseEntityId, buildRepeatingGroupBorn);
-
-                    String strGroup = gson.toJson(buildRepeatingGroupBorn);
-                    JSONObject repeatingGroupObj = new JSONObject();
-                    repeatingGroupObj.put(JsonFormConstants.KEY, PncConstants.JsonFormKeyConstants.BABIES_BORN_MAP);
-                    repeatingGroupObj.put(JsonFormConstants.VALUE, strGroup);
-                    repeatingGroupObj.put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
-                    fieldsArray.put(repeatingGroupObj);
-                }
-            } else if (PncConstants.JsonFormStepNameConstants.STILL_BIRTHS.equals(title)) {
-                HashMap<String, HashMap<String, String>> buildRepeatingGroupStillBorn = PncUtils.buildRepeatingGroup(step, PncConstants.JsonFormKeyConstants.BABIES_STILLBORN);
-                if (!buildRepeatingGroupStillBorn.isEmpty()) {
-                    String strGroup = gson.toJson(buildRepeatingGroupStillBorn);
-
-                    JSONObject repeatingGroupObj = new JSONObject();
-                    repeatingGroupObj.put(JsonFormConstants.KEY, PncConstants.JsonFormKeyConstants.BABIES_STILL_BORN_MAP);
-                    repeatingGroupObj.put(JsonFormConstants.VALUE, strGroup);
-                    repeatingGroupObj.put(JsonFormConstants.TYPE, JsonFormConstants.HIDDEN);
-                    fieldsArray.put(repeatingGroupObj);
-                }
-            }
-        }
-
-        FormTag formTag = PncJsonFormUtils.formTag(PncUtils.getAllSharedPreferences());
-
-        Event pncMedicInfoEvent = PncJsonFormUtils.createEvent(fieldsArray, jsonFormObject.getJSONObject(METADATA)
-                , formTag, baseEntityId, PncConstants.EventTypeConstants.PNC_MEDIC_INFO, "");
-        PncJsonFormUtils.tagSyncMetadata(pncMedicInfoEvent);
-        eventList.add(pncMedicInfoEvent);
-        return eventList;
-    }
 
     @Override
     protected void createChild(JSONObject jsonFormObject, String baseEntityId, HashMap<String, HashMap<String, String>> buildRepeatingGroupBorn) {
