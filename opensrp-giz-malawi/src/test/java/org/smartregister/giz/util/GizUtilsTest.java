@@ -2,7 +2,12 @@ package org.smartregister.giz.util;
 
 import android.content.ContentValues;
 
+import com.vijay.jsonwizard.constants.JsonFormConstants;
+
 import org.joda.time.DateTime;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,6 +21,9 @@ import org.powermock.api.mockito.PowerMockito;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
+import org.smartregister.child.domain.UpdateRegisterParams;
+import org.smartregister.child.interactor.ChildRegisterInteractor;
+import org.smartregister.child.util.Constants;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
@@ -25,6 +33,8 @@ import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.DrishtiApplication;
+
+import java.util.HashMap;
 
 
 public class GizUtilsTest extends BaseRobolectricTest {
@@ -100,5 +110,43 @@ public class GizUtilsTest extends BaseRobolectricTest {
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", null);
         ReflectionHelpers.setStaticField(CoreLibrary.class, "instance", null);
         ReflectionHelpers.setStaticField(LocationHelper.class, "instance", null);
+    }
+
+    @Test
+    public void testCreateChildGrowthEventFromRepeatingGroupShouldInvokeGrowthProcessing() throws JSONException {
+        String baseEntityId = "32ewsd-424";
+        org.smartregister.clientandeventmodel.Client client = new org.smartregister.clientandeventmodel.Client(baseEntityId);
+        JSONObject clientJson = new JSONObject();
+        ChildRegisterInteractor childRegisterInteractor = Mockito.spy(new ChildRegisterInteractor());
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("birth_height_entered", "2344");
+        hashMap.put("birth_weight_entered", "5344");
+        hashMap.put("base_entity_id", baseEntityId);
+        HashMap<String, HashMap<String, String>> buildRepeatingGroupBorn = new HashMap<>();
+        buildRepeatingGroupBorn.put("3234-aew", hashMap);
+        Mockito.doNothing().when(childRegisterInteractor).processHeight(Mockito.anyMap(), Mockito.anyString(), Mockito.any(UpdateRegisterParams.class), Mockito.eq(clientJson));
+        Mockito.doNothing().when(childRegisterInteractor).processWeight(Mockito.anyMap(), Mockito.anyString(), Mockito.any(UpdateRegisterParams.class), Mockito.eq(clientJson));
+        GizUtils.createChildGrowthEventFromRepeatingGroup(clientJson, client, childRegisterInteractor, buildRepeatingGroupBorn);
+
+        ArgumentCaptor<String> tempFormArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(childRegisterInteractor, Mockito.times(1)).processHeight(Mockito.anyMap(), tempFormArgumentCaptor.capture(), Mockito.any(UpdateRegisterParams.class), Mockito.eq(clientJson));
+        Mockito.verify(childRegisterInteractor, Mockito.times(1)).processWeight(Mockito.anyMap(), Mockito.contains(Constants.KEY.BIRTH_WEIGHT), Mockito.any(UpdateRegisterParams.class), Mockito.eq(clientJson));
+
+        JSONObject jsonObject = new JSONObject(tempFormArgumentCaptor.getValue());
+        JSONArray fieldsJsonArray = jsonObject.getJSONObject(JsonFormConstants.STEP1).optJSONArray(JsonFormConstants.FIELDS);
+        Assert.assertNotNull(fieldsJsonArray);
+        Assert.assertEquals(2, fieldsJsonArray.length());
+
+        for (int i = 0; i < fieldsJsonArray.length(); i++) {
+            JSONObject field = fieldsJsonArray.optJSONObject(i);
+            String key = field.optString(JsonFormConstants.KEY);
+            if (Constants.KEY.BIRTH_HEIGHT.equals(key)) {
+                String value = field.optString(JsonFormConstants.VALUE);
+                Assert.assertEquals(hashMap.get("birth_height_entered"), value);
+            } else if ((Constants.KEY.BIRTH_WEIGHT.equals(key))) {
+                String value = field.optString(JsonFormConstants.VALUE);
+                Assert.assertEquals(GizUtils.convertWeightToKgs(hashMap.get("birth_weight_entered")), value);
+            }
+        }
     }
 }

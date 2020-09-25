@@ -29,6 +29,8 @@ import org.smartregister.anc.library.repository.PatientRepository;
 import org.smartregister.anc.library.util.ANCJsonFormUtils;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.anc.library.util.DBConstantsUtils;
+import org.smartregister.child.domain.UpdateRegisterParams;
+import org.smartregister.child.interactor.ChildRegisterInteractor;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
@@ -36,6 +38,7 @@ import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
+import org.smartregister.domain.SyncStatus;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.form.FormLocation;
 import org.smartregister.domain.tag.FormTag;
@@ -50,6 +53,7 @@ import org.smartregister.giz.task.OpenMaternityProfileTask;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.giz.widget.GizTreeViewDialog;
 import org.smartregister.location.helper.LocationHelper;
+import org.smartregister.maternity.utils.MaternityDbConstants;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.pnc.PncLibrary;
@@ -458,6 +462,42 @@ public class GizUtils extends Utils {
             }
         }
         return weight;
+    }
+
+    public static void createChildGrowthEventFromRepeatingGroup(@NonNull JSONObject clientJson,
+                                                                @NonNull org.smartregister.clientandeventmodel.Client client,
+                                                                @NonNull ChildRegisterInteractor interactor,
+                                                                @NonNull HashMap<String, HashMap<String, String>> buildRepeatingGroupBorn) throws JSONException {
+        UpdateRegisterParams params = new UpdateRegisterParams();
+        params.setStatus(SyncStatus.PENDING.value());
+        JSONObject tempForm = new JSONObject();
+        JSONObject tempStep = new JSONObject();
+        tempForm.put(JsonFormConstants.STEP1, tempStep);
+        String height = "";
+        String weight = "";
+        for (Map.Entry<String, HashMap<String, String>> entrySet : buildRepeatingGroupBorn.entrySet()) {
+            HashMap<String, String> details = entrySet.getValue();
+            if (client.getBaseEntityId().equals(details.get(MaternityDbConstants.Column.MaternityChild.BASE_ENTITY_ID))) {
+                height = details.get("birth_height_entered");
+                weight = GizUtils.convertWeightToKgs(details.get("birth_weight_entered"));
+                break;
+            }
+        }
+        JSONArray jsonArray = new JSONArray();
+
+        JSONObject heightObject = new JSONObject();
+        heightObject.put(JsonFormConstants.KEY, Constants.KEY.BIRTH_HEIGHT);
+        heightObject.put(JsonFormConstants.VALUE, height);
+        jsonArray.put(heightObject);
+
+        JSONObject weightObject = new JSONObject();
+        weightObject.put(JsonFormConstants.KEY, Constants.KEY.BIRTH_WEIGHT);
+        weightObject.put(JsonFormConstants.VALUE, weight);
+        jsonArray.put(weightObject);
+
+        tempStep.put(JsonFormConstants.FIELDS, jsonArray);
+        interactor.processHeight(client.getIdentifiers(), tempForm.toString(), params, clientJson);
+        interactor.processWeight(client.getIdentifiers(), tempForm.toString(), params, clientJson);
     }
 
 }
