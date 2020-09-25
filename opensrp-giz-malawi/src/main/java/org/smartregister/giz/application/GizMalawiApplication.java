@@ -114,6 +114,7 @@ import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -317,7 +318,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         AncMetadata ancMetadata = new AncMetadata();
         ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
         ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
-        ancMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
+        ancMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Collections.singletonList("village")));
         ancMetadata.addTransferProcessorToHashMap(ConstantsUtils.EventTypeUtils.ANC_MATERNITY_TRANSFER, new GizAncMaternityTransferProcessor());
         AncLibrary.init(context, BuildConfig.DATABASE_VERSION, activityConfiguration, null, new GizAncRegisterQueryProvider(), ancMetadata);
 
@@ -350,7 +351,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , BaseMaternityFormActivity.class
                 , GizMaternityProfileActivity.class
                 , true);
-        maternityMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
+        maternityMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Collections.singletonList("village")));
         maternityMetadata.setLocationLevels(GizUtils.getLocationLevels());
         maternityMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
 
@@ -374,7 +375,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 , true);
         pncMetadata.setLocationLevels(GizUtils.getLocationLevels());
         pncMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
-        pncMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
+        pncMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Collections.singletonList("village")));
 
         PncConfiguration pncConfiguration = new PncConfiguration
                 .Builder(GizPncRegisterQueryProvider.class)
@@ -390,7 +391,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
                 OpdConstants.CONFIG, OpdFormActivity.class, GizOpdProfileActivity.class, true);
 
-        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village")));
+        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Collections.singletonList("village")));
         opdMetadata.setLookUpQueryForOpdClient(String.format("select id as _id, %s, %s, %s, %s, %s, %s, %s, national_id from " + OpdDbConstants.KEY.TABLE + " where [condition] ", OpdConstants.KEY.RELATIONALID, OpdConstants.KEY.FIRST_NAME,
                 OpdConstants.KEY.LAST_NAME, OpdConstants.KEY.GENDER, OpdConstants.KEY.DOB, OpdConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.OPENSRP_ID));
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
@@ -410,7 +411,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 GizConstants.TABLE_NAME.ALL_CLIENTS, GizConstants.EventType.CHILD_REGISTRATION,
                 GizConstants.EventType.UPDATE_CHILD_REGISTRATION, GizConstants.EventType.OUT_OF_CATCHMENT, GizConstants.CONFIGURATION.CHILD_REGISTER,
                 GizConstants.RELATIONSHIP.MOTHER, GizConstants.JSON_FORM.OUT_OF_CATCHMENT_SERVICE);
-        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("home_address")));
+        metadata.setFieldsWithLocationHierarchy(new HashSet<>(Collections.singletonList("home_address")));
         metadata.setLocationLevels(GizUtils.getLocationLevels());
         metadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
         return metadata;

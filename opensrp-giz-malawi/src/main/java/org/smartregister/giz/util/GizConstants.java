@@ -144,7 +144,7 @@ public class GizConstants {
         public static final String CHILD = "child";
     }
 
-    public class IntentKeyUtil {
+    public static class IntentKeyUtil {
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
 

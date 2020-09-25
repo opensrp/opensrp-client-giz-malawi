@@ -17,6 +17,7 @@ import org.smartregister.opd.utils.OpdJsonFormUtils;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class GizReportUtils {
         long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
         GizMalawiApplication.getInstance().getClientProcessor()
-                .processClient(GizMalawiApplication.getInstance().getEcSyncHelper().getEvents(Arrays.asList(reportJson.optString("formSubmissionId"))));
+                .processClient(GizMalawiApplication.getInstance().getEcSyncHelper().getEvents(Collections.singletonList(reportJson.optString("formSubmissionId"))));
         GizUtils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
     }
 

@@ -4,6 +4,7 @@ import org.smartregister.child.fragment.BaseChildRegistrationDataFragment;
 import org.smartregister.giz.util.GizConstants;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -18,6 +19,6 @@ public class ChildRegistrationDataFragment extends BaseChildRegistrationDataFrag
 
     @Override
     protected List<String> addUnFormattedNumberFields(String... key) {
-        return Arrays.asList("mother_guardian_number");
+        return Collections.singletonList("mother_guardian_number");
     }
 }

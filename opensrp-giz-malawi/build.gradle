@@ -278,7 +278,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    api('org.smartregister:opensrp-client-core:2.1.4-r1-LOCAL-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-core:2.2.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.github.bmelnychuk', module: 'atv'

@@ -22,6 +22,7 @@ import org.smartregister.maternity.utils.MaternityDbConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -53,7 +54,7 @@ public class GizMaternityPncTransferProcessor implements ClientTransferProcessor
         long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
         GizMalawiApplication.getInstance().getClientProcessor()
-                .processClient(GizMalawiApplication.getInstance().getEcSyncHelper().getEvents(Arrays.asList(maternityTransferEvent.getFormSubmissionId())));
+                .processClient(GizMalawiApplication.getInstance().getEcSyncHelper().getEvents(Collections.singletonList(maternityTransferEvent.getFormSubmissionId())));
         Utils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
     }
 
