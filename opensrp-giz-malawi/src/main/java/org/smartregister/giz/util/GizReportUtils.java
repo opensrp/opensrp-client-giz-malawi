@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.ChildJsonFormUtils;
+import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.domain.tag.FormTag;
@@ -15,7 +15,6 @@ import org.smartregister.giz.domain.Report;
 import org.smartregister.giz.domain.ReportHia2Indicator;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;

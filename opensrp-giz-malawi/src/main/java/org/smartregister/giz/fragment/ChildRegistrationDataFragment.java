@@ -3,7 +3,6 @@ package org.smartregister.giz.fragment;
 import org.smartregister.child.fragment.BaseChildRegistrationDataFragment;
 import org.smartregister.giz.util.GizConstants;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
