@@ -3,10 +3,6 @@ package org.smartregister.giz.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,11 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.appcompat.widget.SwitchCompat;
+
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
+import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
@@ -76,12 +78,22 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
             TextView titleView = view.findViewById(R.id.txt_title_label);
             if (titleView != null) {
                 titleView.setVisibility(View.VISIBLE);
-                String title = ((OpdRegisterActivity) getActivity()).getNavigationMenu().getNavigationAdapter().getSelectedView();
+                String title = "";
+                if (getActivity() != null) {
+                    OpdRegisterActivity opdRegisterActivity = ((OpdRegisterActivity) getActivity());
+                    if (opdRegisterActivity.getNavigationMenu() != null && opdRegisterActivity.getNavigationMenu().getNavigationAdapter() != null) {
+                        NavigationAdapter navigationAdapter = opdRegisterActivity.getNavigationMenu().getNavigationAdapter();
+                        if (navigationAdapter.getSelectedView() != null) {
+                            title = navigationAdapter.getSelectedView();
+                        }
+                    }
+                }
                 if (StringUtils.isBlank(title) || GizConstants.DrawerMenu.ALL_CLIENTS.equals(title)) {
                     titleView.setText(getString(R.string.opd_register_title_name));
                 } else {
                     titleView.setText(title);
                 }
+
                 //titleView.setFontVariant(FontVariant.REGULAR);
                 titleView.setPadding(0, titleView.getTop(), titleView.getPaddingRight(), titleView.getPaddingBottom());
             }
