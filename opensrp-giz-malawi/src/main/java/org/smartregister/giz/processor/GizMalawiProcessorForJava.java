@@ -2,6 +2,7 @@ package org.smartregister.giz.processor;
 
 import android.content.ContentValues;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
@@ -18,8 +19,8 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.sync.BaseAncClientProcessorForJava;
 import org.smartregister.anc.library.util.ConstantsUtils;
 import org.smartregister.child.util.ChildDbUtils;
-import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.ChildJsonFormUtils;
+import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.MoveToMyCatchmentUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.clientandeventmodel.DateUtil;
@@ -279,6 +280,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void processMaternityPncTransfer(@NonNull EventClient eventClient, @NonNull ClientClassification clientClassification) throws Exception {
+        if (eventClient.getClient() == null)
+            return;
         Event event = eventClient.getEvent();
         HashMap<String, String> fieldsMap = GizUtils.generateKeyValuesFromEvent(event);
         String babiesBornMap = fieldsMap.get(MaternityConstants.JSON_FORM_KEY.BABIES_BORN_MAP);
