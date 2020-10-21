@@ -71,6 +71,9 @@ android {
                 project.logger.error("oauth.client.secret variable is not set in your local.properties")
                 buildConfigField "String", "OAUTH_CLIENT_SECRET", "\"sample_client_secret\""
             }
+        } else {
+            buildConfigField "String", "OAUTH_CLIENT_ID", '""'
+            buildConfigField "String", "OAUTH_CLIENT_SECRET", '""'
         }
 
 
