@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -90,5 +91,12 @@ public class NavigationListenerTest extends BaseRobolectricTest {
         intent = new Intent(activity, AncRegisterActivity.class);
         actual = Shadows.shadowOf(RuntimeEnvironment.application).getNextStartedActivity();
         Assert.assertEquals(intent.getComponent(), actual.getComponent());
+    }
+
+    @After
+    public void tearDown() {
+        if (activity != null) {
+            activity.finish();
+        }
     }
 }
