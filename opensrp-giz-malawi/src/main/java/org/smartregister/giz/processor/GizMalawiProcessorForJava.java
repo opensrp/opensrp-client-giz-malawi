@@ -146,13 +146,14 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 if (eventType == null) {
                     continue;
                 }
+                long timeInMillis = System.currentTimeMillis();
 
                 if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     processVaccinationEvent(vaccineTable, eventClient);
                 } else if (eventType.equals(WeightIntentService.EVENT_TYPE) || eventType
                         .equals(WeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
-                    processWeightEvent(weightTable, heightTable, eventClient, eventType);
+                    processGMEvent(weightTable, heightTable, eventClient, eventType);
                 } else if (eventType.equals(RecurringIntentService.EVENT_TYPE)) {
                     if (serviceTable == null) {
                         continue;
@@ -203,6 +204,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         Timber.e(ex);
                     }
                 }
+                Timber.e("%s - time %s", eventType, (System.currentTimeMillis() - timeInMillis));
             }
 
             // Unsync events that are should not be in this device
@@ -463,7 +465,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private void processWeightEvent(Table weightTable, Table heightTable, EventClient eventClient, String eventType) throws Exception {
+    private void processGMEvent(Table weightTable, Table heightTable, EventClient eventClient, String eventType) throws Exception {
         if (weightTable == null) {
             return;
         }
@@ -471,11 +473,21 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         if (heightTable == null) {
             return;
         }
-
-        processWeight(eventClient, weightTable,
-                eventType.equals(WeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
-        processHeight(eventClient, heightTable,
-                eventType.equals(HeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+        Event event = eventClient.getEvent();
+        if (event != null && StringUtils.isNotBlank(event.getEntityType())) {
+            String entityType = event.getEntityType();
+            if (HeightIntentService.ENTITY_TYPE.equalsIgnoreCase(entityType)) {
+                processHeight(eventClient, heightTable,
+                        eventType.equals(HeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+            } else if (WeightIntentService.ENTITY_TYPE.equalsIgnoreCase(entityType)) {
+                processWeight(eventClient, weightTable,
+                        eventType.equals(WeightIntentService.EVENT_TYPE_OUT_OF_CATCHMENT));
+            } else {
+                Timber.e("GM event %s has an unknown entity type -> %s", event.getFormSubmissionId(), event.getEntityType());
+            }
+        } else {
+            Timber.e("GM event %s does not have entity type", event.getFormSubmissionId());
+        }
     }
 
     private void processVaccinationEvent(Table vaccineTable, EventClient eventClient) throws Exception {
@@ -550,21 +562,18 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private Boolean processWeight(EventClient weight, Table weightTable, boolean outOfCatchment) throws Exception {
+    private void processWeight(@NonNull EventClient weightEventClient,
+                               @Nullable Table weightTable, boolean outOfCatchment) {
 
         try {
 
-            if (weight == null || weight.getEvent() == null) {
-                return false;
-            }
-
             if (weightTable == null) {
-                return false;
+                return;
             }
 
             Timber.d("Starting processWeight table: %s", weightTable.name);
 
-            ContentValues contentValues = processCaseModel(weight, weightTable);
+            ContentValues contentValues = processCaseModel(weightEventClient, weightTable);
 
             // save the values to db
             if (contentValues != null && contentValues.size() > 0) {
@@ -581,8 +590,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 weightObj.setAnmId(contentValues.getAsString(WeightRepository.ANMID));
                 weightObj.setLocationId(contentValues.getAsString(WeightRepository.LOCATIONID));
                 weightObj.setSyncStatus(WeightRepository.TYPE_Synced);
-                weightObj.setFormSubmissionId(weight.getEvent().getFormSubmissionId());
-                weightObj.setEventId(weight.getEvent().getEventId());
+                weightObj.setFormSubmissionId(weightEventClient.getEvent().getFormSubmissionId());
+                weightObj.setEventId(weightEventClient.getEvent().getEventId());
                 weightObj.setOutOfCatchment(outOfCatchment ? 1 : 0);
 
                 if (contentValues.containsKey(WeightRepository.Z_SCORE)) {
@@ -600,29 +609,24 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 Timber.d("Ending processWeight table: %s", weightTable.name);
             }
-            return true;
 
         } catch (Exception e) {
             Timber.e(e, "Process Weight Error");
-            return null;
         }
     }
 
-    private Boolean processHeight(@Nullable EventClient height, @Nullable Table heightTable, boolean outOfCatchment) {
+    private void processHeight(@NonNull EventClient heightEventClient, @Nullable Table heightTable,
+                               boolean outOfCatchment) {
 
         try {
 
-            if (height == null || height.getEvent() == null) {
-                return false;
-            }
-
             if (heightTable == null) {
-                return false;
+                return;
             }
 
-            Timber.d("Starting processWeight table: %s", heightTable.name);
+            Timber.d("Starting processHeight table: %s", heightTable.name);
 
-            ContentValues contentValues = processCaseModel(height, heightTable);
+            ContentValues contentValues = processCaseModel(heightEventClient, heightTable);
 
             // save the values to db
             if (contentValues != null && contentValues.size() > 0) {
@@ -639,8 +643,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 heightObject.setAnmId(contentValues.getAsString(HeightRepository.ANMID));
                 heightObject.setLocationId(contentValues.getAsString(HeightRepository.LOCATIONID));
                 heightObject.setSyncStatus(HeightRepository.TYPE_Synced);
-                heightObject.setFormSubmissionId(height.getEvent().getFormSubmissionId());
-                heightObject.setEventId(height.getEvent().getEventId());
+                heightObject.setFormSubmissionId(heightEventClient.getEvent().getFormSubmissionId());
+                heightObject.setEventId(heightEventClient.getEvent().getEventId());
                 heightObject.setOutOfCatchment(outOfCatchment ? 1 : 0);
 
                 if (contentValues.containsKey(HeightRepository.Z_SCORE)) {
@@ -656,13 +660,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 heightRepository.add(heightObject);
 
-                Timber.d("Ending processWeight table: %s", heightTable.name);
+                Timber.d("Ending processHeight table: %s", heightTable.name);
             }
-            return true;
 
         } catch (Exception e) {
             Timber.e(e, "Process Height Error");
-            return null;
         }
     }
 

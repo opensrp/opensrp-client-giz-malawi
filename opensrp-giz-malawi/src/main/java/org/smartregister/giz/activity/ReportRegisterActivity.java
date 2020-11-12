@@ -92,6 +92,7 @@ public class ReportRegisterActivity extends BaseActivity {
                 break;
             default:
                 break;
+                
         }
     }
 

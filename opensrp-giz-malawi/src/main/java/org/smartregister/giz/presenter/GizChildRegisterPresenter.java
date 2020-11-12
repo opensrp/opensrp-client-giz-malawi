@@ -6,6 +6,8 @@ import org.smartregister.child.contract.ChildRegisterContract;
 import org.smartregister.child.presenter.BaseChildRegisterPresenter;
 import org.smartregister.giz.view.NavigationMenu;
 
+import java.util.List;
+
 public class GizChildRegisterPresenter extends BaseChildRegisterPresenter {
     public GizChildRegisterPresenter(ChildRegisterContract.View view, ChildRegisterContract.Model model) {
         super(view, model);
@@ -18,5 +20,9 @@ public class GizChildRegisterPresenter extends BaseChildRegisterPresenter {
         if (navigationMenu != null) {
             navigationMenu.runRegisterCount();
         }
+    }
+
+    @Override
+    public void registerViewConfigurations(List<String> viewIdentifiers) {
     }
 }

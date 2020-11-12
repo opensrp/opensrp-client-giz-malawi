@@ -1,21 +1,26 @@
 package org.smartregister.giz.fragment;
 
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
+
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.fragment.HomeRegisterFragment;
 import org.smartregister.anc.library.util.DBConstantsUtils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AncRegisterActivity;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.presenter.GizAncRegisterFragmentPresenter;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.DBQueryHelper;
+
+import timber.log.Timber;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-10
@@ -24,6 +29,13 @@ import org.smartregister.giz.util.DBQueryHelper;
 public class AncRegisterFragment extends HomeRegisterFragment implements CompoundButton.OnCheckedChangeListener {
 
     private SwitchCompat filterSection;
+
+    private AppExecutors appExecutors;
+
+    public AncRegisterFragment() {
+        super();
+        appExecutors = GizMalawiApplication.getInstance().getAppExecutors();
+    }
 
     @Nullable
     @Override
@@ -59,9 +71,13 @@ public class AncRegisterFragment extends HomeRegisterFragment implements Compoun
 
             filterSection = view.findViewById(R.id.switch_selection);
             filterSection.setOnCheckedChangeListener(this);
+
+            View sortFilterBarLayout = view.findViewById(org.smartregister.maternity.R.id.register_sort_filter_bar_layout);
+            sortFilterBarLayout.setVisibility(View.GONE);
         }
         return view;
     }
+
 
     @Override
     protected void initializePresenter() {
@@ -93,6 +109,30 @@ public class AncRegisterFragment extends HomeRegisterFragment implements Compoun
                 filter("", "", getMainCondition(), false);
                 filterSection.setTag(null);
             }
+        }
+    }
+
+    @Override
+    public void countExecute() {
+        try {
+            appExecutors.diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    String sql = AncLibrary.getInstance().getRegisterQueryProvider().getCountExecuteQuery(mainCondition, filters);
+                    Timber.i(sql);
+                    int totalCount = commonRepository().countSearchIds(sql);
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            clientAdapter.setTotalcount(totalCount);
+                            clientAdapter.setCurrentlimit(20);
+                            clientAdapter.setCurrentoffset(0);
+                        }
+                    });
+                }
+            });
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }

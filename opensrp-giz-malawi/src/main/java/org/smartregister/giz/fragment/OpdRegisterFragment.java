@@ -22,16 +22,22 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.activity.OpdRegisterActivity;
 import org.smartregister.giz.adapter.NavigationAdapter;
+import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.OpdLibrary;
+import org.smartregister.opd.configuration.OpdRegisterQueryProviderContract;
 import org.smartregister.opd.fragment.BaseOpdRegisterFragment;
 import org.smartregister.opd.pojo.OpdMetadata;
+import org.smartregister.opd.utils.ConfigurationInstancesHelper;
 import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdDbConstants;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import timber.log.Timber;
 
 
 /**
@@ -39,6 +45,16 @@ import java.util.Map;
  */
 
 public class OpdRegisterFragment extends BaseOpdRegisterFragment {
+
+    private OpdRegisterQueryProviderContract opdRegisterQueryProvider;
+
+    private AppExecutors appExecutors;
+
+    public OpdRegisterFragment() {
+        super();
+        appExecutors = GizMalawiApplication.getInstance().getAppExecutors();
+        opdRegisterQueryProvider = ConfigurationInstancesHelper.newInstance(OpdLibrary.getInstance().getOpdConfiguration().getOpdRegisterQueryProvider());
+    }
 
     @Nullable
     @Override
@@ -190,4 +206,34 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
         return getString(R.string.checked_in);
     }
 
+    @Override
+    public void countExecute() {
+        try {
+            appExecutors.diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    int totalCount = 0;
+                    for (String sql : opdRegisterQueryProvider.countExecuteQueries(filters, mainCondition)) {
+                        Timber.i(sql);
+                        totalCount += commonRepository().countSearchIds(sql);
+                    }
+                    int finalTotalCount = totalCount;
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            clientAdapter.setTotalcount(finalTotalCount);
+                            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+
+                            clientAdapter.setCurrentlimit(20);
+                            clientAdapter.setCurrentoffset(0);
+                        }
+                    });
+                }
+            });
+
+
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
 }
