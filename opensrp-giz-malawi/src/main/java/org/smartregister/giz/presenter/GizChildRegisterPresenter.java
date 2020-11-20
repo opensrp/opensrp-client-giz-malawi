@@ -24,5 +24,6 @@ public class GizChildRegisterPresenter extends BaseChildRegisterPresenter {
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
+        //Do nothing
     }
 }

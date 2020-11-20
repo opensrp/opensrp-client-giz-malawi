@@ -29,5 +29,6 @@ public class GizAncRegisterPresenter extends RegisterPresenter {
 
     @Override
     public void registerViewConfigurations(List<String> viewIdentifiers) {
+        //Do nothing
     }
 }

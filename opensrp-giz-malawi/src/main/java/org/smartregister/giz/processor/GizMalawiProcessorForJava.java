@@ -146,7 +146,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 if (eventType == null) {
                     continue;
                 }
-                long timeInMillis = System.currentTimeMillis();
 
                 if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
@@ -204,7 +203,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                         Timber.e(ex);
                     }
                 }
-                Timber.e("%s - time %s", eventType, (System.currentTimeMillis() - timeInMillis));
             }
 
             // Unsync events that are should not be in this device
