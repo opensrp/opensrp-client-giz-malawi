@@ -78,7 +78,7 @@ import static org.smartregister.util.JsonFormUtils.VALUE;
 public class HIA2ReportsActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_GET_JSON = 3432;
-    public static final int MONTH_SUGGESTION_LIMIT = 10;
+    public static final int MONTH_SUGGESTION_LIMIT = 4;
     public static final String FORM_KEY_CONFIRM = "confirm";
     public static final DateFormat yyyyMMdd = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
