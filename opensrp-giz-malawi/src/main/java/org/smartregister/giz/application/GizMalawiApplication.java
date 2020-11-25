@@ -13,6 +13,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobManager;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -39,6 +40,7 @@ import org.smartregister.giz.activity.GizMaternityProfileActivity;
 import org.smartregister.giz.activity.GizOpdProfileActivity;
 import org.smartregister.giz.activity.GizPncFormActivity;
 import org.smartregister.giz.activity.GizPncProfileActivity;
+import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.activity.LoginActivity;
 import org.smartregister.giz.activity.OpdFormActivity;
 import org.smartregister.giz.configuration.GizAncMaternityTransferProcessor;
@@ -103,6 +105,8 @@ import org.smartregister.pnc.utils.PncConstants;
 import org.smartregister.pnc.utils.PncDbConstants;
 import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.util.Constants;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Hia2ReportRepository;
 import org.smartregister.repository.Repository;
@@ -112,7 +116,9 @@ import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -314,6 +320,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         activityConfiguration.setHomeRegisterActivityClass(AncRegisterActivity.class);
         activityConfiguration.setLandingPageActivityClass(AllClientsRegisterActivity.class);
         activityConfiguration.setProfileActivityClass(GizAncProfileActivity.class);
+
         AncMetadata ancMetadata = new AncMetadata();
         ancMetadata.setLocationLevels(GizUtils.getLocationLevels());
         ancMetadata.setHealthFacilityLevels(GizUtils.getHealthFacilityLevels());
@@ -338,6 +345,22 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         JobManager.create(this).addJobCreator(new GizMalawiJobCreator());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
+        initMinimumDateForReportGeneration();
+    }
+
+    private void initMinimumDateForReportGeneration() {
+        AllSharedPreferences allSharedPreferences = context().allSharedPreferences();
+        if (StringUtils.isBlank(allSharedPreferences.getPreference(Constants.ReportingConfig.MIN_REPORT_DATE))) {
+            Calendar startDate = Calendar.getInstance();
+            startDate.set(Calendar.DAY_OF_MONTH, 1);
+            startDate.set(Calendar.HOUR_OF_DAY, 0);
+            startDate.set(Calendar.MINUTE, 0);
+            startDate.set(Calendar.SECOND, 0);
+            startDate.set(Calendar.MILLISECOND, 0);
+            startDate.add(Calendar.MONTH, -1 * HIA2ReportsActivity.MONTH_SUGGESTION_LIMIT);
+            String dateFormatted = new SimpleDateFormat(GizConstants.DateTimeFormat.YYYY_MM_dd_HH_mm_ss).format(startDate.getTime());
+            allSharedPreferences.savePreference(Constants.ReportingConfig.MIN_REPORT_DATE, dateFormatted);
+        }
     }
 
     private void setupMaternityLibrary() {
