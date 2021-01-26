@@ -14,7 +14,6 @@ import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
-import org.smartregister.reporting.job.RecurringIndicatorGeneratingJob;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class LoginInteractorTest extends BaseRobolectricTest {
 
         Assert.assertTrue(ShadowBaseJob.getShadowHelper().isCalled(ShadowBaseJob.scheduleJobMN));
         HashMap<Integer, ArrayList<Object>> methodCalls = ShadowBaseJob.getShadowHelper().getMethodCalls(ShadowBaseJob.scheduleJobMN);
-        assertEquals(9, methodCalls.size());
+        assertEquals(8, methodCalls.size());
         assertEquals(VaccineServiceJob.TAG, methodCalls.get(0).get(0));
         assertEquals(RecurringServiceJob.TAG, methodCalls.get(1).get(0));
         assertEquals(WeightIntentServiceJob.TAG, methodCalls.get(2).get(0));
@@ -49,7 +48,6 @@ public class LoginInteractorTest extends BaseRobolectricTest {
         assertEquals(SyncServiceJob.TAG, methodCalls.get(5).get(0));
         assertEquals(PullUniqueIdsServiceJob.TAG, methodCalls.get(6).get(0));
         assertEquals(ImageUploadServiceJob.TAG, methodCalls.get(7).get(0));
-        assertEquals(RecurringIndicatorGeneratingJob.TAG, methodCalls.get(8).get(0));
     }
 
     @Test

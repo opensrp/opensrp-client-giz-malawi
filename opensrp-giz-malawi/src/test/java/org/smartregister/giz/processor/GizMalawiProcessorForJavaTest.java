@@ -22,8 +22,8 @@ import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
-import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.Obs;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.domain.jsonmapping.ClientClassification;
 import org.smartregister.domain.jsonmapping.Table;
 import org.smartregister.giz.BaseRobolectricTest;
@@ -96,20 +96,6 @@ public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
     }
 
     @Test
-    public void processHeightWithEventClientNullShouldReturnFalse() throws Exception {
-        Object[] params = {null, null, true};
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processHeight", params);
-        Assert.assertFalse(result);
-    }
-
-    @Test
-    public void processHeightWithTableNullShouldReturnFalse() throws Exception {
-        Object[] params = {new EventClient(new Event(), new Client("23")), null, true};
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processHeight", params);
-        Assert.assertFalse(result);
-    }
-
-    @Test
     public void processHeightWithValidEventClientAndTableShouldReturnTrue() throws Exception {
         ReflectionHelpers.setStaticField(DrishtiApplication.class, "mInstance", gizMalawiApplication);
         PowerMockito.when(gizMalawiApplication.heightRepository()).thenReturn(heightRepository);
@@ -132,7 +118,7 @@ public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
         Client client = new Client("234");
         EventClient eventClient = new EventClient(event, client);
 
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processHeight", eventClient, table, false);
+        Whitebox.invokeMethod(processorForJava, "processHeight", eventClient, table, false);
         Mockito.verify(heightRepository).add(processHeightArgumentCaptor.capture());
         Height resultHeightobj = processHeightArgumentCaptor.getValue();
         Assert.assertEquals(java.util.Optional.of(0).get(), resultHeightobj.getOutOfCatchment());
@@ -142,21 +128,6 @@ public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
         Assert.assertEquals(HeightRepository.TYPE_Synced, resultHeightobj.getSyncStatus());
         Assert.assertEquals(Utils.getDate("2019-09-27 09:45:44"), resultHeightobj.getDate());
         Assert.assertEquals(Utils.getDate("2019-09-27 09:45:44"), resultHeightobj.getCreatedAt());
-        Assert.assertTrue(result);
-    }
-
-    @Test
-    public void processServiceWithEventClientNullShouldReturnFalse() throws Exception {
-        Object[] params = {null, null};
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processService", params);
-        Assert.assertFalse(result);
-    }
-
-    @Test
-    public void processServiceWithTableNullShouldReturnFalse() throws Exception {
-        Object[] params = {new EventClient(new Event(), new Client("23")), null};
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processService", params);
-        Assert.assertFalse(result);
     }
 
     @Test
@@ -196,7 +167,7 @@ public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
         Table table = new Table();
         table.name = "recurring_service_records";
         Object[] params = {new EventClient(event, new Client("23")), table};
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processService", params);
+        Whitebox.invokeMethod(processorForJava, "processService", params);
 
         Mockito.verify(recurringServiceRecordRepository).add(recordServiceArgumentCaptor.capture());
         ServiceRecord resultServiceRecord = recordServiceArgumentCaptor.getValue();
@@ -208,21 +179,6 @@ public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
         Assert.assertEquals("231", resultServiceRecord.getEventId());
         Assert.assertEquals("1234", resultServiceRecord.getFormSubmissionId());
         Assert.assertEquals("1234", resultServiceRecord.getFormSubmissionId());
-        Assert.assertTrue(result);
-    }
-
-    @Test
-    public void processWeightWithEventClientNullShouldReturnFalse() throws Exception {
-        Object[] params = {null, null, true};
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processWeight", params);
-        Assert.assertFalse(result);
-    }
-
-    @Test
-    public void processWeightWithTableNullShouldReturnFalse() throws Exception {
-        Object[] params = {new EventClient(new Event(), new Client("23")), null, true};
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processWeight", params);
-        Assert.assertFalse(result);
     }
 
     @Test
@@ -248,7 +204,7 @@ public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
         Client client = new Client("234");
         EventClient eventClient = new EventClient(event, client);
 
-        Boolean result = Whitebox.invokeMethod(processorForJava, "processWeight", eventClient, table, false);
+        Whitebox.invokeMethod(processorForJava, "processWeight", eventClient, table, false);
         Mockito.verify(weightRepository).add(processWeightArgumentCaptor.capture());
         Weight resultWeightObj = processWeightArgumentCaptor.getValue();
         Assert.assertEquals(java.util.Optional.of(0).get(), resultWeightObj.getOutOfCatchment());
@@ -258,7 +214,6 @@ public class GizMalawiProcessorForJavaTest extends BaseRobolectricTest {
         Assert.assertEquals(WeightRepository.TYPE_Synced, resultWeightObj.getSyncStatus());
         Assert.assertEquals(Utils.getDate("2019-09-27 09:45:44"), resultWeightObj.getDate());
         Assert.assertEquals(Utils.getDate("2019-09-27 09:45:44"), resultWeightObj.getCreatedAt());
-        Assert.assertTrue(result);
     }
 
     @Test
