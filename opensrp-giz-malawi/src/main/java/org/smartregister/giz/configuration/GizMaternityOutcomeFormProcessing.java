@@ -1,8 +1,9 @@
 package org.smartregister.giz.configuration;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 
@@ -11,14 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.CoreLibrary;
-import org.smartregister.child.domain.UpdateRegisterParams;
 import org.smartregister.child.interactor.ChildRegisterInteractor;
-import org.smartregister.child.util.Constants;
 import org.smartregister.clientandeventmodel.Client;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.domain.SyncStatus;
 import org.smartregister.domain.tag.FormTag;
-import org.smartregister.giz.util.GizJsonFormUtils;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.maternity.MaternityLibrary;
 import org.smartregister.maternity.configuration.MaternityOutcomeFormProcessingTask;
@@ -156,12 +153,12 @@ public class GizMaternityOutcomeFormProcessing extends MaternityOutcomeFormProce
 
         Event maternityOutcomeEvent = MaternityJsonFormUtils.createEvent(fieldsArray, jsonFormObject.getJSONObject(METADATA)
                 , formTag, baseEntityId, MaternityConstants.EventType.MATERNITY_OUTCOME, "");
-        GizJsonFormUtils.tagEventSyncMetadata(maternityOutcomeEvent);
+        MaternityJsonFormUtils.tagSyncMetadata(maternityOutcomeEvent);
         eventList.add(maternityOutcomeEvent);
 
         Event closeMaternityEvent = JsonFormUtils.createEvent(new JSONArray(), new JSONObject(),
                 formTag, baseEntityId, MaternityConstants.EventType.MATERNITY_CLOSE, "");
-        GizJsonFormUtils.tagEventSyncMetadata(closeMaternityEvent);
+        MaternityJsonFormUtils.tagSyncMetadata(closeMaternityEvent);
         closeMaternityEvent.addDetails(MaternityConstants.JSON_FORM_KEY.VISIT_END_DATE, MaternityUtils.convertDate(new Date(), MaternityConstants.DateFormat.YYYY_MM_DD_HH_MM_SS));
         eventList.add(closeMaternityEvent);
 
@@ -205,36 +202,7 @@ public class GizMaternityOutcomeFormProcessing extends MaternityOutcomeFormProce
 
     private void createGrowthEvents(@NonNull MaternityEventClient eventClient, @NonNull JSONObject clientJson) throws JSONException {
         Client client = eventClient.getClient();
-        UpdateRegisterParams params = new UpdateRegisterParams();
-        params.setStatus(SyncStatus.PENDING.value());
-        JSONObject tempForm = new JSONObject();
-        JSONObject tempStep = new JSONObject();
-        tempForm.put(JsonFormConstants.STEP1, tempStep);
-        String height = "";
-        String weight = "";
-        for (Map.Entry<String, HashMap<String, String>> entrySet : getBuildRepeatingGroupBorn().entrySet()) {
-            HashMap<String, String> details = entrySet.getValue();
-            if (client.getBaseEntityId().equals(details.get(MaternityDbConstants.Column.MaternityChild.BASE_ENTITY_ID))) {
-                height = details.get("birth_height_entered");
-                weight = details.get("birth_weight_entered");
-                break;
-            }
-        }
-        JSONArray jsonArray = new JSONArray();
-
-        JSONObject heightObject = new JSONObject();
-        heightObject.put(JsonFormConstants.KEY, Constants.KEY.BIRTH_HEIGHT);
-        heightObject.put(JsonFormConstants.VALUE, height);
-        jsonArray.put(heightObject);
-
-        JSONObject weightObject = new JSONObject();
-        weightObject.put(JsonFormConstants.KEY, Constants.KEY.BIRTH_WEIGHT);
-        weightObject.put(JsonFormConstants.VALUE, weight);
-        jsonArray.put(weightObject);
-
-        tempStep.put(JsonFormConstants.FIELDS, jsonArray);
-        interactor().processHeight(client.getIdentifiers(), tempForm.toString(), params, clientJson);
-        interactor().processWeight(client.getIdentifiers(), tempForm.toString(), params, clientJson);
+        GizUtils.createChildGrowthEventFromRepeatingGroup(clientJson, client, interactor(), getBuildRepeatingGroupBorn());
     }
 
     private ChildRegisterInteractor interactor() {

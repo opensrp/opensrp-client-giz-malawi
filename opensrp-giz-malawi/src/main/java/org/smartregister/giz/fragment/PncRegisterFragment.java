@@ -3,18 +3,21 @@ package org.smartregister.giz.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
+
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.PncRegisterActivity;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.view.NavDrawerActivity;
 import org.smartregister.opd.utils.ConfigurationInstancesHelper;
 import org.smartregister.pnc.PncLibrary;
@@ -36,8 +39,11 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
 
     private GizPncRegisterQueryProvider pncRegisterQueryProvider;
 
+    private AppExecutors appExecutors;
+
     public PncRegisterFragment() {
         super();
+        appExecutors = GizMalawiApplication.getInstance().getAppExecutors();
         pncRegisterQueryProvider = (GizPncRegisterQueryProvider) ConfigurationInstancesHelper.newInstance(PncLibrary.getInstance().getPncConfiguration().getPncRegisterQueryProvider());
     }
 
@@ -87,7 +93,7 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
         if (pncMetadata != null && pncRegisterActivity != null) {
             pncRegisterActivity.startFormActivity(pncMetadata.getPncRegistrationFormName()
                     , null
-                    , null);
+                    , "");
         }
     }
 
@@ -139,15 +145,24 @@ public class PncRegisterFragment extends BasePncRegisterFragment {
     @Override
     public void countExecute() {
         try {
-            int totalCount = 0;
-            String sql = pncRegisterQueryProvider.getCountExecuteQuery(mainCondition, filters);
-            Timber.i(sql);
-            totalCount += commonRepository().countSearchIds(sql);
-            clientAdapter.setTotalcount(totalCount);
-            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+            appExecutors.diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    String sql = pncRegisterQueryProvider.getCountExecuteQuery(mainCondition, filters);
+                    Timber.i(sql);
+                    int totalCount = commonRepository().countSearchIds(sql);
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            clientAdapter.setTotalcount(totalCount);
+                            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
 
-            clientAdapter.setCurrentlimit(20);
-            clientAdapter.setCurrentoffset(0);
+                            clientAdapter.setCurrentlimit(20);
+                            clientAdapter.setCurrentoffset(0);
+                        }
+                    });
+                }
+            });
         } catch (Exception e) {
             Timber.e(e);
         }

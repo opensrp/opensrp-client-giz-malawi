@@ -1,6 +1,6 @@
 package org.smartregister.giz.configuration;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 

@@ -2,7 +2,7 @@ package org.smartregister.giz.configuration;
 
 import android.database.Cursor;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;

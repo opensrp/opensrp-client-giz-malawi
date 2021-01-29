@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.smartregister.child.util.JsonFormUtils;
+import org.smartregister.child.util.ChildJsonFormUtils;
 import org.smartregister.giz.util.GizConstants;
 
 import java.util.Date;
@@ -23,7 +23,7 @@ public class CheckChildDetailsModelTest {
         jsonAttributesObject.put(GizConstants.KEY.INACTIVE, "inactive");
         jsonAttributesObject.put(GizConstants.KEY.LOST_TO_FOLLOW_UP, "lost to follow up");
 
-        jsonIdentifiersObject.put(JsonFormUtils.ZEIR_ID, "zeir-id");
+        jsonIdentifiersObject.put(ChildJsonFormUtils.ZEIR_ID, "zeir-id");
         jsonChildObject.put(GizConstants.KEY.IDENTIFIERS, jsonIdentifiersObject);
         jsonChildObject.put(GizConstants.KEY.ATTRIBUTES, jsonAttributesObject);
 
@@ -34,7 +34,7 @@ public class CheckChildDetailsModelTest {
         jsonChildObject.put(GizConstants.KEY.BIRTHDATE, String.valueOf(new Date().getTime()));
         jsonChildObject.put(GizConstants.KEY.GENDER, "male");
 
-        jsonObject.put(GizConstants.KEY.CHILD,jsonChildObject);
+        jsonObject.put(GizConstants.KEY.CHILD, jsonChildObject);
         CheckChildDetailsModel checkChildDetailsModel = new CheckChildDetailsModel(jsonObject);
         CheckChildDetailsModel resultChildDetailsModel = checkChildDetailsModel.invoke();
         Assert.assertEquals("entityId", resultChildDetailsModel.getEntityId());

@@ -297,6 +297,7 @@
         "openmrs_entity_id": "5630AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
         "label": "Modes of delivery in past pregnancies",
+        "combine_checkbox_option_values": "true",
         "label_text_style": "bold",
         "relevance": {
           "step1:parity": {
@@ -349,6 +350,7 @@
         "type": "check_box",
         "label": "Outcomes of past pregnancies",
         "label_text_style": "bold",
+        "combine_checkbox_option_values": "true",
         "relevance": {
           "step1:gravidity": {
             "type": "numeric",

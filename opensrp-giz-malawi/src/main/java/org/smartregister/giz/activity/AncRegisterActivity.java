@@ -1,6 +1,6 @@
 package org.smartregister.giz.activity;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import org.smartregister.anc.library.activity.BaseHomeRegisterActivity;
 import org.smartregister.anc.library.event.PatientRemovedEvent;

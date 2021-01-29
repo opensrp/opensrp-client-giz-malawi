@@ -7,6 +7,7 @@ import org.smartregister.anc.library.presenter.RegisterPresenter;
 import org.smartregister.giz.view.NavigationMenu;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class GizAncRegisterPresenter extends RegisterPresenter {
     private WeakReference<RegisterContract.View> gizAncViewReference;
@@ -24,5 +25,10 @@ public class GizAncRegisterPresenter extends RegisterPresenter {
         if (navigationMenu != null) {
             navigationMenu.runRegisterCount();
         }
+    }
+
+    @Override
+    public void registerViewConfigurations(List<String> viewIdentifiers) {
+        //Do nothing
     }
 }

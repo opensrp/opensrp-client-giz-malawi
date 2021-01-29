@@ -1,7 +1,7 @@
 package org.smartregister.giz.repository;
 
 import android.content.ContentValues;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import org.json.JSONObject;
 import org.smartregister.domain.db.Column;

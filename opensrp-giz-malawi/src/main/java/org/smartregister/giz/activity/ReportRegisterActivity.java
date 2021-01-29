@@ -2,7 +2,7 @@ package org.smartregister.giz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
+import androidx.core.view.GravityCompat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -20,6 +20,7 @@ import org.smartregister.giz.util.GizUtils;
 import org.smartregister.giz.view.NavigationMenu;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ReportRegisterActivity extends BaseActivity {
 
@@ -91,12 +92,13 @@ public class ReportRegisterActivity extends BaseActivity {
                 break;
             default:
                 break;
+                
         }
     }
 
     @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String s) {
-        // Nothing to happen here
+    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> triple, String s) {
+        //do nothing
     }
 
     @Override

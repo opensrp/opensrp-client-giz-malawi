@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -48,9 +49,10 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
         super.attachBaseContext(setAppLocale(base, lang));
     }
 
+
     @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-        // Todo
+    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> triple, String s) {
+        //do thing
     }
 
     @Override

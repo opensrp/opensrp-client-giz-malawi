@@ -5,12 +5,15 @@ import android.os.Bundle;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.fragments.JsonFormFragment;
 
+import org.jetbrains.annotations.NotNull;
 import org.smartregister.child.fragment.ChildFormFragment;
 import org.smartregister.child.presenter.ChildFormFragmentPresenter;
+import org.smartregister.child.util.Constants;
 import org.smartregister.giz.interactor.ChildFormInteractor;
 import org.smartregister.giz.presenter.GizChildFormFragmentPresenter;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
 public class GizChildFormFragment extends ChildFormFragment {
 
@@ -46,5 +49,16 @@ public class GizChildFormFragment extends ChildFormFragment {
     public void onDestroy() {
         setOnReactionVaccineSelected(null);
         super.onDestroy();
+    }
+
+    @Override
+    protected @NotNull HashMap<String, String> getKeyAliasMap() {
+        return new HashMap<String, String>() {
+            {
+                put("mother_guardian_last_name", Constants.KEY.LAST_NAME);
+                put("mother_guardian_first_name", Constants.KEY.FIRST_NAME);
+                put("mother_guardian_date_birth", Constants.KEY.DOB);
+            }
+        };
     }
 }

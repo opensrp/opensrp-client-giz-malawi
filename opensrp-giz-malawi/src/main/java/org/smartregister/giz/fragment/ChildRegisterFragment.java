@@ -1,20 +1,24 @@
 package org.smartregister.giz.fragment;
 
-import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
+
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.fragment.BaseChildRegisterFragment;
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.model.ChildRegisterFragmentModel;
 import org.smartregister.giz.presenter.ChildRegisterFragmentPresenter;
+import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.DBQueryHelper;
 import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
@@ -24,9 +28,18 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+import timber.log.Timber;
+
 public class ChildRegisterFragment extends BaseChildRegisterFragment implements CompoundButton.OnCheckedChangeListener {
     private View view;
     private SwitchCompat filterSection;
+
+    private AppExecutors appExecutors;
+
+    public ChildRegisterFragment() {
+        super();
+        appExecutors = GizMalawiApplication.getInstance().getAppExecutors();
+    }
 
     @Override
     protected void initializePresenter() {
@@ -168,5 +181,30 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         toggleFilterSelection();
+    }
+
+    @Override
+    public void countExecute() {
+        try {
+            appExecutors.diskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    String sql = Utils.metadata().getRegisterQueryProvider().getCountExecuteQuery(mainCondition, filters);
+                    Timber.i(sql);
+                    int totalCount = commonRepository().countSearchIds(sql);
+                    appExecutors.mainThread().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            clientAdapter.setTotalcount(totalCount);
+                            Timber.i("Total Register Count %d", clientAdapter.getTotalcount());
+                            clientAdapter.setCurrentlimit(20);
+                            clientAdapter.setCurrentoffset(0);
+                        }
+                    });
+                }
+            });
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

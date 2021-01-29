@@ -1,8 +1,8 @@
 package org.smartregister.giz.task;
 
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
