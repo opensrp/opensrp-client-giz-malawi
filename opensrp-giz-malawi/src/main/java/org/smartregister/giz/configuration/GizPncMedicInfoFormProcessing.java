@@ -1,13 +1,77 @@
 package org.smartregister.giz.configuration;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.child.interactor.ChildRegisterInteractor;
+import org.smartregister.clientandeventmodel.Client;
+import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.giz.util.GizUtils;
 import org.smartregister.maternity.utils.MaternityConstants;
+import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.config.PncMedicInfoFormProcessing;
+import org.smartregister.pnc.pojo.PncEventClient;
+import org.smartregister.pnc.utils.PncJsonFormUtils;
+import org.smartregister.util.Utils;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+
+import timber.log.Timber;
 
 public class GizPncMedicInfoFormProcessing extends PncMedicInfoFormProcessing {
+
+    private ChildRegisterInteractor interactor;
+
+    private HashMap<String, HashMap<String, String>> buildRepeatingGroupBorn;
+
+    @Override
+    protected void createChild(JSONObject jsonFormObject, String baseEntityId, HashMap<String, HashMap<String, String>> buildRepeatingGroupBorn) {
+        setBuildRepeatingGroupBorn(buildRepeatingGroupBorn);
+        super.createChild(jsonFormObject, baseEntityId, buildRepeatingGroupBorn);
+    }
+
+    @Override
+    protected void saveAndProcessChildEvents(@NonNull List<PncEventClient> pncEventClients) {
+        try {
+            List<String> currentFormSubmissionIds = new ArrayList<>();
+            for (PncEventClient eventClient : pncEventClients) {
+                try {
+                    Client baseClient = eventClient.getClient();
+                    Event baseEvent = eventClient.getEvent();
+                    JSONObject clientJson = new JSONObject(PncJsonFormUtils.gson.toJson(baseClient));
+                    PncLibrary.getInstance().getEcSyncHelper().addClient(baseClient.getBaseEntityId(), clientJson);
+                    JSONObject eventJson = new JSONObject(PncJsonFormUtils.gson.toJson(baseEvent));
+                    PncLibrary.getInstance().getEcSyncHelper().addEvent(baseEvent.getBaseEntityId(), eventJson);
+                    currentFormSubmissionIds.add(baseEvent.getFormSubmissionId());
+                    createGrowthEvents(eventClient, clientJson);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            }
+            long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
+            Date lastSyncDate = new Date(lastSyncTimeStamp);
+            PncLibrary.getInstance().getClientProcessorForJava().processClient(PncLibrary.getInstance().getEcSyncHelper().getEvents(currentFormSubmissionIds));
+            Utils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void createGrowthEvents(@NonNull PncEventClient eventClient, @NonNull JSONObject clientJson) throws JSONException {
+        Client client = eventClient.getClient();
+        GizUtils.createChildGrowthEventFromRepeatingGroup(clientJson, client, interactor(), getBuildRepeatingGroupBorn());
+    }
+
+    private ChildRegisterInteractor interactor() {
+        if (interactor == null) {
+            interactor = new ChildRegisterInteractor();
+        }
+        return interactor;
+    }
 
     @NonNull
     public String childRegistrationEvent() {
@@ -42,8 +106,18 @@ public class GizPncMedicInfoFormProcessing extends PncMedicInfoFormProcessing {
         hashMap.put("mother_guardian_first_name", "first_name");
         hashMap.put("mother_guardian_last_name", "last_name");
         hashMap.put("mother_guardian_date_birth", "dob");
-        hashMap.put("village", "village");
-        hashMap.put("home_address", "home_address");
+        hashMap.put("village", "home_address");
+        hashMap.put("home_address", "village");
+        hashMap.put("mother_hiv_status", "mother_hiv_status");
+        hashMap.put("mother_tdv_doses", "mother_tdv_doses");
         return hashMap;
+    }
+
+    public HashMap<String, HashMap<String, String>> getBuildRepeatingGroupBorn() {
+        return buildRepeatingGroupBorn;
+    }
+
+    public void setBuildRepeatingGroupBorn(HashMap<String, HashMap<String, String>> buildRepeatingGroupBorn) {
+        this.buildRepeatingGroupBorn = buildRepeatingGroupBorn;
     }
 }

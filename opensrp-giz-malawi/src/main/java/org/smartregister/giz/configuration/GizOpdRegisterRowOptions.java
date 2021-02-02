@@ -3,8 +3,8 @@ package org.smartregister.giz.configuration;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -45,7 +45,7 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
         if (strVisitEndDate != null) {
             Date visitEndDate = OpdUtils.convertStringToDate(OpdConstants.DateFormat.YYYY_MM_DD_HH_MM_SS, strVisitEndDate);
             if (visitEndDate != null && OpdLibrary.getInstance().isPatientInTreatedState(visitEndDate)) {
-                String treatedTime = OpdUtils.convertDate(visitEndDate, GizConstants.DateFormat.HH_MM_AMPM);
+                String treatedTime = OpdUtils.convertDate(visitEndDate, GizConstants.DateTimeFormat.HH_MM_AMPM);
 
                 Context context = dueButton.getContext();
                 dueButton.setText(String.format(context.getResources().getString(R.string.treated_at_time), treatedTime));

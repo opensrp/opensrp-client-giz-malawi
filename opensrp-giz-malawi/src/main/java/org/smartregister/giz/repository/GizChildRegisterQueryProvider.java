@@ -16,12 +16,11 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
         String strFilters = getFilter(filters);
 
         if (StringUtils.isNotBlank(strFilters) && StringUtils.isBlank(strMainCondition)) {
-            strFilters = String.format(" where " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
+            strFilters = String.format(" where " + getDemographicTable() + ".first_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".last_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".opensrp_id like '%%%1$s%%' ", filters);
         }
 
-        return "select " + getDemographicTable() + ".object_id from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
-                "join " + getChildDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getChildDetailsTable() + ".id " +
-                "left join (select * from " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ") " + CommonFtsObject.searchTableName(getChildDetailsTable()) + " on " + getDemographicTable() + ".object_id =  " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ".object_id "
+        return "select " + getDemographicTable() + ".id from " + getDemographicTable() +
+                " join " + CommonFtsObject.searchTableName(getChildDetailsTable()) + " ec_child_details on " + getDemographicTable() + ".id =  ec_child_details.object_id "
                 + strMainCondition + strFilters;
     }
 
@@ -32,18 +31,17 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
         String strFilters = getFilter(filters);
 
         if (StringUtils.isNotBlank(strFilters) && StringUtils.isBlank(strMainCondition)) {
-            strFilters = String.format(" where " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
+            strFilters = String.format(" where " + getDemographicTable() + ".first_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".last_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".opensrp_id like '%%%1$s%%' ", filters);
         }
 
-        return "select count(" + getDemographicTable() + ".object_id) from " + CommonFtsObject.searchTableName(getDemographicTable()) + " " + getDemographicTable() + "  " +
-                "join " + getChildDetailsTable() + " on " + getDemographicTable() + ".object_id =  " + getChildDetailsTable() + ".id " +
-                "left join (select * from " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ") " + CommonFtsObject.searchTableName(getChildDetailsTable()) + " on " + getDemographicTable() + ".object_id =  " + CommonFtsObject.searchTableName(getChildDetailsTable()) + ".object_id "
+        return "select count(" + getDemographicTable() + ".id) from " + getDemographicTable() +
+                " join " + CommonFtsObject.searchTableName(getChildDetailsTable()) + " ec_child_details on " + getDemographicTable() + ".id =  ec_child_details.object_id "
                 + strMainCondition + strFilters;
     }
 
     private String getFilter(String filters) {
         if (StringUtils.isNotBlank(filters)) {
-            return String.format(" AND " + getDemographicTable() + ".phrase MATCH '*%s*'", filters);
+            return String.format(" AND " + getDemographicTable() + ".first_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".last_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".opensrp_id like '%%%1$s%%' ", filters);
         }
         return "";
     }
@@ -90,7 +88,7 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getChildDetailsTable() + "." + "child_hiv_status",
                 getChildDetailsTable() + "." + "child_treatment",
                 getMotherDetailsTable() + ".second_phone_number as second_phone_number",
-                getMotherDetailsTable() + ".alt_phone_number as mother_guardian_number" };
+                getMotherDetailsTable() + ".alt_phone_number as mother_guardian_number"};
     }
 
 }

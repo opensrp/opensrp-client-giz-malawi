@@ -13,7 +13,7 @@ import org.smartregister.giz.shadow.ShadowAssetHandler;
 
 @RunWith (PowerMockRunner.class)
 @PowerMockRunnerDelegate (RobolectricTestRunner.class)
-@Config (application = TestGizMalawiApplication.class, sdk = Build.VERSION_CODES.O_MR1, constants = BuildConfig.class, shadows = {ShadowAssetHandler.class})
+@Config (application = TestGizMalawiApplication.class, sdk = Build.VERSION_CODES.O_MR1, shadows = {ShadowAssetHandler.class})
 @PowerMockIgnore ({"org.mockito.*", "org.robolectric.*", "android.*"})
 public abstract class BaseUnitTest {
 

@@ -1,6 +1,6 @@
 package org.smartregister.giz.configuration;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.utils.FormUtils;
@@ -22,6 +22,7 @@ import org.smartregister.maternity.utils.MaternityDbConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -30,7 +31,7 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.child.util.JsonFormUtils.METADATA;
+import static org.smartregister.child.util.ChildJsonFormUtils.METADATA;
 
 public class GizMaternityPncTransferProcessor implements ClientTransferProcessor {
 
@@ -53,7 +54,7 @@ public class GizMaternityPncTransferProcessor implements ClientTransferProcessor
         long lastSyncTimeStamp = Utils.getAllSharedPreferences().fetchLastUpdatedAtDate(0);
         Date lastSyncDate = new Date(lastSyncTimeStamp);
         GizMalawiApplication.getInstance().getClientProcessor()
-                .processClient(GizMalawiApplication.getInstance().getEcSyncHelper().getEvents(Arrays.asList(maternityTransferEvent.getFormSubmissionId())));
+                .processClient(GizMalawiApplication.getInstance().getEcSyncHelper().getEvents(Collections.singletonList(maternityTransferEvent.getFormSubmissionId())));
         Utils.getAllSharedPreferences().saveLastUpdatedAtDate(lastSyncDate.getTime());
     }
 

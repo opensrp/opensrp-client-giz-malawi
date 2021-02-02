@@ -1,8 +1,8 @@
 package org.smartregister.giz.activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -79,6 +79,11 @@ public class PncRegisterActivity extends BasePncRegisterActivity implements NavD
     protected void onResumption() {
         super.onResumption();
         createDrawer();
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        //Do nothing
     }
 
     @Override

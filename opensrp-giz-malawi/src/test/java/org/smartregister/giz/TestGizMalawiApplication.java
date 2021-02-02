@@ -1,7 +1,8 @@
 package org.smartregister.giz;
 
 
-import org.fest.util.Lists;
+import com.google.common.collect.Lists;
+
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.immunization.domain.jsonmapping.Vaccine;
 import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
@@ -73,11 +74,6 @@ public class TestGizMalawiApplication extends GizMalawiApplication {
     @Override
     protected void fixHardcodedVaccineConfiguration() {
         //Override
-    }
-
-    @Override
-    public String getPassword() {
-        return "somepassword";
     }
 
 }

@@ -1,11 +1,12 @@
 package org.smartregister.giz.repository;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
-import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
@@ -115,20 +116,9 @@ public class GizMalawiRepository extends Repository {
 
         runLegacyUpgrades(database);
 
-        onUpgrade(database, 10, BuildConfig.DATABASE_VERSION);
+        onUpgrade(database, 11, BuildConfig.DATABASE_VERSION);
 
-        // initialize from yml file
-        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
-        // Check if indicator data initialised
-        boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
-                .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
-        boolean isUpdated = checkIfAppUpdated();
-        if (!indicatorDataInitialised || isUpdated) {
-            Timber.d("Initialising indicator repositories!!");
-            reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
-            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
-            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
-        }
+        initializeReportIndicatorState(database);
 
         // Maternity
         MaternityPartialFormRepository.createTable(database);
@@ -142,6 +132,22 @@ public class GizMalawiRepository extends Repository {
         PncOtherVisitRepository.createTable(database);
         PncPartialFormRepository.createTable(database);
         PncMedicInfoRepository.createTable(database);
+    }
+
+    @VisibleForTesting
+    protected void initializeReportIndicatorState(SQLiteDatabase database) {
+        // initialize from yml file
+        ReportingLibrary reportingLibraryInstance = ReportingLibrary.getInstance();
+        // Check if indicator data initialised
+        boolean indicatorDataInitialised = Boolean.parseBoolean(reportingLibraryInstance.getContext()
+                .allSharedPreferences().getPreference(indicatorDataInitialisedPref));
+        boolean isUpdated = checkIfAppUpdated();
+        if (!indicatorDataInitialised || isUpdated) {
+            Timber.d("Initialising indicator repositories!!");
+            reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
+            reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
+        }
     }
 
 
@@ -179,8 +185,9 @@ public class GizMalawiRepository extends Repository {
                 case 10:
                 case 11:
                     upgradeToVersion11CreateHia2IndicatorsRepository(db);
+                case 12:
+                    EventClientRepository.createAdditionalColumns(db);
                     break;
-
                 default:
                     break;
             }
@@ -191,20 +198,19 @@ public class GizMalawiRepository extends Repository {
 
 //        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
-
+        dumpHIA2IndicatorsCSV(db);
     }
 
     private void upgradeToVersion11CreateHia2IndicatorsRepository(SQLiteDatabase db) {
         if (!ReportingUtils.isTableExists(db, HIA2IndicatorsRepository.TABLE_NAME)) {
             HIA2IndicatorsRepository.createTable(db);
         }
-        dumpHIA2IndicatorsCSV(db);
     }
 
     @Override
     public SQLiteDatabase getReadableDatabase() {
-        String pass = GizMalawiApplication.getInstance().getPassword();
-        if (StringUtils.isNotBlank(pass)) {
+        byte[] pass = GizMalawiApplication.getInstance().getPassword();
+        if (pass != null && pass.length > 0) {
             return getReadableDatabase(pass);
         } else {
             throw new IllegalStateException("Password is blank");
@@ -213,8 +219,8 @@ public class GizMalawiRepository extends Repository {
 
     @Override
     public SQLiteDatabase getWritableDatabase() {
-        String pass = GizMalawiApplication.getInstance().getPassword();
-        if (StringUtils.isNotBlank(pass)) {
+        byte[] pass = GizMalawiApplication.getInstance().getPassword();
+        if (pass != null && pass.length > 0) {
             return getWritableDatabase(pass);
         } else {
             throw new IllegalStateException("Password is blank");
@@ -470,8 +476,8 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-
-    private void dumpHIA2IndicatorsCSV(SQLiteDatabase db) {
+    @VisibleForTesting
+    protected void dumpHIA2IndicatorsCSV(SQLiteDatabase db) {
         List<Map<String, String>> csvData = Utils.populateTableFromCSV(
                 context,
                 HIA2IndicatorsRepository.INDICATORS_CSV_FILE,

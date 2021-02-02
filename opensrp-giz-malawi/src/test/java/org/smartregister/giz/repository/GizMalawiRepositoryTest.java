@@ -41,14 +41,12 @@ public class GizMalawiRepositoryTest extends BaseRobolectricTest {
         ReflectionHelpers.setField(GizMalawiApplication.getInstance(), "repository", gizMalawiRepository);
     }
 
-    // TODO: FIX THIS
     @Test
-    public void onCreateShouldCreate41tables() {
+    public void onCreateShouldCreate62tables() {
         Mockito.doNothing().when(gizMalawiRepository).onUpgrade(Mockito.any(SQLiteDatabase.class), Mockito.anyInt(), Mockito.anyInt());
         SQLiteDatabase database = Mockito.mock(SQLiteDatabase.class);
+        Mockito.doNothing().when(gizMalawiRepository).initializeReportIndicatorState(database);
         gizMalawiRepository.onCreate(database);
-
-        // TODO: Investigate this counter
-        Mockito.verify(database, Mockito.times(50)).execSQL(Mockito.contains("CREATE TABLE"));
+        Mockito.verify(database, Mockito.times(62)).execSQL(Mockito.contains("CREATE TABLE"));
     }
 }

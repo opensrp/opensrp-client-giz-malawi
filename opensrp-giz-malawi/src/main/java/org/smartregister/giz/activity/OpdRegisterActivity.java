@@ -1,8 +1,9 @@
 package org.smartregister.giz.activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -28,6 +29,8 @@ import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.view.fragment.BaseRegisterFragment;
+
+import java.util.Map;
 
 import timber.log.Timber;
 
@@ -66,6 +69,11 @@ public class OpdRegisterActivity extends BaseOpdRegisterActivity implements NavD
     protected void onResumption() {
         super.onResumption();
         createDrawer();
+    }
+
+    @Override
+    public void startFormActivity(String s, String s1, Map<String, String> map) {
+        //Do nothing
     }
 
     @Override

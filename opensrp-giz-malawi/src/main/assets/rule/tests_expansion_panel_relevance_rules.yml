@@ -135,7 +135,7 @@ actions:
 name: step2_accordion_blood_haemoglobin
 description: hb_test_status
 priority: 1
-condition: "!Boolean.valueOf(global_is_first_contact) && ((global_previous_hb_test_status != '' && (global_previous_hb_test_status == 'done_earlier' || global_previous_hb_test_status == 'done_today')))"
+condition: "!Boolean.valueOf(global_is_first_contact) && global_gest_age_openmrs < 28 && ((global_previous_hb_test_status != '' && (global_previous_hb_test_status == 'done_earlier' || global_previous_hb_test_status == 'done_today')))"
 actions:
   - "isRelevant = true"
 ---

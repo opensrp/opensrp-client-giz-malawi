@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import org.smartregister.child.activity.BaseChildRegisterActivity;
 import org.smartregister.child.model.BaseChildRegisterModel;
 import org.smartregister.child.util.Constants;
-import org.smartregister.child.util.JsonFormUtils;
+import org.smartregister.child.util.ChildJsonFormUtils;
 import org.smartregister.child.util.Utils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.contract.NavigationMenuContract;
@@ -170,7 +170,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         Intent intent = new Intent(this, Utils.metadata().childFormActivity);
         if (jsonForm.has(GizConstants.KEY.ENCOUNTER_TYPE) && jsonForm.optString(GizConstants.KEY.ENCOUNTER_TYPE).equals(
                 GizConstants.KEY.BIRTH_REGISTRATION)) {
-            JsonFormUtils.addChildRegLocHierarchyQuestions(jsonForm);
+            ChildJsonFormUtils.addRegistrationFormLocationHierarchyQuestions(jsonForm);
         }
         intent.putExtra(Constants.INTENT_KEY.JSON, jsonForm.toString());
 
@@ -180,7 +180,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         form.setNextLabel("");
 
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
-        startActivityForResult(intent, JsonFormUtils.REQUEST_CODE_GET_JSON);
+        startActivityForResult(intent, ChildJsonFormUtils.REQUEST_CODE_GET_JSON);
     }
 
 

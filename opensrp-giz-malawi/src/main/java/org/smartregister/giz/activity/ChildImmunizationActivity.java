@@ -19,6 +19,7 @@ import org.smartregister.giz.util.GizUtils;
 import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 
 import java.util.Calendar;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
@@ -105,8 +106,8 @@ public class ChildImmunizationActivity extends BaseChildImmunizationActivity {
     }
 
     @Override
-    public void onUniqueIdFetched(Triple<String, String, String> triple, String entityId) {
-        // Todo
+    public void onUniqueIdFetched(Triple<String, Map<String, String>, String> triple, String s) {
+        //do nothing
     }
 
     @Override

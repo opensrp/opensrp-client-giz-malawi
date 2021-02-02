@@ -1,18 +1,20 @@
 package org.smartregister.giz.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
+
 import org.jeasy.rules.api.Facts;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.maternity.activity.BaseMaternityProfileActivity;
@@ -42,13 +44,21 @@ public class GizMaternityProfileVisitsFragment extends MaternityProfileVisitsFra
         Button btnAncHistory = fragmentView.findViewById(R.id.btn_anc_history);
         btnAncHistory.setOnClickListener(this);
         TextView txtAncHistory = fragmentView.findViewById(R.id.txt_no_anc_history);
-        if (hasAncProfile()) {
-            txtAncHistory.setVisibility(View.GONE);
-            btnAncHistory.setVisibility(View.VISIBLE);
-        } else {
-            txtAncHistory.setVisibility(View.VISIBLE);
-            btnAncHistory.setVisibility(View.GONE);
-        }
+
+        GizMalawiApplication.getInstance().getAppExecutors().diskIO().execute(() -> {
+            boolean hasAncProfile = hasAncProfile();
+            GizMalawiApplication.getInstance().getAppExecutors().mainThread().execute(() -> {
+                if (hasAncProfile) {
+                    txtAncHistory.setVisibility(View.GONE);
+                    btnAncHistory.setVisibility(View.VISIBLE);
+                } else {
+                    txtAncHistory.setVisibility(View.VISIBLE);
+                    btnAncHistory.setVisibility(View.GONE);
+                }
+            });
+
+        });
+
 
         return fragmentView;
     }

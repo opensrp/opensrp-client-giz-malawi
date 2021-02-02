@@ -29,7 +29,6 @@ import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.helper.ECSyncHelper;
 import org.smartregister.view.activity.DrishtiApplication;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -135,7 +134,7 @@ public class OpdRegisterActivityInteractorTest {
         client.setLastName("Doe");
         client.addIdentifier(OpdJsonFormUtils.ZEIR_ID, "342");
 
-        org.smartregister.domain.db.Client clientDomain = new org.smartregister.domain.db.Client("234");
+        org.smartregister.domain.Client clientDomain = new org.smartregister.domain.Client("234");
         clientDomain.setBirthdate(new DateTime());
         clientDomain.setGender("M");
         clientDomain.setFirstName("John");
@@ -150,7 +149,7 @@ public class OpdRegisterActivityInteractorTest {
         event.setFormSubmissionId("46rt34543rew");
         event.setLocationId("location");
 
-        org.smartregister.domain.db.Event eventDomain = new org.smartregister.domain.db.Event();
+        org.smartregister.domain.Event eventDomain = new org.smartregister.domain.Event();
         eventDomain.setBaseEntityId("234");
         eventDomain.setChildLocationId("childLoc");
         eventDomain.setEventType("Opd Registration");
@@ -162,8 +161,8 @@ public class OpdRegisterActivityInteractorTest {
         OpdEventClient opdEventClient = new OpdEventClient(client, event);
 
         EventClient eventClient = new EventClient(eventDomain, clientDomain);
-        PowerMockito.when(ecSyncHelper.getEvents(Arrays.asList("46rt34543rew")))
-                .thenReturn(Arrays.asList(eventClient));
+        PowerMockito.when(ecSyncHelper.getEvents(Collections.singletonList("46rt34543rew")))
+                .thenReturn(Collections.singletonList(eventClient));
 
         JSONObject jsonObject = new JSONObject();
         RegisterParams registerParams = new RegisterParams();
@@ -188,7 +187,7 @@ public class OpdRegisterActivityInteractorTest {
 
         Assert.assertEquals(time, lastUpdatedAtArgumentCaptor.getValue());
 
-        Assert.assertEquals(Arrays.asList(eventClient), clientProcessorArgumentCaptor.getValue());
+        Assert.assertEquals(Collections.singletonList(eventClient), clientProcessorArgumentCaptor.getValue());
 
     }
 }

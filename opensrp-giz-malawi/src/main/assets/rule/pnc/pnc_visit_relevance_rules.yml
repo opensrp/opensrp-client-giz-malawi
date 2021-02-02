@@ -86,7 +86,7 @@ actions:
 name: step3_baby_hiv_exposed
 description: baby_hiv_exposed
 priority: 1
-condition: "global_hiv_status_previous == 'positive' || global_hiv_status_current == 'positive'"
+condition: "(global_hiv_status_previous != '' && global_hiv_status_previous.equalsIgnoreCase('Positive'))  || (global_hiv_status_current != '' && global_hiv_status_current.equalsIgnoreCase('Positive'))"
 actions:
   - "isRelevant = true"
 ---
