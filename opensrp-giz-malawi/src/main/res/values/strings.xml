@@ -886,4 +886,7 @@
     <string name="opd_register_other_clients">Register Other Clients</string>
     <string name="opd_register_child_under_5">Register Child Under 5</string>
     <!-- End PNC report labels -->
+
+    <string name="eligible_children">Eligible Children</string>
+
 </resources>

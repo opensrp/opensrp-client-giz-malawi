@@ -231,6 +231,7 @@ tasks.withType(Test) {
 }
 
 dependencies {
+    implementation 'androidx.annotation:annotation:1.1.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
 
     jarJar 'com.ibm.fhir:fhir-model:4.2.3'

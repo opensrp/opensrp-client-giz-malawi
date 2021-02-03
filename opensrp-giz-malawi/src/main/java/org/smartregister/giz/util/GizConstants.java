@@ -190,4 +190,12 @@ public class GizConstants {
         String INDICATOR_CODE = "indicatorCode";
     }
 
+    public static class ReportParameters {
+        public static String COMMUNITY = "COMMUNITY";
+        public static String COMMUNITY_ID = "COMMUNITY_ID";
+        public static String REPORT_DATE = "REPORT_DATE";
+        public static String INDICATOR_CODE = "INDICATOR_CODE";
+    }
+
+
 }
