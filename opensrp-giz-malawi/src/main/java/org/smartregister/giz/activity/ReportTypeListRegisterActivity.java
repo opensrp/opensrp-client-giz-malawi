@@ -39,14 +39,11 @@ public class ReportTypeListRegisterActivity extends BaseActivity {
 
             switch (position) {
                 case 0:
+                case 1:
+                case 2:
                     Intent intent = new Intent(ReportTypeListRegisterActivity.this, ReportRegisterActivity.class);
                     startActivity(intent);
-                case 1:
-                    Intent intent1 = new Intent(ReportTypeListRegisterActivity.this, ReportRegisterActivity.class);
-                    startActivity(intent1);
-                case 2:
-                    Intent intent2 = new Intent(ReportTypeListRegisterActivity.this, ReportRegisterActivity.class);
-                    startActivity(intent2);
+                    break;
                 default:
                     break;
             }
@@ -111,11 +108,6 @@ public class ReportTypeListRegisterActivity extends BaseActivity {
 
     @Override
     public void onSyncInProgress(FetchStatus fetchStatus) {
-        // Nothing to happen here
-
-    }
-
-    private void toggleReportSyncButton() {
         // Nothing to happen here
 
     }
