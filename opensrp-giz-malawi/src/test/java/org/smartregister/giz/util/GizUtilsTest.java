@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
@@ -35,6 +36,7 @@ import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.DrishtiApplication;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 
 public class GizUtilsTest extends BaseRobolectricTest {
@@ -149,4 +151,47 @@ public class GizUtilsTest extends BaseRobolectricTest {
             }
         }
     }
+
+    @Test
+    public void assertGetDurationTests() {
+        GizUtils.getDuration("2021-10-09T18:17:07.830+05:00");
+
+        Locale locale = RuntimeEnvironment.application.getApplicationContext().getResources().getConfiguration().locale;
+        DateTime todayDateTime = new DateTime("2021-10-09T18:17:07.830+05:00");
+
+        Assert.assertEquals("1d", GizUtils.getDuration(Long.parseLong("100000000"),
+                new DateTime("2021-10-10T18:17:07.830+05:00"),
+                todayDateTime,
+                locale));
+
+        Assert.assertEquals("2w 5d", GizUtils.getDuration(Long.parseLong("1641600000"),
+                new DateTime("2021-11-12T18:17:07.830+05:00"),
+                todayDateTime,
+                locale));
+
+
+        Assert.assertEquals("4m 3w", GizUtils.getDuration(Long.parseLong("12700800000"),
+                new DateTime("2021-11-12T18:17:07.830+05:00"),
+                todayDateTime,
+                locale));
+
+        Assert.assertEquals("4y 11m", GizUtils.getDuration(Long.parseLong("157334400000"),
+                new DateTime("2016-10-10T05:00:00.000+05:00"),
+                todayDateTime,
+                locale));
+
+        Assert.assertEquals("5y", GizUtils.getDuration(Long.parseLong("157334400000"),
+                new DateTime("2016-10-09T05:00:00.000+05:00"),
+                todayDateTime,
+                locale));
+    }
+
+    @Test
+    public void testGetLocale() {
+        Locale expectedLocaleNull = Locale.getDefault();
+        Locale expectedLocaleNotNull = RuntimeEnvironment.application.getResources().getConfiguration().locale;
+        Assert.assertEquals(expectedLocaleNull, GizUtils.getLocale(null));
+        Assert.assertEquals(expectedLocaleNotNull, GizUtils.getLocale(RuntimeEnvironment.application));
+    }
+
 }
