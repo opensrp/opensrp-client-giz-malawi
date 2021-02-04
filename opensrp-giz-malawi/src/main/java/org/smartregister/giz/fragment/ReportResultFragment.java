@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 
 import org.smartregister.giz.R;
-import org.smartregister.giz.adapter.ListableAdapter;
-import org.smartregister.giz.contract.ListContract;
-import org.smartregister.giz.presenter.ListPresenter;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.giz.viewholder.ListableViewHolder;
+import org.smartregister.view.ListContract;
+import org.smartregister.view.adapter.ListableAdapter;
+import org.smartregister.view.presenter.ListPresenter;
+import org.smartregister.view.viewholder.ListableViewHolder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,15 +34,13 @@ import timber.log.Timber;
 public abstract class ReportResultFragment<T extends ListContract.Identifiable> extends Fragment implements ListContract.View<T> {
 
     protected View view;
-    private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
-    private ProgressBar progressBar;
     protected ListContract.Presenter<T> presenter;
     protected List<T> list;
-
     protected ArrayList<String> communityIds;
     protected Date reportDate = null;
     protected ArrayList<String> communityNames;
-    protected String indicatorCode;
+    private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,7 +97,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        mAdapter = adapter();
+        mAdapter = (ListableAdapter<T, ListableViewHolder<T>>) adapter();
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }
