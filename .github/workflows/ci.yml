@@ -5,9 +5,9 @@ name: Android CI with Gradle
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, emmunize_malawi ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, emmunize_malawi ]
 
 jobs:
   unit_tests:
