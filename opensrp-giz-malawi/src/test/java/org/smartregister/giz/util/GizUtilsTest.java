@@ -25,6 +25,7 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.child.domain.UpdateRegisterParams;
 import org.smartregister.child.interactor.ChildRegisterInteractor;
 import org.smartregister.child.util.Constants;
+import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
@@ -184,6 +185,25 @@ public class GizUtilsTest extends BaseRobolectricTest {
                 new DateTime("2016-10-09T05:00:00.000+05:00"),
                 todayDateTime,
                 locale));
+    }
+
+    @Test
+    public void testShouldUpdateSyncStatus() throws Exception {
+        Assert.assertEquals(false, GizUtils.getSyncStatus());
+        GizUtils.updateSyncStatus(true);
+        Assert.assertEquals(true, GizUtils.getSyncStatus());
+    }
+
+    @Test
+    public void testGetStringResourceByName() {
+        android.content.Context androidContext = RuntimeEnvironment.application.getApplicationContext();
+        Assert.assertEquals("string", GizUtils.getStringResourceByName("string", androidContext));
+    }
+
+    @Test
+    public void testGetCommonRepository() {
+        String tableName = "ec_child";
+        Assert.assertEquals(Utils.context().commonrepository(tableName), GizUtils.getCommonRepository(tableName));
     }
 
     @Test
