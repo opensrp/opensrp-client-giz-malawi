@@ -888,5 +888,9 @@
     <!-- End PNC report labels -->
 
     <string name="eligible_children">Eligible Children</string>
+    <string name="select_community">Select Community</string>
+    <string name="select_options">Select options</string>
+    <string name="doses_needed">Doses Needed</string>
+
 
 </resources>

@@ -20,4 +20,5 @@
 
 
     <color name="list_view_divider_black">@color/black</color>
+    <color name="chw_primary_dark">#0d384e</color>
 </resources>
