@@ -2,12 +2,13 @@ package org.smartregister.giz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.core.view.GravityCompat;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.core.view.GravityCompat;
 
 import org.apache.commons.lang3.tuple.Triple;
 import org.smartregister.child.activity.BaseActivity;
@@ -23,20 +24,27 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ReportRegisterActivity extends BaseActivity {
-
+    protected ListView listView;
+    protected TextView titleTv;
     private ImageView reportSyncBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setUpViews();
+        loadData();
+    }
 
-        ListView listView = findViewById(R.id.lv_reportRegister_groupings);
-        TextView titleTv = findViewById(R.id.title);
+    public void setUpViews() {
+        listView = findViewById(R.id.lv_reportRegister_groupings);
+        titleTv = findViewById(R.id.title);
 
         if (titleTv != null) {
             titleTv.setText(R.string.dhis2_reports);
         }
+    }
 
+    public void loadData() {
         reportSyncBtn = findViewById(R.id.report_sync_btn);
         reportSyncBtn.setOnClickListener(v -> GizUtils.startReportJob(getApplicationContext()));
 
@@ -92,7 +100,7 @@ public class ReportRegisterActivity extends BaseActivity {
                 break;
             default:
                 break;
-                
+
         }
     }
 
