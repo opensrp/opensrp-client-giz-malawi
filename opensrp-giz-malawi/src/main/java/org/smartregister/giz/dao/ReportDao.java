@@ -43,7 +43,7 @@ import timber.log.Timber;
 public class ReportDao extends AbstractDao {
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
-    private static android.content.Context context;
+    private static Context context;
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> getVaccineSchedules(String category) {
 
@@ -174,19 +174,23 @@ public class ReportDao extends AbstractDao {
         }
         return new ArrayList<>();
     }
-
-    public static List<EligibleChild> fetchLiveEligibleChildrenReport(@Nullable List<String> communityIds, Date dueDate) {
-        // fetch all children in the region
-        String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
-        int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
-        String sql = "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ," +
+    private static String getStringSql(){
+        return "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ," +
                 "f.first_name family_name  , c.dob , c.gender , l.location_id " +
                 "from ec_child c " +
                 "left join ec_family f on c.relational_id = f.base_entity_id and f.is_closed = 0 and f.date_removed is null COLLATE NOCASE " +
                 "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id COLLATE NOCASE " +
                 "inner join ec_family_member m on m.base_entity_id = c.base_entity_id and m.is_closed = 0 and m.date_removed is null COLLATE NOCASE  " +
                 "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0 ";
+    }
+
+
+    public static List<EligibleChild> fetchLiveEligibleChildrenReport(@Nullable List<String> communityIds, Date dueDate) {
+        // fetch all children in the region
+        String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
+        String sql = getStringSql();
         if (communityIds != null && !communityIds.isEmpty())
             sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
         sql += "order by c.first_name , c.last_name , c.middle_name ";

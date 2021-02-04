@@ -21,11 +21,15 @@ import java.util.List;
 public class EligibleChildrenAdapterTest {
 
     @Mock
-    ListContract.View<EligibleChild> view;
+    private ListContract.View<EligibleChild> view;
+
     @Mock
-    Context context;
+    private Context context;
+
     private EligibleChildrenAdapter adapter;
+
     private List<EligibleChild> eligibleChildList;
+
     @Mock
     private EligibleChildrenViewHolder viewHolder;
 
