@@ -140,7 +140,7 @@ public class ReportDao extends AbstractDao {
         return vaccineSchedules;
     }
 
-    public static List<Alert> getInMemoryAlerts(
+    private static List<Alert> getInMemoryAlerts(
             HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules,
             String baseEntityId,
             DateTime dob,
@@ -166,7 +166,7 @@ public class ReportDao extends AbstractDao {
 
     private static List<Alert> computeChildAlerts(int age, DateTime anchorDate, String baseEntityId, @Nullable List<Vaccine> issuedVaccines) {
         try {
-            String category = age < 2 ? "child" : "child_over_5";
+            String category = age < 5 ? "child" : "child_over_5";
             HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules(category);
             return getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, category, issuedVaccines == null ? new ArrayList<>() : issuedVaccines);
         } catch (Exception e) {
@@ -195,13 +195,12 @@ public class ReportDao extends AbstractDao {
         AbstractDao.DataMap<Void> dataMap = c -> {
             // compute constants
             String baseEntityId = getCursorValue(c, "base_entity_id");
-            String gender = getCursorValue(c, "gender");
             Date dob = getCursorValueAsDate(c, "dob", sdf);
             Date adjustedDob = new DateTime(dob).minusDays(days).toDate();
             String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
             name = name.trim() + " " + getCursorValue(c, "last_name", "");
             int age = (int) Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
-            if (age < 2 || (age >= 9 && age <= 11 && "Female".equalsIgnoreCase(gender))) {
+            if (age < 5) {
                 List<Vaccine> rawVaccines = allVaccines.get(baseEntityId);
                 List<Vaccine> myVaccines = new ArrayList<>();
                 if (rawVaccines != null) {
@@ -213,10 +212,8 @@ public class ReportDao extends AbstractDao {
 
                 List<Alert> raw_alerts = computeChildAlerts(age, new DateTime(dob).minusDays(days), baseEntityId, myVaccines);
                 Set<String> myGivenVaccines = new HashSet<>();
-                if (myVaccines != null) {
-                    for (Vaccine vaccine : myVaccines) {
-                        myGivenVaccines.add(cleanName(vaccine.getName()));
-                    }
+                for (Vaccine vaccine : myVaccines) {
+                    myGivenVaccines.add(cleanName(vaccine.getName()));
                 }
                 List<Alert> alerts = new ArrayList<>();
                 for (Alert alert : raw_alerts) {
@@ -251,7 +248,7 @@ public class ReportDao extends AbstractDao {
         return name.toLowerCase().replace("_", "").replace(" ", "");
     }
 
-    public static Map<String, List<Vaccine>> fetchAllVaccines() {
+    protected static Map<String, List<Vaccine>> fetchAllVaccines() {
         Map<String, List<Vaccine>> result = new HashMap<>();
 
         String sql = "select * from vaccines";
