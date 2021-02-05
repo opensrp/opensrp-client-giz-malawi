@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 
 import org.smartregister.giz.R;
-import org.smartregister.giz.adapter.ListableAdapter;
-import org.smartregister.giz.contract.ListContract;
-import org.smartregister.giz.presenter.ListPresenter;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.giz.viewholder.ListableViewHolder;
+import org.smartregister.view.ListContract;
+import org.smartregister.view.adapter.ListableAdapter;
+import org.smartregister.view.presenter.ListPresenter;
+import org.smartregister.view.viewholder.ListableViewHolder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

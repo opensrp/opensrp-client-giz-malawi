@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import org.smartregister.giz.R;
-import org.smartregister.giz.contract.ListContract;
 import org.smartregister.giz.domain.EligibleChild;
 import org.smartregister.giz.viewholder.EligibleChildrenViewHolder;
-import org.smartregister.giz.viewholder.ListableViewHolder;
+import org.smartregister.view.ListContract;
+import org.smartregister.view.adapter.ListableAdapter;
+import org.smartregister.view.viewholder.ListableViewHolder;
 
 import java.util.List;
 

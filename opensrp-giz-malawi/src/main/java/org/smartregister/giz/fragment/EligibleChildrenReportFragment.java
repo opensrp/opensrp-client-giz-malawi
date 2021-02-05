@@ -15,11 +15,11 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.FragmentBaseActivity;
 import org.smartregister.giz.adapter.EligibleChildrenAdapter;
-import org.smartregister.giz.adapter.ListableAdapter;
 import org.smartregister.giz.domain.EligibleChild;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.giz.viewholder.ListableViewHolder;
+import org.smartregister.view.adapter.ListableAdapter;
+import org.smartregister.view.viewholder.ListableViewHolder;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -39,6 +39,11 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
     @Override
     public ListableAdapter<EligibleChild, ListableViewHolder<EligibleChild>> adapter() {
         return new EligibleChildrenAdapter(list, this, this.getContext());
+    }
+
+    @Override
+    public boolean hasDivider() {
+        return false;
     }
 
     @Override
@@ -92,6 +97,11 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
                 disposable[0] = null;
             }
         });
+    }
+
+    @Override
+    public void onFetchError(Exception e) {
+    // Do Nothing
     }
 
     @Override

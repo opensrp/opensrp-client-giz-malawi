@@ -7,9 +7,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import org.smartregister.giz.R;
-import org.smartregister.giz.contract.ListContract;
 import org.smartregister.giz.domain.EligibleChild;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.view.ListContract;
+import org.smartregister.view.viewholder.ListableViewHolder;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

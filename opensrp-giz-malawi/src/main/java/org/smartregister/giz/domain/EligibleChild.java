@@ -1,7 +1,7 @@
 package org.smartregister.giz.domain;
 
 import org.smartregister.domain.Alert;
-import org.smartregister.giz.contract.ListContract;
+import org.smartregister.view.ListContract;
 
 import java.util.Date;
 import java.util.List;
