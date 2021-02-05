@@ -34,15 +34,13 @@ import timber.log.Timber;
 public abstract class ReportResultFragment<T extends ListContract.Identifiable> extends Fragment implements ListContract.View<T> {
 
     protected View view;
-    private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
-    private ProgressBar progressBar;
     protected ListContract.Presenter<T> presenter;
     protected List<T> list;
-
     protected ArrayList<String> communityIds;
     protected Date reportDate = null;
     protected ArrayList<String> communityNames;
-    protected String indicatorCode;
+    private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,10 +53,10 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
         Bundle bundle = getArguments();
         if (bundle != null) {
             Gson gson = new Gson();
-            communityIds = gson.fromJson(bundle.getString(GizConstants.ReportParameters.COMMUNITY_ID), ArrayList.class);
-            communityNames = gson.fromJson(bundle.getString(GizConstants.ReportParameters.COMMUNITY), ArrayList.class);
+            communityIds = gson.fromJson(bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY_ID), ArrayList.class);
+            communityNames = gson.fromJson(bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY), ArrayList.class);
 
-            String date = bundle.getString(GizConstants.ReportParameters.REPORT_DATE);
+            String date = bundle.getString(GizConstants.ReportParametersHelper.REPORT_DATE);
 
             if (date != null) {
                 try {
@@ -99,7 +97,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
-        mAdapter = adapter();
+        mAdapter = (ListableAdapter<T, ListableViewHolder<T>>) adapter();
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }

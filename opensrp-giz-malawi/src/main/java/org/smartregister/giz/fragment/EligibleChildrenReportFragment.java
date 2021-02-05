@@ -4,9 +4,6 @@ import android.app.Activity;
 
 import androidx.annotation.NonNull;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.util.Constants;
 import org.smartregister.commonregistry.CommonPersonObject;
@@ -15,12 +12,17 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.FragmentBaseActivity;
 import org.smartregister.giz.adapter.EligibleChildrenAdapter;
+import org.smartregister.giz.dao.ReportDao;
 import org.smartregister.giz.domain.EligibleChild;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.util.AppExecutors;
+import org.smartregister.view.ListContract;
 import org.smartregister.view.adapter.ListableAdapter;
 import org.smartregister.view.viewholder.ListableViewHolder;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -32,13 +34,17 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
 
     @Override
     protected void executeFetch() {
-        //presenter.fetchList(() -> ReportDao.fetchLiveEligibleChildrenReport(communityIds, reportDate));
+        presenter.fetchList(() -> ReportDao.fetchLiveEligibleChildrenReport(communityIds, reportDate), fetchRequestType());
+    }
+
+    private AppExecutors.Request fetchRequestType() {
+        return AppExecutors.Request.DISK_THREAD;
     }
 
     @NonNull
     @Override
     public ListableAdapter<EligibleChild, ListableViewHolder<EligibleChild>> adapter() {
-        return new EligibleChildrenAdapter(list, this, this.getContext());
+        return new EligibleChildrenAdapter(list, (ListContract.View<EligibleChild>) this, this.getContext());
     }
 
     @Override

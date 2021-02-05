@@ -887,6 +887,11 @@
     <string name="opd_register_child_under_5">Register Child Under 5</string>
     <!-- End PNC report labels -->
 
+    <!-- Emmunize Reports-->
+    <string name="reports_type">Reports</string>
+    <string name="dhis2_report_grouping_title">DHIS2 Reports</string>
+    <string name="child_due_report_grouping_title">Children Due for Vaccines</string>
+    <string name="vaccine_needed_report_grouping_title">Vaccine Doses Needed</string>
     <string name="eligible_children">Eligible Children</string>
     <string name="select_community">Select Community</string>
     <string name="select_options">Select options</string>

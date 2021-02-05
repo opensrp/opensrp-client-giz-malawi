@@ -119,9 +119,9 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             if (communities.size() > 0) {
                 Map<String, String> map = new HashMap<>();
                 Gson gson = new Gson();
-                map.put(GizConstants.ReportParameters.COMMUNITY, gson.toJson(communities));
-                map.put(GizConstants.ReportParameters.COMMUNITY_ID, gson.toJson(communityIds));
-                map.put(GizConstants.ReportParameters.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
+                map.put(GizConstants.ReportParametersHelper.COMMUNITY, gson.toJson(communities));
+                map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, gson.toJson(communityIds));
+                map.put(GizConstants.ReportParametersHelper.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
                 presenter.runReport(map);
             } else Toast.makeText(getActivity(), "No CHA selected", Toast.LENGTH_SHORT).show();
 
