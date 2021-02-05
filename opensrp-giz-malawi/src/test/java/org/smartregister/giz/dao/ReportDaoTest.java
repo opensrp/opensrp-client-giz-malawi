@@ -84,7 +84,7 @@ public class ReportDaoTest extends ReportDao {
         });
         matrixCursor.addRow(new Object[]{
                 "2021-02-20 22:22:34", 1, "839e53i354-ba27-46b1-b5c2-2bab06fd77e2",
-                "chw", "bcg", 1,
+                "giz", "bcg", 1,
                 "1567112400000", "meso", "402ecf03-af72-4c93-b099-e1ce327d815b",
                 "Synced", "hia_2", "1584692554019",
                 "23147a8f-d301-43a1-876e-93f30088e2d7", "d3e94182-a7c8-457a-a5a5-40354bfb37e4", 0,
@@ -92,7 +92,7 @@ public class ReportDaoTest extends ReportDao {
         });
         matrixCursor.addRow(new Object[]{
                 "2021-02-20 22:22:34", 1, "839e53i354-ba27-46b1-b5c2-2bab06fd77e2",
-                "chw", "opv_0", 0,
+                "giz", "opv_0", 0,
                 "1567112400000", "meso", "402ecf03-af72-4c93-b099-e1ce327d815b",
                 "Synced", "hia_2", "1584692554019",
                 "23147a8f-d301-43a1-876e-93f30088e2d7", "d3e94182-a7c8-457a-a5a5-40354bfb37e4", 0,
@@ -100,7 +100,7 @@ public class ReportDaoTest extends ReportDao {
         });
         matrixCursor.addRow(new Object[]{
                 "2021-02-20 22:22:34", 1, "89839e53i354-483d-48c2-baec-929b862f3ac1",
-                "chw", "opv_0", 0,
+                "giz", "opv_0", 0,
                 "1567112400000", "meso", "402ecf03-af72-4c93-b099-e1ce327d815b",
                 "Synced", "hia_2", "1584692554019",
                 "23147a8f-d301-43a1-876e-93f30088e2d7", "d3e94182-a7c8-457a-a5a5-40354bfb37e4", 0,
