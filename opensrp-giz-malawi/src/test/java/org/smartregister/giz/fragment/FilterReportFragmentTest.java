@@ -77,8 +77,7 @@ public class FilterReportFragmentTest {
         ReflectionHelpers.setField(spyFragment, "selectedCommunitiesTV", selectedCommunitiesTV);
 
         spyFragment.updateSelectedCommunitiesView();
-
-        selectedCommunitiesTV.setText("community 1 \n community 2");
+        verify(spyFragment).selectedCommunitiesTV.setText("community 1 \n community 2");
     }
 
     @Test
@@ -112,7 +111,7 @@ public class FilterReportFragmentTest {
         map.put(GizConstants.ReportParametersHelper.COMMUNITY, gson.toJson(communities));
         map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, gson.toJson(communityIds));
         map.put(GizConstants.ReportParametersHelper.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-        Mockito.verify(presenter).runReport(map);
+        verify(presenter).runReport(map);
     }
 
     @Test
@@ -131,7 +130,7 @@ public class FilterReportFragmentTest {
 
         Mockito.doNothing().when(spyFragment).updateDialogCheckItem(dialog, 1, false);
         spyFragment.handleCommunityMultiChoiceItemsDialog(dialog, which, true);
-        Mockito.verify(spyFragment).updateDialogCheckItem(dialog, 1, false);
+        verify(spyFragment).updateDialogCheckItem(dialog, 1, false);
     }
 
     @Test
