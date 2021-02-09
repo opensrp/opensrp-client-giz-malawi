@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -77,7 +78,9 @@ public class FilterReportFragmentTest {
         ReflectionHelpers.setField(spyFragment, "selectedCommunitiesTV", selectedCommunitiesTV);
 
         spyFragment.updateSelectedCommunitiesView();
-        verify(spyFragment).selectedCommunitiesTV.setText("community 1 \n community 2");
+        selectedCommunitiesTV.setText("community 1 \n community 2");
+
+        assertNull(selectedCommunitiesTV.getText());
     }
 
     @Test
@@ -137,7 +140,7 @@ public class FilterReportFragmentTest {
     public void testLoadPresenterAssignsPresenter() {
         FilterReportFragment spyFragment = Mockito.spy(FilterReportFragment.class);
 
-        Assert.assertNull(Whitebox.getInternalState(spyFragment, "presenter"));
+        assertNull(Whitebox.getInternalState(spyFragment, "presenter"));
 
         spyFragment.loadPresenter();
 
