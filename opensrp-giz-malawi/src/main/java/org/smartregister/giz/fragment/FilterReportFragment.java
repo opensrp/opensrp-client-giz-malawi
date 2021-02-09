@@ -46,7 +46,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private final Calendar myCalendar = Calendar.getInstance();
     private final List<String> communityList = new ArrayList<>();
     protected TextView selectedCommunitiesTV;
-    private FindReportContract.Presenter presenter;
+    protected FindReportContract.Presenter presenter;
     private View view;
     private String titleName;
     private EditText editTextDate;
