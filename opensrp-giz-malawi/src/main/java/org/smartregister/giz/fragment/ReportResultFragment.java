@@ -36,11 +36,12 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
     protected View view;
     protected ListContract.Presenter<T> presenter;
     protected List<T> list;
-    protected ArrayList<String> communityIds;
     protected Date reportDate = null;
-    protected ArrayList<String> communityNames;
     private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
     private ProgressBar progressBar;
+
+    protected String communityID;
+    protected String communityName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,9 +53,8 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            Gson gson = new Gson();
-            communityIds = gson.fromJson(bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY_ID), ArrayList.class);
-            communityNames = gson.fromJson(bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY), ArrayList.class);
+            communityID = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY_ID);
+            communityName = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY);
 
             String date = bundle.getString(GizConstants.ReportParametersHelper.REPORT_DATE);
 
@@ -67,21 +67,12 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
             }
 
             tvDate.setText(date);
+            tvCommunity.setText(communityName);
         }
-        setCommunitiesTitle(tvCommunity);
         bindLayout();
         loadPresenter();
         executeFetch();
         return view;
-    }
-
-    private void setCommunitiesTitle(TextView tvCommunity) {
-        StringBuilder stringBuffer = new StringBuilder();
-        for (int i = 0; i < communityNames.size(); i++) {
-            if (i != 0) stringBuffer.append(", ");
-            stringBuffer.append(communityNames.get(i));
-        }
-        tvCommunity.setText(stringBuffer.toString());
     }
 
     protected abstract void executeFetch();

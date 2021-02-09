@@ -191,7 +191,7 @@ public class ReportDao extends AbstractDao {
         return new ArrayList<>();
     }
 
-    public static List<EligibleChild> fetchLiveEligibleChildrenReport(@Nullable List<String> communityIds, Date dueDate) {
+    public static List<EligibleChild> fetchLiveEligibleChildrenReport(@Nullable String communityIds, Date dueDate) {
         // fetch all children in the region
         String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
         int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
@@ -202,7 +202,7 @@ public class ReportDao extends AbstractDao {
                 "inner join ec_family_member_location l on l.base_entity_id = cd.base_entity_id COLLATE NOCASE";
 
         if (communityIds != null && !communityIds.isEmpty())
-            sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
+            sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds + "' = '') ";
         sql += "order by c.first_name , c.last_name , c.middle_name ";
         Map<String, List<Vaccine>> allVaccines = fetchAllVaccines();
         List<EligibleChild> eligibleChildren = new ArrayList<>();

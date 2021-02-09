@@ -72,7 +72,7 @@ public class ReportDaoTest extends ReportDao {
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
 
-        List<EligibleChild> children = ReportDao.fetchLiveEligibleChildrenReport(new ArrayList<>(), new Date());
+        List<EligibleChild> children = ReportDao.fetchLiveEligibleChildrenReport("meso", new Date());
 
         Assert.assertEquals(children.size(), 0);
     }

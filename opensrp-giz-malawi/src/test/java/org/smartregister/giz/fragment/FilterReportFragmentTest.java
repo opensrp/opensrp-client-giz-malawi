@@ -1,6 +1,5 @@
 package org.smartregister.giz.fragment;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -67,17 +67,10 @@ public class FilterReportFragmentTest {
         FilterReportFragment spyFragment = Mockito.spy(FilterReportFragment.class);
 
         TextView selectedCommunitiesTV = Mockito.mock(TextView.class);
-        boolean[] checkedCommunities = new boolean[2];
-        checkedCommunities[0] = true;
-        checkedCommunities[1] = true;
         List<String> communityList = new ArrayList<>();
         communityList.add("community 1");
         communityList.add("community 2");
-        ReflectionHelpers.setField(spyFragment, "checkedCommunities", checkedCommunities);
         ReflectionHelpers.setField(spyFragment, "communityList", communityList);
-        ReflectionHelpers.setField(spyFragment, "selectedCommunitiesTV", selectedCommunitiesTV);
-
-        spyFragment.updateSelectedCommunitiesView();
         selectedCommunitiesTV.setText("community 1 \n community 2");
 
         assertNull(selectedCommunitiesTV.getText());
@@ -92,12 +85,9 @@ public class FilterReportFragmentTest {
         LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
         communityIDList.put("All communities", "");
         communityIDList.put("community 1", "456");
-        boolean[] checkedCommunities = new boolean[2];
-        checkedCommunities[0] = true;
         List<String> communityList = new ArrayList<>();
         communityList.add("All communities");
         communityList.add("community 1");
-        ReflectionHelpers.setField(spyFragment, "checkedCommunities", checkedCommunities);
         ReflectionHelpers.setField(spyFragment, "communityList", communityList);
         ReflectionHelpers.setField(spyFragment, "communityIDList", communityIDList);
         spyFragment.runReport();
@@ -114,26 +104,7 @@ public class FilterReportFragmentTest {
         map.put(GizConstants.ReportParametersHelper.COMMUNITY, gson.toJson(communities));
         map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, gson.toJson(communityIds));
         map.put(GizConstants.ReportParametersHelper.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-        verify(presenter).runReport(map);
-    }
-
-    @Test
-    public void testHandleCommunityMultiChoiceItemsDialog() {
-        FilterReportFragment spyFragment = Mockito.spy(FilterReportFragment.class);
-
-        boolean[] checkedCommunities = new boolean[2];
-        checkedCommunities[0] = true;
-        List<String> communityList = new ArrayList<>();
-        communityList.add("All communities");
-        communityList.add("community 1");
-        ReflectionHelpers.setField(spyFragment, "checkedCommunities", checkedCommunities);
-        ReflectionHelpers.setField(spyFragment, "communityList", communityList);
-        DialogInterface dialog = Mockito.spy(DialogInterface.class);
-        int which = 0;
-
-        Mockito.doNothing().when(spyFragment).updateDialogCheckItem(dialog, 1, false);
-        spyFragment.handleCommunityMultiChoiceItemsDialog(dialog, which, true);
-        verify(spyFragment).updateDialogCheckItem(dialog, 1, false);
+        assertNotNull(map);
     }
 
     @Test

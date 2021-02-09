@@ -38,26 +38,17 @@
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/selected_communities"
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="15dp"
             android:focusable="false"
             android:gravity="start"
-            android:paddingTop="15dp"
-            android:text="@string/select_options"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/chw_primary_dark" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:background="@color/grey" />
-
 
     </LinearLayout>
 
