@@ -18,6 +18,7 @@ import org.smartregister.domain.db.Column;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizDatabaseMigrationUtils;
 import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
@@ -76,6 +77,15 @@ public class GizMalawiRepository extends Repository {
                 GizMalawiApplication
                         .createCommonFtsObject(context), openSRPContext.sharedRepositoriesArray());
         this.context = context;
+    }
+
+    private static void upgradeToVersion13(SQLiteDatabase db) {
+        try {
+            db.execSQL("ALTER TABLE ec_family_member_location ADD COLUMN provider_id VARCHAR;");
+            GizDatabaseMigrationUtils.fillFamilyMemberLocationTableWithProviderIds(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion13");
+        }
     }
 
     @Override
@@ -150,7 +160,6 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w("Upgrading database from version %d to %d, which will destroy all old data", oldVersion, newVersion);
@@ -186,6 +195,9 @@ public class GizMalawiRepository extends Repository {
                 case 11:
                     upgradeToVersion11CreateHia2IndicatorsRepository(db);
                 case 12:
+                    EventClientRepository.createAdditionalColumns(db);
+                    break;
+                case 13:
                     EventClientRepository.createAdditionalColumns(db);
                     break;
                 default:

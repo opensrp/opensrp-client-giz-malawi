@@ -3,6 +3,7 @@ package org.smartregister.giz.dao;
 import android.content.Context;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +47,19 @@ public class ReportDao extends AbstractDao {
     private static Context context;
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
+    @NonNull
+    public static Map<String, String> extractRecordedLocations() {
+        Map<String, String> locations = new HashMap<>();
+
+        String sql = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
+        DataMap<Void> dataMap = cursor -> {
+            locations.put(getCursorValue(cursor, "location_id"), getCursorValue(cursor, "provider_id"));
+            return null;
+        };
+
+        readData(sql, dataMap);
+        return locations;
+    }
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> getVaccineSchedules(String category) {
 
@@ -181,13 +195,11 @@ public class ReportDao extends AbstractDao {
         // fetch all children in the region
         String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
         int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
-        String sql = "select c.base_entity_id , c.unique_id , c.first_name , c.last_name , c.middle_name ," +
-                "f.first_name family_name  , c.dob , c.gender , l.location_id " +
-                "from ec_child c " +
-                "left join ec_family f on c.relational_id = f.base_entity_id and f.is_closed = 0 and f.date_removed is null COLLATE NOCASE " +
-                "inner join ec_family_member_location l on l.base_entity_id = c.base_entity_id COLLATE NOCASE " +
-                "inner join ec_family_member m on m.base_entity_id = c.base_entity_id and m.is_closed = 0 and m.date_removed is null COLLATE NOCASE  " +
-                "where c.date_removed is null and c.is_closed = 0 and m.is_closed = 0 ";
+        String sql = "select cd.base_entity_id , c.first_name family_name , c.last_name , c.middle_name ," +
+                "c.dob , c.gender , l.location_id " +
+                "from ec_child_details cd " +
+                "left join ec_client c on cd.base_entity_id = c.base_entity_id and c.is_closed = 0 COLLATE NOCASE " +
+                "inner join ec_family_member_location l on l.base_entity_id = cd.base_entity_id COLLATE NOCASE";
 
         if (communityIds != null && !communityIds.isEmpty())
             sql += " and ( l.location_id IN " + _communityIds + " or '" + communityIds.get(0) + "' = '') ";
@@ -199,7 +211,7 @@ public class ReportDao extends AbstractDao {
         return eligibleChildren;
     }
 
-    private static  DataMap<Void>  getData(List<EligibleChild> eligibleChildren, int days, Map<String, List<Vaccine>> allVaccines, Date dueDate){
+    private static DataMap<Void> getData(List<EligibleChild> eligibleChildren, int days, Map<String, List<Vaccine>> allVaccines, Date dueDate) {
 
         AbstractDao.DataMap<Void> dataMap = c -> {
             // compute constants

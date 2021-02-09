@@ -2,6 +2,8 @@ package org.smartregister.giz.interactor;
 
 import org.smartregister.child.util.AppExecutors;
 import org.smartregister.giz.contract.FindReportContract;
+import org.smartregister.giz.dao.ReportDao;
+
 import java.util.Map;
 
 import timber.log.Timber;
@@ -18,8 +20,7 @@ public class FindReportInteractor implements FindReportContract.Interactor {
     public void processAvailableLocations(Map<String, String> locations, FindReportContract.Presenter presenter) {
         Runnable runnable = () -> {
             try {
-                //TODO
-                Map<String, String> hierarchy = null;
+                Map<String, String> hierarchy = ReportDao.extractRecordedLocations();
 
                 appExecutors.mainThread().execute(() -> presenter.onReportHierarchyLoaded(hierarchy));
             } catch (Exception e) {

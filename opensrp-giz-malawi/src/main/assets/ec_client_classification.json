@@ -18,7 +18,8 @@
             "field_value": "Birth Registration",
             "creates_case": [
               "ec_client",
-              "ec_child_details"
+              "ec_child_details",
+              "ec_family_member_location"
             ]
           },
           {
