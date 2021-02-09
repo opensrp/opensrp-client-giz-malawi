@@ -34,8 +34,8 @@ public class ReportTypeListRegisterActivity extends ReportRegisterActivity {
                 case 1:
                 case 2:
                     Bundle bundle = new Bundle();
-                    bundle.putString(FilterReportFragment.REPORT_NAME, getString(R.string.eligible_children));
-                    FragmentBaseActivity.startMe(ReportTypeListRegisterActivity.this, FilterReportFragment.TAG, getString(R.string.eligible_children), bundle);
+                    bundle.putString(FilterReportFragment.REPORT_NAME, getString(R.string.child_due_report_grouping_title));
+                    FragmentBaseActivity.startMe(ReportTypeListRegisterActivity.this, FilterReportFragment.TAG, getString(R.string.child_due_report_grouping_title), bundle);
                     break;
                 default:
                     break;

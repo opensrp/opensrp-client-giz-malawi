@@ -165,8 +165,8 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     public void startResultsView(Bundle bundle) {
         if (titleName == null) return;
 
-        if (titleName.equalsIgnoreCase(getString(R.string.eligible_children))) {
-            FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, getString(R.string.eligible_children), bundle);
+        if (titleName.equalsIgnoreCase(getString(R.string.child_due_report_grouping_title))) {
+            FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, getString(R.string.child_due_report_grouping_title), bundle);
         } else if (titleName.equalsIgnoreCase(getString(R.string.doses_needed))) {
             FragmentBaseActivity.startMe(getActivity(), EligibleChildrenReportFragment.TAG, getString(R.string.doses_needed), bundle);
         }
