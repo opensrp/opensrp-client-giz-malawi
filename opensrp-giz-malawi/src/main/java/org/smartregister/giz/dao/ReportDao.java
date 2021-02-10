@@ -195,7 +195,7 @@ public class ReportDao extends AbstractDao {
         // fetch all children in the region
         String _communityIds = "('" + StringUtils.join(communityIds, "','") + "')";
         int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
-        String sql = "select cd.base_entity_id , c.first_name family_name , c.last_name , c.middle_name ," +
+        String sql = "select cd.base_entity_id , c.first_name , c.last_name family_name, c.middle_name ," +
                 "c.dob , c.gender , l.location_id " +
                 "from ec_child_details cd " +
                 "left join ec_client c on cd.base_entity_id = c.base_entity_id and c.is_closed = 0 COLLATE NOCASE " +
@@ -219,7 +219,7 @@ public class ReportDao extends AbstractDao {
             Date dob = getCursorValueAsDate(c, "dob", sdf);
             Date adjustedDob = new DateTime(dob).minusDays(days).toDate();
             String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
-            name = name.trim() + " " + getCursorValue(c, "last_name", "");
+            name = name.trim() + " " + getCursorValue(c, "family_name", "");
             int age = (int) Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
             if (age < 5) {
                 List<Vaccine> rawVaccines = allVaccines.get(baseEntityId);

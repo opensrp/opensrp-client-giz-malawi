@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-
 import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.view.ListContract;
@@ -24,7 +22,6 @@ import org.smartregister.view.viewholder.ListableViewHolder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -37,11 +34,10 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
     protected ListContract.Presenter<T> presenter;
     protected List<T> list;
     protected Date reportDate = null;
-    private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
-    private ProgressBar progressBar;
-
     protected String communityID;
     protected String communityName;
+    private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -115,7 +115,7 @@ public class FilterReportFragmentTest {
 
         spyFragment.loadPresenter();
 
-        Assert.assertNotNull(Whitebox.getInternalState(spyFragment, "presenter"));
+        assertNotNull(Whitebox.getInternalState(spyFragment, "presenter"));
     }
 
     @Test
