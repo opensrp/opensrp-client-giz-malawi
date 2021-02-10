@@ -12,13 +12,16 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.smartregister.giz.domain.EligibleChild;
+import org.smartregister.giz.domain.VillageDose;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -137,6 +140,20 @@ public class ReportDaoTest extends ReportDao {
 
         Vaccine vaccine = vaccines.get(0);
         Assert.assertEquals(vaccine.getCreatedAt(), EventClientRepository.dateFormat.parse("2021-02-20 22:22:34"));
+    }
+
+    @Test
+    public void testFetchLiveVillageDosesReport() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
+                "base_entity_id", "unique_id", "first_name", "last_name", "middle_name",
+                "family_name", "dob", "gender", "location_id"
+        });
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+
+        List<VillageDose> villages = ReportDao.fetchLiveVillageDosesReport("meso", new Date(), true, "Sample", new HashMap<>());
+
+        Assert.assertEquals(villages.size(), 1);
     }
 
 }

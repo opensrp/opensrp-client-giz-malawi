@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.EligibleChildrenReportFragment;
 import org.smartregister.giz.fragment.FilterReportFragment;
+import org.smartregister.giz.fragment.VillageDoseReportFragment;
 import org.smartregister.view.activity.SecuredActivity;
 
 import timber.log.Timber;
@@ -110,6 +111,10 @@ public class FragmentBaseActivity extends SecuredActivity {
             case EligibleChildrenReportFragment
                     .TAG:
                 fragment = new EligibleChildrenReportFragment();
+                break;
+            case VillageDoseReportFragment
+                    .TAG:
+                fragment = new VillageDoseReportFragment();
                 break;
             default:
                 fragment = null;

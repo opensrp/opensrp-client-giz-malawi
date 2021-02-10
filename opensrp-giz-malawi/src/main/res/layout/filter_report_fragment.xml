@@ -14,7 +14,7 @@
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/due_on"
+            android:text="@string/outreach_date"
             android:textColor="@color/medical_text_inner"
             android:textSize="20sp" />
 
