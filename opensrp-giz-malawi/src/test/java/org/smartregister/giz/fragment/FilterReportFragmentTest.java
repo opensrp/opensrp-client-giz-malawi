@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.gson.Gson;
 import org.junit.Before;
-import org.junit.Test;FilterReportFragmentTest
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
