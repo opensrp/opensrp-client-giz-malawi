@@ -10,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.gson.Gson;
-
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.Test;FilterReportFragmentTest
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
