@@ -1,11 +1,15 @@
 package org.smartregister.giz.fragment;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -24,6 +28,7 @@ import org.smartregister.giz.interactor.FindReportInteractor;
 import org.smartregister.giz.model.FilterReportFragmentModel;
 import org.smartregister.giz.presenter.FilterReportFragmentPresenter;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.util.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +55,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
     private String selectedItem;
     private Integer selectedItemPosition;
+    private Activity activity;
 
 
     @Override
@@ -97,22 +103,30 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         bindAutoCompleteText();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void bindAutoCompleteText() {
         Context context = getContext();
         if (context == null) return;
         ArrayAdapter myAdapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_dropdown_item_1line, communityList);
         autoCompleteTextView.setAdapter(myAdapter);
+
+        autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                ((InputMethodManager) (context).getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                return true;
+            }
+        });
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object item = parent.getItemAtPosition(position);
                 selectedItem = item.toString();
                 selectedItemPosition = position;
+                Utils.hideKeyboard(getActivity());
             }
         });
     }
-
 
     @Override
     public void runReport() {

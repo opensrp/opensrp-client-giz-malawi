@@ -896,7 +896,7 @@
     <string name="select_options">Select options</string>
     <string name="outreach_date">Outreach Date</string>
     <string name="view_report">View Report</string>
-    <string name="due">Due: </string>
+    <string name="due">Due </string>
     <string name="family">Family</string>
     <string name="date">Date</string>
     <string name="vaccine_doses_needed">Vaccine Doses Needed</string>

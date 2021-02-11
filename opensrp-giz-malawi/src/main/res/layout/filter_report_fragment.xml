@@ -46,8 +46,9 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="15dp"
-            android:focusable="false"
+            android:focusable="true"
             android:gravity="start"
+            android:completionThreshold="1"
             android:textColor="@color/chw_primary_dark" />
 
     </LinearLayout>
