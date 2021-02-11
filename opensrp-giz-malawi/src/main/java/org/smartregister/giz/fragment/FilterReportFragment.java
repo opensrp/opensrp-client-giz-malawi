@@ -55,8 +55,6 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
     private String selectedItem;
     private Integer selectedItemPosition;
-    private Activity activity;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
