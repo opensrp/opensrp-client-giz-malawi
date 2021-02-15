@@ -894,7 +894,7 @@
     <string name="vaccine_needed_report_grouping_title">Vaccine Doses Needed</string>
     <string name="select_community">Select Community</string>
     <string name="select_options">Select options</string>
-    <string name="outreach_date">Outreach Date</string>
+    <string name="outreach_date">Date</string>
     <string name="view_report">View Report</string>
     <string name="due">Due </string>
     <string name="family">Family</string>

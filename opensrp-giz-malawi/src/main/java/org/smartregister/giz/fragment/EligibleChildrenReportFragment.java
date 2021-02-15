@@ -115,6 +115,7 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
         super.refreshView();
         if (getActivity() instanceof FragmentBaseActivity) {
             ((FragmentBaseActivity) getActivity()).setTitle(list.size() + " " + getString(R.string.child_due_report_grouping_title));
+            ((FragmentBaseActivity) getActivity()).setVisibility();
         }
     }
 }

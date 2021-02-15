@@ -386,6 +386,9 @@ dependencies {
     }
     implementation group: 'io.fabric.sdk.android', name: 'fabric', version: '1.4.8'
 
+    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
+    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.0.6'
+
 
     def robolectricVersion = '4.1'
     testImplementation("org.robolectric:robolectric:$robolectricVersion") {

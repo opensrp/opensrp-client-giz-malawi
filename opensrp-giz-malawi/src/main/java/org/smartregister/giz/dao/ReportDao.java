@@ -9,9 +9,13 @@ import androidx.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.smartregister.CoreLibrary;
 import org.smartregister.dao.AbstractDao;
 import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
+import org.smartregister.domain.jsonmapping.Location;
+import org.smartregister.domain.jsonmapping.util.LocationTree;
+import org.smartregister.domain.jsonmapping.util.TreeNode;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.EligibleChild;
 import org.smartregister.giz.domain.VillageDose;
@@ -28,6 +32,7 @@ import org.smartregister.immunization.domain.jsonmapping.VaccineGroup;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.util.AssetHandler;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -49,13 +55,35 @@ public class ReportDao extends AbstractDao {
     private static Context context;
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
+
+    private static void readLocations(TreeNode<String, Location> node, Map<String, String> locations) {
+        locations.put(node.getId(), node.getLabel());
+        if (node.getChildren() != null) {
+            for (Map.Entry<String, TreeNode<String, Location>> entry : node.getChildren().entrySet()) {
+                readLocations(entry.getValue(), locations);
+            }
+        }
+    }
+
     @NonNull
     public static Map<String, String> extractRecordedLocations() {
-        Map<String, String> locations = new HashMap<>();
+        Map<String, String> defaultTree = new HashMap<>();
+        String locationData = CoreLibrary.getInstance().context().anmLocationController().get();
+        LocationTree locationTree = AssetHandler.jsonStringToJava(locationData, LocationTree.class);
+        if (locationTree != null) {
+            LinkedHashMap<String, TreeNode<String, Location>> locationHierarchyMap = locationTree.getLocationsHierarchy();
+            for (Map.Entry<String, TreeNode<String, Location>> entry : locationHierarchyMap.entrySet()) {
+                readLocations(entry.getValue(), defaultTree);
+            }
+        }
 
-        String sql = "SELECT DISTINCT location_id, provider_id FROM ec_family_member_location";
+
+        Map<String, String> locations = new HashMap<>();
+        String sql = "SELECT DISTINCT location_id FROM ec_family_member_location";
         DataMap<Void> dataMap = cursor -> {
-            locations.put(getCursorValue(cursor, "location_id"), getCursorValue(cursor, "provider_id"));
+            String locationId = getCursorValue(cursor, "location_id");
+            if (StringUtils.isNotBlank(locationId) && defaultTree.containsKey(locationId))
+                locations.put(locationId, defaultTree.get(locationId));
             return null;
         };
 

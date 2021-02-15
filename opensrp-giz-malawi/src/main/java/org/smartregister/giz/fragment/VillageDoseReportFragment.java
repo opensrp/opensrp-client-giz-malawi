@@ -2,6 +2,7 @@ package org.smartregister.giz.fragment;
 
 import androidx.annotation.NonNull;
 
+import org.smartregister.giz.activity.FragmentBaseActivity;
 import org.smartregister.giz.adapter.VillageDoseAdapter;
 import org.smartregister.giz.dao.ReportDao;
 import org.smartregister.giz.domain.VillageDose;
@@ -46,6 +47,14 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
     @Override
     public boolean hasDivider() {
         return false;
+    }
+
+    @Override
+    public void refreshView() {
+        super.refreshView();
+        if (getActivity() instanceof FragmentBaseActivity) {
+            ((FragmentBaseActivity) getActivity()).setVisibility();
+        }
     }
 }
 
