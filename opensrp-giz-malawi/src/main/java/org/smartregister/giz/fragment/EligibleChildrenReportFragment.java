@@ -1,8 +1,13 @@
 package org.smartregister.giz.fragment;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.util.Constants;
@@ -31,6 +36,27 @@ import timber.log.Timber;
 
 public class EligibleChildrenReportFragment extends ReportResultFragment<EligibleChild> {
     public static final String TAG = "EligibleChildrenReportFragment";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_send_report, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_send_report) {
+            ((FragmentBaseActivity) getActivity()).sendEmail();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void executeFetch() {
@@ -115,7 +141,8 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
         super.refreshView();
         if (getActivity() instanceof FragmentBaseActivity) {
             ((FragmentBaseActivity) getActivity()).setTitle(list.size() + " " + getString(R.string.child_due_report_grouping_title));
-            ((FragmentBaseActivity) getActivity()).setVisibility();
         }
     }
+
+
 }

@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,15 +43,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import timber.log.Timber;
 
 public class FragmentBaseActivity extends SecuredActivity {
     protected static final String DISPLAY_FRAGMENT = "DISPLAY_FRAGMENT";
     protected static final String TITLE = "TITLE";
-    public ImageView emailIcon;
     protected String INDICATOR_CODE = "INDICATOR_CODE";
     String emailSubject = "";
+    String emailAttachmentName = "";
     private TextView titleTextView;
 
     public static void startMe(Activity activity, String fragmentName, String title) {
@@ -70,14 +73,14 @@ public class FragmentBaseActivity extends SecuredActivity {
         activity.startActivity(intent);
     }
 
-    private void sendEmail() {
+    public void sendEmail() {
         try {
             if (PermissionUtils.isPermissionGranted(this
                     , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                     , GizConstants.RQ_CODE.STORAGE_PERMISIONS)) {
 
-                String imagePath = Environment.getExternalStorageDirectory() + File.separator + "image.jpg";
-                String pdfPath = Environment.getExternalStorageDirectory() + File.separator + "report.pdf";
+                String imagePath = Environment.getExternalStorageDirectory() + File.separator + emailAttachmentName + ".jpg";
+                String pdfPath = Environment.getExternalStorageDirectory() + File.separator + emailAttachmentName + ".pdf";
                 // export as image
                 layoutToImage(getPDFRootView(), imagePath);
                 // convert to pdf
@@ -99,23 +102,12 @@ public class FragmentBaseActivity extends SecuredActivity {
     }
 
     public void layoutToImage(RecyclerView relativeLayout, String fileExportPath) throws IOException {
-        // get view group using reference
-        // convert view group to bitmap
-        /*
-        relativeLayout.setDrawingCacheEnabled(true);
-        relativeLayout.buildDrawingCache();
-
-        Bitmap bm = relativeLayout.getDrawingCache();
-
-         */
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/jpeg");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         getScreenshotFromRecyclerView(relativeLayout).compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         File f = new File(fileExportPath);
         f.createNewFile();
-
-        // f.createNewFile();
         FileOutputStream fo = new FileOutputStream(f);
         fo.write(bytes.toByteArray());
     }
@@ -137,14 +129,13 @@ public class FragmentBaseActivity extends SecuredActivity {
     private void sendEmailWithAttachment(String subject, String pathToMyAttachedFile) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("text/plain");
-        //emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"email@example.com"});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "body text");
+        // emailIntent.putExtra(Intent.EXTRA_TEXT, " ");
         File file = new File(pathToMyAttachedFile);
         if (!file.exists() || !file.canRead()) {
+            Timber.e("File does not exist");
             return;
         }
-
         Uri uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", file);
         emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"));
@@ -199,10 +190,6 @@ public class FragmentBaseActivity extends SecuredActivity {
         setSupportActionBar(toolbar);
 
         titleTextView = findViewById(R.id.toolbar_title);
-        emailIcon = findViewById(R.id.email_report_icon);
-        emailIcon.setColorFilter(Color.argb(255, 255, 255, 255));
-
-        emailIcon.setOnClickListener(v -> sendEmail());
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -225,12 +212,25 @@ public class FragmentBaseActivity extends SecuredActivity {
             }
             INDICATOR_CODE = bundle.getString(INDICATOR_CODE);
 
-            String date = bundle.getString(GizConstants.ReportParametersHelper.REPORT_DATE);
+            String report_date = bundle.getString(GizConstants.ReportParametersHelper.REPORT_DATE);
             String communityName = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY);
-            String name = getRequestedFragmentName(DISPLAY_FRAGMENT);
-
-            emailSubject = String.format("%s - %s - %s", name, date, communityName);
             String fragmentName = bundle.getString(DISPLAY_FRAGMENT);
+            String name = getRequestedFragmentName(fragmentName);
+
+            String reportDate = "";
+
+            //Format Subject Date
+            if (report_date != null) {
+                DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+                Date date = null;
+                try {
+                    date = df.parse(report_date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                emailSubject = String.format("%s - %s - %s", name, new SimpleDateFormat("dd/MM/yyyy").format(date), communityName);
+                emailAttachmentName = String.format("%s-%s-%s", name, new SimpleDateFormat("ddMMyyyy").format(date), communityName);
+            }
             Fragment fragment = getRequestedFragment(fragmentName);
             if (fragment != null)
                 switchToFragment(fragment);
@@ -240,14 +240,6 @@ public class FragmentBaseActivity extends SecuredActivity {
 
     public void setTitle(String title) {
         titleTextView.setText(title);
-    }
-
-    public void setVisibility() {
-        emailIcon.setVisibility(View.VISIBLE);
-    }
-
-    public void setVisibilityGone() {
-        emailIcon.setVisibility(View.GONE);
     }
 
     @Override
@@ -270,10 +262,11 @@ public class FragmentBaseActivity extends SecuredActivity {
         switch (name) {
             case EligibleChildrenReportFragment
                     .TAG:
-                return "Children Due for vaccine";
+                return getString(R.string.child_due_report_grouping_title);
+
             case VillageDoseReportFragment
                     .TAG:
-                return "Village Doses";
+                return getString(R.string.vaccine_doses_needed);
             default:
                 return "";
         }

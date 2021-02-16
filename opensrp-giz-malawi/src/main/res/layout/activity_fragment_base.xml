@@ -40,16 +40,6 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/email_report_icon"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_emailing_foreground"
-                android:visibility="gone"/>
-
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 

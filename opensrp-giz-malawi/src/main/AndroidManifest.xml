@@ -115,6 +115,10 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/captured_images_path" />
+
+            <meta-data
+                android:name="android.support.PDF_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
         <!-- ANC ACTIVITIES -->
         <activity

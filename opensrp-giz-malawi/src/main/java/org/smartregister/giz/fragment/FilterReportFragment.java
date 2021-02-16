@@ -91,7 +91,6 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         bindAutoCompleteText();
         bindDatePicker();
         updateLabel();
-        ((FragmentBaseActivity) getActivity()).setVisibilityGone();
     }
 
     @Override

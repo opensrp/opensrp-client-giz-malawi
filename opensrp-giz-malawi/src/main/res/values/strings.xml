@@ -900,4 +900,8 @@
     <string name="family">Family</string>
     <string name="date">Date</string>
     <string name="vaccine_doses_needed">Vaccine Doses Needed</string>
+
+    <string name="mr">MR</string>
+    <string name="mv">MV</string>
+    <string name="rota">ROTA</string>
 </resources>
