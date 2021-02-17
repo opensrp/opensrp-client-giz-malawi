@@ -45,8 +45,8 @@ public class FragmentBaseActivity extends SecuredActivity {
     protected static final String DISPLAY_FRAGMENT = "DISPLAY_FRAGMENT";
     protected static final String TITLE = "TITLE";
     protected String INDICATOR_CODE = "INDICATOR_CODE";
-    String emailSubject = "";
-    String emailAttachmentName = "";
+    private String emailSubject = "";
+    private String emailAttachmentName = "";
     private TextView titleTextView;
 
     public static void startMe(Activity activity, String fragmentName, String title) {
@@ -69,7 +69,6 @@ public class FragmentBaseActivity extends SecuredActivity {
             if (PermissionUtils.isPermissionGranted(this
                     , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                     , GizConstants.RQ_CODE.STORAGE_PERMISIONS)) {
-                String imagePath = Environment.getExternalStorageDirectory() + File.separator + emailAttachmentName + ".jpg";
                 final String[] pdfPath = {Environment.getExternalStorageDirectory() + File.separator + emailAttachmentName + ".pdf"};
                 // export as image
                 PdfGeneratorHelper.getBuilder()
@@ -81,16 +80,6 @@ public class FragmentBaseActivity extends SecuredActivity {
                         .setFolderName("Reports")
                         .openPDFafterGeneration(false)
                         .build(new PdfGeneratorListener() {
-                            @Override
-                            public void onStartPDFGeneration() {
-                                //Do Nothing
-                            }
-
-                            @Override
-                            public void onFinishPDFGeneration() {
-                                //Do Nothing
-                            }
-
                             @Override
                             public void onFailure(PdfGeneratorHelper.FailureResponse failureResponse) {
                                 super.onFailure(failureResponse);
@@ -200,8 +189,8 @@ public class FragmentBaseActivity extends SecuredActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                emailSubject = String.format("%s - %s - %s", name, new SimpleDateFormat("dd/MM/yyyy").format(date), communityName);
-                emailAttachmentName = String.format("%s-%s-%s", name, new SimpleDateFormat("ddMMyyyy").format(date), communityName);
+                emailSubject = String.format("%s - %s - %s", name, new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(date), communityName);
+                emailAttachmentName = String.format("%s-%s-%s", name, new SimpleDateFormat("ddMMyyyy hh:mm:ss").format(date), communityName);
             }
             Fragment fragment = getRequestedFragment(fragmentName);
             if (fragment != null)
@@ -242,6 +231,7 @@ public class FragmentBaseActivity extends SecuredActivity {
                 return "";
         }
     }
+
     private @Nullable
     Fragment getRequestedFragment(@Nullable String name) {
         if (name == null || StringUtils.isBlank(name))

@@ -31,7 +31,6 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class PdfGeneratorHelper {
-
     public static double postScriptThreshold = 0.75;
     public static int a4HeightInPX = 3508;
     public static int a4WidthInPX = 2480;
@@ -41,7 +40,8 @@ public class PdfGeneratorHelper {
     public static int a4HeightInPostScript = (int) (a4HeightInPX * postScriptThreshold);
     public static int a4WidthInPostScript = (int) (a4WidthInPX * postScriptThreshold);
 
-    public static int WRAP_CONTENT_WIDTH = 0, WRAP_CONTENT_HEIGHT = 0;
+    public static int WRAP_CONTENT_WIDTH = 0;
+    public static int WRAP_CONTENT_HEIGHT = 0;
 
     public static ContextStep getBuilder() {
         return new Builder();
@@ -157,7 +157,6 @@ public class PdfGeneratorHelper {
             , LayoutXMLSourceIntakeStep, ViewSourceIntakeStep, ViewIDSourceIntakeStep
             , FromSourceStep, ContextStep {
 
-        private static int NO_XML_SELECTED_YET = -1;
         private int pageWidthInPixel = a4WidthInPX;
         private int pageHeightInPixel = a4HeightInPX;
         private Context context;
@@ -189,16 +188,6 @@ public class PdfGeneratorHelper {
                 pdfGeneratorListener.showLog(logMessage);
         }
 
-        private void postOnGenerationStart() {
-            if (pdfGeneratorListener != null)
-                pdfGeneratorListener.onStartPDFGeneration();
-        }
-
-        private void postOnGenerationFinished() {
-            if (pdfGeneratorListener != null)
-                pdfGeneratorListener.onFinishPDFGeneration();
-        }
-
         private void postSuccess(PdfDocument pdfDocument, File file, int widthInPS, int heightInPS) {
             if (pdfGeneratorListener != null)
                 pdfGeneratorListener.onSuccess(new SuccessResponse(pdfDocument, file, widthInPS, heightInPS));
@@ -224,7 +213,6 @@ public class PdfGeneratorHelper {
 
         @RequiresApi(api = android.os.Build.VERSION_CODES.KITKAT)
         private void print() {
-
             try {
                 if (context != null) {
                     PdfDocument document = new PdfDocument();
@@ -245,51 +233,7 @@ public class PdfGeneratorHelper {
                                 pageWidthInPixel + " and custom page height is " + pageHeightInPixel);
                     }
 
-
-                    if (viewList == null || viewList.size() == 0)
-                        postLog("View list null or zero sized");
-                    for (int i = 0; i < viewList.size(); i++) {
-                        View content = viewList.get(i);
-
-                        if (pageWidthInPixel == WRAP_CONTENT_HEIGHT && pageHeightInPixel == WRAP_CONTENT_WIDTH) {
-
-                            content.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                            pageHeightInPixel = content.getMeasuredHeight();
-                            pageWidthInPixel = content.getMeasuredWidth();
-                        }
-                            /*If page size is less then standard A4 size then assign it A4 size otherwise
-                            the view will be messed up or so minimized that it will be not print in pdf*/
-                        pageWidthInPixel = Math.max(pageWidthInPixel, a4WidthInPX);
-                        pageHeightInPixel = Math.max(pageWidthInPixel, a4HeightInPX);
-
-
-                        /*Convert page size from pixel into post script because PdfDocument takes
-                         * post script as a size unit*/
-                        pageHeightInPixel = (int) (pageHeightInPixel * postScriptThreshold);
-                        pageWidthInPixel = (int) (pageWidthInPixel * postScriptThreshold);
-
-
-                        content.measure(View.MeasureSpec.makeMeasureSpec(pageWidthInPixel, View.MeasureSpec.EXACTLY), View.MeasureSpec.UNSPECIFIED);
-                        pageHeightInPixel = (Math.max(content.getMeasuredHeight(), a4HeightInPostScript));
-
-
-                        PdfDocument.PageInfo pageInfo =
-                                new PdfDocument.PageInfo.Builder((pageWidthInPixel), (pageHeightInPixel), i + 1).create();
-                        PdfDocument.Page page = document.startPage(pageInfo);
-
-                        content.layout(0, 0, pageWidthInPixel, pageHeightInPixel);
-                        content.draw(page.getCanvas());
-
-                        document.finishPage(page);
-
-                        /*Finally invalidate it and request layout for restore the previous state
-                         * of the view as like as the xml. Otherwise for generating PDF by view id,
-                         * the main view is being messed up because this a view is not cloneable and
-                         * being modified in the above view related tasks for printing PDF. */
-                        content.invalidate();
-                        content.requestLayout();
-
-                    }
+                    getLayoutAspects(document);
 
                     //This is for prevent crashing while opening generated PDF.
                     StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -304,42 +248,18 @@ public class PdfGeneratorHelper {
                         return;
                     }
 
-
                     directory_path = directory_path + "/" + folderName + "/";
 
-
                     File file = new File(directory_path);
-                    if (!file.exists()) {
-                        if (!file.mkdirs()) {
-                            postLog("Folder is not created." +
-                                    "file.mkdirs() is returning false");
-                        }
+                    if ((!file.exists()) && (!file.mkdirs())) {
+                        postLog("Folder is not created." +
+                                "file.mkdirs() is returning false");
                         //Folder is made here
                     }
 
                     targetPdf = directory_path + fileName + ".pdf";
 
-                    File filePath = new File(targetPdf);
-                    //File is created under the folder but not yet written.
-
-                    disposeDisposable();
-                    postOnGenerationStart();
-                    disposable = Completable.fromAction(() -> document.writeTo(new FileOutputStream(filePath)))
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doFinally(() -> {
-                                document.close();
-                                disposeDisposable();
-                                postOnGenerationFinished();
-                            })
-                            .subscribe(() -> {
-                                postSuccess(document, filePath, pageWidthInPixel, pageHeightInPixel);
-                                document.close();
-                                if (openPdfFile) {
-                                    openGeneratedPDF();
-                                }
-                            }, this::postFailure);
-
+                    createFile(document);
 
                 } else {
                     postFailure("Context is null");
@@ -350,6 +270,72 @@ public class PdfGeneratorHelper {
 
         }
 
+        @RequiresApi(api = android.os.Build.VERSION_CODES.KITKAT)
+        private void createFile(PdfDocument document) {
+            File filePath = new File(targetPdf);
+            //File is created under the folder but not yet written.
+
+            disposeDisposable();
+            disposable = Completable.fromAction(() -> document.writeTo(new FileOutputStream(filePath)))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doFinally(() -> {
+                        document.close();
+                        disposeDisposable();
+                    })
+                    .subscribe(() -> {
+                        postSuccess(document, filePath, pageWidthInPixel, pageHeightInPixel);
+                        document.close();
+                        if (openPdfFile) {
+                            openGeneratedPDF();
+                        }
+                    }, this::postFailure);
+        }
+
+        @RequiresApi(api = android.os.Build.VERSION_CODES.KITKAT)
+        private void getLayoutAspects(PdfDocument document) {
+            if (viewList == null || viewList.size() == 0)
+                postLog("View list null or zero sized");
+            for (int i = 0; i < viewList.size(); i++) {
+                View content = viewList.get(i);
+
+                if (pageWidthInPixel == WRAP_CONTENT_HEIGHT && pageHeightInPixel == WRAP_CONTENT_WIDTH) {
+
+                    content.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+                    pageHeightInPixel = content.getMeasuredHeight();
+                    pageWidthInPixel = content.getMeasuredWidth();
+                }
+                            /*If page size is less then standard A4 size then assign it A4 size otherwise
+                            the view will be messed up or so minimized that it will be not print in pdf*/
+                pageWidthInPixel = Math.max(pageWidthInPixel, a4WidthInPX);
+                pageHeightInPixel = Math.max(pageWidthInPixel, a4HeightInPX);
+
+                /*Convert page size from pixel into post script because PdfDocument takes
+                 * post script as a size unit*/
+                pageHeightInPixel = (int) (pageHeightInPixel * postScriptThreshold);
+                pageWidthInPixel = (int) (pageWidthInPixel * postScriptThreshold);
+
+                content.measure(View.MeasureSpec.makeMeasureSpec(pageWidthInPixel, View.MeasureSpec.EXACTLY), View.MeasureSpec.UNSPECIFIED);
+                pageHeightInPixel = (Math.max(content.getMeasuredHeight(), a4HeightInPostScript));
+
+
+                PdfDocument.PageInfo pageInfo =
+                        new PdfDocument.PageInfo.Builder((pageWidthInPixel), (pageHeightInPixel), i + 1).create();
+                PdfDocument.Page page = document.startPage(pageInfo);
+
+                content.layout(0, 0, pageWidthInPixel, pageHeightInPixel);
+                content.draw(page.getCanvas());
+
+                document.finishPage(page);
+
+                /*Finally invalidate it and request layout for restore the previous state
+                 * of the view as like as the xml. Otherwise for generating PDF by view id,
+                 * the main view is being messed up because this a view is not cloneable and
+                 * being modified in the above view related tasks for printing PDF. */
+                content.invalidate();
+                content.requestLayout();
+            }
+        }
 
         private void disposeDisposable() {
             if (disposable != null && !disposable.isDisposed())
@@ -379,7 +365,6 @@ public class PdfGeneratorHelper {
             print();
         }
 
-
         @Override
         public PageSizeStep fromView(View... viewArrays) {
             viewList = new ArrayList<>(Arrays.asList(viewArrays));
@@ -392,13 +377,11 @@ public class PdfGeneratorHelper {
             return this;
         }
 
-
         @Override
         public Build openPDFafterGeneration(boolean openPdfFile) {
             this.openPdfFile = openPdfFile;
             return this;
         }
-
 
         @Override
         public FromSourceStep setContext(Context context) {
@@ -431,7 +414,6 @@ public class PdfGeneratorHelper {
             return this;
         }
 
-
         @Override
         public PageSizeStep fromViewID(Activity activity, @IdRes Integer... viewIDs) {
             viewList = getViewListFromID(activity, Arrays.asList(viewIDs));
@@ -443,7 +425,6 @@ public class PdfGeneratorHelper {
             viewList = getViewListFromID(activity, viewIDList);
             return this;
         }
-
 
         @Override
         public PageSizeStep fromLayoutXML(@LayoutRes Integer... layouts) {
@@ -475,8 +456,8 @@ public class PdfGeneratorHelper {
 
 
     public static class FailureResponse {
-        Throwable throwable;
-        String errorMessage;
+        protected Throwable throwable;
+        protected String errorMessage;
 
         public FailureResponse(Throwable throwable) {
             this.throwable = throwable;
@@ -491,7 +472,6 @@ public class PdfGeneratorHelper {
         public FailureResponse(String errorMessage) {
             this.errorMessage = errorMessage;
         }
-
 
         public Throwable getThrowable() {
             return throwable;
@@ -511,11 +491,11 @@ public class PdfGeneratorHelper {
     }
 
     public static class SuccessResponse {
-        PdfDocument pdfDocument;
-        File file;
-        String path;
+        protected PdfDocument pdfDocument;
+        protected File file;
+        protected String path;
         //Because PdfDocument is using PostScript as unit.
-        int widthInPostScripUnit, heightInPostScripUnit;
+        protected int widthInPostScripUnit, heightInPostScripUnit;
 
 
         public SuccessResponse(PdfDocument pdfDocument, File file, int widthInPostScripUnit, int heightInPostScripUnit) {
@@ -569,6 +549,4 @@ public class PdfGeneratorHelper {
             this.heightInPostScripUnit = heightInPostScripUnit;
         }
     }
-
-
 }

@@ -76,12 +76,5 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
     public boolean hasDivider() {
         return false;
     }
-
-    @Override
-    public void refreshView() {
-        super.refreshView();
-        if (getActivity() instanceof FragmentBaseActivity) {
-        }
-    }
 }
 
