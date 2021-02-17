@@ -77,7 +77,6 @@ public class ReportDao extends AbstractDao {
             }
         }
 
-
         Map<String, String> locations = new HashMap<>();
         String sql = "SELECT DISTINCT location_id FROM ec_family_member_location";
         DataMap<Void> dataMap = cursor -> {
