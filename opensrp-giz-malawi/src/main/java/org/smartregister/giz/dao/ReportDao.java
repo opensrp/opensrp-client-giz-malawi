@@ -1,5 +1,6 @@
 package org.smartregister.giz.dao;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -52,6 +53,7 @@ import timber.log.Timber;
 public class ReportDao extends AbstractDao {
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
