@@ -495,7 +495,8 @@ public class PdfGeneratorHelper {
         protected File file;
         protected String path;
         //Because PdfDocument is using PostScript as unit.
-        protected int widthInPostScripUnit, heightInPostScripUnit;
+        protected int widthInPostScripUnit;
+        protected int heightInPostScripUnit;
 
 
         public SuccessResponse(PdfDocument pdfDocument, File file, int widthInPostScripUnit, int heightInPostScripUnit) {

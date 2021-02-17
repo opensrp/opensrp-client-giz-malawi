@@ -198,8 +198,8 @@ public class GizMalawiRepository extends Repository {
                     EventClientRepository.createAdditionalColumns(db);
                     break;
                 case 13:
-                    EventClientRepository.createAdditionalColumns(db);
-                    break;
+                    upgradeToVersion13(db);
+                break;
                 default:
                     break;
             }
