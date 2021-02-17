@@ -4,38 +4,29 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
-import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
-import androidx.collection.LruCache;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.giz.R;
 import org.smartregister.giz.fragment.EligibleChildrenReportFragment;
 import org.smartregister.giz.fragment.FilterReportFragment;
 import org.smartregister.giz.fragment.VillageDoseReportFragment;
+import org.smartregister.giz.listener.PdfGeneratorListener;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.PdfGeneratorHelper;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.SecuredActivity;
 
@@ -78,53 +69,76 @@ public class FragmentBaseActivity extends SecuredActivity {
             if (PermissionUtils.isPermissionGranted(this
                     , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                     , GizConstants.RQ_CODE.STORAGE_PERMISIONS)) {
-
                 String imagePath = Environment.getExternalStorageDirectory() + File.separator + emailAttachmentName + ".jpg";
-                String pdfPath = Environment.getExternalStorageDirectory() + File.separator + emailAttachmentName + ".pdf";
+                final String[] pdfPath = {Environment.getExternalStorageDirectory() + File.separator + emailAttachmentName + ".pdf"};
                 // export as image
-                layoutToImage(getPDFRootView(), imagePath);
-                // convert to pdf
-                imageToPDF(imagePath, pdfPath);
-                // send as email
-                sendEmailWithAttachment(getEmailSubject(), pdfPath);
+                PdfGeneratorHelper.getBuilder()
+                        .setContext(this)
+                        .fromViewSource()
+                        .fromView(getPDFRootView())
+                        .setDefaultPageSize(PdfGeneratorHelper.PageSize.WRAP_CONTENT)
+                        .setFileName(emailAttachmentName)
+                        .setFolderName("Reports")
+                        .openPDFafterGeneration(false)
+                        .build(new PdfGeneratorListener() {
+                            @Override
+                            public void onStartPDFGeneration() {
+                                //Do Nothing
+                            }
+
+                            @Override
+                            public void onFinishPDFGeneration() {
+                                //Do Nothing
+                            }
+
+                            @Override
+                            public void onFailure(PdfGeneratorHelper.FailureResponse failureResponse) {
+                                super.onFailure(failureResponse);
+                                failureResponse.getThrowable().printStackTrace();
+                            }
+
+                            @Override
+                            public void onSuccess(PdfGeneratorHelper.SuccessResponse response) {
+                                super.onSuccess(response);
+                                pdfPath[0] = response.getPath();
+                                sendEmailWithAttachment(getEmailSubject(), pdfPath[0]);
+                            }
+                        });
+
             }
         } catch (Exception e) {
             Timber.e(e);
         }
     }
 
-    public RecyclerView getPDFRootView() {
-        return findViewById(R.id.recyclerView);
+    public RelativeLayout getPDFRootView() {
+        return findViewById(R.id.report_host);
     }
 
     protected String getEmailSubject() {
         return emailSubject;
     }
 
-    public void layoutToImage(RecyclerView relativeLayout, String fileExportPath) throws IOException {
+    public void layoutToImage(RelativeLayout relativeLayout, String fileExportPath) {
+        // get view group using reference
+        // convert view group to bitmap
+        relativeLayout.setDrawingCacheEnabled(true);
+        relativeLayout.buildDrawingCache();
+        Bitmap bm = relativeLayout.getDrawingCache();
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/jpeg");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        getScreenshotFromRecyclerView(relativeLayout).compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         File f = new File(fileExportPath);
-        f.createNewFile();
-        FileOutputStream fo = new FileOutputStream(f);
-        fo.write(bytes.toByteArray());
+        try {
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+        } catch (IOException e) {
+            Timber.e(e);
+        }
     }
 
-    public void imageToPDF(String imagePath, String pdfPath) throws IOException, DocumentException {
-        Document document = new Document();
-        PdfWriter.getInstance(document, new FileOutputStream(pdfPath)); //  Change pdf's name.
-        document.open();
-        Image img = Image.getInstance(imagePath);
-        float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
-                - document.rightMargin() - 0) / img.getWidth()) * 100;
-        img.scalePercent(scaler);
-        img.setAlignment(Image.ALIGN_CENTER | Image.ALIGN_TOP);
-        document.add(img);
-        document.close();
-        Toast.makeText(this, "PDF Generated successfully!..", Toast.LENGTH_SHORT).show();
-    }
 
     private void sendEmailWithAttachment(String subject, String pathToMyAttachedFile) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -139,46 +153,6 @@ public class FragmentBaseActivity extends SecuredActivity {
         Uri uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", file);
         emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"));
-    }
-
-
-    public Bitmap getScreenshotFromRecyclerView(RecyclerView view) {
-        RecyclerView.Adapter adapter = view.getAdapter();
-        Bitmap bigBitmap = null;
-        if (adapter != null) {
-            int size = adapter.getItemCount();
-            int height = 0;
-            Paint paint = new Paint();
-            int iHeight = 0;
-            final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-            // Use 1/8th of the available memory for this memory cache.
-            final int cacheSize = maxMemory / 8;
-            LruCache<String, Bitmap> bitmaCache = new LruCache<>(cacheSize);
-            for (int i = 0; i < size; i++) {
-                RecyclerView.ViewHolder holder = adapter.createViewHolder(view, adapter.getItemViewType(i));
-                adapter.onBindViewHolder(holder, i);
-                holder.itemView.measure(View.MeasureSpec.makeMeasureSpec(view.getWidth(), View.MeasureSpec.EXACTLY),
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-                holder.itemView.layout(0, 0, holder.itemView.getMeasuredWidth(), holder.itemView.getMeasuredHeight());
-                holder.itemView.setDrawingCacheEnabled(true);
-                holder.itemView.buildDrawingCache();
-                Bitmap drawingCache = holder.itemView.getDrawingCache();
-                if (drawingCache != null) {
-                    bitmaCache.put(String.valueOf(i), drawingCache);
-                }
-                height += holder.itemView.getMeasuredHeight();
-            }
-            bigBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), height, Bitmap.Config.ARGB_8888);
-            Canvas bigCanvas = new Canvas(bigBitmap);
-            bigCanvas.drawColor(Color.WHITE);
-            for (int i = 0; i < size; i++) {
-                Bitmap bitmap = bitmaCache.get(String.valueOf(i));
-                bigCanvas.drawBitmap(bitmap, 0f, iHeight, paint);
-                iHeight += bitmap.getHeight();
-                bitmap.recycle();
-            }
-        }
-        return bigBitmap;
     }
 
 
@@ -216,8 +190,6 @@ public class FragmentBaseActivity extends SecuredActivity {
             String communityName = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY);
             String fragmentName = bundle.getString(DISPLAY_FRAGMENT);
             String name = getRequestedFragmentName(fragmentName);
-
-            String reportDate = "";
 
             //Format Subject Date
             if (report_date != null) {
@@ -258,7 +230,6 @@ public class FragmentBaseActivity extends SecuredActivity {
     String getRequestedFragmentName(@Nullable String name) {
         if (name == null || StringUtils.isBlank(name))
             return "";
-
         switch (name) {
             case EligibleChildrenReportFragment
                     .TAG:
@@ -271,7 +242,6 @@ public class FragmentBaseActivity extends SecuredActivity {
                 return "";
         }
     }
-
     private @Nullable
     Fragment getRequestedFragment(@Nullable String name) {
         if (name == null || StringUtils.isBlank(name))
