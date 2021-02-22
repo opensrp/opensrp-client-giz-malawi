@@ -86,7 +86,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         editTextDate = view.findViewById(R.id.editTextDate);
         autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView);
 
-       // communityList.add("All COMMUNITIES");
+        // communityList.add("All COMMUNITIES");
         bindAutoCompleteText();
         bindDatePicker();
         updateLabel();
@@ -129,10 +129,15 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         if (selectedItem != null) {
             Map<String, String> map = new HashMap<>();
             map.put(GizConstants.ReportParametersHelper.COMMUNITY, selectedItem);
-            String communityID = new ArrayList<>(communityIDList.keySet()).get(selectedItemPosition);
-            map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, communityID);
-            map.put(GizConstants.ReportParametersHelper.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-            presenter.runReport(map);
+            for (Map.Entry<String, String> entry : communityIDList.entrySet()) {
+                String value = entry.getValue();
+                if(value.equalsIgnoreCase(selectedItem)){
+                    String communityID = entry.getKey();
+                    map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, communityID);
+                    map.put(GizConstants.ReportParametersHelper.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
+                    presenter.runReport(map);
+                }
+            }
         } else {
             Toast.makeText(getActivity(), "No Village selected", Toast.LENGTH_SHORT).show();
         }
