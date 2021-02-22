@@ -59,7 +59,7 @@ public class ReasonForDefaultingRepository extends BaseRepository {
         return values;
     }
 
-   /* public ArrayList<ReasonForDefaultingModel> readAllReasonsForDefaulting() {
+    public ArrayList<ReasonForDefaultingModel> readAllReasonsForDefaulting() {
         String[] columns = {GizConstants.JsonAssets.ID, GizConstants.JsonAssets.OUTREACH_DATE,
                 GizConstants.JsonAssets.FOLLOWUP_DATE, GizConstants.JsonAssets.OUTREACH_DEFAULTING_REASON, GizConstants.JsonAssets.ADDITIONAL_DEFAULTING_NOTES,
                 GizConstants.JsonAssets.BASE_ENTITY_ID, GizConstants.JsonAssets.EVENT_DATE, GizConstants.JsonAssets.OTHER_DEFAULTING_REASON};
@@ -91,9 +91,6 @@ public class ReasonForDefaultingRepository extends BaseRepository {
         }
         return reasonForDefaultingModels;
     }
-
-
-    */
 
     public void purgeReasonForDefaulting(String baseEntityID) {
         try {

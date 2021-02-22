@@ -6,7 +6,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
-import org.acra.util.ReportUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -87,8 +88,6 @@ import java.util.List;
 
 import timber.log.Timber;
 
-import static org.smartregister.giz.application.GizMalawiApplication.getObsValue;
-
 public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     private static GizMalawiProcessorForJava instance;
@@ -167,7 +166,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     processService(eventClient, serviceTable);
                 } else if (eventType.equals(ChildJsonFormUtils.BCG_SCAR_EVENT)) {
                     processBCGScarEvent(eventClient);
-                }else if(eventType.equals(GizConstants.EventType.REASON_FOR_DEFAULTING)){
+                } else if (eventType.equals(GizConstants.EventType.REASON_FOR_DEFAULTING)) {
                     Timber.e("creating Reason for DAFAULTING Here");
                     clientProcessReasonForDefault(event);
                 } else if (eventType.equals(MoveToMyCatchmentUtils.MOVE_TO_CATCHMENT_EVENT)) {
@@ -919,7 +918,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
         }
     }
 
-    private void clientProcessReasonForDefault(Event event) {
+    private void clientProcessReasonForDefault(Event event) throws JsonProcessingException {
         List<Obs> reasonForDefaultingObs = event.getObs();
         ReasonForDefaultingModel reasonForDefaultingModel = GizReportUtils.getReasonForDefaultingRepository(reasonForDefaultingObs);
         reasonForDefaultingModel.setDateCreated(event.getEventDate().toString());

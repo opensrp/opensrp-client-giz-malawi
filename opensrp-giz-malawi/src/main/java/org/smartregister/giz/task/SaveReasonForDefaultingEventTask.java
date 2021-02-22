@@ -5,7 +5,6 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.util.ChildJsonFormUtils;
@@ -15,9 +14,6 @@ import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.giz.application.GizMalawiApplication;
-import org.smartregister.giz.model.ReasonForDefaultingModel;
-import org.smartregister.giz.repository.ReasonForDefaultingRepository;
-import org.smartregister.giz.util.GizConstants;
 import org.smartregister.repository.EventClientRepository;
 
 import java.util.Arrays;
@@ -46,7 +42,6 @@ public class SaveReasonForDefaultingEventTask extends AsyncTask<Void, Void, Void
     protected Void doInBackground(Void... params) {
         try {
             processReasonForDefaultingEvent();
-            //saveReasonForDefaulting();
         } catch (Exception e) {
             Timber.e(Log.getStackTraceString(e));
         }
@@ -133,40 +128,4 @@ public class SaveReasonForDefaultingEventTask extends AsyncTask<Void, Void, Void
         }
     }
 
-  /*  private void saveReasonForDefaulting() {
-
-        JSONObject jsonForm = null;
-        try {
-            jsonForm = new JSONObject(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        JSONArray fields = ChildJsonFormUtils.fields(jsonForm);
-        if (fields == null) {
-            return;
-        }
-
-        String additionalDefaultingNotes = ChildJsonFormUtils.getFieldValue(fields, GizConstants.JsonAssets.ADDITIONAL_DEFAULTING_NOTES);
-        String baseEntityId = ChildJsonFormUtils.getFieldValue(fields, GizConstants.JsonAssets.BASE_ENTITY_ID);
-        String outreachDate = ChildJsonFormUtils.getFieldValue(fields, GizConstants.JsonAssets.OUTREACH_DATE);
-        String followingDate = ChildJsonFormUtils.getFieldValue(fields, GizConstants.JsonAssets.FOLLOWUP_DATE);
-        String outreachDefaultingReason = ChildJsonFormUtils.getFieldValue(fields, GizConstants.JsonAssets.OUTREACH_DEFAULTING_REASON);
-        String otherOutreachDefaultingReason = ChildJsonFormUtils.getFieldValue(fields, GizConstants.JsonAssets.OTHER_DEFAULTING_REASON);
-        String createdDate = ChildJsonFormUtils.getFieldValue(fields, GizConstants.JsonAssets.EVENT_DATE);
-
-        ReasonForDefaultingModel reasonForDefaultingModel = new ReasonForDefaultingModel();
-        reasonForDefaultingModel.setAdditionalDefaultingNotes(additionalDefaultingNotes);
-        reasonForDefaultingModel.setBaseEntityId(baseEntityId);
-        reasonForDefaultingModel.setOutreachDate(outreachDate);
-        reasonForDefaultingModel.setFollowupDate(followingDate);
-        reasonForDefaultingModel.setOutreachDefaultingReason(outreachDefaultingReason);
-        reasonForDefaultingModel.setOtherOutreachDefaultingReason(otherOutreachDefaultingReason);
-        reasonForDefaultingModel.setDateCreated(createdDate);
-        reasonForDefaultingModel.setId(baseEntityId);
-
-        ReasonForDefaultingRepository repo = new ReasonForDefaultingRepository();
-        repo.addOrUpdate(reasonForDefaultingModel);
-    }*/
 }

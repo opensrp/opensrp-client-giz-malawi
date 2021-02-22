@@ -1,7 +1,5 @@
 package org.smartregister.giz.model;
 
-import org.json.JSONArray;
-
 public class ReasonForDefaultingModel {
     private String dateCreated;
     private String baseEntityId;
