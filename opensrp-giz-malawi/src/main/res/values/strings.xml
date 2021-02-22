@@ -904,4 +904,9 @@
     <string name="mr">MR</string>
     <string name="mv">MV</string>
     <string name="rota">ROTA</string>
+
+    <string name="reason_for_defaulting">Record reason for defaulting</string>
+    <string name="report_lost_card">Report Lost or Damaged Card</string>
+    <string name="new_card_ordered">Report lost or damaged card \n (new card on order)</string>
+
 </resources>

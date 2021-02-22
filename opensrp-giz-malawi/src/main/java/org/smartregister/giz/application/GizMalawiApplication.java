@@ -28,6 +28,8 @@ import org.smartregister.child.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.domain.Event;
+import org.smartregister.domain.Obs;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.activity.AllClientsRegisterActivity;
 import org.smartregister.giz.activity.AncRegisterActivity;
@@ -54,6 +56,7 @@ import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizPncRegisterRowOptions;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
+import org.smartregister.giz.model.ReasonForDefaultingModel;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.processor.TripleResultProcessor;
 import org.smartregister.giz.repository.ChildAlertUpdatedRepository;
@@ -66,6 +69,7 @@ import org.smartregister.giz.repository.GizHia2ReportRepository;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
+import org.smartregister.giz.repository.ReasonForDefaultingRepository;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
@@ -150,6 +154,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ChildAlertUpdatedRepository childAlertUpdatedRepository;
     private GizEventRepository gizEventRepository;
     private AppExecutors appExecutors;
+    private ReasonForDefaultingRepository reasonForDefaultingRepository;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -283,6 +288,14 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return vaccineGroups;
     }
 
+    public static String getObsValue(Obs obs) {
+        List<Object> values = obs.getValues();
+        if (values.size() > 0) {
+            return (String) values.get(0);
+        }
+        return null;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -346,6 +359,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         initMinimumDateForReportGeneration();
+
     }
 
     private void initMinimumDateForReportGeneration() {
@@ -661,5 +675,24 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         }
         return appExecutors;
     }
+
+    public ReasonForDefaultingRepository reasonForDefaultingRepository() {
+        if (reasonForDefaultingRepository == null) {
+            this.reasonForDefaultingRepository = new ReasonForDefaultingRepository();
+        }
+        return this.reasonForDefaultingRepository;
+    }
+
+
+  /*  public void clientProcessReasonForDefaultingEvent(Event event) {
+        ReasonForDefaultingModel reasonForDefaultingModel = getReasonForDefaultingRepository(event);
+        if (reasonForDefaultingModel != null) {
+            ReasonForDefaultingRepository repo = reasonForDefaultingRepository();
+            if (StringUtils.isBlank(reasonForDefaultingModel.getId()))
+                reasonForDefaultingModel.setId(event.getBaseEntityId());
+            reasonForDefaultingModel.setBaseEntityId(event.getBaseEntityId());
+            repo.addOrUpdate(reasonForDefaultingModel);
+        }
+    }*/
 }
 

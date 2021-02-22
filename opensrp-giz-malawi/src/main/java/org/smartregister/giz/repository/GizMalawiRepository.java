@@ -132,6 +132,7 @@ public class GizMalawiRepository extends Repository {
         PncOtherVisitRepository.createTable(database);
         PncPartialFormRepository.createTable(database);
         PncMedicInfoRepository.createTable(database);
+
     }
 
     @VisibleForTesting
@@ -187,6 +188,8 @@ public class GizMalawiRepository extends Repository {
                 case 12:
                     EventClientRepository.createAdditionalColumns(db);
                     break;
+                case 13:
+                    upgradeToVersion13CreateReasonForDefaultingTable(db);
                 default:
                     break;
             }
@@ -461,6 +464,15 @@ public class GizMalawiRepository extends Repository {
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion7RemoveUnnecessaryTables");
+        }
+    }
+
+
+    private void upgradeToVersion13CreateReasonForDefaultingTable(@NonNull SQLiteDatabase db) {
+        try {
+            ReasonForDefaultingRepository.createTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion13CreateReasonForDefaultingTable");
         }
     }
 
