@@ -132,7 +132,6 @@ public class GizMalawiRepository extends Repository {
         PncOtherVisitRepository.createTable(database);
         PncPartialFormRepository.createTable(database);
         PncMedicInfoRepository.createTable(database);
-
     }
 
     @VisibleForTesting
@@ -190,6 +189,11 @@ public class GizMalawiRepository extends Repository {
                     break;
                 case 13:
                     upgradeToVersion13CreateReasonForDefaultingTable(db);
+                    break;
+                case 14:
+                    db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+                    db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+                    break;
                 default:
                     break;
             }
@@ -466,7 +470,6 @@ public class GizMalawiRepository extends Repository {
             Timber.e(e, "upgradeToVersion7RemoveUnnecessaryTables");
         }
     }
-
 
     private void upgradeToVersion13CreateReasonForDefaultingTable(@NonNull SQLiteDatabase db) {
         try {

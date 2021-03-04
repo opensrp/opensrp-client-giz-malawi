@@ -38,6 +38,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import timber.log.Timber;
 
@@ -189,8 +190,10 @@ public class FragmentBaseActivity extends SecuredActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                emailSubject = String.format("%s - %s - %s", name, new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(date), communityName);
-                emailAttachmentName = String.format("%s-%s-%s", name, new SimpleDateFormat("ddMMyyyy hh:mm:ss").format(date), communityName);
+
+                SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm:ss", Locale.US);
+                emailSubject = String.format("%s - %s %s - %s", name, new SimpleDateFormat("dd/MM/yyyy", Locale.US).format(date), sdfTime.format(new Date()), communityName);
+                emailAttachmentName = String.format("%s-%s %s-%s", name, new SimpleDateFormat("ddMMyyyy", Locale.US).format(date), sdfTime.format(new Date()), communityName);
             }
             Fragment fragment = getRequestedFragment(fragmentName);
             if (fragment != null)

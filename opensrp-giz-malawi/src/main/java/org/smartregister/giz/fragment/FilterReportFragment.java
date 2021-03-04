@@ -71,6 +71,22 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        if(autoCompleteTextView != null){
+            autoCompleteTextView.setText("");
+        }
+        if(editTextDate != null){
+            DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            };
+        }
+    }
+
+    @Override
     public void setLoadingState(boolean loadingState) {
         if (progressBar != null)
             progressBar.setVisibility(loadingState ? View.VISIBLE : View.INVISIBLE);
@@ -110,6 +126,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 ((InputMethodManager) (context).getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                autoCompleteTextView.requestFocus();
                 return true;
             }
         });

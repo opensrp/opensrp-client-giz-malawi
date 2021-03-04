@@ -890,7 +890,7 @@
     <!-- Emmunize Reports-->
     <string name="reports_type">Reports</string>
     <string name="dhis2_report_grouping_title">DHIS2 Reports</string>
-    <string name="child_due_report_grouping_title">Children Due for Vaccines</string>
+    <string name="child_due_report_grouping_title"> Children Due for Vaccination</string>
     <string name="vaccine_needed_report_grouping_title">Vaccine Doses Needed</string>
     <string name="select_community">Select Community</string>
     <string name="select_options">Select options</string>
@@ -909,4 +909,5 @@
     <string name="report_lost_card">Report Lost or Damaged Card</string>
     <string name="new_card_ordered">Report lost or damaged card \n (new card on order)</string>
 
+    <string name="compliance">Compliance</string>
 </resources>

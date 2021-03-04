@@ -2,6 +2,7 @@ package org.smartregister.giz.fragment;
 
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -13,6 +14,7 @@ import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
+import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
@@ -158,14 +160,20 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
     @Override
     public void onResume() {
         super.onResume();
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setContentInsetsAbsolute(0, 0);
-        toolbar.setContentInsetsRelative(0, 0);
-        toolbar.setContentInsetStartWithNavigation(0);
-        toolbar.setNavigationIcon(R.drawable.ic_action_menu);
 
-        NavigationMenu.getInstance(getActivity(), null, toolbar);
+        ImageView hamburgerMenu = view.findViewById(R.id.left_menu);
+        if (hamburgerMenu != null) {
+            hamburgerMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (getActivity() instanceof ChildRegisterActivity) {
+                        ((ChildRegisterActivity) getActivity()).openDrawer();
+                    }
+                }
+            });
+        }
     }
+
 
     @Override
     protected String filterSelectionCondition(boolean urgentOnly) {

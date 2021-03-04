@@ -191,7 +191,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '13'
+            buildConfigField "int", "DATABASE_VERSION", '14'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -231,7 +231,6 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.1.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
 
     jarJar 'com.ibm.fhir:fhir-model:4.2.3'
@@ -248,7 +247,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.5.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.6.9-001-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -280,7 +279,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    api('org.smartregister:opensrp-client-core:3.3.1-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-core:4.2.5-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
@@ -313,7 +312,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    api('org.smartregister:opensrp-client-immunization:1.4.43-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-immunization:3.0.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -385,9 +384,6 @@ dependencies {
         transitive = true
     }
     implementation group: 'io.fabric.sdk.android', name: 'fabric', version: '1.4.8'
-
-    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
-    implementation group: 'com.itextpdf', name: 'itextpdf', version: '5.0.6'
 
 
     def robolectricVersion = '4.1'
