@@ -81,13 +81,13 @@ public class FilterReportFragmentTest {
         ReflectionHelpers.setField(spyFragment, "presenter", presenter);
 
         LinkedHashMap<String, String> communityIdList = new LinkedHashMap<>();
-        communityIdList.put("All communities", "");
         communityIdList.put("community 1", "456");
         List<String> communityList = new ArrayList<>();
-        communityList.add("All communities");
         communityList.add("community 1");
         ReflectionHelpers.setField(spyFragment, "communityList", communityList);
         ReflectionHelpers.setField(spyFragment, "communityIdList", communityIdList);
+        ReflectionHelpers.setField(spyFragment, "selectedItem","community 1" );
+        ReflectionHelpers.setField(spyFragment, "selectedItemPosition", 0);
         spyFragment.runReport();
 
 
@@ -96,7 +96,6 @@ public class FilterReportFragmentTest {
         List<String> communityIds = new ArrayList<>();
         communityIds.add("");
         List<String> communities = new ArrayList<>();
-        communities.add("All communities");
         Map<String, String> map = new HashMap<>();
         Gson gson = new Gson();
         map.put(GizConstants.ReportParametersHelper.COMMUNITY, gson.toJson(communities));
