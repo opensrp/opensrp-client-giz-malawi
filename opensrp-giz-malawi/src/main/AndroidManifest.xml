@@ -38,6 +38,9 @@
             android:name=".activity.ReportRegisterActivity"
             android:theme="@style/ChildTheme.NoActionBar" />
         <activity
+            android:name=".activity.FragmentBaseActivity"
+            android:theme="@style/ChildTheme.NoActionBar" />
+        <activity
             android:name=".activity.ChildImmunizationActivity"
             android:label="@string/title_activity_child_immunization"
             android:screenOrientation="portrait"

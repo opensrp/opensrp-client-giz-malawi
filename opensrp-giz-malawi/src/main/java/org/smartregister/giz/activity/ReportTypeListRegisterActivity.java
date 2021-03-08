@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ReportTypeListRegisterActivity extends ReportRegisterActivity {
     @Override
-    public void setUpViews() {
+    protected void setUpViews() {
         super.setUpViews();
         if (titleTv != null) {
             titleTv.setText(R.string.reports_type);
@@ -19,7 +19,7 @@ public class ReportTypeListRegisterActivity extends ReportRegisterActivity {
     }
 
     @Override
-    public void loadData() {
+    protected void loadData() {
         final ArrayList<ReportGroupingModel.ReportGrouping> reportGroupings = getReportGroupings();
         listView.setAdapter(new ArrayAdapter<>(this, R.layout.report_types_list_item, reportGroupings));
         listView.setOnItemClickListener((parent, view, position, id) -> {

@@ -35,7 +35,7 @@ public class ReportRegisterActivity extends BaseActivity {
         loadData();
     }
 
-    public void setUpViews() {
+    protected void setUpViews() {
         listView = findViewById(R.id.lv_reportRegister_groupings);
         titleTv = findViewById(R.id.title);
 
@@ -44,7 +44,7 @@ public class ReportRegisterActivity extends BaseActivity {
         }
     }
 
-    public void loadData() {
+    protected void loadData() {
         reportSyncBtn = findViewById(R.id.report_sync_btn);
         reportSyncBtn.setOnClickListener(v -> GizUtils.startReportJob(getApplicationContext()));
 
