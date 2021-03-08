@@ -80,14 +80,14 @@ public class FilterReportFragmentTest {
         FindReportContract.Presenter presenter = Mockito.spy(FindReportContract.Presenter.class);
         ReflectionHelpers.setField(spyFragment, "presenter", presenter);
 
-        LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
-        communityIDList.put("All communities", "");
-        communityIDList.put("community 1", "456");
+        LinkedHashMap<String, String> communityIdList = new LinkedHashMap<>();
+        communityIdList.put("All communities", "");
+        communityIdList.put("community 1", "456");
         List<String> communityList = new ArrayList<>();
         communityList.add("All communities");
         communityList.add("community 1");
         ReflectionHelpers.setField(spyFragment, "communityList", communityList);
-        ReflectionHelpers.setField(spyFragment, "communityIDList", communityIDList);
+        ReflectionHelpers.setField(spyFragment, "communityIdList", communityIdList);
         spyFragment.runReport();
 
 
