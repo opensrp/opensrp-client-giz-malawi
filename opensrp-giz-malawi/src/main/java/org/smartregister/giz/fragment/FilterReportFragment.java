@@ -105,7 +105,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object item = parent.getItemAtPosition(position);
-                if(item != null){
+                if (item != null) {
                     selectedItem = item.toString();
                     selectedItemPosition = position;
                 }
@@ -120,8 +120,8 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             Map<String, String> map = new HashMap<>();
             map.put(GizConstants.ReportParametersHelper.COMMUNITY, selectedItem);
             String communityId = new ArrayList<>(communityIdList.keySet()).get(selectedItemPosition);
-            if(communityId != null)
-            map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, communityId);
+            if (communityId != null)
+                map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, communityId);
             map.put(GizConstants.ReportParametersHelper.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
             presenter.runReport(map);
         } else {
@@ -152,8 +152,8 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     private void updateLabel() {
-        if(editTextDate != null)
-        editTextDate.setText(dateFormat.format(myCalendar.getTime()));
+        if (editTextDate != null)
+            editTextDate.setText(dateFormat.format(myCalendar.getTime()));
     }
 
     @Override
