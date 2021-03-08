@@ -34,7 +34,7 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
 
     @Override
     protected void executeFetch() {
-        presenter.fetchList(() -> ReportDao.fetchLiveEligibleChildrenReport(communityIds, reportDate), fetchRequestType());
+        presenter.fetchList(() -> ReportDao.fetchLiveEligibleChildrenReport(communityId, reportDate), fetchRequestType());
     }
 
     private AppExecutors.Request fetchRequestType() {
@@ -107,14 +107,14 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
 
     @Override
     public void onFetchError(Exception e) {
-        //Do Nothing
+        // Do Nothing
     }
 
     @Override
     public void refreshView() {
         super.refreshView();
         if (getActivity() instanceof FragmentBaseActivity) {
-            ((FragmentBaseActivity) getActivity()).setTitle(list.size() + " " + getString(R.string.eligible_children));
+            ((FragmentBaseActivity) getActivity()).setTitle(list.size() + " " + getString(R.string.child_due_report_grouping_title));
         }
     }
 }

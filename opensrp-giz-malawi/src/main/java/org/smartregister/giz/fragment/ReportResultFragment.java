@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
-
 import org.smartregister.giz.R;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.view.ListContract;
@@ -24,7 +22,6 @@ import org.smartregister.view.viewholder.ListableViewHolder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -36,9 +33,9 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
     protected View view;
     protected ListContract.Presenter<T> presenter;
     protected List<T> list;
-    protected ArrayList<String> communityIds;
     protected Date reportDate = null;
-    protected ArrayList<String> communityNames;
+    protected String communityId;
+    protected String communityName;
     private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
     private ProgressBar progressBar;
 
@@ -52,9 +49,8 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            Gson gson = new Gson();
-            communityIds = gson.fromJson(bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY_ID), ArrayList.class);
-            communityNames = gson.fromJson(bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY), ArrayList.class);
+            communityId = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY_ID);
+            communityName = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY);
 
             String date = bundle.getString(GizConstants.ReportParametersHelper.REPORT_DATE);
 
@@ -67,21 +63,12 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
             }
 
             tvDate.setText(date);
+            tvCommunity.setText(communityName);
         }
-        setCommunitiesTitle(tvCommunity);
         bindLayout();
         loadPresenter();
         executeFetch();
         return view;
-    }
-
-    private void setCommunitiesTitle(TextView tvCommunity) {
-        StringBuilder stringBuffer = new StringBuilder();
-        for (int i = 0; i < communityNames.size(); i++) {
-            if (i != 0) stringBuffer.append(", ");
-            stringBuffer.append(communityNames.get(i));
-        }
-        tvCommunity.setText(stringBuffer.toString());
     }
 
     protected abstract void executeFetch();

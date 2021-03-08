@@ -1,10 +1,12 @@
 package org.smartregister.giz.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
+import org.smartregister.giz.fragment.FilterReportFragment;
 import org.smartregister.giz.model.ReportGroupingModel;
 
 import java.util.ArrayList;
@@ -26,10 +28,14 @@ public class ReportTypeListRegisterActivity extends ReportRegisterActivity {
 
             switch (position) {
                 case 0:
-                case 1:
-                case 2:
                     Intent intent = new Intent(ReportTypeListRegisterActivity.this, ReportRegisterActivity.class);
                     startActivity(intent);
+                    break;
+                case 1:
+                case 2:
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FilterReportFragment.REPORT_NAME, getString(R.string.child_due_report_grouping_title));
+                    FragmentBaseActivity.startMe(ReportTypeListRegisterActivity.this, FilterReportFragment.TAG, getString(R.string.child_due_report_grouping_title), bundle);
                     break;
                 default:
                     break;

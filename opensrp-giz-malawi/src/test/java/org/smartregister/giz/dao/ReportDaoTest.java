@@ -18,7 +18,6 @@ import org.smartregister.repository.EventClientRepository;
 import org.smartregister.repository.Repository;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +38,25 @@ public class ReportDaoTest extends ReportDao {
     }
 
     @Test
+    public void testExtractRecordedLocations() {
+        Mockito.doReturn(database).when(repository).getReadableDatabase();
+        MatrixCursor matrixCursor = new MatrixCursor(new String[]{
+                "location_id", "provider_id"});
+        matrixCursor.addRow(new Object[]{"5a15f0cb-ed65-4a12-90bb-1133554cd6a0", "meso"});
+        Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
+        Map<String, String> providerList = ReportDao.extractRecordedLocations();
+        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
+        String expectedLocationId = null;
+        String expectedProviderId = null;
+        for (Map.Entry<String, String> entry : providerList.entrySet()) {
+            expectedLocationId = entry.getKey();
+            expectedProviderId = entry.getValue();
+        }
+        Assert.assertEquals(expectedLocationId, "5a15f0cb-ed65-4a12-90bb-1133554cd6a0");
+        Assert.assertEquals(expectedProviderId, "meso");
+    }
+
+    @Test
     public void testFetchLiveEligibleChildrenReport() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
@@ -53,7 +71,7 @@ public class ReportDaoTest extends ReportDao {
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
 
-        List<EligibleChild> children = ReportDao.fetchLiveEligibleChildrenReport(new ArrayList<>(), new Date());
+        List<EligibleChild> children = ReportDao.fetchLiveEligibleChildrenReport("meso", new Date());
 
         Assert.assertEquals(children.size(), 0);
     }

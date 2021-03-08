@@ -150,7 +150,6 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Timber.w("Upgrading database from version %d to %d, which will destroy all old data", oldVersion, newVersion);
@@ -486,6 +485,4 @@ public class GizMalawiRepository extends Repository {
                 .hIA2IndicatorsRepository();
         hIA2IndicatorsRepository.save(db, csvData);
     }
-
-
 }
