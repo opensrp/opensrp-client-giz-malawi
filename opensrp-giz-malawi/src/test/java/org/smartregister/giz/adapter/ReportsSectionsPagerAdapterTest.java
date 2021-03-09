@@ -11,23 +11,21 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.smartregister.giz.activity.HIA2ReportsActivity;
-import org.smartregister.giz.application.GizMalawiApplicationTest;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.fragment.DailyTalliesFragment;
 import org.smartregister.giz.fragment.DraftMonthlyFragment;
 import org.smartregister.giz.fragment.SentMonthlyFragment;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(application = GizMalawiApplicationTest.class, sdk = Build.VERSION_CODES.P)
+@Config(application = GizMalawiApplication.class, sdk = Build.VERSION_CODES.P)
 public class ReportsSectionsPagerAdapterTest {
     @Mock
     private FragmentManager fragmentManager;
 
     private HIA2ReportsActivity activity = new HIA2ReportsActivity();
 
-    private android.content.Context context = RuntimeEnvironment.application;
 
     private ReportsSectionsPagerAdapter sectionsPagerAdapter = new ReportsSectionsPagerAdapter(activity, fragmentManager);
 

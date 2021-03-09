@@ -27,8 +27,6 @@ public class VillageDoseAdapterTest {
     private ListContract.View<VillageDose> view;
     @Mock
     private Context context;
-    private VillageDoseAdapter adapter;
-
     @Mock
     private VillageDoseViewHolder viewHolder;
 
@@ -44,7 +42,7 @@ public class VillageDoseAdapterTest {
         villageDose.setVillageName("Nakuru");
         villageDose.setRecurringServices(recurringServices);
         villageDoseList.add(villageDose);
-        adapter = new VillageDoseAdapter(villageDoseList, view, context);
+        //  VillageDoseAdapter adapter = new VillageDoseAdapter(villageDoseList, view, context);
     }
 
     @Test
