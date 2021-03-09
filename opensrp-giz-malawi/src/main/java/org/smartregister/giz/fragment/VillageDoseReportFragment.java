@@ -21,7 +21,7 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
         presenter.fetchList(() -> {
             boolean includeAll = communityName.equalsIgnoreCase("All communities");
             FilterReportFragmentModel model = new FilterReportFragmentModel();
-            List<VillageDose> result = new ArrayList<>(ReportDao.fetchLiveVillageDosesReport(communityID, reportDate, includeAll,
+            List<VillageDose> result = new ArrayList<>(ReportDao.fetchLiveVillageDosesReport(communityId, reportDate, includeAll,
                     includeAll ? communityName : null, model.getAllLocations()));
 
             return result;
