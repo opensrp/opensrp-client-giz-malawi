@@ -900,4 +900,6 @@
     <string name="family">Family</string>
     <string name="date">Date</string>
     <string name="vaccine_doses_needed">Vaccine Doses Needed</string>
+    <string name="due_on">Due on</string>
+    <string name="no_village_selected">"No Village selected"</string>
 </resources>

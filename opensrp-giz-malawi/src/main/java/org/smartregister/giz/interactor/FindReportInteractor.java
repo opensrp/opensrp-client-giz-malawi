@@ -1,8 +1,9 @@
 package org.smartregister.giz.interactor;
 
-import org.smartregister.child.util.AppExecutors;
+import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.contract.FindReportContract;
 import org.smartregister.giz.dao.ReportDao;
+import org.smartregister.giz.util.AppExecutors;
 
 import java.util.Map;
 
@@ -13,7 +14,8 @@ public class FindReportInteractor implements FindReportContract.Interactor {
     protected AppExecutors appExecutors;
 
     public FindReportInteractor() {
-        appExecutors = new AppExecutors();
+        appExecutors = GizMalawiApplication.getInstance().getAppExecutors()
+        ;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class FindReportInteractor implements FindReportContract.Interactor {
 
                 appExecutors.mainThread().execute(() -> presenter.onReportHierarchyLoaded(hierarchy));
             } catch (Exception e) {
-                Timber.e(e);
+                Timber.d("No locations Found");
             }
         };
         appExecutors.diskIO().execute(runnable);

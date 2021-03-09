@@ -34,7 +34,7 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
 
     @Override
     protected void executeFetch() {
-        presenter.fetchList(() -> ReportDao.fetchLiveEligibleChildrenReport(communityID, reportDate), fetchRequestType());
+        presenter.fetchList(() -> ReportDao.fetchLiveEligibleChildrenReport(communityId, reportDate), fetchRequestType());
     }
 
     private AppExecutors.Request fetchRequestType() {

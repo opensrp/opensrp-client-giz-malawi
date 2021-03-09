@@ -34,7 +34,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
     protected ListContract.Presenter<T> presenter;
     protected List<T> list;
     protected Date reportDate = null;
-    protected String communityID;
+    protected String communityId;
     protected String communityName;
     private ListableAdapter<T, ListableViewHolder<T>> mAdapter;
     private ProgressBar progressBar;
@@ -49,7 +49,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            communityID = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY_ID);
+            communityId = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY_ID);
             communityName = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY);
 
             String date = bundle.getString(GizConstants.ReportParametersHelper.REPORT_DATE);
