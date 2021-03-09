@@ -17,7 +17,9 @@ import org.smartregister.giz.viewholder.VillageDoseViewHolder;
 import org.smartregister.view.ListContract;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VillageDoseAdapterTest {
     private final List<VillageDose> villageDoseList = new ArrayList<>();
@@ -26,16 +28,22 @@ public class VillageDoseAdapterTest {
     @Mock
     private Context context;
     private VillageDoseAdapter adapter;
+
     @Mock
     private VillageDoseViewHolder viewHolder;
+
+    private Map<String, Integer> recurringServices = new LinkedHashMap<>();
+
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         VillageDose villageDose = new VillageDose();
-        VillageDose villageDose1 = new VillageDose();
+        recurringServices.put("BCG", 1);
+        recurringServices.put("OPV", 4);
+        villageDose.setVillageName("Nakuru");
+        villageDose.setRecurringServices(recurringServices);
         villageDoseList.add(villageDose);
-        villageDoseList.add(villageDose1);
         adapter = new VillageDoseAdapter(villageDoseList, view, context);
     }
 
@@ -53,7 +61,7 @@ public class VillageDoseAdapterTest {
         ReflectionHelpers.setField(viewHolder, "context", context);
         VillageDose villageDose = villageDoseList.get(0);
 
-        adapter.onBindViewHolder(viewHolder, 0);
+        viewHolder.bindView(villageDose, view);
         Assert.assertNotNull(villageDose);
     }
 

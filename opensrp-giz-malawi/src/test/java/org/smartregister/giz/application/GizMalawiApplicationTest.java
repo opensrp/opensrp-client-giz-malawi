@@ -12,7 +12,7 @@ import org.smartregister.giz.TestGizMalawiApplication;
 /**
  * Created by ndegwamartin on 2019-12-13.
  */
-public class GizMalawiApplicationTest extends BaseUnitTest {
+public class GizMalawiApplicationTest extends GizMalawiApplication {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
