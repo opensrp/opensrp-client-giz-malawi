@@ -78,7 +78,7 @@ public class FragmentBaseActivity extends SecuredActivity {
                         .fromView(getPDFRootView())
                         .setDefaultPageSize(PdfGeneratorHelper.PageSize.WRAP_CONTENT)
                         .setFileName(emailAttachmentName)
-                        .setFolderName("Reports")
+                        .setFolderName(Environment.DIRECTORY_DOWNLOADS)
                         .openPDFafterGeneration(false)
                         .build(new PdfGeneratorListener() {
                             @Override
