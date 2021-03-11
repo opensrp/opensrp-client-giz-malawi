@@ -14,7 +14,7 @@
             style="@style/CustomFontTextViewStyle.ClientList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/due_on"
+            android:text="@string/outreach_date"
             android:textColor="@color/medical_text_inner"
             android:textSize="20sp" />
 
@@ -46,8 +46,9 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="15dp"
-            android:focusable="false"
+            android:focusable="true"
             android:gravity="start"
+            android:completionThreshold="1"
             android:textColor="@color/chw_primary_dark" />
 
     </LinearLayout>

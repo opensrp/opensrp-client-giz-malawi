@@ -32,10 +32,14 @@ public class ReportTypeListRegisterActivity extends ReportRegisterActivity {
                     startActivity(intent);
                     break;
                 case 1:
+                    Bundle dueVaccines = new Bundle();
+                    dueVaccines.putString(FilterReportFragment.REPORT_NAME, getString(R.string.child_due_report_grouping_title));
+                    FragmentBaseActivity.startMe(ReportTypeListRegisterActivity.this, FilterReportFragment.TAG, getString(R.string.child_due_report_grouping_title), dueVaccines);
+                    break;
                 case 2:
-                    Bundle bundle = new Bundle();
-                    bundle.putString(FilterReportFragment.REPORT_NAME, getString(R.string.child_due_report_grouping_title));
-                    FragmentBaseActivity.startMe(ReportTypeListRegisterActivity.this, FilterReportFragment.TAG, getString(R.string.child_due_report_grouping_title), bundle);
+                    Bundle dosesNeeded= new Bundle();
+                    dosesNeeded.putString(FilterReportFragment.REPORT_NAME, getString(R.string.vaccine_doses_needed));
+                    FragmentBaseActivity.startMe(ReportTypeListRegisterActivity.this, FilterReportFragment.TAG, getString(R.string.vaccine_doses_needed), dosesNeeded);
                     break;
                 default:
                     break;

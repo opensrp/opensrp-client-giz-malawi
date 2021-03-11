@@ -14,6 +14,7 @@ import org.smartregister.domain.Alert;
 import org.smartregister.domain.AlertStatus;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.EligibleChild;
+import org.smartregister.giz.domain.VillageDose;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineCondition;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import timber.log.Timber;
 
@@ -324,4 +326,56 @@ public class ReportDao extends AbstractDao {
     public static void setContext(Context context) {
         ReportDao.context = context;
     }
+
+    @NonNull
+    public static List<VillageDose> fetchLiveVillageDosesReport(String communityId, Date dueDate, boolean includeAll, String villageName, Map<String, String> locationMap) {
+        List<EligibleChild> children = fetchLiveEligibleChildrenReport(communityId, dueDate);
+
+        Map<String, Integer> allLocation = new TreeMap<>();
+
+        Map<String, TreeMap<String, Integer>> resultMap = new HashMap<>();
+        for (EligibleChild child : children) {
+            if (child.getAlerts() == null) continue;
+
+            for (Alert alert : child.getAlerts()) {
+                TreeMap<String, Integer> vaccineMaps = resultMap.get(child.getLocationId());
+                if (vaccineMaps == null) vaccineMaps = new TreeMap<>();
+                String scheduleName = alert.scheduleName().replaceAll("\\d", "").trim();
+
+                Integer count = vaccineMaps.get(scheduleName);
+                count = count == null ? 1 : count + 1;
+                vaccineMaps.put(scheduleName, count);
+
+                resultMap.put(child.getLocationId(), vaccineMaps);
+
+                // count defaults
+                if (includeAll) {
+                    Integer allCount = allLocation.get(alert.scheduleName());
+                    allCount = allCount == null ? 1 : allCount + 1;
+                    allLocation.put(alert.scheduleName(), allCount);
+                }
+            }
+        }
+
+        List<VillageDose> result = new ArrayList<>();
+        if (includeAll) {
+            VillageDose villageDose = new VillageDose();
+            villageDose.setVillageName(villageName);
+            villageDose.setID("");
+            villageDose.setRecurringServices(allLocation);
+
+            result.add(villageDose);
+        }
+
+        for (Map.Entry<String, TreeMap<String, Integer>> entry : resultMap.entrySet()) {
+            VillageDose villageDose = new VillageDose();
+            villageDose.setVillageName(locationMap.get(entry.getKey()));
+            villageDose.setID(entry.getKey());
+            villageDose.setRecurringServices(entry.getValue());
+            result.add(villageDose);
+        }
+
+        return result;
+    }
+
 }

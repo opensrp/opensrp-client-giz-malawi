@@ -26,7 +26,7 @@
                 style="@style/CustomFontTextViewStyle.ClientList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/due_on"
+                android:text="@string/date"
                 android:textColor="@color/colorDarkGrey"
                 android:textSize="16sp" />
 
