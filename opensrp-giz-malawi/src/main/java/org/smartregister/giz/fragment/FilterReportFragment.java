@@ -51,7 +51,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private String titleName;
     private EditText editTextDate;
     private ProgressBar progressBar;
-    private LinkedHashMap<String, String> communityIDList = new LinkedHashMap<>();
+    private LinkedHashMap<String, String> communityIdList = new LinkedHashMap<>();
     private String selectedItem;
     private Integer selectedItemPosition;
 
@@ -73,7 +73,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     @Override
     public void setLoadingState(boolean loadingState) {
         if (progressBar != null)
-            progressBar.setVisibility(loadingState ? View.VISIBLE : View.INVISIBLE);
+            progressBar.setVisibility(loadingState ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -85,8 +85,6 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
         editTextDate = view.findViewById(R.id.editTextDate);
         autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView);
-
-       // communityList.add("All COMMUNITIES");
         bindAutoCompleteText();
         bindDatePicker();
         updateLabel();
@@ -94,8 +92,8 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     @Override
     public void onLocationDataLoaded(Map<String, String> locationData) {
-        communityIDList = new LinkedHashMap<>(locationData);
-        communityList.addAll(communityIDList.values());
+        communityIdList = new LinkedHashMap<>(locationData);
+        communityList.addAll(communityIdList.values());
         bindAutoCompleteText();
     }
 
@@ -117,9 +115,11 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object item = parent.getItemAtPosition(position);
-                selectedItem = item.toString();
-                selectedItemPosition = position;
-                Utils.hideKeyboard(getActivity());
+                if (item != null) {
+                    selectedItem = item.toString();
+                    selectedItemPosition = position;
+                    Utils.hideKeyboard(getActivity());
+                }
             }
         });
     }
@@ -129,12 +129,13 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         if (selectedItem != null) {
             Map<String, String> map = new HashMap<>();
             map.put(GizConstants.ReportParametersHelper.COMMUNITY, selectedItem);
-            String communityID = new ArrayList<>(communityIDList.keySet()).get(selectedItemPosition);
-            map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, communityID);
+            String communityId = new ArrayList<>(communityIdList.keySet()).get(selectedItemPosition);
+            if (communityId != null)
+                map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, communityId);
             map.put(GizConstants.ReportParametersHelper.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
             presenter.runReport(map);
         } else {
-            Toast.makeText(getActivity(), "No Village selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.no_village_selected, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -161,7 +162,8 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     private void updateLabel() {
-        editTextDate.setText(dateFormat.format(myCalendar.getTime()));
+        if (editTextDate != null)
+            editTextDate.setText(dateFormat.format(myCalendar.getTime()));
     }
 
     @Override

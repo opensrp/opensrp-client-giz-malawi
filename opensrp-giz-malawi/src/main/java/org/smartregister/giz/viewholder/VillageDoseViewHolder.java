@@ -34,28 +34,30 @@ public class VillageDoseViewHolder extends ListableViewHolder<VillageDose> {
     @Override
     public void bindView(VillageDose villageDose, ListContract.View<VillageDose> view) {
         tvName.setText(villageDose.getVillageName());
+        if (villageDose.getRecurringServices() != null) {
+            for (Map.Entry<String, Integer> entry : villageDose.getRecurringServices().entrySet()) {
+                View viewVillage = LayoutInflater.from(currentView.getContext()).inflate(R.layout.village_dose, null, false);
 
-        for (Map.Entry<String, Integer> entry : villageDose.getRecurringServices().entrySet()) {
-            View viewVillage = LayoutInflater.from(currentView.getContext()).inflate(R.layout.village_dose, null, false);
+                TextView tvName = viewVillage.findViewById(R.id.tvName);
+                String val = entry.getKey() != null ? entry.getKey().toLowerCase().replace(" ", "_").trim() : "";
+                String value = GizUtils.getStringResourceByName(val, context).trim();
 
-            TextView tvName = viewVillage.findViewById(R.id.tvName);
-            String val = entry.getKey().toLowerCase().replace(" ", "_").trim();
-            String value = GizUtils.getStringResourceByName(val, context).trim();
+                tvName.setText(value);
 
-            tvName.setText(value);
+                TextView tvAmount = viewVillage.findViewById(R.id.tvAmount);
+                tvAmount.setText(entry.getValue() != null ? entry.getValue().toString() : "");
 
-            TextView tvAmount = viewVillage.findViewById(R.id.tvAmount);
-            tvAmount.setText(entry.getValue().toString());
-
-            linearLayout.addView(viewVillage);
+                linearLayout.addView(viewVillage);
+            }
         }
-
         currentView.setOnClickListener(v -> view.onListItemClicked(villageDose, v.getId()));
     }
 
     @Override
     public void resetView() {
-        tvName.setText("");
+        if (tvName != null)
+            tvName.setText("");
+
         linearLayout.removeAllViews();
     }
 }

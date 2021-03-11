@@ -72,10 +72,7 @@ public class FilterReportFragmentPresenter implements FindReportContract.Present
     @Nullable
     @Override
     public FindReportContract.View getView() {
-        if (weakReference != null)
-            return weakReference.get();
-
-        return null;
+        return weakReference != null ? weakReference.get() : null;
     }
 }
 
