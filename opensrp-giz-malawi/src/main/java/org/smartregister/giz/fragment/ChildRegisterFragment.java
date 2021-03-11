@@ -77,7 +77,7 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
         }
     }
 
-    private void initiateReportJob() {
+    protected void initiateReportJob() {
         Calendar calendar = Calendar.getInstance();
         if (calendar.get(Calendar.HOUR_OF_DAY) != 0 && calendar.get(Calendar.HOUR_OF_DAY) != 1) {
             calendar.set(Calendar.HOUR_OF_DAY, 1);
@@ -174,6 +174,7 @@ public class ChildRegisterFragment extends BaseChildRegisterFragment implements 
 
     @Override
     public void onClick(View view) {
+
         onViewClicked(view);
     }
 
