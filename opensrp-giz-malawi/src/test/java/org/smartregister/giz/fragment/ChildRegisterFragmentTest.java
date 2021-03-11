@@ -157,7 +157,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     @Test
     public void testCountExecute() {
 
-        Assert.assertNotNull(childRegisterFragment);
+        assertNotNull(childRegisterFragment);
 
         Whitebox.setInternalState(childRegisterFragment, "clientAdapter", clientAdapter);
         Whitebox.setInternalState(childRegisterFragment, "mainCondition", "");
@@ -178,7 +178,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
 
     @Test
     public void testToggleFilterSelectionWithNullTag() {
-        Assert.assertNotNull(childRegisterFragment);
+        assertNotNull(childRegisterFragment);
 
         Whitebox.setInternalState(childRegisterFragment, "filterSection", filterSection);
 
@@ -220,7 +220,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
 
     @Test
     public void testToggleFilterSelectionWithTag() {
-        Assert.assertNotNull(childRegisterFragment);
+        assertNotNull(childRegisterFragment);
 
         Whitebox.setInternalState(childRegisterFragment, "filterSection", filterSection);
 
