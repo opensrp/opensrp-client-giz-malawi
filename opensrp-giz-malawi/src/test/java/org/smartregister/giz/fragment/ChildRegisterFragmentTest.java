@@ -117,7 +117,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     @Test
     public void testInitializePresenter() {
         childRegisterFragment.initializePresenter();
-        Assert.assertNotNull(presenter);
+        assertNotNull(presenter);
     }
 
 
@@ -138,7 +138,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     @Test
     public void testRecalculatePagination() {
 
-        Assert.assertNotNull(childRegisterFragment);
+        assertNotNull(childRegisterFragment);
 
         Whitebox.setInternalState(childRegisterFragment, "clientAdapter", clientAdapter);
 
