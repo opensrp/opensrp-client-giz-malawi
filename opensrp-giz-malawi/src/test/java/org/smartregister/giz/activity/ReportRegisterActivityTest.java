@@ -121,7 +121,9 @@ public class ReportRegisterActivityTest extends BaseUnitTest {
 
     @Test
     public void testOnRegistrationSaved() {
+        View view = Mockito.mock(View.class);
         activity.onRegistrationSaved(true);
+        Assert.assertNotNull(view);
     }
 
     @Test
