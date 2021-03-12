@@ -26,7 +26,7 @@ import java.util.Map;
 public class ReportRegisterActivity extends BaseActivity {
     protected ListView listView;
     protected TextView titleTv;
-    private ImageView reportSyncBtn;
+    protected ImageView reportSyncBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
