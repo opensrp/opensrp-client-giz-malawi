@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -82,7 +83,7 @@ public class FragmentBaseActivity extends SecuredActivity {
                             @Override
                             public void onFailure(PdfGeneratorHelper.FailureResponse failureResponse) {
                                 super.onFailure(failureResponse);
-                                Timber.e(failureResponse.getThrowable(),"Pdf Could not be Generated");
+                                Timber.e(failureResponse.getThrowable(), "Pdf Could not be Generated");
                             }
 
                             @Override
@@ -185,8 +186,8 @@ public class FragmentBaseActivity extends SecuredActivity {
                 Date date = null;
                 try {
                     date = df.parse(report_date);
-                } catch (Exception e) {
-                    Timber.e(e,"Date could not be formatted");
+                } catch (ParseException e) {
+                    Timber.e(e, "Date could not be formatted");
                 }
                 emailSubject = String.format("%s - %s - %s", name, new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(date), communityName);
                 emailAttachmentName = String.format("%s-%s-%s", name, new SimpleDateFormat("ddMMyyyy hh:mm:ss").format(date), communityName);
