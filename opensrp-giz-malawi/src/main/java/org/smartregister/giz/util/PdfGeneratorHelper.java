@@ -71,7 +71,7 @@ public class PdfGeneratorHelper {
             }
 
         } catch (Exception e) {
-            Timber.e("Could not inflate Layout");
+            Timber.e(e,"Could not inflate Layout");
         }
         return viewList;
     }

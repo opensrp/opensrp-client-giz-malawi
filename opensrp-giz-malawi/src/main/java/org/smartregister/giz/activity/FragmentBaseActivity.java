@@ -82,7 +82,7 @@ public class FragmentBaseActivity extends SecuredActivity {
                             @Override
                             public void onFailure(PdfGeneratorHelper.FailureResponse failureResponse) {
                                 super.onFailure(failureResponse);
-                                Timber.e("Pdf Could not be Generated");
+                                Timber.e(failureResponse.getThrowable(),"Pdf Could not be Generated");
                             }
 
                             @Override
@@ -186,7 +186,7 @@ public class FragmentBaseActivity extends SecuredActivity {
                 try {
                     date = df.parse(report_date);
                 } catch (Exception e) {
-                    Timber.e("Date could not be formatted");
+                    Timber.e(e,"Date could not be formatted");
                 }
                 emailSubject = String.format("%s - %s - %s", name, new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(date), communityName);
                 emailAttachmentName = String.format("%s-%s-%s", name, new SimpleDateFormat("ddMMyyyy hh:mm:ss").format(date), communityName);
