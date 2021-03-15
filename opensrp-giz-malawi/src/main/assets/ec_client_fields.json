@@ -1559,16 +1559,9 @@
       "columns": [
         {
           "column_name": "location_id",
-          "type": "Event",
+          "type": "Client",
           "json_mapping": {
-            "field": "locationId"
-          }
-        },
-        {
-          "column_name": "provider_id",
-          "type": "Event",
-          "json_mapping": {
-            "field": "providerId"
+            "field": "addresses.address2"
           }
         },
         {

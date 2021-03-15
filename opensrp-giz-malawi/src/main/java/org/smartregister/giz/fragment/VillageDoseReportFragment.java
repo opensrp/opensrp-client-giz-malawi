@@ -1,7 +1,15 @@
 package org.smartregister.giz.fragment;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import org.smartregister.giz.R;
+import org.smartregister.giz.activity.FragmentBaseActivity;
 import org.smartregister.giz.adapter.VillageDoseAdapter;
 import org.smartregister.giz.dao.ReportDao;
 import org.smartregister.giz.domain.VillageDose;
@@ -15,6 +23,27 @@ import java.util.List;
 
 public class VillageDoseReportFragment extends ReportResultFragment<VillageDose> {
     public static final String TAG = "VillageDoseReportFragment";
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_send_report, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_send_report) {
+            ((FragmentBaseActivity) getActivity()).sendEmail();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void executeFetch() {

@@ -894,12 +894,16 @@
     <string name="vaccine_needed_report_grouping_title">Vaccine Doses Needed</string>
     <string name="select_community">Select Community</string>
     <string name="select_options">Select options</string>
-    <string name="outreach_date">Outreach Date</string>
+    <string name="outreach_date">Date</string>
     <string name="view_report">View Report</string>
     <string name="due">Due </string>
     <string name="family">Family</string>
     <string name="date">Date</string>
     <string name="vaccine_doses_needed">Vaccine Doses Needed</string>
+
+    <string name="mr">MR</string>
+    <string name="mv">MV</string>
+    <string name="rota">ROTA</string>
     <string name="due_on">Due on</string>
     <string name="no_village_selected">"No Village selected"</string>
 </resources>

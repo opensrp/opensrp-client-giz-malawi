@@ -231,7 +231,6 @@ tasks.withType(Test) {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.1.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
 
     jarJar 'com.ibm.fhir:fhir-model:4.2.3'
@@ -248,7 +247,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.5.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.6.9-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -280,7 +279,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    api('org.smartregister:opensrp-client-core:3.3.1-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-core:4.2.13-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
@@ -295,7 +294,7 @@ dependencies {
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
     }
 
-    implementation('org.smartregister:opensrp-client-maternity:0.0.7-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-maternity:0.0.8-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -304,7 +303,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    api('org.smartregister:opensrp-client-pnc:0.0.5-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-pnc:0.0.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -313,7 +312,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    api('org.smartregister:opensrp-client-immunization:1.4.43-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-immunization:3.0.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'

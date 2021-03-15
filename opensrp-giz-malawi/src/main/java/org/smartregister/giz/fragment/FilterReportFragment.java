@@ -85,7 +85,6 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
         editTextDate = view.findViewById(R.id.editTextDate);
         autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView);
-
         bindAutoCompleteText();
         bindDatePicker();
         updateLabel();
