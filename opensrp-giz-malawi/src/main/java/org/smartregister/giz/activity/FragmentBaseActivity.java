@@ -35,7 +35,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -77,13 +76,13 @@ public class FragmentBaseActivity extends SecuredActivity {
                         .fromView(getPDFRootView())
                         .setDefaultPageSize(PdfGeneratorHelper.PageSize.WRAP_CONTENT)
                         .setFileName(emailAttachmentName)
-                        .setFolderName("Reports")
+                        .setFolderName(GizConstants.EmailParameterHelper.REPORTS)
                         .openPDFafterGeneration(false)
                         .build(new PdfGeneratorListener() {
                             @Override
                             public void onFailure(PdfGeneratorHelper.FailureResponse failureResponse) {
                                 super.onFailure(failureResponse);
-                                failureResponse.getThrowable().printStackTrace();
+                                Timber.e("Pdf Could not be Generated");
                             }
 
                             @Override
@@ -186,8 +185,8 @@ public class FragmentBaseActivity extends SecuredActivity {
                 Date date = null;
                 try {
                     date = df.parse(report_date);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    Timber.e("Date could not be formatted");
                 }
                 emailSubject = String.format("%s - %s - %s", name, new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(date), communityName);
                 emailAttachmentName = String.format("%s-%s-%s", name, new SimpleDateFormat("ddMMyyyy hh:mm:ss").format(date), communityName);

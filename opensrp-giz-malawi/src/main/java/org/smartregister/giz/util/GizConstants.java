@@ -14,6 +14,57 @@ public class GizConstants {
     public static final String REGISTER_TYPE = "register_type";
     public static final String IS_FROM_MATERNITY = "isFromMaternity";
 
+    public interface Columns {
+        interface RegisterType {
+            String BASE_ENTITY_ID = "base_entity_id";
+            String REGISTER_TYPE = "register_type";
+            String DATE_REMOVED = "date_removed";
+            String DATE_CREATED = "date_created";
+        }
+    }
+
+    public interface DateTimeFormat {
+        String HH_MM_AMPM = "h:mm a";
+        String YYYY_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
+    }
+
+    public interface RegisterType {
+        String ANC = "anc";
+        String CHILD = "child";
+        String OPD = "opd";
+        String ALL_CLIENTS = "all_clients";
+        String MATERNITY = "maternity";
+        String PNC = "pnc";
+    }
+
+    public interface MultiResultProcessor {
+        String GROUPING_SEPARATOR = "_";
+    }
+
+    public interface IntentKey {
+        String REPORT_GROUPING = "report-grouping";
+    }
+
+    public interface Pref {
+        String APP_VERSION_CODE = "APP_VERSION_CODE";
+        String INDICATOR_DATA_INITIALISED = "INDICATOR_DATA_INITIALISED";
+    }
+
+    public interface File {
+        String INDICATOR_CONFIG_FILE = "config/indicator-definitions.yml";
+    }
+
+    public interface ReportKeys {
+        String REPORT_JSON = "reportJson";
+        String REPORT_DATE = "reportDate";
+        String GROUPING = "grouping";
+        String PROVIDER_ID = "providerId";
+        String DATE_CREATED = "dateCreated";
+        String HIA2_INDICATORS = "hia2Indicators";
+        String VALUE = "value";
+        String INDICATOR_CODE = "indicatorCode";
+    }
+
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
         public static final String CHILD = "child";
@@ -63,13 +114,11 @@ public class GizConstants {
         public static final String ATTRIBUTES = "attributes";
         public static final int FIVE_YEAR = 5;
         public static final String OPD_REGISTRATION = "Opd Registration";
-        public static String SITE_CHARACTERISTICS = "site_characteristics";
-
         public static final String FIELDS = "fields";
         public static final String KEY = "key";
         public static final String IS_VACCINE_GROUP = "is_vaccine_group";
         public static final String OPTIONS = "options";
-
+        public static String SITE_CHARACTERISTICS = "site_characteristics";
         public static String HIDDEN_FIELDS = "hidden_fields";
         public static String DISABLED_FIELDS = "disabled_fields";
     }
@@ -131,15 +180,6 @@ public class GizConstants {
         public static final String CHILD_UPDATED_ALERTS = "child_updated_alerts";
     }
 
-    public interface Columns {
-        interface RegisterType {
-            String BASE_ENTITY_ID = "base_entity_id";
-            String REGISTER_TYPE = "register_type";
-            String DATE_REMOVED = "date_removed";
-            String DATE_CREATED = "date_created";
-        }
-    }
-
     public static final class EntityType {
         public static final String CHILD = "child";
     }
@@ -148,52 +188,14 @@ public class GizConstants {
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
 
-    public interface DateTimeFormat {
-        String HH_MM_AMPM = "h:mm a";
-        String YYYY_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
-    }
-
-    public interface RegisterType {
-        String ANC = "anc";
-        String CHILD = "child";
-        String OPD = "opd";
-        String ALL_CLIENTS = "all_clients";
-        String MATERNITY = "maternity";
-        String PNC = "pnc";
-    }
-
-    public interface MultiResultProcessor {
-        String GROUPING_SEPARATOR = "_";
-    }
-
-    public interface IntentKey {
-        String REPORT_GROUPING = "report-grouping";
-    }
-
-    public interface Pref {
-        String APP_VERSION_CODE = "APP_VERSION_CODE";
-        String INDICATOR_DATA_INITIALISED = "INDICATOR_DATA_INITIALISED";
-    }
-
-    public interface File {
-        String INDICATOR_CONFIG_FILE = "config/indicator-definitions.yml";
-    }
-
-    public interface ReportKeys {
-        String REPORT_JSON = "reportJson";
-        String REPORT_DATE = "reportDate";
-        String GROUPING = "grouping";
-        String PROVIDER_ID = "providerId";
-        String DATE_CREATED = "dateCreated";
-        String HIA2_INDICATORS = "hia2Indicators";
-        String VALUE = "value";
-        String INDICATOR_CODE = "indicatorCode";
-    }
-
     public static class ReportParametersHelper {
         public static String COMMUNITY = "COMMUNITY";
         public static String COMMUNITY_ID = "COMMUNITY_ID";
         public static String REPORT_DATE = "REPORT_DATE";
+    }
+
+    public static class EmailParameterHelper {
+        public static String REPORTS = "Reports";
     }
 
 
