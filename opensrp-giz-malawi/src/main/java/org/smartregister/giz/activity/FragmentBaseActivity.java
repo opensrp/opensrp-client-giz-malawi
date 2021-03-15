@@ -77,13 +77,13 @@ public class FragmentBaseActivity extends SecuredActivity {
                         .fromView(getPDFRootView())
                         .setDefaultPageSize(PdfGeneratorHelper.PageSize.WRAP_CONTENT)
                         .setFileName(emailAttachmentName)
-                        .setFolderName("Reports")
+                        .setFolderName(GizConstants.EmailParameterHelper.REPORTS)
                         .openPDFafterGeneration(false)
                         .build(new PdfGeneratorListener() {
                             @Override
                             public void onFailure(PdfGeneratorHelper.FailureResponse failureResponse) {
                                 super.onFailure(failureResponse);
-                                failureResponse.getThrowable().printStackTrace();
+                                Timber.e(failureResponse.getThrowable(), "Pdf Could not be Generated");
                             }
 
                             @Override
@@ -187,7 +187,7 @@ public class FragmentBaseActivity extends SecuredActivity {
                 try {
                     date = df.parse(report_date);
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Timber.e(e, "Date could not be formatted");
                 }
                 emailSubject = String.format("%s - %s - %s", name, new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(date), communityName);
                 emailAttachmentName = String.format("%s-%s-%s", name, new SimpleDateFormat("ddMMyyyy hh:mm:ss").format(date), communityName);

@@ -197,11 +197,11 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
     private String getReasonForDefaulting() {
         try {
-            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("report_reason_for_defaulting");
+            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(GizConstants.ReasonForDefaultingHelper.REPORT_REASON_FOR_DEFAULTING);
             return form == null ? null : form.toString();
 
         } catch (Exception e) {
-            Timber.e(e);
+            Timber.e(e, "Failed to Instantiate Form");
         }
         return "";
     }

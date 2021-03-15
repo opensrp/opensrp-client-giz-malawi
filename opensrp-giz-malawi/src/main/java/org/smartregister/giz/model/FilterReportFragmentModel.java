@@ -43,11 +43,7 @@ public class FilterReportFragmentModel implements FindReportContract.Model {
     private LinkedHashMap<String, TreeNode<String, Location>> readLocationMap() {
         String locationData = CoreLibrary.getInstance().context().anmLocationController().get();
         LocationTree locationTree = AssetHandler.jsonStringToJava(locationData, LocationTree.class);
-        if (locationTree != null) {
-            return locationTree.getLocationsHierarchy();
-        }
-        return null;
+        return (locationTree != null) ? locationTree.getLocationsHierarchy(): null;
     }
-
 }
 

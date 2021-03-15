@@ -28,7 +28,6 @@ import org.smartregister.child.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
-import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.activity.AllClientsRegisterActivity;
@@ -56,7 +55,6 @@ import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizPncRegisterRowOptions;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
-import org.smartregister.giz.model.ReasonForDefaultingModel;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.processor.TripleResultProcessor;
 import org.smartregister.giz.repository.ChildAlertUpdatedRepository;
@@ -593,7 +591,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     @VisibleForTesting
     protected void fixHardcodedVaccineConfiguration() {
-        VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines();
+        VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines("child");
 
         HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
         replacementVaccines.put("MR 2", new VaccineDuplicate("MR 2", VaccineRepo.Vaccine.mr1, -1, 548, 183, "child"));
@@ -611,7 +609,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             }
         }
 
-        ImmunizationLibrary.getInstance().setVaccines(vaccines);
+        ImmunizationLibrary.getInstance().setVaccines(vaccines, "child");
     }
 
     public DailyTalliesRepository dailyTalliesRepository() {
