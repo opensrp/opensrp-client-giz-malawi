@@ -40,9 +40,8 @@ public class ReportSummaryActivity extends BaseActivity {
     public static final String EXTRA_SUB_TITLE = "sub_title";
     public static final String EXTRA_TITLE = "title";
     public static final String EXTRA_REPORT_GROUPING = "report-grouping";
+    protected String subTitle;
     private LinkedHashMap<String, ArrayList<Tally>> tallies;
-
-    private String subTitle;
     private String reportGrouping;
 
     @SuppressWarnings("unchecked")
