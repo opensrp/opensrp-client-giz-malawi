@@ -43,7 +43,7 @@ public class SaveReasonForDefaultingEventTask extends AsyncTask<Void, Void, Void
         try {
             processReasonForDefaultingEvent();
         } catch (Exception e) {
-            Timber.e(Log.getStackTraceString(e));
+            Timber.e(e);
         }
 
         return null;
