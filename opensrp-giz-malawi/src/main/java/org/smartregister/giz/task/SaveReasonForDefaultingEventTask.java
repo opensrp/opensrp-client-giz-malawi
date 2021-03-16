@@ -26,19 +26,17 @@ import timber.log.Timber;
 
 public class SaveReasonForDefaultingEventTask {
     private final String jsonString;
-    private final String locationId;
     private final String baseEntityId;
-    private final String providerId;
     private final EventClientRepository eventClientRepository;
     private final CallableInteractor interactor = new GenericInteractor();
 
 
-    public SaveReasonForDefaultingEventTask(String jsonString, String locationId, String baseEntityId, String providerId,
+    public SaveReasonForDefaultingEventTask(String jsonString, String baseEntityId,
                                             EventClientRepository eventClientRepository) {
+
+
         this.jsonString = jsonString;
-        this.locationId = locationId;
         this.baseEntityId = baseEntityId;
-        this.providerId = providerId;
         this.eventClientRepository = eventClientRepository;
     }
 

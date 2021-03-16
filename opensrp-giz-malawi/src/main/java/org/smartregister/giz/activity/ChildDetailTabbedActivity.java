@@ -164,7 +164,7 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
             JSONObject form = new JSONObject(jsonString);
             String encounterType = form.optString(ChildJsonFormUtils.ENCOUNTER_TYPE);
             if (encounterType.equalsIgnoreCase(GizConstants.EventType.REASON_FOR_DEFAULTING)) {
-                new SaveReasonForDefaultingEventTask(jsonString, "", childDetails.entityId(), allSharedPreferences.fetchRegisteredANM(), CoreLibrary.getInstance().context().getEventClientRepository())
+                new SaveReasonForDefaultingEventTask(jsonString, childDetails.entityId(), CoreLibrary.getInstance().context().getEventClientRepository())
                         .run();
 
             }
