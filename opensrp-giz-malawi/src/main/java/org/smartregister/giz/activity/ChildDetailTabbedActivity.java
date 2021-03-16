@@ -162,13 +162,14 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
             Timber.d(jsonString);
 
             JSONObject form = new JSONObject(jsonString);
-            String encounterType = form.getString(ChildJsonFormUtils.ENCOUNTER_TYPE);
+            String encounterType = form.optString(ChildJsonFormUtils.ENCOUNTER_TYPE);
             if (encounterType.equalsIgnoreCase(GizConstants.EventType.REASON_FOR_DEFAULTING)) {
-                org.smartregister.child.util.Utils.startAsyncTask(new SaveReasonForDefaultingEventTask(jsonString, "", childDetails.entityId(), allSharedPreferences.fetchRegisteredANM(), CoreLibrary.getInstance().context().getEventClientRepository()), null);
+                new SaveReasonForDefaultingEventTask(jsonString, "", childDetails.entityId(), allSharedPreferences.fetchRegisteredANM(), CoreLibrary.getInstance().context().getEventClientRepository())
+                        .run();
 
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e, "Could not load the Form");
         }
     }
 

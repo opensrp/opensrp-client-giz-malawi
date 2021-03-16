@@ -35,15 +35,15 @@ public class ReasonForDefaultingRepository extends BaseRepository {
     }
 
     public void addOrUpdate(ReasonForDefaultingModel reasonForDefaultingModel) {
-        addOrUpdateReasonForDefaulting(reasonForDefaultingModel, getWritableDatabase());
+        addOrUpdateReasonForDefaulting(reasonForDefaultingModel);
     }
 
-    public void addOrUpdateReasonForDefaulting(ReasonForDefaultingModel reasonForDefaultingModel, SQLiteDatabase database) {
+    public void addOrUpdateReasonForDefaulting(ReasonForDefaultingModel reasonForDefaultingModel) {
+        SQLiteDatabase database = getWritableDatabase();
         if (reasonForDefaultingModel == null) {
             return;
         }
         database.replace(TABLE_NAME, null, createValues(reasonForDefaultingModel));
-
     }
 
     private ContentValues createValues(ReasonForDefaultingModel reasonForDefaultingModel) {
@@ -83,7 +83,7 @@ public class ReasonForDefaultingRepository extends BaseRepository {
             }
 
         } catch (Exception e) {
-            Timber.e(e.getMessage());
+            Timber.e(e, "Could not add records");
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -96,7 +96,7 @@ public class ReasonForDefaultingRepository extends BaseRepository {
         try {
             getWritableDatabase().execSQL("DELETE FROM reason_for_defaulting WHERE id ='" + baseEntityID + "'");
         } catch (Exception e) {
-            Timber.e(e);
+            Timber.e(e, "Could not delete records");
         }
     }
 

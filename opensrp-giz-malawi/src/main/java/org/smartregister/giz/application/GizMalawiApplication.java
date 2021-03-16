@@ -288,7 +288,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public static String getObsValue(Obs obs) {
         List<Object> values = obs.getValues();
-        if (values.size() > 0) {
+        if (values != null && values.size() > 0) {
             return (String) values.get(0);
         }
         return null;
@@ -680,17 +680,5 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         }
         return this.reasonForDefaultingRepository;
     }
-
-
-  /*  public void clientProcessReasonForDefaultingEvent(Event event) {
-        ReasonForDefaultingModel reasonForDefaultingModel = getReasonForDefaultingRepository(event);
-        if (reasonForDefaultingModel != null) {
-            ReasonForDefaultingRepository repo = reasonForDefaultingRepository();
-            if (StringUtils.isBlank(reasonForDefaultingModel.getId()))
-                reasonForDefaultingModel.setId(event.getBaseEntityId());
-            reasonForDefaultingModel.setBaseEntityId(event.getBaseEntityId());
-            repo.addOrUpdate(reasonForDefaultingModel);
-        }
-    }*/
 }
 
