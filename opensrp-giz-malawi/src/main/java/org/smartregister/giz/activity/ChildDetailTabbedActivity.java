@@ -26,7 +26,6 @@ import org.smartregister.giz.task.SaveReasonForDefaultingEventTask;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizJsonFormUtils;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.Utils;
@@ -156,7 +155,6 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        AllSharedPreferences allSharedPreferences = getOpenSRPContext().allSharedPreferences();
         try {
             String jsonString = data.getStringExtra(JsonFormConstants.JSON_FORM_KEY.JSON);
             Timber.d(jsonString);
