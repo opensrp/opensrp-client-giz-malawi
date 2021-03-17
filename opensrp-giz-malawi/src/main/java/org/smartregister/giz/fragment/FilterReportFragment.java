@@ -77,6 +77,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         super.onResume();
         if(autoCompleteTextView != null){
             autoCompleteTextView.setText("");
+            selectedItem = null;
         }
         if(editTextDate != null){
             Calendar calendar = Calendar.getInstance();
