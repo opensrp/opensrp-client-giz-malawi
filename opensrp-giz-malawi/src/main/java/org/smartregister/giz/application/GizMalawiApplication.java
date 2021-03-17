@@ -28,6 +28,7 @@ import org.smartregister.child.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
+import org.smartregister.domain.Obs;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.activity.AllClientsRegisterActivity;
 import org.smartregister.giz.activity.AncRegisterActivity;
@@ -66,6 +67,7 @@ import org.smartregister.giz.repository.GizHia2ReportRepository;
 import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
+import org.smartregister.giz.repository.ReasonForDefaultingRepository;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
@@ -150,6 +152,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private ChildAlertUpdatedRepository childAlertUpdatedRepository;
     private GizEventRepository gizEventRepository;
     private AppExecutors appExecutors;
+    private ReasonForDefaultingRepository reasonForDefaultingRepository;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -283,6 +286,14 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return vaccineGroups;
     }
 
+    public static String getObsValue(Obs obs) {
+        List<Object> values = obs.getValues();
+        if (values != null && values.size() > 0) {
+            return (String) values.get(0);
+        }
+        return null;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -346,6 +357,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         initMinimumDateForReportGeneration();
+
     }
 
     private void initMinimumDateForReportGeneration() {
@@ -660,6 +672,13 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             appExecutors = new AppExecutors();
         }
         return appExecutors;
+    }
+
+    public ReasonForDefaultingRepository reasonForDefaultingRepository() {
+        if (reasonForDefaultingRepository == null) {
+            this.reasonForDefaultingRepository = new ReasonForDefaultingRepository();
+        }
+        return this.reasonForDefaultingRepository;
     }
 }
 

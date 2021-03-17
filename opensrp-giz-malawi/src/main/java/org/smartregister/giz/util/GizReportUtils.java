@@ -2,6 +2,10 @@ package org.smartregister.giz.util;
 
 import androidx.annotation.NonNull;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -9,18 +13,23 @@ import org.smartregister.child.util.ChildJsonFormUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.clientandeventmodel.Event;
+import org.smartregister.domain.Obs;
 import org.smartregister.domain.tag.FormTag;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.Report;
 import org.smartregister.giz.domain.ReportHia2Indicator;
+import org.smartregister.giz.model.ReasonForDefaultingModel;
 import org.smartregister.opd.utils.OpdJsonFormUtils;
 
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import timber.log.Timber;
+
+import static org.smartregister.giz.application.GizMalawiApplication.getObsValue;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-12-02
@@ -82,5 +91,71 @@ public class GizReportUtils {
                 .toLowerCase()
                 .replace(" ", "_")
                 .replace("/", "");
+    }
+
+
+    public static ReasonForDefaultingModel getReasonForDefaultingModel(List<Obs> defaultingObs) throws JsonProcessingException {
+        ReasonForDefaultingModel reasonForDefaultingModel = new ReasonForDefaultingModel();
+        for (Obs obs : defaultingObs) {
+            if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.ADDITIONAL_DEFAULTING_NOTES)) {
+                String value = getObsValue(obs);
+                if (StringUtils.isNotBlank(value)) {
+                    reasonForDefaultingModel.setAdditionalDefaultingNotes(value);
+                    continue;
+                } else
+                    return null;
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.BASE_ENTITY_ID)) {
+                String value = getObsValue(obs);
+                if (StringUtils.isNotBlank(value)) {
+                    reasonForDefaultingModel.setBaseEntityId(value);
+                    continue;
+                } else
+                    return null;
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OUTREACH_DATE)) {
+                String value = getObsValue(obs);
+                if (StringUtils.isNotBlank(value)) {
+                    reasonForDefaultingModel.setOutreachDate(value);
+                    continue;
+                } else
+                    return null;
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.FOLLOWUP_DATE)) {
+                String value = getObsValue(obs);
+                if (StringUtils.isNotBlank(value)) {
+                    reasonForDefaultingModel.setFollowupDate(value);
+                    continue;
+                } else
+                    return null;
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OUTREACH_DEFAULTING_REASON)) {
+                Map<String, Object> value = obs.getKeyValPairs();
+                ObjectMapper om = new ObjectMapper();
+                String json = om.writeValueAsString(value);
+
+                if (StringUtils.isNotBlank(json)) {
+                    reasonForDefaultingModel.setOutreachDefaultingReason(json);
+                    continue;
+                } else
+                    return null;
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OTHER_DEFAULTING_REASON)) {
+                String value = getObsValue(obs);
+                if (StringUtils.isNotBlank(value)) {
+                    reasonForDefaultingModel.setOtherOutreachDefaultingReason(value);
+                    continue;
+                } else
+                    return null;
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.EVENT_DATE)) {
+                String value = getObsValue(obs);
+                if (StringUtils.isNotBlank(value)) {
+                    reasonForDefaultingModel.setDateCreated(value);
+                    continue;
+                } else
+                    return null;
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.ID)) {
+                String value = getObsValue(obs);
+                if (StringUtils.isNotBlank(value)) {
+                    reasonForDefaultingModel.setId(value);
+                }
+            }
+        }
+        return reasonForDefaultingModel;
     }
 }

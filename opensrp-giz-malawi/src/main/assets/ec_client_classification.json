@@ -261,6 +261,13 @@
             "creates_case": [
               "ec_child_details"
             ]
+          },
+          {
+            "field": "eventType",
+            "field_value": "Reason For Defaulting",
+            "creates_case": [
+              "reason_for_defaulting"
+            ]
           }
         ]
       }

@@ -160,11 +160,13 @@ public class GizConstants {
         public static final String OPD_MATERNITY_TRANSFER = "opd_maternity_transfer";
         public static final String OPD_ANC_TRANSFER = "opd_anc_transfer";
         public static final String OPD_CHILD_TRANSFER = "opd_child_transfer";
+        public static final String REASON_FOR_DEFAULTING = "Reason For Defaulting";
     }
 
     public static class JSON_FORM {
         public static String CHILD_ENROLLMENT = "child_enrollment";
         public static String OUT_OF_CATCHMENT_SERVICE = "out_of_catchment_service";
+        public static String REASON_FOR_DEFAULTING = "report_reason_for_defaulting";
 
     }
 
@@ -178,6 +180,7 @@ public class GizConstants {
         public static final String ALL_CLIENTS = "ec_client";
         public static final String REGISTER_TYPE = "client_register_type";
         public static final String CHILD_UPDATED_ALERTS = "child_updated_alerts";
+        public static final String REASON_FOR_DEFAULTING = "reason_for_defaulting";
     }
 
     public static final class EntityType {
@@ -194,9 +197,22 @@ public class GizConstants {
         public static String REPORT_DATE = "REPORT_DATE";
     }
 
+    public static class JsonAssetsHelper {
+        public static final String ID = "id";
+        public static final String OUTREACH_DATE = "outreach_date";
+        public static final String FOLLOWUP_DATE = "followup_date";
+        public static final String OUTREACH_DEFAULTING_REASON = "outreach_defaulting_rsn";
+        public static final String OTHER_DEFAULTING_REASON = "other_defaulting_rsn";
+        public static final String ADDITIONAL_DEFAULTING_NOTES = "additional_defaulting_notes";
+        public static final String BASE_ENTITY_ID = "base_entity_id";
+        public static final String EVENT_DATE = "date";
+    }
+
     public static class EmailParameterHelper {
         public static String REPORTS = "Reports";
     }
 
-
+    public static class ReasonForDefaultingHelper{
+        public static String REPORT_REASON_FOR_DEFAULTING = "report_reason_for_defaulting";
+    }
 }
