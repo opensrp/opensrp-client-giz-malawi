@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import net.sqlcipher.DatabaseUtils;
+import net.sqlcipher.SQLException;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.smartregister.giz.model.ReasonForDefaultingModel;
@@ -82,7 +83,7 @@ public class ReasonForDefaultingRepository extends BaseRepository {
                 } while (cursor.moveToNext());
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Timber.e(e, "Could not add records");
         } finally {
             if (cursor != null) {
@@ -95,7 +96,7 @@ public class ReasonForDefaultingRepository extends BaseRepository {
     public void purgeReasonForDefaulting(String baseEntityID) {
         try {
             getWritableDatabase().execSQL("DELETE FROM reason_for_defaulting WHERE id ='" + baseEntityID + "'");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             Timber.e(e, "Could not delete records");
         }
     }
