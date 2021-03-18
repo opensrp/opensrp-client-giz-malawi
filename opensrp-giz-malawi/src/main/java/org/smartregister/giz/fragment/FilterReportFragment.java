@@ -124,7 +124,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 ((InputMethodManager) (context).getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                autoCompleteTextView.requestFocus();
+                v.requestFocus();
                 return true;
             }
         });
