@@ -1,52 +1,61 @@
 package org.smartregister.giz.task;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.util.ChildJsonFormUtils;
 import org.smartregister.child.util.Constants;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.FormEntityConstants;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.db.EventClient;
+import org.smartregister.domain.tag.FormTag;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.util.GizUtils;
 import org.smartregister.repository.EventClientRepository;
+import org.smartregister.util.CallableInteractor;
+import org.smartregister.util.CallableInteractorCallBack;
+import org.smartregister.util.GenericInteractor;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.concurrent.Callable;
 
 import timber.log.Timber;
 
-public class SaveReasonForDefaultingEventTask extends AsyncTask<Void, Void, Void> {
+public class SaveReasonForDefaultingEventTask {
     private final String jsonString;
-    private final String locationId;
     private final String baseEntityId;
-    private final String providerId;
     private final EventClientRepository eventClientRepository;
+    private final CallableInteractor interactor = new GenericInteractor();
 
-    public SaveReasonForDefaultingEventTask(String jsonString, String locationId, String baseEntityId, String providerId,
+
+    public SaveReasonForDefaultingEventTask(String jsonString, String baseEntityId,
                                             EventClientRepository eventClientRepository) {
+
+
         this.jsonString = jsonString;
-        this.locationId = locationId;
         this.baseEntityId = baseEntityId;
-        this.providerId = providerId;
         this.eventClientRepository = eventClientRepository;
     }
 
-    @Override
-    protected Void doInBackground(Void... params) {
-        try {
+    public void run() {
+        Callable<Void> callable = () -> {
             processReasonForDefaultingEvent();
-        } catch (Exception e) {
-            Timber.e(Log.getStackTraceString(e));
-        }
+            return null;
+        };
+        interactor.execute(callable, new CallableInteractorCallBack<Void>() {
+            @Override
+            public void onResult(Void aVoid) {
+                Timber.v("Completed");
+            }
 
-        return null;
+            @Override
+            public void onError(Exception e) {
+                Timber.e(e);
+            }
+        });
     }
 
     private void processReasonForDefaultingEvent() throws Exception {
@@ -58,32 +67,15 @@ public class SaveReasonForDefaultingEventTask extends AsyncTask<Void, Void, Void
             return;
         }
 
-        String encounterDateField = ChildJsonFormUtils.getFieldValue(fields, Constants.DATE_REACTION);
         String encounterType = ChildJsonFormUtils.getString(jsonForm, ChildJsonFormUtils.ENCOUNTER_TYPE);
         JSONObject metadata = ChildJsonFormUtils.getJSONObject(jsonForm, ChildJsonFormUtils.METADATA);
 
-        Date encounterDate = new Date();
-        if (StringUtils.isNotBlank(encounterDateField)) {
-            Date dateTime = ChildJsonFormUtils.formatDate(encounterDateField, false);
-            if (dateTime != null) {
-                encounterDate = dateTime;
-            }
-        }
-
-        Event event = (Event) new Event()
-                .withBaseEntityId(baseEntityId) //should be different for main and subform
-                .withEventDate(encounterDate)
-                .withEventType(encounterType)
-                .withLocationId(locationId)
-                .withProviderId(providerId).withEntityType(Constants.CHILD_TYPE)
-                .withChildLocationId(ChildLibrary.getInstance().context().allSharedPreferences().fetchCurrentLocality())
-                .withFormSubmissionId(ChildJsonFormUtils.generateRandomUUIDString()).withDateCreated(new Date());
-
-
+        FormTag formTag = ChildJsonFormUtils.formTag(GizUtils.getAllSharedPreferences());
+        Event event = ChildJsonFormUtils.createEvent(fields, metadata,
+                formTag, baseEntityId, encounterType, "");
         //add metadata
         addMetadata(fields, event, metadata);
     }
-
 
     private void addMetadata(JSONArray fields, Event event, JSONObject metadata) throws Exception {
         for (int i = 0; i < fields.length(); i++) {

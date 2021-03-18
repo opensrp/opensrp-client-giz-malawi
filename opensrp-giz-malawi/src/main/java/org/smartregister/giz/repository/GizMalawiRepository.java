@@ -201,6 +201,7 @@ public class GizMalawiRepository extends Repository {
         }
 
         ChildDbMigrations.addShowBcg2ReminderAndBcgScarColumnsToEcChildDetails(db);
+
 //        DailyIndicatorCountRepository.performMigrations(db);
         IndicatorQueryRepository.performMigrations(db);
         dumpHIA2IndicatorsCSV(db);

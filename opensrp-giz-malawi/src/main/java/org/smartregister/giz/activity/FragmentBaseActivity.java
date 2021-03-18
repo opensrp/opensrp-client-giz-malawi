@@ -78,13 +78,13 @@ public class FragmentBaseActivity extends SecuredActivity {
                         .fromView(getPDFRootView())
                         .setDefaultPageSize(PdfGeneratorHelper.PageSize.WRAP_CONTENT)
                         .setFileName(emailAttachmentName)
-                        .setFolderName("Reports")
+                        .setFolderName(GizConstants.EmailParameterHelper.REPORTS)
                         .openPDFafterGeneration(false)
                         .build(new PdfGeneratorListener() {
                             @Override
                             public void onFailure(PdfGeneratorHelper.FailureResponse failureResponse) {
                                 super.onFailure(failureResponse);
-                                failureResponse.getThrowable().printStackTrace();
+                                Timber.e(failureResponse.getThrowable(), "Pdf Could not be Generated");
                             }
 
                             @Override
@@ -188,7 +188,7 @@ public class FragmentBaseActivity extends SecuredActivity {
                 try {
                     date = df.parse(report_date);
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                    Timber.e(e, "Date could not be formatted");
                 }
 
                 SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm:ss", Locale.US);

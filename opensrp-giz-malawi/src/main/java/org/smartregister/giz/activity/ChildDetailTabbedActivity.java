@@ -26,7 +26,6 @@ import org.smartregister.giz.task.SaveReasonForDefaultingEventTask;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizJsonFormUtils;
 import org.smartregister.giz.util.GizUtils;
-import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.FormUtils;
 import org.smartregister.util.JsonFormUtils;
 import org.smartregister.util.Utils;
@@ -156,19 +155,19 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        AllSharedPreferences allSharedPreferences = getOpenSRPContext().allSharedPreferences();
         try {
             String jsonString = data.getStringExtra(JsonFormConstants.JSON_FORM_KEY.JSON);
             Timber.d(jsonString);
 
             JSONObject form = new JSONObject(jsonString);
-            String encounterType = form.getString(ChildJsonFormUtils.ENCOUNTER_TYPE);
+            String encounterType = form.optString(ChildJsonFormUtils.ENCOUNTER_TYPE);
             if (encounterType.equalsIgnoreCase(GizConstants.EventType.REASON_FOR_DEFAULTING)) {
-                org.smartregister.child.util.Utils.startAsyncTask(new SaveReasonForDefaultingEventTask(jsonString, "", childDetails.entityId(), allSharedPreferences.fetchRegisteredANM(), CoreLibrary.getInstance().context().getEventClientRepository()), null);
+                new SaveReasonForDefaultingEventTask(jsonString, childDetails.entityId(), CoreLibrary.getInstance().context().getEventClientRepository())
+                        .run();
 
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Timber.e(e, "Could not load the Form");
         }
     }
 
@@ -197,11 +196,11 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
 
     private String getReasonForDefaulting() {
         try {
-            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson("report_reason_for_defaulting");
+            JSONObject form = FormUtils.getInstance(getApplicationContext()).getFormJson(GizConstants.ReasonForDefaultingHelper.REPORT_REASON_FOR_DEFAULTING);
             return form == null ? null : form.toString();
 
         } catch (Exception e) {
-            Timber.e(e);
+            Timber.e(e, "Failed to Instantiate Form");
         }
         return "";
     }

@@ -197,7 +197,7 @@ public class GizConstants {
         public static String REPORT_DATE = "REPORT_DATE";
     }
 
-    public static class JsonAssets {
+    public static class JsonAssetsHelper {
         public static final String ID = "id";
         public static final String OUTREACH_DATE = "outreach_date";
         public static final String FOLLOWUP_DATE = "followup_date";
@@ -206,5 +206,13 @@ public class GizConstants {
         public static final String ADDITIONAL_DEFAULTING_NOTES = "additional_defaulting_notes";
         public static final String BASE_ENTITY_ID = "base_entity_id";
         public static final String EVENT_DATE = "date";
+    }
+
+    public static class EmailParameterHelper {
+        public static String REPORTS = "Reports";
+    }
+
+    public static class ReasonForDefaultingHelper{
+        public static String REPORT_REASON_FOR_DEFAULTING = "report_reason_for_defaulting";
     }
 }

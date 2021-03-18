@@ -94,38 +94,38 @@ public class GizReportUtils {
     }
 
 
-    public static ReasonForDefaultingModel getReasonForDefaultingRepository(List<Obs> defaultingObs) throws JsonProcessingException {
+    public static ReasonForDefaultingModel getReasonForDefaultingModel(List<Obs> defaultingObs) throws JsonProcessingException {
         ReasonForDefaultingModel reasonForDefaultingModel = new ReasonForDefaultingModel();
         for (Obs obs : defaultingObs) {
-            if (obs.getFormSubmissionField().equals(GizConstants.JsonAssets.ADDITIONAL_DEFAULTING_NOTES)) {
+            if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.ADDITIONAL_DEFAULTING_NOTES)) {
                 String value = getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setAdditionalDefaultingNotes(value);
                     continue;
                 } else
                     return null;
-            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssets.BASE_ENTITY_ID)) {
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.BASE_ENTITY_ID)) {
                 String value = getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setBaseEntityId(value);
                     continue;
                 } else
                     return null;
-            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssets.OUTREACH_DATE)) {
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OUTREACH_DATE)) {
                 String value = getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setOutreachDate(value);
                     continue;
                 } else
                     return null;
-            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssets.FOLLOWUP_DATE)) {
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.FOLLOWUP_DATE)) {
                 String value = getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setFollowupDate(value);
                     continue;
                 } else
                     return null;
-            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssets.OUTREACH_DEFAULTING_REASON)) {
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OUTREACH_DEFAULTING_REASON)) {
                 Map<String, Object> value = obs.getKeyValPairs();
                 ObjectMapper om = new ObjectMapper();
                 String json = om.writeValueAsString(value);
@@ -135,21 +135,21 @@ public class GizReportUtils {
                     continue;
                 } else
                     return null;
-            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssets.OTHER_DEFAULTING_REASON)) {
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OTHER_DEFAULTING_REASON)) {
                 String value = getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setOtherOutreachDefaultingReason(value);
                     continue;
                 } else
                     return null;
-            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssets.EVENT_DATE)) {
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.EVENT_DATE)) {
                 String value = getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setDateCreated(value);
                     continue;
                 } else
                     return null;
-            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssets.ID)) {
+            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.ID)) {
                 String value = getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setId(value);
