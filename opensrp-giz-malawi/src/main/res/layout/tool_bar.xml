@@ -12,7 +12,6 @@
         android:layout_marginStart="10dp"
         android:layout_centerVertical="true">
 
-        <!-- These two views here are mandatory in Child & adding them prevents crashes -->
         <ImageView
             android:layout_height="0dp"
             android:layout_width="0dp"
@@ -23,8 +22,6 @@
             android:layout_width="0dp"
             android:visibility="gone"
             android:id="@+id/sync_refresh"/>
-
-        <!-- END of useless child views -->
 
         <ImageView
             android:id="@+id/left_menu"
