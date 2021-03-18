@@ -73,15 +73,15 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        if(autoCompleteTextView != null){
+        if (autoCompleteTextView != null) {
             autoCompleteTextView.setText("");
             selectedItem = null;
         }
-        if(editTextDate != null){
+        if (editTextDate != null) {
             Calendar calendar = Calendar.getInstance();
-                editTextDate.setText(dateFormat.format(calendar.getTime()));
+            editTextDate.setText(dateFormat.format(calendar.getTime()));
         }
     }
 
@@ -129,7 +129,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 ((InputMethodManager) (context).getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                autoCompleteTextView.requestFocus();
+                v.requestFocus();
                 return true;
             }
         });
