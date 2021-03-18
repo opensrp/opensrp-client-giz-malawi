@@ -28,7 +28,6 @@ import org.smartregister.child.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
-import org.smartregister.domain.Event;
 import org.smartregister.domain.Obs;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.activity.AllClientsRegisterActivity;
@@ -56,7 +55,6 @@ import org.smartregister.giz.configuration.GizPncRegisterQueryProvider;
 import org.smartregister.giz.configuration.GizPncRegisterRowOptions;
 import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
-import org.smartregister.giz.model.ReasonForDefaultingModel;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.processor.TripleResultProcessor;
 import org.smartregister.giz.repository.ChildAlertUpdatedRepository;
@@ -290,7 +288,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
     public static String getObsValue(Obs obs) {
         List<Object> values = obs.getValues();
-        if (values.size() > 0) {
+        if (values != null && values.size() > 0) {
             return (String) values.get(0);
         }
         return null;

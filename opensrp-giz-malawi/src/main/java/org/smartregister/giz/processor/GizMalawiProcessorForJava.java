@@ -167,7 +167,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 } else if (eventType.equals(ChildJsonFormUtils.BCG_SCAR_EVENT)) {
                     processBCGScarEvent(eventClient);
                 } else if (eventType.equals(GizConstants.EventType.REASON_FOR_DEFAULTING)) {
-                    Timber.e("creating Reason for DAFAULTING Here");
                     clientProcessReasonForDefault(event);
                 } else if (eventType.equals(MoveToMyCatchmentUtils.MOVE_TO_CATCHMENT_EVENT)) {
                     unsyncEvents.add(event);
@@ -919,15 +918,17 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void clientProcessReasonForDefault(Event event) throws JsonProcessingException {
-        List<Obs> reasonForDefaultingObs = event.getObs();
-        ReasonForDefaultingModel reasonForDefaultingModel = GizReportUtils.getReasonForDefaultingRepository(reasonForDefaultingObs);
-        reasonForDefaultingModel.setDateCreated(event.getEventDate().toString());
-        reasonForDefaultingModel.setBaseEntityId(event.getBaseEntityId());
-        if (reasonForDefaultingModel != null) {
-            ReasonForDefaultingRepository repo = GizMalawiApplication.getInstance().reasonForDefaultingRepository();
-            String formSubmissionId = event.getFormSubmissionId();
-            reasonForDefaultingModel.setId(formSubmissionId);
-            repo.addOrUpdate(reasonForDefaultingModel);
+        if (event != null) {
+            List<Obs> reasonForDefaultingObs = event.getObs();
+            ReasonForDefaultingModel reasonForDefaultingModel = GizReportUtils.getReasonForDefaultingModel(reasonForDefaultingObs);
+            reasonForDefaultingModel.setDateCreated(event.getEventDate().toString());
+            reasonForDefaultingModel.setBaseEntityId(event.getBaseEntityId());
+            if (reasonForDefaultingModel != null) {
+                ReasonForDefaultingRepository repo = GizMalawiApplication.getInstance().reasonForDefaultingRepository();
+                String formSubmissionId = event.getFormSubmissionId();
+                reasonForDefaultingModel.setId(formSubmissionId);
+                repo.addOrUpdate(reasonForDefaultingModel);
+            }
         }
     }
 

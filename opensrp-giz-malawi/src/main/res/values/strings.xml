@@ -909,5 +909,10 @@
     <string name="report_lost_card">Report Lost or Damaged Card</string>
     <string name="new_card_ordered">Report lost or damaged card \n (new card on order)</string>
 
+<<<<<<< HEAD
     <string name="compliance">Compliance</string>
+=======
+    <string name="due_on">Due on</string>
+    <string name="no_village_selected">"No Village selected"</string>
+>>>>>>> 5259eabb8bf408c7709b5445e740ca71bee63917
 </resources>

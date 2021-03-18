@@ -222,14 +222,14 @@ public class ReportDao extends AbstractDao {
         return new ArrayList<>();
     }
 
-    public static List<EligibleChild> fetchLiveEligibleChildrenReport(@Nullable String communityId, Date dueDate) {
-        // fetch all children in the region
+    public static List<EligibleChild> fetchLiveEligibleChildrenReport(@Nullable String communityId, @Nullable Date dueDate) {
+        // fetch all children in the village
         String _communityId = "('" + StringUtils.join(communityId, "','") + "')";
         int days = Days.daysBetween(new DateTime().toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays();
         String sql = "select cd.base_entity_id , c.first_name , c.last_name family_name, c.middle_name ," +
                 "c.dob , c.gender , l.location_id " +
                 "from ec_child_details cd " +
-                "left join ec_client c on cd.base_entity_id = c.base_entity_id and c.is_closed = 0 COLLATE NOCASE " +
+                "inner join ec_client c on cd.base_entity_id = c.base_entity_id and c.is_closed = 0 COLLATE NOCASE " +
                 "inner join ec_family_member_location l on l.base_entity_id = cd.base_entity_id COLLATE NOCASE";
 
         if (communityId != null && !communityId.isEmpty())
