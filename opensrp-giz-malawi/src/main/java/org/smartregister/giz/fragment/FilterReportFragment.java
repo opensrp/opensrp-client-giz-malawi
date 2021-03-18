@@ -76,14 +76,14 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         if(autoCompleteTextView != null){
             autoCompleteTextView.setText("");
         }
-        if(editTextDate != null){
+      /*  if(editTextDate != null){
             DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 updateLabel();
             };
-        }
+        }*/
     }
 
     @Override

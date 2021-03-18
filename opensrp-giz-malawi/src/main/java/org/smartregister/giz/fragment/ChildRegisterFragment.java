@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
 
 import org.smartregister.child.domain.RegisterClickables;
 import org.smartregister.child.fragment.BaseChildRegisterFragment;
@@ -14,7 +13,6 @@ import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
-import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildImmunizationActivity;
 import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
@@ -22,7 +20,6 @@ import org.smartregister.giz.model.ChildRegisterFragmentModel;
 import org.smartregister.giz.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.DBQueryHelper;
-import org.smartregister.giz.view.NavigationMenu;
 import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
