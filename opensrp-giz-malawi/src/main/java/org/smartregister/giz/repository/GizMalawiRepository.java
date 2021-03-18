@@ -188,6 +188,10 @@ public class GizMalawiRepository extends Repository {
                 case 12:
                     EventClientRepository.createAdditionalColumns(db);
                     break;
+                case 13:
+                    db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+                    db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+                    break;
                 default:
                     break;
             }
