@@ -51,7 +51,7 @@ public class ReportSummaryActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOnResume() {
+    public void testOnResumeSetsVisibilityToTrue() {
         String subTitle = "subtitle";
         CustomFontTextView submittedBy = Mockito.mock(CustomFontTextView.class);
         ReflectionHelpers.setField(activity, "subTitle", subTitle);
@@ -60,13 +60,13 @@ public class ReportSummaryActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOnBackActivity() {
+    public void testOnBackActivityReturnsNull() {
         activity.onBackActivity();
         Assert.assertNull(activity.onBackActivity());
     }
 
     @Test
-    public void testFetchIndicatorTalliesForDay() {
+    public void testFetchIndicatorTalliesForDayRefreshesIndicatorViews() {
         ReportSummaryActivity spyActivity = Mockito.spy(activity);
 
         LinearLayout view = Mockito.mock(LinearLayout.class);
