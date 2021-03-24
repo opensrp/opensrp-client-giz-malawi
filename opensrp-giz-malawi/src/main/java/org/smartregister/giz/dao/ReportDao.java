@@ -269,13 +269,12 @@ public class ReportDao extends AbstractDao {
                 }
                 List<Alert> alerts = new ArrayList<>();
                 for (Alert alert : raw_alerts) {
-                    if (alert.startDate() != null && alert.status() != AlertStatus.complete && !myGivenVaccines.contains(cleanName(alert.visitCode()))){
-                        if(!alert.scheduleName().equalsIgnoreCase("OPV 0")){
+                    if (alert.startDate() != null && alert.status() != AlertStatus.complete && !myGivenVaccines.contains(cleanName(alert.visitCode()))) {
+                        if (!"OPV 0".equalsIgnoreCase(alert.scheduleName())) {
                             alerts.add(alert);
-                        }
-                        else {
-                           if(alert.status() != AlertStatus.expired)
-                               alerts.add(alert);
+                        } else {
+                            if (alert.status() != AlertStatus.expired)
+                                alerts.add(alert);
                         }
                     }
                 }

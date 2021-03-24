@@ -1,7 +1,6 @@
 package org.smartregister.giz.activity;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import org.junit.After;
@@ -15,7 +14,6 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.robolectric.Robolectric;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.giz.BaseUnitTest;
@@ -24,7 +22,6 @@ import org.smartregister.giz.domain.Hia2Indicator;
 import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.domain.Tally;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.view.customcontrols.CustomFontTextView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,17 +43,8 @@ public class ReportSummaryActivityTest extends BaseUnitTest {
         //Auto login by default
         context.session().start(context.session().lengthInMilliseconds());
 
-        controller = Robolectric.buildActivity(ReportSummaryActivity.class).create().start();
+        controller = Robolectric.buildActivity(ReportSummaryActivity.class).create().start().resume();
         activity = controller.get();
-    }
-
-    @Test
-    public void testOnResumeSetsViewVisible() {
-        String subTitle = "subtitle";
-        CustomFontTextView submittedBy = Mockito.mock(CustomFontTextView.class);
-        ReflectionHelpers.setField(activity, "subTitle", subTitle);
-        activity.onResume();
-        Assert.assertEquals(submittedBy.getVisibility(), View.VISIBLE);
     }
 
     @Test
