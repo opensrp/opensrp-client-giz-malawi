@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     private final Calendar myCalendar = Calendar.getInstance();
     private final List<String> communityList = new ArrayList<>();
     protected AutoCompleteTextView autoCompleteTextView;
+    protected ImageView imageView;
     protected FindReportContract.Presenter presenter;
     private View view;
     private String titleName;
@@ -71,6 +73,19 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (autoCompleteTextView != null) {
+            autoCompleteTextView.setText("");
+            selectedItem = null;
+        }
+        if (editTextDate != null) {
+            Calendar calendar = Calendar.getInstance();
+            editTextDate.setText(dateFormat.format(calendar.getTime()));
+        }
+    }
+
+    @Override
     public void setLoadingState(boolean loadingState) {
         if (progressBar != null)
             progressBar.setVisibility(loadingState ? View.VISIBLE : View.GONE);
@@ -85,6 +100,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
         editTextDate = view.findViewById(R.id.editTextDate);
         autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView);
+        imageView = view.findViewById(R.id.image_autoCompleteTextView);
         bindAutoCompleteText();
         bindDatePicker();
         updateLabel();
@@ -104,10 +120,16 @@ public class FilterReportFragment extends Fragment implements FindReportContract
         ArrayAdapter myAdapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_dropdown_item_1line, communityList);
         autoCompleteTextView.setAdapter(myAdapter);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                autoCompleteTextView.showDropDown();
+            }
+        });
 
         autoCompleteTextView.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 ((InputMethodManager) (context).getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                v.requestFocus();
                 return true;
             }
         });

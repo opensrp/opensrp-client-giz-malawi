@@ -38,19 +38,35 @@
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="15dp"
-            android:focusable="true"
-            android:gravity="start"
-            android:completionThreshold="1"
-            android:textColor="@color/chw_primary_dark" />
+            android:orientation="horizontal"
+            android:id="@+id/rl_autoCompleteTextView">
 
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="15dp"
+                android:focusable="true"
+                android:gravity="start"
+                android:completionThreshold="1"
+                android:textColor="@color/chw_primary_dark" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/image_autoCompleteTextView"
+                android:padding="5dp"
+                android:layout_alignEnd="@id/autoCompleteTextView"
+                android:src="@drawable/ic_arrow_drop_down"
+                />
+
+        </RelativeLayout>
     </LinearLayout>
 
     <ProgressBar
