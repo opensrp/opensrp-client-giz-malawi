@@ -44,11 +44,11 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     public static final String TAG = "FilterReportFragment";
     public static final String REPORT_NAME = "REPORT_NAME";
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
-    private final Calendar myCalendar = Calendar.getInstance();
     private final List<String> communityList = new ArrayList<>();
     protected AutoCompleteTextView autoCompleteTextView;
     protected ImageView imageView;
     protected FindReportContract.Presenter presenter;
+    private Calendar myCalendar = Calendar.getInstance();
     private View view;
     private String titleName;
     private EditText editTextDate;
@@ -80,8 +80,9 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             selectedItem = null;
         }
         if (editTextDate != null) {
-            Calendar calendar = Calendar.getInstance();
-            editTextDate.setText(dateFormat.format(calendar.getTime()));
+            myCalendar.clear();
+            myCalendar = Calendar.getInstance();
+            editTextDate.setText(dateFormat.format(myCalendar.getTime()));
         }
     }
 
