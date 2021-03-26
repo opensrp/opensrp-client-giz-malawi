@@ -5,9 +5,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import org.apache.commons.lang3.tuple.Triple;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,10 +22,8 @@ import org.smartregister.CoreLibrary;
 import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.BaseUnitTest;
 import org.smartregister.giz.R;
+import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.view.NavigationMenu;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ReportRegisterActivityTest extends BaseUnitTest {
 
@@ -47,8 +42,14 @@ public class ReportRegisterActivityTest extends BaseUnitTest {
         //Auto login by default
         context.session().start(context.session().lengthInMilliseconds());
 
-        controller = Robolectric.buildActivity(ReportRegisterActivity.class).create().start();
+        controller = Robolectric.buildActivity(ReportRegisterActivity.class).create().start().resume().restart();
         activity = controller.get();
+    }
+
+    @Test
+    public void testOnBackActivityReturnsNull() {
+        activity.onBackActivity();
+        Assert.assertNull(activity.onBackActivity());
     }
 
     @After
@@ -79,21 +80,23 @@ public class ReportRegisterActivityTest extends BaseUnitTest {
 
 
     @Test
-    public void testGetDrawerLayoutId() {
-        DrawerLayout drawerLayout = Mockito.mock(DrawerLayout.class);
+    public void testCreateDrawer() {
+        NavigationMenu navigationMenu = Mockito.mock(NavigationMenu.class);
+        activity = Mockito.spy(activity);
+        NavigationAdapter navigationAdapter = Mockito.mock(NavigationAdapter.class);
         activity.setTheme(org.smartregister.R.style.AppTheme);
-        activity.getDrawerLayoutId();
-        Assert.assertNotNull(drawerLayout);
-    }
+        Mockito.when(navigationMenu.getNavigationAdapter()).thenReturn(navigationAdapter);
+        activity.createDrawer();
 
+        activity.getDrawerLayoutId();
+        Mockito.verify(activity).createDrawer();
+    }
 
     @Test
     public void testOnClick() {
         View view = Mockito.mock(View.class);
-
         activity = Mockito.spy(activity);
         NavigationMenu navigationMenu = Mockito.mock(NavigationMenu.class);
-
         Mockito.doReturn(R.id.btn_back_to_home).when(view).getId();
         activity.onClickReport(view);
 
@@ -102,81 +105,38 @@ public class ReportRegisterActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOnUniqueIdFetched() {
-        View view = Mockito.mock(View.class);
-
-        String anyString = "string";
-        Map<String, String> anyMap = new HashMap<>();
-        Triple<String, Map<String, String>, String> triple = Triple.of(anyString, anyMap, anyString);
-        activity.onUniqueIdFetched(triple, anyString);
-        Assert.assertNotNull(view);
-    }
-
-    @Test
-    public void testOnNoUniqueId() {
-        View view = Mockito.mock(View.class);
-        activity.onNoUniqueId();
-        Assert.assertNotNull(view);
-    }
-
-    @Test
-    public void testOnRegistrationSaved() {
-        View view = Mockito.mock(View.class);
-        activity.onRegistrationSaved(true);
-        Assert.assertNotNull(view);
-    }
-
-    @Test
     public void testOnSyncStart() {
         ImageView reportSyncBtn = Mockito.mock(ImageView.class);
-
-        activity.setTheme(org.smartregister.R.style.AppTheme);
+        activity = Mockito.spy(activity);
         activity.setContentView(R.layout.activity_report_register);
         ReflectionHelpers.setField(activity, "reportSyncBtn", reportSyncBtn);
 
         activity.onSyncStart();
-        Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
+        Mockito.verify(activity).onSyncStart();
     }
 
     @Test
     public void testOnSyncComplete() {
         ImageView reportSyncBtn = Mockito.mock(ImageView.class);
-
-        activity.setTheme(org.smartregister.R.style.AppTheme);
+        activity = Mockito.spy(activity);
         activity.setContentView(R.layout.activity_report_register);
         ReflectionHelpers.setField(activity, "reportSyncBtn", reportSyncBtn);
         FetchStatus status = FetchStatus.fetchStarted;
 
         activity.onSyncComplete(status);
-        Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
+        Mockito.verify(activity).onSyncComplete(status);
     }
 
 
     @Test
     public void testOSyncInProgress() {
         ImageView reportSyncBtn = Mockito.mock(ImageView.class);
+        activity = Mockito.spy(activity);
         activity.setContentView(R.layout.activity_report_register);
         ReflectionHelpers.setField(activity, "reportSyncBtn", reportSyncBtn);
         FetchStatus status = FetchStatus.fetchStarted;
 
         activity.onSyncInProgress(status);
-        Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
-    }
-
-    @Test
-    public void testCreateDrawer() {
-        activity = Mockito.spy(activity);
-        NavigationMenu navigationMenu = Mockito.mock(NavigationMenu.class);
-        activity.createDrawer();
-
-        Assert.assertNotNull(navigationMenu);
-    }
-
-    @Test
-    public void testOnResume() {
-        ImageView reportSyncBtn = Mockito.mock(ImageView.class);
-        ReflectionHelpers.setField(activity, "reportSyncBtn", reportSyncBtn);
-        activity.onResume();
-        Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
+        Mockito.verify(activity).onSyncInProgress(status);
     }
 }
