@@ -55,6 +55,8 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -191,8 +193,10 @@ public class GizMalawiRepository extends Repository {
                     upgradeToVersion13CreateReasonForDefaultingTable(db);
                     break;
                 case 14:
-                    db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
-                    db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+                    upgradeToVersion14UpdateMissingColumns(db);
+                    break;
+                case 15:
+                    upgradeToVersion15TriggerCreateNewTable(db);
                     break;
                 default:
                     break;
@@ -477,6 +481,24 @@ public class GizMalawiRepository extends Repository {
             ReasonForDefaultingRepository.createTable(db);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion13CreateReasonForDefaultingTable");
+        }
+    }
+
+    private void upgradeToVersion14UpdateMissingColumns(@NonNull SQLiteDatabase db) {
+        db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+        db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+        EventClientRepository.addEventTaskId(db);
+        EventClientRepository.createIndex(db, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+    }
+
+    private void upgradeToVersion15TriggerCreateNewTable(@NonNull SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList("ec_family_member_location")),
+                    GizMalawiApplication.createCommonFtsObject(context));
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion15");
         }
     }
 
