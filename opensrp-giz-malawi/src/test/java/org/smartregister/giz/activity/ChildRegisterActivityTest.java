@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
@@ -26,7 +25,6 @@ import org.smartregister.giz.BaseUnitTest;
 import org.smartregister.giz.adapter.NavigationAdapter;
 import org.smartregister.giz.presenter.GizChildRegisterPresenter;
 import org.smartregister.giz.view.NavigationMenu;
-import org.smartregister.view.contract.BaseRegisterContract;
 
 public class ChildRegisterActivityTest extends BaseUnitTest {
     @Rule
@@ -37,9 +35,6 @@ public class ChildRegisterActivityTest extends BaseUnitTest {
     private ArgumentCaptor<Intent> intentArgumentCaptor;
     @Captor
     private ArgumentCaptor<Integer> integerArgumentCaptor;
-    @Mock
-    private BaseRegisterContract.Presenter presenter;
-
 
     @Before
     public void setUp() {
