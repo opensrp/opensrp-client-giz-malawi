@@ -140,6 +140,7 @@ public class ReportDaoTest extends ReportDao {
         for (Map.Entry<String, String> entry : locations.entrySet()) {
             expectedLocationId = entry.getKey();
         }
+        Assert.assertNull(expectedLocationId);
         Assert.assertEquals(locations.size(), 0);
     }
 
