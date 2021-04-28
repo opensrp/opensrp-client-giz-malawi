@@ -66,11 +66,14 @@ public class ReportDao extends AbstractDao {
             }
         }
     }
-
     @NonNull
     public static Map<String, String> extractRecordedLocations() {
+        return extractRecordedLocations(CoreLibrary.getInstance().context().anmLocationController().get());
+    }
+
+    @NonNull
+    public static Map<String, String> extractRecordedLocations(String locationData) {
         Map<String, String> defaultTree = new HashMap<>();
-        String locationData = CoreLibrary.getInstance().context().anmLocationController().get();
         LocationTree locationTree = AssetHandler.jsonStringToJava(locationData, LocationTree.class);
         if (locationTree != null) {
             LinkedHashMap<String, TreeNode<String, Location>> locationHierarchyMap = locationTree.getLocationsHierarchy();
