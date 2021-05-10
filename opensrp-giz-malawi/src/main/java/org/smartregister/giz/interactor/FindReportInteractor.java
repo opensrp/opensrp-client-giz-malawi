@@ -26,7 +26,7 @@ public class FindReportInteractor implements FindReportContract.Interactor {
 
                 appExecutors.mainThread().execute(() -> presenter.onReportHierarchyLoaded(hierarchy));
             } catch (Exception e) {
-                Timber.d("No locations Found");
+                Timber.e("No locations Found");
             }
         };
         appExecutors.diskIO().execute(runnable);
