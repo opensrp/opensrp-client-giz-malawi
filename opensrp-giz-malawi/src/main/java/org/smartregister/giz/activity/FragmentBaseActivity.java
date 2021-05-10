@@ -273,6 +273,6 @@ public class FragmentBaseActivity extends SecuredActivity {
 
     @Override
     protected void onResumption() {
-        Timber.v("Empty onResumption");
+        //Do nothing
     }
 }
