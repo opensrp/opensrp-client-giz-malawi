@@ -237,7 +237,7 @@ public class FragmentBaseActivity extends SecuredActivity {
 
     private @Nullable
     Fragment getRequestedFragment(@Nullable String name) {
-        if (name == null || StringUtils.isBlank(name))
+        if (StringUtils.isBlank(name))
             return null;
 
         Fragment fragment;
