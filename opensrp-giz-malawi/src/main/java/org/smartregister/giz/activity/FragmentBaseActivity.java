@@ -268,7 +268,7 @@ public class FragmentBaseActivity extends SecuredActivity {
 
     @Override
     protected void onCreation() {
-        Timber.v("Empty onCreation");
+        //Do nothing
     }
 
     @Override
