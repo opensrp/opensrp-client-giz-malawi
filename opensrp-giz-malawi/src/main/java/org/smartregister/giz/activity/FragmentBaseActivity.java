@@ -220,7 +220,7 @@ public class FragmentBaseActivity extends SecuredActivity {
 
     private @Nullable
     String getRequestedFragmentName(@Nullable String name) {
-        if (name == null || StringUtils.isBlank(name))
+        if (StringUtils.isBlank(name))
             return "";
         switch (name) {
             case EligibleChildrenReportFragment
@@ -276,4 +276,3 @@ public class FragmentBaseActivity extends SecuredActivity {
         Timber.v("Empty onResumption");
     }
 }
-
