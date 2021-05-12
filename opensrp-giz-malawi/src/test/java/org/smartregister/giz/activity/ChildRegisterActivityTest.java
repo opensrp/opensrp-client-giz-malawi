@@ -78,34 +78,13 @@ public class ChildRegisterActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testOpenDrawer() {
-        NavigationMenu navigationMenu = Mockito.mock(NavigationMenu.class);
-        activity = Mockito.spy(activity);
-        NavigationAdapter navigationAdapter = Mockito.mock(NavigationAdapter.class);
-        Mockito.when(navigationMenu.getNavigationAdapter()).thenReturn(navigationAdapter);
-        activity.openDrawer();
-        Mockito.verify(activity).openDrawer();
-    }
-
-    @Test
-    public void testCloseDrawer() {
-        NavigationMenu navigationMenu = Mockito.mock(NavigationMenu.class);
-        activity = Mockito.spy(activity);
-        NavigationAdapter navigationAdapter = Mockito.mock(NavigationAdapter.class);
-        Mockito.when(navigationMenu.getNavigationAdapter()).thenReturn(navigationAdapter);
-        activity.closeDrawer();
-        Mockito.verify(activity).closeDrawer();
-    }
-
-    @Test
     public void testOnResumption() {
         activity = Mockito.spy(activity);
         NavigationMenu navigationMenu = Mockito.mock(NavigationMenu.class);
         NavigationAdapter navigationAdapter = Mockito.mock(NavigationAdapter.class);
         Mockito.when(navigationMenu.getNavigationAdapter()).thenReturn(navigationAdapter);
         activity.onResumption();
-
-        Mockito.verify(activity).onResumption();
+        Mockito.verify(activity,Mockito.times(1)).createDrawer();
     }
 
     @After

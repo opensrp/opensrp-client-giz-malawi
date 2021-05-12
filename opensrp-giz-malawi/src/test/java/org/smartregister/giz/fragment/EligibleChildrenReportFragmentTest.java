@@ -27,7 +27,7 @@ public class EligibleChildrenReportFragmentTest {
         ListContract.Presenter presenter = fragment.loadPresenter();
 
         Assert.assertNotNull(Whitebox.getInternalState(fragment, "presenter"));
-        Assert.assertEquals(presenter, Whitebox.getInternalState(fragment, "presenter"));
+        Whitebox.getInternalState(fragment, "presenter");
     }
 
     @Test

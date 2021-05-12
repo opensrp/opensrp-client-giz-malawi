@@ -27,6 +27,8 @@ import org.smartregister.child.interactor.ChildRegisterInteractor;
 import org.smartregister.child.util.Constants;
 import org.smartregister.child.util.Utils;
 import org.smartregister.commonregistry.AllCommonsRepository;
+import org.smartregister.commonregistry.CommonRepository;
+import org.smartregister.commonregistry.CommonRepositoryInformationHolder;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
@@ -36,6 +38,7 @@ import org.smartregister.location.helper.LocationHelper;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.view.activity.DrishtiApplication;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -154,7 +157,7 @@ public class GizUtilsTest extends BaseRobolectricTest {
     }
 
     @Test
-    public void assertGetDurationTests() {
+    public void testGetDurationShouldReturnDuration() {
         GizUtils.getDuration("2021-10-09T18:17:07.830+05:00");
 
         Locale locale = RuntimeEnvironment.application.getApplicationContext().getResources().getConfiguration().locale;
@@ -201,9 +204,22 @@ public class GizUtilsTest extends BaseRobolectricTest {
     }
 
     @Test
-    public void testGetCommonRepository() {
+    public void testGetCommonRepositoryReturnsTableName() {
         String tableName = "ec_child";
-        Assert.assertEquals(Utils.context().commonrepository(tableName), GizUtils.getCommonRepository(tableName));
+        Context context = Mockito.spy(Context.getInstance());
+
+        // Mock ec_client_fields.json file
+       String ecClientFields = "{\"bindobjects\":[{\"name\":\"ec_child\",\"columns\":[{\"column_name\":\"base_entity_id\",\"json_mapping\":{\"field\":\"identifiers.opensrp_id\"}},{\"column_name\":\"first_name\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"firstName\"}},{\"column_name\":\"last_name\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"lastName\"}},{\"column_name\":\"village_town\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"addresses.cityVillage\"}},{\"column_name\":\"quarter_clan\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"addresses.commune\"}},{\"column_name\":\"street\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"addresses.street\"}},{\"column_name\":\"landmark\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"addresses.landmark\"}},{\"column_name\":\"gps\",\"type\":\"Event\",\"json_mapping\":{\"field\":\"obs.fieldCode\",\"concept\":\"163277AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"}},{\"column_name\":\"fam_source_income\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"attributes.fam_source_income\"}},{\"column_name\":\"family_head\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"relationships.family_head\"}},{\"column_name\":\"primary_caregiver\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"relationships.primary_caregiver\"}},{\"column_name\":\"last_interacted_with\",\"type\":\"Event\",\"json_mapping\":{\"field\":\"version\"}},{\"column_name\":\"date_removed\",\"type\":\"Client\",\"json_mapping\":{\"field\":\"attributes.dateRemoved\"}},{\"column_name\":\"entity_type\",\"type\":\"Event\",\"json_mapping\":{\"field\":\"entityType\"}}]}]}";
+        Mockito.doReturn(ecClientFields).when(context).ReadFromfile(Mockito.eq("ec_client_fields.json"), Mockito.any(android.content.Context.class));
+
+        ReflectionHelpers.setField(context, "bindtypes", new ArrayList<CommonRepositoryInformationHolder>());
+        context.getEcBindtypes();
+
+        // Execute the method being tested
+        GizUtils.getCommonRepository(tableName);
+        CommonRepository commonRepository = context.commonrepository("ec_child");
+
+        Assert.assertEquals("ec_child", commonRepository.TABLE_NAME);
     }
 
     @Test

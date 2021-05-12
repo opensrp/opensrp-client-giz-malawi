@@ -1,11 +1,9 @@
 package org.smartregister.giz.fragment;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -37,7 +35,6 @@ import org.smartregister.commonregistry.CommonRepository;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
 import org.smartregister.giz.BaseUnitTest;
 import org.smartregister.giz.R;
-import org.smartregister.giz.activity.ChildRegisterActivity;
 import org.smartregister.giz.presenter.ChildRegisterFragmentPresenter;
 import org.smartregister.immunization.ImmunizationLibrary;
 import org.smartregister.immunization.db.VaccineRepo;
@@ -70,8 +67,6 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     private Context context;
     @Mock
     private AlertService alertService;
-    @Mock
-    private FragmentActivity activity;
     @Mock
     private View view;
     @Mock
@@ -115,14 +110,14 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     }
 
     @Test
-    public void testInitializePresenter() {
+    public void testInitializePresenterWillInitializePresenter() {
         childRegisterFragment.initializePresenter();
         assertNotNull(presenter);
     }
 
 
     @Test
-    public void testSetUniqueID() {
+    public void testSetUniqueIdReturnsUniqueId() {
         Mockito.doReturn(editText).when(childRegisterFragment).getSearchView();
 
         String TEST_ID = "unique-identifier";
@@ -136,7 +131,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     }
 
     @Test
-    public void testRecalculatePagination() {
+    public void testRecalculatePaginationWillRecalculatePagination() {
 
         assertNotNull(childRegisterFragment);
 
@@ -155,7 +150,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     }
 
     @Test
-    public void testCountExecute() {
+    public void testCountExecuteWillReturnCorrectCount() {
 
         assertNotNull(childRegisterFragment);
 
@@ -177,7 +172,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     }
 
     @Test
-    public void testToggleFilterSelectionWithNullTag() {
+    public void testToggleFilterSelectionWithNullTagSetsBackgroundToTransparent() {
         assertNotNull(childRegisterFragment);
 
         Whitebox.setInternalState(childRegisterFragment, "filterSection", filterSection);
@@ -219,7 +214,16 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
     }
 
     @Test
-    public void testToggleFilterSelectionWithTag() {
+    public void testOnViewClickedWillCallToggleFilterSelectionAndToggleSelection() {
+
+        Context.bindtypes = new ArrayList<>();
+        when(view.getTag(R.id.record_action)).thenReturn(Constants.RECORD_ACTION.GROWTH);
+        CommonPersonObjectClient client = new CommonPersonObjectClient("12-2873-272676-20", null, "");
+        client.setColumnmaps(new HashMap<String, String>());
+        when(view.getTag()).thenReturn(R.id.record_action);
+
+        when(view.getId()).thenReturn(R.id.filter_selection);
+
         assertNotNull(childRegisterFragment);
 
         Whitebox.setInternalState(childRegisterFragment, "filterSection", filterSection);
@@ -236,7 +240,7 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
         ArgumentCaptor<Boolean> qrCodeCaptor = ArgumentCaptor.forClass(Boolean.class);
         Mockito.doNothing().when(childRegisterFragment).initiateReportJob();
 
-        childRegisterFragment.toggleFilterSelection();
+        childRegisterFragment.onViewClicked(view);
 
         Mockito.verify(childRegisterFragment).filter(filterStringCaptor.capture(), joinTableStringCaptor.capture(), mainConditionCaptor.capture(), qrCodeCaptor.capture());
         Mockito.verify(filterSection).setTag(tagCaptor.capture());
@@ -257,17 +261,5 @@ public class ChildRegisterFragmentTest extends BaseUnitTest {
         Assert.assertEquals("", joinTable);
         Assert.assertEquals(" ( dod is NULL OR dod = '' ) ", filterSelect);
         Assert.assertFalse(qrCodeCaptorValue);
-    }
-
-    @Test
-    public void testOnViewClickedOpensIntent() {
-        Context.bindtypes = new ArrayList<>();
-        when(view.getTag(R.id.record_action)).thenReturn(Constants.RECORD_ACTION.GROWTH);
-        CommonPersonObjectClient client = new CommonPersonObjectClient("12", null, "");
-        client.setColumnmaps(new HashMap<String, String>());
-        when(view.getTag()).thenReturn(client);
-        childRegisterFragment.onViewClicked(view);
-        Intent intent = new Intent(activity, ChildRegisterActivity.class);
-        assertNotNull(intent);
     }
 }

@@ -35,14 +35,14 @@ public class ReportsSectionsPagerAdapterTest {
     }
 
     @Test
-    public void testGetItem() {
+    public void testGetItemReturnsCorrectInstance() {
         Assert.assertTrue(sectionsPagerAdapter.getItem(0) instanceof DailyTalliesFragment);
         Assert.assertTrue(sectionsPagerAdapter.getItem(1) instanceof DraftMonthlyFragment);
         Assert.assertTrue(sectionsPagerAdapter.getItem(2) instanceof SentMonthlyFragment);
     }
 
     @Test
-    public void testGetCount() {
+    public void testGetCountReturnsCount() {
         Assert.assertEquals(3, sectionsPagerAdapter.getCount());
     }
 }

@@ -49,10 +49,11 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     protected ImageView imageView;
     protected FindReportContract.Presenter presenter;
     private Calendar myCalendar = Calendar.getInstance();
-    private View view;
-    private String titleName;
-    private EditText editTextDate;
-    private ProgressBar progressBar;
+    protected View view;
+    protected String titleName;
+    protected EditText editTextDate;
+    protected ProgressBar progressBar;
+    protected Button buttonSave;
     private LinkedHashMap<String, String> communityIdList = new LinkedHashMap<>();
     private String selectedItem;
     private Integer selectedItemPosition;
@@ -94,9 +95,12 @@ public class FilterReportFragment extends Fragment implements FindReportContract
 
     @Override
     public void bindLayout() {
-        Button buttonSave = view.findViewById(R.id.buttonSave);
-        buttonSave.setOnClickListener(v -> runReport());
+        buttonSave = view.findViewById(R.id.buttonSave);
+        if(buttonSave != null){
+            buttonSave.setOnClickListener(v -> runReport());
+        }
         progressBar = view.findViewById(R.id.progress_bar);
+        if(progressBar != null)
         progressBar.setVisibility(View.GONE);
 
         editTextDate = view.findViewById(R.id.editTextDate);
@@ -115,7 +119,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void bindAutoCompleteText() {
+    protected void bindAutoCompleteText() {
         Context context = getContext();
         if (context == null) return;
         ArrayAdapter myAdapter = new ArrayAdapter<String>(context,
@@ -171,6 +175,7 @@ public class FilterReportFragment extends Fragment implements FindReportContract
             updateLabel();
         };
 
+        if(editTextDate != null)
         editTextDate.setOnClickListener(v -> {
             DatePickerDialog dialog = new DatePickerDialog(getContext(), date, myCalendar
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),

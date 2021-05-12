@@ -19,7 +19,6 @@ import org.robolectric.android.controller.ActivityController;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.BaseUnitTest;
 import org.smartregister.giz.R;
 
@@ -55,7 +54,7 @@ public class ReportTypeListRegisterActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testSetupViews() {
+    public void testSetupViewsInvokesCorrectParams() {
         TextView titleTv = Mockito.mock(TextView.class);
         ListView listView = Mockito.mock(ListView.class);
 
@@ -71,7 +70,7 @@ public class ReportTypeListRegisterActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testLoadData() {
+    public void testLoadDataCorrectlyLoadsData() {
         ImageView reportSyncBtn = Mockito.mock(ImageView.class);
 
         activity.setTheme(org.smartregister.R.style.AppTheme);
@@ -81,42 +80,4 @@ public class ReportTypeListRegisterActivityTest extends BaseUnitTest {
         activity.loadData();
         Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
     }
-
-    @Test
-    public void testOnSyncStart() {
-        ImageView reportSyncBtn = Mockito.mock(ImageView.class);
-
-        activity.setTheme(org.smartregister.R.style.AppTheme);
-        activity.setContentView(R.layout.activity_report_register);
-        ReflectionHelpers.setField(activity, "reportSyncBtn", reportSyncBtn);
-
-        activity.onSyncStart();
-        Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
-    }
-
-    @Test
-    public void testOnSyncComplete() {
-        ImageView reportSyncBtn = Mockito.mock(ImageView.class);
-
-        activity.setTheme(org.smartregister.R.style.AppTheme);
-        activity.setContentView(R.layout.activity_report_register);
-        ReflectionHelpers.setField(activity, "reportSyncBtn", reportSyncBtn);
-        FetchStatus status = FetchStatus.fetchStarted;
-
-        activity.onSyncComplete(status);
-        Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
-    }
-
-
-    @Test
-    public void testOSyncInProgress() {
-        ImageView reportSyncBtn = Mockito.mock(ImageView.class);
-        activity.setContentView(R.layout.activity_report_register);
-        ReflectionHelpers.setField(activity, "reportSyncBtn", reportSyncBtn);
-        FetchStatus status = FetchStatus.fetchStarted;
-
-        activity.onSyncInProgress(status);
-        Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
-    }
-
 }

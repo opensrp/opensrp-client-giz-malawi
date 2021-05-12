@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -43,7 +44,7 @@ public class ReportDaoTest extends ReportDao {
     }
 
     @Test
-    public void testFetchLiveEligibleChildrenReport() {
+    public void testFetchLiveEligibleChildrenReportWillReturnTheEligibleChildrenList() {
         doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 "base_entity_id", "unique_id", "first_name", "last_name", "middle_name",
@@ -75,7 +76,7 @@ public class ReportDaoTest extends ReportDao {
     }
 
     @Test
-    public void testFetchAllVaccines() throws ParseException {
+    public void testFetchAllVaccinesReturnsVaccineList() throws ParseException {
         doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 VaccineRepository.CREATED_AT, VaccineRepository.ID_COLUMN, VaccineRepository.BASE_ENTITY_ID,
@@ -125,7 +126,7 @@ public class ReportDaoTest extends ReportDao {
     }
 
     @Test
-    public void testExtractRecordedLocations() {
+    public void testExtractRecordedLocationsWillExtractLocationsWithEligibleChildrenData() {
         doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 "location_id"});
@@ -142,10 +143,11 @@ public class ReportDaoTest extends ReportDao {
         }
         Assert.assertNull(expectedLocationId);
         Assert.assertEquals(locations.size(), 0);
+        Assert.assertThat(locations.isEmpty(), is(true));
     }
 
     @Test
-    public void testFetchLiveVillageDosesReport() {
+    public void testFetchLiveVillageDosesReportWillFetchVillagesWithReports() {
         doReturn(database).when(repository).getReadableDatabase();
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{
                 "base_entity_id", "unique_id", "first_name", "last_name", "middle_name",

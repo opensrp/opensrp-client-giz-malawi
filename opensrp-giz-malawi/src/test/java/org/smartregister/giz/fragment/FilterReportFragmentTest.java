@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
-
-import com.google.gson.Gson;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +17,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
-import org.robolectric.android.controller.ActivityController;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ReflectionHelpers;
 import org.smartregister.giz.R;
@@ -38,8 +37,8 @@ import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(application = GizMalawiApplication.class, sdk = 22)
@@ -51,57 +50,41 @@ public class FilterReportFragmentTest {
     @Mock
     private Bundle bundle;
 
-    @Mock
-    private View view;
+    private FilterReportFragment filterReportFragment;
 
+    @Mock
+    private FindReportContract.Presenter presenter;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        filterReportFragment = Mockito.mock(FilterReportFragment.class, Mockito.CALLS_REAL_METHODS);
     }
 
     @Test
-    public void testUpdateSelectedCommunitiesView() {
-        FilterReportFragment spyFragment = Mockito.spy(FilterReportFragment.class);
-
-        TextView selectedCommunitiesTV = Mockito.mock(TextView.class);
-        List<String> communityList = new ArrayList<>();
-        communityList.add("community 1");
-        communityList.add("community 2");
-        ReflectionHelpers.setField(spyFragment, "communityList", communityList);
-        selectedCommunitiesTV.setText("community 1 \n community 2");
-
-        assertNull(selectedCommunitiesTV.getText());
-    }
-
-    @Test
-    public void testRunReport() {
-        FilterReportFragment spyFragment = Mockito.spy(FilterReportFragment.class);
-        FindReportContract.Presenter presenter = Mockito.spy(FindReportContract.Presenter.class);
-        ReflectionHelpers.setField(spyFragment, "presenter", presenter);
+    public void testRunReportStartsTheRightView() {
+        filterReportFragment = Mockito.spy(FilterReportFragment.class);
+        ReflectionHelpers.setField(filterReportFragment, "presenter", presenter);
 
         LinkedHashMap<String, String> communityIdList = new LinkedHashMap<>();
         communityIdList.put("community 1", "456");
         List<String> communityList = new ArrayList<>();
         communityList.add("community 1");
-        ReflectionHelpers.setField(spyFragment, "communityList", communityList);
-        ReflectionHelpers.setField(spyFragment, "communityIdList", communityIdList);
-        ReflectionHelpers.setField(spyFragment, "selectedItem","community 1" );
-        ReflectionHelpers.setField(spyFragment, "selectedItemPosition", 0);
-        spyFragment.runReport();
+        ReflectionHelpers.setField(filterReportFragment, "communityList", communityList);
+        ReflectionHelpers.setField(filterReportFragment, "communityIdList", communityIdList);
+        ReflectionHelpers.setField(filterReportFragment, "selectedItem", "community 1");
+        ReflectionHelpers.setField(filterReportFragment, "selectedItemPosition", 0);
 
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
         Calendar myCalendar = Calendar.getInstance();
-        List<String> communityIds = new ArrayList<>();
-        communityIds.add("");
-        List<String> communities = new ArrayList<>();
         Map<String, String> map = new HashMap<>();
-        Gson gson = new Gson();
-        map.put(GizConstants.ReportParametersHelper.COMMUNITY, gson.toJson(communities));
-        map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, gson.toJson(communityIds));
+        map.put(GizConstants.ReportParametersHelper.COMMUNITY, "community 1");
+        map.put(GizConstants.ReportParametersHelper.COMMUNITY_ID, "community 1");
         map.put(GizConstants.ReportParametersHelper.REPORT_DATE, dateFormat.format(myCalendar.getTime()));
-        assertNotNull(map);
+        filterReportFragment.runReport();
+
+        Mockito.verify(presenter).runReport(map);
     }
 
     @Test
@@ -117,20 +100,32 @@ public class FilterReportFragmentTest {
 
     @Test
     public void testOnCreateViewsInitializesViews() {
-        FilterReportFragment spyFragment = Mockito.spy(FilterReportFragment.class);
-        ActivityController<AppCompatActivity> activityController;
-        activityController = Robolectric.buildActivity(AppCompatActivity.class).create().resume();
-        FragmentActivity activity = activityController.get();
-        when(spyFragment.getActivity()).thenReturn(activity);
-        when(spyFragment.getContext()).thenReturn(activity);
+        filterReportFragment = Mockito.spy(FilterReportFragment.class);
+        View parentLayout = LayoutInflater.from(RuntimeEnvironment.application.getApplicationContext()).inflate(R.layout.filter_report_fragment, null, false);
+        doReturn(parentLayout).when(layoutInflater).inflate(R.layout.filter_report_fragment, container, false);
 
-        Mockito.doReturn(view).when(layoutInflater).inflate(R.layout.filter_report_fragment, container, false);
-        AppCompatActivity activitySpy = (AppCompatActivity) Mockito.spy(activity);
-        Mockito.doReturn(activitySpy).when(spyFragment).getActivity();
 
-        Mockito.doNothing().when(spyFragment).bindLayout();
-        spyFragment.onCreateView(layoutInflater, container, bundle);
-        verify(spyFragment).onCreateView(layoutInflater, container, bundle);
+        ProgressBar progressBar = Mockito.mock(ProgressBar.class);
+        EditText editTextDate = Mockito.mock(EditText.class);
+        AutoCompleteTextView autoCompleteTextView = Mockito.mock(AutoCompleteTextView.class);
+        Button buttonSave = Mockito.mock(Button.class);
+        ImageView imageView = Mockito.mock(ImageView.class);
+        View view = Mockito.mock(View.class);
+
+        ReflectionHelpers.setField(filterReportFragment, "buttonSave", buttonSave);
+        ReflectionHelpers.setField(filterReportFragment, "progressBar", progressBar);
+        ReflectionHelpers.setField(filterReportFragment, "autoCompleteTextView", autoCompleteTextView);
+        ReflectionHelpers.setField(filterReportFragment, "view", view);
+        ReflectionHelpers.setField(filterReportFragment, "imageView", imageView);
+        ReflectionHelpers.setField(filterReportFragment, "editTextDate", editTextDate);
+
+        doNothing().when(filterReportFragment).bindAutoCompleteText();
+
+        Whitebox.setInternalState(filterReportFragment, "presenter", presenter);
+
+        filterReportFragment.loadPresenter();
+        filterReportFragment.onCreateView(layoutInflater, container, bundle);
+        Mockito.verify(filterReportFragment, Mockito.times(1)).bindLayout();
     }
 }
 

@@ -125,7 +125,7 @@ public class ReportRegisterActivity extends BaseActivity {
         toggleReportSyncButton();
     }
 
-    private void toggleReportSyncButton() {
+    protected void toggleReportSyncButton() {
         if (reportSyncBtn != null) {
             reportSyncBtn.setVisibility(View.GONE);
         }
