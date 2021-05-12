@@ -97,7 +97,7 @@ public class GizReportUtils {
     public static ReasonForDefaultingModel getReasonForDefaultingModel(List<Obs> defaultingObs) throws JsonProcessingException {
         ReasonForDefaultingModel reasonForDefaultingModel = new ReasonForDefaultingModel();
         for (Obs obs : defaultingObs) {
-            if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.ADDITIONAL_DEFAULTING_NOTES)) {
+            if (GizConstants.JsonAssetsHelper.ADDITIONAL_DEFAULTING_NOTES.equal(obs.getFormSubmissionField()) {
                 String value = getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setAdditionalDefaultingNotes(value);

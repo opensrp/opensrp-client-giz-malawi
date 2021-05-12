@@ -220,7 +220,7 @@ public class FragmentBaseActivity extends SecuredActivity {
 
     private @Nullable
     String getRequestedFragmentName(@Nullable String name) {
-        if (name == null || StringUtils.isBlank(name))
+        if (StringUtils.isBlank(name))
             return "";
         switch (name) {
             case EligibleChildrenReportFragment
@@ -237,7 +237,7 @@ public class FragmentBaseActivity extends SecuredActivity {
 
     private @Nullable
     Fragment getRequestedFragment(@Nullable String name) {
-        if (name == null || StringUtils.isBlank(name))
+        if (StringUtils.isBlank(name))
             return null;
 
         Fragment fragment;
@@ -268,12 +268,11 @@ public class FragmentBaseActivity extends SecuredActivity {
 
     @Override
     protected void onCreation() {
-        Timber.v("Empty onCreation");
+        //Do nothing
     }
 
     @Override
     protected void onResumption() {
-        Timber.v("Empty onResumption");
+        //Do nothing
     }
 }
-

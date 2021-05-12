@@ -64,7 +64,7 @@ public class ReportDaoTest extends ReportDao {
 
 
     @Test
-    public void testFetchLiveEligibleChildrenReportReturnsNewArrayList() {
+    public void testFetchLiveEligibleChildrenReportReturnsEmptyArrayList() {
         doReturn(database).when(repository).getReadableDatabase();
 
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"base_entity_id"});
