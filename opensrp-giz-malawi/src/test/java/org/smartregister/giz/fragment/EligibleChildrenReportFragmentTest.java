@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.powermock.reflect.Whitebox;
-import org.smartregister.view.ListContract;
 
 public class EligibleChildrenReportFragmentTest {
     private EligibleChildrenReportFragment fragment;
