@@ -35,6 +35,7 @@ import org.smartregister.immunization.util.VaccinatorUtils;
 import org.smartregister.repository.EventClientRepository;
 import org.smartregister.util.AssetHandler;
 
+import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class ReportDao extends AbstractDao {
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
     @SuppressLint("StaticFieldLeak")
-    private static WeakReference<Context> contextWeakReference;
+    private static Context context;
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
 

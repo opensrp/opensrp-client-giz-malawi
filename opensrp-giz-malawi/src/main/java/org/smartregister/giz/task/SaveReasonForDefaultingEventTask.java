@@ -99,7 +99,7 @@ public class SaveReasonForDefaultingEventTask {
                         if (entityValue.equals(ChildJsonFormUtils.CONCEPT)) {
                             ChildJsonFormUtils.addToJSONObject(jsonObject, Constants.KEY.KEY, key);
                             ChildJsonFormUtils.addObservation(event, jsonObject);
-                        } else if (JsonFormutils.ENCOUNTER.equals(entityValue)) {
+                        } else if (ChildJsonFormUtils.ENCOUNTER_TYPE.equals(entityValue)) {
                             String entityIdValue = ChildJsonFormUtils.getString(jsonObject, ChildJsonFormUtils.OPENMRS_ENTITY_ID);
                             if (entityIdValue.equals(FormEntityConstants.Encounter.encounter_date.name())) {
                                 Date eventDate = ChildJsonFormUtils.formatDate(value, false);
