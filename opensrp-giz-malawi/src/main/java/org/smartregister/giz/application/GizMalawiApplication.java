@@ -28,7 +28,6 @@ import org.smartregister.child.util.DBConstants;
 import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
-import org.smartregister.domain.Obs;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.activity.AllClientsRegisterActivity;
 import org.smartregister.giz.activity.AncRegisterActivity;
