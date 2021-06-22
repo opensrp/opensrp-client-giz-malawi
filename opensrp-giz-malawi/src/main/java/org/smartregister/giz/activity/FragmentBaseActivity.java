@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -22,19 +21,16 @@ import androidx.fragment.app.Fragment;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.giz.R;
+import org.smartregister.giz.contract.FragmentBaseActivityContract;
 import org.smartregister.giz.fragment.EligibleChildrenReportFragment;
 import org.smartregister.giz.fragment.FilterReportFragment;
 import org.smartregister.giz.fragment.VillageDoseReportFragment;
-import org.smartregister.giz.listener.PdfGeneratorListener;
+import org.smartregister.giz.presenter.FragmentBaseActivityPresenter;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.giz.util.PdfGeneratorHelper;
 import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.SecuredActivity;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,13 +39,14 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class FragmentBaseActivity extends SecuredActivity {
+public class FragmentBaseActivity extends SecuredActivity implements FragmentBaseActivityContract.View {
     protected static final String DISPLAY_FRAGMENT = "DISPLAY_FRAGMENT";
     protected static final String TITLE = "TITLE";
     protected String INDICATOR_CODE = "INDICATOR_CODE";
     private String emailSubject = "";
     private String emailAttachmentName = "";
     private TextView titleTextView;
+    private FragmentBaseActivityContract.Presenter presenter;
 
     public static void startMe(Activity activity, String fragmentName, String title) {
         Intent intent = new Intent(activity, FragmentBaseActivity.class);
@@ -66,72 +63,35 @@ public class FragmentBaseActivity extends SecuredActivity {
         activity.startActivity(intent);
     }
 
+    protected void initializePresenter() {
+        presenter = new FragmentBaseActivityPresenter(this);
+    }
+
     public void sendEmail() {
         try {
             if (PermissionUtils.isPermissionGranted(this
                     , new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}
                     , GizConstants.RQ_CODE.STORAGE_PERMISIONS)) {
                 final String[] pdfPath = {Environment.getExternalStorageDirectory() + File.separator + emailAttachmentName + ".pdf"};
-                // export as image
-                PdfGeneratorHelper.getBuilder()
-                        .setContext(this)
-                        .fromViewSource()
-                        .fromView(getPDFRootView())
-                        .setDefaultPageSize(PdfGeneratorHelper.PageSize.WRAP_CONTENT)
-                        .setFileName(emailAttachmentName)
-                        .setFolderName(Environment.DIRECTORY_DOWNLOADS)
-                        .openPDFafterGeneration(false)
-                        .build(new PdfGeneratorListener() {
-                            @Override
-                            public void onFailure(PdfGeneratorHelper.FailureResponse failureResponse) {
-                                super.onFailure(failureResponse);
-                                Timber.e(failureResponse.getThrowable(), "Pdf Could not be Generated");
-                            }
-
-                            @Override
-                            public void onSuccess(PdfGeneratorHelper.SuccessResponse response) {
-                                super.onSuccess(response);
-                                pdfPath[0] = response.getPath();
-                                sendEmailWithAttachment(getEmailSubject(), pdfPath[0]);
-                            }
-                        });
-
+                presenter.sendEmail(pdfPath, emailAttachmentName);
             }
         } catch (Exception e) {
             Timber.e(e);
         }
     }
 
+    @Override
     public RelativeLayout getPDFRootView() {
         return findViewById(R.id.report_host);
     }
 
-    protected String getEmailSubject() {
+    @Override
+    public String getEmailSubject() {
         return emailSubject;
     }
 
-    public void layoutToImage(RelativeLayout relativeLayout, String fileExportPath) {
-        // get view group using reference
-        // convert view group to bitmap
-        relativeLayout.setDrawingCacheEnabled(true);
-        relativeLayout.buildDrawingCache();
-        Bitmap bm = relativeLayout.getDrawingCache();
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("image/jpeg");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        File f = new File(fileExportPath);
-        try {
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-        } catch (IOException e) {
-            Timber.e(e);
-        }
-    }
-
-
-    private void sendEmailWithAttachment(String subject, String pathToMyAttachedFile) {
+    @Override
+    public void sendEmailWithAttachment(String subject, String pathToMyAttachedFile) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("text/plain");
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
@@ -201,12 +161,11 @@ public class FragmentBaseActivity extends SecuredActivity {
                 switchToFragment(fragment);
         }
         onCreation();
+        initializePresenter();
     }
 
     public void setTitle(String title) {
-        if (title != null) {
-            titleTextView.setText(title);
-        }
+        titleTextView.setText(title);
     }
 
     @Override
