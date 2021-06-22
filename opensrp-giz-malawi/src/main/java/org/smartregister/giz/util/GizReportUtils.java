@@ -99,28 +99,24 @@ public class GizReportUtils {
                 String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setAdditionalDefaultingNotes(value);
-                    continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.BASE_ENTITY_ID)) {
                 String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setBaseEntityId(value);
-                    continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OUTREACH_DATE)) {
                 String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setOutreachDate(value);
-                    continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.FOLLOWUP_DATE)) {
                 String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setFollowupDate(value);
-                    continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OUTREACH_DEFAULTING_REASON)) {
@@ -130,21 +126,18 @@ public class GizReportUtils {
 
                 if (StringUtils.isNotBlank(json)) {
                     reasonForDefaultingModel.setOutreachDefaultingReason(json);
-                    continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OTHER_DEFAULTING_REASON)) {
                 String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setOtherOutreachDefaultingReason(value);
-                    continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.EVENT_DATE)) {
                 String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setDateCreated(value);
-                    continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.ID)) {

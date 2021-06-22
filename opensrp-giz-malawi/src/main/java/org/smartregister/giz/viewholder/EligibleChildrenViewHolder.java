@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import org.smartregister.giz.R;
 import org.smartregister.giz.domain.EligibleChild;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.view.ListContract;
 import org.smartregister.view.viewholder.ListableViewHolder;
@@ -41,7 +42,7 @@ public class EligibleChildrenViewHolder extends ListableViewHolder<EligibleChild
         List<String> stringList = new ArrayList<>();
         tvName.setText(eligibleChild.getFullName());
         String dob = GizUtils.getDuration(
-                new SimpleDateFormat("yyyy-MM-dd", Locale.US).format(eligibleChild.getDateOfBirth())
+                new SimpleDateFormat(GizConstants.DateTimeFormat.yyyy_MM_dd, Locale.US).format(eligibleChild.getDateOfBirth())
         );
         String age = currentView.getContext().getString(R.string.age);
         tvAge.setText(age + " " + dob);

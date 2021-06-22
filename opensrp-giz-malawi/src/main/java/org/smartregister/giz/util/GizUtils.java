@@ -531,7 +531,7 @@ public class GizUtils extends Utils {
 
     private static Locale getLocale() {
         Locale locale = CoreLibrary.getInstance().context().applicationContext().getResources().getConfiguration().locale;
-        locale = locale != null && locale.toString().startsWith("ar") ? Locale.ENGLISH : locale;
+        locale = locale != null ? Locale.ENGLISH : null;
 
         return locale;
     }
@@ -551,7 +551,7 @@ public class GizUtils extends Utils {
 
     public static String toCSV(List<String> list) {
         String result = "";
-        if (list.size() > 0) {
+        if (list != null && list.size() > 0) {
             StringBuilder sb = new StringBuilder();
             for (String s : list) {
                 sb.append(s).append(", ");
