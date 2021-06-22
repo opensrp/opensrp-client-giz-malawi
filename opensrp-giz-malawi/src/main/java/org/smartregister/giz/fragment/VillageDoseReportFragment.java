@@ -14,6 +14,7 @@ import org.smartregister.giz.adapter.VillageDoseAdapter;
 import org.smartregister.giz.dao.ReportDao;
 import org.smartregister.giz.domain.VillageDose;
 import org.smartregister.giz.model.FilterReportFragmentModel;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.util.AppExecutors;
 import org.smartregister.view.adapter.ListableAdapter;
 import org.smartregister.view.viewholder.ListableViewHolder;
@@ -48,7 +49,7 @@ public class VillageDoseReportFragment extends ReportResultFragment<VillageDose>
     @Override
     protected void executeFetch() {
         presenter.fetchList(() -> {
-            boolean includeAll = communityName.equalsIgnoreCase("All communities");
+            boolean includeAll = communityName.equalsIgnoreCase(GizConstants.KEY.ALL_COMMUNITIES);
             FilterReportFragmentModel model = new FilterReportFragmentModel();
             List<VillageDose> result = new ArrayList<>(ReportDao.fetchLiveVillageDosesReport(communityId, reportDate, includeAll,
                     includeAll ? communityName : null, model.getAllLocations()));

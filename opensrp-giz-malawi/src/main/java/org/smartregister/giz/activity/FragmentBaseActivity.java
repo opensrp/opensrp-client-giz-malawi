@@ -1,6 +1,7 @@
 package org.smartregister.giz.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -183,7 +184,7 @@ public class FragmentBaseActivity extends SecuredActivity {
 
             //Format Subject Date
             if (report_date != null) {
-                DateFormat df = new SimpleDateFormat("dd MMM yyyy");
+                @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat(GizConstants.DateTimeFormat.dd_MMM_yyyy);
                 Date date = null;
                 try {
                     date = df.parse(report_date);
@@ -191,9 +192,9 @@ public class FragmentBaseActivity extends SecuredActivity {
                     Timber.e(e, "Date could not be formatted");
                 }
 
-                SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm:ss", Locale.US);
-                emailSubject = String.format("%s - %s %s - %s", name, new SimpleDateFormat("dd/MM/yyyy", Locale.US).format(date), sdfTime.format(new Date()), communityName);
-                emailAttachmentName = String.format("%s-%s %s-%s", name, new SimpleDateFormat("ddMMyyyy", Locale.US).format(date), sdfTime.format(new Date()), communityName);
+                SimpleDateFormat sdfTime = new SimpleDateFormat(GizConstants.DateTimeFormat.hh_mm_ss, Locale.US);
+                emailSubject = String.format("%s - %s %s - %s", name, new SimpleDateFormat(GizConstants.DateTimeFormat.dd_MM_yyyy, Locale.US).format(date), sdfTime.format(new Date()), communityName);
+                emailAttachmentName = String.format("%s-%s %s-%s", name, new SimpleDateFormat(GizConstants.DateTimeFormat.ddMMyyyy, Locale.US).format(date), sdfTime.format(new Date()), communityName);
             }
             Fragment fragment = getRequestedFragment(fragmentName);
             if (fragment != null)
@@ -203,7 +204,9 @@ public class FragmentBaseActivity extends SecuredActivity {
     }
 
     public void setTitle(String title) {
-        titleTextView.setText(title);
+        if (title != null) {
+            titleTextView.setText(title);
+        }
     }
 
     @Override

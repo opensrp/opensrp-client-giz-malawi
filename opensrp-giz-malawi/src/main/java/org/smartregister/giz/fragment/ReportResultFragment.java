@@ -56,7 +56,7 @@ public abstract class ReportResultFragment<T extends ListContract.Identifiable> 
 
             if (date != null) {
                 try {
-                    reportDate = new SimpleDateFormat("dd MMM yyyy", Locale.US).parse(date);
+                    reportDate = new SimpleDateFormat(GizConstants.DateTimeFormat.dd_MMM_yyyy, Locale.US).parse(date);
                 } catch (ParseException e) {
                     Timber.e(e);
                 }

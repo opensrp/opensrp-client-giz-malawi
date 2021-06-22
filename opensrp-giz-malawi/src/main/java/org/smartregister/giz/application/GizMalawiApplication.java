@@ -286,14 +286,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return vaccineGroups;
     }
 
-    public static String getObsValue(Obs obs) {
-        List<Object> values = obs.getValues();
-        if (values != null && values.size() > 0) {
-            return (String) values.get(0);
-        }
-        return null;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -594,8 +586,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         VaccineRepo.Vaccine[] vaccines = ImmunizationLibrary.getInstance().getVaccines("child");
 
         HashMap<String, VaccineDuplicate> replacementVaccines = new HashMap<>();
-        replacementVaccines.put("MR 2", new VaccineDuplicate("MR 2", VaccineRepo.Vaccine.mr1, -1, 548, 183, "child"));
-        replacementVaccines.put("BCG 2", new VaccineDuplicate("BCG 2", VaccineRepo.Vaccine.bcg, 1825, 0, 42, "child"));
+        replacementVaccines.put("MR 2", new VaccineDuplicate("MR 2", VaccineRepo.Vaccine.mr1, -1, 548, 183, GizConstants.KEY.CHILD));
+        replacementVaccines.put("BCG 2", new VaccineDuplicate("BCG 2", VaccineRepo.Vaccine.bcg, 1825, 0, 42, GizConstants.KEY.CHILD));
 
         for (VaccineRepo.Vaccine vaccine : vaccines) {
             if (replacementVaccines.containsKey(vaccine.display())) {
@@ -609,7 +601,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             }
         }
 
-        ImmunizationLibrary.getInstance().setVaccines(vaccines, "child");
+        ImmunizationLibrary.getInstance().setVaccines(vaccines, GizConstants.KEY.CHILD);
     }
 
     public DailyTalliesRepository dailyTalliesRepository() {

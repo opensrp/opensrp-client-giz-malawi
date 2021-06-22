@@ -26,6 +26,11 @@ public class GizConstants {
     public interface DateTimeFormat {
         String HH_MM_AMPM = "h:mm a";
         String YYYY_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
+        String dd_MMM_yyyy = "dd MMM yyyy";
+        String hh_mm_ss = "hh:mm:ss";
+        String dd_MM_yyyy = "dd/MM/yyyy";
+        String ddMMyyyy = "ddMMyyyy";
+        String yyyy_MM_dd = "yyyy-MM-dd";
     }
 
     public interface RegisterType {
@@ -68,6 +73,7 @@ public class GizConstants {
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
         public static final String CHILD = "child";
+        public static final String CHILD_OVER_FIVE = "child_over_5";
         public static final String MOTHER_FIRST_NAME = "mother_first_name";
         public static final String FIRST_NAME = "first_name";
         public static final String LAST_NAME = "last_name";
@@ -121,6 +127,8 @@ public class GizConstants {
         public static String SITE_CHARACTERISTICS = "site_characteristics";
         public static String HIDDEN_FIELDS = "hidden_fields";
         public static String DISABLED_FIELDS = "disabled_fields";
+        public static final double ONE_YEAR = 365.4;
+        public static final String ALL_COMMUNITIES = "All communities";
     }
 
     public static final class DrawerMenu {
@@ -212,7 +220,7 @@ public class GizConstants {
         public static String REPORTS = "Reports";
     }
 
-    public static class ReasonForDefaultingHelper{
+    public static class ReasonForDefaultingHelper {
         public static String REPORT_REASON_FOR_DEFAULTING = "report_reason_for_defaulting";
     }
 }

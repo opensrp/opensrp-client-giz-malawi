@@ -233,7 +233,8 @@ tasks.withType(Test) {
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
 
-    jarJar 'com.ibm.fhir:fhir-model:4.2.3'
+    jarJar 'com.ibm.fhir:fhir-model:4.7.0'
+    jarJar 'com.ibm.fhir:fhir-path:4.7.0'
 
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])
 
@@ -291,7 +292,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
-    }
+        exclude group: 'com.ibm.fhir', module: 'fhir-path'    }
 
     implementation('org.smartregister:opensrp-client-maternity:0.0.8-SNAPSHOT@aar') {
         transitive = true
@@ -394,7 +395,9 @@ dependencies {
     }
     testImplementation "org.robolectric:shadows-multidex:$robolectricVersion"
     testImplementation "org.robolectric:shadows-support-v4:3.3.2"
-    testImplementation 'com.ibm.fhir:fhir-model:4.2.3'
+
+    testImplementation 'com.ibm.fhir:fhir-model:4.7.0'
+    testImplementation 'com.ibm.fhir:fhir-path:4.7.0'
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.+') {
         exclude group: 'com.android.support', module: 'support-annotations'

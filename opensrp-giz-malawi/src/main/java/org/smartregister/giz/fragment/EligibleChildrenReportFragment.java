@@ -81,14 +81,14 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
     @Override
     public void onListItemClicked(EligibleChild eligibleChild, int layoutID) {
 
-        Observable<CommonPersonObjectClient> observable = Observable.create(e -> {
+        Observable<CommonPersonObjectClient> observable = Observable.create(observableEmitter -> {
             CommonPersonObject personObject = GizUtils.getCommonRepository(GizConstants.TABLE_NAME.CHILD).findByBaseEntityId(eligibleChild.getID());
             CommonPersonObjectClient client = new CommonPersonObjectClient(personObject.getCaseId(),
                     personObject.getDetails(), "");
             client.setColumnmaps(personObject.getColumnmaps());
 
-            e.onNext(client);
-            e.onComplete();
+            observableEmitter.onNext(client);
+            observableEmitter.onComplete();
         });
 
         final Disposable[] disposable = new Disposable[1];

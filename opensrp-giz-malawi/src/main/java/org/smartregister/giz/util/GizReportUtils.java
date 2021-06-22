@@ -29,8 +29,6 @@ import java.util.Map;
 
 import timber.log.Timber;
 
-import static org.smartregister.giz.application.GizMalawiApplication.getObsValue;
-
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-12-02
  */
@@ -98,28 +96,28 @@ public class GizReportUtils {
         ReasonForDefaultingModel reasonForDefaultingModel = new ReasonForDefaultingModel();
         for (Obs obs : defaultingObs) {
             if (GizConstants.JsonAssetsHelper.ADDITIONAL_DEFAULTING_NOTES.equalsIgnoreCase(obs.getFormSubmissionField())) {
-                String value = getObsValue(obs);
+                String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setAdditionalDefaultingNotes(value);
                     continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.BASE_ENTITY_ID)) {
-                String value = getObsValue(obs);
+                String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setBaseEntityId(value);
                     continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OUTREACH_DATE)) {
-                String value = getObsValue(obs);
+                String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setOutreachDate(value);
                     continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.FOLLOWUP_DATE)) {
-                String value = getObsValue(obs);
+                String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setFollowupDate(value);
                     continue;
@@ -136,21 +134,21 @@ public class GizReportUtils {
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.OTHER_DEFAULTING_REASON)) {
-                String value = getObsValue(obs);
+                String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setOtherOutreachDefaultingReason(value);
                     continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.EVENT_DATE)) {
-                String value = getObsValue(obs);
+                String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setDateCreated(value);
                     continue;
                 } else
                     return null;
             } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.ID)) {
-                String value = getObsValue(obs);
+                String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setId(value);
                 }

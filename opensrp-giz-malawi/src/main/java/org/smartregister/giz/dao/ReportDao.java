@@ -20,6 +20,7 @@ import org.smartregister.domain.jsonmapping.util.TreeNode;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.domain.EligibleChild;
 import org.smartregister.giz.domain.VillageDose;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.immunization.db.VaccineRepo;
 import org.smartregister.immunization.domain.Vaccine;
 import org.smartregister.immunization.domain.VaccineCondition;
@@ -55,7 +56,7 @@ public class ReportDao extends AbstractDao {
     private static HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
     @SuppressLint("StaticFieldLeak")
     private static Context context;
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+    private static final SimpleDateFormat sdf = new SimpleDateFormat(GizConstants.DateTimeFormat.yyyy_MM_dd, Locale.US);
 
 
     private static void readLocations(TreeNode<String, Location> node, Map<String, String> locations) {
@@ -217,7 +218,7 @@ public class ReportDao extends AbstractDao {
 
     private static List<Alert> computeChildAlerts(int age, DateTime anchorDate, String baseEntityId, @Nullable List<Vaccine> issuedVaccines) {
         try {
-            String category = age < 5 ? "child" : "child_over_5";
+            String category = age < 5 ? GizConstants.KEY.CHILD : GizConstants.KEY.CHILD_OVER_FIVE;
             HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules(category);
             return getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, category, issuedVaccines == null ? new ArrayList<>() : issuedVaccines);
         } catch (Exception e) {
@@ -248,14 +249,14 @@ public class ReportDao extends AbstractDao {
 
     private static DataMap<Void> getData(List<EligibleChild> eligibleChildren, int days, Map<String, List<Vaccine>> allVaccines, Date dueDate) {
 
-        AbstractDao.DataMap<Void> dataMap = c -> {
+        AbstractDao.DataMap<Void> dataMap = cursor -> {
             // compute constants
-            String baseEntityId = getCursorValue(c, "base_entity_id");
-            Date dob = getCursorValueAsDate(c, "dob", sdf);
+            String baseEntityId = getCursorValue(cursor, "base_entity_id");
+            Date dob = getCursorValueAsDate(cursor, "dob", sdf);
             Date adjustedDob = new DateTime(dob).minusDays(days).toDate();
-            String name = getCursorValue(c, "first_name", "") + " " + getCursorValue(c, "middle_name", "");
-            name = name.trim() + " " + getCursorValue(c, "family_name", "");
-            int age = (int) Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / 365.4);
+            String name = getCursorValue(cursor, "first_name", "") + " " + getCursorValue(cursor, "middle_name", "");
+            name = name.trim() + " " + getCursorValue(cursor, "family_name", "");
+            int age = (int) Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / GizConstants.KEY.ONE_YEAR);
             if (age < 5) {
                 List<Vaccine> rawVaccines = allVaccines.get(baseEntityId);
                 List<Vaccine> myVaccines = new ArrayList<>();
@@ -293,7 +294,7 @@ public class ReportDao extends AbstractDao {
                 child.setID(baseEntityId);
                 child.setDateOfBirth(adjustedDob);
                 child.setFullName(name.trim());
-                child.setFamilyName(getCursorValue(c, "family_name") + " Family");
+                child.setFamilyName(getCursorValue(cursor, "family_name") + " Family");
                 child.setDueVaccines(dueVaccines);
                 child.setAlerts(alerts);
                 if (dueVaccines.length > 0) {

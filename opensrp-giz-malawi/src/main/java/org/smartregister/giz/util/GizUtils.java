@@ -643,4 +643,13 @@ public class GizUtils extends Utils {
         return duration;
 
     }
+
+    public static String getObsValue(Obs obs) {
+        List<Object> values = obs.getValues();
+        if (values != null && values.size() > 0) {
+            return (String) values.get(0);
+        }
+        return null;
+    }
+
 }

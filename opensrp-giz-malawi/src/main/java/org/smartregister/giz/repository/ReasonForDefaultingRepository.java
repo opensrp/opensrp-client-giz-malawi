@@ -104,7 +104,6 @@ public class ReasonForDefaultingRepository extends BaseRepository {
     public long getReasonForDefaultingCount() {
         SQLiteDatabase db = getWritableDatabase();
         long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
-        db.close();
         return count;
     }
 
