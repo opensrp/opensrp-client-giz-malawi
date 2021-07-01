@@ -169,7 +169,7 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
             if (!isDiagnoseScheduled) {
                 opdRegisterActivity.startFormActivity(OpdConstants.Form.OPD_CHECK_IN, commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
             } else {
-                opdRegisterActivity.startFormActivity(OpdConstants.Form.OPD_DIAGNOSIS_AND_TREAT, commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
+                opdRegisterActivity.startFormActivity("opd_treatment", commonPersonObjectClient.getCaseId(), null, injectedValues, entityTable);
             }
         }
     }
