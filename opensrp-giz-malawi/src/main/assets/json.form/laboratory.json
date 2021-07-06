@@ -54,7 +54,7 @@
     "title": "Lab",
     "fields": [
       {
-        "key": "test_ordered_lab",
+        "key": "test_ordered_lab_val",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
