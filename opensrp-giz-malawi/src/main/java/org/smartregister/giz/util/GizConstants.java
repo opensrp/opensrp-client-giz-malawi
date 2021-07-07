@@ -46,13 +46,13 @@ public class GizConstants {
     public interface JsonForm {
         // TODO
         String OPD_CHECKIN = "json.form/opd_checkin.json";
-        String VITAL_DANGER_SIGNS = "json.form/opd_checkin.json";
-        String DIAGNOSIS = "json.form/opd_checkin.json";
-        String LAB_RESULTS = "json.form/opd_checkin.json";
-        String TREATMENT = "json.form/opd_checkin.json";
-        String PHARMACY = "json.form/opd_checkin.json";
-        String FINAL_OUTCOME = "json.form/opd_checkin.json";
-        String SERVICE_FEE = "json.form/opd_checkin.json";
+        String VITAL_DANGER_SIGNS = "json.form/opd_danger_signs.json";
+        String DIAGNOSIS = "json.form/opd_diagnosis.json";
+        String LAB_RESULTS = "json.form/opd_laboratory.json";
+        String TREATMENT = "json.form/opd_treatment.json";
+        String PHARMACY = "json.form/opd_pharmacy.json";
+        String FINAL_OUTCOME = "json.form/opd_outcome.json";
+        String SERVICE_FEE = "json.form/opd_service_fee.json";
     }
 
     public interface Columns {
