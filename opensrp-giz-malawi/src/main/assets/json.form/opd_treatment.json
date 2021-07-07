@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "OPD Treatment",
+  "encounter_type": "OPD_Treatment",
   "entity_id": "",
   "metadata": {
     "start": {

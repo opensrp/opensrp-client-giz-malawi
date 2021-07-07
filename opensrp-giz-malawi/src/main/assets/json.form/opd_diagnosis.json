@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "OPD Diagnosis",
+  "encounter_type": "OPD_Diagnosis",
   "entity_id": "",
   "metadata": {
     "start": {

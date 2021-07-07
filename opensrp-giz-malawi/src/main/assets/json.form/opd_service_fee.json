@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "OPD Service Detail",
+  "encounter_type": "OPD_Service_Charge",
   "entity_id": "",
   "metadata": {
     "start": {

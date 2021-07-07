@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "OPD Outcome",
+  "encounter_type": "OPD_Final_Outcome",
   "entity_id": "",
   "metadata": {
     "start": {

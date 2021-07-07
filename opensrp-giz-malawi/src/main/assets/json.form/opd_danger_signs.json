@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "OPD Vital/Danger Signs",
+  "encounter_type": "OPD_Vital_Danger_signs_check",
   "entity_id": "",
   "metadata": {
     "start": {

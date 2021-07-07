@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Laboratory",
+  "encounter_type": "OPD_Laboratory",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -252,7 +252,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -268,7 +268,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -307,7 +307,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -323,7 +323,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -339,7 +339,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -384,7 +384,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -438,7 +438,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -492,7 +492,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -546,7 +546,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -600,7 +600,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -654,7 +654,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -703,7 +703,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -731,7 +731,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -806,7 +806,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -972,7 +972,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -988,7 +988,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -1090,7 +1090,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -1106,7 +1106,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -1138,7 +1138,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -1158,7 +1158,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
