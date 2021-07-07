@@ -20,13 +20,10 @@ import org.joda.time.Years;
 import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
-import org.smartregister.giz.fragment.GizOpdProfileOverviewFragment;
-import org.smartregister.giz.fragment.GizOpdProfileVisitsFragment;
 import org.smartregister.giz.task.OpdTransferTask;
-import org.smartregister.giz.util.FormProcessor;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
-import org.smartregister.opd.adapter.ViewPagerAdapter;
+import org.smartregister.opd.utils.FormProcessor;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.util.Utils;
 

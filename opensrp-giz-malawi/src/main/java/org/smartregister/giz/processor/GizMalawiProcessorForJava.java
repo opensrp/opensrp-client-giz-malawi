@@ -63,6 +63,7 @@ import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.opd.utils.VisitUtils;
 import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.pojo.PncBaseDetails;
 import org.smartregister.pnc.pojo.PncChild;
@@ -155,7 +156,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
                 if (eventType.equals(GizConstants.OpdModuleEvents.OPD_CHECK_IN)) {
                     processVisitEvent(eventClients);
-                }else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
+                } else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     processVaccinationEvent(vaccineTable, eventClient);
                 } else if (eventType.equals(WeightIntentService.EVENT_TYPE) || eventType
@@ -425,7 +426,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
-        try{
+        try {
             HashMap<String, DateTime> stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
             for (String baseEntityId : stringDateTimeHashMap.keySet()) {
                 DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
@@ -434,7 +435,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 }
             }
             clientsForAlertUpdates.clear();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Timber.e(ex);
         }
     }

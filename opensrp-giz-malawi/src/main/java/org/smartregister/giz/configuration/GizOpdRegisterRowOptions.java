@@ -9,8 +9,8 @@ import androidx.annotation.Nullable;
 
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
-import org.smartregister.giz.dao.GizVisitDao;
 import org.smartregister.opd.configuration.OpdRegisterRowOptions;
+import org.smartregister.opd.dao.VisitDao;
 import org.smartregister.opd.holders.OpdRegisterViewHolder;
 import org.smartregister.view.contract.SmartRegisterClient;
 

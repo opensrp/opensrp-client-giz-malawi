@@ -131,7 +131,7 @@ public class GizMaternityPncTransferProcessor implements ClientTransferProcessor
                     }
                 }
             }
-        } catch (JSONException | IOException e) {
+        } catch (JSONException e) {
             Timber.e(e);
         }
         return jsonForm;
