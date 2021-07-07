@@ -153,7 +153,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     continue;
                 }
 
-                if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
+                if (eventType.equals(GizConstants.OpdModuleEvents.OPD_CHECK_IN)) {
+                    processVisitEvent(eventClients);
+                }else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     processVaccinationEvent(vaccineTable, eventClient);
                 } else if (eventType.equals(WeightIntentService.EVENT_TYPE) || eventType
@@ -217,11 +219,19 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             processUnsyncEvents(unsyncEvents);
 
             // Process alerts for clients
-            Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
+            /**
+             Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
 
-            appExecutors.diskIO().execute(runnable);
+             appExecutors.diskIO().execute(runnable);
+             **/
         }
 
+    }
+
+    private void processVisitEvent(List<EventClient> eventClients) {
+        for (EventClient eventClient : eventClients) {
+            VisitUtils.processVisit(eventClient);
+        }
     }
 
     public void processGizCoreEvents(ClientClassification clientClassification, EventClient eventClient, Event event, String eventType) throws Exception {
@@ -415,14 +425,18 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
-        HashMap<String, DateTime> stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
-        for (String baseEntityId : stringDateTimeHashMap.keySet()) {
-            DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
-            if (birthDateTime != null) {
-                updateOfflineAlerts(baseEntityId, birthDateTime);
+        try{
+            HashMap<String, DateTime> stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
+            for (String baseEntityId : stringDateTimeHashMap.keySet()) {
+                DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
+                if (birthDateTime != null) {
+                    updateOfflineAlerts(baseEntityId, birthDateTime);
+                }
             }
+            clientsForAlertUpdates.clear();
+        }catch (Exception ex){
+            Timber.e(ex);
         }
-        clientsForAlertUpdates.clear();
     }
 
     private boolean processDeathEvent(@NonNull EventClient eventClient, ClientClassification clientClassification) {

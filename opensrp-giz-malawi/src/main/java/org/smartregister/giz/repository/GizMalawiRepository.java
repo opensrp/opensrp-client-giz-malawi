@@ -198,6 +198,9 @@ public class GizMalawiRepository extends Repository {
                 case 15:
                     upgradeToVersion15TriggerCreateNewTable(db);
                     break;
+                case 16:
+                    upgradeToVersion16CreateNewVisitTable(db);
+                    break;
                 default:
                     break;
             }
@@ -499,6 +502,15 @@ public class GizMalawiRepository extends Repository {
 
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion15");
+        }
+    }
+
+    private void upgradeToVersion16CreateNewVisitTable(@NonNull SQLiteDatabase db) {
+        try {
+            VisitRepository.createTable(db);
+            VisitDetailsRepository.createTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion16");
         }
     }
 
