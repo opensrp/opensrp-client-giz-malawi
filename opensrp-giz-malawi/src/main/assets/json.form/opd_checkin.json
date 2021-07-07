@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "OPD Check-In",
+  "encounter_type": "OPD_Check_in",
   "entity_id": "",
   "metadata": {
     "start": {

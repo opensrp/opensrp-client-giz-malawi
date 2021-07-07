@@ -67,6 +67,8 @@ import org.smartregister.giz.repository.GizMalawiRepository;
 import org.smartregister.giz.repository.HIA2IndicatorsRepository;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 import org.smartregister.giz.repository.ReasonForDefaultingRepository;
+import org.smartregister.giz.repository.VisitDetailsRepository;
+import org.smartregister.giz.repository.VisitRepository;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizOpdRegisterProviderMetadata;
@@ -152,6 +154,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private GizEventRepository gizEventRepository;
     private AppExecutors appExecutors;
     private ReasonForDefaultingRepository reasonForDefaultingRepository;
+    private VisitRepository visitRepository;
+    private VisitDetailsRepository visitDetailsRepository;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -671,5 +675,29 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         }
         return this.reasonForDefaultingRepository;
     }
+
+    public VisitRepository visitRepository() {
+        if (visitRepository == null) {
+            visitRepository = new VisitRepository();
+        }
+        return visitRepository;
+    }
+
+    public VisitDetailsRepository visitDetailsRepository() {
+        if (visitDetailsRepository == null) {
+            visitDetailsRepository = new VisitDetailsRepository();
+        }
+        return visitDetailsRepository;
+    }
+
+
+    public Integer getApplicationVersion(){
+        return BuildConfig.VERSION_CODE;
+    }
+
+    public Integer getDatabaseVersion(){
+        return BuildConfig.DATABASE_VERSION;
+    }
+
 }
 

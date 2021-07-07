@@ -912,4 +912,21 @@
     <string name="compliance">Compliance</string>
     <string name="due_on">Due on</string>
     <string name="no_village_selected">"No Village selected"</string>
+
+
+    <!--OPD Strings-->
+    <string name="opd_check_in">CHECK IN</string>
+    <string name="vital_danger_signs">VITAL/DANGER SIGNS</string>
+    <string name="opd_diagnosis">DIAGNOSIS</string>
+    <string name="lab_reports">LAB REPORTS</string>
+    <string name="opd_treatment">TREATMENT</string>
+    <string name="pharmacy">PHARMACY</string>
+    <string name="final_outcome">FINAL OUTCOME</string>
+    <string name="service_fee">SERVICE FEE</string>
+    <string name="today">Today</string>
+    <string name="history">History</string>
+    <string name="seen">Seen</string>
+    <string name="seen_today">Seen Today</string>
+    <string name="edit">EDIT</string>
+    <string name="view">VIEW</string>
 </resources>

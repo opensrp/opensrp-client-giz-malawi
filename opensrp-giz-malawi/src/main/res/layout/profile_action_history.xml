@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/iv_history_Icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:maxLines="1"
+        android:scaleType="centerInside"
+        android:singleLine="true"
+        app:srcCompat="@drawable/icon_task_256" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/tv_action"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/iv_history_Icon"
+        android:maxLines="1"
+        android:paddingStart="20dp"
+        android:singleLine="true"
+        android:text="14:35 Check In"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/register_list_title_size"
+        tools:ignore="RtlSymmetry" />
+
+    <org.smartregister.view.customcontrols.CustomFontTextView
+        android:id="@+id/tv_edit"
+        style="@style/CustomFontTextViewStyle.ClientList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tv_action"
+        android:maxLines="1"
+        android:paddingStart="40dp"
+        android:singleLine="true"
+        android:text="@string/edit"
+        android:textColor="@color/text_blue"
+        android:textSize="@dimen/register_list_title_size"
+        tools:ignore="RtlSymmetry" />
+
+</RelativeLayout>
