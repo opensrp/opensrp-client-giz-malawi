@@ -10,6 +10,7 @@ import org.smartregister.giz.dao.GizVisitDao;
 import org.smartregister.giz.domain.ProfileAction;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.NativeFormProcessor;
+import org.smartregister.opd.utils.OpdConstants;
 import org.smartregister.util.CallableInteractor;
 import org.smartregister.util.CallableInteractorCallBack;
 import org.smartregister.util.GenericInteractor;
@@ -94,7 +95,8 @@ public class GizOpdProfileOverviewFragmentPresenter extends ListPresenter<Profil
             JSONObject jsonObject = new JSONObject(jsonString);
             NativeFormProcessor processor = NativeFormProcessor.createInstance(jsonObject);
             String entityId = jsonObject.getString(GizConstants.Properties.BASE_ENTITY_ID);
-            String formSubmissionId = jsonObject.getString(GizConstants.Properties.FORM_SUBMISSION_ID);
+            String formSubmissionId = jsonObject.has(GizConstants.Properties.FORM_SUBMISSION_ID) ?
+                    jsonObject.getString(GizConstants.Properties.FORM_SUBMISSION_ID) : null;
 
             String eventType = jsonObject.getString(ENCOUNTER_TYPE);
 

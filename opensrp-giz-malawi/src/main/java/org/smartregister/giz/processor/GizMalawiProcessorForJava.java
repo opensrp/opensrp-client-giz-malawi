@@ -154,7 +154,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     continue;
                 }
 
-                if (eventType.equals(GizConstants.OpdModuleEvents.OPD_CHECK_IN)) {
+                if (eventType.equals(GizConstants.OpdModuleEvents.OPD_CHECK_IN) || eventType.equals(GizConstants.OpdModuleEvents.OPD_VITAL_DANGER_SIGNS_CHECK)|| eventType.equals(GizConstants.OpdModuleEvents.OPD_DIAGNOSIS)
+                || eventType.equals(GizConstants.OpdModuleEvents.OPD_PHARMACY) || eventType.equals(GizConstants.OpdModuleEvents.OPD_TREATMENT) || eventType.equals(GizConstants.OpdModuleEvents.OPD_LABORATORY)
+                || eventType.equals(GizConstants.OpdModuleEvents.OPD_FINAL_OUTCOME) || eventType.equals(GizConstants.OpdModuleEvents.OPD_SERVICE_CHARGE)) {
                     processVisitEvent(eventClients);
                 }else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {

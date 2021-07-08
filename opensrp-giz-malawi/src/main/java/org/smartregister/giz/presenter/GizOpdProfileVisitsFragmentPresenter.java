@@ -114,8 +114,6 @@ public class GizOpdProfileVisitsFragmentPresenter extends ListPresenter<ProfileH
             JSONObject jsonObject = new JSONObject(jsonString);
             String title = jsonObject.getString(ENCOUNTER_TYPE);
 
-            // TODO
-            if (title.equals(GizConstants.OpdModuleEvents.OPD_CHECK_IN)) {
                 CallableInteractor myInteractor = getCallableInteractor();
 
                 Callable<Void> callable = () -> {
@@ -159,7 +157,6 @@ public class GizOpdProfileVisitsFragmentPresenter extends ListPresenter<ProfileH
                         view.setLoadingState(false);
                     }
                 });
-            }
 
         } catch (Exception ex) {
             Timber.e(ex.getMessage());

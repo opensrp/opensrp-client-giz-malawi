@@ -230,4 +230,8 @@ public class OpdRegisterFragment extends BaseOpdRegisterFragment {
             Timber.e(e);
         }
     }
+@Override
+    public String getDueOnlyText() {
+        return getString(R.string.seen);
+    }
 }

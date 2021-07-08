@@ -77,27 +77,27 @@ public class GizOpdProfileOverviewFragment extends BaseListFragment<ProfileActio
             );
             profileActions.add(
                     new ProfileAction(getString(R.string.opd_diagnosis), 2)
-                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_VITAL_DANGER_SIGNS_CHECK))
+                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_DIAGNOSIS))
             );
             profileActions.add(
                     new ProfileAction(getString(R.string.lab_reports), 3)
-                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_VITAL_DANGER_SIGNS_CHECK))
+                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_LABORATORY))
             );
             profileActions.add(
                     new ProfileAction(getString(R.string.opd_treatment), 4)
-                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_VITAL_DANGER_SIGNS_CHECK))
+                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_TREATMENT))
             );
             profileActions.add(
                     new ProfileAction(getString(R.string.pharmacy), 5)
-                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_VITAL_DANGER_SIGNS_CHECK))
+                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_PHARMACY))
             );
             profileActions.add(
                     new ProfileAction(getString(R.string.final_outcome), 6)
-                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_VITAL_DANGER_SIGNS_CHECK))
+                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_FINAL_OUTCOME))
             );
             profileActions.add(
                     new ProfileAction(getString(R.string.service_fee), 7)
-                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_VITAL_DANGER_SIGNS_CHECK))
+                            .setVisits(mapVisit.get(GizConstants.OpdModuleEvents.OPD_SERVICE_CHARGE))
             );
             return profileActions;
         };
