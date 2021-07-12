@@ -134,6 +134,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @Override
+    public synchronized void processClient(List<EventClient> eventClientList, boolean localSubmission) throws Exception {
+        this.processClient(eventClientList);
+    }
+
+    @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
         ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json",
                 ClientClassification.class);
@@ -154,7 +159,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     continue;
                 }
 
-                if (eventType.equals(GizConstants.OpdModuleEvents.OPD_CHECK_IN)) {
+                if (eventType.equals(OpdConstants.OpdModuleEvents.OPD_CHECK_IN)) {
                     processVisitEvent(eventClients);
                 } else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
