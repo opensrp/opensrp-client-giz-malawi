@@ -54,20 +54,12 @@
     "title": "Diagnosis",
     "fields": [
       {
-        "key": "danger_signs_opd_note_val",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
         "key": "danger_signs_opd_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "A note in a red box higlighting the danger signs of the patient. ",
-        "toaster_info_text": "selected {danger_signs_opd!='''' or ''none''}",
+        "text": "Danger Signs {danger_signs}",
         "toaster_type": "problem",
         "relevance": {
           "rules-engine": {
@@ -75,14 +67,14 @@
               "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
             }
           }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_calculation.yml"
+            }
+          }
         }
-      },
-      {
-        "key": "vital_signs_opd_note_val",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       },
       {
         "key": "vital_signs_opd_note",
@@ -90,8 +82,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "A note in green showing the vital signs of the patient",
-        "toaster_info_text": "selected {body_temp} !='''', {pulse_rate} !='''', {current_weight} !='''', {height} !='''', {bp_systolic } !='''', {bp_diastolic } !='''', {oximetry} !='''', {respiratory_rate} !='''', {convulsions_history} =''yes''",
+        "text": "Vitals: {body_temp}, {pulse_rate}, {current_weight}, {height}, {bp_systolic}/{bp_diastolic} mmmHg, {oximetry}, {respiratory_rate}, {convulsions_history}",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -99,14 +90,14 @@
               "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
             }
           }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_calculation.yml"
+            }
+          }
         }
-      },
-      {
-        "key": "health_concerns_note_val",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
       },
       {
         "key": "health_concerns_note",
@@ -114,13 +105,19 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "A note showing the patient's health concerns",
-        "toaster_info_text": "selected{opd_health_concerns!=''''",
+        "text": "Health Concerns: {health_concerns}",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_calculation.yml"
             }
           }
         }

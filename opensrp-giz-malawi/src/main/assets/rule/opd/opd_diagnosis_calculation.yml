@@ -1,5 +1,5 @@
 ---
-name: step4_hiv_positive
+name: step1_hiv_positive
 description: hiv_positive
 priority: 1
 condition: "step1_medical_conditions.contains('hiv') || step1_1hiv_prev_status.contains('positive')"
@@ -19,3 +19,40 @@ priority: 1
 condition: "true"
 actions:
   - 'calculation = step1_disease_code_final_diagn'
+---
+name: step1_danger_signs_opd_note
+description: danger_signs_opd_note
+priority: 1
+condition: "!global_opd_danger_signs.isEmpty() && !global_opd_danger_signs.contains('danger_none')"
+actions:
+  - 'calculation = ["danger_signs" : global_opd_danger_signs_value]'
+---
+name: step1_vital_signs_opd_note
+description: vital_signs_opd_note
+priority: 1
+condition: "!global_body_temp.isEmpty()
+              || !global_pulse_rate.isEmpty()
+              || !global_current_weight.isEmpty()
+              || !global_height.isEmpty()
+              || !global_bp_systolic.isEmpty()
+              || !global_bp_diastolic.isEmpty()
+              || !global_oximetry.isEmpty()
+              || !global_respiratory_rate.isEmpty()
+              || !global_convulsions_history.isEmpty()"
+actions:
+  - 'calculation = ["body_temp" : global_body_temp,
+                      "pulse_rate" : global_pulse_rate,
+                      "current_weight" : global_current_weight,
+                      "height" : global_height,
+                      "bp_systolic" : global_bp_systolic,
+                      "bp_diastolic" : global_bp_diastolic,
+                      "oximetry" : global_oximetry,
+                      "respiratory_rate" : global_respiratory_rate,
+                      "convulsions_history" : global_convulsions_history]'
+---
+name: step1_health_concerns_note
+description: health_concerns_note
+priority: 1
+condition: "!global_opd_health_concerns.isEmpty() && !global_opd_health_concerns.contains('danger_none')"
+actions:
+  - 'calculation = ["health_concerns" : global_opd_health_concerns_value]'

@@ -54,24 +54,24 @@
     "title": "Pharmacy",
     "fields": [
       {
-        "key": "prescription_val",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
         "key": "prescription",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Note highlighting the medication that was prescribed to the client. ",
+        "text": "Prescribed Medication: {medicine}",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_pharmacy_calculation.yml"
             }
           }
         }

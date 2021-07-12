@@ -54,20 +54,27 @@
     "title": "Lab",
     "fields": [
       {
-        "key": "test_ordered_lab_val",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
         "key": "test_ordered_lab",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Test Ordered",
-        "toaster_type": "info"
+        "text": "Test Ordered: {diagnostic_test}",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_laboratory_calculation.yml"
+            }
+          }
+        }
       },
       {
         "key": "test_ordered_avail",

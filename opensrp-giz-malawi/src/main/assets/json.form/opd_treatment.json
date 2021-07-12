@@ -54,24 +54,24 @@
     "title": "Treatment",
     "fields": [
       {
-        "key": "final_diagnosis_note_val",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
         "key": "final_diagnosis_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "A note in a blue box highlighting the final diagnosis for a client that did not go to the lab",
+        "text": "Diagnosis: Pregnancy Status: {pregnancy_status}, Medical Conditions: {medical_conditions}, Disease Code Primary: {disease_code_primary}, Disease Code Final: {disease_code_final}",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "opd/opd_treatment_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_treatment_calculation.yml"
             }
           }
         }
@@ -89,12 +89,19 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "A note in a blue box indicating the test results for a client that  visited the lab and had tests conducted. ",
+        "text": "Test Results: {diagnostic_test_result}, Tb Gene: {diagnostic_test_result_tb_gene}, TSM: {diagnostic_test_result_tsm}, Nitrates: {test_result_urine_dipstick_nitrites}, Dipstick Leukocytes: {test_result_urine_dipstick_leukocytes}, Dipstick Protein: {test_result_urine_dipstick_protein}, Dipstick Glucose: {test_result_urine_dipstick_glucose}, HIV Viral Load: {test_result_hiv_viral_load}, Glucose: {diagnostic_test_result_gluc}, Bloodtype: {diagnostic_test_result_bloodtype}, Viral Load No: {test_result_hiv_viral_load_no}",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "opd/opd_treatment_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_treatment_calculation.yml"
             }
           }
         }

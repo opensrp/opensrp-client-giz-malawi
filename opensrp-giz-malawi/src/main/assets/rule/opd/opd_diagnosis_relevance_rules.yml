@@ -2,14 +2,22 @@
 name: step1_danger_signs_opd_note
 description: danger_signs_opd_note
 priority: 1
-condition: "!step1_danger_signs_opd_note_val.equals('')"
+condition: "!global_opd_danger_signs.contains('danger_none')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_vital_signs_opd_note
 description: vital_signs_opd_note
 priority: 1
-condition: "!step1_vital_signs_opd_note_val.equals('')"
+condition: "!global_body_temp.isEmpty()
+              || !global_pulse_rate.isEmpty()
+              || !global_current_weight.isEmpty()
+              || !global_height.isEmpty()
+              || !global_bp_systolic.isEmpty()
+              || !global_bp_diastolic.isEmpty()
+              || !global_oximetry.isEmpty()
+              || !global_respiratory_rate.isEmpty()
+              || !global_convulsions_history.isEmpty()"
 actions:
   - "isRelevant = true"
 ---

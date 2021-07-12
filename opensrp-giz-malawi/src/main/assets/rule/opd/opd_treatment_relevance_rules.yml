@@ -16,13 +16,31 @@ actions:
 name: step1_final_diagnosis_note
 description: final diagnosis note
 priority: 1
-condition: "step1_final_diagnosis_note_val != NULL || step1_final_diagnosis_note_val != ''"
+condition: "!global_pregnancy_status.isEmpty()
+                  || !global_medical_conditions.isEmpty()
+                  || !global_medical_conditions.contains('none')
+                  || global_disease_code_final_diagn != NULL
+                  || global_disease_code_primary != NULL"
 actions:
   - "isRelevant = true"
 ---
 name: step1_lab_results_note
 description: lab_results_note
 priority: 1
-condition: "step1_lab_results_note_val != NULL || step1_lab_results_note_val != ''"
+condition: "!global_pregnancy_status.isEmpty()
+                  || !global_diagnostic_test_result_tb_gene.isEmpty()
+                  || !global_diagnostic_test_result_tsm.isEmpty()
+                  || !global_test_result_urine_dipstick_nitrites.isEmpty()
+                  || !global_test_result_urine_dipstick_nitrites.contains('none')
+                  || !global_test_result_urine_dipstick_leukocytes.isEmpty()
+                  || !global_test_result_urine_dipstick_leukocytes.contains('none')
+                  || !global_test_result_urine_dipstick_protein.isEmpty()
+                  || !global_test_result_urine_dipstick_protein.contains('none')
+                  || !global_test_result_urine_dipstick_glucose.isEmpty()
+                  || !global_test_result_urine_dipstick_glucose.contains('none')
+                  || !global_test_result_hiv_viral_load.isEmpty()
+                  || !global_diagnostic_test_result_gluc.isEmpty()
+                  || !global_diagnostic_test_result_bloodtype.isEmpty()
+                  || !global_test_result_hiv_viral_load_no.isEmpty()"
 actions:
   - "isRelevant = true"
