@@ -43,17 +43,6 @@ public class GizConstants {
         String LOCATION_NAME = "name";
     }
 
-    public interface JsonForm {
-        // TODO
-        String OPD_CHECKIN = "json.form/opd_checkin.json";
-        String VITAL_DANGER_SIGNS = "json.form/opd_checkin.json";
-        String DIAGNOSIS = "json.form/opd_checkin.json";
-        String LAB_RESULTS = "json.form/opd_checkin.json";
-        String TREATMENT = "json.form/opd_checkin.json";
-        String PHARMACY = "json.form/opd_checkin.json";
-        String FINAL_OUTCOME = "json.form/opd_checkin.json";
-        String SERVICE_FEE = "json.form/opd_checkin.json";
-    }
 
     public interface Columns {
         interface RegisterType {
@@ -266,17 +255,4 @@ public class GizConstants {
         public static String REPORT_REASON_FOR_DEFAULTING = "report_reason_for_defaulting";
     }
 
- /*   public static class OpdModuleEvents {
-        public static final String OPD_REGISTRATION = "OPD_Registration";
-        public static final String OPD_CHECK_IN = "OPD_Check_in";
-        public static final String OPD_VITAL_DANGER_SIGNS_CHECK = "OPD_Vital_Danger_signs_check";
-        public static final String OPD_DIAGNOSIS = "OPD_Diagnosis";
-        public static final String OPD_LABORATORY = "OPD_Laboratory";
-        public static final String OPD_TREATMENT = "OPD_Treatment";
-        public static final String OPD_PHARMACY = "OPD_Pharmacy";
-        public static final String OPD_FINAL_OUTCOME = "OPD_Final_Outcome";
-        public static final String OPD_SERVICE_CHARGE= "OPD_Service_Charge";
-        public static final String OPD_VISIT_GROUP = "opd_visit_group";
-
-    }*/
 }
