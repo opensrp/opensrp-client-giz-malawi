@@ -266,7 +266,7 @@ public class GizConstants {
         public static String REPORT_REASON_FOR_DEFAULTING = "report_reason_for_defaulting";
     }
 
-    public static class OpdModuleEvents {
+ /*   public static class OpdModuleEvents {
         public static final String OPD_REGISTRATION = "OPD_Registration";
         public static final String OPD_CHECK_IN = "OPD_Check_in";
         public static final String OPD_VITAL_DANGER_SIGNS_CHECK = "OPD_Vital_Danger_signs_check";
@@ -278,5 +278,5 @@ public class GizConstants {
         public static final String OPD_SERVICE_CHARGE= "OPD_Service_Charge";
         public static final String OPD_VISIT_GROUP = "opd_visit_group";
 
-    }
+    }*/
 }

@@ -15,6 +15,8 @@ import com.evernote.android.job.JobManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
@@ -114,6 +116,7 @@ import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.NativeFormProcessor;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
@@ -429,6 +432,22 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 .build();
 
         OpdLibrary.init(context, getRepository(), opdConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        OpdLibrary.initializeFormFactory(new OpdLibrary.NativeFormProcessorFactory() {
+            @Override
+            public NativeFormProcessor createInstance(String s) throws JSONException {
+                return NativeFormProcessor.createInstance(s, BuildConfig.DATABASE_VERSION, getClientProcessor());
+            }
+
+            @Override
+            public NativeFormProcessor createInstance(JSONObject jsonObject) {
+                return NativeFormProcessor.createInstance(jsonObject, BuildConfig.DATABASE_VERSION, getClientProcessor());
+            }
+
+            @Override
+            public NativeFormProcessor createInstanceFromAsset(String s) throws JSONException  {
+                return NativeFormProcessor.createInstanceFromAsset(s, BuildConfig.DATABASE_VERSION, getClientProcessor());
+            }
+        });
     }
 
     private ChildMetadata getMetadata() {
