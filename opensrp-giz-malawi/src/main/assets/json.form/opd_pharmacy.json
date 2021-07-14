@@ -164,7 +164,7 @@
         "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
         "source": "csv",
         "repositoryClass": "org.smartregister.opd.widgets.OpdMedicineMultiSelectListRepository",
-        "type": "multi_select_list",
+        "type": "multi_select_drug_picker",
         "buttonText": "+ Add treatment/medicine",
         "dialogTitle": "Add treatment/medicine",
         "searchHint": "Type treatment/medicine name",
@@ -175,68 +175,7 @@
             }
           }
         }
-      },
-      {
-        "key": "dosage",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Dosage",
-        "edit_type": "name",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the dosage"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "frequency",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Frequency",
-        "edit_type": "number",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the dosage frequency"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "duration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Duration",
-        "edit_type": "name",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the dosage"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
+      },{
         "key": "special_instructions",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

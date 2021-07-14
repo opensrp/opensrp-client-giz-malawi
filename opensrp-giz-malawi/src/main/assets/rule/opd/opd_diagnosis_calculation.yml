@@ -11,7 +11,7 @@ description: disease_code_object
 priority: 1
 condition: "true"
 actions:
-  - 'calculation = step1_disease_code'
+  - 'calculation = step1_disease_code_primary'
 ---
 name: step1_disease_code_object_final
 description: disease_code_object_final
