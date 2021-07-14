@@ -107,7 +107,6 @@
         "hint": "The type of treatment provided",
         "type": "check_box",
         "label": "The type of treatment provided",
-        "combine_checkbox_option_values": "true",
         "label_text_style": "bold",
         "options": [
           {

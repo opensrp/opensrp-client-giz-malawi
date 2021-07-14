@@ -19,3 +19,19 @@ priority: 1
 condition: "step1_referral == 'yes'"
 actions:
   - "isRelevant = true"
+---
+name: step1_referral_location_specify
+description: referral_location_specify
+priority: 1
+condition: "!step1_referral_location.isEmpty()
+                && step1_referral_location.contains('other')
+                && !step1_referral_location.contains('other_health_facility')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_facility_specify
+description: referral_facility_specify
+priority: 1
+condition: "!step1_referral_location.isEmpty() && step1_referral_location.contains('other_health_facility')"
+actions:
+  - "isRelevant = true"

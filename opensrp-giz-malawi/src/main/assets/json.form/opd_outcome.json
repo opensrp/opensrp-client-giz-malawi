@@ -56,36 +56,50 @@
       {
         "key": "discharged_alive",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "Was the client discharged alive?",
+        "label_text_style": "bold",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes"
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },
       {
         "key": "discharged_home",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1692AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "Were they discharged to home?",
+        "label_text_style": "bold",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes"
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
@@ -99,18 +113,25 @@
       {
         "key": "referral",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "161360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "label": "Was the client referred?",
+        "label_text_style": "bold",
         "type": "native_radio",
         "options": [
           {
             "key": "yes",
-            "text": "Yes"
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
-            "text": "No"
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
@@ -124,27 +145,61 @@
       {
         "key": "referral_location",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "spinner",
-        "hint": "Where were they referred to?",
-        "values": [
-          "Nutrition Clinic",
-          "ART Clinic",
-          "TB Clinic",
-          "ANC Clinic",
-          "Down Referral",
-          "Other Health Facility",
-          "Other (specify)"
-        ],
-        "keys": [
-          "nutrition_clinic",
-          "art_clinic",
-          "tb_clinic",
-          "anc_clinic",
-          "down_referral",
-          "other_health_facility",
-          "other"
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label_text_style": "bold",
+        "type": "native_radio",
+        "label": "Where were they referred to?",
+        "options": [
+          {
+            "key": "nutrition_clinic",
+            "text": "Nutrition Clinic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1380AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "art_clinic",
+            "text": "ART Clinic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160631AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "tb_clinic",
+            "text": "TB Clinic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "anc_clinic",
+            "text": "ANC Clinic",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "down_referral",
+            "text": "Down Referral",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "other_health_facility",
+            "text": "Other Health Facility",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164407AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
         ],
         "relevance": {
           "rules-engine": {
@@ -163,9 +218,26 @@
         "type": "edit_text",
         "hint": "Specify any referral location",
         "relevance": {
-          "step1:referral_location": {
-            "type": "string",
-            "ex": "equalTo(.,\"other\")"
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_outcome_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "referral_facility_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "hint": "Specify the location patient was referred",
+        "label_text_style": "bold",
+        "type": "tree",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_outcome_relevance_rules.yml"
+            }
           }
         }
       },

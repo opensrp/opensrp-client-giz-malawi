@@ -221,7 +221,6 @@
         "hint": "Previous medical conditions",
         "label": "Previous medical conditions",
         "label_text_style": "bold",
-        "combine_checkbox_option_values": "true",
         "exclusive": [
           "none"
         ],

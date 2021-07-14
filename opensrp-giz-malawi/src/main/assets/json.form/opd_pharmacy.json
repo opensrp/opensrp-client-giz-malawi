@@ -277,11 +277,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label": "Where were they referred to?",
+        "hint": "Where were they referred to?",
         "label_text_style": "bold",
-        "type": "native_radio",
-        "options": [
-        ],
+        "type": "tree",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
