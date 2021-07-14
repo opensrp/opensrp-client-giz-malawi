@@ -423,7 +423,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 OpdConstants.CONFIG, OpdFormActivity.class, GizOpdProfileActivity.class, true);
 
 //        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Collections.singletonList("village")));
-        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village", OpdConstants.KEY.REFERRAL_FACILITY, OpdConstants.KEY.REFERRAL_LOCATION)));
+        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village", OpdConstants.KEY.REFERRAL_FACILITY,
+                OpdConstants.KEY.REFERRAL_LOCATION, OpdConstants.KEY.REFERRAL_LOCATION_LAB)));
         opdMetadata.setLookUpQueryForOpdClient(String.format("select id as _id, %s, %s, %s, %s, %s, %s, %s, national_id from " + OpdDbConstants.KEY.TABLE + " where [condition] ", OpdConstants.KEY.RELATIONALID, OpdConstants.KEY.FIRST_NAME,
                 OpdConstants.KEY.LAST_NAME, OpdConstants.KEY.GENDER, OpdConstants.KEY.DOB, OpdConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.OPENSRP_ID));
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
@@ -446,7 +447,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
             }
 
             @Override
-            public NativeFormProcessor createInstanceFromAsset(String s) throws JSONException  {
+            public NativeFormProcessor createInstanceFromAsset(String s) throws JSONException {
                 return NativeFormProcessor.createInstanceFromAsset(s, BuildConfig.DATABASE_VERSION, getClientProcessor());
             }
         });
@@ -710,11 +711,11 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     }*/
 
 
-    public Integer getApplicationVersion(){
+    public Integer getApplicationVersion() {
         return BuildConfig.VERSION_CODE;
     }
 
-    public Integer getDatabaseVersion(){
+    public Integer getDatabaseVersion() {
         return BuildConfig.DATABASE_VERSION;
     }
 

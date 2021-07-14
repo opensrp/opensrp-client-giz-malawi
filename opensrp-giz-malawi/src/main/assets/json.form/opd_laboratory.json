@@ -1142,16 +1142,13 @@
 
       },
       {
-        "key": "referral_location_med",
+        "key": "referral_location_med_lab",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "hint": "Where were they referred to?",
-        "type": "check_box",
-        "label": "Where were they referred to?",
         "label_text_style": "bold",
-        "options": [
-        ],
+        "type": "tree",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

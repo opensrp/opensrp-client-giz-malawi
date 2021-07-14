@@ -173,8 +173,8 @@ condition: "step1_test_ordered_avail.contains('no') || step1_test_ordered_avail.
 actions:
   - "isRelevant = true"
 ---
-name: step1_referral_location_med
-description: referral_location_med
+name: step1_referral_location_med_lab
+description: referral_location_med_lab
 priority: 1
 condition: "step1_referral_lab.contains('yes')"
 actions:
