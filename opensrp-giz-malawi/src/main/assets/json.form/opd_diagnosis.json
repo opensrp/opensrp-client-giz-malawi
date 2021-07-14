@@ -82,7 +82,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Vitals: {body_temp}, {pulse_rate}, {current_weight}, {height}, {bp_systolic}/{bp_diastolic} mmmHg, {oximetry}, {respiratory_rate}, {convulsions_history}",
+        "text": "Vitals: Body Temperature: {body_temp} (ºC), Pulse Rate: {pulse_rate} (bpm), Weight:  {current_weight} (kg), Height: {height} cm, {bp_systolic}/{bp_diastolic} mmmHg, Oxygen Saturation: {oximetry}, Respiratory Rate: {respiratory_rate}, History of convulsions: {convulsions_history}",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {

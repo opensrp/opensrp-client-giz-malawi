@@ -636,9 +636,9 @@
         "key": "opd_health_concerns",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "5219AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "label": "Specific complaint(s) or  Health concern(s)",
+        "label": "Specific complaint(s) or Health concern(s)",
         "label_text_style": "bold",
         "text_color": "#000000",
         "exclusive": [
@@ -685,14 +685,6 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "163750AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "cough",
-            "text": "Cough",
-            "value": false,
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "143264AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "cough",

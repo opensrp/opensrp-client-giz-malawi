@@ -100,7 +100,7 @@
         ]
       },
       {
-        "key": "diagnostic_test",
+        "key": "diagnostic_test_lab",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -281,7 +281,7 @@
         }
       },
       {
-        "key": "diagnostic_test_result",
+        "key": "diagnostic_test_lab_result",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -356,7 +356,8 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "162204AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hint": "Test Result",
+        "label": "Test Result Tb-Gene Xpert",
+        "label_text_style": "bold",
         "type": "native_radio",
         "options": [
           {
@@ -401,10 +402,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "165399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hint": "Test Result",
-        "type": "check_box",
-        "label": "Test Result",
+        "label": "Test Result TB-Smear Microscopy",
         "label_text_style": "bold",
+        "type": "native_radio",
         "options": [
           {
             "key": "negative",
@@ -455,10 +455,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161440AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hint": "Urine Dipstick Result - Nitrates",
-        "type": "check_box",
-        "label": "Urine Dipstick Result - Nitrates",
+        "label": "Urine dipstick result - nitrites",
         "label_text_style": "bold",
+        "type": "native_radio",
         "options": [
           {
             "key": "none",
@@ -509,10 +508,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161441AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hint": "Urine dipstick result - leukocytes",
-        "type": "check_box",
         "label": "Urine dipstick result - leukocytes",
         "label_text_style": "bold",
+        "type": "native_radio",
         "options": [
           {
             "key": "none",
@@ -563,10 +561,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1875AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hint": "Urine dipstick result - protein",
-        "type": "check_box",
-        "label": "Urine dipstick result - protein",
+        "label": "Urine dipstick result - Protein",
         "label_text_style": "bold",
+        "type": "native_radio",
         "options": [
           {
             "key": "none",
@@ -617,10 +614,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hint": "Urine dipstick result - glucose",
-        "type": "check_box",
-        "label": "Urine dipstick result - glucose",
+        "label": "Urine dipstick result - Glucose",
         "label_text_style": "bold",
+        "type": "native_radio",
         "options": [
           {
             "key": "none",
@@ -671,10 +667,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hint": "HIV Viral Load",
-        "type": "check_box",
         "label": "HIV Viral Load",
         "label_text_style": "bold",
+        "type": "native_radio",
         "options": [
           {
             "key": "detectable",
@@ -694,7 +689,7 @@
         "relevance": {
           "rules-engine": {
             "ex-rules": {
-              "rules-file": "laboratory_relevance_rules.yml"
+              "rules-file": "opd/opd_laboratory_relevance_rules.yml"
             }
           }
         }
@@ -721,7 +716,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "163594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Test Result",
+        "hint": "Random plasma glucose test result",
         "edit_type": "number",
         "v_min": {
           "value": "30",
@@ -730,10 +725,6 @@
         "v_max": {
           "value": "500",
           "err": "The value should not be greater than 500"
-        },
-        "v_regex": {
-          "value": "^[0-9]+(\\.)[0-9]+?$",
-          "err": "Please enter a valid result"
         },
         "relevance": {
           "rules-engine": {
@@ -748,10 +739,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "159734AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "hint": "Test Result",
-        "type": "check_box",
-        "label": "Test Result",
+        "label": "Blood Type Test",
         "label_text_style": "bold",
+        "type": "native_radio",
         "options": [
           {
             "key": "A(Positive)",

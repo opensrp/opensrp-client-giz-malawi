@@ -15,10 +15,9 @@ fields:
   - "opd_health_concerns"
   - "opd_health_concerns_value"
 ---
-form: opd_laboratiry
+form: opd_laboratory
 fields:
   - "diagnostic_test"
-  - "diagnostic_test_value"
 ---
 form: opd_treatment
 fields:
@@ -26,7 +25,7 @@ fields:
   - "disease_code_primary"
   - "medical_conditions"
   - "disease_code_final_diagn"
-  - "diagnostic_test_result"
+  - "diagnostic_test_lab_result"
   - "diagnostic_test_result_tb_gene"
   - "diagnostic_test_result_tsm"
   - "test_result_urine_dipstick_nitrites"

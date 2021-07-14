@@ -23,7 +23,7 @@ actions:
 name: step1_lab_results_note
 description: lab_results_note
 priority: 1
-condition: "!global_diagnostic_test_result.isEmpty()
+condition: "!global_diagnostic_test_lab_result.isEmpty()
                   || !global_diagnostic_test_result_tb_gene.isEmpty()
                   || !global_diagnostic_test_result_tsm.isEmpty()
                   || !global_test_result_urine_dipstick_nitrites.isEmpty()
@@ -39,11 +39,12 @@ condition: "!global_diagnostic_test_result.isEmpty()
                   || !global_diagnostic_test_result_bloodtype.isEmpty()
                   || !global_test_result_hiv_viral_load_no.isEmpty()"
 actions:
-  - 'calculation = ["diagnostic_test_result" : global_diagnostic_test_result,
+  - 'calculation = ["diagnostic_test_result" : global_diagnostic_test_lab_result,
                       "diagnostic_test_result_tb_gene" : global_diagnostic_test_result_tb_gene,
                       "diagnostic_test_result_tsm" : global_diagnostic_test_result_tsm,
                       "test_result_urine_dipstick_nitrites" : global_test_result_urine_dipstick_nitrites,
                       "test_result_urine_dipstick_protein" : global_test_result_urine_dipstick_protein,
+                      "test_result_urine_dipstick_glucose" : global_test_result_urine_dipstick_glucose,
                       "test_result_hiv_viral_load" : global_test_result_hiv_viral_load,
                       "diagnostic_test_result_gluc" : global_diagnostic_test_result_gluc,
                       "diagnostic_test_result_bloodtype" : global_diagnostic_test_result_bloodtype,

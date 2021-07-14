@@ -77,13 +77,6 @@
         }
       },
       {
-        "key": "lab_results_note_val",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
         "key": "lab_results_note",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -213,7 +206,7 @@
         "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
         "source": "csv",
         "repositoryClass": "org.smartregister.opd.widgets.OpdMedicineMultiSelectListRepository",
-        "type": "multi_select_drug_picker",
+        "type": "multi_select_list",
         "buttonText": "+ Add treatment/medicine",
         "dialogTitle": "Add treatment/medicine",
         "searchHint": "Type treatment/medicine name",

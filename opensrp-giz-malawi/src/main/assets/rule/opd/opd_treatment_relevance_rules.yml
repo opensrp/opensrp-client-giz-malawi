@@ -6,6 +6,13 @@ condition: "!step1_treatment_type.isEmpty() && step1_treatment_type.contains('me
 actions:
   - "isRelevant = true"
 ---
+name: step1_medicine_label
+description: medicine
+priority: 1
+condition: "!step1_treatment_type.isEmpty() && step1_treatment_type.contains('medicine')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_treatment_type_specify
 description: treatment type specify
 priority: 1
@@ -27,7 +34,7 @@ actions:
 name: step1_lab_results_note
 description: lab_results_note
 priority: 1
-condition: "!global_pregnancy_status.isEmpty()
+condition: "!global_diagnostic_test_lab_result.isEmpty()
                   || !global_diagnostic_test_result_tb_gene.isEmpty()
                   || !global_diagnostic_test_result_tsm.isEmpty()
                   || !global_test_result_urine_dipstick_nitrites.isEmpty()

@@ -142,7 +142,7 @@
         }
       },
       {
-        "key": "medicine_label",
+        "key": "medicine_pharmacy_label",
         "type": "label",
         "text": "Medication Dispensed",
         "text_color": "#000000",
@@ -155,7 +155,7 @@
         }
       },
       {
-        "key": "medicine",
+        "key": "medicine_pharmacy",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -164,7 +164,7 @@
         "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
         "source": "csv",
         "repositoryClass": "org.smartregister.opd.widgets.OpdMedicineMultiSelectListRepository",
-        "type": "multi_select_drug_picker",
+        "type": "multi_select_list",
         "buttonText": "+ Add treatment/medicine",
         "dialogTitle": "Add treatment/medicine",
         "searchHint": "Type treatment/medicine name",
