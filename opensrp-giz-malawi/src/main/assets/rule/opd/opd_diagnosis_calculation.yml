@@ -40,15 +40,14 @@ condition: "!global_body_temp.equals('')
               || !global_respiratory_rate.equals('')
               || !global_convulsions_history.isEmpty()"
 actions:
-  - 'calculation = ["body_temp" : global_body_temp,
-                      "pulse_rate" : global_pulse_rate,
-                      "current_weight" : global_current_weight,
-                      "height" : global_height,
-                      "bp_systolic" : global_bp_systolic,
-                      "bp_diastolic" : global_bp_diastolic,
-                      "oximetry" : global_oximetry,
-                      "respiratory_rate" : global_respiratory_rate,
-                      "convulsions_history" : global_convulsions_history]'
+  - 'calculation = ["body_temp" : (!global_body_temp.equals("") ? "Body Temperature: " + global_body_temp + " (ºC)" : ""),
+             "pulse_rate" : (!global_pulse_rate.equals("") ? "Pulse Rate: " + global_pulse_rate + " (bpm)" : ""),
+             "current_weight" : (!global_current_weight.equals("") ? "Weight: " + global_current_weight + " (kg)" : ""),
+             "height" : (!global_height.equals("") ? "Height: " + global_height + " (cm)" : ""),
+             "blood_pressure" : ((!global_bp_systolic.equals("") && !global_bp_diastolic.equals("")) ? global_bp_systolic +"/"+ global_bp_diastolic+ " (mmHg)" : ""),
+             "oximetry" : (!global_oximetry.equals("") ? "Oxygen Saturation: " + global_oximetry : ""),
+             "respiratory_rate" : (!global_respiratory_rate.equals("") ? "Respiratory Rate: " + global_respiratory_rate : ""),
+             "convulsions_history" : (!global_convulsions_history.isEmpty() ? "History of convulsions: " + global_convulsions_history : "")]'
 ---
 name: step1_health_concerns_note
 description: health_concerns_note
