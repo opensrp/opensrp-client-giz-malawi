@@ -17,7 +17,7 @@ fields:
 ---
 form: opd_laboratory
 fields:
-  - "diagnostic_test"
+  - "diagnostic_test_ordered"
 ---
 form: opd_treatment
 fields:
@@ -25,17 +25,7 @@ fields:
   - "disease_code_primary"
   - "medical_conditions"
   - "disease_code_final_diagn"
-  - "diagnostic_test_lab_result"
-  - "diagnostic_test_result_tb_gene"
-  - "diagnostic_test_result_tsm"
-  - "test_result_urine_dipstick_nitrites"
-  - "test_result_urine_dipstick_leukocytes"
-  - "test_result_urine_dipstick_protein"
-  - "test_result_urine_dipstick_glucose"
-  - "test_result_hiv_viral_load"
-  - "diagnostic_test_result_gluc"
-  - "diagnostic_test_result_bloodtype"
-  - "test_result_hiv_viral_load_no"
+  - "diagnostic_test_lab_results"
 ---
 form: opd_pharmacy
 fields:

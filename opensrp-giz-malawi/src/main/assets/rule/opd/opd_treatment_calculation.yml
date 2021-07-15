@@ -23,30 +23,6 @@ actions:
 name: step1_lab_results_note
 description: lab_results_note
 priority: 1
-condition: "!global_diagnostic_test_lab_result.isEmpty()
-                  || !global_diagnostic_test_result_tb_gene.isEmpty()
-                  || !global_diagnostic_test_result_tsm.isEmpty()
-                  || !global_test_result_urine_dipstick_nitrites.isEmpty()
-                  || !global_test_result_urine_dipstick_nitrites.contains('none')
-                  || !global_test_result_urine_dipstick_leukocytes.isEmpty()
-                  || !global_test_result_urine_dipstick_leukocytes.contains('none')
-                  || !global_test_result_urine_dipstick_protein.isEmpty()
-                  || !global_test_result_urine_dipstick_protein.contains('none')
-                  || !global_test_result_urine_dipstick_glucose.isEmpty()
-                  || !global_test_result_urine_dipstick_glucose.contains('none')
-                  || !global_test_result_hiv_viral_load.isEmpty()
-                  || !global_diagnostic_test_result_gluc.isEmpty()
-                  || !global_diagnostic_test_result_bloodtype.isEmpty()
-                  || !global_test_result_hiv_viral_load_no.isEmpty()"
+condition: "!global_diagnostic_test_lab_results.isEmpty()"
 actions:
-  - 'calculation = ["diagnostic_test_result" : global_diagnostic_test_lab_result,
-                      "diagnostic_test_result_tb_gene" : global_diagnostic_test_result_tb_gene,
-                      "diagnostic_test_result_tsm" : global_diagnostic_test_result_tsm,
-                      "test_result_urine_dipstick_nitrites" : global_test_result_urine_dipstick_nitrites,
-                      "test_result_urine_dipstick_protein" : global_test_result_urine_dipstick_protein,
-                      "test_result_urine_dipstick_glucose" : global_test_result_urine_dipstick_glucose,
-                      "test_result_hiv_viral_load" : global_test_result_hiv_viral_load,
-                      "diagnostic_test_result_gluc" : global_diagnostic_test_result_gluc,
-                      "diagnostic_test_result_bloodtype" : global_diagnostic_test_result_bloodtype,
-                      "test_result_hiv_viral_load_no" : global_test_result_hiv_viral_load_no,
-                      "test_result_urine_dipstick_leukocytes" : global_test_result_urine_dipstick_leukocytes]'
+  - 'calculation = ["diagnostic_test_lab_results" : global_diagnostic_test_lab_results]'
