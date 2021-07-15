@@ -59,7 +59,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Test Ordered: {diagnostic_test}",
+        "text": "Test Ordered: {diagnostic_test_ordered}",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
@@ -110,14 +110,14 @@
         "openmrs_entity_id": "",
         "value": [
           {
-            "key": "diagnostic_test_lab",
+            "key": "diagnostic_test",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "hint": "The type of test conducted",
             "type": "spinner",
             "values": [
-              "Urine pregnancy test",
+              "Pregnancy Test",
               "Ultra sound",
               "Malaria - Microscopy",
               "HIV test",
@@ -140,47 +140,51 @@
               "Other(specify)"
             ],
             "keys": [
-              "urine_pregnancy_test",
+              "pregnancy_test",
               "ultra_sound",
               "malaria_microscopy",
               "hiv_test",
-              "syphilis_test",
+              "syphilis_vdrl",
               "hep_b",
               "hep_c",
               "blood_type",
               "tb_screening",
-              "blood_glucose_test",
-              "midstream_urine",
-              "malaria_test",
-              "tb_gene",
-              "tb_smear",
-              "tb_urine",
+              "blood_glucose_random_plasma_glucose_test",
+              "midstream_urine_gram_staining",
+              "malaria_mrdt",
+              "tb_gene_xpert",
+              "tb_smear_microscopy",
+              "tb_urine_lam",
               "urine_dipstick",
-              "hemocue",
-              "hiv_viral_oad",
+              "hemocue_haemoglobinometer",
+              "hiv_viral_load",
               "hiv_eid",
-              "hiv_rapid",
+              "hiv_test_rapid",
               "other"
             ]
           },
           {
-            "key": "other_tests",
-            "openmrs_entity_parent": "149254AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "diagnostic_test_result_other",
+            "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "openmrs_entity_id": "160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "type": "edit_text",
-            "hint": "Other Tests",
+            "hint": "Specify the result of the test",
             "edit_type": "name",
+            "v_required": {
+              "value": true,
+              "err": "Please specify the result of the test"
+            },
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
-                  "rules-file": "opd/opd_laboratory_relevance_rules.yml"
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
                 }
               }
             }
           },
           {
-            "key": "diagnostic_test_lab_result",
+            "key": "diagnostic_test_result",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -200,13 +204,22 @@
             }
           },
           {
-            "key": "diagnostic_test_result_ultra_sound",
+            "key": "diagnostic_test_result_blood_type",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "type": "edit_text",
-            "hint": "Test Result (Ultra Sound)",
-            "edit_type": "name",
+            "hint": "The result of the test conducted",
+            "type": "spinner",
+            "values": [
+              "A(Positive)",
+              "B(Positive)",
+              "AB(Positive)",
+              "O(Positive)",
+              "O(Negative)",
+              "A(Negative)",
+              "B(Negative)",
+              "AB(Negative)"
+            ],
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
@@ -216,23 +229,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_hemocue",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "type": "edit_text",
-            "hint": "Test Result (Hemocue/Blood Glucose)",
-            "edit_type": "number",
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
-                }
-              }
-            }
-          },
-          {
-            "key": "diagnostic_test_result_tb_gene",
+            "key": "diagnostic_test_result_tb_gene_xpert",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -253,17 +250,25 @@
             }
           },
           {
-            "key": "diagnostic_test_result_tsm",
+            "key": "diagnostic_test_result_tb_smear_microscopy",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
             "hint": "Test Result",
             "type": "spinner",
             "values": [
-              "MTB Detected & RR Not detected",
-              "RR Detected & MTB Not Detected",
-              "MTB Not Detected",
-              "Error/Indeterminate"
+              "Negative",
+              "Scanty",
+              "1+",
+              "2+",
+              "3+"
+            ],
+            "keys": [
+              "negative",
+              "scanty",
+              "1+",
+              "2+",
+              "3+"
             ],
             "relevance": {
               "rules-engine": {
@@ -274,7 +279,7 @@
             }
           },
           {
-            "key": "test_result_urine_dipstick_nitrites",
+            "key": "diagnostic_test_result_urine_dipstick_nitrites",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -303,7 +308,7 @@
             }
           },
           {
-            "key": "test_result_urine_dipstick_leukocytes",
+            "key": "diagnostic_test_result_urine_dipstick_leukocytes",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -332,7 +337,7 @@
             }
           },
           {
-            "key": "test_result_urine_dipstick_protein",
+            "key": "diagnostic_test_result_urine_dipstick_protein",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -361,7 +366,7 @@
             }
           },
           {
-            "key": "test_result_urine_dipstick_glucose",
+            "key": "diagnostic_test_result_urine_dipstick_glucose",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -390,7 +395,7 @@
             }
           },
           {
-            "key": "test_result_hiv_viral_load",
+            "key": "diagnostic_test_result_hiv_viral_load",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -409,7 +414,7 @@
             }
           },
           {
-            "key": "test_result_hiv_viral_load_no",
+            "key": "diagnostic_test_result_hiv_viral_load_no",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -424,7 +429,7 @@
             }
           },
           {
-            "key": "diagnostic_test_result_gluc",
+            "key": "diagnostic_test_result_glucose",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
@@ -435,31 +440,6 @@
               "value": "^[0-9]+(\\.)[0-9]+?$",
               "err": "Please enter a valid result"
             },
-            "relevance": {
-              "rules-engine": {
-                "ex-rules": {
-                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
-                }
-              }
-            }
-          },
-          {
-            "key": "diagnostic_test_result_bloodtype",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "hint": "The result of the test conducted",
-            "type": "spinner",
-            "values": [
-              "A(Positive)",
-              "B(Positive)",
-              "AB(Positive)",
-              "O(Positive)",
-              "O(Negative)",
-              "A(Negative)",
-              "B(Negative)",
-              "AB(Negative)"
-            ],
             "relevance": {
               "rules-engine": {
                 "ex-rules": {

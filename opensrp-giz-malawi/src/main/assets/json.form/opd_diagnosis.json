@@ -609,7 +609,7 @@
         }
       },
       {
-        "key": "diagnostic_test",
+        "key": "diagnostic_test_ordered",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",

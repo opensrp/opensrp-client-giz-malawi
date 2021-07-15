@@ -82,7 +82,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Test Results: {diagnostic_test_result}, Tb Gene: {diagnostic_test_result_tb_gene}, TSM: {diagnostic_test_result_tsm}, Nitrates: {test_result_urine_dipstick_nitrites}, Dipstick Leukocytes: {test_result_urine_dipstick_leukocytes}, Dipstick Protein: {test_result_urine_dipstick_protein}, Dipstick Glucose: {test_result_urine_dipstick_glucose}, HIV Viral Load: {test_result_hiv_viral_load}, Glucose: {diagnostic_test_result_gluc}, Bloodtype: {diagnostic_test_result_bloodtype}, Viral Load No: {test_result_hiv_viral_load_no}",
+        "text": "Test Results: {diagnostic_test_lab_results}",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {

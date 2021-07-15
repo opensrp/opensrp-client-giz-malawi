@@ -91,8 +91,8 @@ condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('is
 actions:
   - "isRelevant = true"
 ---
-name: step1_diagnostic_test
-description: diagnostic_test
+name: step1_diagnostic_test_ordered
+description: diagnostic_test_ordered
 priority: 1
 condition: "step1_test_recommended.contains('yes')"
 actions:
@@ -101,7 +101,7 @@ actions:
 name: step1_test_ordered_other
 description: test_ordered_other
 priority: 1
-condition: "step1_diagnostic_test.contains('other')"
+condition: "step1_diagnostic_test_ordered.contains('other')"
 actions:
   - "isRelevant = true"
 ---
