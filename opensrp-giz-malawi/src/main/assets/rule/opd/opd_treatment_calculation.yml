@@ -12,13 +12,13 @@ priority: 1
 condition: "!global_pregnancy_status.isEmpty()
                   || !global_medical_conditions.isEmpty()
                   || !global_medical_conditions.contains('none')
-                  || global_disease_code_final_diagn != NULL
-                  || global_disease_code_primary != NULL"
+                  || !global_disease_code_final_diagn.isEmpty()
+                  || !global_disease_code_primary.isEmpty()"
 actions:
-  - 'calculation = ["pregnancy_status" : global_pregnancy_status,
-                      "medical_conditions" : global_medical_conditions,
-                      "disease_code_primary" : global_disease_code_primary,
-                      "disease_code_final" : global_disease_code_final_diagn]'
+  - 'calculation = ["pregnancy_status" : (!global_pregnancy_status.isEmpty() ? "Pregnancy Status: " + global_pregnancy_status : ""),
+                      "medical_conditions" : (!global_medical_conditions.isEmpty() ? "Medical Conditions: " + global_medical_conditions : ""),
+                      "disease_code_primary" : (!global_disease_code_primary.isEmpty() ? "Disease Code Primary: " + global_disease_code_primary : ""),
+                      "disease_code_final" : (!global_disease_code_final_diagn.isEmpty() ? "Disease Code Final: " + global_disease_code_final_diagn : "")]'
 ---
 name: step1_lab_results_note
 description: lab_results_note
