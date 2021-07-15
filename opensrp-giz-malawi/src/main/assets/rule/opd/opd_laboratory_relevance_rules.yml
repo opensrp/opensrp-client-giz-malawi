@@ -2,7 +2,7 @@
 name: step1_test_ordered_lab
 description: Tests ordered toast
 priority: 1
-condition: "!global_diagnostic_test.isEmpty()"
+condition: "!global_diagnostic_test_ordered.isEmpty()"
 actions:
   - "isRelevant = true"
 ---

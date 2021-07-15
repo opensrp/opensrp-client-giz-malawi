@@ -2,6 +2,6 @@
 name: step1_test_ordered_lab
 description: test_ordered_lab
 priority: 1
-condition: "!global_diagnostic_test.isEmpty()"
+condition: "!global_diagnostic_test_ordered.isEmpty()"
 actions:
-  - 'calculation = ["diagnostic_test" : global_diagnostic_test]'
+  - 'calculation = ["diagnostic_test_ordered" : global_diagnostic_test_ordered]'
