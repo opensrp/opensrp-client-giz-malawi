@@ -2,7 +2,7 @@
 name: step1_prescription
 description: prescription
 priority: 1
-condition: "!step1_prescription_val.equals('')"
+condition: "!global_medicine.isEmpty()"
 actions:
   - "isRelevant = true"
 ---
@@ -20,38 +20,17 @@ condition: "step1_medicine_available.contains('no')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_medicine_label
-description: medicine_label
+name: step1_medicine_pharmacy_label
+description: medicine_pharmacy_label
 priority: 1
 condition: "step1_medicine_available.contains('yes') || step1_alt_medicine.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_medicine
+name: step1_medicine_pharmacy
 description: medicine
 priority: 1
 condition: "step1_medicine_available.contains('yes') || step1_alt_medicine.contains('yes')"
-actions:
-  - "isRelevant = true"
----
-name: step1_dosage
-description: dosage
-priority: 1
-condition: "!step1_medicine.equals('') || !step1_medicine.isEmpty()"
-actions:
-  - "isRelevant = true"
----
-name: step1_frequency
-description: frequency
-priority: 1
-condition: "!step1_medicine.equals('') || !step1_medicine.isEmpty()"
-actions:
-  - "isRelevant = true"
----
-name: step1_duration
-description: duration
-priority: 1
-condition: "!step1_medicine.equals('') || !step1_medicine.isEmpty()"
 actions:
   - "isRelevant = true"
 ---

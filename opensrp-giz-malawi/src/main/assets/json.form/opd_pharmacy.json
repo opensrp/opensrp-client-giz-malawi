@@ -54,24 +54,24 @@
     "title": "Pharmacy",
     "fields": [
       {
-        "key": "prescription_val",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden"
-      },
-      {
         "key": "prescription",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Note highlighting the medication that was prescribed to the client. ",
+        "text": "Prescribed Medication: {medicine}",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
               "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_pharmacy_calculation.yml"
             }
           }
         }
@@ -142,7 +142,7 @@
         }
       },
       {
-        "key": "medicine_label",
+        "key": "medicine_pharmacy_label",
         "type": "label",
         "text": "Medication Dispensed",
         "text_color": "#000000",
@@ -155,7 +155,7 @@
         }
       },
       {
-        "key": "medicine",
+        "key": "medicine_pharmacy",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -175,68 +175,7 @@
             }
           }
         }
-      },
-      {
-        "key": "dosage",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160856AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Dosage",
-        "edit_type": "name",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the dosage"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "frequency",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165503AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Frequency",
-        "edit_type": "number",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the dosage frequency"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
-        "key": "duration",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "159368AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "edit_text",
-        "hint": "Duration",
-        "edit_type": "name",
-        "v_required": {
-          "value": true,
-          "err": "Please enter the dosage"
-        },
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
+      },{
         "key": "special_instructions",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
@@ -277,11 +216,9 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161360AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "label": "Where were they referred to?",
+        "hint": "Where were they referred to?",
         "label_text_style": "bold",
-        "type": "native_radio",
-        "options": [
-        ],
+        "type": "tree",
         "relevance": {
           "rules-engine": {
             "ex-rules": {

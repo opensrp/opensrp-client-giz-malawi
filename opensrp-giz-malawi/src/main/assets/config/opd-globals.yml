@@ -1,0 +1,42 @@
+---
+form: opd_diagnosis
+fields:
+  - "opd_danger_signs"
+  - "opd_danger_signs_value"
+  - "body_temp"
+  - "pulse_rate"
+  - "current_weight"
+  - "height"
+  - "bp_systolic"
+  - "bp_diastolic"
+  - "oximetry"
+  - "respiratory_rate"
+  - "convulsions_history"
+  - "opd_health_concerns"
+  - "opd_health_concerns_value"
+---
+form: opd_laboratory
+fields:
+  - "diagnostic_test"
+---
+form: opd_treatment
+fields:
+  - "pregnancy_status"
+  - "disease_code_primary"
+  - "medical_conditions"
+  - "disease_code_final_diagn"
+  - "diagnostic_test_lab_result"
+  - "diagnostic_test_result_tb_gene"
+  - "diagnostic_test_result_tsm"
+  - "test_result_urine_dipstick_nitrites"
+  - "test_result_urine_dipstick_leukocytes"
+  - "test_result_urine_dipstick_protein"
+  - "test_result_urine_dipstick_glucose"
+  - "test_result_hiv_viral_load"
+  - "diagnostic_test_result_gluc"
+  - "diagnostic_test_result_bloodtype"
+  - "test_result_hiv_viral_load_no"
+---
+form: opd_pharmacy
+fields:
+  - "medicine"

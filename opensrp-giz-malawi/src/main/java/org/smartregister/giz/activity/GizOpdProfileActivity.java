@@ -25,6 +25,7 @@ import org.smartregister.giz.util.GizConstants;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.utils.FormProcessor;
 import org.smartregister.opd.utils.OpdDbConstants;
+import org.smartregister.opd.utils.OpdUtils;
 import org.smartregister.util.Utils;
 
 import java.util.Map;
@@ -124,7 +125,7 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
     @Override
     public void startForm(JSONObject jsonObject, Form form, FormProcessor.Requester requester) {
         this.requester = requester;
-        Intent intent = new Intent(getApplicationContext(), org.smartregister.child.util.Utils.metadata().childFormActivity);
+        Intent intent = new Intent(getApplicationContext(), OpdUtils.metadata().getOpdFormActivity());
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.JSON, jsonObject.toString());
         intent.putExtra(JsonFormConstants.JSON_FORM_KEY.FORM, form);
         startActivityForResult(intent, REQUEST_CODE_GET_JSON);
