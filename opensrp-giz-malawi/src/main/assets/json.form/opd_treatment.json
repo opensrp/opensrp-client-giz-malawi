@@ -59,7 +59,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Diagnosis: {pregnancy_status}, {medical_conditions}, {disease_code_primary}, {disease_code_final}",
+        "text": "Diagnosis: {pregnancy_status} {medical_conditions} {disease_code_primary} {disease_code_final}",
         "toaster_type": "info",
         "relevance": {
           "rules-engine": {
