@@ -82,7 +82,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Vitals: {body_temp}, {pulse_rate}, {current_weight}, {height}, {blood_pressure}, {oximetry}, {respiratory_rate}, {convulsions_history}",
+        "text": "Vitals: {body_temp} {pulse_rate} {current_weight} {height} {blood_pressure} {oximetry} {respiratory_rate} {convulsions_history}",
         "toaster_type": "positive",
         "relevance": {
           "rules-engine": {
@@ -188,6 +188,7 @@
         "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "date_picker",
         "hint": "Last menstrual period date",
+        "max_date": "today",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
