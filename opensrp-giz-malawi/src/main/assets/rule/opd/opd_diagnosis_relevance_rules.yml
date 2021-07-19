@@ -6,6 +6,13 @@ condition: "!global_opd_danger_signs.isEmpty() && !global_opd_danger_signs.conta
 actions:
   - "isRelevant = true"
 ---
+name: step1_lmp_unknown
+description: lmp_unknown
+priority: 1
+condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 )"
+actions:
+  - "isRelevant = true"
+---
 name: step1_vital_signs_opd_note
 description: vital_signs_opd_note
 priority: 1
@@ -38,7 +45,8 @@ actions:
 name: step1_lmp
 description: lmp
 priority: 1
-condition: "step1_lmp_unknown.isEmpty() || !step1_lmp_unknown.contains('lmp_unknown')"
+condition: "(step1_lmp_unknown.isEmpty() || !step1_lmp_unknown.contains('lmp_unknown'))
+                && ((step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 ))"
 actions:
   - "isRelevant = true"
 ---

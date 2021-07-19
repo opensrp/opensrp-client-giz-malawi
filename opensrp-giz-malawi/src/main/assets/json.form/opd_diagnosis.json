@@ -179,7 +179,14 @@
             "text": "Last menstrual period unknown?",
             "value": "false"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "lmp",
