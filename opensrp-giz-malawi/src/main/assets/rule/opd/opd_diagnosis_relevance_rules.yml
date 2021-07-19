@@ -112,6 +112,13 @@ condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('is
 actions:
   - "isRelevant = true"
 ---
+name: step1_spacer_final_disease
+description: spacer_final_disease
+priority: 1
+condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_disease_code_final_diagn
 description: disease_code_final_diagn
 priority: 1
