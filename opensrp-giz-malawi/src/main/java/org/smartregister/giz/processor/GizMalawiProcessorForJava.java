@@ -159,9 +159,9 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     continue;
                 }
 
-                if (eventType.equals(OpdConstants.OpdModuleEvents.OPD_CHECK_IN) || eventType.equals(OpdConstants.OpdModuleEvents.OPD_VITAL_DANGER_SIGNS_CHECK)|| eventType.equals(OpdConstants.OpdModuleEvents.OPD_DIAGNOSIS)
-                        || eventType.equals(OpdConstants.OpdModuleEvents.OPD_PHARMACY) || eventType.equals(OpdConstants.OpdModuleEvents.OPD_TREATMENT) || eventType.equals(OpdConstants.OpdModuleEvents.OPD_LABORATORY)
-                        || eventType.equals(OpdConstants.OpdModuleEvents.OPD_FINAL_OUTCOME) || eventType.equals(OpdConstants.OpdModuleEvents.OPD_SERVICE_CHARGE)) {
+                if (eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_CHECK_IN) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_VITAL_DANGER_SIGNS_CHECK)|| eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_DIAGNOSIS)
+                        || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_PHARMACY) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_TREATMENT) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_LABORATORY)
+                        || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_FINAL_OUTCOME) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_SERVICE_CHARGE)) {
                     processVisitEvent(eventClients);
                 }
                 else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType

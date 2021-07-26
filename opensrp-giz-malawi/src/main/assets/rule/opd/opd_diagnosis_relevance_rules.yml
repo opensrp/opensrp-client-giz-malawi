@@ -67,7 +67,7 @@ actions:
 name: step1_hiv_tested_date
 description: hiv_tested_date
 priority: 1
-condition: "step1_medical_conditions.contains('hiv')"
+condition: "step1_medical_conditions.contains('hiv') && !step1_hiv_diagnosis_date_unknown.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
@@ -88,7 +88,7 @@ actions:
 name: step1_hiv_diagnosis_date_unknown
 description: hiv_diagnosis_date_unknown
 priority: 1
-condition: "step1_medical_conditions.contains('hiv')"
+condition: "step1_medical_conditions.contains('hiv') && step1_hiv_tested_date.equals('')"
 actions:
   - "isRelevant = true"
 ---
