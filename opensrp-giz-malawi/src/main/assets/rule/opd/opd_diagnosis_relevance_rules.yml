@@ -6,6 +6,13 @@ condition: "!global_opd_danger_signs.isEmpty() && !global_opd_danger_signs.conta
 actions:
   - "isRelevant = true"
 ---
+name: step1_lmp_unknown
+description: lmp_unknown
+priority: 1
+condition: "(step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 )"
+actions:
+  - "isRelevant = true"
+---
 name: step1_vital_signs_opd_note
 description: vital_signs_opd_note
 priority: 1
@@ -38,7 +45,8 @@ actions:
 name: step1_lmp
 description: lmp
 priority: 1
-condition: "step1_lmp_unknown.isEmpty() || !step1_lmp_unknown.contains('lmp_unknown')"
+condition: "(step1_lmp_unknown.isEmpty() || !step1_lmp_unknown.contains('lmp_unknown'))
+                && ((step1_gender.equalsIgnoreCase('Female') || step1_gender.equalsIgnoreCase('F')) && (step1_age.equals('') || step1_age > 10 ))"
 actions:
   - "isRelevant = true"
 ---
@@ -59,7 +67,7 @@ actions:
 name: step1_hiv_tested_date
 description: hiv_tested_date
 priority: 1
-condition: "step1_medical_conditions.contains('hiv')"
+condition: "step1_medical_conditions.contains('hiv') && !step1_hiv_diagnosis_date_unknown.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
@@ -80,7 +88,7 @@ actions:
 name: step1_hiv_diagnosis_date_unknown
 description: hiv_diagnosis_date_unknown
 priority: 1
-condition: "step1_medical_conditions.contains('hiv')"
+condition: "step1_medical_conditions.contains('hiv') && step1_hiv_tested_date.equals('')"
 actions:
   - "isRelevant = true"
 ---
@@ -107,6 +115,13 @@ actions:
 ---
 name: step1_disease_code_label_final
 description: disease_code_label_final
+priority: 1
+condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_spacer_final_disease
+description: spacer_final_disease
 priority: 1
 condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
 actions:

@@ -179,7 +179,14 @@
             "text": "Last menstrual period unknown?",
             "value": "false"
           }
-        ]
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
       },
       {
         "key": "lmp",
@@ -365,6 +372,31 @@
         }
       },
       {
+        "key": "hiv_diagnosis_date_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "key": "yes",
+            "text": "HIV diagnosis date unknown?",
+            "value": false
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "hiv_prev_status",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -441,31 +473,6 @@
         }
       },
       {
-        "key": "hiv_diagnosis_date_unknown",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "165224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "label_text_style": "bold",
-        "options": [
-          {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
-            "key": "yes",
-            "text": "HIV diagnosis date unknown?",
-            "value": false
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
         "openmrs_entity_id": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -486,9 +493,25 @@
       },
       {
         "key": "disease_code_label",
+        "text": "Preliminary Diagnosis",
+        "name": "Preliminary Diagnosis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "label",
-        "text": "Disease code",
-        "text_color": "#000000"
+        "bg_color": "#358CB7",
+        "has_bg": true,
+        "text_color": "#FFFFFF",
+        "text_size": "20px",
+        "label_text_style": "bold"
+      },
+      {
+        "key": "spacer",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "8dp"
       },
       {
         "key": "disease_code_primary",
@@ -793,9 +816,32 @@
       },
       {
         "key": "disease_code_label_final",
+        "text": "Final Diagnosis",
+        "name": "Final Diagnosis",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
         "type": "label",
-        "text": "Disease code of final diagnosis",
-        "text_color": "#000000",
+        "bg_color": "#358CB7",
+        "has_bg": true,
+        "text_color": "#FFFFFF",
+        "text_size": "20px",
+        "label_text_style": "bold",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "spacer_final_disease",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "spacer",
+        "type": "spacer",
+        "spacer_height": "8dp",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
