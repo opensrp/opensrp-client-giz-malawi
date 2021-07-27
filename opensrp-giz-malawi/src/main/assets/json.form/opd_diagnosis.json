@@ -879,10 +879,6 @@
         "openmrs_entity_id": "",
         "label": "Final Diagnosis Type",
         "type": "native_radio",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the diagnosis type"
-        },
         "options": [
           {
             "key": "Confirmed",
@@ -914,10 +910,6 @@
         "openmrs_entity_id": "161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
         "hint": "Final Diagnosis Text",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the diagnosis"
-        },
         "relevance": {
           "rules-engine": {
             "ex-rules": {
