@@ -143,7 +143,7 @@ public class ReportDaoTest extends ReportDao {
         }
         Assert.assertNull(expectedLocationId);
         Assert.assertEquals(locations.size(), 0);
-        Assert.assertThat(locations.isEmpty(), is(true));
+        Assert.assertTrue(locations.isEmpty());
     }
 
     @Test
