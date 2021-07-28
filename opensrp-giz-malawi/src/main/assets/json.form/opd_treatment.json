@@ -204,7 +204,7 @@
         "sort": true,
         "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
         "source": "csv",
-        "repositoryClass": "org.smartregister.opd.widgets.OpdMedicineMultiSelectListRepository",
+        "repositoryClass": "org.smartregister.giz.widget.GizOpdMedicineMultiSelectListRepository",
         "type": "multi_select_drug_picker",
         "buttonText": "+ Add treatment/medicine",
         "dialogTitle": "Add treatment/medicine",

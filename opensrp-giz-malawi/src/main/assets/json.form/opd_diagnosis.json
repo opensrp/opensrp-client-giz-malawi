@@ -525,7 +525,7 @@
         "type": "multi_select_list",
         "buttonText": "+ Add disease code",
         "dialogTitle": "Add disease code",
-        "repositoryClass": "org.smartregister.opd.widgets.OpdDiseaseCodeMultiSelectListRepository",
+        "repositoryClass": "org.smartregister.giz.widget.GizDiseaseCodeMultiSelectListRepository",
         "searchHint": "Type Disease Name"
       },
       {
@@ -862,7 +862,7 @@
         "type": "multi_select_list",
         "buttonText": "+ Add disease code",
         "dialogTitle": "Add disease code",
-        "repositoryClass": "org.smartregister.opd.widgets.OpdDiseaseCodeMultiSelectListRepository",
+        "repositoryClass": "org.smartregister.giz.widget.GizDiseaseCodeMultiSelectListRepository",
         "searchHint": "Type Disease Name",
         "relevance": {
           "rules-engine": {
