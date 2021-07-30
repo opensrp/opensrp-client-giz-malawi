@@ -1765,6 +1765,18 @@ indicators:
     grouping: "anc"
 
   ##OPD Reports
+# TODO: Update key from data dictionary
+  - key: "ME_OPD_Attendance"
+    description: "Total OPD Attendance"
+    indicatorQuery: "SELECT count(DISTINCT visits.base_entity_id)
+                     FROM opd_client_visits visits
+                     INNER JOIN opd_client_visit_details details
+                     ON visits.visit_id = details.visit_id
+                     WHERE visits.visit_group = '%s'
+                     AND visits.visit_type IN ('OPD_Check_in','OPD_Vital_Danger_signs_check','OPD_Diagnosis' ,'OPD_Laboratory'
+                     ,'OPD_Treatment','OPD_Pharmacy','OPD_Final_Outcome','OPD_Service_Charge')"
+    grouping: "opd"
+
   - key: "ME_Malaria_Cases_Confirmed"
     description: "Malaria cases"
     indicatorQuery: "SELECT
@@ -1807,6 +1819,32 @@ indicators:
     expectedIndicators:
       - "ME_Malaria_Cases_Presumed_Over_5"
       - "ME_Malaria_Cases_Presumed_Under_5"
+    grouping: "opd"
+
+#TODO: UPDATE INDICATOR KEY
+  - key: "ME_confirmed_malaria_preg_woman"
+    description: "Confirmed malaria in pregnant woman"
+    indicatorQuery: "SELECT count(DISTINCT opd_client_visits.base_entity_id)
+                       FROM opd_client_visit_details b
+                         INNER JOIN opd_client_visits
+                         ON b.visit_id = opd_client_visits.visit_id
+                         INNER JOIN ec_client
+                         ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                       WHERE b.details  = 'code_32c'
+                         AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
+    grouping: "opd"
+
+  #TODO: UPDATE INDICATOR KEY
+  - key: "ME_presumed_malaria_preg_woman"
+    description: "Presumed malaria in pregnant woman"
+    indicatorQuery: "SELECT count(DISTINCT opd_client_visits.base_entity_id)
+                       FROM opd_client_visit_details b
+                         INNER JOIN opd_client_visits
+                         ON b.visit_id = opd_client_visits.visit_id
+                         INNER JOIN ec_client
+                         ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                       WHERE b.details  = 'code_32d'
+                         AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
     grouping: "opd"
 
   - key: "ME_Anti_Malaria_Treatment_Confirmed_LA"

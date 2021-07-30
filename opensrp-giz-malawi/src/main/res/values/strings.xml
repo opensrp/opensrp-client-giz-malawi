@@ -763,6 +763,9 @@
     <string name="me_anti_malaria_treatment_confirmed_asaq_under_5"><![CDATA[ Confirmed cases receiving second-line anti malarial medication (ASAQ) (< 5 years)]]></string>
     <string name="me_anti_malaria_treatment_presumed_asaq_under_5"><![CDATA[ Presumed malaria cases receiving second-line anti malarial medication (ASAQ) (< 5 years)]]></string>
     <string name="me_anti_malaria_treatment_presumed_asaq_over_5"><![CDATA[ Presumed malaria cases receiving second-line anti malarial medication (ASAQ) (5+ years)]]></string>
+    <string name="me_confirmed_malaria_preg_woman"><![CDATA[ Confirmed malaria in pregnant woman (c)]]></string>
+    <string name="me_presumed_malaria_preg_woman"><![CDATA[ Presumed (clinically diagnosed) malaria in pregnant woman (d)]]></string>
+    <string name="me_opd_attendance">Total OPD Attendance: All causes (including malaria cases)</string>
 
     <!-- End OPD reports labels -->
     <!-- Start Maternity reports labels -->
