@@ -9,6 +9,6 @@ actions:
 name: step1_prescription
 description: prescription
 priority: 1
-condition: "!global_medicine.isEmpty()"
+condition: "!global_medicine_object.isEmpty()"
 actions:
-  - 'calculation = ["medicine" : global_medicine]'
+  - 'calculation = ["medicine" : global_medicine_object]'

@@ -2,7 +2,7 @@
 name: step1_prescription
 description: prescription
 priority: 1
-condition: "!global_medicine.isEmpty()"
+condition: "!global_medicine_object.isEmpty()"
 actions:
   - "isRelevant = true"
 ---
