@@ -162,7 +162,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                 if (eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_CHECK_IN) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_VITAL_DANGER_SIGNS_CHECK)|| eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_DIAGNOSIS)
                         || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_PHARMACY) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_TREATMENT) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_LABORATORY)
                         || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_FINAL_OUTCOME) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_SERVICE_CHARGE)) {
-                    processVisitEvent(eventClients);
+                    VisitUtils.processVisit(eventClient);
                 }
                 else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
@@ -235,12 +235,6 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
              **/
         }
 
-    }
-
-    private void processVisitEvent(List<EventClient> eventClients) {
-        for (EventClient eventClient : eventClients) {
-            VisitUtils.processVisit(eventClient);
-        }
     }
 
     public void processGizCoreEvents(ClientClassification clientClassification, EventClient eventClient, Event event, String eventType) throws Exception {
