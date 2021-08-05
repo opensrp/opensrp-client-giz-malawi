@@ -44,6 +44,7 @@ import org.smartregister.pnc.repository.PncStillBornRepository;
 import org.smartregister.pnc.repository.PncVisitChildStatusRepository;
 import org.smartregister.pnc.repository.PncVisitInfoRepository;
 import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.dao.ReportIndicatorDaoImpl;
 import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
 import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.reporting.repository.IndicatorRepository;
@@ -71,9 +72,8 @@ public class GizMalawiRepository extends Repository {
     protected SQLiteDatabase writableDatabase;
 
     private Context context;
-    private String indicatorsConfigFile = GizConstants.File.INDICATOR_CONFIG_FILE;
-    private String indicatorDataInitialisedPref = GizConstants.Pref.INDICATOR_DATA_INITIALISED;
-    private String appVersionCodePref = GizConstants.Pref.APP_VERSION_CODE;
+    final private String indicatorDataInitialisedPref = GizConstants.Pref.INDICATOR_DATA_INITIALISED;
+    final private String appVersionCodePref = GizConstants.Pref.APP_VERSION_CODE;
 
     public GizMalawiRepository(@NonNull Context context, @NonNull org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
@@ -148,6 +148,7 @@ public class GizMalawiRepository extends Repository {
         boolean isUpdated = checkIfAppUpdated();
         if (!indicatorDataInitialised || isUpdated) {
             Timber.d("Initialising indicator repositories!!");
+            String indicatorsConfigFile = GizConstants.File.INDICATOR_CONFIG_FILE;
             reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
@@ -202,6 +203,9 @@ public class GizMalawiRepository extends Repository {
                     break;
                 case 16:
                     upgradeToVersion16CreateNewVisitTable(db);
+                    break;
+                case 17:
+                    upgradeToVersion17ResetIndicators(db);
                     break;
                 default:
                     break;
@@ -513,6 +517,18 @@ public class GizMalawiRepository extends Repository {
             VisitDetailsRepository.createTable(db);
         } catch (Exception e) {
             Timber.e(e, "upgradeToVersion16");
+        }
+    }
+
+    private void upgradeToVersion17ResetIndicators(SQLiteDatabase db) {
+        try {
+            ReportingLibrary.getInstance().getContext().allSharedPreferences().savePreference(appVersionCodePref, "");
+            String reportsLastProcessedDate = ReportIndicatorDaoImpl.REPORT_LAST_PROCESSED_DATE;
+            ReportingLibrary.getInstance().getContext().allSharedPreferences().savePreference(reportsLastProcessedDate, "");
+            ReportingLibrary.getInstance().getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "false");
+            initializeReportIndicatorState(db);
+        }catch (Exception e) {
+            Timber.e(e, "upgradeToVersion17");
         }
     }
 
