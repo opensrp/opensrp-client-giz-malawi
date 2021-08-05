@@ -47,6 +47,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import timber.log.Timber;
 
@@ -69,6 +71,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private View parentView;
     private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
+    private Timer timer;
 
     private NavigationMenu() {
 
@@ -213,6 +216,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         // update all actions
         mPresenter.refreshLastSync();
+        mPresenter.refreshNavigationCount(activity);
+
     }
 
     private void registerReporting(@Nullable Activity parentActivity) {
@@ -356,7 +361,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     public void runRegisterCount() {
-        mPresenter.refreshNavigationCount();
+        mPresenter.refreshNavigationCount(activityWeakReference.get());
     }
 
     @Override
@@ -390,7 +395,11 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         // update the time
         mPresenter.refreshLastSync();
         // refreshLastSync(new Date());
-        mPresenter.refreshNavigationCount();
+       // mPresenter.refreshNavigationCount(activity);
+
+        if (activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()) {
+            mPresenter.refreshNavigationCount(activityWeakReference.get());
+        }
     }
 
     public DrawerLayout getDrawer() {
@@ -399,7 +408,28 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public void openDrawer() {
         drawer.openDrawer(GravityCompat.START);
+        recomputeCounts();
     }
+
+    private void recomputeCounts() {
+        try {
+            if (timer == null) {
+                timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Activity activity = activityWeakReference.get();
+                        if (mPresenter != null && activity != null) {
+                            mPresenter.refreshNavigationCount(activity);
+                        }
+                    }
+                }, 0, 5000);
+            }
+        } catch (Exception e) {
+            Timber.v(e);
+        }
+    }
+
 
     @Override
     public void updateUi(@Nullable String location) {
