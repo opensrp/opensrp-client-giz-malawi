@@ -909,7 +909,7 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "edit_text",
-        "hint": "Final diagnosis text/problem",
+        "hint": "Final diagnosis text/problem list",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
