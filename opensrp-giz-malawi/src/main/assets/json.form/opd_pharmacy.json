@@ -98,34 +98,6 @@
         ]
       },
       {
-        "key": "alt_medicine",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "=",
-        "openmrs_entity_id": "",
-        "label": "Alternative medication available?",
-        "label_text_style": "bold",
-        "type": "native_radio",
-        "options": [
-          {
-            "key": "yes",
-            "text": "Yes",
-            "value": false
-          },
-          {
-            "key": "no",
-            "text": "No",
-            "value": false
-          }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_pharmacy_relevance_rules.yml"
-            }
-          }
-        }
-      },
-      {
         "key": "medicine_refer",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
@@ -228,7 +200,7 @@
         }
       },
       {
-        "key": "medicine_object",
+        "key": "medicine_pharmacy_object",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",

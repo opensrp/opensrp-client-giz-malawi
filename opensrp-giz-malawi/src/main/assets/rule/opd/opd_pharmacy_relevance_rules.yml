@@ -6,13 +6,6 @@ condition: "!global_medicine_object.isEmpty()"
 actions:
   - "isRelevant = true"
 ---
-name: step1_alt_medicine
-description: alt_medicine
-priority: 1
-condition: "step1_medicine_available.contains('no')"
-actions:
-  - "isRelevant = true"
----
 name: step1_medicine_refer
 description: medicine_refer
 priority: 1
@@ -23,14 +16,14 @@ actions:
 name: step1_medicine_pharmacy_label
 description: medicine_pharmacy_label
 priority: 1
-condition: "step1_medicine_available.contains('yes') || step1_alt_medicine.contains('yes')"
+condition: "step1_medicine_available.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
 name: step1_medicine_pharmacy
 description: medicine
 priority: 1
-condition: "step1_medicine_available.contains('yes') || step1_alt_medicine.contains('yes')"
+condition: "step1_medicine_available.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
