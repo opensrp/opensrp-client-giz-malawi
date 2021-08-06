@@ -83,7 +83,7 @@
         "openmrs_entity_id": "",
         "type": "toaster_notes",
         "text": "Vitals: {body_temp} {pulse_rate} {current_weight} {height} {blood_pressure} {oximetry} {respiratory_rate} {convulsions_history}",
-        "toaster_type": "positive",
+        "toaster_type": "warning",
         "relevance": {
           "rules-engine": {
             "ex-rules": {
