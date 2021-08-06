@@ -5,12 +5,15 @@ import androidx.annotation.Nullable;
 import android.text.TextUtils;
 
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
+import org.smartregister.giz.util.GizConstants;
 import org.smartregister.opd.OpdLibrary;
 import org.smartregister.opd.configuration.OpdRegisterQueryProviderContract;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.opd.utils.OpdUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-09-23
@@ -23,6 +26,7 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
     public String getObjectIdsQuery(@Nullable String filters, @Nullable String mainCondition) {
         Date latestValidCheckInDate = OpdLibrary.getInstance().getLatestValidCheckInDate();
         String oneDayAgo = OpdUtils.convertDate(latestValidCheckInDate, OpdDbConstants.DATE_FORMAT);
+        String todayDate = new SimpleDateFormat(GizConstants.DateTimeFormat.yyyy_MM_dd, Locale.US).format(new Date());
 
         if (!TextUtils.isEmpty(filters)) {
             if (!TextUtils.isEmpty(mainCondition)) {
@@ -44,12 +48,14 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
             }
         } else if (!TextUtils.isEmpty(mainCondition)) {
             String sqlQuery =
-                    "Select ec_client.id as object_id, ec_client.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_client \n" +
-                    "    LEFT JOIN opd_details ON ec_client.base_entity_id = opd_details.base_entity_id\n" +
-                    "    WHERE  checked_in \n" +
-                    "ORDER BY last_interacted_with DESC";
+                    "Select ec_client.id as object_id\n" +
+                            "FROM ec_client\n" +
+                            "inner join client_register_type crt on crt.base_entity_id = ec_client.id  \n" +
+                            "WHERE crt.register_type = 'opd'\n" +
+                            "and  ec_client.id IN (SELECT base_entity_id FROM opd_client_visits where visit_group = '" + todayDate + "')\n" +
+                            "ORDER BY last_interacted_with DESC";
 
-            return sqlQuery.replace("$latest_start_visit_date", oneDayAgo);
+            return sqlQuery;
         } else {
             return "SELECT object_id FROM " +
                     "(SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL and is_closed == 0 ) " +
