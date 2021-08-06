@@ -79,7 +79,7 @@
       {
         "key": "medicine_available",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "=",
+        "openmrs_entity": "",
         "openmrs_entity_id": "",
         "label": "Prescribed medication available?",
         "label_text_style": "bold",
@@ -135,7 +135,7 @@
         "sort": true,
         "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
         "source": "csv",
-        "repositoryClass": "org.smartregister.opd.widgets.OpdMedicineMultiSelectListRepository",
+        "repositoryClass": "org.smartregister.giz.widget.GizOpdMedicineMultiSelectListRepository",
         "type": "multi_select_drug_picker",
         "buttonText": "+ Add treatment/medicine",
         "dialogTitle": "Add treatment/medicine",
@@ -167,12 +167,18 @@
           {
             "key": "yes",
             "text": "Yes",
-            "value": false
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "no",
             "text": "No",
-            "value": false
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
