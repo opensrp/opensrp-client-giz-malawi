@@ -114,6 +114,13 @@ condition: "step1_diagnostic_test == 'blood_type'"
 actions:
   - "isRelevant = true"
 ---
+name: step1_diagnostic_test_result_urine
+description: diagnostic_test_result_urine
+priority: 1
+condition: "step1_diagnostic_test == 'midstream_urine_test_culture'"
+actions:
+  - "isRelevant = true"
+---
 name: step1_test_not_done
 description: test_not_done
 priority: 1

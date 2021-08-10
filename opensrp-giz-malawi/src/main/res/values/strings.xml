@@ -932,4 +932,5 @@
     <string name="compliance">Compliance</string>
     <string name="due_on">Due on</string>
     <string name="no_village_selected">"No Village selected"</string>
+    <string name="sync_in_progress">Sync is already in progress</string>
 </resources>

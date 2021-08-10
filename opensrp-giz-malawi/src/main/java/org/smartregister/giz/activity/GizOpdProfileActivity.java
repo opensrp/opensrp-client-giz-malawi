@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.viewpager.widget.ViewPager;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
@@ -19,18 +19,28 @@ import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.json.JSONObject;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
+import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.task.OpdTransferTask;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
+import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
+import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
+import org.smartregister.immunization.job.VaccineServiceJob;
+import org.smartregister.job.ImageUploadServiceJob;
+import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.utils.FormProcessor;
 import org.smartregister.opd.utils.OpdDbConstants;
 import org.smartregister.opd.utils.OpdUtils;
+import org.smartregister.receiver.SyncStatusBroadcastReceiver;
 import org.smartregister.util.Utils;
 
 import java.util.Map;
 
-public class GizOpdProfileActivity extends BaseOpdProfileActivity implements FormProcessor.Host {
+public class GizOpdProfileActivity extends BaseOpdProfileActivity implements FormProcessor.Host,
+        SyncStatusBroadcastReceiver.SyncStatusListener {
 
     protected static final int REQUEST_CODE_GET_JSON = 3432;
     private FormProcessor.Requester requester;
@@ -62,9 +72,31 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
             showOpdTransferDialog(GizConstants.EventType.OPD_PNC_TRANSFER);
         } else if (id == R.id.opd_menu_item_enrol_maternity) {
             showOpdTransferDialog(GizConstants.EventType.OPD_MATERNITY_TRANSFER);
+        } else if (id == R.id.opd_menu_item_sync) {
+            startSync();
         }
 
         return true;
+    }
+
+    private void startSync() {
+        if (!SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+            Toast.makeText(this, getResources().getText(R.string.action_start_sync),
+                    Toast.LENGTH_SHORT).show();
+            initiateSync();
+        } else
+            Toast.makeText(this, getResources().getText(R.string.sync_in_progress),
+                    Toast.LENGTH_SHORT).show();
+    }
+
+    private void initiateSync() {
+        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
+        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
+        SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
+        ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
+        WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
+        HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
+        VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
     }
 
     public void showOpdTransferDialog(@Nullable String eventType) {
@@ -142,5 +174,33 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onSyncStart() {
+        // Do nothing
+    }
+
+    @Override
+    public void onSyncInProgress(FetchStatus fetchStatus) {
+        // Do nothing
+    }
+
+    @Override
+    public void onSyncComplete(FetchStatus fetchStatus) {
+        Toast.makeText(this, getResources().getText(R.string.sync_complete),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SyncStatusBroadcastReceiver.getInstance().addSyncStatusListener(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SyncStatusBroadcastReceiver.getInstance().removeSyncStatusListener(this);
     }
 }

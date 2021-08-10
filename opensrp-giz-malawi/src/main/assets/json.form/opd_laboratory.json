@@ -137,6 +137,7 @@
               "HIV Viral Load",
               "HIV EID",
               "HIV test - Rapid Test",
+              "Midstream Urine Test Culture",
               "Other(specify)"
             ],
             "keys": [
@@ -160,6 +161,7 @@
               "hiv_viral_load",
               "hiv_eid",
               "hiv_test_rapid",
+              "midstream_urine_test_culture",
               "other"
             ]
           },
@@ -192,6 +194,27 @@
             "type": "spinner",
             "values": [
               "Positive",
+              "Negative",
+              "Inconclusive"
+            ],
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_urine",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "The result of the test conducted",
+            "type": "spinner",
+            "values": [
+              "Positive - any agent",
+              "Positive - Group B streptococcus (GBS)",
               "Negative",
               "Inconclusive"
             ],
@@ -629,6 +652,13 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "midstream_urine_test_culture",
+            "text": "Midstream Urine Test Culture",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "77664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
