@@ -177,7 +177,9 @@
           {
             "key": "lmp_unknown",
             "text": "Last menstrual period unknown?",
-            "value": "false"
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
@@ -492,6 +494,277 @@
         }
       },
       {
+        "key": "physical_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Conduct physical exam?",
+        "label_text_style": "bold",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false
+          }
+        ]
+      },
+      {
+        "key": "patient_complains",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Complains by the patient.",
+        "label": "Complains by the patient.",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "headache",
+            "text": "Headache"
+          },
+          {
+            "key": "fever",
+            "text": "Fever"
+          },
+          {
+            "key": "bleeding",
+            "text": "Bleeding"
+          },
+          {
+            "key": "general_body_pain",
+            "text": "General Body pain"
+          },
+          {
+            "key": "convulsions",
+            "text": "Convulsions"
+          },
+          {
+            "key": "loss_of_appetite",
+            "text": "Loss of appetite"
+          },
+          {
+            "key": "nausea_and_vomiting",
+            "text": "Nausea and Vomiting"
+          },
+          {
+            "key": "cut_wound_and_open_wound",
+            "text": "Cut wound and open wound"
+          },
+          {
+            "key": "itching_of_the_skin",
+            "text": "Itching of the skin"
+          },
+          {
+            "key": "difficult_in_breathing",
+            "text": "Difficult in breathing"
+          },
+          {
+            "key": "nose_bleeding",
+            "text": "Nose bleeding"
+          },
+          {
+            "key": "abdominal_pain",
+            "text": "Abdominal pain"
+          },
+          {
+            "key": "0edema",
+            "text": "Oedema"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness"
+          },
+          {
+            "key": "yellow_eyes",
+            "text": "Yellow eyes"
+          },
+          {
+            "key": "backache",
+            "text": "Backache"
+          },
+          {
+            "key": "numbness_of_lower_and_upper_extremities",
+            "text": "Numbness of lower and upper extremities"
+          },
+          {
+            "key": "abnormal_vaginal_discharge",
+            "text": "Abnormal vaginal discharge"
+          },
+          {
+            "key": "painful_urination",
+            "text": "Painful urination"
+          },
+          {
+            "key": "loose_stools",
+            "text": "Loose stools"
+          },
+          {
+            "key": "bloody_stools",
+            "text": "Bloody stools"
+          },
+          {
+            "key": "blur_vision",
+            "text": "Blur vision"
+          },
+          {
+            "key": "heart_palpitations",
+            "text": "Heart palpitations"
+          },
+          {
+            "key": "other_complains",
+            "text": "Other (Specify)"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "patient_complain_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other complain",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "clinician_obs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Clinician observations of the patient",
+        "label": "Clinician observations of the patient",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "alert",
+            "text": "Alert"
+          },
+          {
+            "key": "reduced_level_of_consciousness",
+            "text": "Reduced level of consciousness"
+          },
+          {
+            "key": "pink_conjunctiva",
+            "text": "Pink conjunctiva"
+          },
+          {
+            "key": "pale_conjunctiva",
+            "text": "Pale conjunctiva"
+          },
+          {
+            "key": "jaundice",
+            "text": "Jaundice"
+          },
+          {
+            "key": "a_febrile",
+            "text": "A febrile"
+          },
+          {
+            "key": "febrile",
+            "text": "Febrile"
+          },
+          {
+            "key": "weak",
+            "text": "Weak"
+          },
+          {
+            "key": "lethargy",
+            "text": "Lethargy"
+          },
+          {
+            "key": "convulsions",
+            "text": "Convulsions"
+          },
+          {
+            "key": "bp",
+            "text": "Bp"
+          },
+          {
+            "key": "pulse_rate",
+            "text": "Pulse rate"
+          },
+          {
+            "key": "temperature",
+            "text": "Temperature"
+          },
+          {
+            "key": "respiration",
+            "text": "Respiration"
+          },
+          {
+            "key": "grunting",
+            "text": "Grunting"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness"
+          },
+          {
+            "key": "nasal_flaring_use_of_accessory_muscle",
+            "text": "Nasal flaring use of accessory muscle"
+          },
+          {
+            "key": "chest_in_drawings",
+            "text": "Chest in drawings"
+          },
+          {
+            "key": "edema_of_extremities",
+            "text": "Edema of extremities"
+          },
+          {
+            "key": "GCS",
+            "text": "GCS"
+          },
+          {
+            "key": "other_obs",
+            "text": "Other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "clinician_obs_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other observations",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "disease_code_label",
         "text": "Preliminary Diagnosis",
         "name": "Preliminary Diagnosis",
@@ -580,7 +853,9 @@
           {
             "key": "isSameAsFinalDiagnosis",
             "text": "Is same as final diagnosis?",
-            "value": "false"
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "160251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ]
       },

@@ -147,3 +147,31 @@ priority: 1
 condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
 actions:
   - "isRelevant = true"
+---
+name: step1_patient_complains
+description: patient_complains
+priority: 1
+condition: "step1_physical_exam.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_patient_complain_other
+description: patient_complain_other
+priority: 1
+condition: "step1_physical_exam.contains('yes') && step1_patient_complains.contains('other_complains')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_clinician_obs
+description: clinician_obs
+priority: 1
+condition: "step1_physical_exam.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_clinician_obs_other
+description: clinician_obs_other
+priority: 1
+condition: "step1_physical_exam.contains('yes') && step1_clinician_obs.contains('other_obs')"
+actions:
+  - "isRelevant = true"
