@@ -1058,6 +1058,13 @@
             "openmrs_entity_id": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
+            "key": "midstream_urine_test_culture",
+            "text": "Midstream Urine Test Culture",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "77664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
             "key": "other",
             "text": "Other (specify)",
             "openmrs_entity_parent": "",
