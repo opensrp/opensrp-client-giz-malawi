@@ -55,7 +55,7 @@ public class ReportDao extends AbstractDao {
 
     private static HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
     @SuppressLint("StaticFieldLeak")
-    private static Context context;
+    private static WeakReference<Context> contextWeakReference;
     private static final SimpleDateFormat sdf = new SimpleDateFormat(GizConstants.DateTimeFormat.yyyy_MM_dd, Locale.US);
 
 
