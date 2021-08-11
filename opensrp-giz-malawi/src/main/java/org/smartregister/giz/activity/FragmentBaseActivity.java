@@ -95,7 +95,6 @@ public class FragmentBaseActivity extends SecuredActivity implements FragmentBas
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("text/plain");
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        // emailIntent.putExtra(Intent.EXTRA_TEXT, " ");
         File file = new File(pathToMyAttachedFile);
         if (!file.exists() || !file.canRead()) {
             Timber.e("File does not exist");
