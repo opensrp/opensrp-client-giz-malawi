@@ -4,6 +4,6 @@
     <item xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/action_send_report"
         android:icon="@drawable/ic_emailing_foreground"
-        android:title="Send report"
+        android:title="@string/send_report"
         app:showAsAction="always" />
 </menu>

@@ -53,11 +53,10 @@ import timber.log.Timber;
 
 public class ReportDao extends AbstractDao {
 
+    private static final SimpleDateFormat sdf = new SimpleDateFormat(GizConstants.DateTimeFormat.yyyy_MM_dd, Locale.US);
     private static HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules;
     @SuppressLint("StaticFieldLeak")
     private static Context context;
-    private static final SimpleDateFormat sdf = new SimpleDateFormat(GizConstants.DateTimeFormat.yyyy_MM_dd, Locale.US);
-
 
     private static void readLocations(TreeNode<String, Location> node, Map<String, String> locations) {
         locations.put(node.getId(), node.getLabel());
@@ -87,7 +86,7 @@ public class ReportDao extends AbstractDao {
         Map<String, String> locations = new HashMap<>();
         String sql = "SELECT DISTINCT location_id FROM ec_family_member_location";
         DataMap<Void> dataMap = cursor -> {
-            String locationId = getCursorValue(cursor, "location_id");
+            String locationId = getCursorValue(cursor, GizConstants.OutreachReports.LOCATION_ID);
             if (StringUtils.isNotBlank(locationId) && defaultTree.containsKey(locationId))
                 locations.put(locationId, defaultTree.get(locationId));
             return null;
@@ -212,6 +211,7 @@ public class ReportDao extends AbstractDao {
             }
             return generatedAlerts;
         } catch (Exception e) {
+            Timber.e(e, "vaccine Schedule is null");
             return new ArrayList<>();
         }
     }
@@ -222,7 +222,7 @@ public class ReportDao extends AbstractDao {
             HashMap<String, HashMap<String, VaccineSchedule>> vaccineSchedules = getVaccineSchedules(category);
             return getInMemoryAlerts(vaccineSchedules, baseEntityId, anchorDate, category, issuedVaccines == null ? new ArrayList<>() : issuedVaccines);
         } catch (Exception e) {
-            Timber.e(e);
+            Timber.e(e, "Child Alerts failed to generate");
         }
         return new ArrayList<>();
     }
@@ -251,11 +251,11 @@ public class ReportDao extends AbstractDao {
 
         AbstractDao.DataMap<Void> dataMap = cursor -> {
             // compute constants
-            String baseEntityId = getCursorValue(cursor, "base_entity_id");
-            Date dob = getCursorValueAsDate(cursor, "dob", sdf);
+            String baseEntityId = getCursorValue(cursor, GizConstants.OutreachReports.BASE_ENTITY_ID);
+            Date dob = getCursorValueAsDate(cursor, GizConstants.OutreachReports.DOB, sdf);
             Date adjustedDob = new DateTime(dob).minusDays(days).toDate();
-            String name = getCursorValue(cursor, "first_name", "") + " " + getCursorValue(cursor, "middle_name", "");
-            name = name.trim() + " " + getCursorValue(cursor, "family_name", "");
+            String name = getCursorValue(cursor, GizConstants.OutreachReports.FIRST_NAME, "") + " " + getCursorValue(cursor, GizConstants.OutreachReports.MIDDLE_NAME, "");
+            name = name.trim() + " " + getCursorValue(cursor, GizConstants.OutreachReports.FAMILY_NAME, "");
             int age = (int) Math.floor(Days.daysBetween(new DateTime(dob).toLocalDate(), new DateTime(dueDate).toLocalDate()).getDays() / GizConstants.KEY.ONE_YEAR);
             if (age < 5) {
                 List<Vaccine> rawVaccines = allVaccines.get(baseEntityId);
@@ -294,7 +294,7 @@ public class ReportDao extends AbstractDao {
                 child.setID(baseEntityId);
                 child.setDateOfBirth(adjustedDob);
                 child.setFullName(name.trim());
-                child.setFamilyName(getCursorValue(cursor, "family_name") + " Family");
+                child.setFamilyName(getCursorValue(cursor, GizConstants.OutreachReports.FAMILY_NAME) + " Family");
                 child.setDueVaccines(dueVaccines);
                 child.setAlerts(alerts);
                 if (dueVaccines.length > 0) {

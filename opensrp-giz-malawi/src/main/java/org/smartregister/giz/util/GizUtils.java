@@ -543,7 +543,7 @@ public class GizUtils extends Utils {
                 duration = new DateTime(date);
                 return getDuration(duration);
             } catch (Exception e) {
-                Timber.e(e);
+                Timber.e(e, "Date is blank");
             }
         }
         return "";
