@@ -101,7 +101,7 @@ public class GizReportUtils {
                     reasonForDefaultingModel.setAdditionalDefaultingNotes(value);
                 } else
                     return null;
-            } else if (obs.getFormSubmissionField().equals(GizConstants.JsonAssetsHelper.BASE_ENTITY_ID)) {
+            } else if (GizConstants.JsonAssetsHelper.BASE_ENTITY_ID.equals(obs.getFormSubmissionField())) {
                 String value = GizUtils.getObsValue(obs);
                 if (StringUtils.isNotBlank(value)) {
                     reasonForDefaultingModel.setBaseEntityId(value);
