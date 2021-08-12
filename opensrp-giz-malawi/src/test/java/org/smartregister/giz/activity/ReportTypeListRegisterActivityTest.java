@@ -2,7 +2,6 @@ package org.smartregister.giz.activity;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -50,19 +49,6 @@ public class ReportTypeListRegisterActivityTest extends BaseUnitTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void testSetupViewsSetTextsToTextView() {
-        TextView titleTv = Mockito.mock(TextView.class);
-
-        activity.setTheme(org.smartregister.R.style.AppTheme);
-        activity.setContentView(R.layout.activity_report_register);
-        ReflectionHelpers.setField(activity, "titleTv", titleTv);
-
-        activity.setUpViews();
-
-        Mockito.verify(titleTv).setText(Mockito.any());
     }
 
     @Test
