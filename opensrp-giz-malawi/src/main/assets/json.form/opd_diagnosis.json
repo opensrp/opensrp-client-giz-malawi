@@ -382,12 +382,11 @@
         "label_text_style": "bold",
         "options": [
           {
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
             "key": "yes",
             "text": "HIV diagnosis date unknown?",
-            "value": false
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1009988AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         ],
         "relevance": {
@@ -401,8 +400,8 @@
       {
         "key": "hiv_prev_status",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "native_radio",
         "label": "HIV test results",
         "label_text_style": "bold",

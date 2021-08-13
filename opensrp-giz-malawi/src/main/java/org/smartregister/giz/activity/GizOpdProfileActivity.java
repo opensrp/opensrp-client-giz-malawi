@@ -81,9 +81,9 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
 
     private void startSync() {
         if (!SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
+            initiateSync();
             Toast.makeText(this, getResources().getText(R.string.action_start_sync),
                     Toast.LENGTH_SHORT).show();
-            initiateSync();
         } else
             Toast.makeText(this, getResources().getText(R.string.sync_in_progress),
                     Toast.LENGTH_SHORT).show();
@@ -178,7 +178,8 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
 
     @Override
     public void onSyncStart() {
-        // Do nothing
+        Toast.makeText(this, getResources().getText(R.string.syncing),
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
