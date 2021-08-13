@@ -101,6 +101,42 @@ public class GizConstants {
         String INDICATOR_CODE = "indicatorCode";
     }
 
+    public interface ReportParametersHelper {
+        String COMMUNITY = "COMMUNITY";
+        String COMMUNITY_ID = "COMMUNITY_ID";
+        String REPORT_DATE = "REPORT_DATE";
+    }
+
+    public interface JsonAssetsHelper {
+        String ID = "id";
+        String OUTREACH_DATE = "outreach_date";
+        String FOLLOWUP_DATE = "followup_date";
+        String OUTREACH_DEFAULTING_REASON = "outreach_defaulting_rsn";
+        String OTHER_DEFAULTING_REASON = "other_defaulting_rsn";
+        String ADDITIONAL_DEFAULTING_NOTES = "additional_defaulting_notes";
+        String BASE_ENTITY_ID = "base_entity_id";
+        String EVENT_DATE = "date";
+    }
+
+    public interface EmailParameterHelper {
+        String REPORTS = "Reports";
+        String PLAIN_TEXT = "text/plain";
+        String FILE_PROVIDER = ".fileprovider";
+    }
+
+    public interface OutreachReports {
+        String LOCATION_ID = "location_id";
+        String FAMILY_NAME = "family_name";
+        String BASE_ENTITY_ID = "base_entity_id";
+        String DOB = "dob";
+        String FIRST_NAME = "first_name";
+        String MIDDLE_NAME = "middle_name";
+    }
+
+    public interface ReasonForDefaultingHelper {
+        String REPORT_REASON_FOR_DEFAULTING = "report_reason_for_defaulting";
+    }
+
     public static final class KEY {
         public static final String MOTHER_BASE_ENTITY_ID = "mother_base_entity_id";
         public static final String CHILD = "child";
@@ -155,11 +191,11 @@ public class GizConstants {
         public static final String KEY = "key";
         public static final String IS_VACCINE_GROUP = "is_vaccine_group";
         public static final String OPTIONS = "options";
+        public static final double ONE_YEAR = 365.4;
+        public static final String ALL_COMMUNITIES = "All communities";
         public static String SITE_CHARACTERISTICS = "site_characteristics";
         public static String HIDDEN_FIELDS = "hidden_fields";
         public static String DISABLED_FIELDS = "disabled_fields";
-        public static final double ONE_YEAR = 365.4;
-        public static final String ALL_COMMUNITIES = "All communities";
     }
 
     public static final class DrawerMenu {
@@ -229,30 +265,4 @@ public class GizConstants {
     public static class IntentKeyUtil {
         public static final String IS_REMOTE_LOGIN = "is_remote_login";
     }
-
-    public static class ReportParametersHelper {
-        public static String COMMUNITY = "COMMUNITY";
-        public static String COMMUNITY_ID = "COMMUNITY_ID";
-        public static String REPORT_DATE = "REPORT_DATE";
-    }
-
-    public static class JsonAssetsHelper {
-        public static final String ID = "id";
-        public static final String OUTREACH_DATE = "outreach_date";
-        public static final String FOLLOWUP_DATE = "followup_date";
-        public static final String OUTREACH_DEFAULTING_REASON = "outreach_defaulting_rsn";
-        public static final String OTHER_DEFAULTING_REASON = "other_defaulting_rsn";
-        public static final String ADDITIONAL_DEFAULTING_NOTES = "additional_defaulting_notes";
-        public static final String BASE_ENTITY_ID = "base_entity_id";
-        public static final String EVENT_DATE = "date";
-    }
-
-    public static class EmailParameterHelper {
-        public static String REPORTS = "Reports";
-    }
-
-    public static class ReasonForDefaultingHelper {
-        public static String REPORT_REASON_FOR_DEFAULTING = "report_reason_for_defaulting";
-    }
-
 }

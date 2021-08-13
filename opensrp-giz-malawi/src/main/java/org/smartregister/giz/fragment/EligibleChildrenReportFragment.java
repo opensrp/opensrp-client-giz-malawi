@@ -26,6 +26,8 @@ import org.smartregister.view.ListContract;
 import org.smartregister.view.adapter.ListableAdapter;
 import org.smartregister.view.viewholder.ListableViewHolder;
 
+import java.lang.ref.WeakReference;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -70,7 +72,7 @@ public class EligibleChildrenReportFragment extends ReportResultFragment<Eligibl
     @NonNull
     @Override
     public ListableAdapter<EligibleChild, ListableViewHolder<EligibleChild>> adapter() {
-        return new EligibleChildrenAdapter(list, (ListContract.View<EligibleChild>) this, this.getContext());
+        return new EligibleChildrenAdapter(list, (ListContract.View<EligibleChild>) this, new WeakReference<>(this.getContext()).get());
     }
 
     @Override

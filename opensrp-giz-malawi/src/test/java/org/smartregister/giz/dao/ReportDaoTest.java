@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.doReturn;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -59,7 +58,7 @@ public class ReportDaoTest extends ReportDao {
 
         List<EligibleChild> children = ReportDao.fetchLiveEligibleChildrenReport("meso", new Date());
 
-        Assert.assertEquals(children.size(), 0);
+        Assert.assertEquals( 0, children.size());
     }
 
 
@@ -72,7 +71,7 @@ public class ReportDaoTest extends ReportDao {
         doReturn(matrixCursor).when(database).rawQuery(Mockito.any(), Mockito.any());
 
         List<EligibleChild> children = ReportDao.fetchLiveEligibleChildrenReport(null, new Date());
-        Assert.assertEquals(children.size(), 0);
+        Assert.assertEquals( 0, children.size());
     }
 
     @Test
@@ -117,12 +116,12 @@ public class ReportDaoTest extends ReportDao {
         Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
 
         // test results
-        Assert.assertEquals(providerList.size(), 2);
+        Assert.assertEquals(2, providerList.size());
         List<Vaccine> vaccines = providerList.get("839e53i354-ba27-46b1-b5c2-2bab06fd77e2");
-        Assert.assertEquals(vaccines.size(), 2);
+        Assert.assertEquals(2, vaccines.size());
 
         Vaccine vaccine = vaccines.get(0);
-        Assert.assertEquals(vaccine.getCreatedAt(), EventClientRepository.dateFormat.parse("2021-02-20 22:22:34"));
+        Assert.assertEquals(EventClientRepository.dateFormat.parse("2021-02-20 22:22:34"), vaccine.getCreatedAt());
     }
 
     @Test
@@ -142,8 +141,8 @@ public class ReportDaoTest extends ReportDao {
             expectedLocationId = entry.getKey();
         }
         Assert.assertNull(expectedLocationId);
-        Assert.assertEquals(locations.size(), 0);
-        Assert.assertThat(locations.isEmpty(), is(true));
+        Assert.assertEquals(0, locations.size());
+        Assert.assertTrue(locations.isEmpty());
     }
 
     @Test
@@ -157,7 +156,7 @@ public class ReportDaoTest extends ReportDao {
 
         List<VillageDose> villages = ReportDao.fetchLiveVillageDosesReport("meso", new Date(), true, "Sample", new HashMap<>());
 
-        Assert.assertEquals(villages.size(), 1);
+        Assert.assertEquals(1, villages.size());
     }
 
 }

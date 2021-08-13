@@ -31,7 +31,6 @@ import org.smartregister.util.PermissionUtils;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -93,17 +92,16 @@ public class FragmentBaseActivity extends SecuredActivity implements FragmentBas
     @Override
     public void sendEmailWithAttachment(String subject, String pathToMyAttachedFile) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("text/plain");
+        emailIntent.setType(GizConstants.EmailParameterHelper.PLAIN_TEXT);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        // emailIntent.putExtra(Intent.EXTRA_TEXT, " ");
         File file = new File(pathToMyAttachedFile);
         if (!file.exists() || !file.canRead()) {
             Timber.e("File does not exist");
             return;
         }
-        Uri uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", file);
+        Uri uri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + GizConstants.EmailParameterHelper.FILE_PROVIDER, file);
         emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(emailIntent, "Pick an Email provider"));
+        startActivity(Intent.createChooser(emailIntent, getString(R.string.email_provider)));
     }
 
 
@@ -133,21 +131,21 @@ public class FragmentBaseActivity extends SecuredActivity implements FragmentBas
         if (bundle != null) {
             String title = bundle.getString(TITLE);
             if (StringUtils.isNotBlank(title)) {
-                titleTextView.setText(title);
+                setTitle(title);
             }
             INDICATOR_CODE = bundle.getString(INDICATOR_CODE);
 
-            String report_date = bundle.getString(GizConstants.ReportParametersHelper.REPORT_DATE);
+            String reportDate = bundle.getString(GizConstants.ReportParametersHelper.REPORT_DATE);
             String communityName = bundle.getString(GizConstants.ReportParametersHelper.COMMUNITY);
             String fragmentName = bundle.getString(DISPLAY_FRAGMENT);
             String name = getRequestedFragmentName(fragmentName);
 
             //Format Subject Date
-            if (report_date != null) {
-                @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat(GizConstants.DateTimeFormat.dd_MMM_yyyy);
+            if (reportDate != null) {
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat(GizConstants.DateTimeFormat.dd_MMM_yyyy);
                 Date date = null;
                 try {
-                    date = df.parse(report_date);
+                    date = df.parse(reportDate);
                 } catch (ParseException e) {
                     Timber.e(e, "Date could not be formatted");
                 }
@@ -165,7 +163,8 @@ public class FragmentBaseActivity extends SecuredActivity implements FragmentBas
     }
 
     public void setTitle(String title) {
-        titleTextView.setText(title);
+        if (title != null)
+            titleTextView.setText(title);
     }
 
     @Override
@@ -184,17 +183,21 @@ public class FragmentBaseActivity extends SecuredActivity implements FragmentBas
     String getRequestedFragmentName(@Nullable String name) {
         if (StringUtils.isBlank(name))
             return "";
+        String fragmentName;
         switch (name) {
             case EligibleChildrenReportFragment
                     .TAG:
-                return getString(R.string.child_due_report_grouping_title);
-
+                fragmentName = getString(R.string.child_due_report_grouping_title);
+                break;
             case VillageDoseReportFragment
                     .TAG:
-                return getString(R.string.vaccine_doses_needed);
+                fragmentName = getString(R.string.vaccine_doses_needed);
+                break;
             default:
-                return "";
+                fragmentName = "";
+                break;
         }
+        return fragmentName;
     }
 
     private @Nullable

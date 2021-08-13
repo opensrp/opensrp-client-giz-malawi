@@ -2,8 +2,6 @@ package org.smartregister.giz.activity;
 
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -54,22 +52,6 @@ public class ReportTypeListRegisterActivityTest extends BaseUnitTest {
     }
 
     @Test
-    public void testSetupViewsInvokesCorrectParams() {
-        TextView titleTv = Mockito.mock(TextView.class);
-        ListView listView = Mockito.mock(ListView.class);
-
-        activity.setTheme(org.smartregister.R.style.AppTheme);
-        activity.setContentView(R.layout.activity_report_register);
-        ReflectionHelpers.setField(activity, "titleTv", titleTv);
-        ReflectionHelpers.setField(activity, "listView", listView);
-
-        activity.setUpViews();
-
-        Assert.assertNotNull(ReflectionHelpers.getField(activity, "listView"));
-        Assert.assertNotNull(ReflectionHelpers.getField(activity, "titleTv"));
-    }
-
-    @Test
     public void testLoadDataCorrectlyLoadsData() {
         ImageView reportSyncBtn = Mockito.mock(ImageView.class);
 
@@ -78,6 +60,6 @@ public class ReportTypeListRegisterActivityTest extends BaseUnitTest {
         ReflectionHelpers.setField(activity, "reportSyncBtn", reportSyncBtn);
 
         activity.loadData();
-        Assert.assertEquals(reportSyncBtn.getVisibility(), View.VISIBLE);
+        Assert.assertEquals(View.VISIBLE, reportSyncBtn.getVisibility());
     }
 }

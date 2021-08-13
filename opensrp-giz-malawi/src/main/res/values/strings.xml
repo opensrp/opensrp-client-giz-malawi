@@ -932,5 +932,8 @@
     <string name="compliance">Compliance</string>
     <string name="due_on">Due on</string>
     <string name="no_village_selected">"No Village selected"</string>
+
     <string name="sync_in_progress">Sync is already in progress</string>
+    <string name="email_provider">Pick an Email provider</string>
+    <string name="send_report">Send report</string>
 </resources>
