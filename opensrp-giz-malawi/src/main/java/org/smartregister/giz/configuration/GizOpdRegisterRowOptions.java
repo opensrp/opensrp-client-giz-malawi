@@ -39,7 +39,6 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
         } else {
             dueButton.setBackgroundResource(R.color.transparent);
             dueButton.setText(" ");
-
         }
     }
 
