@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <item
+        android:id="@+id/opd_menu_item_sync"
+        android:title="@string/sync"
+        android:icon="@drawable/sync_white"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
+    <item
         android:id="@+id/opd_menu_item_enrol_child"
         android:visible="false"
         android:title="Enrol Child Register"

@@ -740,25 +740,45 @@
     <string name="menu_opd_clients">OPD Clients</string>
 
     <!-- Start OPD reports labels -->
-    <string name="me_malaria_cases_confirmed_over_5"> Malaria Cases Confirmed Over 5</string>
-    <string name="me_malaria_cases_confirmed_under_5"> Malaria Cases Confirmed Under 5</string>
-    <string name="me_malaria_cases_presumed_over_5"> Malaria Cases Presumed Over 5</string>
-    <string name="me_malaria_cases_presumed_under_5"> Malaria Cases Presumed Under 5</string>
+    <string name="me_malaria_cases_confirmed_over_5"><![CDATA[ Confirmed (Co) malaria cases (< 5 years)]]></string>
+    <string name="me_malaria_cases_confirmed_under_5"><![CDATA[ Confirmed (Co) malaria cases (5+ years)]]></string>
+    <string name="me_malaria_cases_presumed_under_5"><![CDATA[ Presumed malaria cases (clinically diagnosed without test) (< 5 years)]]></string>
+    <string name="me_malaria_cases_presumed_over_5"><![CDATA[ Presumed malaria cases (clinically diagnosed without test) (5+ years)]]></string>
     <string name="me_total_malaria_case_over_5"> Total Malaria Case Over 5</string>
     <string name="me_total_malaria_case_under_5"> Total Malaria Case Under 5</string>
-    <string name="me_anti_malaria_treatment_confirmed_over_5"> Anti Malaria Treatment Confirmed Over 5</string>
-    <string name="me_anti_malaria_treatment_confirmed_under_5"> Anti Malaria Treatment Confirmed Under 5</string>
-    <string name="me_anti_malaria_treatment_presumed_over_5"> Anti Malaria Treatment Presumed Over 5</string>
-    <string name="me_anti_malaria_treatment_presumed_under_5"> Anti Malaria Treatment Presumed Under 5</string>
-    <string name="me_malaria_test_mrdt_over_5"> Malaria Test Malaria - MRDT Over 5</string>
-    <string name="me_malaria_test_mrdt_under_5"> Malaria Test Malaria - MRDT Under 5</string>
-    <string name="me_malaria_test_microscopy_over_5"> Malaria Test Malaria - Microscopy Over 5</string>
-    <string name="me_malaria_test_microscopy_under_5"> Malaria Test Malaria - Microscopy Under 5</string>
-    <string name="me_positive_malaria_cases_mRDT_over_5"> Positive Malaria Cases Malaria - MRDT Over 5</string>
-    <string name="me_positive_malaria_cases_mRDT_under_5"> Positive Malaria Cases Malaria - MRDT Under 5</string>
-    <string name="me_positive_malaria_cases_microscopy_over_5"> Positive Malaria Cases Malaria - Microscopy Over 5</string>
-    <string name="me_positive_malaria_cases_microscopy_under_5"> Positive Malaria Cases Malaria - Microscopy Under 5</string>
+    <string name="me_malaria_test_mrdt_over_5"><![CDATA[ Suspected malaria cases tested using mRDT (5+ years)]]></string>
+    <string name="me_malaria_test_mrdt_under_5"><![CDATA[ Suspected malaria cases tested using mRDT (< 5 years)]]></string>
+    <string name="me_malaria_test_microscopy_over_5"><![CDATA[ Suspected malaria cases tested using microscopy (5+ years)]]></string>
+    <string name="me_malaria_test_microscopy_under_5"><![CDATA[ Suspected malaria cases tested using microscopy (< 5 years)]]></string>
+    <string name="me_positive_malaria_cases_mrdt_over_5"><![CDATA[ Positive malaria cases using mRDT (5+ years)]]></string>
+    <string name="me_positive_malaria_cases_mrdt_under_5"><![CDATA[ Positive malaria cases using mRDT (< 5 years)]]></string>
+    <string name="me_positive_malaria_cases_microscopy_over_5"><![CDATA[ Positive malaria cases using microscopy (5+ years)]]></string>
+    <string name="me_positive_malaria_cases_microscopy_under_5"><![CDATA[ Positive malaria cases using microscopy (< 5 years)]]></string>
     <string name="me_total_suspected_malaria"> Total Suspected Malaria</string>
+    <string name="me_anti_malaria_treatment_confirmed_la_over_5"><![CDATA[ Confirmed cases receiving first-line anti malarial medication (5+ years)]]></string>
+    <string name="me_anti_malaria_treatment_confirmed_la_under_5"><![CDATA[ Confirmed cases receiving first-line anti malarial medication (< 5 years)]]></string>
+    <string name="me_anti_malaria_treatment_presumed_la_under_5"><![CDATA[ Presumed malaria cases receiving first-line anti malarial medication (< 5 years)]]></string>
+    <string name="me_anti_malaria_treatment_presumed_la_over_5"><![CDATA[ Presumed malaria cases receiving first-line anti malarial medication (5+ years)]]></string>
+    <string name="me_anti_malaria_treatment_confirmed_asaq_over_5"><![CDATA[ Confirmed cases receiving second-line anti malarial medication (ASAQ) (5+ years)]]></string>
+    <string name="me_anti_malaria_treatment_confirmed_asaq_under_5"><![CDATA[ Confirmed cases receiving second-line anti malarial medication (ASAQ) (< 5 years)]]></string>
+    <string name="me_anti_malaria_treatment_presumed_asaq_under_5"><![CDATA[ Presumed malaria cases receiving second-line anti malarial medication (ASAQ) (< 5 years)]]></string>
+    <string name="me_anti_malaria_treatment_presumed_asaq_over_5"><![CDATA[ Presumed malaria cases receiving second-line anti malarial medication (ASAQ) (5+ years)]]></string>
+    <string name="me_confirmed_malaria_preg_woman"><![CDATA[ Confirmed malaria in pregnant woman (c)]]></string>
+    <string name="me_presumed_malaria_preg_woman"><![CDATA[ Presumed (clinically diagnosed) malaria in pregnant woman (d)]]></string>
+    <string name="me_opd_attendance">Total OPD Attendance: All causes (including malaria cases)</string>
+    <string name="me_opd_malaria_total_cases">Total OPD malaria cases</string>
+    <string name="me_malaria_treat_failure_Under_5"><![CDATA[ Confirmed malaria treatment failure (tf) (<5years)]]></string>
+    <string name="me_malaria_treat_failure_Over_5">Confirmed malaria treatment failure (tf) (5+years)</string>
+    <string name="me_suspected_malaria_cases">Total suspected malaria cases</string>
+    <string name="me_total_malaria_rdts">Malaria RDTs</string>
+    <string name="me_opd_asaq1_tabs">ASAQ 25mg/67.5mg (3 tablets)</string>
+    <string name="me_opd_asaq2_tabs">ASAQ 50mg/135mg (3 tablets)</string>
+    <string name="me_opd_asaq3_tabs">ASAQ 100mg/270mg (3 tablets)</string>
+    <string name="me_opd_asaq4_tabs">ASAQ 100mg/270mg (6 tablets)</string>
+    <string name="me_opd_la_1">LA  1X6</string>
+    <string name="me_opd_la_2">LA  2X6</string>
+    <string name="me_opd_la_3">LA  3X6</string>
+    <string name="me_opd_la_4">LA  4X6</string>
 
     <!-- End OPD reports labels -->
     <!-- Start Maternity reports labels -->
@@ -912,6 +932,8 @@
     <string name="compliance">Compliance</string>
     <string name="due_on">Due on</string>
     <string name="no_village_selected">"No Village selected"</string>
+
+    <string name="sync_in_progress">Sync is already in progress</string>
     <string name="email_provider">Pick an Email provider</string>
     <string name="send_report">Send report</string>
 </resources>

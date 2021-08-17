@@ -50,27 +50,27 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         return mView.get();
     }
 
-    @Override
-    public void refreshNavigationCount() {
-        int navigationItems = 0;
-        while (navigationItems < mModel.getNavigationItems().size()) {
-            final int finalNavigationItems = navigationItems;
-            String menuTitle = mModel.getNavigationItems().get(navigationItems).getMenuTitle();
-            mInteractor.getRegisterCount(tableMap.get(menuTitle),
-                    new NavigationContract.InteractorCallback<Integer>() {
-                        @Override
-                        public void onResult(Integer result) {
-                            mModel.getNavigationItems().get(finalNavigationItems).setRegisterCount(result);
-                            getNavigationView().refreshCount();
-                        }
 
-                        @Override
-                        public void onError(Exception e) {
-                            Timber.e(e, "Error retrieving count for %s",
-                                    tableMap.get(mModel.getNavigationItems().get(finalNavigationItems).getMenuTitle()));
-                        }
-                    });
-            navigationItems++;
+    @Override
+    public void refreshNavigationCount(final Activity activity) {
+
+        int x = 0;
+        while (x < mModel.getNavigationItems().size()) {
+            final int finalX = x;
+            mInteractor.getRegisterCount(tableMap.get(mModel.getNavigationItems().get(x).getMenuTitle()), new NavigationContract.InteractorCallback<Integer>() {
+                @Override
+                public void onResult(Integer result) {
+                    mModel.getNavigationItems().get(finalX).setRegisterCount(result);
+                    getNavigationView().refreshCount();
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    // getNavigationView().displayToast(activity, "Error retrieving count for " + tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
+                    Timber.e("Error retrieving count for %s", tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
+                }
+            });
+            x++;
         }
 
     }
