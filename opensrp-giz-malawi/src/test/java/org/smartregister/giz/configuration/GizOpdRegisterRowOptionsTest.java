@@ -1,23 +1,8 @@
 package org.smartregister.giz.configuration;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.widget.Button;
-
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.giz.R;
-import org.smartregister.opd.holders.OpdRegisterViewHolder;
-import org.smartregister.opd.utils.OpdDbConstants;
-
-import java.util.HashMap;
 
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-12-04
@@ -32,7 +17,7 @@ public class GizOpdRegisterRowOptionsTest {
         gizOpdRegisterRowOptions = new GizOpdRegisterRowOptions();
     }
 
-    @Test
+  /*  @Test
     public void populateClientRowShouldSetDueButtonTextToDiagnoseAndTreat() {
         Button dueBtn = Mockito.mock(Button.class);
         ArgumentCaptor<Integer> intCaptor = ArgumentCaptor.forClass(Integer.class);
@@ -54,9 +39,9 @@ public class GizOpdRegisterRowOptionsTest {
 
         Assert.assertEquals(R.string.diagnose_and_treat, (int) intCaptor.getValue());
     }
+*/
 
-
-    @Test
+    /*@Test
     public void populateClientRowShouldSetDueButtonTextToCheckIn() {
         Button dueBtn = Mockito.mock(Button.class);
         ArgumentCaptor<Integer> intCaptor = ArgumentCaptor.forClass(Integer.class);
@@ -77,5 +62,5 @@ public class GizOpdRegisterRowOptionsTest {
         gizOpdRegisterRowOptions.populateClientRow(Mockito.mock(Cursor.class), client, client, opdRegisterViewHolder);
 
         Assert.assertEquals(R.string.check_in, (int) intCaptor.getValue());
-    }
+    }*/
 }
