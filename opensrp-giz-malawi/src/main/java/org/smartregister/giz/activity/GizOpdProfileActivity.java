@@ -89,7 +89,7 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
                     Toast.LENGTH_SHORT).show();
     }
 
-    private void initiateSync() {
+    protected void initiateSync() {
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);

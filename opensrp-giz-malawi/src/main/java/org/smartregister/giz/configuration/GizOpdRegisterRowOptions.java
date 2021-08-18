@@ -38,7 +38,7 @@ public class GizOpdRegisterRowOptions implements OpdRegisterRowOptions {
             dueButton.setTextColor(dueButton.getContext().getResources().getColor(R.color.green_overlay));
         } else {
             dueButton.setBackgroundResource(R.color.transparent);
-            dueButton.setText(" ");
+            dueButton.setText(R.string.empty_text);
         }
     }
 

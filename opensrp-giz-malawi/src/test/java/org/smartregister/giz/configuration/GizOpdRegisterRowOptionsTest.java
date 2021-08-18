@@ -74,7 +74,7 @@ public class GizOpdRegisterRowOptionsTest {
         PowerMockito.when(visitDao.getSeenToday(Mockito.any())).thenReturn(false);
 
         Button dueBtn = Mockito.mock(Button.class);
-        ArgumentCaptor<String> intCaptor = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Integer> intCaptor = ArgumentCaptor.forClass(Integer.class);
 
         HashMap<String, String> details = new HashMap<>();
         details.put(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT, "1");
@@ -91,6 +91,6 @@ public class GizOpdRegisterRowOptionsTest {
 
         gizOpdRegisterRowOptions.populateClientRow(Mockito.mock(Cursor.class), client, client, opdRegisterViewHolder);
 
-        Assert.assertEquals(" ", intCaptor.getValue());
+        Assert.assertEquals(R.string.empty_string, (int) intCaptor.getValue());
     }
 }
