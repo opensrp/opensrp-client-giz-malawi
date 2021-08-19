@@ -154,14 +154,14 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
         Assert.assertTrue(ShadowBaseJob.getShadowHelper().isCalled(ShadowBaseJob.scheduleJobImmediatelyMN));
         HashMap<Integer, ArrayList<Object>> methodCalls = ShadowBaseJob.getShadowHelper().getMethodCalls(ShadowBaseJob.scheduleJobImmediatelyMN);
-        assertEquals(6, methodCalls.size());
+        assertEquals(7, methodCalls.size());
         assertEquals(ImageUploadServiceJob.TAG, methodCalls.get(0).get(0));
         assertEquals(SyncServiceJob.TAG, methodCalls.get(1).get(0));
-        assertEquals(SyncSettingsServiceJob.TAG, methodCalls.get(0).get(0));
+        assertEquals(SyncSettingsServiceJob.TAG, methodCalls.get(2).get(0));
         assertEquals(ZScoreRefreshIntentServiceJob.TAG, methodCalls.get(3).get(0));
-        assertEquals(WeightIntentServiceJob.TAG, methodCalls.get(2).get(0));
-        assertEquals(HeightIntentServiceJob.TAG, methodCalls.get(2).get(0));
-        assertEquals(VaccineServiceJob.TAG, methodCalls.get(4).get(0));
+        assertEquals(WeightIntentServiceJob.TAG, methodCalls.get(4).get(0));
+        assertEquals(HeightIntentServiceJob.TAG, methodCalls.get(5).get(0));
+        assertEquals(VaccineServiceJob.TAG, methodCalls.get(6).get(0));
     }
 
     @Test
