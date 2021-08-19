@@ -23,18 +23,9 @@ import org.robolectric.Robolectric;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.BaseRobolectricTest;
 import org.smartregister.giz.R;
-import org.smartregister.giz.shadow.ShadowBaseJob;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
-import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
-import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
-import org.smartregister.immunization.job.VaccineServiceJob;
-import org.smartregister.job.ImageUploadServiceJob;
-import org.smartregister.job.SyncServiceJob;
-import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.opd.utils.OpdDbConstants;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GizOpdProfileActivityTest extends BaseRobolectricTest {
@@ -50,6 +41,8 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
         gizOpdProfileActivity = Mockito.spy(Robolectric
                 .buildActivity(GizOpdProfileActivity.class)
                 .create()
+                .resume()
+                .pause()
                 .get());
     }
 
@@ -146,22 +139,6 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
         Mockito.verify(maternityMenuItem, Mockito.times(1))
                 .setVisible(Mockito.eq(true));
-    }
-
-    @Test
-    public void initiateSyncShouldCallEachJobToScheduleImmediateExecution() {
-        gizOpdProfileActivity.initiateSync();
-
-        Assert.assertTrue(ShadowBaseJob.getShadowHelper().isCalled(ShadowBaseJob.scheduleJobImmediatelyMN));
-        HashMap<Integer, ArrayList<Object>> methodCalls = ShadowBaseJob.getShadowHelper().getMethodCalls(ShadowBaseJob.scheduleJobImmediatelyMN);
-        assertEquals(7, methodCalls.size());
-        assertEquals(ImageUploadServiceJob.TAG, methodCalls.get(0).get(0));
-        assertEquals(SyncServiceJob.TAG, methodCalls.get(1).get(0));
-        assertEquals(SyncSettingsServiceJob.TAG, methodCalls.get(2).get(0));
-        assertEquals(ZScoreRefreshIntentServiceJob.TAG, methodCalls.get(3).get(0));
-        assertEquals(WeightIntentServiceJob.TAG, methodCalls.get(4).get(0));
-        assertEquals(HeightIntentServiceJob.TAG, methodCalls.get(5).get(0));
-        assertEquals(VaccineServiceJob.TAG, methodCalls.get(6).get(0));
     }
 
     @Test
