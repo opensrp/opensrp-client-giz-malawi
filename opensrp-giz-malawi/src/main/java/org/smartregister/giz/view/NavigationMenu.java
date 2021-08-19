@@ -425,7 +425,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                 }, 0, 5000);
             }
         } catch (Exception e) {
-            Timber.v(e);
+            Timber.v(e, "An error occurred when recomputing counts");
         }
     }
 
