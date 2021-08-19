@@ -2,11 +2,11 @@ package org.smartregister.giz.activity;
 
 import static org.junit.Assert.assertEquals;
 
-import androidx.appcompat.view.menu.MenuBuilder;
-
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.appcompat.view.menu.MenuBuilder;
 
 import com.vijay.jsonwizard.domain.Form;
 
@@ -20,7 +20,6 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
-import org.smartregister.child.util.ChildJsonFormUtils;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.BaseRobolectricTest;
 import org.smartregister.giz.R;
@@ -31,12 +30,9 @@ import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
-import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
 import org.smartregister.job.SyncSettingsServiceJob;
-import org.smartregister.opd.utils.FormProcessor;
 import org.smartregister.opd.utils.OpdDbConstants;
-import org.smartregister.opd.utils.OpdJsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -178,11 +174,11 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
         Intent capturedIntent = intentArgumentCaptor.getValue();
         Assert.assertNotNull(capturedIntent);
-        Assert.assertEquals("org.smartregister.giz.activity.OpdFormActivity", capturedIntent.getComponent().getClassName());
+        assertEquals("org.smartregister.giz.activity.OpdFormActivity", capturedIntent.getComponent().getClassName());
         Integer capturedInteger = integerArgumentCaptor.getValue();
 
         Assert.assertNotNull(capturedInteger);
-        Assert.assertEquals(GizOpdProfileActivity.REQUEST_CODE_GET_JSON, capturedInteger.intValue());
+        assertEquals(GizOpdProfileActivity.REQUEST_CODE_GET_JSON, capturedInteger.intValue());
 
     }
 
