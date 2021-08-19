@@ -51,19 +51,6 @@ public class ReportTypeListRegisterActivityTest extends BaseUnitTest {
         }
     }
 
-  /*  @Test
-    public void testSetupViewsSetTextsToTextView() {
-        TextView titleTv = Mockito.mock(TextView.class);
-
-        activity.setTheme(org.smartregister.R.style.AppTheme);
-        activity.setContentView(R.layout.activity_report_register);
-        ReflectionHelpers.setField(activity, "titleTv", titleTv);
-
-        activity.setUpViews();
-
-        Mockito.verify(titleTv).setText(Mockito.any());
-    }*/
-
     @Test
     public void testLoadDataCorrectlyLoadsData() {
         ImageView reportSyncBtn = Mockito.mock(ImageView.class);
