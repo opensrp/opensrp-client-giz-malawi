@@ -51,7 +51,7 @@
     }
   },
   "step1": {
-    "title": "Diagnosis",
+    "title": "Preliminary Diagnosis",
     "fields": [
       {
         "key": "danger_signs_opd_note",
