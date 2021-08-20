@@ -51,7 +51,7 @@
     }
   },
   "step1": {
-    "title": "Treatment",
+    "title": "Final Diagnosis and Treatment",
     "fields": [
       {
         "key": "final_diagnosis_note",
