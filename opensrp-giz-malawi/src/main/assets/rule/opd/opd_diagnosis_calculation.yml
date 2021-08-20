@@ -48,10 +48,3 @@ actions:
              "oximetry" : (!global_oximetry.equals("") ? "Oxygen Saturation: " + global_oximetry + ", " : ""),
              "respiratory_rate" : (!global_respiratory_rate.equals("") ? "Respiratory Rate: " + global_respiratory_rate + ", ": ""),
              "convulsions_history" : (!global_convulsions_history.isEmpty() ? "History of convulsions: " + global_convulsions_history + ", " : "")]'
----
-name: step1_health_concerns_note
-description: health_concerns_note
-priority: 1
-condition: "!global_opd_health_concerns.isEmpty() && !global_opd_health_concerns.contains('danger_none')"
-actions:
-  - 'calculation = ["health_concerns" : global_opd_health_concerns]'

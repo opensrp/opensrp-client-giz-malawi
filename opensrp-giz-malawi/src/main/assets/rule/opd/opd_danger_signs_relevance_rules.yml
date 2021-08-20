@@ -176,11 +176,3 @@ priority: 1
 condition: "step1_opd_vital_signs.contains('yes')"
 actions:
   - "isRelevant = true"
----
-name: step1_specific_complaint_other
-description: specific_complaint_other
-priority: 1
-condition: "step1_opd_health_concerns.contains('other_health_concern')"
-actions:
-  - "isRelevant = true"
-
