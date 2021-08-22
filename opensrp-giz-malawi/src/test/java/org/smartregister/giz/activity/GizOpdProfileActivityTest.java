@@ -159,6 +159,25 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
     }
 
+    @Test
+    public void testOnOptionsItemSelectedInitiatesSync() {
+        gizOpdProfileActivity = Mockito.spy(gizOpdProfileActivity);
+        MenuItem menuItem = Mockito.mock(MenuItem.class);
+        Mockito.doReturn(R.id.opd_menu_item_sync).when(menuItem).getItemId();
+        Mockito.doNothing().when(gizOpdProfileActivity).showStartSyncToast();
+        gizOpdProfileActivity.onOptionsItemSelected(menuItem);
+        Mockito.verify(gizOpdProfileActivity).startSync();
+    }
+
+    @Test
+    public void testOnOptionsItemSelectedShowsOpdTransferDialog() {
+        gizOpdProfileActivity = Mockito.spy(gizOpdProfileActivity);
+        MenuItem menuItem = Mockito.mock(MenuItem.class);
+        Mockito.doReturn(R.id.opd_menu_item_enrol_anc).when(menuItem).getItemId();
+        gizOpdProfileActivity.onOptionsItemSelected(menuItem);
+        Mockito.verify(gizOpdProfileActivity).showOpdTransferDialog(Mockito.anyString());
+    }
+
     @After
     public void tearDown() {
         gizOpdProfileActivity.finish();

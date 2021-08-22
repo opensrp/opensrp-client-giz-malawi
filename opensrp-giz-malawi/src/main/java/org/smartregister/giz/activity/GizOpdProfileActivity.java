@@ -79,11 +79,16 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
         return true;
     }
 
-    private void startSync() {
+    protected void showStartSyncToast() {
+        Toast.makeText(this, getResources().getText(R.string.action_start_sync),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    protected void startSync() {
         if (!SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             initiateSync();
-            Toast.makeText(this, getResources().getText(R.string.action_start_sync),
-                    Toast.LENGTH_SHORT).show();
+            showStartSyncToast();
+
         } else
             Toast.makeText(this, getResources().getText(R.string.sync_in_progress),
                     Toast.LENGTH_SHORT).show();
