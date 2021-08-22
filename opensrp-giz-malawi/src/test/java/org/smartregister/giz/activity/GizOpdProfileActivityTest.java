@@ -178,6 +178,16 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
         Mockito.verify(gizOpdProfileActivity).showOpdTransferDialog(Mockito.anyString());
     }
 
+    @Test
+    public void testOnOptionsItemSelectedShouldFinishActivity() {
+        gizOpdProfileActivity = Mockito.spy(gizOpdProfileActivity);
+        MenuItem menuItem = Mockito.mock(MenuItem.class);
+        Mockito.doReturn(android.R.id.home).when(menuItem).getItemId();
+        gizOpdProfileActivity.onOptionsItemSelected(menuItem);
+        Mockito.verify(gizOpdProfileActivity, Mockito.times(1))
+                .finish();
+    }
+
     @After
     public void tearDown() {
         gizOpdProfileActivity.finish();
