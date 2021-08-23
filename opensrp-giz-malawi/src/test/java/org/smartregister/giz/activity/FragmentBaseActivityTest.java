@@ -21,7 +21,7 @@ public class FragmentBaseActivityTest extends BaseRobolectricTest {
 
     @Before
     public void setUp() {
-        activity = Mockito.spy(Robolectric
+        activity = spy(Robolectric
                 .buildActivity(FragmentBaseActivity.class)
                 .create()
                 .resume()
@@ -36,7 +36,7 @@ public class FragmentBaseActivityTest extends BaseRobolectricTest {
         ReflectionHelpers.setField(activity, "titleTextView", textView);
 
         activity.setTitle(Mockito.anyString());
-        Mockito.verify(textView).setText(Mockito.anyString());
+        verify(textView).setText(Mockito.anyString());
     }
 
     @Test
