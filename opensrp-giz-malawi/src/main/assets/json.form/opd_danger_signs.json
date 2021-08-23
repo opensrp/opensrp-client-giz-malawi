@@ -749,8 +749,8 @@
           "err": "Cannot enter a number below 0"
         },
         "v_max": {
-          "value": "5",
-          "err": "Cannot enter a number above 5"
+          "value": "15",
+          "err": "Cannot enter a number above 15"
         },
         "relevance": {
           "rules-engine": {
