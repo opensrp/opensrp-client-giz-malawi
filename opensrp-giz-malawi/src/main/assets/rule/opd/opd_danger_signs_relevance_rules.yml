@@ -170,6 +170,34 @@ condition: "step1_opd_vital_signs.contains('yes')"
 actions:
   - "isRelevant = true"
 ---
+name: step1_blantyre_coma_scale_label
+description: blantyre_coma_scale_label
+priority: 1
+condition: "step1_opd_vital_signs.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_blantyre_coma_scale
+description: blantyre_coma_scale
+priority: 1
+condition: "step1_opd_vital_signs.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_glasgow_coma_scale_label
+description: glasgow_coma_scale_label
+priority: 1
+condition: "step1_opd_vital_signs.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_glasgow_coma_scale
+description: glasgow_coma_scale
+priority: 1
+condition: "step1_opd_vital_signs.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
 name: step1_convulsions_history
 description: convulsions_history
 priority: 1

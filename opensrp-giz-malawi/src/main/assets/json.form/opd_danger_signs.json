@@ -677,6 +677,90 @@
         }
       },
       {
+        "key": "blantyre_coma_scale_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Blantyre Coma-scale",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blantyre_coma_scale",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Cannot enter a number below 0"
+        },
+        "v_max": {
+          "value": "5",
+          "err": "Cannot enter a number above 5"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "glasgow_coma_scale_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Glasgow Coma-scale",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "glasgow_coma_scale",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Cannot enter a number below 0"
+        },
+        "v_max": {
+          "value": "5",
+          "err": "Cannot enter a number above 5"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
         "key": "convulsions_history",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",

@@ -24,7 +24,9 @@ condition: "!global_body_temp.equals('')
               || !global_bp_diastolic.equals('')
               || !global_oximetry.equals('')
               || !global_respiratory_rate.equals('')
-              || !global_convulsions_history.isEmpty()"
+              || !global_convulsions_history.isEmpty()
+              || !global_blantyre_coma_scale.isEmpty()
+              || !global_glasgow_coma_scale.isEmpty()"
 actions:
   - "isRelevant = true"
 ---

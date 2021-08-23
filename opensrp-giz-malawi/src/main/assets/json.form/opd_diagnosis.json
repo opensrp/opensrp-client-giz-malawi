@@ -82,7 +82,7 @@
         "openmrs_entity": "",
         "openmrs_entity_id": "",
         "type": "toaster_notes",
-        "text": "Vitals: {body_temp} {pulse_rate} {current_weight} {height} {blood_pressure} {oximetry} {respiratory_rate} {convulsions_history}",
+        "text": "Vitals: {body_temp} {pulse_rate} {current_weight} {height} {blood_pressure} {oximetry} {respiratory_rate} {blantyre_coma_scale} {glasgow_coma_scale} {convulsions_history}",
         "toaster_type": "warning",
         "relevance": {
           "rules-engine": {

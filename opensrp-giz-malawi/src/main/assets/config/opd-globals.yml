@@ -12,6 +12,8 @@ fields:
   - "oximetry"
   - "respiratory_rate"
   - "convulsions_history"
+  - "blantyre_coma_scale"
+  - "glasgow_coma_scale"
   - "opd_health_concerns"
   - "opd_health_concerns_value"
 ---
