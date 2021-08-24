@@ -1,8 +1,9 @@
 package org.smartregister.giz.configuration;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
 
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.giz.util.GizConstants;
@@ -42,11 +43,11 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 return sql;
 
             } else {
-                String sql = "SELECT object_id FROM " +
-                        "(SELECT object_id, last_interacted_with FROM ec_client_search " +
-                        "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  " +
-                        "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase MATCH '%s*') " +
-                        "ORDER BY last_interacted_with DESC";
+                String sql =
+                        "SELECT object_id, last_interacted_with FROM ec_client_search " +
+                                "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  " +
+                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase MATCH '%s*' " +
+                                "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 return sql;
             }
@@ -55,16 +56,16 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                     "Select ec_client.id as object_id\n" +
                             "FROM ec_client\n" +
                             "inner join client_register_type crt on crt.base_entity_id = ec_client.id  \n" +
-                            "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
-                            "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                            "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client.id \n" +
+                            "WHERE crt.register_type = 'opd'\n" +
                             "And ocv.visit_group = '" + todayDate + "'\n" +
                             "ORDER BY last_interacted_with DESC";
 
             return sqlQuery;
         } else {
-            return "SELECT object_id FROM " +
-                    "(SELECT object_id, last_interacted_with FROM ec_client_search inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id WHERE crt.register_type = 'opd') " +
-                    "ORDER BY last_interacted_with DESC";
+            return
+                    "SELECT object_id, last_interacted_with FROM ec_client_search inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id WHERE crt.register_type = 'opd' " +
+                            "ORDER BY last_interacted_with DESC";
         }
     }
 
@@ -73,7 +74,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
     public String[] countExecuteQueries(@Nullable String filters, @Nullable String mainCondition) {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 
-        return new String[] {
+        return new String[]{
                 sqb.countQueryFts("ec_client", null, mainCondition, filters)
         };
     }

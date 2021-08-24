@@ -32,17 +32,20 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
         if (!TextUtils.isEmpty(filters)) {
             if (!TextUtils.isEmpty(mainCondition)) {
                 String sql =
-                        "SELECT ec_client_search.object_id, ec_client_search.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*') " +
-                                "    LEFT JOIN opd_details ON ec_client_search.object_id = opd_details.base_entity_id\n" +
+                        "SELECT object_id, last_interacted_with \n" +
+                                "FROM ec_client_search \n" +
+                                "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  \n" +
+                                "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
+                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                                "And ocv.visit_group = '" + todayDate + "'\n" +
                                 "ORDER BY last_interacted_with DESC";
-                sql = sql.replace("%s", filters);
-                sql = sql.replace("$latest_start_visit_date", oneDayAgo);
-                return sql;
 
+                sql = sql.replace("%s", filters);
+                return sql;
             } else {
-                String sql = "SELECT object_id FROM " +
-                        "(SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*') " +
-                        "ORDER BY last_interacted_with DESC";
+                String sql =
+                        "SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*' " +
+                                "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 return sql;
             }
@@ -51,16 +54,16 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
                     "Select ec_client.id as object_id\n" +
                             "FROM ec_client\n" +
                             "inner join client_register_type crt on crt.base_entity_id = ec_client.id  \n" +
-                            "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
-                            "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                            "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client.id \n" +
+                            "WHERE crt.register_type = 'opd'\n" +
                             "And ocv.visit_group = '" + todayDate + "'\n" +
                             "ORDER BY last_interacted_with DESC";
 
             return sqlQuery;
         } else {
-            return "SELECT object_id FROM " +
-                    "(SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL and is_closed == 0 ) " +
-                    "ORDER BY last_interacted_with DESC";
+            return
+                    "SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL and is_closed == 0 " +
+                            "ORDER BY last_interacted_with DESC";
         }
     }
 
