@@ -31,13 +31,12 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         if (!TextUtils.isEmpty(filters)) {
             if (!TextUtils.isEmpty(mainCondition)) {
                 String sql =
-                        "SELECT object_id \n" +
-                                "FROM (SELECT object_id, last_interacted_with \n" +
+                        "SELECT object_id, last_interacted_with \n" +
                                 "FROM ec_client_search \n" +
                                 "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  \n" +
-                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*')\n" +
-                                "WHERE ec_client_search.object_id IN (SELECT base_entity_id\n" +
-                                "FROM opd_client_visits where visit_group = '" + todayDate + "')\n" +
+                                "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
+                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                                "And ocv.visit_group = '" + todayDate + "'\n" +
                                 "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 return sql;
@@ -56,8 +55,9 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                     "Select ec_client.id as object_id\n" +
                             "FROM ec_client\n" +
                             "inner join client_register_type crt on crt.base_entity_id = ec_client.id  \n" +
-                            "WHERE crt.register_type = 'opd'\n" +
-                            "and  ec_client.id IN (SELECT base_entity_id FROM opd_client_visits where visit_group = '" + todayDate + "')\n" +
+                            "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
+                            "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                            "And ocv.visit_group = '" + todayDate + "'\n" +
                             "ORDER BY last_interacted_with DESC";
 
             return sqlQuery;

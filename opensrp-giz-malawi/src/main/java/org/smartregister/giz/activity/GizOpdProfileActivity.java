@@ -23,6 +23,7 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.task.OpdTransferTask;
 import org.smartregister.giz.util.GizConstants;
+import org.smartregister.giz.util.GizSyncUtil;
 import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
@@ -95,13 +96,7 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
     }
 
     protected void initiateSync() {
-        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
-        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
-        SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
-        ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
-        WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
-        HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
-        VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
+        GizSyncUtil.initiateProfileSync();
     }
 
     public void showOpdTransferDialog(@Nullable String eventType) {

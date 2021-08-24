@@ -216,7 +216,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         // update all actions
         mPresenter.refreshLastSync();
-        mPresenter.refreshNavigationCount(activity);
+        mPresenter.refreshNavigationCount();
 
     }
 
@@ -361,7 +361,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     }
 
     public void runRegisterCount() {
-        mPresenter.refreshNavigationCount(activityWeakReference.get());
+        mPresenter.refreshNavigationCount();
     }
 
     @Override
@@ -397,7 +397,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
 
         if (activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()) {
-            mPresenter.refreshNavigationCount(activityWeakReference.get());
+            mPresenter.refreshNavigationCount();
         }
     }
 
@@ -419,7 +419,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                     public void run() {
                         Activity activity = activityWeakReference.get();
                         if (mPresenter != null && activity != null) {
-                            mPresenter.refreshNavigationCount(activity);
+                            mPresenter.refreshNavigationCount();
                         }
                     }
                 }, 0, 5000);

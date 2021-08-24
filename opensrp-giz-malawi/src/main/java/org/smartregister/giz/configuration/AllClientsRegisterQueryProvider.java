@@ -34,7 +34,6 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
                 String sql =
                         "SELECT ec_client_search.object_id, ec_client_search.last_interacted_with, (opd_details.current_visit_start_date IS NOT NULL AND opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS checked_in FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*') " +
                                 "    LEFT JOIN opd_details ON ec_client_search.object_id = opd_details.base_entity_id\n" +
-                                "WHERE checked_in " +
                                 "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 sql = sql.replace("$latest_start_visit_date", oneDayAgo);
@@ -52,8 +51,9 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
                     "Select ec_client.id as object_id\n" +
                             "FROM ec_client\n" +
                             "inner join client_register_type crt on crt.base_entity_id = ec_client.id  \n" +
-                            "WHERE crt.register_type = 'opd'\n" +
-                            "and  ec_client.id IN (SELECT base_entity_id FROM opd_client_visits where visit_group = '" + todayDate + "')\n" +
+                            "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
+                            "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                            "And ocv.visit_group = '" + todayDate + "'\n" +
                             "ORDER BY last_interacted_with DESC";
 
             return sqlQuery;

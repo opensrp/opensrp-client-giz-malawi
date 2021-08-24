@@ -143,8 +143,6 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
     @Test
     public void testStartFormInvokesOpdForm() throws Exception {
-        gizOpdProfileActivity = Mockito.spy(gizOpdProfileActivity);
-
         Mockito.doNothing().when(gizOpdProfileActivity).startActivityForResult(ArgumentMatchers.any(Intent.class), ArgumentMatchers.anyInt());
         gizOpdProfileActivity.startForm(new JSONObject(), new Form(), null);
         Mockito.verify(gizOpdProfileActivity).startActivityForResult(intentArgumentCaptor.capture(), integerArgumentCaptor.capture());
@@ -161,7 +159,6 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
     @Test
     public void testOnOptionsItemSelectedInitiatesSync() {
-        gizOpdProfileActivity = Mockito.spy(gizOpdProfileActivity);
         MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.opd_menu_item_sync).when(menuItem).getItemId();
         Mockito.doNothing().when(gizOpdProfileActivity).showStartSyncToast();
@@ -171,7 +168,6 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
     @Test
     public void testOnOptionsItemSelectedShowsOpdTransferDialog() {
-        gizOpdProfileActivity = Mockito.spy(gizOpdProfileActivity);
         MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(R.id.opd_menu_item_enrol_anc).when(menuItem).getItemId();
         gizOpdProfileActivity.onOptionsItemSelected(menuItem);
@@ -180,7 +176,6 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
     @Test
     public void testOnOptionsItemSelectedShouldFinishActivity() {
-        gizOpdProfileActivity = Mockito.spy(gizOpdProfileActivity);
         MenuItem menuItem = Mockito.mock(MenuItem.class);
         Mockito.doReturn(android.R.id.home).when(menuItem).getItemId();
         gizOpdProfileActivity.onOptionsItemSelected(menuItem);

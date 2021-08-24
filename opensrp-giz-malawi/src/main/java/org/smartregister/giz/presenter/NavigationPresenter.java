@@ -52,12 +52,12 @@ public class NavigationPresenter implements NavigationContract.Presenter {
 
 
     @Override
-    public void refreshNavigationCount(final Activity activity) {
+    public void refreshNavigationCount() {
 
-        int x = 0;
-        while (x < mModel.getNavigationItems().size()) {
-            final int finalX = x;
-            mInteractor.getRegisterCount(tableMap.get(mModel.getNavigationItems().get(x).getMenuTitle()), new NavigationContract.InteractorCallback<Integer>() {
+        int navigationItems = 0;
+        while (navigationItems < mModel.getNavigationItems().size()) {
+            final int finalX = navigationItems;
+            mInteractor.getRegisterCount(tableMap.get(mModel.getNavigationItems().get(navigationItems).getMenuTitle()), new NavigationContract.InteractorCallback<Integer>() {
                 @Override
                 public void onResult(Integer result) {
                     mModel.getNavigationItems().get(finalX).setRegisterCount(result);
@@ -69,7 +69,7 @@ public class NavigationPresenter implements NavigationContract.Presenter {
                     Timber.e("Error retrieving count for %s", tableMap.get(mModel.getNavigationItems().get(finalX).getMenuTitle()));
                 }
             });
-            x++;
+            navigationItems++;
         }
 
     }

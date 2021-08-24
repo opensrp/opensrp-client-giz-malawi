@@ -228,11 +228,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             processUnsyncEvents(unsyncEvents);
 
             // Process alerts for clients
-            /**
+
              Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
 
              appExecutors.diskIO().execute(runnable);
-             **/
         }
 
     }

@@ -13,7 +13,7 @@ public interface NavigationContract {
 
         NavigationContract.View getNavigationView();
 
-        void refreshNavigationCount(Activity activity);
+        void refreshNavigationCount();
 
         void refreshLastSync();
 

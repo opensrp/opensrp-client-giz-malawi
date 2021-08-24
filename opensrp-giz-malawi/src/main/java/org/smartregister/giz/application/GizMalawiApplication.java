@@ -693,12 +693,4 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return this.reasonForDefaultingRepository;
     }
 
-    public Integer getApplicationVersion() {
-        return BuildConfig.VERSION_CODE;
-    }
-
-    public Integer getDatabaseVersion() {
-        return BuildConfig.DATABASE_VERSION;
-    }
-
 }
