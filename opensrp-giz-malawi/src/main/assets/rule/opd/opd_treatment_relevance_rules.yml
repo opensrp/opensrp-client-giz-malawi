@@ -20,14 +20,15 @@ condition: "!step1_treatment_type.isEmpty() &&  step1_treatment_type.contains('o
 actions:
   - "isRelevant = true"
 ---
-name: step1_final_diagnosis_note
-description: final diagnosis note
+name: step1_preliminary_diagnosis_note
+description: preliminary_diagnosis_note
 priority: 1
-condition: "!global_pregnancy_status.isEmpty()
-                  || !global_medical_conditions.isEmpty()
-                  || !global_medical_conditions.contains('none')
-                  || global_disease_code_final_diagn != NULL
-                  || global_disease_code_primary != NULL"
+condition: "!global_pregnancy_status.equals('')
+                  || !global_medical_conditions.equals('')
+                  || !global_medical_conditions.equals('none')
+                  || !global_disease_code_primary.equals('')
+                  || !global_patient_complains.isEmpty()
+                  || !global_clinician_obs.isEmpty()"
 actions:
   - "isRelevant = true"
 ---

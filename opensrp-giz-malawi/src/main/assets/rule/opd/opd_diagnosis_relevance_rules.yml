@@ -108,41 +108,6 @@ condition: "step1_diagnostic_test_ordered.contains('other')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_disease_code_label_final
-description: disease_code_label_final
-priority: 1
-condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
-actions:
-  - "isRelevant = true"
----
-name: step1_spacer_final_disease
-description: spacer_final_disease
-priority: 1
-condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
-actions:
-  - "isRelevant = true"
----
-name: step1_disease_code_final_diagn
-description: disease_code_final_diagn
-priority: 1
-condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
-actions:
-  - "isRelevant = true"
----
-name: step1_diagnosis_type_final
-description: diagnosis_type_final
-priority: 1
-condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
-actions:
-  - "isRelevant = true"
----
-name: step1_diagnosis_final
-description: diagnosis_final
-priority: 1
-condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
-actions:
-  - "isRelevant = true"
----
 name: step1_patient_complains
 description: patient_complains
 priority: 1

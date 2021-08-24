@@ -26,7 +26,8 @@ fields:
   - "pregnancy_status"
   - "disease_code_primary"
   - "medical_conditions"
-  - "disease_code_final_diagn"
+  - "patient_complains"
+  - "clinician_obs"
   - "diagnostic_test_lab_results"
 ---
 form: opd_pharmacy
