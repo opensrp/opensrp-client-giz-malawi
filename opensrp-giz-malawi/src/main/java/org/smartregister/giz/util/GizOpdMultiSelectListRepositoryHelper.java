@@ -34,7 +34,7 @@ public class GizOpdMultiSelectListRepositoryHelper {
             }
             return null;
         } catch (JSONException e) {
-            Timber.e(e, "settings are null");
+            Timber.e(e);
             return null;
         }
     }
