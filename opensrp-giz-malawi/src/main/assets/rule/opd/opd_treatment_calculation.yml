@@ -10,14 +10,13 @@ name: step1_preliminary_diagnosis_note
 description: preliminary_diagnosis_note
 priority: 1
 condition: "!global_pregnancy_status.equals('')
-                  || !global_medical_conditions.equals('')
-                  || !global_medical_conditions.equals('none')
+                  || (!global_medical_conditions.equals('') && !global_medical_conditions.equals('none'))
                   || !global_disease_code_primary.equals('')
                   || !global_patient_complains.isEmpty()
                   || !global_clinician_obs.isEmpty()"
 actions:
   - 'calculation = ["pregnancy_status" : (!global_pregnancy_status.isEmpty() ? "Pregnancy Status: " + global_pregnancy_status + "," : ""),
-                      "medical_conditions" : (!global_medical_conditions.isEmpty() ? "Medical Conditions: " + global_medical_conditions + "," : ""),
+                      "medical_conditions" : ((!global_medical_conditions.isEmpty() && !global_medical_conditions.equalsIgnoreCase("none")) ? "Medical Conditions: " + global_medical_conditions + "," : ""),
                       "disease_code_primary" : (!global_disease_code_primary.isEmpty() ? "Disease Code Primary: " + global_disease_code_primary + ",": ""),
                       "patient_complains" : (!global_patient_complains.isEmpty() ? "Patient Complains: " + global_patient_complains + ",": ""),
                       "clinician_obs" : (!global_clinician_obs.isEmpty() ? "Clinician Observations: " + global_clinician_obs + ",": "")]'

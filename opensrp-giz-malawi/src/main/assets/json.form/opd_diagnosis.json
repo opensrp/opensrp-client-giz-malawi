@@ -244,8 +244,8 @@
           },
           {
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "0007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "allergies",
             "text": "Allergies"
           },
@@ -258,8 +258,8 @@
           },
           {
             "openmrs_entity_parent": "",
-            "openmrs_entity": "",
-            "openmrs_entity_id": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "990AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "key": "neoplasms",
             "text": "Neoplasms"
           },

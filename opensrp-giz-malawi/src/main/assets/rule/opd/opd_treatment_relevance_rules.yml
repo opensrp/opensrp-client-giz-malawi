@@ -24,8 +24,7 @@ name: step1_preliminary_diagnosis_note
 description: preliminary_diagnosis_note
 priority: 1
 condition: "!global_pregnancy_status.equals('')
-                  || !global_medical_conditions.equals('')
-                  || !global_medical_conditions.equals('none')
+                  || (!global_medical_conditions.equals('') && !global_medical_conditions.equals('none'))
                   || !global_disease_code_primary.equals('')
                   || !global_patient_complains.isEmpty()
                   || !global_clinician_obs.isEmpty()"
