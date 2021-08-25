@@ -35,7 +35,7 @@ public class FragmentBaseActivityTest extends BaseRobolectricTest {
         ReflectionHelpers.setField(activity, "titleTextView", textView);
 
         activity.setTitle("jane");
-        verify(textView).setText(Mockito.anyString());
+        verify(textView).setText(Mockito.eq("jane"));
     }
 
     @Test

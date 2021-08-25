@@ -80,16 +80,18 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
     @NonNull
     @Override
     public String mainSelectWhereIDsIn() {
-        Date latestValidCheckInDate = OpdLibrary.getInstance().getLatestValidCheckInDate();
-        String oneDayAgo = OpdUtils.convertDate(latestValidCheckInDate, OpdDbConstants.DATE_FORMAT);
         String sqlQuery =
-                "Select  d.id as _id , d.first_name , d.last_name , '' AS middle_name , d.gender , d.dob , '' AS home_address , c.first_name as mother_first_name, c.last_name as mother_last_name, \n" +
-                        "null as middle_name, d.relationalid ,d.opensrp_id AS register_id, upper(rt.register_type) as register_type,\n" +
-                        " d.last_interacted_with, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_client' as entity_table, opd_details.current_visit_end_date  FROM ec_client d LEFT JOIN opd_details ON d.base_entity_id = opd_details.base_entity_id left join ec_child_details ecd on ecd.base_entity_id=d.id \n" +
-                        " left join client_register_type rt on rt.base_entity_id = d.id  left join ec_client c on ecd.relational_id=c.id " +
-                        "WHERE  d.id IN (%s) " +
+                "Select  d.id as _id , d.first_name , d.last_name , '' AS middle_name , d.gender , d.dob , '' AS home_address , c.first_name as mother_first_name, \n" +
+                        "c.last_name as mother_last_name, \n" +
+                        " null as middle_name, d.relationalid ,d.opensrp_id AS register_id, upper(rt.register_type) as register_type,\n" +
+                        " d.last_interacted_with,'ec_client' as entity_table\n" +
+                        " FROM ec_client d \n" +
+                        "left join ec_child_details ecd on ecd.base_entity_id=d.id \n" +
+                        "left join client_register_type rt on rt.base_entity_id = d.id \n" +
+                        "left join ec_client c on ecd.relational_id=c.id \n" +
+                        "WHERE d.id IN (%s) \n" +
                         "ORDER BY d.last_interacted_with DESC";
 
-        return sqlQuery.replace("$latest_start_visit_date", oneDayAgo);
+        return sqlQuery;
     }
 }
