@@ -35,4 +35,4 @@ jobs:
       - name: Decode google-services.json
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo $FIREBASE_CONFIG > opensrp-reveal/google-services.json
+        run: echo $FIREBASE_CONFIG > opensrp-client-giz-malawi/google-services.json
