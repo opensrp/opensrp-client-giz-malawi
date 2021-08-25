@@ -3,15 +3,6 @@ package org.smartregister.giz.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +13,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.ybq.android.spinkit.style.FadingCircle;
 
@@ -394,11 +395,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         refreshSyncProgressSpinner();
         // update the time
         mPresenter.refreshLastSync();
-
-
-        if (activityWeakReference.get() != null && !activityWeakReference.get().isDestroyed()) {
-            mPresenter.refreshNavigationCount();
-        }
+        mPresenter.refreshNavigationCount();
     }
 
     public DrawerLayout getDrawer() {
