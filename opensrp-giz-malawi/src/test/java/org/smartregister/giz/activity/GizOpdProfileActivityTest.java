@@ -1,12 +1,23 @@
 package org.smartregister.giz.activity;
 
-import androidx.appcompat.view.menu.MenuBuilder;
+import static org.junit.Assert.assertEquals;
+
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.appcompat.view.menu.MenuBuilder;
+
+import com.vijay.jsonwizard.domain.Form;
+
+import org.json.JSONObject;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.robolectric.Robolectric;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
@@ -20,12 +31,18 @@ import java.util.HashMap;
 public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
     private GizOpdProfileActivity gizOpdProfileActivity;
+    @Captor
+    private ArgumentCaptor<Intent> intentArgumentCaptor;
+    @Captor
+    private ArgumentCaptor<Integer> integerArgumentCaptor;
 
     @Before
     public void setUp() {
         gizOpdProfileActivity = Mockito.spy(Robolectric
                 .buildActivity(GizOpdProfileActivity.class)
                 .create()
+                .resume()
+                .pause()
                 .get());
     }
 
@@ -122,6 +139,48 @@ public class GizOpdProfileActivityTest extends BaseRobolectricTest {
 
         Mockito.verify(maternityMenuItem, Mockito.times(1))
                 .setVisible(Mockito.eq(true));
+    }
+
+    @Test
+    public void testStartFormInvokesOpdForm() throws Exception {
+        Mockito.doNothing().when(gizOpdProfileActivity).startActivityForResult(ArgumentMatchers.any(Intent.class), ArgumentMatchers.anyInt());
+        gizOpdProfileActivity.startForm(new JSONObject(), new Form(), null);
+        Mockito.verify(gizOpdProfileActivity).startActivityForResult(intentArgumentCaptor.capture(), integerArgumentCaptor.capture());
+
+        Intent capturedIntent = intentArgumentCaptor.getValue();
+        Assert.assertNotNull(capturedIntent);
+        assertEquals("org.smartregister.giz.activity.OpdFormActivity", capturedIntent.getComponent().getClassName());
+        Integer capturedInteger = integerArgumentCaptor.getValue();
+
+        Assert.assertNotNull(capturedInteger);
+        assertEquals(GizOpdProfileActivity.REQUEST_CODE_GET_JSON, capturedInteger.intValue());
+
+    }
+
+    @Test
+    public void testOnOptionsItemSelectedInitiatesSync() {
+        MenuItem menuItem = Mockito.mock(MenuItem.class);
+        Mockito.doReturn(R.id.opd_menu_item_sync).when(menuItem).getItemId();
+        Mockito.doNothing().when(gizOpdProfileActivity).showStartSyncToast();
+        gizOpdProfileActivity.onOptionsItemSelected(menuItem);
+        Mockito.verify(gizOpdProfileActivity).startSync();
+    }
+
+    @Test
+    public void testOnOptionsItemSelectedShowsOpdTransferDialog() {
+        MenuItem menuItem = Mockito.mock(MenuItem.class);
+        Mockito.doReturn(R.id.opd_menu_item_enrol_anc).when(menuItem).getItemId();
+        gizOpdProfileActivity.onOptionsItemSelected(menuItem);
+        Mockito.verify(gizOpdProfileActivity).showOpdTransferDialog(Mockito.anyString());
+    }
+
+    @Test
+    public void testOnOptionsItemSelectedShouldFinishActivity() {
+        MenuItem menuItem = Mockito.mock(MenuItem.class);
+        Mockito.doReturn(android.R.id.home).when(menuItem).getItemId();
+        gizOpdProfileActivity.onOptionsItemSelected(menuItem);
+        Mockito.verify(gizOpdProfileActivity, Mockito.times(1))
+                .finish();
     }
 
     @After

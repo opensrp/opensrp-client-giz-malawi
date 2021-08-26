@@ -15,6 +15,8 @@ import com.evernote.android.job.JobManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
@@ -114,11 +116,13 @@ import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.NativeFormProcessor;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
@@ -416,7 +420,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
                 OpdConstants.CONFIG, OpdFormActivity.class, GizOpdProfileActivity.class, true);
 
-        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Collections.singletonList("village")));
+        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village", OpdConstants.KEY.REFERRAL_FACILITY,
+                OpdConstants.KEY.REFERRAL_LOCATION, OpdConstants.KEY.REFERRAL_LOCATION_LAB)));
         opdMetadata.setLookUpQueryForOpdClient(String.format("select id as _id, %s, %s, %s, %s, %s, %s, %s, national_id from " + OpdDbConstants.KEY.TABLE + " where [condition] ", OpdConstants.KEY.RELATIONALID, OpdConstants.KEY.FIRST_NAME,
                 OpdConstants.KEY.LAST_NAME, OpdConstants.KEY.GENDER, OpdConstants.KEY.DOB, OpdConstants.KEY.BASE_ENTITY_ID, OpdDbConstants.KEY.OPENSRP_ID));
         OpdConfiguration opdConfiguration = new OpdConfiguration.Builder(OpdRegisterQueryProvider.class)
@@ -427,6 +432,22 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 .build();
 
         OpdLibrary.init(context, getRepository(), opdConfiguration, BuildConfig.VERSION_CODE, BuildConfig.DATABASE_VERSION);
+        OpdLibrary.initializeFormFactory(new OpdLibrary.NativeFormProcessorFactory() {
+            @Override
+            public NativeFormProcessor createInstance(String s) throws JSONException {
+                return NativeFormProcessor.createInstance(s, BuildConfig.DATABASE_VERSION, getClientProcessor());
+            }
+
+            @Override
+            public NativeFormProcessor createInstance(JSONObject jsonObject) {
+                return NativeFormProcessor.createInstance(jsonObject, BuildConfig.DATABASE_VERSION, getClientProcessor());
+            }
+
+            @Override
+            public NativeFormProcessor createInstanceFromAsset(String s) throws JSONException {
+                return NativeFormProcessor.createInstanceFromAsset(s, BuildConfig.DATABASE_VERSION, getClientProcessor());
+            }
+        });
     }
 
     private ChildMetadata getMetadata() {
@@ -671,5 +692,5 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         }
         return this.reasonForDefaultingRepository;
     }
-}
 
+}

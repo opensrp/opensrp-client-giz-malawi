@@ -2,6 +2,8 @@ package org.smartregister.giz.activity;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -39,6 +41,21 @@ public class ReportTypeListRegisterActivityTest extends BaseUnitTest {
 
         controller = Robolectric.buildActivity(ReportTypeListRegisterActivity.class).create().start();
         activity = controller.get();
+    }
+
+
+    @Test
+    public void testSetupViewsSetTextsToTextView() {
+        activity = Mockito.spy(ReportTypeListRegisterActivity.class);
+        TextView titleTv = Mockito.mock(TextView.class);
+        ListView listView = Mockito.mock(ListView.class);
+
+        Mockito.doReturn(listView).when(activity).findViewById(R.id.lv_reportRegister_groupings);
+        Mockito.doReturn(titleTv).when(activity).findViewById(R.id.title);
+
+        activity.setUpViews();
+
+        Mockito.verify(titleTv).setText(R.string.reports_type);
     }
 
     @After

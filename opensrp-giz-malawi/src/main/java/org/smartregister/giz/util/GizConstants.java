@@ -14,6 +14,36 @@ public class GizConstants {
     public static final String REGISTER_TYPE = "register_type";
     public static final String IS_FROM_MATERNITY = "isFromMaternity";
 
+    public static final String METADATA = "metadata";
+
+    public static final String DETAILS = "details";
+    public static final String RELATIONSHIPS = "relationships";
+
+
+    public interface Properties {
+        String TASK_IDENTIFIER = "taskIdentifier";
+        String TASK_BUSINESS_STATUS = "taskBusinessStatus";
+        String TASK_STATUS = "taskStatus";
+        String TASK_CODE = "taskCode";
+        String LOCATION_UUID = "locationUUID";
+        String LOCATION_VERSION = "locationVersion";
+        String LOCATION_TYPE = "locationType";
+        String LOCATION_PARENT = "locationParent";
+        String LOCATION_ID = "location_id";
+        String FEATURE_SELECT_TASK_BUSINESS_STATUS = "featureSelectTaskBusinessStatus";
+        String BASE_ENTITY_ID = "baseEntityId";
+        String FORM_SUBMISSION_ID = "formSubmissionId";
+        String STRUCTURE_NAME = "structure_name";
+        String APP_VERSION_NAME = "appVersionName";
+        String FORM_VERSION = "form_version";
+        String TASK_CODE_LIST = "task_code_list";
+        String FAMILY_MEMBER_NAMES = "family_member_names";
+        String PLAN_IDENTIFIER = "planIdentifier";
+        String LOCATION_STATUS = "status";
+        String LOCATION_NAME = "name";
+    }
+
+
     public interface Columns {
         interface RegisterType {
             String BASE_ENTITY_ID = "base_entity_id";
@@ -28,6 +58,7 @@ public class GizConstants {
         String YYYY_MM_dd_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
         String dd_MMM_yyyy = "dd MMM yyyy";
         String hh_mm_ss = "hh:mm:ss";
+        String hh_mm = "hh:mm";
         String dd_MM_yyyy = "dd/MM/yyyy";
         String ddMMyyyy = "ddMMyyyy";
         String yyyy_MM_dd = "yyyy-MM-dd";

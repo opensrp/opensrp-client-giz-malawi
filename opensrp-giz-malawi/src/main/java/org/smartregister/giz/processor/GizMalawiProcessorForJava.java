@@ -63,6 +63,7 @@ import org.smartregister.immunization.service.intent.VaccineIntentService;
 import org.smartregister.maternity.utils.MaternityConstants;
 import org.smartregister.opd.processor.OpdMiniClientProcessorForJava;
 import org.smartregister.opd.utils.OpdConstants;
+import org.smartregister.opd.utils.VisitUtils;
 import org.smartregister.pnc.PncLibrary;
 import org.smartregister.pnc.pojo.PncBaseDetails;
 import org.smartregister.pnc.pojo.PncChild;
@@ -133,6 +134,11 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     @Override
+    public synchronized void processClient(List<EventClient> eventClientList, boolean localSubmission) throws Exception {
+        this.processClient(eventClientList);
+    }
+
+    @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
         ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json",
                 ClientClassification.class);
@@ -153,7 +159,12 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
                     continue;
                 }
 
-                if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
+                if (eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_CHECK_IN) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_VITAL_DANGER_SIGNS_CHECK)|| eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_DIAGNOSIS)
+                        || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_PHARMACY) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_TREATMENT) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_LABORATORY)
+                        || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_FINAL_OUTCOME) || eventType.equals(OpdConstants.OpdModuleEventConstants.OPD_SERVICE_CHARGE)) {
+                    VisitUtils.processVisit(eventClient);
+                }
+                else if (eventType.equals(VaccineIntentService.EVENT_TYPE) || eventType
                         .equals(VaccineIntentService.EVENT_TYPE_OUT_OF_CATCHMENT)) {
                     processVaccinationEvent(vaccineTable, eventClient);
                 } else if (eventType.equals(WeightIntentService.EVENT_TYPE) || eventType
@@ -217,9 +228,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             processUnsyncEvents(unsyncEvents);
 
             // Process alerts for clients
-            Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
 
-            appExecutors.diskIO().execute(runnable);
+             Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
+
+             appExecutors.diskIO().execute(runnable);
         }
 
     }
@@ -415,14 +427,19 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     }
 
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
-        HashMap<String, DateTime> stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
-        for (String baseEntityId : stringDateTimeHashMap.keySet()) {
-            DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
-            if (birthDateTime != null) {
-                updateOfflineAlerts(baseEntityId, birthDateTime);
+        try {
+            HashMap<String, DateTime> stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
+            if(stringDateTimeHashMap != null)
+            for (String baseEntityId : stringDateTimeHashMap.keySet()) {
+                DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
+                if (birthDateTime != null) {
+                    updateOfflineAlerts(baseEntityId, birthDateTime);
+                }
             }
+            clientsForAlertUpdates.clear();
+        } catch (Exception ex) {
+            Timber.e(ex, "An error occurred when updating client Alerts");
         }
-        clientsForAlertUpdates.clear();
     }
 
     private boolean processDeathEvent(@NonNull EventClient eventClient, ClientClassification clientClassification) {

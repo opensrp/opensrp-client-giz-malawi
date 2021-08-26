@@ -3,15 +3,6 @@ package org.smartregister.giz.view;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +13,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.ybq.android.spinkit.style.FadingCircle;
 
@@ -47,6 +48,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import timber.log.Timber;
 
@@ -54,6 +57,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
+    private static Timer timer;
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationAdapter navigationAdapter;
@@ -65,7 +69,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private NavigationContract.Presenter mPresenter;
     private RelativeLayout settingsLayout;
     private TextView txtLocationSelected;
-
     private View parentView;
     private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
@@ -95,6 +98,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (instance != null && instance.getDrawer() != null) {
             instance.getDrawer().closeDrawer(Gravity.START);
         }
+        if (timer != null)
+            timer = null;
     }
 
     private void init(Activity activity, View myParentView, Toolbar myToolbar) {
@@ -213,6 +218,8 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
         // update all actions
         mPresenter.refreshLastSync();
+        mPresenter.refreshNavigationCount();
+
     }
 
     private void registerReporting(@Nullable Activity parentActivity) {
@@ -389,7 +396,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         refreshSyncProgressSpinner();
         // update the time
         mPresenter.refreshLastSync();
-        // refreshLastSync(new Date());
         mPresenter.refreshNavigationCount();
     }
 
@@ -399,7 +405,28 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public void openDrawer() {
         drawer.openDrawer(GravityCompat.START);
+        recomputeCounts();
     }
+
+    private void recomputeCounts() {
+        try {
+            if (timer == null) {
+                timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Activity activity = activityWeakReference.get();
+                        if (mPresenter != null && activity != null) {
+                            mPresenter.refreshNavigationCount();
+                        }
+                    }
+                }, 0, 10000);
+            }
+        } catch (Exception e) {
+            Timber.v(e, "An error occurred when recomputing counts");
+        }
+    }
+
 
     @Override
     public void updateUi(@Nullable String location) {

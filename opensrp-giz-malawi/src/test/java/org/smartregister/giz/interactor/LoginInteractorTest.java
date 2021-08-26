@@ -1,5 +1,7 @@
 package org.smartregister.giz.interactor;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,12 +16,11 @@ import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.view.contract.BaseLoginContract;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Ephraim Kigamba - nek.eam@gmail.com on 05-03-2020.
@@ -56,10 +57,11 @@ public class LoginInteractorTest extends BaseRobolectricTest {
 
         Assert.assertTrue(ShadowBaseJob.getShadowHelper().isCalled(ShadowBaseJob.scheduleJobImmediatelyMN));
         HashMap<Integer, ArrayList<Object>> methodCalls = ShadowBaseJob.getShadowHelper().getMethodCalls(ShadowBaseJob.scheduleJobImmediatelyMN);
-        assertEquals(4, methodCalls.size());
-        assertEquals(SyncServiceJob.TAG, methodCalls.get(0).get(0));
-        assertEquals(PullUniqueIdsServiceJob.TAG, methodCalls.get(1).get(0));
-        assertEquals(ZScoreRefreshIntentServiceJob.TAG, methodCalls.get(2).get(0));
-        assertEquals(ImageUploadServiceJob.TAG, methodCalls.get(3).get(0));
+        assertEquals(5, methodCalls.size());
+        assertEquals(SyncSettingsServiceJob.TAG, methodCalls.get(0).get(0));
+        assertEquals(SyncServiceJob.TAG, methodCalls.get(1).get(0));
+        assertEquals(PullUniqueIdsServiceJob.TAG, methodCalls.get(2).get(0));
+        assertEquals(ZScoreRefreshIntentServiceJob.TAG, methodCalls.get(3).get(0));
+        assertEquals(ImageUploadServiceJob.TAG, methodCalls.get(4).get(0));
     }
 }

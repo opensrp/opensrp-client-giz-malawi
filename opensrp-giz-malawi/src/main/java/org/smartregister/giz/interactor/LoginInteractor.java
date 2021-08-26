@@ -10,6 +10,7 @@ import org.smartregister.immunization.job.VaccineServiceJob;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
+import org.smartregister.job.SyncSettingsServiceJob;
 import org.smartregister.login.interactor.BaseLoginInteractor;
 import org.smartregister.view.contract.BaseLoginContract;
 
@@ -63,6 +64,7 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
     @Override
     protected void scheduleJobsImmediately() {
         //        schedule jobs
+        SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
         SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //need these asap!
         ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
