@@ -53,7 +53,7 @@ import java.util.TimerTask;
 
 import timber.log.Timber;
 
-public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener, DrawerLayout.DrawerListener, OnLocationChangeListener {
+public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener, OnLocationChangeListener {
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
@@ -72,7 +72,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private View parentView;
     private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
-    private Timer timer;
+    private static Timer timer;
 
     private NavigationMenu() {
 
@@ -99,8 +99,10 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (instance != null && instance.getDrawer() != null) {
             instance.getDrawer().closeDrawer(Gravity.START);
         }
+        if (timer != null)
+            timer = null;
     }
-
+    
     private void init(Activity activity, View myParentView, Toolbar myToolbar) {
         try {
             setParentView(activity, parentView);
@@ -404,6 +406,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public void openDrawer() {
         drawer.openDrawer(GravityCompat.START);
+        recomputeCounts();
     }
 
     private void recomputeCounts() {
@@ -435,28 +438,5 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public void setReportsSelected() {
         // TODO: Set the reports UI as selected
-    }
-
-    @Override
-    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-        Timber.v("Drawer is sliding");
-    }
-
-    @Override
-    public void onDrawerOpened(@NonNull View drawerView) {
-        Timber.v("Drawer is opened");
-        recomputeCounts();
-    }
-
-    @Override
-    public void onDrawerClosed(@NonNull View drawerView) {
-        Timber.v("Drawer is closed");
-        if (timer != null)
-            timer = null;
-    }
-
-    @Override
-    public void onDrawerStateChanged(int newState) {
-        Timber.v("Drawer state is changed");
     }
 }
