@@ -91,6 +91,6 @@ public class GizOpdRegisterRowOptionsTest {
 
         gizOpdRegisterRowOptions.populateClientRow(Mockito.mock(Cursor.class), client, client, opdRegisterViewHolder);
 
-        Assert.assertEquals(R.string.empty_string, (int) intCaptor.getValue());
+        Assert.assertEquals(R.string.empty_text, (int) intCaptor.getValue());
     }
 }

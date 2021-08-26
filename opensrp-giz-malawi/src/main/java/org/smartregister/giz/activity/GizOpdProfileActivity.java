@@ -6,14 +6,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
-
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
@@ -23,13 +20,7 @@ import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.R;
 import org.smartregister.giz.task.OpdTransferTask;
 import org.smartregister.giz.util.GizConstants;
-import org.smartregister.growthmonitoring.job.HeightIntentServiceJob;
-import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
-import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
-import org.smartregister.immunization.job.VaccineServiceJob;
-import org.smartregister.job.ImageUploadServiceJob;
-import org.smartregister.job.SyncServiceJob;
-import org.smartregister.job.SyncSettingsServiceJob;
+import org.smartregister.giz.util.GizSyncUtil;
 import org.smartregister.opd.activity.BaseOpdProfileActivity;
 import org.smartregister.opd.utils.FormProcessor;
 import org.smartregister.opd.utils.OpdDbConstants;
@@ -79,24 +70,23 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
         return true;
     }
 
-    private void startSync() {
+    protected void showStartSyncToast() {
+        Toast.makeText(this, getResources().getText(R.string.action_start_sync),
+                Toast.LENGTH_SHORT).show();
+    }
+
+    protected void startSync() {
         if (!SyncStatusBroadcastReceiver.getInstance().isSyncing()) {
             initiateSync();
-            Toast.makeText(this, getResources().getText(R.string.action_start_sync),
-                    Toast.LENGTH_SHORT).show();
+            showStartSyncToast();
+
         } else
             Toast.makeText(this, getResources().getText(R.string.sync_in_progress),
                     Toast.LENGTH_SHORT).show();
     }
 
-    private void initiateSync() {
-        ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
-        SyncServiceJob.scheduleJobImmediately(SyncServiceJob.TAG);
-        SyncSettingsServiceJob.scheduleJobImmediately(SyncSettingsServiceJob.TAG);
-        ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
-        WeightIntentServiceJob.scheduleJobImmediately(WeightIntentServiceJob.TAG);
-        HeightIntentServiceJob.scheduleJobImmediately(HeightIntentServiceJob.TAG);
-        VaccineServiceJob.scheduleJobImmediately(VaccineServiceJob.TAG);
+    protected void initiateSync() {
+        GizSyncUtil.initiateProfileSync();
     }
 
     public void showOpdTransferDialog(@Nullable String eventType) {
@@ -136,23 +126,6 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
         }
 
     }
-
-  /*  @Override
-    protected ViewPager setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
-        NewOpdProfileOverviewFragment profileOverviewFragment = NewOpdProfileOverviewFragment.newInstance(this.getIntent().getExtras());
-        setSendActionListenerForProfileOverview(profileOverviewFragment);
-
-        NewOpdProfileVisitsFragment profileVisitsFragment = NewOpdProfileVisitsFragment.newInstance(this.getIntent().getExtras());
-        setSendActionListenerToVisitsFragment(profileVisitsFragment);
-
-        adapter.addFragment(profileOverviewFragment, this.getString(R.string.today));
-        adapter.addFragment(profileVisitsFragment, this.getString(R.string.history));
-
-        viewPager.setAdapter(adapter);
-        return viewPager;
-    }*/
 
     @Override
     public void startForm(JSONObject jsonObject, Form form, FormProcessor.Requester requester) {

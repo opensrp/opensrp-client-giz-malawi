@@ -936,4 +936,5 @@
     <string name="sync_in_progress">Sync is already in progress</string>
     <string name="email_provider">Pick an Email provider</string>
     <string name="send_report">Send report</string>
+    <string name="empty_text">" "</string>
 </resources>

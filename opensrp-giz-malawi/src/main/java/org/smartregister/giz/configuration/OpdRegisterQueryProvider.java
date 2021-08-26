@@ -1,8 +1,9 @@
 package org.smartregister.giz.configuration;
 
+import android.text.TextUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.text.TextUtils;
 
 import org.smartregister.cursoradapter.SmartRegisterQueryBuilder;
 import org.smartregister.giz.util.GizConstants;
@@ -31,23 +32,22 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         if (!TextUtils.isEmpty(filters)) {
             if (!TextUtils.isEmpty(mainCondition)) {
                 String sql =
-                        "SELECT object_id \n" +
-                                "FROM (SELECT object_id, last_interacted_with \n" +
+                        "SELECT object_id, last_interacted_with \n" +
                                 "FROM ec_client_search \n" +
                                 "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  \n" +
-                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*')\n" +
-                                "WHERE ec_client_search.object_id IN (SELECT base_entity_id\n" +
-                                "FROM opd_client_visits where visit_group = '" + todayDate + "')\n" +
+                                "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
+                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                                "And ocv.visit_group = '" + todayDate + "'\n" +
                                 "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 return sql;
 
             } else {
-                String sql = "SELECT object_id FROM " +
-                        "(SELECT object_id, last_interacted_with FROM ec_client_search " +
-                        "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  " +
-                        "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase MATCH '%s*') " +
-                        "ORDER BY last_interacted_with DESC";
+                String sql =
+                        "SELECT object_id, last_interacted_with FROM ec_client_search " +
+                                "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  " +
+                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase MATCH '%s*' " +
+                                "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 return sql;
             }
@@ -56,15 +56,16 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                     "Select ec_client.id as object_id\n" +
                             "FROM ec_client\n" +
                             "inner join client_register_type crt on crt.base_entity_id = ec_client.id  \n" +
+                            "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client.id \n" +
                             "WHERE crt.register_type = 'opd'\n" +
-                            "and  ec_client.id IN (SELECT base_entity_id FROM opd_client_visits where visit_group = '" + todayDate + "')\n" +
+                            "And ocv.visit_group = '" + todayDate + "'\n" +
                             "ORDER BY last_interacted_with DESC";
 
             return sqlQuery;
         } else {
-            return "SELECT object_id FROM " +
-                    "(SELECT object_id, last_interacted_with FROM ec_client_search inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id WHERE crt.register_type = 'opd') " +
-                    "ORDER BY last_interacted_with DESC";
+            return
+                    "SELECT object_id, last_interacted_with FROM ec_client_search inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id WHERE crt.register_type = 'opd' " +
+                            "ORDER BY last_interacted_with DESC";
         }
     }
 
@@ -73,7 +74,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
     public String[] countExecuteQueries(@Nullable String filters, @Nullable String mainCondition) {
         SmartRegisterQueryBuilder sqb = new SmartRegisterQueryBuilder();
 
-        return new String[] {
+        return new String[]{
                 sqb.countQueryFts("ec_client", null, mainCondition, filters)
         };
     }
@@ -84,15 +85,11 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
         Date latestValidCheckInDate = OpdLibrary.getInstance().getLatestValidCheckInDate();
         String oneDayAgo = OpdUtils.convertDate(latestValidCheckInDate, OpdDbConstants.DATE_FORMAT);
         String sqlQuery =
-                "Select  d.id as _id , d.first_name , d.last_name , '' AS middle_name , d.gender , d.dob , '' AS home_address , c.first_name as mother_first_name, \n" +
-                        "c.last_name as mother_last_name, \n" +
-                        " null as middle_name, d.relationalid ,d.opensrp_id AS register_id, upper(rt.register_type) as register_type,\n" +
-                        " d.last_interacted_with,'ec_client' as entity_table\n" +
-                        " FROM ec_client d \n" +
-                        "left join ec_child_details ecd on ecd.base_entity_id=d.id \n" +
-                        "left join client_register_type rt on rt.base_entity_id = d.id \n" +
-                        "left join ec_client c on ecd.relational_id=c.id \n" +
-                        "WHERE rt.register_type = 'opd' and  d.id IN (%s) \n" +
+                "Select  d.id as _id , d.first_name , d.last_name , '' AS middle_name , d.gender , d.dob , '' AS home_address , c.first_name as mother_first_name, c.last_name as mother_last_name, \n" +
+                        "null as middle_name, d.relationalid ,d.opensrp_id AS register_id, upper(rt.register_type) as register_type,\n" +
+                        " d.last_interacted_with, (opd_details.current_visit_start_date >= '$latest_start_visit_date' AND opd_details.current_visit_end_date IS NULL) AS pending_diagnose_and_treat, 'ec_client' as entity_table, opd_details.current_visit_end_date  FROM ec_client d LEFT JOIN opd_details ON d.base_entity_id = opd_details.base_entity_id left join ec_child_details ecd on ecd.base_entity_id=d.id \n" +
+                        " left join client_register_type rt on rt.base_entity_id = d.id  left join ec_client c on ecd.relational_id=c.id " +
+                        "WHERE rt.register_type = 'opd' and  d.id IN (%s) " +
                         "ORDER BY d.last_interacted_with DESC";
 
         return sqlQuery;

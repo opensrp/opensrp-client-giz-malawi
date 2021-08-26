@@ -15,8 +15,6 @@ import com.evernote.android.job.JobManager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
@@ -156,8 +154,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
     private GizEventRepository gizEventRepository;
     private AppExecutors appExecutors;
     private ReasonForDefaultingRepository reasonForDefaultingRepository;
-   // private VisitRepository visitRepository;
-   // private VisitDetailsRepository visitDetailsRepository;
 
     public static JsonSpecHelper getJsonSpecHelper() {
         return jsonSpecHelper;
@@ -422,7 +418,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
                 OpdConstants.EventType.OPD_REGISTRATION, OpdConstants.EventType.UPDATE_OPD_REGISTRATION,
                 OpdConstants.CONFIG, OpdFormActivity.class, GizOpdProfileActivity.class, true);
 
-//        opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Collections.singletonList("village")));
         opdMetadata.setFieldsWithLocationHierarchy(new HashSet<>(Arrays.asList("village", OpdConstants.KEY.REFERRAL_FACILITY,
                 OpdConstants.KEY.REFERRAL_LOCATION, OpdConstants.KEY.REFERRAL_LOCATION_LAB)));
         opdMetadata.setLookUpQueryForOpdClient(String.format("select id as _id, %s, %s, %s, %s, %s, %s, %s, national_id from " + OpdDbConstants.KEY.TABLE + " where [condition] ", OpdConstants.KEY.RELATIONALID, OpdConstants.KEY.FIRST_NAME,
@@ -696,28 +691,4 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         return this.reasonForDefaultingRepository;
     }
 
-   /* public VisitRepository visitRepository() {
-        if (visitRepository == null) {
-            visitRepository = new VisitRepository();
-        }
-        return visitRepository;
-    }
-
-    public VisitDetailsRepository visitDetailsRepository() {
-        if (visitDetailsRepository == null) {
-            visitDetailsRepository = new VisitDetailsRepository();
-        }
-        return visitDetailsRepository;
-    }*/
-
-
-    public Integer getApplicationVersion() {
-        return BuildConfig.VERSION_CODE;
-    }
-
-    public Integer getDatabaseVersion() {
-        return BuildConfig.DATABASE_VERSION;
-    }
-
 }
-

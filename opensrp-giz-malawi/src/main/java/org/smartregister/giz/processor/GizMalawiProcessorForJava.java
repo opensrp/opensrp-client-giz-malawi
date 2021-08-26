@@ -228,11 +228,10 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             processUnsyncEvents(unsyncEvents);
 
             // Process alerts for clients
-            /**
+
              Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
 
              appExecutors.diskIO().execute(runnable);
-             **/
         }
 
     }
@@ -430,6 +429,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
     private void updateClientAlerts(@NonNull HashMap<String, DateTime> clientsForAlertUpdates) {
         try {
             HashMap<String, DateTime> stringDateTimeHashMap = SerializationUtils.clone(clientsForAlertUpdates);
+            if(stringDateTimeHashMap != null)
             for (String baseEntityId : stringDateTimeHashMap.keySet()) {
                 DateTime birthDateTime = clientsForAlertUpdates.get(baseEntityId);
                 if (birthDateTime != null) {
@@ -438,7 +438,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             }
             clientsForAlertUpdates.clear();
         } catch (Exception ex) {
-            Timber.e(ex);
+            Timber.e(ex, "An error occurred when updating client Alerts");
         }
     }
 

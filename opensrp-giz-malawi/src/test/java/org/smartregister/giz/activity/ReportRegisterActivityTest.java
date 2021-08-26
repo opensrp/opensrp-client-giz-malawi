@@ -1,6 +1,8 @@
 package org.smartregister.giz.activity;
 
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -60,7 +62,6 @@ public class ReportRegisterActivityTest extends BaseUnitTest {
     }
 
 
-
     @Test
     public void testOnSyncUpdatesTheSyncStatus() {
         activity = Mockito.spy(activity);
@@ -92,4 +93,18 @@ public class ReportRegisterActivityTest extends BaseUnitTest {
         activity.onSyncInProgress(status);
         Mockito.verify(activity).toggleReportSyncButton();
     }
+
+    @Test
+    public void testSetupViewsSetTextsToTextView() {
+        activity = Mockito.spy(ReportTypeListRegisterActivity.class);
+        ListView listView = Mockito.mock(ListView.class);
+        TextView titleTv = Mockito.mock(TextView.class);
+
+        Mockito.doReturn(listView).when(activity).findViewById(R.id.lv_reportRegister_groupings);
+        Mockito.doReturn(titleTv).when(activity).findViewById(R.id.title);
+
+        activity.setUpViews();
+        Mockito.verify(titleTv).setText(R.string.dhis2_reports);
+    }
+
 }
