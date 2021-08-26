@@ -57,6 +57,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
+    private static Timer timer;
     private DrawerLayout drawer;
     private Toolbar toolbar;
     private NavigationAdapter navigationAdapter;
@@ -68,11 +69,9 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
     private NavigationContract.Presenter mPresenter;
     private RelativeLayout settingsLayout;
     private TextView txtLocationSelected;
-
     private View parentView;
     private LinearLayout reportView;
     private List<NavigationOption> navigationOptions = new ArrayList<>();
-    private static Timer timer;
 
     private NavigationMenu() {
 
@@ -102,7 +101,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
         if (timer != null)
             timer = null;
     }
-    
+
     private void init(Activity activity, View myParentView, Toolbar myToolbar) {
         try {
             setParentView(activity, parentView);
@@ -421,7 +420,7 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
                             mPresenter.refreshNavigationCount();
                         }
                     }
-                }, 0, 5000);
+                }, 0, 10000);
             }
         } catch (Exception e) {
             Timber.v(e, "An error occurred when recomputing counts");
