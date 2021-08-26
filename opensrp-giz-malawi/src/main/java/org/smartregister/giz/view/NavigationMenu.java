@@ -53,7 +53,7 @@ import java.util.TimerTask;
 
 import timber.log.Timber;
 
-public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener, OnLocationChangeListener {
+public class NavigationMenu implements NavigationContract.View, SyncStatusBroadcastReceiver.SyncStatusListener, DrawerLayout.DrawerListener, OnLocationChangeListener {
 
     private static NavigationMenu instance;
     private static WeakReference<Activity> activityWeakReference;
@@ -404,7 +404,6 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public void openDrawer() {
         drawer.openDrawer(GravityCompat.START);
-        recomputeCounts();
     }
 
     private void recomputeCounts() {
@@ -436,5 +435,28 @@ public class NavigationMenu implements NavigationContract.View, SyncStatusBroadc
 
     public void setReportsSelected() {
         // TODO: Set the reports UI as selected
+    }
+
+    @Override
+    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+        Timber.v("Drawer is sliding");
+    }
+
+    @Override
+    public void onDrawerOpened(@NonNull View drawerView) {
+        Timber.v("Drawer is opened");
+        recomputeCounts();
+    }
+
+    @Override
+    public void onDrawerClosed(@NonNull View drawerView) {
+        Timber.v("Drawer is closed");
+        if (timer != null)
+            timer = null;
+    }
+
+    @Override
+    public void onDrawerStateChanged(int newState) {
+        Timber.v("Drawer state is changed");
     }
 }
