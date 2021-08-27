@@ -6,13 +6,6 @@ condition: "step1_medical_conditions.contains('hiv') || step1_1hiv_prev_status.c
 actions:
   - "calculation = 1"
 ---
-name: step1_disease_code_object
-description: disease_code_object
-priority: 1
-condition: "true"
-actions:
-  - 'calculation = step1_disease_code_primary'
----
 name: step1_danger_signs_opd_note
 description: danger_signs_opd_note
 priority: 1

@@ -764,112 +764,16 @@
         }
       },
       {
-        "key": "disease_code_label",
-        "text": "Preliminary Diagnosis",
-        "name": "Preliminary Diagnosis",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "label",
-        "bg_color": "#358CB7",
-        "has_bg": true,
-        "text_color": "#FFFFFF",
-        "text_size": "20px",
-        "label_text_style": "bold"
-      },
-      {
-        "key": "spacer",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "spacer",
-        "type": "spacer",
-        "spacer_height": "8dp"
-      },
-      {
         "key": "disease_code_primary",
         "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "sort": true,
-        "groupings": "[A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z]",
-        "source": "csv",
-        "sortClass": "org.smartregister.opd.comparator.MultiSelectListAlphabetTextComparator",
-        "type": "multi_select_list",
-        "buttonText": "+ Add disease code",
-        "dialogTitle": "Add disease code",
-        "repositoryClass": "org.smartregister.giz.widget.GizDiseaseCodeMultiSelectListRepository",
-        "searchHint": "Type Disease Name"
-      },
-      {
-        "key": "diagnosis_type",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "label": "Diagnosis Type",
-        "type": "native_radio",
-        "v_required": {
-          "value": true,
-          "err": "Please specify the diagnosis type"
-        },
-        "options": [
-          {
-            "key": "Confirmed",
-            "text": "Confirmed",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "159392AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          },
-          {
-            "key": "Presumed",
-            "text": "Presumed",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "159393AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ]
-      },
-      {
-        "key": "diagnosis",
-        "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "161602AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_entity_id": "159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
         "type": "edit_text",
-        "hint": "Diagnosis text/problem list",
+        "hint": "Preliminary Diagnosis",
         "v_required": {
           "value": true,
           "err": "Please specify the diagnosis"
-        }
-      },
-      {
-        "key": "diagnosis_same",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "concept",
-        "openmrs_entity_id": "160250AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-        "type": "check_box",
-        "hint": "Same as final diagnosis",
-        "label": "",
-        "options": [
-          {
-            "key": "isSameAsFinalDiagnosis",
-            "text": "Is same as final diagnosis?",
-            "openmrs_entity_parent": "",
-            "openmrs_entity": "concept",
-            "openmrs_entity_id": "160251AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-          }
-        ]
-      },
-      {
-        "key": "disease_code_object",
-        "openmrs_entity_parent": "",
-        "openmrs_entity": "",
-        "openmrs_entity_id": "",
-        "type": "hidden",
-        "calculation": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_diagnosis_calculation.yml"
-            }
-          }
         }
       },
       {
