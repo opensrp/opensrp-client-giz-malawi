@@ -801,14 +801,7 @@
             "openmrs_entity": "",
             "openmrs_entity_id": ""
           }
-        ],
-        "relevance": {
-          "rules-engine": {
-            "ex-rules": {
-              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
-            }
-          }
-        }
+        ]
       },
       {
         "key": "diagnostic_test_ordered",

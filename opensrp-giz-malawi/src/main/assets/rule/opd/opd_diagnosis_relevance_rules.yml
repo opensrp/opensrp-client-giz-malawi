@@ -87,13 +87,6 @@ condition: "step1_medical_conditions.contains('hiv') && step1_hiv_tested_date.eq
 actions:
   - "isRelevant = true"
 ---
-name: step1_test_recommended
-description: test_recommended
-priority: 1
-condition: "step1_diagnosis_same.isEmpty() || !step1_diagnosis_same.contains('isSameAsFinalDiagnosis')"
-actions:
-  - "isRelevant = true"
----
 name: step1_diagnostic_test_ordered
 description: diagnostic_test_ordered
 priority: 1
