@@ -164,6 +164,8 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
     public void onSyncComplete(FetchStatus fetchStatus) {
         Toast.makeText(this, getResources().getText(R.string.sync_complete),
                 Toast.LENGTH_SHORT).show();
+        getActionListenerForProfileOverview().onActionReceive();
+        getActionListenerForVisitFragment().onActionReceive();
     }
 
     @Override
