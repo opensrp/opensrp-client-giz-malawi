@@ -1,0 +1,35 @@
+---
+form: opd_diagnosis
+fields:
+  - "opd_danger_signs"
+  - "opd_danger_signs_value"
+  - "body_temp"
+  - "pulse_rate"
+  - "current_weight"
+  - "height"
+  - "bp_systolic"
+  - "bp_diastolic"
+  - "oximetry"
+  - "respiratory_rate"
+  - "convulsions_history"
+  - "blantyre_coma_scale"
+  - "glasgow_coma_scale"
+  - "opd_health_concerns"
+  - "opd_health_concerns_value"
+---
+form: opd_laboratory
+fields:
+  - "diagnostic_test_ordered"
+---
+form: opd_treatment
+fields:
+  - "pregnancy_status"
+  - "disease_code_primary"
+  - "medical_conditions"
+  - "patient_complains"
+  - "clinician_obs"
+  - "diagnostic_test_lab_results"
+---
+form: opd_pharmacy
+fields:
+  - "medicine_object"

@@ -1,0 +1,1018 @@
+{
+  "count": "1",
+  "encounter_type": "OPD_Diagnosis",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Preliminary Diagnosis",
+    "fields": [
+      {
+        "key": "danger_signs_opd_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Danger Signs {danger_signs}",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "vital_signs_opd_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Vitals: {body_temp} {pulse_rate} {current_weight} {height} {blood_pressure} {oximetry} {respiratory_rate} {blantyre_coma_scale} {glasgow_coma_scale} {convulsions_history}",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "health_concerns_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Health Concerns: {health_concerns}",
+        "toaster_type": "warning",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pregnancy_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Current pregnancy status?",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unknown",
+            "text": "Unknown",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1067AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "lmp_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165258AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "hint": "Last menstrual period unknown checkbox]",
+        "label": "",
+        "options": [
+          {
+            "key": "lmp_unknown",
+            "text": "Last menstrual period unknown?",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165259AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "lmp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "Last menstrual period date",
+        "max_date": "today",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "lmp_duration",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Last menstrual period duration in days",
+        "edit_type": "number",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "medical_conditions",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "hint": "Previous medical conditions",
+        "label": "Previous medical conditions",
+        "label_text_style": "bold",
+        "exclusive": [
+          "none"
+        ],
+        "options": [
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "none",
+            "text": "None"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "0007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "allergies",
+            "text": "Allergies"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "77AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "mental_diseases",
+            "text": "Mental diseases"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "990AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "neoplasms",
+            "text": "Neoplasms"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "121375AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "asthma",
+            "text": "Asthma"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119481AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "diabetes",
+            "text": "Diabetes"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "cardiovascular_diseases",
+            "text": "Cardiovascular diseases"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "119235AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "endocrine_diseases",
+            "text": "Endocrine diseases"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "hypertension",
+            "text": "Hypertension"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "127417AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "rheumatism",
+            "text": "Rheumatoid arthritis"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "126511AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "sickle_cell_diseases",
+            "text": "Sickle cell diseases"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "hiv",
+            "text": "HIV"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163521AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "history_of_surgery",
+            "text": "History of surgery"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "117855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "epilepsy",
+            "text": "Epilepsy"
+          },
+          {
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "key": "other",
+            "text": "Other(Specify)"
+          }
+        ]
+      },
+      {
+        "key": "medical_conditions_specify",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other condition",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_tested_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160554AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "date_picker",
+        "hint": "HIV diagnosis date",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_diagnosis_date_unknown",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165224AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "HIV diagnosis date unknown?",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1009988AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_prev_status",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "HIV test results",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "positive",
+            "text": "Positive",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "703AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\""
+          },
+          {
+            "key": "negative",
+            "text": "Negative",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unknown",
+            "text": "Unknown",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "hiv_prev_pos_art",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160119AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "label": "Is the client taking Antiretroviral treatment (ART)?",
+        "label_text_style": "bold",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "138571AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "key": "hiv_positive",
+        "type": "hidden",
+        "label_text_style": "bold",
+        "text_color": "#FF0000",
+        "v_required": {
+          "value": false
+        },
+        "calculation": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_calculation.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "physical_exam",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Conduct physical exam?",
+        "label_text_style": "bold",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false
+          }
+        ]
+      },
+      {
+        "key": "patient_complains",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Complains by the patient.",
+        "label": "Complains by the patient.",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "headache",
+            "text": "Headache"
+          },
+          {
+            "key": "fever",
+            "text": "Fever"
+          },
+          {
+            "key": "bleeding",
+            "text": "Bleeding"
+          },
+          {
+            "key": "general_body_pain",
+            "text": "General Body pain"
+          },
+          {
+            "key": "convulsions",
+            "text": "Convulsions"
+          },
+          {
+            "key": "loss_of_appetite",
+            "text": "Loss of appetite"
+          },
+          {
+            "key": "nausea_and_vomiting",
+            "text": "Nausea and Vomiting"
+          },
+          {
+            "key": "cut_wound_and_open_wound",
+            "text": "Cut wound and open wound"
+          },
+          {
+            "key": "itching_of_the_skin",
+            "text": "Itching of the skin"
+          },
+          {
+            "key": "difficult_in_breathing",
+            "text": "Difficult in breathing"
+          },
+          {
+            "key": "nose_bleeding",
+            "text": "Nose bleeding"
+          },
+          {
+            "key": "abdominal_pain",
+            "text": "Abdominal pain"
+          },
+          {
+            "key": "0edema",
+            "text": "Oedema"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness"
+          },
+          {
+            "key": "yellow_eyes",
+            "text": "Yellow eyes"
+          },
+          {
+            "key": "backache",
+            "text": "Backache"
+          },
+          {
+            "key": "numbness_of_lower_and_upper_extremities",
+            "text": "Numbness of lower and upper extremities"
+          },
+          {
+            "key": "abnormal_vaginal_discharge",
+            "text": "Abnormal vaginal discharge"
+          },
+          {
+            "key": "painful_urination",
+            "text": "Painful urination"
+          },
+          {
+            "key": "loose_stools",
+            "text": "Loose stools"
+          },
+          {
+            "key": "bloody_stools",
+            "text": "Bloody stools"
+          },
+          {
+            "key": "blur_vision",
+            "text": "Blur vision"
+          },
+          {
+            "key": "heart_palpitations",
+            "text": "Heart palpitations"
+          },
+          {
+            "key": "other_complains",
+            "text": "Other (Specify)"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "patient_complain_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other complain",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "clinician_obs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "check_box",
+        "hint": "Clinician observations of the patient",
+        "label": "Clinician observations of the patient",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "alert",
+            "text": "Alert"
+          },
+          {
+            "key": "reduced_level_of_consciousness",
+            "text": "Reduced level of consciousness"
+          },
+          {
+            "key": "pink_conjunctiva",
+            "text": "Pink conjunctiva"
+          },
+          {
+            "key": "pale_conjunctiva",
+            "text": "Pale conjunctiva"
+          },
+          {
+            "key": "jaundice",
+            "text": "Jaundice"
+          },
+          {
+            "key": "a_febrile",
+            "text": "A febrile"
+          },
+          {
+            "key": "febrile",
+            "text": "Febrile"
+          },
+          {
+            "key": "weak",
+            "text": "Weak"
+          },
+          {
+            "key": "lethargy",
+            "text": "Lethargy"
+          },
+          {
+            "key": "convulsions",
+            "text": "Convulsions"
+          },
+          {
+            "key": "bp",
+            "text": "Bp"
+          },
+          {
+            "key": "pulse_rate",
+            "text": "Pulse rate"
+          },
+          {
+            "key": "temperature",
+            "text": "Temperature"
+          },
+          {
+            "key": "respiration",
+            "text": "Respiration"
+          },
+          {
+            "key": "grunting",
+            "text": "Grunting"
+          },
+          {
+            "key": "dizziness",
+            "text": "Dizziness"
+          },
+          {
+            "key": "nasal_flaring_use_of_accessory_muscle",
+            "text": "Nasal flaring use of accessory muscle"
+          },
+          {
+            "key": "chest_in_drawings",
+            "text": "Chest in drawings"
+          },
+          {
+            "key": "edema_of_extremities",
+            "text": "Edema of extremities"
+          },
+          {
+            "key": "GCS",
+            "text": "GCS"
+          },
+          {
+            "key": "other_obs",
+            "text": "Other"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "clinician_obs_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Specify other observations",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "disease_code_primary",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "159947AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "openmrs_data_type": "text",
+        "type": "edit_text",
+        "hint": "Preliminary Diagnosis",
+        "v_required": {
+          "value": true,
+          "err": "Please specify the diagnosis"
+        }
+      },
+      {
+        "key": "test_recommended",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "label": "Any test (s) recommended? ",
+        "label_text_style": "bold",
+        "type": "native_radio",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "value": false,
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ]
+      },
+      {
+        "key": "diagnostic_test_ordered",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "hint": "Test ordered",
+        "type": "check_box",
+        "label": "Test ordered",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "urine_pregnancy_test",
+            "text": "Urine pregnancy test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "ultra_sound",
+            "text": "Ultra sound",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164071AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_microscopy",
+            "text": "Malaria-Microscopy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "32AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_test",
+            "text": "HIV test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "syphilis_test",
+            "text": "Syphilis Test -VDRL",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "299AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hep_b",
+            "text": "Hep B test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "161475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hep_c",
+            "text": "Hep C test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "161474AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "blood_type",
+            "text": "Blood Type test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "300AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "na",
+            "text": "NA",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164800AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "blood_glucose_test",
+            "text": "Blood Glucose test ( random plasma glucose test)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "887AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "midstream_urine",
+            "text": "Midstream urine Gram-staining",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165304AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "malaria_test",
+            "text": "Malaria - MRDT",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "tb_gene",
+            "text": "TB-Gene Xpert",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164945AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "tb_smear",
+            "text": "TB- smear microscopy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "159961AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "tb_urine",
+            "text": "TB-urine LAM",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "urine_dipstick",
+            "text": "Urine dipstick",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1618AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hemocue",
+            "text": "Hemocue (haemoglobinometer)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165395AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_viral_oad",
+            "text": "HIV Viral Load",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_eid",
+            "text": "HIV EID",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1356AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hiv_rapid",
+            "text": "HIV test- Rapid Test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "midstream_urine_test_culture",
+            "text": "Midstream Urine Test Culture",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "77664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "other",
+            "text": "Other (specify)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "5622AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "test_ordered_other",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "edit_text",
+        "hint": "Other tests ordered",
+        "edit_type": "name",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_diagnosis_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "gender",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "age",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "visit_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  }
+}

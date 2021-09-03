@@ -1,9 +1,10 @@
-package org.smartregister.giz.util;
+package org.smartregister.giz.widget;
 
 import androidx.annotation.NonNull;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.MultiSelectItem;
+import com.vijay.jsonwizard.interfaces.MultiSelectListRepository;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
@@ -11,15 +12,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.domain.Setting;
+import org.smartregister.opd.OpdLibrary;
+import org.smartregister.opd.utils.OpdConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import timber.log.Timber;
 
-public class GizOpdMultiSelectListRepositoryHelper {
+public class GizDiseaseCodeMultiSelectListRepository implements MultiSelectListRepository {
 
-    public List<MultiSelectItem> fetchHelperData(Setting setting) {
+    @Override
+    public List<MultiSelectItem> fetchData() {
+        Setting setting = OpdLibrary.getInstance().context().allSettings().getSetting(OpdConstants.SettingsConfig.OPD_DISEASE_CODES);
         try {
             JSONObject jsonValObject = setting != null ? new JSONObject(setting.getValue()) : null;
             if (jsonValObject != null) {

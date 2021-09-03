@@ -1765,20 +1765,34 @@ indicators:
     grouping: "anc"
 
   ##OPD Reports
+# TODO: Update key from data dictionary
+  - key: "ME_OPD_Attendance"
+    description: "Total OPD Attendance"
+    indicatorQuery: "SELECT count(DISTINCT visits.base_entity_id)
+                     FROM opd_client_visits visits
+                     INNER JOIN opd_client_visit_details details
+                     ON visits.visit_id = details.visit_id
+                     WHERE visits.visit_group = '%s'
+                     AND visits.visit_type IN ('OPD_Check_in','OPD_Vital_Danger_signs_check','OPD_Diagnosis' ,'OPD_Laboratory'
+                     ,'OPD_Treatment','OPD_Pharmacy','OPD_Final_Outcome','OPD_Service_Charge')"
+    grouping: "opd"
+
   - key: "ME_Malaria_Cases_Confirmed"
     description: "Malaria cases"
     indicatorQuery: "SELECT
-                      CASE
-                          WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                          WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
-                          ELSE 'Null'
-                      END age, count(*)
-                      FROM opd_diagnosis_detail b
-                      INNER JOIN ec_client
-                      ON b.base_entity_id = ec_client.base_entity_id
-                      WHERE b.code in ('code_32aCo','code_32bCo')
-                      and '%s' = strftime('%Y-%m-%d', b.created_at)
-                      GROUP  BY age"
+                        CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            ELSE 'Null'
+                        END age, count(DISTINCT opd_client_visits.base_entity_id)
+                        FROM opd_client_visit_details b
+                        INNER JOIN opd_client_visits
+                        ON b.visit_id = opd_client_visits.visit_id
+                     	INNER JOIN ec_client
+                        ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                     WHERE b.details in ('code_32aCo','code_32bCo')
+                        AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                        GROUP  BY age"
     isMultiResult: true
     expectedIndicators:
       - "ME_Malaria_Cases_Confirmed_Over_5"
@@ -1788,131 +1802,354 @@ indicators:
   - key: "ME_Malaria_Cases_Presumed"
     description: "Malaria cases"
     indicatorQuery: "SELECT
-                      CASE
-                          WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                          WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
-                          ELSE 'Null'
-                      END age, count(*)
-                      FROM opd_diagnosis_detail b
-                      INNER JOIN ec_client
-                      ON b.base_entity_id = ec_client.base_entity_id
-                      WHERE b.code in ('code_32aPr','code_32bPr')
-                      AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%Malaria%')
-                      AND '%s' = strftime('%Y-%m-%d', b.created_at)
-                      GROUP  BY age"
+                        CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            ELSE 'Null'
+                        END age, count(DISTINCT opd_client_visits.base_entity_id)
+                        FROM opd_client_visit_details b
+                        INNER JOIN opd_client_visits
+                        ON b.visit_id = opd_client_visits.visit_id
+                     	INNER JOIN ec_client
+                        ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                      WHERE b.details in ('code_32aPr','code_32bPr')
+                        AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                        GROUP  BY age"
     isMultiResult: true
     expectedIndicators:
       - "ME_Malaria_Cases_Presumed_Over_5"
       - "ME_Malaria_Cases_Presumed_Under_5"
     grouping: "opd"
 
-  - key: "ME_Total_Malaria_Cases"
-    description: "Malaria total cases"
+#TODO: UPDATE INDICATOR KEY FROM DATA DICTIONARY
+  - key: "ME_confirmed_malaria_preg_woman"
+    description: "Confirmed malaria in pregnant woman"
+    indicatorQuery: "SELECT count(DISTINCT opd_client_visits.base_entity_id)
+                       FROM opd_client_visit_details b
+                         INNER JOIN opd_client_visits
+                         ON b.visit_id = opd_client_visits.visit_id
+                         INNER JOIN ec_client
+                         ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                       WHERE b.details  = 'code_32c'
+                         AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
+    grouping: "opd"
+
+  #TODO: UPDATE INDICATOR KEY FROM DATA DICTIONARY
+  - key: "ME_presumed_malaria_preg_woman"
+    description: "Presumed malaria in pregnant woman"
+    indicatorQuery: "SELECT count(DISTINCT opd_client_visits.base_entity_id)
+                       FROM opd_client_visit_details b
+                         INNER JOIN opd_client_visits
+                         ON b.visit_id = opd_client_visits.visit_id
+                         INNER JOIN ec_client
+                         ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                       WHERE b.details  = 'code_32d'
+                         AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
+    grouping: "opd"
+
+  #TODO: UPDATE INDICATOR KEY FROM DATA DICTIONARY
+  - key: "ME_opd_malaria_total_cases"
+    description: "Malaria cases"
+    indicatorQuery: "SELECT count(DISTINCT opd_client_visits.base_entity_id)
+                        FROM opd_client_visit_details b
+                        INNER JOIN opd_client_visits
+                        ON b.visit_id = opd_client_visits.visit_id
+                     	INNER JOIN ec_client
+                        ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                      WHERE b.details in ('code_32aPr','code_32bPr', 'code_32aCo','code_32bCo', 'code_32c', 'code_32d')
+                        AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
+    grouping: "opd"
+
+  #TODO: UPDATE INDICATOR KEY FROM DATA DICTIONARY
+  - key: "ME_malaria_treat_failure"
+    description: "Malaria cases"
     indicatorQuery: "SELECT
-                      CASE
-                          WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                          WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
-                          ELSE 'Null'
-                      END age, count(*)
-                      FROM opd_diagnosis_detail b
-                      INNER JOIN ec_client
-                      ON b.base_entity_id = ec_client.base_entity_id
-                      WHERE b.code in ('code_32aCo','code_32bCo','code_32aPr','code_32bPr')
-                      AND '%s' = strftime('%Y-%m-%d', b.created_at)
-                      GROUP BY age"
+                        CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            ELSE 'Null'
+                        END age, count(DISTINCT opd_client_visits.base_entity_id)
+                        FROM opd_client_visit_details b
+                        INNER JOIN opd_client_visits
+                        ON b.visit_id = opd_client_visits.visit_id
+                     	INNER JOIN ec_client
+                        ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                     WHERE b.details in ('code_32atf','code_32btf')
+                        AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                        GROUP  BY age"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Total_Malaria_Cases_Over_5"
-      - "ME_Total_Malaria_Cases_Under_5"
+      - "ME_malaria_treat_failure_Under_5"
+      - "ME_malaria_treat_failure_Over_5"
     grouping: "opd"
 
-  - key: "ME_Anti_Malaria_Treatment"
+  - key: "ME_Anti_Malaria_Treatment_Confirmed_LA"
     description: "Malaria anti malarial treatment"
-    indicatorQuery: "SELECT b.type,
-                      CASE
-                          WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                          WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
-                          ELSE 'Null'
-                      END age, count(*)
-                      FROM opd_diagnosis_detail b
-                      INNER JOIN ec_client
-                      ON b.base_entity_id = ec_client.base_entity_id
-                      WHERE b.code in ('code_32aCo','code_32bCo')
-                      AND '%s' = strftime('%Y-%m-%d', b.created_at)
-                      GROUP BY age,b.type"
+    indicatorQuery: "SELECT
+                         CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                         ELSE 'Null'
+                          END age, count(DISTINCT opd_client_visits.base_entity_id)
+                          FROM opd_client_visit_details b
+                          INNER JOIN opd_client_visits
+                          ON b.visit_id = opd_client_visits.visit_id
+                          INNER JOIN ec_client
+                          ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                          WHERE b.details in ('code_32aCo','code_32bCo')
+                     	  AND opd_client_visits.base_entity_id IN (
+                     	      SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
+                              WHERE details.details IN ('AA040200', 'AA039900', 'AA040500', 'AA039600') AND '%s' = strftime('%Y-%m-%d', details.created_at / 1000, 'unixepoch')
+                          )
+                          AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                          GROUP  BY age"
     isMultiResult: true
     expectedIndicators:
-      - "ME_Anti_Malaria_Treatment_Presumed_Over_5"
-      - "ME_Anti_Malaria_Treatment_Presumed_Under_5"
-      - "ME_Anti_Malaria_Treatment_Confirmed_Over_5"
-      - "ME_Anti_Malaria_Treatment_Confirmed_Under_5"
+      - "ME_Anti_Malaria_Treatment_Confirmed_LA_Over_5"
+      - "ME_Anti_Malaria_Treatment_Confirmed_LA_Under_5"
     grouping: "opd"
 
-  - key: "ME_Malaria_Test"
+  - key: "ME_Anti_Malaria_Treatment_Presumed_LA"
+    description: "Malaria anti malarial treatment"
+    indicatorQuery: "SELECT
+                         CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                         ELSE 'Null'
+                          END age, count(DISTINCT opd_client_visits.base_entity_id)
+                          FROM opd_client_visit_details b
+                          INNER JOIN opd_client_visits
+                          ON b.visit_id = opd_client_visits.visit_id
+                          INNER JOIN ec_client
+                          ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                          WHERE b.details in ('code_32aPr','code_32bPr')
+                     	  AND opd_client_visits.base_entity_id IN (
+                     	      SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
+                              WHERE details.details IN ('AA040200', 'AA039900', 'AA040500', 'AA039600') AND '%s' = strftime('%Y-%m-%d', details.created_at / 1000, 'unixepoch')
+                          )
+                          AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                          GROUP  BY age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Anti_Malaria_Treatment_Presumed_LA_Over_5"
+      - "ME_Anti_Malaria_Treatment_Presumed_LA_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Anti_Malaria_Treatment_Confirmed_ASAQ"
+    description: "Malaria anti malarial treatment"
+    indicatorQuery: "SELECT
+                         CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                         ELSE 'Null'
+                          END age, count(DISTINCT opd_client_visits.base_entity_id)
+                          FROM opd_client_visit_details b
+                          INNER JOIN opd_client_visits
+                          ON b.visit_id = opd_client_visits.visit_id
+                          INNER JOIN ec_client
+                          ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                          WHERE b.details in ('code_32aCo','code_32bCo')
+                     	  AND opd_client_visits.base_entity_id IN (
+                     	      SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
+                              WHERE details.details IN ('GF0562', 'GF0563', 'GF0560',  'GF0561' ) AND '%s' = strftime('%Y-%m-%d', details.created_at / 1000, 'unixepoch')
+                          )
+                          AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                          GROUP  BY age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Anti_Malaria_Treatment_Confirmed_ASAQ_Over_5"
+      - "ME_Anti_Malaria_Treatment_Confirmed_ASAQ_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Anti_Malaria_Treatment_Presumed_ASAQ"
+    description: "Malaria anti malarial treatment"
+    indicatorQuery: "SELECT
+                         CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                         ELSE 'Null'
+                          END age, count(DISTINCT opd_client_visits.base_entity_id)
+                          FROM opd_client_visit_details b
+                          INNER JOIN opd_client_visits
+                          ON b.visit_id = opd_client_visits.visit_id
+                          INNER JOIN ec_client
+                          ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                          WHERE b.details in ('code_32aPr','code_32bPr')
+                     	  AND opd_client_visits.base_entity_id IN (
+                     	      SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
+                              WHERE details.details IN ('GF0562', 'GF0563', 'GF0560',  'GF0561' ) AND '%s' = strftime('%Y-%m-%d', details.created_at / 1000, 'unixepoch')
+                          )
+                          AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                          GROUP  BY age"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_Anti_Malaria_Treatment_Presumed_ASAQ_Over_5"
+      - "ME_Anti_Malaria_Treatment_Presumed_ASAQ_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Malaria_Test_mRDT"
     description: "Malaria tests"
     indicatorQuery: "SELECT
-                   CASE
-                      WHEN b.test_type='malaria mrdt' THEN 'mRDT'
-                      WHEN b.test_type='malaria microscopy' THEN 'Microscopy'
-                   ELSE 'Null' END malaria_test,
-                   CASE
-                      WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                      WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
-                   ELSE 'Null' END age,
-                   count(*)
-                   FROM opd_test_conducted b
-                   INNER JOIN ec_client
-                   ON b.base_entity_id = ec_client.base_entity_id
-                   WHERE b.test_type in ('malaria mrdt','malaria microscopy')
-                   AND '%s' = strftime('%Y-%m-%d', b.created_at)
-                   GROUP  BY age,malaria_test"
+                          CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                          ELSE 'Null' END age,
+                            count(DISTINCT opd_client_visits.base_entity_id)
+                            FROM opd_client_visit_details b
+                            INNER JOIN opd_client_visits
+                            ON b.visit_id = opd_client_visits.visit_id
+                            INNER JOIN ec_client
+                            ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                            WHERE b.visit_id IN (
+                     		    SELECT ba.visit_id FROM opd_client_visit_details ba WHERE ba.visit_key LIKE 'diagnostic_test_%' AND ba.details = 'malaria_mrdt'
+                            )
+                            AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                            GROUP  BY age"
     isMultiResult: true
     expectedIndicators:
       - "ME_Malaria_Test_mRDT_Over_5"
       - "ME_Malaria_Test_mRDT_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Malaria_Test_Microscopy"
+    description: "Malaria tests"
+    indicatorQuery: "SELECT
+                          CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                          ELSE 'Null' END age,
+                            count(DISTINCT opd_client_visits.base_entity_id)
+                            FROM opd_client_visit_details b
+                            INNER JOIN opd_client_visits
+                            ON b.visit_id = opd_client_visits.visit_id
+                            INNER JOIN ec_client
+                            ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                            WHERE b.visit_id IN (
+                     		    SELECT ba.visit_id FROM opd_client_visit_details ba WHERE ba.visit_key LIKE 'diagnostic_test_%' AND ba.details = 'malaria_mrdt'
+                            )
+                            AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                            GROUP  BY age"
+    isMultiResult: true
+    expectedIndicators:
       - "ME_Malaria_Test_Microscopy_Over_5"
       - "ME_Malaria_Test_Microscopy_Under_5"
     grouping: "opd"
 
-  - key: "ME_Positive_Malaria_Cases"
+  - key: "ME_Positive_Malaria_Cases_mRDT"
     description: "Positive malaria cases"
     indicatorQuery: "SELECT
-                   CASE
-                      WHEN b.test_type='malaria mrdt' THEN 'mRDT'
-                      WHEN b.test_type='Malaria - Microscopy' THEN 'Microscopy'
-                   ELSE 'Null' END malaria_test,
-                   CASE
-                      WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                      WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
-                   ELSE 'Null' END age, count(*)
-                   FROM opd_test_conducted b
-                   INNER JOIN ec_client
-                   ON b.base_entity_id = ec_client.base_entity_id
-                   WHERE b.test_type in ('malaria mrdt','malaria microscopy')
-                   AND b.result='Positive'
-                   AND '%s' = strftime('%Y-%m-%d', b.created_at)
-                   GROUP  BY age,malaria_test,b.result"
+                        CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                        ELSE 'Null' END age,
+                        count(DISTINCT opd_client_visits.base_entity_id)
+                      FROM opd_client_visit_details b
+                        INNER JOIN opd_client_visits
+                        ON b.visit_id = opd_client_visits.visit_id
+                        INNER JOIN ec_client
+                        ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                        WHERE b.visit_id IN (
+                     	      SELECT c.visit_id FROM opd_client_visit_details c WHERE c.visit_key  IN (
+                     		        SELECT 'diagnostic_test_result_' || substr(ba.visit_key, 17, 40 ) FROM opd_client_visit_details ba WHERE ba.visit_key LIKE 'diagnostic_test_%' AND ba.details = 'malaria_mrdt'
+                              ) AND c.details = 'Positive'
+                        )
+                        AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                        GROUP  BY age"
     isMultiResult: true
     expectedIndicators:
       - "ME_Positive_Malaria_Cases_mRDT_Over_5"
       - "ME_Positive_Malaria_Cases_mRDT_Under_5"
+    grouping: "opd"
+
+  - key: "ME_Positive_Malaria_Cases_Microscopy"
+    description: "Positive malaria cases"
+    indicatorQuery: "SELECT
+                        CASE
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                        ELSE 'Null' END age,
+                        count(DISTINCT opd_client_visits.base_entity_id)
+                      FROM opd_client_visit_details b
+                        INNER JOIN opd_client_visits
+                        ON b.visit_id = opd_client_visits.visit_id
+                        INNER JOIN ec_client
+                        ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                        WHERE b.visit_id IN (
+                     	      SELECT c.visit_id FROM opd_client_visit_details c WHERE c.visit_key  IN (
+                     		        SELECT 'diagnostic_test_result_' || substr(ba.visit_key, 17, 40 ) FROM opd_client_visit_details ba WHERE ba.visit_key LIKE 'diagnostic_test_%' AND ba.details = 'malaria_microscopy'
+                              ) AND c.details = 'Positive'
+                        )
+                        AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                        GROUP  BY age"
+    isMultiResult: true
+    expectedIndicators:
       - "ME_Positive_Malaria_Cases_Microscopy_Over_5"
       - "ME_Positive_Malaria_Cases_Microscopy_Under_5"
     grouping: "opd"
 
-  - key: "ME_Total_Suspected_Malaria"
+  #TODO: UPDATE INDICATOR KEY FROM DATA DICTIONARY
+  - key: "ME_suspected_malaria_cases"
     description: "Total suspected malaria cases"
-    indicatorQuery: "SELECT count(*) FROM (SELECT b.base_entity_id,b.visit_id
-                   FROM opd_diagnosis_detail b
-                      WHERE b.code in ('code_32aPr','code_32bPr')
-                          AND b.visit_id NOT IN (SELECT distinct(c.visit_id) from opd_test_conducted c where c.test_type like '%malaria%')
-                          AND '%s' = strftime('%Y-%m-%d', b.created_at)
-                      UNION
-                   SELECT d.base_entity_id, d.visit_id
-                   FROM opd_test_conducted d
-                      WHERE d.test_type in ('malaria mrdt','malaria microscopy')
-                      AND '%s' = strftime('%Y-%m-%d', d.created_at)
-                   )"
+    indicatorQuery: "SELECT
+                         count(DISTINCT opd_client_visits.base_entity_id)
+                         FROM opd_client_visit_details b
+                         INNER JOIN opd_client_visits
+                         ON b.visit_id = opd_client_visits.visit_id
+                         WHERE opd_client_visits.base_entity_id IN (
+                          SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
+                            WHERE details.visit_key LIKE '%diagnostic_test_%' AND details.details IN  ('malaria_mrdt',  'malaria_microscopy')
+                         )
+                         AND b.details IN ('code_32aPr','code_32bPr')
+                         AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
+    grouping: "opd"
+
+  #TODO: UPDATE INDICATOR KEY FROM DATA DICTIONARY
+  - key: "ME_total_malaria_rdts"
+    description: "Malaria RDTs"
+    indicatorQuery: "SELECT
+                        count(DISTINCT opd_client_visits.base_entity_id)
+                      FROM opd_client_visit_details b
+                         INNER JOIN opd_client_visits
+                         ON b.visit_id = opd_client_visits.visit_id
+                      WHERE opd_client_visits.base_entity_id IN (
+                          SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
+                            WHERE details.visit_key LIKE '%diagnostic_test_%' AND details.details IN  ('malaria_mrdt',  'malaria_microscopy')
+                         )
+                         AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
+    grouping: "opd"
+
+  #TODO: UPDATE INDICATOR KEY FROM DATA DICTIONARY
+  - key: "ME_opd"
+    description: "Medicines dispensed"
+    indicatorQuery: "SELECT
+                             CASE
+                                WHEN b.details='GF0560' THEN 'asaq1_tabs'
+                                WHEN b.details='GF0561' THEN 'asaq2_tabs'
+                                WHEN b.details='GF0562' THEN 'asaq3_tabs'
+                                WHEN b.details='GF0563' THEN 'asaq4_tabs'
+                                WHEN b.details='AA039600' THEN 'la_1'
+                                WHEN b.details='AA039900' THEN 'la_2'
+                                WHEN b.details='AA040200' THEN 'la_3'
+                                WHEN b.details='AA040500' THEN 'la_4'
+                             ELSE 'Null' END medicine, count(DISTINCT opd_client_visits.base_entity_id)
+                      FROM opd_client_visit_details b
+                                  INNER JOIN opd_client_visits
+                                  ON b.visit_id = opd_client_visits.visit_id
+                                  INNER JOIN ec_client
+                                  ON opd_client_visits.base_entity_id = ec_client.base_entity_id
+                       WHERE b.details in ('GF0560','GF0561','GF0562','GF0563', 'AA039600', 'AA039900', 'AA040200', 'AA040500')
+                                  AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
+                                  GROUP  BY medicine"
+    isMultiResult: true
+    expectedIndicators:
+      - "ME_opd_asaq1_tabs"
+      - "ME_opd_asaq2_tabs"
+      - "ME_opd_asaq3_tabs"
+      - "ME_opd_asaq4_tabs"
+      - "ME_opd_la_1"
+      - "ME_opd_la_2"
+      - "ME_opd_la_3"
+      - "ME_opd_la_4"
     grouping: "opd"
 
   ##Maternity

@@ -6,11 +6,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+
 import com.vijay.jsonwizard.constants.JsonFormConstants;
 import com.vijay.jsonwizard.domain.Form;
+
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
@@ -144,6 +147,7 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
                 requester.onFormProcessingResult(jsonString);
                 requester = null;
             }
+            initiateSync();
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -164,6 +168,8 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
     public void onSyncComplete(FetchStatus fetchStatus) {
         Toast.makeText(this, getResources().getText(R.string.sync_complete),
                 Toast.LENGTH_SHORT).show();
+        getActionListenerForProfileOverview().onActionReceive();
+        getActionListenerForVisitFragment().onActionReceive();
     }
 
     @Override

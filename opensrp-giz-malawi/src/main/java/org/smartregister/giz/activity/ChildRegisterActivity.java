@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+
 import androidx.fragment.app.Fragment;
 
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -35,6 +36,7 @@ import java.lang.ref.WeakReference;
 public class ChildRegisterActivity extends BaseChildRegisterActivity implements NavDrawerActivity, NavigationMenuContract {
 
     private NavigationMenu navigationMenu;
+    private Bundle bundle;
 
     @Override
     public NavigationMenu getNavigationMenu() {
@@ -52,7 +54,7 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
         super.onCreate(savedInstanceState);
 
         //check if from opd
-        Bundle bundle = getIntent().getExtras();
+        bundle = getIntent().getExtras();
         if (bundle != null && bundle.getBoolean("from_opd", false)) {
             startRegistration();
         }
@@ -72,6 +74,10 @@ public class ChildRegisterActivity extends BaseChildRegisterActivity implements 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (bundle != null && bundle.getBoolean("from_opd", true)) {
+            Intent intent = new Intent(this, AllClientsRegisterActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

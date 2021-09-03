@@ -1,0 +1,39 @@
+---
+name: step1_medicine
+description: medicine
+priority: 1
+condition: "!step1_treatment_type.isEmpty() && step1_treatment_type.contains('medicine')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_medicine_label
+description: medicine
+priority: 1
+condition: "!step1_treatment_type.isEmpty() && step1_treatment_type.contains('medicine')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_treatment_type_specify
+description: treatment type specify
+priority: 1
+condition: "!step1_treatment_type.isEmpty() &&  step1_treatment_type.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_preliminary_diagnosis_note
+description: preliminary_diagnosis_note
+priority: 1
+condition: "!global_pregnancy_status.equals('')
+                  || (!global_medical_conditions.equals('') && !global_medical_conditions.equals('none'))
+                  || !global_disease_code_primary.equals('')
+                  || !global_patient_complains.isEmpty()
+                  || !global_clinician_obs.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_lab_results_note
+description: lab_results_note
+priority: 1
+condition: "!global_diagnostic_test_lab_results.isEmpty()"
+actions:
+  - "isRelevant = true"
