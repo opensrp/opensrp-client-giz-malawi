@@ -43,7 +43,11 @@ public class ReportSummaryActivityTest extends BaseUnitTest {
         //Auto login by default
         context.session().start(context.session().lengthInMilliseconds());
 
-        controller = Robolectric.buildActivity(ReportSummaryActivity.class).create().start().resume();
+        Intent intent = new Intent(context.applicationContext(), ReportSummaryActivity.class);
+        intent.putExtra(ReportSummaryActivity.EXTRA_SUB_TITLE, "subTitle");
+        intent.putExtra(ReportSummaryActivity.EXTRA_TITLE, "title");
+
+        controller = Robolectric.buildActivity(ReportSummaryActivity.class, intent).create().start().resume();
         activity = controller.get();
     }
 
