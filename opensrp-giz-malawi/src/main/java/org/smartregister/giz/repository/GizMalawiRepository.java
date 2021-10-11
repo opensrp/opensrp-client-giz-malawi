@@ -22,6 +22,7 @@ import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
 import org.smartregister.growthmonitoring.repository.WeightZScoreRepository;
+import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -206,6 +207,10 @@ public class GizMalawiRepository extends Repository {
                     break;
                 case 17:
                     upgradeToVersion17ResetIndicators(db);
+                    break;
+                case 18:
+                    // Reset vaccine schedule
+                    VaccineSchedulesUpdateJob.scheduleJobImmediately();
                     break;
                 default:
                     break;

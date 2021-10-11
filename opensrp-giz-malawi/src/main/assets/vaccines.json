@@ -673,7 +673,7 @@
             {
               "reference": "prerequisite",
               "prerequisite": "MV 3",
-              "offset": "+1m",
+              "offset": "+15m",
               "window": "+14d"
             }
           ],
