@@ -162,3 +162,95 @@ priority: 1
 condition: "step1_referral_lab.contains('yes')"
 actions:
   - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_complete_blood_count_test
+description: diagnostic_test_result_complete_blood_count_test
+priority: 1
+condition: "step1_diagnostic_test == 'complete_blood_count_test'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_hematocrit
+description: diagnostic_test_result_hematocrit
+priority: 1
+condition: "step1_diagnostic_test == 'complete_blood_count_test'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_white_blood_cell_count
+description: diagnostic_test_result_white_blood_cell_count
+priority: 1
+condition: "step1_diagnostic_test == 'complete_blood_count_test'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_platelet_count
+description: diagnostic_test_result_platelet_count
+priority: 1
+condition: "step1_diagnostic_test == 'complete_blood_count_test'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_hemocue
+description: diagnostic_test_result_hemocue
+priority: 1
+condition: "step1_diagnostic_test == 'hemocue'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_hb_test
+description: diagnostic_test_result_hb_test
+priority: 1
+condition: "step1_diagnostic_test == 'hb_test'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_alanine_aminitransferase
+description: diagnostic_test_result_alanine_aminitransferase
+priority: 1
+condition: "step1_diagnostic_test == 'alanine_aminitransferase'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_alkaline_phosphtese
+description: diagnostic_test_result_alkaline_phosphtese
+priority: 1
+condition: "step1_diagnostic_test == 'alkaline_phosphtese'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_aspartate_aminotranferese
+description: diagnostic_test_result_aspartate_aminotranferese
+priority: 1
+condition: "step1_diagnostic_test == 'aspartate_aminotranferese'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_total_bilirum
+description: diagnostic_test_result_total_bilirum
+priority: 1
+condition: "step1_diagnostic_test == 'total_bilirum'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_albumin
+description: diagnostic_test_result_albumin
+priority: 1
+condition: "step1_diagnostic_test == 'albumin'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_ggt
+description: diagnostic_test_result_ggt
+priority: 1
+condition: "step1_diagnostic_test == 'ggt'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_total_protein
+description: diagnostic_test_result_total_protein
+priority: 1
+condition: "step1_diagnostic_test == 'total_protein'"
+actions:
+  - "isRelevant = true"
+

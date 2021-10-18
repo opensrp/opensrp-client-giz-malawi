@@ -138,6 +138,16 @@
               "HIV EID",
               "HIV test - Rapid Test",
               "Midstream Urine Test Culture",
+              "Complete blood count test",
+              "Hemocue (haemoglobinometer)",
+              "HB test (Heamoglobin colour scale)",
+              "Alanine aminitransferase (ALT)",
+              "Alkaline Phosphtese (ALP)",
+              "Aspartate aminotranferese (AST)",
+              "Total Bilirum",
+              "Albumin",
+              "Gamma-glutamyl transferase (GGT)",
+              "Total protein",
               "Other(specify)"
             ],
             "keys": [
@@ -162,6 +172,16 @@
               "hiv_eid",
               "hiv_test_rapid",
               "midstream_urine_test_culture",
+              "complete_blood_count_test",
+              "hemocue",
+              "hb_test",
+              "alanine_aminitransferase",
+              "alkaline_phosphtese",
+              "aspartate_aminotranferese",
+              "total_bilirum",
+              "albumin",
+              "ggt",
+              "total_protein",
               "other"
             ]
           },
@@ -243,6 +263,274 @@
               "B(Negative)",
               "AB(Negative)"
             ],
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_complete_blood_count_test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Complete blood count test result (g/dl)",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_max": {
+              "value": "25",
+              "err": "Complete blood count test must be less than or equal to 25"
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_hematocrit",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Hematocrit (Ht)",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_white_blood_cell_count",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "White Blood cell count (WBC) count",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_platelet_count",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Platelet count",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_hemocue",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Hb test result - haemoglobinometer (g/dl)",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_max": {
+              "value": "25",
+              "err": "The Hb test result haemoglobinometer (g/dl) must be less than or equal to 25"
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_hb_test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Hb test result - haemoglobin colour scale (g/dl)",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_alanine_aminitransferase",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Alanine aminitransferase (ALT)",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_alkaline_phosphtese",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Alkaline Phosphtese (ALP)",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_aspartate_aminotranferese",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Aspartate aminotranferese (AST)",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_total_bilirum",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Total Bilirum",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_albumin",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Total Bilirum",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_ggt",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Gamma-glutamyl transferase (GGT)",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
+            "key": "diagnostic_test_result_total_protein",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "hint": "Total protein",
+            "type": "edit_text",
+            "edit_type": "number",
+            "v_numeric": {
+              "value": "true",
+              "err": ""
+            },
             "relevance": {
               "rules-engine": {
                 "ex-rules": {
@@ -659,6 +947,76 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "concept",
             "openmrs_entity_id": "77664AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "complete_blood_count_test",
+            "text": "Complete blood count test",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776641AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hemocue",
+            "text": "Hemocue (haemoglobinometer)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776642AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "hb_test",
+            "text": "HB test (Heamoglobin colour scale)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776643AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "alanine_aminitransferase",
+            "text": "Alanine aminitransferase (ALT)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776644AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "alkaline_phosphtese",
+            "text": "Alkaline Phosphtese (ALP)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776645AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "aspartate_aminotranferese",
+            "text": "Aspartate aminotranferese (AST)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776646AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "total_bilirum",
+            "text": "Total Bilirum",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776647AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "albumin",
+            "text": "Albumin",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776648AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "ggt",
+            "text": "Gamma-glutamyl transferase (GGT)",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "776649AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "total_protein",
+            "text": "Total protein",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "7766410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           },
           {
             "key": "other",
