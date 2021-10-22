@@ -484,7 +484,7 @@
             "openmrs_entity_parent": "",
             "openmrs_entity": "",
             "openmrs_entity_id": "",
-            "hint": "Total Bilirum",
+            "hint": "Albumin",
             "type": "edit_text",
             "edit_type": "number",
             "v_numeric": {
