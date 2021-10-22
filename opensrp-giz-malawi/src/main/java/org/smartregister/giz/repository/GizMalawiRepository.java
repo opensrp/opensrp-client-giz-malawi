@@ -209,8 +209,7 @@ public class GizMalawiRepository extends Repository {
                     upgradeToVersion17ResetIndicators(db);
                     break;
                 case 18:
-                    // Reset vaccine schedule
-                    VaccineSchedulesUpdateJob.scheduleJobImmediately();
+                    upgradeToVersion18ReportingFixes(db);
                     break;
                 default:
                     break;
@@ -535,6 +534,13 @@ public class GizMalawiRepository extends Repository {
         }catch (Exception e) {
             Timber.e(e, "upgradeToVersion17");
         }
+    }
+
+    private void upgradeToVersion18ReportingFixes(SQLiteDatabase db) {
+        // Reset vaccine schedule
+        VaccineSchedulesUpdateJob.scheduleJobImmediately();
+        // Reset the indicators again to update the new queries
+        upgradeToVersion17ResetIndicators(db);
     }
 
     private boolean checkIfAppUpdated() {

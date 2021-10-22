@@ -63,8 +63,8 @@ indicators:
     description: "ME_Vaccines_Age_Static_label"
     indicatorQuery: "SELECT vaccines.name,
                        CASE
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                          WHEN round(julianday('%s')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
+                          WHEN round(julianday('%s')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                           ELSE 'Null'
                           END age, count(*)
                       FROM vaccines
@@ -73,7 +73,7 @@ indicators:
                       WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND vaccines.child_location_id = vaccines.location_id OR vaccines.child_location_id IS NULL
-                      AND ec_client.dob >= date('now', '-5 years')
+                      AND ec_client.dob >= date('%s', '-5 years')
                       AND '%s' = date(vaccines.date/1000, 'unixepoch', 'localtime')
                        AND ec_client.is_closed !=1
                       GROUP BY vaccines.name, age"
@@ -117,8 +117,8 @@ indicators:
     description: "ME_Vaccines_Age_Outreach_label"
     indicatorQuery: "SELECT vaccines.name,
                        CASE
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
-                          WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                          WHEN round(julianday('%s')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
+                          WHEN round(julianday('%s')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                           ELSE 'Null'
                           END age, count(*) counter
                       FROM vaccines
@@ -127,7 +127,7 @@ indicators:
                       WHERE vaccines.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND vaccines.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
                       AND vaccines.child_location_id = vaccines.location_id OR vaccines.child_location_id IS NOT NULL
-                      AND ec_client.dob >= date('now', '-5 years')
+                      AND ec_client.dob >= date('%s', '-5 years')
                       AND '%s' = date(vaccines.date/1000, 'unixepoch', 'localtime')
                       AND ec_client.is_closed !=1
                       GROUP BY vaccines.name, age"
@@ -178,7 +178,7 @@ indicators:
                       FROM ec_child_details c
                       JOIN ec_mother_details d ON c.relational_id=d.base_entity_id
                       JOIN ec_client e ON c.base_entity_id=e.base_entity_id
-                      WHERE round(julianday('now')-julianday(e.dob)) < 365.0
+                      WHERE round(julianday('%s')-julianday(e.dob)) < 365.0
                       AND '%s' = strftime('%Y-%m-%d', d.date)
                       AND  (e.child_location_id=e.location_id OR e.child_location_id IS NULL)
                       AND e.is_closed !=1
@@ -200,7 +200,7 @@ indicators:
                       FROM ec_child_details c
                       JOIN ec_mother_details d ON c.relational_id=d.base_entity_id
                       JOIN ec_client e ON c.base_entity_id=e.base_entity_id
-                      WHERE round(julianday('now')-julianday(e.dob)) < 365.0
+                      WHERE round(julianday('%s')-julianday(e.dob)) < 365.0
                       AND '%s' = strftime('%Y-%m-%d', d.date)
                       AND (e.child_location_id <> e.location_id OR e.child_location_id IS NOT NULL)
                       AND e.is_closed !=1
@@ -234,8 +234,8 @@ indicators:
     description: "Fully Immunized"
     indicatorQuery: "SELECT age,count(*) from (select
                      CASE
-                           WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
-                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                           WHEN round(julianday('%s')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
+                           WHEN round(julianday('%s')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                            ELSE 'Null'
                            END age,count(*)
                      from vaccines
@@ -267,8 +267,8 @@ indicators:
     description: "Fully Immunized"
     indicatorQuery: "SELECT age,count(*) from (select
                      CASE
-                           WHEN round(julianday('now')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
-                           WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                           WHEN round(julianday('%s')-julianday(ec_client.dob)) > 365.0 THEN 'Over_1'
+                           WHEN round(julianday('%s')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                            ELSE 'Null'
                            END age,count(*)
                      from vaccines
@@ -470,8 +470,8 @@ indicators:
     description: "ME Vit A"
     indicatorQuery: "SELECT recur_type.name,
                        CASE
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                            WHEN round(julianday('%s')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
+                            WHEN round(julianday('%s')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                             ELSE 'Null'
                             END age, ec_client.gender, count(*) counter
                        FROM recurring_service_records recur
@@ -481,7 +481,7 @@ indicators:
                        ON recur_type._id = recur.recurring_service_id
                        WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                        AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                       AND ec_client.dob >= date('now', '-5 years')
+                       AND ec_client.dob >= date('%s', '-5 years')
                        AND (recur.child_location_id=recur.location_id OR recur.child_location_id IS NULL)
                        AND recur_type.name IN ('Vit_A_1', 'Vit_A_2')
                        AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
@@ -501,8 +501,8 @@ indicators:
     description: "Vitamin A recurring counters for Outreach"
     indicatorQuery: "SELECT recur_type.name,
                        CASE
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                            WHEN round(julianday('%s')-julianday(ec_client.dob)) > 364.0 THEN 'Over_1'
+                            WHEN round(julianday('%s')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                             ELSE 'Null'
                             END age, ec_client.gender, count(*) counter
                        FROM recurring_service_records recur
@@ -512,7 +512,7 @@ indicators:
                        ON recur_type._id = recur.recurring_service_id
                        WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                        AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                       AND ec_client.dob >= date('now', '-5 years')
+                       AND ec_client.dob >= date('%s', '-5 years')
                        AND (recur.child_location_id <> recur.location_id OR recur.child_location_id IS NOT NULL)
                        AND recur_type.name IN ('Vit_A_1', 'Vit_A_2')
                        AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
@@ -532,8 +532,8 @@ indicators:
     description: "ME Deworm Age Static"
     indicatorQuery: "SELECT recur_type.type,
                        CASE
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 730.0 THEN 'Over_2'
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                            WHEN round(julianday('%s')-julianday(ec_client.dob)) > 730.0 THEN 'Over_2'
+                            WHEN round(julianday('%s')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                             ELSE 'Over_1'
                             END age, ec_client.gender, count(*) counter
                        FROM recurring_service_records recur
@@ -543,7 +543,7 @@ indicators:
                        ON recur_type._id = recur.recurring_service_id
                        WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                        AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                       AND ec_client.dob >= date('now', '-5 years')
+                       AND ec_client.dob >= date('%s', '-5 years')
                        AND recur.child_location_id=recur.location_id OR recur.child_location_id IS NULL
                        AND recur_type.name IN ('Deworming_1','Deworming_2')
                        AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
@@ -561,8 +561,8 @@ indicators:
     description: "Deworm recurring counters for Outreach"
     indicatorQuery: "SELECT recur_type.type,
                        CASE
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) > 730.0 THEN 'Over_2'
-                            WHEN round(julianday('now')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
+                            WHEN round(julianday('%s')-julianday(ec_client.dob)) > 730.0 THEN 'Over_2'
+                            WHEN round(julianday('%s')-julianday(ec_client.dob)) < 365.0 THEN 'Under_1'
                             ELSE 'Over_1'
                             END age, ec_client.gender, count(*) counter
                        FROM recurring_service_records recur
@@ -572,7 +572,7 @@ indicators:
                        ON recur_type._id = recur.recurring_service_id
                        WHERE recur.date >= round((julianday(strftime('%Y-%m-%d', '%s', 'utc')) - 2440587.5) * 86400.0 * 1000)
                        AND recur.date < round((julianday(strftime('%Y-%m-%d', '%s', '+1 day', 'utc')) - 2440587.5) * 86400.0 * 1000)
-                       AND ec_client.dob >= date('now', '-5 years')
+                       AND ec_client.dob >= date('%s', '-5 years')
                        AND recur.child_location_id <> recur.location_id OR recur.child_location_id IS NOT NULL
                        AND recur_type.name IN ('Deworming_1','Deworming_2')
                        AND '%s' = date(recur.date/1000, 'unixepoch', 'localtime')
@@ -1781,8 +1781,8 @@ indicators:
     description: "Malaria cases"
     indicatorQuery: "SELECT
                         CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                             ELSE 'Null'
                         END age, count(DISTINCT opd_client_visits.base_entity_id)
                         FROM opd_client_visit_details b
@@ -1803,8 +1803,8 @@ indicators:
     description: "Malaria cases"
     indicatorQuery: "SELECT
                         CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                             ELSE 'Null'
                         END age, count(DISTINCT opd_client_visits.base_entity_id)
                         FROM opd_client_visit_details b
@@ -1812,7 +1812,7 @@ indicators:
                         ON b.visit_id = opd_client_visits.visit_id
                      	INNER JOIN ec_client
                         ON opd_client_visits.base_entity_id = ec_client.base_entity_id
-                      WHERE b.details in ('code_32aPr','code_32bPr')
+                      WHERE b.details in ('code_32aPr','code_32BPr')
                         AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
                         GROUP  BY age"
     isMultiResult: true
@@ -1856,7 +1856,7 @@ indicators:
                         ON b.visit_id = opd_client_visits.visit_id
                      	INNER JOIN ec_client
                         ON opd_client_visits.base_entity_id = ec_client.base_entity_id
-                      WHERE b.details in ('code_32aPr','code_32bPr', 'code_32aCo','code_32bCo', 'code_32c', 'code_32d')
+                      WHERE b.details in ('code_32aPr','code_32BPr', 'code_32aCo','code_32bCo', 'code_32c', 'code_32d')
                         AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
     grouping: "opd"
 
@@ -1865,8 +1865,8 @@ indicators:
     description: "Malaria cases"
     indicatorQuery: "SELECT
                         CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                             ELSE 'Null'
                         END age, count(DISTINCT opd_client_visits.base_entity_id)
                         FROM opd_client_visit_details b
@@ -1887,8 +1887,8 @@ indicators:
     description: "Malaria anti malarial treatment"
     indicatorQuery: "SELECT
                          CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                          ELSE 'Null'
                           END age, count(DISTINCT opd_client_visits.base_entity_id)
                           FROM opd_client_visit_details b
@@ -1899,7 +1899,7 @@ indicators:
                           WHERE b.details in ('code_32aCo','code_32bCo')
                      	  AND opd_client_visits.base_entity_id IN (
                      	      SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
-                              WHERE details.details IN ('AA040200', 'AA039900', 'AA040500', 'AA039600') AND '%s' = strftime('%Y-%m-%d', details.created_at / 1000, 'unixepoch')
+                              WHERE details.details IN ('AA040200', 'AA039900', 'AA040500', 'AA039600') AND '%s' = strftime('%Y-%m-%d', details.created_at / 1000, 'unixepoch', 'localtime')
                           )
                           AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')
                           GROUP  BY age"
@@ -1913,8 +1913,8 @@ indicators:
     description: "Malaria anti malarial treatment"
     indicatorQuery: "SELECT
                          CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                          ELSE 'Null'
                           END age, count(DISTINCT opd_client_visits.base_entity_id)
                           FROM opd_client_visit_details b
@@ -1922,7 +1922,7 @@ indicators:
                           ON b.visit_id = opd_client_visits.visit_id
                           INNER JOIN ec_client
                           ON opd_client_visits.base_entity_id = ec_client.base_entity_id
-                          WHERE b.details in ('code_32aPr','code_32bPr')
+                          WHERE b.details in ('code_32aPr','code_32BPr')
                      	  AND opd_client_visits.base_entity_id IN (
                      	      SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
                               WHERE details.details IN ('AA040200', 'AA039900', 'AA040500', 'AA039600') AND '%s' = strftime('%Y-%m-%d', details.created_at / 1000, 'unixepoch')
@@ -1939,8 +1939,8 @@ indicators:
     description: "Malaria anti malarial treatment"
     indicatorQuery: "SELECT
                          CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                          ELSE 'Null'
                           END age, count(DISTINCT opd_client_visits.base_entity_id)
                           FROM opd_client_visit_details b
@@ -1965,8 +1965,8 @@ indicators:
     description: "Malaria anti malarial treatment"
     indicatorQuery: "SELECT
                          CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                          ELSE 'Null'
                           END age, count(DISTINCT opd_client_visits.base_entity_id)
                           FROM opd_client_visit_details b
@@ -1974,7 +1974,7 @@ indicators:
                           ON b.visit_id = opd_client_visits.visit_id
                           INNER JOIN ec_client
                           ON opd_client_visits.base_entity_id = ec_client.base_entity_id
-                          WHERE b.details in ('code_32aPr','code_32bPr')
+                          WHERE b.details in ('code_32aPr','code_32BPr')
                      	  AND opd_client_visits.base_entity_id IN (
                      	      SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
                               WHERE details.details IN ('GF0562', 'GF0563', 'GF0560',  'GF0561' ) AND '%s' = strftime('%Y-%m-%d', details.created_at / 1000, 'unixepoch')
@@ -1991,8 +1991,8 @@ indicators:
     description: "Malaria tests"
     indicatorQuery: "SELECT
                           CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                           ELSE 'Null' END age,
                             count(DISTINCT opd_client_visits.base_entity_id)
                             FROM opd_client_visit_details b
@@ -2015,8 +2015,8 @@ indicators:
     description: "Malaria tests"
     indicatorQuery: "SELECT
                           CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                           ELSE 'Null' END age,
                             count(DISTINCT opd_client_visits.base_entity_id)
                             FROM opd_client_visit_details b
@@ -2039,8 +2039,8 @@ indicators:
     description: "Positive malaria cases"
     indicatorQuery: "SELECT
                         CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                         ELSE 'Null' END age,
                         count(DISTINCT opd_client_visits.base_entity_id)
                       FROM opd_client_visit_details b
@@ -2065,8 +2065,8 @@ indicators:
     description: "Positive malaria cases"
     indicatorQuery: "SELECT
                         CASE
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
-                            WHEN round(julianday('now') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) > 1827 THEN 'Over_5'
+                            WHEN round(julianday('%s') - julianday(ec_client.dob)) <= 1827 THEN 'Under_5'
                         ELSE 'Null' END age,
                         count(DISTINCT opd_client_visits.base_entity_id)
                       FROM opd_client_visit_details b
@@ -2099,7 +2099,7 @@ indicators:
                           SELECT visits.base_entity_id FROM opd_client_visits visits  INNER JOIN opd_client_visit_details details ON details.visit_id = visits.visit_id
                             WHERE details.visit_key LIKE '%diagnostic_test_%' AND details.details IN  ('malaria_mrdt',  'malaria_microscopy')
                          )
-                         AND b.details IN ('code_32aPr','code_32bPr')
+                         AND b.details IN ('code_32aPr','code_32BPr')
                          AND '%s' = strftime('%Y-%m-%d', b.created_at / 1000, 'unixepoch')"
     grouping: "opd"
 
