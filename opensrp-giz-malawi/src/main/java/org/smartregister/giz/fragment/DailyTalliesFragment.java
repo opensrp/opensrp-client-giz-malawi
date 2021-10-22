@@ -17,6 +17,7 @@ import org.smartregister.giz.adapter.ExpandedListAdapter;
 import org.smartregister.giz.util.AppExecutors;
 import org.smartregister.reporting.ReportingLibrary;
 import org.smartregister.reporting.dao.ReportIndicatorDaoImpl;
+import org.smartregister.reporting.domain.IndicatorTally;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -208,7 +209,7 @@ public class DailyTalliesFragment extends ReportFragment {
         appExecutors.diskIO().execute(new Runnable() {
             @Override
             public void run() {
-                final ArrayList<Date> datesWithTallies = fetchLast3MonthsDailyTallies();
+                final ArrayList<Date> datesWithTallies = filterDatesWithNoCount(fetchLast3MonthsDailyTallies());
 
                 appExecutors.mainThread().execute(new Runnable() {
                     @Override
@@ -219,6 +220,22 @@ public class DailyTalliesFragment extends ReportFragment {
                 });
             }
         });
+    }
+
+    private ArrayList<Date> filterDatesWithNoCount(ArrayList<Date> unfilteredDates) {
+        ArrayList<Date> finalDates = new ArrayList<>();
+        for (Date date : unfilteredDates) {
+            ArrayList<IndicatorTally> indicatorTallies = ReportingLibrary.getInstance()
+                    .dailyIndicatorCountRepository()
+                    .getIndicatorTalliesForDay(date, reportGrouping);
+            for (IndicatorTally tally: indicatorTallies) {
+                if (tally.getCount() > 0) {
+                    finalDates.add(date);
+                    break;
+                }
+            }
+        }
+        return finalDates;
     }
 
 }
