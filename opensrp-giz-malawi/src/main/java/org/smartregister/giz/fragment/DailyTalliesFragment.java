@@ -3,8 +3,10 @@ package org.smartregister.giz.fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +47,7 @@ public class DailyTalliesFragment extends ReportFragment {
     private ArrayList<Date> dailyTallies;
     private ProgressDialog progressDialog;
     private AppExecutors appExecutors;
+    private View noDraftsView;
 
     public static DailyTalliesFragment newInstance(@Nullable String reportGrouping) {
         DailyTalliesFragment fragment = new DailyTalliesFragment();
@@ -60,6 +63,7 @@ public class DailyTalliesFragment extends ReportFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.report_expandable_list_view, container, false);
         expandableListView = fragmentView.findViewById(R.id.expandable_list_view);
+        noDraftsView = fragmentView.findViewById(R.id.empty_view);
         expandableListView.setBackgroundColor(getResources().getColor(R.color.white));
 
         return fragmentView;
@@ -83,7 +87,14 @@ public class DailyTalliesFragment extends ReportFragment {
 
     private void displayDailyTallies(@NonNull ArrayList<Date> daysWithTallies) {
         dailyTallies = daysWithTallies;
-        updateExpandableList();
+        if (dailyTallies.size() > 0) {
+            noDraftsView.setVisibility(View.GONE);
+            expandableListView.setVisibility(View.VISIBLE);
+            updateExpandableList();
+        } else {
+            noDraftsView.setVisibility(View.VISIBLE);
+            expandableListView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -206,19 +217,16 @@ public class DailyTalliesFragment extends ReportFragment {
         }
 
         showProgressDialog();
-        appExecutors.diskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                final ArrayList<Date> datesWithTallies = filterDatesWithNoCount(fetchLast3MonthsDailyTallies());
+        appExecutors.diskIO().execute(() -> {
+            final ArrayList<Date> datesWithTallies = filterDatesWithNoCount(fetchLast3MonthsDailyTallies());
 
-                appExecutors.mainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        hideProgressDialog();
-                        displayDailyTallies(datesWithTallies);
-                    }
-                });
-            }
+            appExecutors.mainThread().execute(new Runnable() {
+                @Override
+                public void run() {
+                    hideProgressDialog();
+                    displayDailyTallies(datesWithTallies);
+                }
+            });
         });
     }
 
@@ -228,7 +236,7 @@ public class DailyTalliesFragment extends ReportFragment {
             ArrayList<IndicatorTally> indicatorTallies = ReportingLibrary.getInstance()
                     .dailyIndicatorCountRepository()
                     .getIndicatorTalliesForDay(date, reportGrouping);
-            for (IndicatorTally tally: indicatorTallies) {
+            for (IndicatorTally tally : indicatorTallies) {
                 if (tally.getCount() > 0) {
                     finalDates.add(date);
                     break;
