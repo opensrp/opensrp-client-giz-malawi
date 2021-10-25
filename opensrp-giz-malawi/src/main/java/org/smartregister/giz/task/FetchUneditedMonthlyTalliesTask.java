@@ -63,7 +63,7 @@ public class FetchUneditedMonthlyTalliesTask extends AsyncTask<Void, Void, List<
         void onPostExecute(@NonNull List<Date> dates);
     }
 
-    private List<Date> filterMonthsWithNoCount(List<Date> unfilteredDates) {
+    protected List<Date> filterMonthsWithNoCount(List<Date> unfilteredDates) {
         ArrayList<Date> finalDates = new ArrayList<>();
         for (Date date : unfilteredDates) {
             MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication.getInstance().monthlyTalliesRepository();

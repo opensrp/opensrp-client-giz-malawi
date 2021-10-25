@@ -222,7 +222,7 @@ public class DailyTalliesFragment extends ReportFragment {
         });
     }
 
-    private ArrayList<Date> filterDatesWithNoCount(ArrayList<Date> unfilteredDates) {
+    protected ArrayList<Date> filterDatesWithNoCount(ArrayList<Date> unfilteredDates) {
         ArrayList<Date> finalDates = new ArrayList<>();
         for (Date date : unfilteredDates) {
             ArrayList<IndicatorTally> indicatorTallies = ReportingLibrary.getInstance()
