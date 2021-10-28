@@ -1127,16 +1127,23 @@ indicators:
     description: "Week of First ANC Visit (0-12 weeks)"
     indicatorQuery: "select count(1) from (select previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks from previous_contact
                  join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
-                 where eddNowDiffInWks <= 12 and previous_contact.contact_no = '1' group by previous_contact.base_entity_id
+                 where eddNowDiffInWks <= 12 and previous_contact.contact_no = '1' AND previous_contact.key = 'contact_date' group by previous_contact.base_entity_id
                  having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
     grouping: "anc"
 
   - key: "ME_Week_Of_First_ANC_Visit_13_plus_weeks"
     description: "Week of First ANC Visit (13+ weeks)"
-    indicatorQuery: "select count(1) from (select previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks from previous_contact
-                 join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
-                 where eddNowDiffInWks > 12 and previous_contact.contact_no = '1' group by previous_contact.base_entity_id
-                 having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0)"
+    indicatorQuery: "select count(1) from (
+                        select previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks
+                        from previous_contact
+                        join ec_mother_details
+                        on previous_contact.base_entity_id = ec_mother_details.base_entity_id
+                        where eddNowDiffInWks > 12
+                     	and previous_contact.contact_no = '1'
+                        AND previous_contact.key = 'contact_date'
+                     	group by previous_contact.base_entity_id
+                        having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end) > 0
+                    )"
     grouping: "anc"
 
   - key: "ME_HIV_Status_First_Visit_Prev_Negative"
@@ -1173,11 +1180,14 @@ indicators:
 
   - key: "ME_HIV_Status_First_Visit_Not_Done"
     description: "HIV status first visit (Not done)"
-    indicatorQuery: "select count(1) from (SELECT distinct base_entity_id FROM  previous_contact
-                 where previous_contact.contact_no = '1' group by base_entity_id
-                 having sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0
-                 or sum(case when key = 'hiv_test_status' then 1 else 0 end ) = 0
-                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    indicatorQuery: "select count(1) from (
+                        SELECT distinct base_entity_id FROM  previous_contact
+                        where previous_contact.contact_no = '1' group by base_entity_id
+                        having
+                        (sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0
+                        or sum(case when key = 'hiv_test_status' and value = '' then 1 else 0 end ) = 0)
+                        and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0
+                  )"
     grouping: "anc"
 
   - key: "ME_ART_Status_First_Visit_Not_On_ART"
@@ -1200,26 +1210,44 @@ indicators:
 
   - key: "ME_ART_Status_First_Visit_Start_ART_0_27_Weeks"
     description: "ART status First Visit (Start ART 0-27 weeks)"
-    indicatorQuery: "select count(1) from (SELECT previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks from previous_contact
-                 join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
-                 where eddNowDiffInWks <= 27 and previous_contact.contact_no = '1' group by previous_contact.base_entity_id
-                 having sum(case when key = 'art_medication' and value = 'done' > 0 then 1 else 0 end ) > 0
-                 and (sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
-                      or  sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0)
-                 and sum(case when key = 'medications' and instr(value, 'arvs') = 0 then 1 else 0 end ) > 0
-                 and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    indicatorQuery: "SELECT count(DISTINCT previous_contact.base_entity_id)
+                    from previous_contact
+                    join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
+                    where  (abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0))) <= 27
+                    and previous_contact.key = 'contact_date'
+                    AND previous_contact.base_entity_id IN (
+                           SELECT previous_contact.base_entity_id
+                           from previous_contact
+                           where previous_contact.contact_no = '1'
+                           group by previous_contact.base_entity_id
+                           having
+                           sum(case when key = 'art_medication' and value = 'done'  then 1 else 0 end ) > 0 and
+                           (sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0 or
+                                       sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0) and
+                           sum(case when key = 'medications' and instr(value, 'arvs')  then 1 else 0 end ) > 0 and
+                           sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0
+                    )"
     grouping: "anc"
 
   - key: "ME_ART_Status_First_Visit_Start_ART_28_plus_Weeks"
     description: "ART status first visit (Start ART 28+ weeks)"
-    indicatorQuery: "select count(1) from (SELECT previous_contact.base_entity_id, abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0)) eddNowDiffInWks from previous_contact
-                   join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
-                   where eddNowDiffInWks > 27 and previous_contact.contact_no = '1' group by previous_contact.base_entity_id
-                   having sum(case when key = 'art_medication' and value = 'done' > 0 then 1 else 0 end ) > 0
-                   and (sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0
-                        or  sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0)
-                   and sum(case when key = 'medications' and instr(value, 'arvs') = 0 then 1 else 0 end ) > 0
-                   and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0)"
+    indicatorQuery: "SELECT count(DISTINCT previous_contact.base_entity_id)
+                     from previous_contact
+                     join ec_mother_details on previous_contact.base_entity_id = ec_mother_details.base_entity_id
+                     where  (abs(round((julianday(value) - julianday(ec_mother_details.edd))/7,0))) > 27
+                     and previous_contact.key = 'contact_date'
+                     AND previous_contact.base_entity_id IN (
+                          SELECT previous_contact.base_entity_id
+                          from previous_contact
+                          where previous_contact.contact_no = '1'
+                          group by previous_contact.base_entity_id
+                          having
+                              sum(case when key = 'art_medication' and value = 'done'  then 1 else 0 end ) > 0 and
+                              (sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0 or
+                                          sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0) and
+                              sum(case when key = 'medications' and instr(value, 'arvs')  then 1 else 0 end ) > 0 and
+                              sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0
+                    )"
     grouping: "anc"
 
   ##Booking Cohort
@@ -1678,17 +1706,10 @@ indicators:
 
   - key: "ME_Hb_g_over_dl_ND"
     description: "Hb (g/dl) ND"
-    indicatorQuery: "select count(1) from (select z.base_entity_id from previous_contact z
-                   where z.contact_no = '1' group by z.base_entity_id
-                   having sum(case when z.key = 'contact_date' and z.value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0
-                   ) a
-                   JOIN
-                   ( select y.base_entity_id from previous_contact y
-                   group by y.base_entity_id
-                   having sum( case when key = 'hb_test_status' and value = 'not_done' then 1 else 0 end) > 0
-                   or sum( case when key = 'hb_test_status' then 1 else 0 end) = 0
-                   ) b
-                   ON a.base_entity_id=b.base_entity_id"
+    indicatorQuery: "select count(1) from (SELECT base_entity_id FROM  previous_contact
+                          where previous_contact.contact_no = '1' group by base_entity_id
+                          having sum(case when key = 'hb_test_status' and value = 'not_done' then 1 else 0 end) > 0
+                          and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', '-6 months', 'localtime')) then 1 else 0 end) > 0)"
     grouping: "anc"
 
   - key: "ME_Syphilis_Status_Negative"
