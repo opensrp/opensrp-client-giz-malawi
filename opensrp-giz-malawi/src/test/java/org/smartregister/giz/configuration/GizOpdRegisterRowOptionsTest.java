@@ -10,10 +10,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.giz.R;
+import org.smartregister.opd.dao.VisitDao;
 import org.smartregister.opd.holders.OpdRegisterViewHolder;
 import org.smartregister.opd.utils.OpdDbConstants;
 
@@ -22,10 +26,15 @@ import java.util.HashMap;
 /**
  * Created by Ephraim Kigamba - ekigamba@ona.io on 2019-12-04
  */
-@RunWith(MockitoJUnitRunner.class)
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(VisitDao.class)
 public class GizOpdRegisterRowOptionsTest {
 
     private GizOpdRegisterRowOptions gizOpdRegisterRowOptions;
+
+    @Mock
+    private VisitDao visitDao;
 
     @Before
     public void setUp() throws Exception {
@@ -33,7 +42,10 @@ public class GizOpdRegisterRowOptionsTest {
     }
 
     @Test
-    public void populateClientRowShouldSetDueButtonTextToDiagnoseAndTreat() {
+    public void populateClientRowShouldSetDueButtonTextToSeenToday() {
+        PowerMockito.mockStatic(VisitDao.class);
+        PowerMockito.when(visitDao.getSeenToday(Mockito.any())).thenReturn(true);
+
         Button dueBtn = Mockito.mock(Button.class);
         ArgumentCaptor<Integer> intCaptor = ArgumentCaptor.forClass(Integer.class);
 
@@ -52,17 +64,20 @@ public class GizOpdRegisterRowOptionsTest {
 
         gizOpdRegisterRowOptions.populateClientRow(Mockito.mock(Cursor.class), client, client, opdRegisterViewHolder);
 
-        Assert.assertEquals(R.string.diagnose_and_treat, (int) intCaptor.getValue());
+        Assert.assertEquals(R.string.seen_today, (int) intCaptor.getValue());
     }
 
 
     @Test
-    public void populateClientRowShouldSetDueButtonTextToCheckIn() {
+    public void populateClientRowShouldSetDueButtonTextToEmpty() {
+        PowerMockito.mockStatic(VisitDao.class);
+        PowerMockito.when(visitDao.getSeenToday(Mockito.any())).thenReturn(false);
+
         Button dueBtn = Mockito.mock(Button.class);
         ArgumentCaptor<Integer> intCaptor = ArgumentCaptor.forClass(Integer.class);
 
         HashMap<String, String> details = new HashMap<>();
-        details.put(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT, "0");
+        details.put(OpdDbConstants.Column.OpdDetails.PENDING_DIAGNOSE_AND_TREAT, "1");
 
         CommonPersonObjectClient client = new CommonPersonObjectClient("caseId", details, "John Doe");
         client.setColumnmaps(details);
@@ -76,6 +91,6 @@ public class GizOpdRegisterRowOptionsTest {
 
         gizOpdRegisterRowOptions.populateClientRow(Mockito.mock(Cursor.class), client, client, opdRegisterViewHolder);
 
-        Assert.assertEquals(R.string.check_in, (int) intCaptor.getValue());
+        Assert.assertEquals(R.string.empty_text, (int) intCaptor.getValue());
     }
 }

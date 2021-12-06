@@ -1,0 +1,40 @@
+---
+name: step1_hiv_positive
+description: hiv_positive
+priority: 1
+condition: "step1_medical_conditions.contains('hiv') || step1_1hiv_prev_status.contains('positive')"
+actions:
+  - "calculation = 1"
+---
+name: step1_danger_signs_opd_note
+description: danger_signs_opd_note
+priority: 1
+condition: "!global_opd_danger_signs.isEmpty() && !global_opd_danger_signs.contains('danger_none')"
+actions:
+  - 'calculation = ["danger_signs" : global_opd_danger_signs]'
+---
+name: step1_vital_signs_opd_note
+description: vital_signs_opd_note
+priority: 1
+condition: "!global_body_temp.equals('')
+              || !global_pulse_rate.equals('')
+              || !global_current_weight.equals('')
+              || !global_height.equals('')
+              || !global_bp_systolic.equals('')
+              || !global_bp_diastolic.equals('')
+              || !global_oximetry.equals('')
+              || !global_respiratory_rate.equals('')
+              || !global_convulsions_history.isEmpty()
+              || !global_blantyre_coma_scale.isEmpty()
+              || !global_glasgow_coma_scale.isEmpty()"
+actions:
+  - 'calculation = ["body_temp" : (!global_body_temp.equals("") ? "Body Temperature: " + global_body_temp + " (ºC), " : ""),
+             "pulse_rate" : (!global_pulse_rate.equals("") ? "Pulse Rate: " + global_pulse_rate + " (bpm), " : ""),
+             "current_weight" : (!global_current_weight.equals("") ? "Weight: " + global_current_weight + " (kg), " : ""),
+             "height" : (!global_height.equals("") ? "Height: " + global_height + " (cm), " : ""),
+             "blood_pressure" : ((!global_bp_systolic.equals("") && !global_bp_diastolic.equals("")) ? global_bp_systolic +"/"+ global_bp_diastolic+ " (mmHg), " : ""),
+             "oximetry" : (!global_oximetry.equals("") ? "Oxygen Saturation: " + global_oximetry + ", " : ""),
+             "respiratory_rate" : (!global_respiratory_rate.equals("") ? "Respiratory Rate: " + global_respiratory_rate + ", ": ""),
+             "blantyre_coma_scale" : (!global_blantyre_coma_scale.equals("") ? "Blantyre Coma-scale: " + global_blantyre_coma_scale + ", ": ""),
+             "glasgow_coma_scale" : (!global_glasgow_coma_scale.equals("") ? "Glasgow Coma-scale: " + global_glasgow_coma_scale + ", ": ""),
+             "convulsions_history" : (!global_convulsions_history.isEmpty() ? "History of convulsions: " + global_convulsions_history + ", " : "")]'

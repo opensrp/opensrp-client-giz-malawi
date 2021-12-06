@@ -1,0 +1,164 @@
+---
+name: step1_test_ordered_lab
+description: Tests ordered toast
+priority: 1
+condition: "!global_diagnostic_test_ordered.isEmpty()"
+actions:
+  - "isRelevant = true"
+---
+name: step1_tests_repeating_group
+description: tests_repeating_group
+priority: 1
+condition: "step1_test_ordered_avail.contains('yes')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_other
+description: diagnostic_test_result_other
+priority: 1
+condition: "step1_diagnostic_test == 'other'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result
+description: diagnostic_test_result
+priority: 1
+condition: "step1_diagnostic_test == 'pregnancy_test' || step1_diagnostic_test == 'malaria_microscopy' || step1_diagnostic_test == 'hiv_test_rapid'
+|| step1_diagnostic_test == 'hiv_test' || step1_diagnostic_test == 'syphilis_vdrl' || step1_diagnostic_test == 'hiv_eid'
+|| step1_diagnostic_test == 'hep_b' || step1_diagnostic_test == 'hep_c' || step1_diagnostic_test == 'tb_urine_lam'
+|| step1_diagnostic_test == 'tb_screening' || step1_diagnostic_test == 'midstream_urine_gram_staining' || step1_diagnostic_test == 'malaria_mrdt'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_specify
+description: diagnostic_test_result_specify
+priority: 1
+condition: "step1_diagnostic_test == 'ultra_sound'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_tb_gene_xpert
+description: diagnostic_test_result_tb_gene_xpert
+priority: 1
+condition: "step1_diagnostic_test == 'tb_gene_xpert'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_tb_smear_microscopy
+description: diagnostic_test_result_tb_smear_microscopy
+priority: 1
+condition: "step1_diagnostic_test == 'tb_smear_microscopy'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_urine_dipstick_nitrites
+description: diagnostic_test_result_urine_dipstick_nitrites
+priority: 1
+condition: "step1_diagnostic_test == 'urine_dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_urine_dipstick_leukocytes
+description: diagnostic_test_result_urine_dipstick_leukocytes
+priority: 1
+condition: "step1_diagnostic_test == 'urine_dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_urine_dipstick_leukocytes
+description: diagnostic_test_result_urine_dipstick_leukocytes
+priority: 1
+condition: "step1_diagnostic_test == 'urine_dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_urine_dipstick_protein
+description: diagnostic_test_result_urine_dipstick_protein
+priority: 1
+condition: "step1_diagnostic_test == 'urine_dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_urine_dipstick_glucose
+description: diagnostic_test_result_urine_dipstick_glucose
+priority: 1
+condition: "step1_diagnostic_test == 'urine_dipstick'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_hiv_viral_load
+description: diagnostic_test_result_hiv_viral_load
+priority: 1
+condition: "step1_diagnostic_test == 'hiv_viral_load'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_hiv_viral_load_no
+description: diagnostic_test_result_hiv_viral_load_no
+priority: 1
+condition: "step1_diagnostic_test_result_hiv_viral_load == 'Detectable'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_glucose
+description: diagnostic_test_result_glucose
+priority: 1
+condition: "step1_diagnostic_test.startsWith('blood_glucose') || step1_diagnostic_test == 'hemocue_haemoglobinometer'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_blood_type
+description: diagnostic_test_result_blood_type
+priority: 1
+condition: "step1_diagnostic_test == 'blood_type'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_urine
+description: diagnostic_test_result_urine
+priority: 1
+condition: "step1_diagnostic_test == 'midstream_urine_test_culture'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_test_not_done
+description: test_not_done
+priority: 1
+condition: "step1_test_ordered_avail.contains('no')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_test_not_done_other
+description: test_not_done_other
+priority: 1
+condition: "step1_test_not_done.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_test_not_available_rsn
+description: test_not_available_rsn
+priority: 1
+condition: "step1_test_ordered_avail.contains('no') || step1_test_ordered_avail.contains('some_of_them')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_test_not_available_rsn_other
+description: test_not_available_rsn_other
+priority: 1
+condition: "step1_test_not_available_rsn.contains('other')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_lab
+description: referral_lab
+priority: 1
+condition: "step1_test_ordered_avail.contains('no') || step1_test_ordered_avail.contains('some_of_them')"
+actions:
+  - "isRelevant = true"
+---
+name: step1_referral_location_med_lab
+description: referral_location_med_lab
+priority: 1
+condition: "step1_referral_lab.contains('yes')"
+actions:
+  - "isRelevant = true"

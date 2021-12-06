@@ -9,6 +9,7 @@ buildscript {
         classpath "com.android.tools.build:gradle:$androidToolsBuildGradle"
         classpath "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:$coverallsVersion"
         classpath 'io.fabric.tools:gradle:1.30.0'
+        classpath 'com.google.gms:google-services:4.3.10'
     }
 }
 
@@ -17,6 +18,7 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'io.fabric'
 apply plugin: 'org.smartregister.gradle.jarjar'
+apply plugin: 'com.google.gms.google-services'
 
 
 jacoco {
@@ -33,8 +35,8 @@ android {
         applicationId "org.smartregister.giz"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 36
-        versionName "0.2.46"
+        versionCode 37
+        versionName "0.3.0"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -113,7 +115,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '12'
+            buildConfigField "int", "DATABASE_VERSION", '17'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -141,7 +143,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '12'
+            buildConfigField "int", "DATABASE_VERSION", '17'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -168,7 +170,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '12'
+            buildConfigField "int", "DATABASE_VERSION", '17'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -191,7 +193,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '12'
+            buildConfigField "int", "DATABASE_VERSION", '17'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
             buildConfigField "int", "DATA_SYNC_DURATION_MINUTES", '15'
@@ -233,21 +235,23 @@ tasks.withType(Test) {
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
 
-    jarJar 'com.ibm.fhir:fhir-model:4.2.3'
+    jarJar 'com.ibm.fhir:fhir-model:4.7.0'
+    jarJar 'com.ibm.fhir:fhir-path:4.7.0'
 
     implementation fileTree(dir: "./build/libs", include: ['*.jar'])
 
     implementation 'com.evrencoskun.library:tableview:0.8.8'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
-    implementation('org.smartregister:opensrp-client-opd:0.0.18-SNAPSHOT@aar') {
+//    implementation(project(':opensrp-opd')) {
+    implementation('org.smartregister:opensrp-client-opd:0.1.4-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
+//        exclude group: 'com.github.lecho', module: 'hellocharts-library'
     }
-
-    implementation('org.smartregister:opensrp-client-child:0.5.0-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.6.9-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -266,7 +270,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 //
-    api('org.smartregister:opensrp-client-native-form:2.0.2-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-native-form:2.1.5-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -279,7 +283,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    api('org.smartregister:opensrp-client-core:3.3.1-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-core:4.3.16-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
@@ -292,9 +296,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'design'
         exclude group: 'com.ibm.fhir', module: 'fhir-model'
-    }
+        exclude group: 'com.ibm.fhir', module: 'fhir-path'    }
 
-    implementation('org.smartregister:opensrp-client-maternity:0.0.7-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-maternity:0.0.8-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -303,7 +307,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    api('org.smartregister:opensrp-client-pnc:0.0.5-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-pnc:0.0.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -312,7 +316,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    api('org.smartregister:opensrp-client-immunization:1.4.43-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-immunization:4.0.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -363,7 +367,7 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
     implementation 'com.evernote:android-job:1.2.6'
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+    implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
     implementation 'id.zelory:compressor:2.1.1'
     implementation('com.google.android.material:material:1.0.0') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -372,16 +376,20 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.24'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'org.jeasy:easy-rules-core:3.2.0'
     implementation 'org.jeasy:easy-rules-mvel:3.2.0'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.24'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
-        transitive = true
-    }
     implementation group: 'io.fabric.sdk.android', name: 'fabric', version: '1.4.8'
 
 
@@ -392,7 +400,9 @@ dependencies {
     }
     testImplementation "org.robolectric:shadows-multidex:$robolectricVersion"
     testImplementation "org.robolectric:shadows-support-v4:3.3.2"
-    testImplementation 'com.ibm.fhir:fhir-model:4.2.3'
+
+    testImplementation 'com.ibm.fhir:fhir-model:4.7.0'
+    testImplementation 'com.ibm.fhir:fhir-path:4.7.0'
 
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.+') {
         exclude group: 'com.android.support', module: 'support-annotations'

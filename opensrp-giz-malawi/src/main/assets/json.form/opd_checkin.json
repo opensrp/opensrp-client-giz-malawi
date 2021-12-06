@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "OPD Check-In",
+  "encounter_type": "OPD_Check_in",
   "entity_id": "",
   "metadata": {
     "start": {
@@ -58,17 +58,30 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "spinner",
-        "hint": "Visit Type",
-        "values": [
-          "New",
-          "Referral",
-          "Re-Visit"
-        ],
-        "keys": [
-          "New",
-          "Referral",
-          "Re-Visit"
+        "type": "native_radio",
+        "label": "Visit Type",
+        "options": [
+          {
+            "key": "New",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "text": "New"
+          },
+          {
+            "key": "Referral",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "text": "Referral"
+          },
+          {
+            "key": "Re-Visit",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "text": "Re-Visit"
+          }
         ],
         "v_required": {
           "value": "true",
@@ -80,15 +93,23 @@
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
-        "type": "spinner",
-        "hint": "Was an appointment scheduled previously?",
-        "values": [
-          "Yes",
-          "No"
-        ],
-        "keys": [
-          "yes",
-          "no"
+        "type": "native_radio",
+        "label": "Was an appointment scheduled previously?",
+        "options": [
+          {
+            "key": "yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "text": "Yes"
+          },
+          {
+            "key": "no",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "text": "No"
+          }
         ],
         "v_required": {
           "value": "true",

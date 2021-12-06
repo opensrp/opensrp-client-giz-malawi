@@ -1,0 +1,815 @@
+{
+  "count": "1",
+  "encounter_type": "OPD_Vital_Danger_signs_check",
+  "entity_id": "",
+  "metadata": {
+    "start": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "start",
+      "openmrs_entity_id": "163137AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "end": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "end",
+      "openmrs_entity_id": "163138AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "today": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "encounter",
+      "openmrs_entity_id": "encounter_date"
+    },
+    "deviceid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "deviceid",
+      "openmrs_entity_id": "163149AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "subscriberid": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "subscriberid",
+      "openmrs_entity_id": "163150AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "simserial": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "simserial",
+      "openmrs_entity_id": "163151AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "phonenumber": {
+      "openmrs_entity_parent": "",
+      "openmrs_entity": "concept",
+      "openmrs_data_type": "phonenumber",
+      "openmrs_entity_id": "163152AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "encounter_location": "",
+    "look_up": {
+      "entity_id": "",
+      "value": ""
+    }
+  },
+  "step1": {
+    "title": "Vital/Danger Signs",
+    "fields": [
+      {
+        "key": "opd_danger_signs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "160939AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "check_box",
+        "label": "Danger signs",
+        "label_text_style": "bold",
+        "text_color": "#000000",
+        "exclusive": [
+          "danger_none"
+        ],
+        "options": [
+          {
+            "key": "danger_none",
+            "text": "None",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1107AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "danger_bleeding",
+            "text": "Bleeding vaginally",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "150802AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "central_cyanosis",
+            "text": "Central cyanosis",
+            "label_info_text": "Bluish discolouration around the mucous membranes in the mouth, lips and tongue",
+            "label_info_title": "Central cyanosis",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165216AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "convulsing",
+            "text": "Convulsing",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "164483AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "danger_fever",
+            "text": "Fever",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "140238AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "severe_headache",
+            "text": "Severe headache",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "visual_disturbance",
+            "text": "Visual disturbance",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123074AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "imminent_delivery",
+            "text": "Imminent delivery",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "162818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "labour",
+            "text": "Labour",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "145AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "looks_very_ill",
+            "text": "Looks very ill",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163293AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "severe_vomiting",
+            "text": "Severe vomiting",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "118477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "severe_pain",
+            "text": "Severe pain",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "163477AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "severe_abdominal_pain",
+            "text": "Severe abdominal pain",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "165271AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "unconscious",
+            "text": "Unconscious",
+            
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "123818AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": "true",
+          "err": "Danger signs is required"
+        }
+      },
+      {
+        "key": "opd_danger_signs_proceed",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "1885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "hint": "Danger sign! How to proceed? ",
+        "label": "Danger sign! How to proceed? ",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "refer",
+            "text": "Refer",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1883AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "proceed_to_normal_treatment",
+            "text": "Proceed to normal treatment",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1884AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "danger_signs_toaster",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Urgent medical attention required!",
+        "toaster_type": "problem",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "opd_danger_signs_treat",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Any treatment given before referral?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "opd_vital_signs",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "Check Vital signs?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": ""
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        }
+      },
+      {
+        "key": "body_temp_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Temperature (ºC)",
+        "text_color": "#000000",
+        "label_info_text": "Temperature must be equal to or greater than 32° C and less than or equals to 42° C",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "body_temp",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "32",
+          "err": "Temperature must not be less than 32° C"
+        },
+        "v_max": {
+          "value": "42",
+          "err": "Temperature must not be greater than 42° C "
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pulse_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Pulse rate (bpm)",
+        "text_color": "#000000",
+        "label_info_text": "Pulse rate must be equal or greater than 40bpm and less than equals to 120 bpm",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "pulse_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5087AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "40",
+          "err": "Pulse rate must be equal or greater than 40 bpm"
+        },
+        "v_max": {
+          "value": "120",
+          "err": "Pulse rate must not be greater than 120 bpm"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "current_weight_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Current weight (kg)",
+        "text_color": "#000000",
+        "label_info_text": "Weight must be greater than or equals to 1kg or less than equals to 500kg",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "current_weight",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "1",
+          "err": "Cannot enter a number below 1"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "Cannot enter a number above 500"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "height_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Height (cm)",
+        "text_color": "#000000",
+        "label_info_text": "Height must be more than 1cm and kess than or equals to 500 cms",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "height",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "1",
+          "err": "Cannot enter a number below 1"
+        },
+        "v_max": {
+          "value": "500",
+          "err": "Cannot enter a number above 500"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "opd_bp_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Take the patient's Blood pressure",
+        "toaster_info_text": "Take the patient's Blood pressure",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bp_systolic_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Systolic blood pressure (SBP) (mmHg)",
+        "text_color": "#000000",
+        "label_info_text": "Systolic pressure must be equal to or over 50 mmHg and less than or equals to 250 mmHg",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bp_systolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "50",
+          "err": "Cannot enter a number  below 50"
+        },
+        "v_max": {
+          "value": "250",
+          "err": "Cannot enter a number above 250"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bp_diastolic_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Diastolic blood pressure (DBP) (mmHg)",
+        "text_color": "#000000",
+        "label_info_text": "Systolic pressure must be equal to or over 40 mmHg and less than 200 mmHg",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "bp_diastolic",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "40",
+          "err": "Cannot enter a number below 40"
+        },
+        "v_max": {
+          "value": "200",
+          "err": "Cannot enter a number above 200"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "oximetry_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Oxygen Saturation",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "oximetry",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Cannot enter a number below 0"
+        },
+        "v_max": {
+          "value": "100",
+          "err": "Cannot enter a number above 100"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "respiratory_rate_note",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "toaster_notes",
+        "text": "Indicate the patients respiratory rate. A person's respiratory rate is the number of breaths taken per minute.",
+        "toaster_type": "info",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "respiratory_rate_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Respiratory Rate",
+        "text_color": "#000000",
+        "label_info_text": "Respiratory rate should be over 100",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "respiratory_rate",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "5092AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Cannot enter a number below 0"
+        },
+        "v_max": {
+          "value": "100",
+          "err": "Cannot enter a number above 100"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blantyre_coma_scale_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Blantyre Coma-scale",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "blantyre_coma_scale",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Cannot enter a number below 0"
+        },
+        "v_max": {
+          "value": "5",
+          "err": "Cannot enter a number above 5"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "glasgow_coma_scale_label",
+        "type": "label",
+        "label_text_style": "bold",
+        "text": "Glasgow Coma-scale",
+        "text_color": "#000000",
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "glasgow_coma_scale",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "normal_edit_text",
+        "edit_text_style": "bordered",
+        "edit_type": "number",
+        "v_numeric": {
+          "value": "true",
+          "err": ""
+        },
+        "v_min": {
+          "value": "0",
+          "err": "Cannot enter a number below 0"
+        },
+        "v_max": {
+          "value": "15",
+          "err": "Cannot enter a number above 15"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "convulsions_history",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "165218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "type": "native_radio",
+        "label": "History of convulsions?",
+        "label_text_style": "bold",
+        "options": [
+          {
+            "key": "yes",
+            "text": "Yes",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          },
+          {
+            "key": "no",
+            "text": "No",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "concept",
+            "openmrs_entity_id": "1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "v_required": {
+          "value": true,
+          "err": "Please select and option"
+        },
+        "relevance": {
+          "rules-engine": {
+            "ex-rules": {
+              "rules-file": "opd/opd_danger_signs_relevance_rules.yml"
+            }
+          }
+        }
+      },
+      {
+        "key": "visit_id",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      },
+      {
+        "key": "visit_date",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "",
+        "openmrs_entity_id": "",
+        "type": "hidden"
+      }
+    ]
+  }
+}

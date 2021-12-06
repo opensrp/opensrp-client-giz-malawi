@@ -34,6 +34,8 @@ import org.smartregister.opd.repository.OpdDiagnosisDetailRepository;
 import org.smartregister.opd.repository.OpdTestConductedRepository;
 import org.smartregister.opd.repository.OpdTreatmentDetailRepository;
 import org.smartregister.opd.repository.OpdVisitRepository;
+import org.smartregister.opd.repository.VisitDetailsRepository;
+import org.smartregister.opd.repository.VisitRepository;
 import org.smartregister.pnc.repository.PncChildRepository;
 import org.smartregister.pnc.repository.PncMedicInfoRepository;
 import org.smartregister.pnc.repository.PncOtherVisitRepository;
@@ -42,6 +44,7 @@ import org.smartregister.pnc.repository.PncStillBornRepository;
 import org.smartregister.pnc.repository.PncVisitChildStatusRepository;
 import org.smartregister.pnc.repository.PncVisitInfoRepository;
 import org.smartregister.reporting.ReportingLibrary;
+import org.smartregister.reporting.dao.ReportIndicatorDaoImpl;
 import org.smartregister.reporting.repository.DailyIndicatorCountRepository;
 import org.smartregister.reporting.repository.IndicatorQueryRepository;
 import org.smartregister.reporting.repository.IndicatorRepository;
@@ -55,6 +58,8 @@ import org.smartregister.repository.UniqueIdRepository;
 import org.smartregister.util.DatabaseMigrationUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -67,9 +72,8 @@ public class GizMalawiRepository extends Repository {
     protected SQLiteDatabase writableDatabase;
 
     private Context context;
-    private String indicatorsConfigFile = GizConstants.File.INDICATOR_CONFIG_FILE;
-    private String indicatorDataInitialisedPref = GizConstants.Pref.INDICATOR_DATA_INITIALISED;
-    private String appVersionCodePref = GizConstants.Pref.APP_VERSION_CODE;
+    final private String indicatorDataInitialisedPref = GizConstants.Pref.INDICATOR_DATA_INITIALISED;
+    final private String appVersionCodePref = GizConstants.Pref.APP_VERSION_CODE;
 
     public GizMalawiRepository(@NonNull Context context, @NonNull org.smartregister.Context openSRPContext) {
         super(context, AllConstants.DATABASE_NAME, BuildConfig.DATABASE_VERSION, openSRPContext.session(),
@@ -144,12 +148,12 @@ public class GizMalawiRepository extends Repository {
         boolean isUpdated = checkIfAppUpdated();
         if (!indicatorDataInitialised || isUpdated) {
             Timber.d("Initialising indicator repositories!!");
+            String indicatorsConfigFile = GizConstants.File.INDICATOR_CONFIG_FILE;
             reportingLibraryInstance.initIndicatorData(indicatorsConfigFile, database); // This will persist the data in the DB
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "true");
             reportingLibraryInstance.getContext().allSharedPreferences().savePreference(appVersionCodePref, String.valueOf(BuildConfig.VERSION_CODE));
         }
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -187,6 +191,21 @@ public class GizMalawiRepository extends Repository {
                     upgradeToVersion11CreateHia2IndicatorsRepository(db);
                 case 12:
                     EventClientRepository.createAdditionalColumns(db);
+                    break;
+                case 13:
+                    upgradeToVersion13CreateReasonForDefaultingTable(db);
+                    break;
+                case 14:
+                    upgradeToVersion14UpdateMissingColumns(db);
+                    break;
+                case 15:
+                    upgradeToVersion15TriggerCreateNewTable(db);
+                    break;
+                case 16:
+                    upgradeToVersion16CreateNewVisitTable(db);
+                    break;
+                case 17:
+                    upgradeToVersion17ResetIndicators(db);
                     break;
                 default:
                     break;
@@ -466,6 +485,53 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
+    private void upgradeToVersion13CreateReasonForDefaultingTable(@NonNull SQLiteDatabase db) {
+        try {
+            ReasonForDefaultingRepository.createTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion13CreateReasonForDefaultingTable");
+        }
+    }
+
+    private void upgradeToVersion14UpdateMissingColumns(@NonNull SQLiteDatabase db) {
+        db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL);
+        db.execSQL(VaccineRepository.UPDATE_TABLE_ADD_IS_VOIDED_COL_INDEX);
+        EventClientRepository.addEventTaskId(db);
+        EventClientRepository.createIndex(db, EventClientRepository.Table.event, EventClientRepository.event_column.values());
+    }
+
+    private void upgradeToVersion15TriggerCreateNewTable(@NonNull SQLiteDatabase db) {
+        try {
+            DatabaseMigrationUtils.createAddedECTables(db,
+                    new HashSet<>(Collections.singletonList("ec_family_member_location")),
+                    GizMalawiApplication.createCommonFtsObject(context));
+
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion15");
+        }
+    }
+
+    private void upgradeToVersion16CreateNewVisitTable(@NonNull SQLiteDatabase db) {
+        try {
+            VisitRepository.createTable(db);
+            VisitDetailsRepository.createTable(db);
+        } catch (Exception e) {
+            Timber.e(e, "upgradeToVersion16");
+        }
+    }
+
+    private void upgradeToVersion17ResetIndicators(SQLiteDatabase db) {
+        try {
+            ReportingLibrary.getInstance().getContext().allSharedPreferences().savePreference(appVersionCodePref, "");
+            String reportsLastProcessedDate = ReportIndicatorDaoImpl.REPORT_LAST_PROCESSED_DATE;
+            ReportingLibrary.getInstance().getContext().allSharedPreferences().savePreference(reportsLastProcessedDate, "");
+            ReportingLibrary.getInstance().getContext().allSharedPreferences().savePreference(indicatorDataInitialisedPref, "false");
+            initializeReportIndicatorState(db);
+        }catch (Exception e) {
+            Timber.e(e, "upgradeToVersion17");
+        }
+    }
+
     private boolean checkIfAppUpdated() {
         String savedAppVersion = ReportingLibrary.getInstance().getContext().allSharedPreferences().getPreference(appVersionCodePref);
         if (savedAppVersion.isEmpty()) {
@@ -486,6 +552,4 @@ public class GizMalawiRepository extends Repository {
                 .hIA2IndicatorsRepository();
         hIA2IndicatorsRepository.save(db, csvData);
     }
-
-
 }

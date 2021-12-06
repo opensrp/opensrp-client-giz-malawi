@@ -1,0 +1,36 @@
+---
+name: step1_medicine_object
+description: medicine_object
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = step1_medicine'
+---
+name: step1_preliminary_diagnosis_note
+description: preliminary_diagnosis_note
+priority: 1
+condition: "!global_pregnancy_status.equals('')
+                  || (!global_medical_conditions.equals('') && !global_medical_conditions.equals('none'))
+                  || !global_disease_code_primary.equals('')
+                  || !global_patient_complains.isEmpty()
+                  || !global_clinician_obs.isEmpty()"
+actions:
+  - 'calculation = ["pregnancy_status" : (!global_pregnancy_status.isEmpty() ? "Pregnancy Status: " + global_pregnancy_status + "," : ""),
+                      "medical_conditions" : ((!global_medical_conditions.isEmpty() && !global_medical_conditions.equalsIgnoreCase("none")) ? "Medical Conditions: " + global_medical_conditions + "," : ""),
+                      "disease_code_primary" : (!global_disease_code_primary.isEmpty() ? "Disease Code Primary: " + global_disease_code_primary + ",": ""),
+                      "patient_complains" : (!global_patient_complains.isEmpty() ? "Patient Complains: " + global_patient_complains + ",": ""),
+                      "clinician_obs" : (!global_clinician_obs.isEmpty() ? "Clinician Observations: " + global_clinician_obs + ",": "")]'
+---
+name: step1_lab_results_note
+description: lab_results_note
+priority: 1
+condition: "!global_diagnostic_test_lab_results.isEmpty()"
+actions:
+  - 'calculation = ["diagnostic_test_lab_results" : global_diagnostic_test_lab_results]'
+---
+name: step1_disease_code_object_final
+description: disease_code_object_final
+priority: 1
+condition: "true"
+actions:
+  - 'calculation = step1_disease_code_final_diagn'

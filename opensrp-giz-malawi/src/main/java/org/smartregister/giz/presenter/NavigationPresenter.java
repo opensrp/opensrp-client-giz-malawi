@@ -50,26 +50,25 @@ public class NavigationPresenter implements NavigationContract.Presenter {
         return mView.get();
     }
 
+
     @Override
     public void refreshNavigationCount() {
+
         int navigationItems = 0;
         while (navigationItems < mModel.getNavigationItems().size()) {
             final int finalNavigationItems = navigationItems;
-            String menuTitle = mModel.getNavigationItems().get(navigationItems).getMenuTitle();
-            mInteractor.getRegisterCount(tableMap.get(menuTitle),
-                    new NavigationContract.InteractorCallback<Integer>() {
-                        @Override
-                        public void onResult(Integer result) {
-                            mModel.getNavigationItems().get(finalNavigationItems).setRegisterCount(result);
-                            getNavigationView().refreshCount();
-                        }
+            mInteractor.getRegisterCount(tableMap.get(mModel.getNavigationItems().get(navigationItems).getMenuTitle()), new NavigationContract.InteractorCallback<Integer>() {
+                @Override
+                public void onResult(Integer result) {
+                    mModel.getNavigationItems().get(finalNavigationItems).setRegisterCount(result);
+                    getNavigationView().refreshCount();
+                }
 
-                        @Override
-                        public void onError(Exception e) {
-                            Timber.e(e, "Error retrieving count for %s",
-                                    tableMap.get(mModel.getNavigationItems().get(finalNavigationItems).getMenuTitle()));
-                        }
-                    });
+                @Override
+                public void onError(Exception e) {
+                    Timber.e("Error retrieving count for %s", tableMap.get(mModel.getNavigationItems().get(finalNavigationItems).getMenuTitle()));
+                }
+            });
             navigationItems++;
         }
 
