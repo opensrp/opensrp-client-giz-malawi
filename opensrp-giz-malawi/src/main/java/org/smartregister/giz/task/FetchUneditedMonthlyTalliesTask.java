@@ -6,8 +6,10 @@ import androidx.annotation.Nullable;
 
 import org.smartregister.giz.activity.HIA2ReportsActivity;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.domain.MonthlyTally;
 import org.smartregister.giz.repository.MonthlyTalliesRepository;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,7 +49,9 @@ public class FetchUneditedMonthlyTalliesTask extends AsyncTask<Void, Void, List<
         endDate.set(Calendar.MILLISECOND, 999);
         endDate.add(Calendar.DATE, -1);// Move the date to last day of last month
 
-        return monthlyTalliesRepository.findUneditedDraftMonths(startDate.getTime(), endDate.getTime(), reportGrouping);
+        List<Date> allDates = monthlyTalliesRepository.findUneditedDraftMonths(startDate.getTime(), endDate.getTime(), reportGrouping);
+
+        return filterMonthsWithNoCount(allDates);
     }
 
     @Override
@@ -57,6 +61,21 @@ public class FetchUneditedMonthlyTalliesTask extends AsyncTask<Void, Void, List<
 
     public interface TaskListener {
         void onPostExecute(@NonNull List<Date> dates);
+    }
+
+    protected List<Date> filterMonthsWithNoCount(List<Date> unfilteredDates) {
+        ArrayList<Date> finalDates = new ArrayList<>();
+        for (Date date : unfilteredDates) {
+            MonthlyTalliesRepository monthlyTalliesRepository = GizMalawiApplication.getInstance().monthlyTalliesRepository();
+            List<MonthlyTally> monthlyTallies = monthlyTalliesRepository.findDrafts(MonthlyTalliesRepository.DF_YYYYMM.format(date), reportGrouping);
+            for (MonthlyTally tally: monthlyTallies) {
+                if (Integer.parseInt(tally.getValue()) > 0) {
+                    finalDates.add(date);
+                    break;
+                }
+            }
+        }
+        return finalDates;
     }
 }
 

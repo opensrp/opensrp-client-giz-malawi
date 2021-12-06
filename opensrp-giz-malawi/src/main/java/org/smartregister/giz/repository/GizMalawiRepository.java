@@ -22,6 +22,7 @@ import org.smartregister.growthmonitoring.repository.HeightRepository;
 import org.smartregister.growthmonitoring.repository.HeightZScoreRepository;
 import org.smartregister.growthmonitoring.repository.WeightRepository;
 import org.smartregister.growthmonitoring.repository.WeightZScoreRepository;
+import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
@@ -206,6 +207,9 @@ public class GizMalawiRepository extends Repository {
                     break;
                 case 17:
                     upgradeToVersion17ResetIndicators(db);
+                    break;
+                case 18:
+                    upgradeToVersion18ReportingFixes(db);
                     break;
                 default:
                     break;
@@ -530,6 +534,13 @@ public class GizMalawiRepository extends Repository {
         }catch (Exception e) {
             Timber.e(e, "upgradeToVersion17");
         }
+    }
+
+    private void upgradeToVersion18ReportingFixes(SQLiteDatabase db) {
+        // Reset vaccine schedule
+        VaccineSchedulesUpdateJob.scheduleJobImmediately();
+        // Reset the indicators again to update the new queries
+        upgradeToVersion17ResetIndicators(db);
     }
 
     private boolean checkIfAppUpdated() {
