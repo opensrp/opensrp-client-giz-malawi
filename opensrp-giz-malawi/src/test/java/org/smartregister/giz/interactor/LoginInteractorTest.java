@@ -49,6 +49,7 @@ public class LoginInteractorTest extends BaseRobolectricTest {
         assertEquals(SyncServiceJob.TAG, methodCalls.get(5).get(0));
         assertEquals(PullUniqueIdsServiceJob.TAG, methodCalls.get(6).get(0));
         assertEquals(ImageUploadServiceJob.TAG, methodCalls.get(7).get(0));
+        ShadowBaseJob.getShadowHelper().getMethodCalls().clear();
     }
 
     @Test
@@ -63,5 +64,6 @@ public class LoginInteractorTest extends BaseRobolectricTest {
         assertEquals(PullUniqueIdsServiceJob.TAG, methodCalls.get(2).get(0));
         assertEquals(ZScoreRefreshIntentServiceJob.TAG, methodCalls.get(3).get(0));
         assertEquals(ImageUploadServiceJob.TAG, methodCalls.get(4).get(0));
+        ShadowBaseJob.getShadowHelper().getMethodCalls().clear();
     }
 }
