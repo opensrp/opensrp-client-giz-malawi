@@ -9,7 +9,7 @@ actions:
 name: step1_tests_repeating_group
 description: tests_repeating_group
 priority: 1
-condition: "step1_test_ordered_avail.contains('yes')"
+condition: "step1_test_ordered_avail.contains('yes') || step1_test_ordered_avail.contains('some_of_them')"
 actions:
   - "isRelevant = true"
 ---
@@ -121,31 +121,41 @@ condition: "step1_diagnostic_test == 'midstream_urine_test_culture'"
 actions:
   - "isRelevant = true"
 ---
-name: step1_test_not_done
-description: test_not_done
-priority: 1
-condition: "step1_test_ordered_avail.contains('no')"
-actions:
-  - "isRelevant = true"
----
-name: step1_test_not_done_other
-description: test_not_done_other
-priority: 1
-condition: "step1_test_not_done.contains('other')"
-actions:
-  - "isRelevant = true"
----
-name: step1_test_not_available_rsn
-description: test_not_available_rsn
+name: step1_test_not_done_repeating_group
+description: test_not_done_repeating_group
 priority: 1
 condition: "step1_test_ordered_avail.contains('no') || step1_test_ordered_avail.contains('some_of_them')"
 actions:
   - "isRelevant = true"
 ---
-name: step1_test_not_available_rsn_other
-description: test_not_available_rsn_other
+name: step1_diagnostic_test_result_not_done_other
+description: diagnostic_test_result_not_done_other
 priority: 1
-condition: "step1_test_not_available_rsn.contains('other')"
+condition: "step1_diagnostic_test_not_done == 'other'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_not_available_rsn
+description: diagnostic_test_not_available_rsn
+priority: 1
+condition: "step1_diagnostic_test_not_done == 'pregnancy_test' || step1_diagnostic_test_not_done == 'malaria_microscopy' || step1_diagnostic_test_not_done == 'hiv_test_rapid'
+|| step1_diagnostic_test_not_done == 'hiv_test' || step1_diagnostic_test_not_done == 'syphilis_vdrl' || step1_diagnostic_test_not_done == 'hiv_eid'
+|| step1_diagnostic_test_not_done == 'hep_b' || step1_diagnostic_test_not_done == 'hep_c' || step1_diagnostic_test_not_done == 'tb_urine_lam'
+|| step1_diagnostic_test_not_done == 'tb_screening' || step1_diagnostic_test_not_done == 'midstream_urine_gram_staining' || step1_diagnostic_test_not_done == 'malaria_mrdt'
+|| step1_diagnostic_test_not_done == 'blood_type' || step1_diagnostic_test_not_done == 'midstream_urine_test_culture' || step1_diagnostic_test_not_done.startsWith('blood_glucose')
+|| step1_diagnostic_test_not_done == 'hemocue_haemoglobinometer' || step1_diagnostic_test_not_done == 'hiv_viral_load' || step1_diagnostic_test_not_done == 'ultra_sound'
+|| step1_diagnostic_test_not_done == 'tb_gene_xpert' || step1_diagnostic_test_not_done == 'tb_smear_microscopy' || step1_diagnostic_test_not_done == 'urine_dipstick'
+|| step1_diagnostic_test_not_done == 'other' || step1_diagnostic_test_not_done == 'alkaline_phosphtese' || step1_diagnostic_test_not_done == 'blood_glucose_random_plasma_glucose_test'
+|| step1_diagnostic_test_not_done == 'complete_blood_count_test' || step1_diagnostic_test_not_done == 'hemocue' || step1_diagnostic_test_not_done == 'hb_test'
+|| step1_diagnostic_test_not_done == 'alanine_aminitransferase' || step1_diagnostic_test_not_done == 'aspartate_aminotranferese' || step1_diagnostic_test_not_done == 'total_protein'
+|| step1_diagnostic_test_not_done == 'total_bilirum' || step1_diagnostic_test_not_done == 'albumin' || step1_diagnostic_test_not_done == 'ggt'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_not_available_rsn_other
+description: diagnostic_test_not_available_rsn_other
+priority: 1
+condition: "step1_diagnostic_test_not_available_rsn == 'other'"
 actions:
   - "isRelevant = true"
 ---
