@@ -815,7 +815,7 @@
         "repeating_group_label": "",
         "showGroupLabel": false,
         "repeating_group_btn_text" : "+ Add Tests Not Conducted",
-        "repeating_group_btn_text_color" : "#FF0000",
+        "repeating_group_btn_text_color" : "#FF3333",
         "openmrs_entity_parent": "",
         "openmrs_entity": "",
         "openmrs_entity_id": "",
