@@ -228,8 +228,8 @@
         "openmrs_entity": "concept",
         "openmrs_entity_id": "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
         "type": "check_box",
-        "hint": "Previous medical conditions",
-        "label": "Previous medical conditions",
+        "hint": "Past Medical History",
+        "label": "Past Medical History",
         "label_text_style": "bold",
         "exclusive": [
           "none"

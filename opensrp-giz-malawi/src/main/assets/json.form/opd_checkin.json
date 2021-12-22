@@ -159,6 +159,7 @@
         "openmrs_entity_id": "",
         "type": "date_picker",
         "hint": "When was the appointment made?",
+        "max_date": "today",
         "values": [
           "Yes",
           "No"
