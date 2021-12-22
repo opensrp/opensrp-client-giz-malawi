@@ -272,6 +272,34 @@
             }
           },
           {
+            "key": "diagnostic_test_result_malaria_microsopy",
+            "openmrs_entity_parent": "",
+            "openmrs_entity": "",
+            "openmrs_entity_id": "",
+            "openmrs_data_type": "text",
+            "type": "edit_text",
+            "hint": "Test Result (0 - 100)",
+            "v_min": {
+              "value": "0",
+              "err": "Value should be greater than or equals to 0"
+            },
+            "v_max": {
+              "value": "100",
+              "err": "Value should be less than or equals to 100"
+            },
+            "v_numeric": {
+              "value": "true",
+              "err": "Enter a valid value"
+            },
+            "relevance": {
+              "rules-engine": {
+                "ex-rules": {
+                  "rules-dynamic": "opd/opd_laboratory_relevance_rules.yml"
+                }
+              }
+            }
+          },
+          {
             "key": "diagnostic_test_result_complete_blood_count_test",
             "openmrs_entity_parent": "",
             "openmrs_entity": "",

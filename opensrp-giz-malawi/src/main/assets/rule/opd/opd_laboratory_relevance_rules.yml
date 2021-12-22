@@ -23,7 +23,7 @@ actions:
 name: step1_diagnostic_test_result
 description: diagnostic_test_result
 priority: 1
-condition: "step1_diagnostic_test == 'pregnancy_test' || step1_diagnostic_test == 'malaria_microscopy' || step1_diagnostic_test == 'hiv_test_rapid'
+condition: "step1_diagnostic_test == 'pregnancy_test' || step1_diagnostic_test == 'hiv_test_rapid'
 || step1_diagnostic_test == 'hiv_test' || step1_diagnostic_test == 'syphilis_vdrl' || step1_diagnostic_test == 'hiv_eid'
 || step1_diagnostic_test == 'hep_b' || step1_diagnostic_test == 'hep_c' || step1_diagnostic_test == 'tb_urine_lam'
 || step1_diagnostic_test == 'tb_screening' || step1_diagnostic_test == 'midstream_urine_gram_staining' || step1_diagnostic_test == 'malaria_mrdt'"
@@ -251,6 +251,13 @@ name: step1_diagnostic_test_result_total_protein
 description: diagnostic_test_result_total_protein
 priority: 1
 condition: "step1_diagnostic_test == 'total_protein'"
+actions:
+  - "isRelevant = true"
+---
+name: step1_diagnostic_test_result_malaria_microsopy
+description: diagnostic_test_result_malaria_microsopy
+priority: 1
+condition: "step1_diagnostic_test == 'malaria_microscopy'"
 actions:
   - "isRelevant = true"
 
