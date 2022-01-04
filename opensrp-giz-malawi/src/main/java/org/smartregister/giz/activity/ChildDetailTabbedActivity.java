@@ -155,6 +155,8 @@ public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null)
+            return;
         try {
             String jsonString = data.getStringExtra(JsonFormConstants.JSON_FORM_KEY.JSON);
             Timber.d(jsonString);
