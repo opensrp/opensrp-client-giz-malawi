@@ -816,7 +816,7 @@
           "type": "Event",
           "json_mapping": {
             "field": "obs.fieldCode",
-            "concept": "hiv_status_current"
+            "concept": "159427AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
           }
         },
         {
