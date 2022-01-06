@@ -46,6 +46,27 @@
           }
         },
         {
+          "column_name": "opensrp_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.M_ZEIR_ID"
+          }
+        },
+        {
+          "column_name": "register_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.M_ZEIR_ID"
+          }
+        },
+        {
+          "column_name": "zeir_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.M_ZEIR_ID"
+          }
+        },
+        {
           "column_name": "national_id",
           "type": "Client",
           "json_mapping": {
