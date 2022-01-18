@@ -66,7 +66,9 @@
           "Rota",
           "Measles",
           "MR",
-          "Yellow Fever"
+          "Yellow Fever",
+          "IPV",
+          "MV"
         ],
         "openmrs_choice_ids": {
           "BCG": "149310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
@@ -77,7 +79,9 @@
           "Rota": "162272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "Measles": "149286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
           "MR": "149286AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-          "Yellow Fever": "149253AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          "Yellow Fever": "149253AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+          "IPV": "ipv",
+          "MV": "mv"
         },
         "v_required": {
           "value": true,
