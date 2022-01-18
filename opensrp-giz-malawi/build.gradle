@@ -226,6 +226,9 @@ android {
     dataBinding {
         enabled = true
     }
+    configurations.all {
+        exclude group: 'com.github.lecho', module: 'hellocharts-library'
+    }
 }
 
 tasks.withType(Test) {
@@ -251,7 +254,8 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
 //        exclude group: 'com.github.lecho', module: 'hellocharts-library'
     }
-    implementation('org.smartregister:opensrp-client-child:0.6.9-SNAPSHOT@aar') {
+
+    implementation('org.smartregister:opensrp-client-child:0.7.3-ALPHA3-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
