@@ -1181,13 +1181,12 @@ indicators:
   - key: "ME_HIV_Status_First_Visit_Not_Done"
     description: "HIV status first visit (Not done)"
     indicatorQuery: "select count(1) from (
-                        SELECT distinct base_entity_id FROM  previous_contact
-                        where previous_contact.contact_no = '1' group by base_entity_id
-                        having
-                        (sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0
-                        or sum(case when key = 'hiv_test_status' and value = '' then 1 else 0 end ) = 0)
-                        and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0
-                  )"
+                  SELECT distinct base_entity_id FROM  previous_contact
+                  where previous_contact.contact_no = '1' group by base_entity_id
+                  having
+                  (sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0)
+                  and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0
+                )"
     grouping: "anc"
 
   - key: "ME_ART_Status_First_Visit_Not_On_ART"
@@ -1244,7 +1243,7 @@ indicators:
                           having
                               sum(case when key = 'art_medication' and value = 'done'  then 1 else 0 end ) > 0 and
                               (sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0 or
-                                          sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0) and
+                                        hiv_test_date  sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0) and
                               sum(case when key = 'medications' and instr(value, 'arvs')  then 1 else 0 end ) > 0 and
                               sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0
                     )"
