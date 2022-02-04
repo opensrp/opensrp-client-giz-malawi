@@ -1252,7 +1252,7 @@ indicators:
                           having
                               sum(case when key = 'art_medication' and value = 'done'  then 1 else 0 end ) > 0 and
                               (sum(case when key = 'hiv_test_result' and value = 'positive' then 1 else 0 end ) > 0 or
-                                        hiv_test_date  sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0) and
+                                          sum(case when key = 'health_conditions' and instr(value, 'hiv') > 0 then 1 else 0 end) > 0) and
                               sum(case when key = 'medications' and instr(value, 'arvs')  then 1 else 0 end ) > 0 and
                               sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0
                     )"
