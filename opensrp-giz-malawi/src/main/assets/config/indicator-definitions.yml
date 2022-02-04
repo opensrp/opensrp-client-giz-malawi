@@ -1180,14 +1180,22 @@ indicators:
 
   - key: "ME_HIV_Status_First_Visit_Not_Done"
     description: "HIV status first visit (Not done)"
-    indicatorQuery: "select count(1) from (
-                        SELECT distinct base_entity_id FROM  previous_contact
-                        where previous_contact.contact_no = '1' group by base_entity_id
-                        having
-                        (sum(case when key = 'hiv_test_status' and value = 'not_done' then 1 else 0 end ) > 0
-                        or sum(case when key = 'hiv_test_status' and value = '' then 1 else 0 end ) = 0)
-                        and sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d', '%s', 'localtime') then 1 else 0 end ) > 0
-                  )"
+    indicatorQuery: "SELECT count(1) from (
+                        SELECT  DISTINCT base_entity_id FROM  previous_contact
+                        where  contact_no = '1' AND base_entity_id NOT In
+                        (
+                                SELECT base_entity_id FROM previous_contact
+                                WHERE (key = 'hiv_test_status' and value = 'done_today') OR
+                                (key = 'hiv_test_status' and value = 'done_earlier')
+                        )
+                      ) a
+                      JOIN
+                      (
+                       select DISTINCT base_entity_id from previous_contact
+                       where contact_no = '1' group by base_entity_id
+                       having sum(case when key = 'contact_date' and value = strftime('%Y-%m-%d',  date('%s', 'localtime')) then 1 else 0 end) > 0
+                      ) b
+                    ON a.base_entity_id = b.base_entity_id"
     grouping: "anc"
 
   - key: "ME_ART_Status_First_Visit_Not_On_ART"

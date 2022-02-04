@@ -229,4 +229,11 @@ public class GizUtilsTest extends BaseRobolectricTest {
         Assert.assertEquals(expectedLocaleNotNull, GizUtils.getLocale(RuntimeEnvironment.application));
     }
 
+    @Test
+    public void testTimeBetweenLastExecutionAndNow() {
+        String reportJobExecutionTIme = String.valueOf(System.currentTimeMillis());
+        boolean time = GizUtils.timeBetweenLastExecutionAndNow(300, reportJobExecutionTIme);
+        Assert.assertFalse(time);
+    }
+
 }

@@ -206,10 +206,13 @@ public class GizMalawiRepository extends Repository {
                     upgradeToVersion16CreateNewVisitTable(db);
                     break;
                 case 17:
-                    upgradeToVersion17ResetIndicators(db);
+                    databaseUpgradeToResetIndicators(db);
                     break;
                 case 18:
                     upgradeToVersion18ReportingFixes(db);
+                    break;
+                case 19:
+                    databaseUpgradeToResetIndicators(db);
                     break;
                 default:
                     break;
@@ -524,7 +527,7 @@ public class GizMalawiRepository extends Repository {
         }
     }
 
-    private void upgradeToVersion17ResetIndicators(SQLiteDatabase db) {
+    private void databaseUpgradeToResetIndicators(SQLiteDatabase db) {
         try {
             ReportingLibrary.getInstance().getContext().allSharedPreferences().savePreference(appVersionCodePref, "");
             String reportsLastProcessedDate = ReportIndicatorDaoImpl.REPORT_LAST_PROCESSED_DATE;
@@ -540,7 +543,7 @@ public class GizMalawiRepository extends Repository {
         // Reset vaccine schedule
         VaccineSchedulesUpdateJob.scheduleJobImmediately();
         // Reset the indicators again to update the new queries
-        upgradeToVersion17ResetIndicators(db);
+        databaseUpgradeToResetIndicators(db);
     }
 
     private boolean checkIfAppUpdated() {
