@@ -112,7 +112,7 @@ android {
             keyAlias System.getenv("KEYSTORE_ALIAS")
             keyPassword System.getenv("KEY_PASSWORD")
             storePassword System.getenv("KEYSTORE_PASSWORD")
-            storeFile file(System.getProperty("user.home") + "/<project>.keystore.jks")
+            storeFile file(System.getProperty("user.home") + "/opensrp.keystore.jks")
         }
     }
 
