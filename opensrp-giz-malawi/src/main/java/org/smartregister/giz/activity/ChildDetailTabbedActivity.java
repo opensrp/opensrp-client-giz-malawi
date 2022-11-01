@@ -2,6 +2,7 @@ package org.smartregister.giz.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
 import org.smartregister.CoreLibrary;
+import org.smartregister.child.ChildLibrary;
 import org.smartregister.child.activity.BaseChildDetailTabbedActivity;
 import org.smartregister.child.fragment.StatusEditDialogFragment;
 import org.smartregister.child.task.LoadAsyncTask;
@@ -46,6 +48,14 @@ import static org.smartregister.giz.util.GizUtils.setAppLocale;
  */
 public class ChildDetailTabbedActivity extends BaseChildDetailTabbedActivity {
     private static List<String> nonEditableFields = Arrays.asList("Sex", "zeir_id", "Birth_Weight", "Birth_Height");
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Preload the location picker view to fix errors trying to edit
+        ChildLibrary.getInstance().getLocationPickerView(this);
+    }
 
     @Override
     protected void attachBaseContext(android.content.Context base) {
