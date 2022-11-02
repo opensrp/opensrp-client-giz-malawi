@@ -7,6 +7,7 @@ import org.smartregister.growthmonitoring.job.WeightIntentServiceJob;
 import org.smartregister.growthmonitoring.job.ZScoreRefreshIntentServiceJob;
 import org.smartregister.immunization.job.RecurringServiceJob;
 import org.smartregister.immunization.job.VaccineServiceJob;
+import org.smartregister.job.DuplicateCleanerWorker;
 import org.smartregister.job.ImageUploadServiceJob;
 import org.smartregister.job.PullUniqueIdsServiceJob;
 import org.smartregister.job.SyncServiceJob;
@@ -24,7 +25,6 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
 
     @Override
     protected void scheduleJobsPeriodically() {
-
         VaccineServiceJob
                 .scheduleJob(VaccineServiceJob.TAG, TimeUnit.MINUTES.toMinutes(BuildConfig.DATA_SYNC_DURATION_MINUTES),
                         getFlexValue(BuildConfig.DATA_SYNC_DURATION_MINUTES));
@@ -69,5 +69,10 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         PullUniqueIdsServiceJob.scheduleJobImmediately(PullUniqueIdsServiceJob.TAG); //need these asap!
         ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
+
+        // This job will not be duplicated but is added here since scheduleJobsPeriodically is only called
+        // after a remote login and therefore might be run too late. scheduleJobsImmediately is called
+        // after both remote login and local login
+        DuplicateCleanerWorker.schedulePeriodically(this.getApplicationContext(), 15);
     }
 }
