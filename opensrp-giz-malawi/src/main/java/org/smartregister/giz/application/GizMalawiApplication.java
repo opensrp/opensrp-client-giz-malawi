@@ -116,6 +116,7 @@ import org.smartregister.repository.Repository;
 import org.smartregister.sync.ClientProcessorForJava;
 import org.smartregister.sync.DrishtiSyncScheduler;
 import org.smartregister.sync.helper.ECSyncHelper;
+import org.smartregister.util.CrashLyticsTree;
 import org.smartregister.util.NativeFormProcessor;
 import org.smartregister.view.activity.DrishtiApplication;
 import org.smartregister.view.receiver.TimeChangedBroadcastReceiver;
@@ -172,6 +173,15 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         commonFtsObject.updateAlertScheduleMap(getAlertScheduleMap(context));
 
         return commonFtsObject;
+    }
+
+    @Override
+    public void initializeCrashLyticsTree() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new CrashLyticsTree());
+        }
     }
 
     private static String[] getFtsTables() {
@@ -295,6 +305,8 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         mInstance = this;
         context = Context.getInstance();
 
+        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
+
         String lang = GizUtils.getLanguage(getApplicationContext());
         Locale locale = new Locale(lang);
         Resources res = getApplicationContext().getResources();
@@ -337,8 +349,6 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         setupOPDLibrary();
         setupMaternityLibrary();
         setupPncLibrary();
-
-        Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()).build());
 
         initRepositories();
         initOfflineSchedules();
