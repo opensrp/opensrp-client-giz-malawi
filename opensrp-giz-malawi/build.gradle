@@ -136,7 +136,7 @@ android {
             signingConfig signingConfigs.debug
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
-            resValue "string", 'opensrp_url', '"https://his-mw.smartregister.org/opensrp/"'
+            resValue "string", 'opensrp_url', '"https://opensrp.health.gov.mw/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
@@ -363,7 +363,7 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
     implementation 'com.evernote:android-job:1.2.6'
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+    implementation 'com.github.lecho:hellocharts-android:1.5.8@aar'
     implementation 'id.zelory:compressor:2.1.1'
     implementation('com.google.android.material:material:1.0.0') {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
