@@ -255,7 +255,7 @@ dependencies {
 //        exclude group: 'com.github.lecho', module: 'hellocharts-library'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.7.3-ALPHA3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.10.0-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
