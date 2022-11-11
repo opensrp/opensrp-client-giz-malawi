@@ -8,6 +8,7 @@ import android.util.Pair;
 
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.multidex.MultiDex;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -182,6 +183,12 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         } else {
             Timber.plant(new CrashLyticsTree());
         }
+    }
+
+    @Override
+    protected void attachBaseContext(android.content.Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     private static String[] getFtsTables() {
