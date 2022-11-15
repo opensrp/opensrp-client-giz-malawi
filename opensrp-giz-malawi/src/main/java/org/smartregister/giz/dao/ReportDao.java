@@ -343,8 +343,8 @@ public class ReportDao extends AbstractDao {
                     cursor.getString(cursor.getColumnIndex(VaccineRepository.EVENT_ID)),
                     cursor.getString(cursor.getColumnIndex(VaccineRepository.FORMSUBMISSION_ID)),
                     cursor.getInt(cursor.getColumnIndex(VaccineRepository.OUT_OF_AREA)),
-                    createdAt
-                    // cursor.getInt(cursor.getColumnIndex(VaccineRepository.IS_VOIDED))
+                    createdAt,
+                    cursor.getInt(cursor.getColumnIndex(VaccineRepository.IS_VOIDED))
             );
 
             vaccine.setTeam(cursor.getString(cursor.getColumnIndex(VaccineRepository.TEAM)));
