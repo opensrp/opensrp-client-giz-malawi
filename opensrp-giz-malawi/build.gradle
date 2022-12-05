@@ -403,6 +403,7 @@ dependencies {
     implementation group: 'io.fabric.sdk.android', name: 'fabric', version: '1.4.8'
 
     implementation "androidx.multidex:multidex:2.0.1"
+    testImplementation "androidx.work:work-testing:2.7.1"
 
 
     def robolectricVersion = '4.1'
