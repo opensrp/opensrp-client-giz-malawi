@@ -366,10 +366,10 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         initMinimumDateForReportGeneration();
 
-        updateBaseUrl();
+        updateBaseUrlFromBuildConfigChange();
     }
 
-    private void updateBaseUrl() {
+    private void updateBaseUrlFromBuildConfigChange() {
         AllSharedPreferences allSharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
         int currUrlVersion = BuildConfig.URL_VERSION;
         String prefVal = allSharedPreferences.getPreference(GizConstants.Pref.URL_VERSION);
