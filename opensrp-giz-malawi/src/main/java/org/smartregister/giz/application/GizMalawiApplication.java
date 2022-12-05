@@ -3,6 +3,7 @@ package org.smartregister.giz.application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.smartregister.AllConstants;
 import org.smartregister.Context;
 import org.smartregister.CoreLibrary;
 import org.smartregister.anc.library.AncLibrary;
@@ -32,6 +34,7 @@ import org.smartregister.commonregistry.CommonFtsObject;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.helper.JsonSpecHelper;
 import org.smartregister.giz.BuildConfig;
+import org.smartregister.giz.R;
 import org.smartregister.giz.activity.AllClientsRegisterActivity;
 import org.smartregister.giz.activity.AncRegisterActivity;
 import org.smartregister.giz.activity.ChildFormActivity;
@@ -370,6 +373,22 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
 
         initMinimumDateForReportGeneration();
 
+        updateBaseUrlFromBuildConfigChange();
+    }
+
+    private void updateBaseUrlFromBuildConfigChange() {
+        AllSharedPreferences allSharedPreferences = CoreLibrary.getInstance().context().allSharedPreferences();
+        int currUrlVersion = BuildConfig.URL_VERSION;
+        String prefVal = allSharedPreferences.getPreference(GizConstants.Pref.URL_VERSION);
+        int prefUrlVersion = TextUtils.isEmpty(prefVal) ? 0 : Integer.parseInt(prefVal);
+
+        if (currUrlVersion > prefUrlVersion) {
+            String currUrl = getString(R.string.opensrp_url);
+            allSharedPreferences.savePreference(AllConstants.DRISHTI_BASE_URL, currUrl);
+            allSharedPreferences.savePreference(GizConstants.Pref.URL_VERSION, String.valueOf(currUrlVersion));
+            Timber.e("Changed URL to %s", currUrl);
+            allSharedPreferences.updateUrl(currUrl);
+        }
     }
 
     private void initMinimumDateForReportGeneration() {

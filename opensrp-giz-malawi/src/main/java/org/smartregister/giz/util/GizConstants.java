@@ -84,6 +84,7 @@ public class GizConstants {
     public interface Pref {
         String APP_VERSION_CODE = "APP_VERSION_CODE";
         String INDICATOR_DATA_INITIALISED = "INDICATOR_DATA_INITIALISED";
+        String URL_VERSION = "URL_VERSION";
     }
 
     public interface File {
