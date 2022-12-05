@@ -35,8 +35,8 @@ android {
         applicationId "org.smartregister.giz"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 45
-        versionName "0.4.5"
+        versionCode 46
+        versionName "0.4.6"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
