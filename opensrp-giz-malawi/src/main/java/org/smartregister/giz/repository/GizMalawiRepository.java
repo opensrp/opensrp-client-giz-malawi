@@ -13,6 +13,7 @@ import org.smartregister.anc.library.repository.PartialContactRepository;
 import org.smartregister.anc.library.repository.PreviousContactRepository;
 import org.smartregister.child.util.ChildDbMigrations;
 import org.smartregister.child.util.Utils;
+import org.smartregister.child.util.VaccineOverdueCountRepositoryHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
 import org.smartregister.domain.db.Column;
 import org.smartregister.giz.BuildConfig;
@@ -25,6 +26,7 @@ import org.smartregister.growthmonitoring.repository.WeightZScoreRepository;
 import org.smartregister.immunization.job.VaccineSchedulesUpdateJob;
 import org.smartregister.immunization.repository.RecurringServiceRecordRepository;
 import org.smartregister.immunization.repository.RecurringServiceTypeRepository;
+import org.smartregister.immunization.repository.VaccineOverdueCountRepository;
 import org.smartregister.immunization.repository.VaccineRepository;
 import org.smartregister.immunization.util.IMDatabaseUtils;
 import org.smartregister.maternity.repository.MaternityChildRepository;
@@ -214,6 +216,11 @@ public class GizMalawiRepository extends Repository {
                 case 19:
                     databaseUpgradeToResetIndicators(db);
                     break;
+
+                case 20:
+                    upgradeToVersion20(db);
+                    break;
+
                 default:
                     break;
             }
@@ -565,5 +572,44 @@ public class GizMalawiRepository extends Repository {
         HIA2IndicatorsRepository hIA2IndicatorsRepository = GizMalawiApplication.getInstance()
                 .hIA2IndicatorsRepository();
         hIA2IndicatorsRepository.save(db, csvData);
+    }
+
+    private void upgradeToVersion20(SQLiteDatabase db) {
+        try {
+            // Add vaccine overdue table and migration vaccines
+            db.execSQL(VaccineOverdueCountRepository.CREATE_TABLE_SQL);
+            db.execSQL(VaccineOverdueCountRepositoryHelper.MIGRATE_VACCINES_QUERY);
+
+            addOutreachColumn(db);
+            addDateRemovedColumnChildDetailsTable(db);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void addOutreachColumn(SQLiteDatabase db) {
+        try {
+            String UPDATE_VACCINES_TABLE_ADD_OUTREACH = "ALTER TABLE " + VaccineRepository.VACCINE_TABLE_NAME + " ADD COLUMN outreach INTEGER;";
+            db.execSQL(UPDATE_VACCINES_TABLE_ADD_OUTREACH);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_CHILD_LOCATION_ID_COL);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_TEAM_COL);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_TEAM_ID_COL);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_EVENT_ID_COL);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_FORMSUBMISSION_ID_COL);
+            db.execSQL(HeightRepository.ALTER_ADD_Z_SCORE_COLUMN);
+            db.execSQL(HeightRepository.UPDATE_TABLE_ADD_OUT_OF_AREA_COL);
+            db.execSQL(HeightRepository.ALTER_ADD_CREATED_AT_COLUMN);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    private void addDateRemovedColumnChildDetailsTable(SQLiteDatabase database) {
+        try {
+            String UPDATE_CHILD_DETAILS_TABLE_ADD_DATE_REMOVED = "ALTER TABLE ec_child_details ADD COLUMN date_removed VARCHAR;";
+            database.execSQL(UPDATE_CHILD_DETAILS_TABLE_ADD_DATE_REMOVED);
+        } catch (Exception e) {
+            Timber.e(e);
+        }
     }
 }

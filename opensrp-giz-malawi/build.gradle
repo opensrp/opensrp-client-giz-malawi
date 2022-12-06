@@ -35,8 +35,8 @@ android {
         applicationId "org.smartregister.giz"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
-        versionCode 45
-        versionName "0.4.5"
+        versionCode 46
+        versionName "0.4.6"
         multiDexEnabled true
         buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
         buildConfigField "boolean", "TIME_CHECK", "false"
@@ -115,7 +115,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '19'
+            buildConfigField "int", "DATABASE_VERSION", '20'
             buildConfigField "int", "URL_VERSION", '1'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
@@ -144,7 +144,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '19'
+            buildConfigField "int", "DATABASE_VERSION", '20'
             buildConfigField "int", "URL_VERSION", '1'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
@@ -172,7 +172,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '19'
+            buildConfigField "int", "DATABASE_VERSION", '20'
             buildConfigField "int", "URL_VERSION", '1'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
@@ -196,7 +196,7 @@ android {
             buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '100'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
-            buildConfigField "int", "DATABASE_VERSION", '19'
+            buildConfigField "int", "DATABASE_VERSION", '20'
             buildConfigField "int", "URL_VERSION", '1'
             buildConfigField "long", "MAX_SERVER_TIME_DIFFERENCE", "1800000l"
             buildConfigField "boolean", "TIME_CHECK", "true"
@@ -259,7 +259,7 @@ dependencies {
 //        exclude group: 'com.github.lecho', module: 'hellocharts-library'
     }
 
-    implementation('org.smartregister:opensrp-client-child:0.7.3-ALPHA3-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-child:0.10.1-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -291,7 +291,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    api('org.smartregister:opensrp-client-core:4.3.23-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-core:5.0.9-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
@@ -325,7 +325,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    api('org.smartregister:opensrp-client-immunization:4.0.0-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-immunization:4.0.6-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -401,6 +401,9 @@ dependencies {
     implementation 'org.jeasy:easy-rules-mvel:3.2.0'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.24'
     implementation group: 'io.fabric.sdk.android', name: 'fabric', version: '1.4.8'
+
+    implementation "androidx.multidex:multidex:2.0.1"
+    testImplementation "androidx.work:work-testing:2.7.1"
 
 
     def robolectricVersion = '4.1'
