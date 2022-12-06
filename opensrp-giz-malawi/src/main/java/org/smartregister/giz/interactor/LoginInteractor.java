@@ -70,9 +70,11 @@ public class LoginInteractor extends BaseLoginInteractor implements BaseLoginCon
         ZScoreRefreshIntentServiceJob.scheduleJobImmediately(ZScoreRefreshIntentServiceJob.TAG);
         ImageUploadServiceJob.scheduleJobImmediately(ImageUploadServiceJob.TAG);
 
-        // This job will not be duplicated but is added here since scheduleJobsPeriodically is only called
-        // after a remote login and therefore might be run too late. scheduleJobsImmediately is called
-        // after both remote login and local login
+        /*
+         This job will not be duplicated but is added here since scheduleJobsPeriodically is only called
+         after a remote login and therefore might be run too late. scheduleJobsImmediately is called
+         after both remote login and local login
+         */
         String[] eventTypes = new String[]{"Opd Registration", "PNC Registration", "ANC Registration", "Maternity Registration"};
         DuplicateZeirIdsCleanerWorker.schedulePeriodically(this.getApplicationContext(), 15, eventTypes);
     }

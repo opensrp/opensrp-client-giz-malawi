@@ -57,7 +57,6 @@ public class GizMalawiRepositoryTest extends BaseRobolectricTest {
     @Test
     public void onUpgradeFrom19To20ShouldCreateVaccineOverdueCountRepositoryAndMigrateVaccines() {
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"id", "name"});
-        //matrixCursor.moveToNext()
         SQLiteDatabase database = Mockito.mock(SQLiteDatabase.class);
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.anyString(), Mockito.nullable(String[].class));
 
@@ -70,7 +69,6 @@ public class GizMalawiRepositoryTest extends BaseRobolectricTest {
     @Test
     public void onUpgradeFrom19To20ShouldAddOutreachColumn() {
         MatrixCursor matrixCursor = new MatrixCursor(new String[]{"id", "name"});
-        //matrixCursor.moveToNext()
         SQLiteDatabase database = Mockito.mock(SQLiteDatabase.class);
         Mockito.doReturn(matrixCursor).when(database).rawQuery(Mockito.anyString(), Mockito.nullable(String[].class));
 
