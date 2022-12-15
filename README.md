@@ -15,6 +15,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Development setup
 
+Get the 
+
 ### Steps to set up
 [OpenSRP android client app build](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/6619236/OpenSRP+App+Build)
 
