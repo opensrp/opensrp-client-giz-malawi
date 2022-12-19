@@ -142,7 +142,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rule.pro'
             resValue "string", 'opensrp_url', '"https://opensrp.health.gov.mw/opensrp/"'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_INITIAL_BATCH_SIZE", '10'
-            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '10'
+            buildConfigField "int", "OPENMRS_UNIQUE_ID_BATCH_SIZE", '2'
             buildConfigField "int", "OPENMRS_UNIQUE_ID_SOURCE", '2'
             buildConfigField "int", "VACCINE_SYNC_TIME", '0'
             buildConfigField "int", "DATABASE_VERSION", '20'
@@ -314,7 +314,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    api('org.smartregister:opensrp-client-core:5.0.9-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-core:5.0.12-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
