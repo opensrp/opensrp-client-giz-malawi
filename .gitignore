@@ -32,4 +32,5 @@ target/
 tmp/
 opensrp-giz-malawi/debug/
 opensrp-giz-malawi/preview/
+opensrp-giz-malawi/releaseDebug/
 *google-services.json

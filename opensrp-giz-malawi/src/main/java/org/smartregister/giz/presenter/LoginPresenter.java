@@ -38,6 +38,7 @@ public class LoginPresenter extends BaseLoginPresenter implements BaseLoginContr
         mLoginView = new WeakReference<>(loginView);
         mLoginInteractor = new LoginInteractor(this);
         mLoginModel = new BaseLoginModel();
+
     }
 
     @Override
