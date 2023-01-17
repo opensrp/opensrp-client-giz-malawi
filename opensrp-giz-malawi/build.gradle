@@ -19,7 +19,7 @@ apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'io.fabric'
 apply plugin: 'org.smartregister.gradle.jarjar'
 apply plugin: 'com.google.gms.google-services'
-
+apply from: '../properties.gradle'
 
 jacoco {
     toolVersion = jacocoVersion
@@ -103,6 +103,19 @@ android {
         targetCompatibility 1.8
     }
 
+    signingConfigs {
+        release {
+
+            v1SigningEnabled false
+            v2SigningEnabled true
+
+            keyAlias System.getenv("KEYSTORE_ALIAS")?: project.KEYSTORE_ALIAS
+            keyPassword System.getenv("KEY_PASSWORD") ?: project.KEY_PASSWORD
+            storePassword System.getenv("KEYSTORE_PASSWORD") ?: project.KEYSTORE_PASSWORD
+            storeFile file(System.getProperty("user.home") + "/ona.keystore.jks")
+        }
+    }
+
     buildTypes {
 
         release {
@@ -128,6 +141,8 @@ android {
             buildConfigField "int", "GROWTH_MONITORING_SYNC_TIME", '15'
             buildConfigField "String[]", "LOCATION_LEVELS", '{"Country", "Province", "District", "Facility", "Village"}'
             buildConfigField "String[]", "HEALTH_FACILITY_LEVELS", '{"Country", "Province", "District", "Health Facility", "Village"}'
+
+            signingConfig signingConfigs.release
         }
 
         releaseDebug {
