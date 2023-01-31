@@ -11,7 +11,7 @@ import org.smartregister.AllConstants;
 import org.smartregister.giz.service.ReProcessSyncIntentService;
 import org.smartregister.job.BaseJob;
 
-public class GizReProcessJob extends BaseJob {
+public class GIZClientReprocessJob extends BaseJob {
 
     public static final String TAG = "GizReValidationJob";
 

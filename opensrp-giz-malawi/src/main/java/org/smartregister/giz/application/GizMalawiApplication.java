@@ -63,7 +63,7 @@ import org.smartregister.giz.configuration.OpdRegisterQueryProvider;
 import org.smartregister.giz.job.GizMalawiJobCreator;
 import org.smartregister.giz.processor.GizMalawiProcessorForJava;
 import org.smartregister.giz.processor.TripleResultProcessor;
-import org.smartregister.giz.recievers.SyncStatusReciever;
+import org.smartregister.giz.recievers.GizReprocessSyncStatusReceiver;
 import org.smartregister.giz.repository.ChildAlertUpdatedRepository;
 import org.smartregister.giz.repository.ClientRegisterTypeRepository;
 import org.smartregister.giz.repository.DailyTalliesRepository;
@@ -366,7 +366,7 @@ public class GizMalawiApplication extends DrishtiApplication implements TimeChan
         initOfflineSchedules();
 
         SyncStatusBroadcastReceiver.init(this);
-        this.registerReceiver(new SyncStatusReciever(),
+        this.registerReceiver(new GizReprocessSyncStatusReceiver(),
                 new IntentFilter(SyncStatusBroadcastReceiver.ACTION_SYNC_STATUS));
         LocationHelper.init(GizUtils.ALLOWED_LEVELS, GizUtils.DEFAULT_LOCATION_LEVEL);
         jsonSpecHelper = new JsonSpecHelper(this);

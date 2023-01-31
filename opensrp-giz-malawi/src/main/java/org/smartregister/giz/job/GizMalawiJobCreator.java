@@ -54,8 +54,8 @@ public class GizMalawiJobCreator implements JobCreator {
                 return new GizVaccineUpdateJob();
             case ImageUploadServiceJob.TAG:
                 return new ImageUploadServiceJob();
-            case  GizReProcessJob.TAG:
-                return  new GizReProcessJob();
+            case  GIZClientReprocessJob.TAG:
+                return  new GIZClientReprocessJob();
 
             default:
                 Timber.w(GizMalawiJobCreator.class.getCanonicalName(), "%s is not declared in Job Creator", tag);

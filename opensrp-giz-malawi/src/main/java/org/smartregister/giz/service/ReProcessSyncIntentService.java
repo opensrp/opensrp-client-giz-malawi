@@ -9,7 +9,7 @@ import org.smartregister.giz.application.GizMalawiApplication;
 
 public class ReProcessSyncIntentService extends IntentService {
 
-    public static final String TAG = "ReValidateSyncIntentService";
+    public static final String TAG = "ReProcessSyncIntentService";
 
     public ReProcessSyncIntentService()
     {
@@ -22,6 +22,6 @@ public class ReProcessSyncIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        GizMalawiApplication.getInstance().gizEventRepository().ReprocessClients();
+        GizMalawiApplication.getInstance().gizEventRepository().processSkippedClients();
     }
 }

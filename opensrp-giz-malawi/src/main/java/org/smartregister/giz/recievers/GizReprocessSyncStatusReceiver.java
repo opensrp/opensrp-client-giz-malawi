@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import org.smartregister.domain.FetchStatus;
-import org.smartregister.giz.job.GizReProcessJob;
+import org.smartregister.giz.job.GIZClientReprocessJob;
 
 import java.io.Serializable;
 
@@ -14,7 +14,7 @@ import timber.log.Timber;
 
 import static org.smartregister.receiver.SyncStatusBroadcastReceiver.EXTRA_FETCH_STATUS;
 
-public class SyncStatusReciever  extends BroadcastReceiver {
+public class GizReprocessSyncStatusReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle data = intent.getExtras();
@@ -23,7 +23,7 @@ public class SyncStatusReciever  extends BroadcastReceiver {
             if (fetchStatusSerializable instanceof FetchStatus) {
                 FetchStatus fetchStatus = (FetchStatus) fetchStatusSerializable;
                     if (fetchStatus.equals(FetchStatus.fetched)) {
-                        GizReProcessJob.scheduleJobImmediately(GizReProcessJob.TAG);
+                        GIZClientReprocessJob.scheduleJobImmediately(GIZClientReprocessJob.TAG);
                         Timber.d("Broadcast data fetched");
                     } else if (fetchStatus.equals(FetchStatus.nothingFetched)) {
                         Timber.d("Broadcast data not fetched");
