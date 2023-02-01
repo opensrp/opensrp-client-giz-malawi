@@ -5,15 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import org.smartregister.domain.FetchStatus;
 import org.smartregister.giz.job.GIZClientReprocessJob;
-
-import java.io.Serializable;
-
 import timber.log.Timber;
-
 import static org.smartregister.receiver.SyncStatusBroadcastReceiver.EXTRA_COMPLETE_STATUS;
-import static org.smartregister.receiver.SyncStatusBroadcastReceiver.EXTRA_FETCH_STATUS;
 
 public class GizReprocessSyncStatusReceiver extends BroadcastReceiver {
     @Override
