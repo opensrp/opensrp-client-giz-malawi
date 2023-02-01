@@ -51,7 +51,7 @@ public class GizEventRepository extends BaseRepository {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             do {
-                if (ids.contains(cursor.getString(columnIndex)))
+                if (!ids.contains(cursor.getString(columnIndex)))
                     ids.add(cursor.getString(columnIndex));
             } while (cursor.moveToNext());
         }
