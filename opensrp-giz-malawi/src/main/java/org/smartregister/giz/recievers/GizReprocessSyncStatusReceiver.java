@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 import timber.log.Timber;
 
+import static org.smartregister.receiver.SyncStatusBroadcastReceiver.EXTRA_COMPLETE_STATUS;
 import static org.smartregister.receiver.SyncStatusBroadcastReceiver.EXTRA_FETCH_STATUS;
 
 public class GizReprocessSyncStatusReceiver extends BroadcastReceiver {
@@ -19,22 +20,14 @@ public class GizReprocessSyncStatusReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Bundle data = intent.getExtras();
         if (data != null) {
-            Serializable fetchStatusSerializable = data.getSerializable(EXTRA_FETCH_STATUS);
-            if (fetchStatusSerializable instanceof FetchStatus) {
-                FetchStatus fetchStatus = (FetchStatus) fetchStatusSerializable;
-                    if (fetchStatus.equals(FetchStatus.fetched)) {
-                        GIZClientReprocessJob.scheduleJobImmediately(GIZClientReprocessJob.TAG);
-                        Timber.d("Broadcast data fetched");
-                    } else if (fetchStatus.equals(FetchStatus.nothingFetched)) {
-                        Timber.d("Broadcast data not fetched");
-                    } else if (fetchStatus.equals(FetchStatus.noConnection)) {
-                        Timber.d("Broadcast data fetch failed");
-                    }
-
-                //}
+            boolean isComplete = data.getBoolean(EXTRA_COMPLETE_STATUS,false);
+            if(isComplete)
+            {
+                GIZClientReprocessJob.scheduleJobImmediately(GIZClientReprocessJob.TAG);
+                Timber.d("fetch completed");
             }
         }
 
-        System.out.println("Broadcast Recieved");
+       Timber.d("broadcast Recieved");
     }
 }

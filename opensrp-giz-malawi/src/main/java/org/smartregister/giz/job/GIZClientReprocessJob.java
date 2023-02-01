@@ -13,7 +13,7 @@ import org.smartregister.job.BaseJob;
 
 public class GIZClientReprocessJob extends BaseJob {
 
-    public static final String TAG = "GizReValidationJob";
+    public static final String TAG = "GIZClientReprocessJob";
 
     @NonNull
     @NotNull
