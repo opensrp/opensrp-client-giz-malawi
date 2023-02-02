@@ -14,11 +14,7 @@ import org.smartregister.view.activity.DrishtiApplication;
 
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
