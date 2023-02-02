@@ -16,6 +16,7 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -87,7 +88,7 @@ public class GizEventRepositoryTest {
         when(cursor.moveToFirst()).thenReturn(true);
         when(cursor.getString(0)).thenReturn("formSubmissionId");
 
-        List<String> formSubmissionIds = new ArrayList<>();
+        HashSet<String> formSubmissionIds = new HashSet<>();
         repository.addFormSubmissionIds(formSubmissionIds, "query");
 
         assertFalse(formSubmissionIds.isEmpty());

@@ -19,7 +19,7 @@ public class GizReprocessSyncStatusReceiver extends BroadcastReceiver {
             boolean isComplete = data.getBoolean(EXTRA_COMPLETE_STATUS, false);
             if (isComplete) {
                 GIZClientReprocessJob.scheduleJobImmediately(GIZClientReprocessJob.TAG);
-                Timber.d("fetch completed");
+                Timber.d("Sync complete");
             }
         }
 
