@@ -36,8 +36,10 @@ public class GizEventRepository extends BaseRepository {
         addFormSubmissionIds(formSubmissionIDs, missingECClient);
 
         try {
-            if (formSubmissionIDs.size() > 0)
+            Timber.e("Found %d skipped clients", formSubmissionIDs.size());
+            if (formSubmissionIDs.size() > 0) {
                 GizUtils.initiateEventProcessing(new ArrayList<>(formSubmissionIDs));
+            }
         } catch (Exception e) {
             Timber.e(e);
         }
