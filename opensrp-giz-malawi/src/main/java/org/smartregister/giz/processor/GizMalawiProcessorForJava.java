@@ -141,7 +141,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
 
     @Override
     public void processClient(List<EventClient> eventClients) throws Exception {
-        /*ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json",
+        ClientClassification clientClassification = assetJsonToJava("ec_client_classification.json",
                 ClientClassification.class);
         Table vaccineTable = assetJsonToJava("ec_client_vaccine.json", Table.class);
         Table weightTable = assetJsonToJava("ec_client_weight.json", Table.class);
@@ -233,7 +233,7 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
              Runnable runnable = () -> updateClientAlerts(clientsForAlertUpdates);
 
              appExecutors.diskIO().execute(runnable);
-        }*/
+        }
 
     }
 
