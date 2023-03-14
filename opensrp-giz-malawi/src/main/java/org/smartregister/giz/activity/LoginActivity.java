@@ -2,6 +2,7 @@ package org.smartregister.giz.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import org.smartregister.anc.library.AncLibrary;
 import org.smartregister.anc.library.activity.SiteCharacteristicsEnterActivity;
@@ -9,9 +10,12 @@ import org.smartregister.giz.R;
 import org.smartregister.giz.presenter.LoginPresenter;
 import org.smartregister.giz.util.GizConstants;
 import org.smartregister.giz.util.GizUtils;
+import org.smartregister.security.SecurityHelper;
 import org.smartregister.task.SaveTeamLocationsTask;
 import org.smartregister.view.activity.BaseLoginActivity;
 import org.smartregister.view.contract.BaseLoginContract;
+
+import java.util.Locale;
 
 public class LoginActivity extends BaseLoginActivity implements BaseLoginContract.View {
 
@@ -62,4 +66,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         String lang = GizUtils.getLanguage(base.getApplicationContext());
         super.attachBaseContext(GizUtils.setAppLocale(base, lang));
     }
+/*
+    @Override
+    protected void attemptLogin() {
+        EditText userNameEdt = findViewById(R.id.login_user_name_edit_text);
+        EditText passwordEdt = findViewById(R.id.login_password_edit_text);
+
+        String username = userNameEdt.getText().toString().trim();
+        char[] password = SecurityHelper.readValue(passwordEdt.getText());
+        mLoginPresenter.attemptLogin(username, password);
+    }*/
 }

@@ -5,7 +5,18 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
+import org.smartregister.domain.Client;
+import org.smartregister.domain.Event;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.giz.application.GizMalawiApplication;
+import org.smartregister.giz.repository.GizEventRepository;
+import org.smartregister.repository.EventClientRepository;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import timber.log.Timber;
 
 public class ReProcessSyncIntentService extends IntentService {
 
@@ -22,6 +33,37 @@ public class ReProcessSyncIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        GizMalawiApplication.getInstance().gizEventRepository().processSkippedClients();
+        GizEventRepository gizEventRepository = GizMalawiApplication.getInstance().gizEventRepository();
+        HashSet<String> clientBaseEntityIds = gizEventRepository.processSkippedClients();
+
+        processSkippedClientEvents(gizEventRepository, clientBaseEntityIds);
+    }
+
+    private void processSkippedClientEvents(GizEventRepository gizEventRepository, HashSet<String> clientBaseEntityIds) {
+        Timber.d("Processing events for %d skipped clients", clientBaseEntityIds.size());
+        EventClientRepository eventClientRepository = GizMalawiApplication.getInstance().eventClientRepository();
+
+        for (String clientBaseEntityId: clientBaseEntityIds) {
+            Client client = eventClientRepository.fetchClientByBaseEntityId(clientBaseEntityId);
+            if (client.getDeathdate() != null) {
+                continue;
+            }
+
+            List<Event> eventsList = gizEventRepository.getEventsByBaseEntityId(clientBaseEntityId);
+
+            List<EventClient> eventClientList = new ArrayList<>();
+            Timber.d("Processing %d events for client %s", eventsList.size(), clientBaseEntityId);
+
+            for (Event event: eventsList) {
+                eventClientList.add(new EventClient(event, client));
+            }
+
+            try {
+                GizMalawiApplication.getInstance().getClientProcessor()
+                        .processClient(eventClientList);
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
     }
 }
