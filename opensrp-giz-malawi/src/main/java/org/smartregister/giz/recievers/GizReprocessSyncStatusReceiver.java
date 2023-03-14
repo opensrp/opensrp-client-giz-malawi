@@ -14,15 +14,15 @@ import static org.smartregister.receiver.SyncStatusBroadcastReceiver.EXTRA_COMPL
 public class GizReprocessSyncStatusReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        Timber.d("GIZ reprocess status receiver starting");
         Bundle data = intent.getExtras();
         if (data != null) {
             boolean isComplete = data.getBoolean(EXTRA_COMPLETE_STATUS, false);
             if (isComplete) {
                 GIZClientReprocessJob.scheduleJobImmediately(GIZClientReprocessJob.TAG);
-                Timber.d("Sync complete");
+                Timber.d("Finished reprocessing events and clients");
             }
         }
 
-        Timber.d("broadcast Recieved");
     }
 }
