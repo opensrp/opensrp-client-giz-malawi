@@ -10,6 +10,8 @@ buildscript {
         classpath "gradle.plugin.org.kt3k.gradle.plugin:coveralls-gradle-plugin:$coverallsVersion"
         classpath 'io.fabric.tools:gradle:1.30.0'
         classpath 'com.google.gms:google-services:4.3.10'
+        //classpath "org.anarres.jarjar:jarjar-gradle:1.0.0"
+        //classpath 'net.vrallev.gradle:jarjar-gradle:1.1.0'
     }
 }
 
@@ -18,6 +20,8 @@ apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 apply plugin: 'io.fabric'
 apply plugin: 'org.smartregister.gradle.jarjar'
+//apply plugin: 'net.vrallev.jarjar'
+//apply plugin: 'org.anarres.jarjar'
 apply plugin: 'com.google.gms.google-services'
 
 
@@ -264,6 +268,14 @@ tasks.withType(Test) {
     jacoco.includeNoLocationClasses = true
 }
 
+/*jarJar {
+    remove ["org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter"]
+}*/
+/*jarjar {
+    srcExcludes = ["org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter"]
+}*/
+
+
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.9'
 
@@ -294,7 +306,30 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    api('org.smartregister:opensrp-client-anc:2.0.3.29-LOCAL-SNAPSHOT@aar') {
+    /*api jarjar.repackage {
+
+        from ('org.smartregister:opensrp-client-anc:2.0.3.29-LOCAL-SNAPSHOT@aar') {
+            transitive = true
+            exclude group: 'id.zelory', module: 'compressor'
+            exclude group: 'org.smartregister', module: 'opensrp-client-core'
+            exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+            exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+            exclude group: 'com.android.support', module: 'appcompat-v7'
+        }
+        classDelete "org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter"
+    }*/
+        //from
+
+        //exclude "org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter"
+        /*transitive = true
+        exclude group: 'id.zelory', module: 'compressor'
+        exclude group: 'org.smartregister', module: 'opensrp-client-core'
+        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
+        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
+        exclude group: 'com.android.support', module: 'appcompat-v7'*/
+//
+
+    api('org.smartregister:opensrp-client-anc:2.0.3.40-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
@@ -302,7 +337,6 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
-//
     api('org.smartregister:opensrp-client-native-form:2.1.11-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
@@ -316,7 +350,7 @@ dependencies {
         exclude group: 'io.ona.rdt-capture', module: 'lib'
     }
 
-    api('org.smartregister:opensrp-client-core:5.0.12-LOCAL-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-core:5.0.9-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'com.github.bmelnychuk', module: 'atv'
@@ -350,7 +384,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    api('org.smartregister:opensrp-client-immunization:4.0.6-SNAPSHOT@aar') {
+    api('org.smartregister:opensrp-client-immunization:4.0.7-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
