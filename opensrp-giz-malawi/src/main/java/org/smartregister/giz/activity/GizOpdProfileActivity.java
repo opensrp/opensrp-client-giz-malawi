@@ -146,6 +146,9 @@ public class GizOpdProfileActivity extends BaseOpdProfileActivity implements For
             if (jsonString != null && requester != null) {
                 requester.onFormProcessingResult(jsonString);
                 requester = null;
+            } else {
+                // TODO: Review if this is actually required
+                super.onActivityResult(requestCode, resultCode, data);
             }
             initiateSync();
         } else {
