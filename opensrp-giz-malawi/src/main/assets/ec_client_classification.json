@@ -202,6 +202,10 @@
             "field_value": "Death",
             "creates_case": [
               "deceased"
+            ],
+            "closes_case": [
+              "ec_client",
+              "ec_child_details"
             ]
           },
           {

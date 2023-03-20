@@ -185,11 +185,14 @@ public class GizUtils extends Utils {
             }
             values.put(Constants.KEY.DOD, Utils.convertDateFormat(client.getDeathdate()));
             values.put(Constants.KEY.DATE_REMOVED, Utils.convertDateFormat(client.getDeathdate().toDate(), Utils.DB_DF));
+            values.put(Constants.KEY.IS_CLOSED, true);
+
             AllCommonsRepository allCommonsRepository = GizMalawiApplication.getInstance().context().allCommonsRepositoryobjects(GizConstants.TABLE_NAME.ALL_CLIENTS);
             if (allCommonsRepository != null) {
                 allCommonsRepository.update(GizConstants.TABLE_NAME.ALL_CLIENTS, values, client.getBaseEntityId());
                 allCommonsRepository.updateSearch(client.getBaseEntityId());
             }
+
             return true;
         }
         return false;
