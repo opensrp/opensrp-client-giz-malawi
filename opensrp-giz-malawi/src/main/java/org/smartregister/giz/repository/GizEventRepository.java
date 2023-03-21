@@ -6,14 +6,11 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.smartregister.domain.Event;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizUtils;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.repository.EventClientRepository;
-import org.smartregister.util.JsonFormUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
