@@ -13,12 +13,10 @@ These instructions will get you a copy of the project up and running on your loc
 ## Prerequisites
 [Tools and Frameworks Setup](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/6619207/Tools+and+Frameworks+Setup)
 
-## Development setup
-
-Get the 
-
 ### Steps to set up
-[OpenSRP android client app build](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/6619236/OpenSRP+App+Build)
+- [OpenSRP android client app build](https://smartregister.atlassian.net/wiki/spaces/Documentation/pages/6619236/OpenSRP+App+Build)
+- Add the client-id and client-secret values for the three environments i.e. stage, preview and production. Add these values to the `local.properties` as `client.id.[stage|preview|production]` and `client.secret.[stage|preview|production]`.
+- Add the `google-services.json` to `opensrp-client-giz-malawi/opensrp-giz-malawi`
 
 ### Running the tests
 
