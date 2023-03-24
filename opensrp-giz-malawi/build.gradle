@@ -306,29 +306,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 
-    /*api jarjar.repackage {
-
-        from ('org.smartregister:opensrp-client-anc:2.0.3.29-LOCAL-SNAPSHOT@aar') {
-            transitive = true
-            exclude group: 'id.zelory', module: 'compressor'
-            exclude group: 'org.smartregister', module: 'opensrp-client-core'
-            exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-            exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-            exclude group: 'com.android.support', module: 'appcompat-v7'
-        }
-        classDelete "org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter"
-    }*/
-        //from
-
-        //exclude "org.smartregister.anc.library.presenter.ContactWizardJsonFormFragmentPresenter"
-        /*transitive = true
-        exclude group: 'id.zelory', module: 'compressor'
-        exclude group: 'org.smartregister', module: 'opensrp-client-core'
-        exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
-        exclude group: 'org.smartregister', module: 'opensrp-client-configurable-views'
-        exclude group: 'com.android.support', module: 'appcompat-v7'*/
-//
-
     api('org.smartregister:opensrp-client-anc:2.0.3.40-LOCAL-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'id.zelory', module: 'compressor'

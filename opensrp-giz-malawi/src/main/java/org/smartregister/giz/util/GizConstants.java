@@ -85,6 +85,7 @@ public class GizConstants {
         String APP_VERSION_CODE = "APP_VERSION_CODE";
         String INDICATOR_DATA_INITIALISED = "INDICATOR_DATA_INITIALISED";
         String URL_VERSION = "URL_VERSION";
+        String DEATH_AND_OPD_CLOSE_REPROCESSED = "DEATH_AND_OPD_CLOSE_REPROCESSED";
     }
 
     public interface File {

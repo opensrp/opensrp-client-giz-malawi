@@ -8,6 +8,7 @@ import org.smartregister.giz.util.GizUtils;
 import org.smartregister.view.activity.BaseProfileActivity;
 
 public class ChildProfileActivity extends BaseProfileActivity {
+
     @Override
     protected void attachBaseContext(android.content.Context base) {
         // get language from prefs

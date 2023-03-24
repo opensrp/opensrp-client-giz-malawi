@@ -5,11 +5,15 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
+import org.smartregister.Context;
+import org.smartregister.CoreLibrary;
 import org.smartregister.domain.Client;
 import org.smartregister.domain.Event;
 import org.smartregister.domain.db.EventClient;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.repository.GizEventRepository;
+import org.smartregister.giz.util.GizConstants;
+import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.EventClientRepository;
 
 import java.util.ArrayList;
@@ -37,6 +41,15 @@ public class ReProcessSyncIntentService extends IntentService {
         HashSet<String> clientBaseEntityIds = gizEventRepository.processSkippedClients();
 
         processSkippedClientEvents(gizEventRepository, clientBaseEntityIds);
+
+        AllSharedPreferences allSharedPreferences = Context.getInstance().allSharedPreferences();
+        boolean isProcessed = allSharedPreferences.getBooleanPreference(GizConstants.Pref.DEATH_AND_OPD_CLOSE_REPROCESSED);
+        if (!isProcessed) {
+            reprocessEventsOfType("OPD Close");
+            reprocessEventsOfType("Death");
+
+            allSharedPreferences.saveBooleanPreference(GizConstants.Pref.DEATH_AND_OPD_CLOSE_REPROCESSED, true);
+        }
     }
 
     private void processSkippedClientEvents(GizEventRepository gizEventRepository, HashSet<String> clientBaseEntityIds) {
@@ -64,6 +77,19 @@ public class ReProcessSyncIntentService extends IntentService {
             } catch (Exception e) {
                 Timber.e(e);
             }
+        }
+    }
+
+    protected void reprocessEventsOfType(String eventType) {
+        EventClientRepository eventClientRepository = GizMalawiApplication.getInstance().eventClientRepository();
+        ArrayList<String> eventTypes = new ArrayList<>();
+        eventTypes.add(eventType);
+        List<EventClient> opdCloseEvents = eventClientRepository.fetchEventClientsByEventTypes(eventTypes);
+
+        try {
+            GizMalawiApplication.getInstance().getClientProcessor().processClient(opdCloseEvents);
+        } catch (Exception e) {
+            Timber.e(e);
         }
     }
 }
