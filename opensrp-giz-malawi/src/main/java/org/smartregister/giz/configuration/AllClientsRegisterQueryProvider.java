@@ -36,7 +36,7 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
                                 "FROM ec_client_search \n" +
                                 "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  \n" +
                                 "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
-                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                                "WHERE crt.register_type = 'opd' AND  (ec_client_search.dod IS NULL AND ec_client_search.is_closed = 0) AND phrase  MATCH '%s*'\n" +
                                 "And ocv.visit_group = '" + todayDate + "'\n" +
                                 "ORDER BY last_interacted_with DESC";
 
@@ -44,7 +44,7 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
                 return sql;
             } else {
                 String sql =
-                        "SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL AND phrase MATCH '%s*' " +
+                        "SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL AND is_closed = 0 AND phrase MATCH '%s*' " +
                                 "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 return sql;
@@ -55,14 +55,14 @@ public class AllClientsRegisterQueryProvider extends OpdRegisterQueryProviderCon
                             "FROM ec_client\n" +
                             "inner join client_register_type crt on crt.base_entity_id = ec_client.id  \n" +
                             "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client.id \n" +
-                            "WHERE crt.register_type = 'opd'\n" +
+                            "WHERE crt.register_type = 'opd'\n AND ec_client.is_closed = 0 AND ec_client.date_removed IS NULL" +
                             "And ocv.visit_group = '" + todayDate + "'\n" +
                             "ORDER BY last_interacted_with DESC";
 
             return sqlQuery;
         } else {
             return
-                    "SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL and is_closed == 0 " +
+                    "SELECT object_id, last_interacted_with FROM ec_client_search WHERE date_removed IS NULL and is_closed = 0 " +
                             "ORDER BY last_interacted_with DESC";
         }
     }
