@@ -41,7 +41,7 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
 
     private String getFilter(String filters) {
         if (StringUtils.isNotBlank(filters)) {
-            return String.format(" AND " + getDemographicTable() + ".first_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".last_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".opensrp_id like '%%%1$s%%' ", filters);
+            return String.format(" AND ( " + getDemographicTable() + ".first_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".last_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".opensrp_id like '%%%1$s%%' ) ", filters);
         }
         return "";
     }
