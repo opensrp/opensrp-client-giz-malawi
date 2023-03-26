@@ -5,8 +5,10 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
+import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import org.apache.commons.lang3.StringUtils;
 import org.smartregister.AllConstants;
 import org.smartregister.anc.library.repository.ContactTasksRepository;
 import org.smartregister.anc.library.repository.PartialContactRepository;
@@ -15,7 +17,10 @@ import org.smartregister.child.util.ChildDbMigrations;
 import org.smartregister.child.util.Utils;
 import org.smartregister.child.util.VaccineOverdueCountRepositoryHelper;
 import org.smartregister.configurableviews.repository.ConfigurableViewsRepository;
+import org.smartregister.domain.Client;
+import org.smartregister.domain.Event;
 import org.smartregister.domain.db.Column;
+import org.smartregister.domain.db.EventClient;
 import org.smartregister.giz.BuildConfig;
 import org.smartregister.giz.application.GizMalawiApplication;
 import org.smartregister.giz.util.GizConstants;

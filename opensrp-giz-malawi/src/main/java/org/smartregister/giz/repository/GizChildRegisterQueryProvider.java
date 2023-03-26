@@ -41,7 +41,7 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
 
     private String getFilter(String filters) {
         if (StringUtils.isNotBlank(filters)) {
-            return String.format(" AND " + getDemographicTable() + ".first_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".last_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".opensrp_id like '%%%1$s%%' ", filters);
+            return String.format(" AND ( " + getDemographicTable() + ".first_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".last_name like '%%%1$s%%' " + " OR " + getDemographicTable() + ".opensrp_id like '%%%1$s%%' ) ", filters);
         }
         return "";
     }
@@ -89,6 +89,18 @@ public class GizChildRegisterQueryProvider extends RegisterQueryProvider {
                 getChildDetailsTable() + "." + "child_treatment",
                 getMotherDetailsTable() + ".second_phone_number as second_phone_number",
                 getMotherDetailsTable() + ".alt_phone_number as mother_guardian_number"};
+    }
+
+    @Override
+    public String getActiveChildrenQuery() {
+        return "SELECT count(id) FROM " + this.getChildDetailsTable() + " INNER JOIN " + this.getDemographicTable() + " ON "+ this.getDemographicTable() + ".id = " + this.getChildDetailsTable() + ".id  WHERE (" +
+                "date_removed" + " IS NULL  AND (" + this.getChildDetailsTable() + ".inactive is NOT true OR " + this.getChildDetailsTable() + ".inactive is NULL)  AND " + "is_closed" + " IS NOT '1')" +
+                " AND " + this.getDemographicTable() + ".is_closed IS NOT '1'";
+    }
+
+    @Override
+    public String getActiveChildrenIds() {
+        return "SELECT " + this.getChildDetailsTable() + ".id" + " FROM " + this.getChildDetailsTable() + " INNER JOIN " + this.getDemographicTable() + " ON " + this.getChildDetailsTable() + "." + "id" + " = " + this.getDemographicTable() + "." + "id" + " WHERE (" + this.getChildDetailsTable() + "." + "date_removed" + " IS NULL AND (" + this.getChildDetailsTable() + ".inactive is NOT true OR " + this.getChildDetailsTable() + ".inactive is NULL) AND " + this.getChildDetailsTable() + "." + "is_closed" + " IS NOT '1') AND " + this.getDemographicTable() + ".is_closed IS NOT '1'  ORDER BY " + this.getDemographicTable() + "." + "last_interacted_with" + " DESC ";
     }
 
 }

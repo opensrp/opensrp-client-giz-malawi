@@ -50,6 +50,7 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Login"
+            android:exported="true"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -280,17 +281,18 @@
             android:theme="@style/ChildTheme.NoActionBar"
             tools:replace="android:theme" />
         <!-- END OF PNC ACTIVITIES -->
-        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" />
-        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" />
-        <service android:name="org.smartregister.immunization.service.intent.VaccineSchedulesUpdateIntentService" />
-        <service android:name="org.smartregister.growthmonitoring.service.intent.ZScoreRefreshIntentService" />
-        <service android:name="org.smartregister.growthmonitoring.service.intent.WeightIntentService" />
-        <service android:name="org.smartregister.growthmonitoring.service.intent.HeightIntentService" />
-        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" />
-        <service android:name="org.smartregister.sync.intent.ValidateIntentService" />
-        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" />
-        <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService" />
-        <service android:name="org.smartregister.sync.intent.SyncIntentService" />
+        <service android:name="org.smartregister.immunization.service.intent.VaccineIntentService" android:exported="false" />
+        <service android:name="org.smartregister.immunization.service.intent.RecurringIntentService" android:exported="false" />
+        <service android:name="org.smartregister.immunization.service.intent.VaccineSchedulesUpdateIntentService"  android:exported="false"/>
+        <service android:name="org.smartregister.growthmonitoring.service.intent.ZScoreRefreshIntentService" android:exported="false" />
+        <service android:name="org.smartregister.growthmonitoring.service.intent.WeightIntentService"  android:exported="false"/>
+        <service android:name="org.smartregister.growthmonitoring.service.intent.HeightIntentService" android:exported="false"/>
+        <service android:name="org.smartregister.sync.intent.PullUniqueIdsIntentService" android:exported="false" />
+        <service android:name="org.smartregister.sync.intent.ValidateIntentService" android:exported="false"/>
+        <service android:name="org.smartregister.sync.intent.ExtendedSyncIntentService" android:exported="false" />
+        <service android:name="org.smartregister.sync.intent.SettingsSyncIntentService" android:exported="false" />
+        <service android:name="org.smartregister.sync.intent.SyncIntentService" android:exported="false" />
+        <service android:name=".service.ReProcessSyncIntentService" android:exported="false"/>
 
         <uses-library
             android:name="org.apache.http.legacy"

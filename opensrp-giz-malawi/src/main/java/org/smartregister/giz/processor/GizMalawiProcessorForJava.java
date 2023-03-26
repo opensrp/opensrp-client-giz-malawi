@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
 
 import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -471,6 +472,8 @@ public class GizMalawiProcessorForJava extends ClientProcessorForJava {
             } catch (Exception e) {
                 Timber.e(e);
             }
+        } else {
+            Timber.e("Skipping processing of event %s | %s because the client is null", event.getBaseEntityId(), new Gson().toJson(event));
         }
     }
 

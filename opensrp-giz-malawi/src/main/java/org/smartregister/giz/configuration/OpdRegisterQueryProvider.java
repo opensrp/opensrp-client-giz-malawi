@@ -36,7 +36,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                                 "FROM ec_client_search \n" +
                                 "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  \n" +
                                 "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client_search.object_id \n" +
-                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
+                                "WHERE ec_client_search.is_closed = false AND crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase  MATCH '%s*'\n" +
                                 "And ocv.visit_group = '" + todayDate + "'\n" +
                                 "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
@@ -46,7 +46,7 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                 String sql =
                         "SELECT object_id, last_interacted_with FROM ec_client_search " +
                                 "inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id  " +
-                                "WHERE crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase MATCH '%s*' " +
+                                "WHERE ec_client_search.is_closed = false AND crt.register_type = 'opd' AND  ec_client_search.date_removed IS NULL AND phrase MATCH '%s*' " +
                                 "ORDER BY last_interacted_with DESC";
                 sql = sql.replace("%s", filters);
                 return sql;
@@ -57,14 +57,14 @@ public class OpdRegisterQueryProvider extends OpdRegisterQueryProviderContract {
                             "FROM ec_client\n" +
                             "inner join client_register_type crt on crt.base_entity_id = ec_client.id  \n" +
                             "inner join opd_client_visits ocv on ocv.base_entity_id = ec_client.id \n" +
-                            "WHERE crt.register_type = 'opd'\n" +
+                            "WHERE ec_client.is_closed = false AND crt.register_type = 'opd'\n" +
                             "And ocv.visit_group = '" + todayDate + "'\n" +
                             "ORDER BY last_interacted_with DESC";
 
             return sqlQuery;
         } else {
             return
-                    "SELECT object_id, last_interacted_with FROM ec_client_search inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id WHERE crt.register_type = 'opd' " +
+                    "SELECT object_id, last_interacted_with FROM ec_client_search inner join client_register_type crt on crt.base_entity_id = ec_client_search.object_id WHERE ec_client_search.is_closed = false AND crt.register_type = 'opd' " +
                             "ORDER BY last_interacted_with DESC";
         }
     }

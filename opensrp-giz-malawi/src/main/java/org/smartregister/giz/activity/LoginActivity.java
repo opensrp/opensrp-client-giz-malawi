@@ -62,4 +62,14 @@ public class LoginActivity extends BaseLoginActivity implements BaseLoginContrac
         String lang = GizUtils.getLanguage(base.getApplicationContext());
         super.attachBaseContext(GizUtils.setAppLocale(base, lang));
     }
+/*
+    @Override
+    protected void attemptLogin() {
+        EditText userNameEdt = findViewById(R.id.login_user_name_edit_text);
+        EditText passwordEdt = findViewById(R.id.login_password_edit_text);
+
+        String username = userNameEdt.getText().toString().trim();
+        char[] password = SecurityHelper.readValue(passwordEdt.getText());
+        mLoginPresenter.attemptLogin(username, password);
+    }*/
 }
